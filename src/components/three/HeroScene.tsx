@@ -78,10 +78,14 @@ function Orb({
 }: OrbProps) {
   const meshRef = useRef<Mesh>(null);
 
-  useFrame((_, delta) => {
+  useFrame((state, delta) => {
     if (!meshRef.current) return;
     meshRef.current.rotation.x += delta * rotationSpeed;
     meshRef.current.rotation.y += delta * rotationSpeed * 0.7;
+    // Subtle "breathing" scale oscillation — gives the orbs an organic,
+    // alive feel even without MeshDistortMaterial's vertex displacement.
+    const breathe = 1 + Math.sin(state.clock.elapsedTime * floatSpeed * 0.5) * 0.04;
+    meshRef.current.scale.setScalar(scale * breathe);
   });
 
   return (
