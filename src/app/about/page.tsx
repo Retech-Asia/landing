@@ -106,6 +106,33 @@ export default function AboutPage() {
         ]}
       />
 
+      {/* Person schema for leadership team — helps Google understand the people
+          behind the company. Powers potential Knowledge Panel results. */}
+      {[
+        { name: "Jay Pham", role: "Founder & CEO" },
+        { name: "Minh Tran", role: "CTO" },
+        { name: "Linh Nguyen", role: "Head of Design" },
+        { name: "Tuan Le", role: "VP of Engineering" },
+      ].map((person) => (
+        <script
+          key={person.name}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: person.name,
+              jobTitle: person.role,
+              worksFor: {
+                "@type": "Organization",
+                name: "Retech Solutions",
+              },
+              url: `${SITE_URL}/about`,
+            }),
+          }}
+        />
+      ))}
+
       {/* Hero with Parallax Background */}
       <ParallaxHero />
 
