@@ -8,6 +8,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { navigation } from "@/lib/navigation";
 
 const SCROLL_THRESHOLD = 5;
@@ -430,12 +431,9 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Desktop CTA */}
-          {/* ThemeToggle intentionally NOT mounted here — dark mode CSS exists
-              but 129 components use hardcoded bg-white, so the toggle would
-              produce inconsistent theming. Restore once components are
-              refactored to use bg-background / tokens instead. */}
-          <div className="hidden lg:flex items-center gap-3">
+          {/* Desktop CTA + theme toggle */}
+          <div className="hidden lg:flex items-center gap-2">
+            <ThemeToggle />
             <Button href="/contact" size="sm">
               Request Quote
             </Button>
