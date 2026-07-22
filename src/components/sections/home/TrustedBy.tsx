@@ -16,7 +16,7 @@ const industries = [
 
 function IndustryPill({ name }: { name: string }) {
   return (
-    <span className="inline-flex items-center gap-2.5 mx-3 px-5 py-2.5 rounded-full border border-foreground/5 bg-white/50 select-none whitespace-nowrap text-base font-medium text-foreground-muted/60 transition-colors duration-200 hover:border-foreground/10 hover:text-foreground-muted/80">
+    <span className="inline-flex items-center gap-2.5 mx-3 px-5 py-2.5 rounded-full border border-foreground/10 bg-white/70 select-none whitespace-nowrap text-base font-medium text-foreground-secondary transition-colors duration-200 hover:border-foreground/20 hover:text-foreground">
       <span className="w-1.5 h-1.5 rounded-full bg-brand/40 shrink-0" />
       {name}
     </span>
@@ -70,7 +70,7 @@ export function TrustedBy() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="text-center text-sm font-medium tracking-widest uppercase text-foreground-muted/60 mb-10"
+          className="text-center text-sm font-medium tracking-widest uppercase text-foreground-muted mb-10"
         >
           Serving industries worldwide
         </motion.p>

@@ -29,7 +29,7 @@ export function SectionHeader({
       )}
     >
       {label && (
-        <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3">
+        <p className="text-sm font-medium tracking-widest uppercase text-brand-dark mb-3">
           {label}
         </p>
       )}

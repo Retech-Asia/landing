@@ -210,7 +210,7 @@ export function Footer() {
                 whileHover={{ scale: 1.15, color: hoverColor }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="text-white/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-full flex items-center justify-center w-11 h-11"
+                className="text-white/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-full flex items-center justify-center w-11 h-11"
                 style={{ color: undefined }}
               >
                 {icon}
@@ -220,10 +220,10 @@ export function Footer() {
 
           {/* Copyright + legal links + trust */}
           <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4">
-            <p className="text-xs text-white/40">
+            <p className="text-xs text-white/60">
               &copy; {new Date().getFullYear()} {CONTACT.businessName}
             </p>
-            <div className="flex items-center gap-4 text-xs text-white/40">
+            <div className="flex items-center gap-4 text-xs text-white/60">
               <Link href="/privacy-policy" className="hover:text-white/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm">
                 Privacy Policy
               </Link>
@@ -232,7 +232,7 @@ export function Footer() {
                 Terms of Service
               </Link>
             </div>
-            <p className="text-xs text-white/30">
+            <p className="text-xs text-white/50">
               Trusted by businesses worldwide
             </p>
             <motion.button
@@ -241,7 +241,7 @@ export function Footer() {
               aria-label="Back to top"
               whileHover={{ y: -2 }}
               whileTap={{ y: 0 }}
-              className="inline-flex items-center gap-1 text-xs text-white/40 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
+              className="inline-flex items-center gap-1 text-xs text-white/60 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
             >
               Back to top
               <motion.span
