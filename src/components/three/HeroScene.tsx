@@ -1,10 +1,9 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, MeshDistortMaterial } from "@react-three/drei";
+import { Float } from "@react-three/drei";
 import { useRef, useMemo, useEffect } from "react";
 import type { Mesh, Group, Points } from "three";
-import * as THREE from "three";
 
 /* ------------------------------------------------------------------ */
 /*  Module-level cursor position — written by a window pointermove    */
@@ -63,8 +62,6 @@ type OrbProps = {
   scale?: number;
   color: string;
   emissive?: string;
-  distort?: number;
-  speed?: number;
   floatSpeed?: number;
   rotationSpeed?: number;
   opacity?: number;
@@ -75,8 +72,6 @@ function Orb({
   scale = 1,
   color,
   emissive,
-  distort = 0.3,
-  speed = 1.5,
   floatSpeed = 1.2,
   rotationSpeed = 0.06,
   opacity = 0.92,
@@ -92,17 +87,17 @@ function Orb({
   return (
     <Float speed={floatSpeed} rotationIntensity={0.12} floatIntensity={0.5}>
       <mesh ref={meshRef} position={position} scale={scale}>
-        {/* High-detail sphere — smoother than icosahedron at the same vertex
-            count, no angular artifacts when MeshDistortMaterial pushes verts. */}
-        <sphereGeometry args={[1, 96, 96]} />
-        <MeshDistortMaterial
+        <sphereGeometry args={[1, 64, 64]} />
+        {/* Using standard material instead of MeshDistortMaterial to avoid
+            custom GLSL shader compilation issues on some GPUs/browsers.
+            The Float wrapper provides the organic motion; brand lighting
+            provides the visual depth. No custom shaders = universal compat. */}
+        <meshStandardMaterial
           color={color}
           emissive={emissive ?? color}
-          emissiveIntensity={0.32}
-          roughness={0.4}
-          metalness={0.2}
-          distort={distort}
-          speed={speed}
+          emissiveIntensity={0.25}
+          roughness={0.35}
+          metalness={0.3}
           transparent
           opacity={opacity}
         />
@@ -151,13 +146,12 @@ function ParticleField({ count = 220 }: { count?: number }) {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.035}
+        size={0.04}
         color="#9adfb4"
         sizeAttenuation
         transparent
-        opacity={0.55}
+        opacity={0.5}
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
       />
     </points>
   );
@@ -213,8 +207,6 @@ function HeroSceneContents() {
         scale={2.2}
         color="#208535"
         emissive="#186B2B"
-        distort={0.32}
-        speed={1.2}
         floatSpeed={1.0}
         rotationSpeed={0.05}
         opacity={0.95}
@@ -226,8 +218,6 @@ function HeroSceneContents() {
         scale={1.1}
         color="#06b6d4"
         emissive="#0e7490"
-        distort={0.38}
-        speed={1.8}
         floatSpeed={1.4}
         rotationSpeed={0.08}
         opacity={0.85}
@@ -239,8 +229,6 @@ function HeroSceneContents() {
         scale={0.85}
         color="#8b5cf6"
         emissive="#6d28d9"
-        distort={0.35}
-        speed={1.6}
         floatSpeed={1.1}
         rotationSpeed={0.07}
         opacity={0.78}
