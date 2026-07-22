@@ -11,6 +11,8 @@ import { DeferredPageTransition } from "@/components/ui/DeferredPageTransition";
 import { SITE_URL as SITE_URL_CONST, SITE_NAME as SITE_NAME_CONST, CONTACT } from "@/lib/constants";
 
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -185,6 +187,8 @@ export default function RootLayout({
           <Footer />
         </ReducedMotionProvider>
         </SmoothScrollProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
