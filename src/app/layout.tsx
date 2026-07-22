@@ -144,6 +144,8 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://va.vercel-scripts.com" />
+        <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
         <meta name="apple-mobile-web-app-title" content="Retech Solutions" />
         {/* Logo preload intentionally removed — the Navbar uses next/image with
             priority={true}, which handles LCP preloading automatically. The old
