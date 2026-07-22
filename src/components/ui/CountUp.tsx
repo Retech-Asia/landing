@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { animate } from "framer-motion";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 interface CountUpProps {
@@ -11,6 +12,19 @@ interface CountUpProps {
   className?: string;
 }
 
+/**
+ * Animated count-up for stats.
+ *
+ * Key design choice: NEVER shows 0. The element renders `target` immediately
+ * on first paint (SSR + hydration). When the user scrolls it into view, the
+ * count-up animation runs FROM `Math.max(1, target * 0.3)` TO `target` —
+ * starting at 30% means the user always sees a meaningful number, never a
+ * brief "0+" flash before the animation kicks in.
+ *
+ * The animation uses framer-motion's `animate()` (rAF under the hood, GPU-
+ * friendly, automatically respects prefers-reduced-motion via the global
+ * MotionConfig wrapper).
+ */
 export function CountUp({
   target,
   prefix = "",
@@ -19,13 +33,10 @@ export function CountUp({
   className,
 }: CountUpProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
-  // Render the target value immediately so the user never sees a stuck "0+"
-  // if they screenshot or never scroll past the stats. The count-up animation
-  // replays from 0 only when the element first enters the viewport.
   const [displayValue, setDisplayValue] = useState(target);
   const [hasAnimated, setHasAnimated] = useState(false);
   const elementRef = useRef<HTMLSpanElement>(null);
-  const rafIdRef = useRef(0);
+  const controlsRef = useRef<ReturnType<typeof animate> | null>(null);
 
   useEffect(() => {
     const element = elementRef.current;
@@ -38,43 +49,38 @@ export function CountUp({
         setHasAnimated(true);
         observer.disconnect();
 
+        // Reduced motion: jump straight to target, no animation.
         if (prefersReducedMotion) {
           setDisplayValue(target);
           return;
         }
 
-        // Reset to 0 and animate up to target — the user is now watching.
-        setDisplayValue(0);
-        const startTime = performance.now();
+        // Start from 30% of target so the user sees a meaningful number
+        // immediately. Avoids the "0+" flash that previous versions had
+        // when setDisplayValue(0) ran before the first rAF callback.
+        const startValue = Math.max(1, Math.floor(target * 0.3));
 
-        function step(currentTime: number) {
-          const elapsed = currentTime - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-
-          // Ease-out cubic: 1 - (1 - t)^3
-          const eased = 1 - Math.pow(1 - progress, 3);
-          const current = progress >= 1 ? target : Math.floor(eased * target);
-
-          setDisplayValue(current);
-
-          if (progress < 1) {
-            rafIdRef.current = requestAnimationFrame(step);
-          }
-        }
-
-        rafIdRef.current = requestAnimationFrame(step);
+        controlsRef.current = animate(startValue, target, {
+          duration: duration / 1000,
+          ease: [0.16, 1, 0.3, 1], // ease-out cubic
+          onUpdate: (v) => {
+            setDisplayValue(progress(v, target) >= 1 ? target : Math.floor(v));
+          },
+          onComplete: () => {
+            // Guarantee we land exactly on target (avoid off-by-one from
+            // Math.floor at the final frame).
+            setDisplayValue(target);
+          },
+        });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     observer.observe(element);
 
     return () => {
       observer.disconnect();
-      if (rafIdRef.current) {
-        cancelAnimationFrame(rafIdRef.current);
-        rafIdRef.current = 0;
-      }
+      controlsRef.current?.stop();
     };
   }, [target, duration, hasAnimated, prefersReducedMotion]);
 
@@ -85,4 +91,9 @@ export function CountUp({
       {suffix}
     </span>
   );
+}
+
+/** Helper: returns 1 if value reached target, 0 otherwise. */
+function progress(value: number, target: number): number {
+  return value >= target ? 1 : 0;
 }
