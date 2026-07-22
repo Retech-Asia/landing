@@ -1,0 +1,77 @@
+import { type ReactNode } from "react";
+import { Container } from "@/components/ui/Container";
+import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
+import { GradientBackground } from "@/components/ui/GradientBackground";
+import { GridPattern } from "@/components/ui/GridPattern";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { cn } from "@/lib/cn";
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface PageHeroProps {
+  /** Page heading — rendered as an h1 */
+  title: string;
+  /** Subtitle / description shown below the title */
+  description?: string;
+  /** Breadcrumb navigation items */
+  breadcrumbs?: BreadcrumbItem[];
+  /** Additional content rendered below the description */
+  children?: ReactNode;
+  /** Extra classes applied to the outermost <section> */
+  className?: string;
+}
+
+export function PageHero({
+  title,
+  description,
+  breadcrumbs,
+  children,
+  className,
+}: PageHeroProps) {
+  return (
+    <section
+      className={cn(
+        "relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden",
+        className,
+      )}
+    >
+      {/* Background layers */}
+      <GradientBackground variant="subtle" />
+      <GridPattern className="opacity-60" />
+      <div
+        className="absolute inset-0 dot-pattern pointer-events-none opacity-30"
+        aria-hidden="true"
+      />
+
+      {/* Content */}
+      <Container className="relative z-10">
+        {breadcrumbs && breadcrumbs.length > 0 && (
+          <AnimatedSection variant="slideUp">
+            <BreadcrumbNav items={breadcrumbs} />
+          </AnimatedSection>
+        )}
+
+        <AnimatedSection variant="slideUp" delay={0.08}>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6">
+            {title}
+          </h1>
+
+          {description && (
+            <p className="text-lg md:text-xl text-foreground-secondary max-w-3xl leading-relaxed">
+              {description}
+            </p>
+          )}
+        </AnimatedSection>
+
+        {children && (
+          <AnimatedSection variant="slideUp" delay={0.16}>
+            {children}
+          </AnimatedSection>
+        )}
+      </Container>
+    </section>
+  );
+}

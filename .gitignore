@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code (local developer settings)
+.claude/settings.local.json
+
+# Playwright MCP audit artifacts (screenshots, console logs, snapshots)
+.playwright-mcp/
+
+# Stray image artifacts at repo root (audit screenshots, debug captures)
+/*.png
+/*.jpeg
+/*.jpg
+/*.webp
+/*.gif

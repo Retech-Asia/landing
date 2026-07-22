@@ -1,0 +1,39 @@
+{
+  "mcpServers": {
+    "lighthouse": {
+      "command": "npx",
+      "args": ["-y", "lighthouse-mcp"],
+      "description": "SEO + Performance + Accessibility audits via Google Lighthouse"
+    },
+    "a11y": {
+      "command": "npx",
+      "args": ["-y", "a11y-mcp"],
+      "description": "WCAG accessibility auditing with axe-core"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"],
+      "description": "Browser automation, screenshots, responsive testing, frontend debugging"
+    },
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "mcp-fetch-server"],
+      "description": "Fetch and convert web content to HTML/Markdown/JSON for LLM context"
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "description": "Persistent knowledge graph for design tokens, decisions, and conventions"
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "description": "Structured reasoning for architecture decisions and UX flows"
+    },
+    "threejs-devtools": {
+      "command": "npx",
+      "args": ["-y", "threejs-devtools-mcp"],
+      "description": "Three.js scene inspection, material/shader/light editing for 3D animation"
+    }
+  }
+}

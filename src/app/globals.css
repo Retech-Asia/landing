@@ -1,26 +1,1277 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --background: #FAFAF8;
+  --background-subtle: #F5F5F0;
+  --background-muted: #EDEDEA;
+
+  /* Foreground / Text */
+  --foreground: #1A1A2E;
+  --foreground-secondary: #3D3D4E;
+  --foreground-muted: #6B6B78;
+
+  /* Brand — darkened to meet WCAG AA 4.5:1 contrast with white text */
+  --brand: #208535;
+  --brand-light: #2EA04E;
+  --brand-dark: #186B2B;
+
+  /* Accents */
+  --accent-cyan: #06b6d4;
+  --accent-violet: #8b5cf6;
+
+  /* Cards */
+  --card-bg: rgba(255, 255, 255, 0.70);
+  --card-border: rgba(0, 0, 0, 0.06);
+
+  /* Patterns */
+  --pattern-grid-color: rgba(0, 0, 0, 0.07);
+  --pattern-dot-color: rgba(0, 0, 0, 0.08);
+
+  /* Radial glows */
+  --radial-brand: rgba(32, 133, 53, 0.06);
+  --radial-cyan: rgba(6, 182, 212, 0.05);
+  --radial-violet: rgba(139, 92, 246, 0.04);
+
+  /* Glass card */
+  --glass-card-bg: rgba(255, 255, 255, 0.70);
+  --glass-card-border: rgba(0, 0, 0, 0.06);
+  --glass-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
+  --glass-card-hover-bg: rgba(255, 255, 255, 0.85);
+  --glass-card-hover-border: rgba(0, 0, 0, 0.10);
+  --glass-card-hover-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.06);
+
+  /* Glass card light variant */
+  --glass-card-light-bg: rgba(255, 255, 255, 0.50);
+  --glass-card-light-border: rgba(255, 255, 255, 0.60);
+
+  /* Selection */
+  --selection-bg: rgba(32, 133, 53, 0.15);
+
+  /* Focus ring */
+  --focus-ring-start: rgba(32, 133, 53, 0.15);
+  --focus-ring-end: rgba(32, 133, 53, 0.08);
+
+  /* Skeleton shimmer */
+  --skeleton-base: rgba(0, 0, 0, 0.04);
+  --skeleton-shine: rgba(0, 0, 0, 0.09);
+
+  /* Card shimmer */
+  --shimmer-highlight: rgba(255, 255, 255, 0.4);
+  --btn-shimmer-highlight: rgba(255, 255, 255, 0.25);
+
+  /* Scrollbar */
+  --scrollbar-thumb: rgba(0, 0, 0, 0.12);
+
+  /* Step pulse */
+  --step-pulse-color: rgba(32, 133, 53, 0.25);
+}
+
+/* ── Dark mode tokens (activated via data-theme="dark" on <html>) ── */
+[data-theme="dark"] {
+  /* Backgrounds */
+  --background: #0A0A14;
+  --background-subtle: #12121E;
+  --background-muted: #1A1A28;
+
+  /* Foreground / Text */
+  --foreground: #E8E8F0;
+  --foreground-secondary: #B0B0BC;
+  --foreground-muted: #7C7C8E;
+
+  /* Brand — same hue as light mode to ensure WCAG AA 4.5:1 contrast with white button text.
+     Using lighter brand values here would make white-on-brand fail (e.g. #3EC95F = 2.16:1). */
+  --brand: #208535;
+  --brand-light: #258539;
+  --brand-dark: #186B2B;
+
+  /* Accents */
+  --accent-cyan: #22D3EE;
+  --accent-violet: #A78BFA;
+
+  /* Cards */
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(255, 255, 255, 0.08);
+
+  /* Patterns */
+  --pattern-grid-color: rgba(255, 255, 255, 0.06);
+  --pattern-dot-color: rgba(255, 255, 255, 0.07);
+
+  /* Radial glows */
+  --radial-brand: rgba(62, 201, 95, 0.10);
+  --radial-cyan: rgba(34, 211, 238, 0.08);
+  --radial-violet: rgba(167, 139, 250, 0.07);
+
+  /* Glass card */
+  --glass-card-bg: rgba(255, 255, 255, 0.05);
+  --glass-card-border: rgba(255, 255, 255, 0.08);
+  --glass-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.30), 0 4px 12px rgba(0, 0, 0, 0.20);
+  --glass-card-hover-bg: rgba(255, 255, 255, 0.10);
+  --glass-card-hover-border: rgba(255, 255, 255, 0.14);
+  --glass-card-hover-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.25);
+
+  /* Glass card light variant */
+  --glass-card-light-bg: rgba(255, 255, 255, 0.04);
+  --glass-card-light-border: rgba(255, 255, 255, 0.08);
+
+  /* Selection */
+  --selection-bg: rgba(62, 201, 95, 0.30);
+
+  /* Focus ring */
+  --focus-ring-start: rgba(62, 201, 95, 0.30);
+  --focus-ring-end: rgba(62, 201, 95, 0.15);
+
+  /* Skeleton shimmer */
+  --skeleton-base: rgba(255, 255, 255, 0.06);
+  --skeleton-shine: rgba(255, 255, 255, 0.12);
+
+  /* Card shimmer */
+  --shimmer-highlight: rgba(255, 255, 255, 0.08);
+  --btn-shimmer-highlight: rgba(255, 255, 255, 0.06);
+
+  /* Scrollbar */
+  --scrollbar-thumb: rgba(255, 255, 255, 0.15);
+
+  /* Step pulse */
+  --step-pulse-color: rgba(62, 201, 95, 0.40);
+}
+
+/* Smooth theme transition — applied to key elements so the switch feels fluid.
+   Only active when a theme is explicitly set (avoids flashing on first load). */
+[data-theme="dark"] body,
+[data-theme="dark"] .glass-card,
+[data-theme="dark"] nav {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-subtle: var(--background-subtle);
+  --color-background-muted: var(--background-muted);
   --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-brand: var(--brand);
+  --color-brand-light: var(--brand-light);
+  --color-brand-dark: var(--brand-dark);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-violet: var(--accent-violet);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+/* Global focus-visible outline for interactive elements that lack an explicit focus ring.
+   Elements with Tailwind focus-visible:ring-* will override this via box-shadow. */
+a:focus-visible:not([class*="focus-visible:ring"]),
+button:focus-visible:not([class*="focus-visible:ring"]) {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+html {
+  /* scroll-behavior intentionally left as "auto" (default).
+     Lenis manages smooth scrolling — setting "smooth" here
+     conflicts with Lenis's virtual scroll and can cause the
+     page to get stuck mid-scroll. */
+  scroll-behavior: auto;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scroll lock — activated via data-scroll-locked="true" on <html>.
+   Uses a data attribute instead of inline style on body so it
+   doesn't conflict with Lenis's scroll management. */
+html[data-scroll-locked="true"] body {
+  overflow: hidden !important;
+}
+
+/* Base typography defaults */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+p, li {
+  line-height: 1.6;
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--foreground);
+}
+
+/* Gradient text utility */
+.gradient-text {
+  color: var(--brand);
+  background: linear-gradient(135deg, var(--brand) 0%, var(--accent-cyan) 50%, var(--accent-violet) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@supports not (background-clip: text) {
+  .gradient-text {
+    -webkit-text-fill-color: var(--brand);
+  }
+}
+
+.gradient-text-brand {
+  color: var(--brand);
+  background: linear-gradient(135deg, var(--brand), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@supports not (background-clip: text) {
+  .gradient-text-brand {
+    -webkit-text-fill-color: var(--brand);
+  }
+}
+
+/* Animated gradient background — used by gradient-text variant below */
+
+/* Grid background pattern — light mode */
+.grid-pattern {
+  background-image:
+    linear-gradient(var(--pattern-grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pattern-grid-color) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Dot grid pattern — light mode */
+.dot-pattern {
+  background-image: radial-gradient(circle, var(--pattern-dot-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Dual-layer dot grid for GradientBackground "dots" variant */
+.gradient-dots-bg {
+  background-image:
+    radial-gradient(circle, rgba(32,133,53,0.06) 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgba(6,182,212,0.04) 1px, transparent 1px);
+  background-size: 32px 32px, 48px 48px;
+  background-position: 0 0, 16px 16px;
+}
+
+/* Radial glow spots */
+.radial-glow-brand {
+  background: radial-gradient(ellipse 600px 400px at 50% 50%, var(--radial-brand), transparent);
+}
+
+.radial-glow-cyan {
+  background: radial-gradient(ellipse 500px 350px at 50% 50%, var(--radial-cyan), transparent);
+}
+
+.radial-glow-violet {
+  background: radial-gradient(ellipse 500px 350px at 50% 50%, var(--radial-violet), transparent);
+}
+
+/* Glassmorphism card — light mode */
+.glass-card {
+  background: var(--glass-card-bg);
+  border: 1px solid var(--glass-card-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--glass-card-shadow);
+  transform: translateZ(0);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  background: var(--glass-card-hover-bg);
+  border-color: var(--glass-card-hover-border);
+  box-shadow: var(--glass-card-hover-shadow);
+}
+
+/* Animated orb */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  33% { transform: translateY(-20px) translateX(10px); }
+  66% { transform: translateY(10px) translateX(-7px); }
+}
+
+.animate-float {
+  will-change: transform;
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  will-change: transform;
+  animation: float-slow 16s ease-in-out infinite;
+}
+
+.animate-float-slower {
+  will-change: transform;
+  animation: float-slow 24s ease-in-out infinite;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* Slow marquee for ScrollVelocityText — ~3px/s on a 2000px-wide element = ~660s */
+@keyframes marquee-slow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+
+.marquee-container {
+  will-change: transform;
+  animation: marquee 50s linear infinite;
+}
+
+.marquee-container-reverse {
+  will-change: transform;
+  animation: marquee-reverse 50s linear infinite;
+}
+
+.marquee-track {
+  animation: none;
+}
+
+.marquee-container-slow {
+  will-change: transform;
+  animation: marquee-slow 120s linear infinite;
+}
+
+/* Pause marquee on hover */
+.marquee-hover-pause:hover .marquee-container,
+.marquee-hover-pause:hover .marquee-container-reverse,
+.marquee-hover-pause:hover .marquee-container-slow {
+  animation-play-state: paused;
+}
+
+/* Mesh gradient animations — consolidated via CSS custom properties.
+   Each variant overrides --mesh-* values for unique movement. */
+@keyframes mesh-drift {
+  0%, 100% { transform: translate(0%, 0%) rotate(0deg) scale(1); }
+  25% { transform: translate(var(--mx-1), var(--my-1)) rotate(var(--mr-1)) scale(var(--ms-1)); }
+  50% { transform: translate(var(--mx-2), var(--my-2)) rotate(var(--mr-2)) scale(var(--ms-2)); }
+  75% { transform: translate(var(--mx-3), var(--my-3)) rotate(var(--mr-3)) scale(var(--ms-3)); }
+}
+
+.animate-mesh-1 {
+  --mx-1: 8%; --my-1: 12%; --mr-1: 3deg; --ms-1: 1.05;
+  --mx-2: -4%; --my-2: 8%; --mr-2: -2deg; --ms-2: 0.97;
+  --mx-3: 6%; --my-3: -6%; --mr-3: 1.5deg; --ms-3: 1.03;
+  will-change: transform; animation: mesh-drift 28s ease-in-out infinite;
+}
+.animate-mesh-2 {
+  --mx-1: -10%; --my-1: -6%; --mr-1: -3deg; --ms-1: 1.03;
+  --mx-2: 6%; --my-2: -10%; --mr-2: 2deg; --ms-2: 1.05;
+  --mx-3: -4%; --my-3: 8%; --mr-3: -1.5deg; --ms-3: 0.97;
+  will-change: transform; animation: mesh-drift 32s ease-in-out infinite;
+}
+.animate-mesh-3 {
+  --mx-1: 12%; --my-1: -8%; --mr-1: 0deg; --ms-1: 1.08;
+  --mx-2: -8%; --my-2: 6%; --mr-2: 0deg; --ms-2: 0.94;
+  --mx-3: 12%; --my-3: -8%; --mr-3: 0deg; --ms-3: 1;
+  will-change: transform; animation: mesh-drift 30s ease-in-out infinite;
+}
+.animate-mesh-4 {
+  --mx-1: -6%; --my-1: 10%; --mr-1: 3deg; --ms-1: 1.05;
+  --mx-2: -6%; --my-2: 10%; --mr-2: 3deg; --ms-2: 1.05;
+  --mx-3: 0%; --my-3: 0%; --mr-3: 0deg; --ms-3: 1;
+  will-change: transform; animation: mesh-drift 26s ease-in-out infinite;
+}
+.animate-mesh-5 {
+  --mx-1: 8%; --my-1: 4%; --mr-1: 0deg; --ms-1: 1.03;
+  --mx-2: -4%; --my-2: -8%; --mr-2: 0deg; --ms-2: 0.97;
+  --mx-3: 8%; --my-3: 4%; --mr-3: 0deg; --ms-3: 1;
+  will-change: transform; animation: mesh-drift 36s ease-in-out infinite;
+}
+
+/* Wave gradient animation */
+@keyframes wave-drift {
+  0%, 100% { transform: translateX(0%) translateY(0%) scaleY(1); }
+  25% { transform: translateX(4%) translateY(-3%) scaleY(1.1); }
+  50% { transform: translateX(-2%) translateY(2%) scaleY(0.95); }
+  75% { transform: translateX(3%) translateY(-1%) scaleY(1.05); }
+}
+
+@keyframes wave-drift-alt {
+  0%, 100% { transform: translateX(0%) translateY(0%) scaleY(1); }
+  25% { transform: translateX(-5%) translateY(3%) scaleY(0.95); }
+  50% { transform: translateX(3%) translateY(-2%) scaleY(1.08); }
+  75% { transform: translateX(-3%) translateY(1%) scaleY(1); }
+}
+
+.animate-wave-1 { will-change: transform; animation: wave-drift 20s ease-in-out infinite; }
+.animate-wave-2 { will-change: transform; animation: wave-drift-alt 24s ease-in-out infinite; }
+.animate-wave-3 { will-change: transform; animation: wave-drift 28s ease-in-out infinite reverse; }
+
+/* Dots pattern animation */
+@keyframes dot-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+.animate-dot-pulse-1 { will-change: transform, opacity; animation: dot-pulse 8s ease-in-out infinite; }
+.animate-dot-pulse-2 { will-change: transform, opacity; animation: dot-pulse 10s ease-in-out infinite 2s; }
+.animate-dot-pulse-3 { will-change: transform, opacity; animation: dot-pulse 12s ease-in-out infinite 4s; }
+
+/* Multi-orb mesh animation — consolidated via CSS custom properties. */
+@keyframes mesh-orb-drift {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  20% { transform: translate(var(--ox-1), var(--oy-1)) scale(var(--os-1)); }
+  40% { transform: translate(var(--ox-2), var(--oy-2)) scale(var(--os-2)); }
+  60% { transform: translate(var(--ox-3), var(--oy-3)) scale(var(--os-3)); }
+  80% { transform: translate(var(--ox-4), var(--oy-4)) scale(var(--os-4)); }
+}
+
+.animate-mesh-orb-1 {
+  --ox-1: 15%; --oy-1: -10%; --os-1: 1.08;
+  --ox-2: -5%; --oy-2: 12%; --os-2: 0.95;
+  --ox-3: 10%; --oy-3: 5%; --os-3: 1.05;
+  --ox-4: -8%; --oy-4: -6%; --os-4: 0.98;
+  will-change: transform; animation: mesh-orb-drift 22s ease-in-out infinite;
+}
+.animate-mesh-orb-2 {
+  --ox-1: -12%; --oy-1: 8%; --os-1: 1.05;
+  --ox-2: 8%; --oy-2: -12%; --os-2: 1.1;
+  --ox-3: -6%; --oy-3: 4%; --os-3: 0.92;
+  --ox-4: 10%; --oy-4: -8%; --os-4: 1.03;
+  will-change: transform; animation: mesh-orb-drift 26s ease-in-out infinite;
+}
+.animate-mesh-orb-3 {
+  --ox-1: 10%; --oy-1: 10%; --os-1: 1.06;
+  --ox-2: -12%; --oy-2: -4%; --os-2: 0.96;
+  --ox-3: 6%; --oy-3: -10%; --os-3: 1.04;
+  --ox-4: 0%; --oy-4: 0%; --os-4: 1;
+  will-change: transform; animation: mesh-orb-drift 30s ease-in-out infinite;
+}
+.animate-mesh-orb-4 {
+  --ox-1: -8%; --oy-1: 6%; --os-1: 1.08;
+  --ox-2: -8%; --oy-2: 6%; --os-2: 1.08;
+  --ox-3: 10%; --oy-3: -8%; --os-3: 0.94;
+  --ox-4: 10%; --oy-4: -8%; --os-4: 0.94;
+  will-change: transform; animation: mesh-orb-drift 34s ease-in-out infinite;
+}
+
+/* Shimmer effect — diagonal gradient sweep for cards and buttons */
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%); }
+  100% { transform: translateX(100%) translateY(100%); }
+}
+
+/* Card shimmer overlay */
+.card-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.card-shimmer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 30%,
+    var(--shimmer-highlight) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%) translateY(-100%);
+  transition: none;
+  pointer-events: none;
+  z-index: 1;
+}
+.card-shimmer:hover::before {
+  animation: shimmer 0.6s ease-out forwards;
+}
+
+/* Button shimmer overlay */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    var(--btn-shimmer-highlight) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%) translateY(-100%);
+  transition: none;
+  pointer-events: none;
+}
+.btn-shimmer:hover::after {
+  animation: shimmer 0.5s ease-out forwards;
+}
+
+/* Gradient border effect — animated on hover */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--brand), var(--accent-cyan), var(--accent-violet));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.gradient-border:hover::after {
+  opacity: 1;
+}
+
+/* CSS-only fade-up animation */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  will-change: transform, opacity;
+  animation: fade-up 0.5s ease-out forwards;
+}
+
+/* Skeleton loading shimmer — horizontal gradient sweep */
+@keyframes skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 25%,
+    var(--skeleton-shine) 50%,
+    var(--skeleton-base) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+/* Scroll progress bar shimmer — horizontal highlight sweep */
+@keyframes scroll-bar-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.scroll-bar-shimmer {
+  animation: scroll-bar-shimmer 2s ease-in-out infinite;
+}
+
+/* Shimmer gradient text animation */
+@keyframes gradient-shift-text {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+.animate-gradient-text {
+  background-size: 200% auto;
+  animation: gradient-shift-text 3s linear infinite;
+}
+
+/* Hero headline gradient — slow, elegant color shift */
+@keyframes hero-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.hero-gradient-headline {
+  background: linear-gradient(
+    270deg,
+    var(--brand) 0%,
+    var(--brand-light) 20%,
+    var(--accent-cyan) 50%,
+    var(--brand-light) 80%,
+    var(--brand) 100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: hero-gradient-shift 6s ease-in-out infinite;
+}
+
+/* Hero pulsing border — subtle glow outline */
+@keyframes hero-border-pulse {
+  0%, 100% {
+    border-color: rgba(32, 133, 53, 0.06);
+    box-shadow: 0 0 0 0 rgba(32, 133, 53, 0);
+  }
+  50% {
+    border-color: rgba(32, 133, 53, 0.12);
+    box-shadow: 0 0 20px 2px rgba(32, 133, 53, 0.04);
+  }
+}
+
+.hero-pulse-border {
+  border: 1px solid rgba(32, 133, 53, 0.06);
+  animation: hero-border-pulse 4s ease-in-out infinite;
+}
+
+/* Focus ring expand animation for form inputs */
+@keyframes focus-ring-expand {
+  from {
+    box-shadow: 0 0 0 0 var(--focus-ring-start);
+  }
+  to {
+    box-shadow: 0 0 0 3px var(--focus-ring-end);
+  }
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  animation: focus-ring-expand 0.25s ease-out forwards;
+}
+
+/* Gradient border-top for CTA sections */
+.border-gradient {
+  border-image: linear-gradient(to right, var(--brand), var(--accent-cyan)) 1;
+}
+
+/* Floating geometric shapes — slow drift & spin */
+@keyframes cta-pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+@keyframes geo-float-1 {
+  0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+  25% { transform: translateY(-18px) translateX(8px) rotate(15deg); }
+  50% { transform: translateY(6px) translateX(-12px) rotate(-5deg); }
+  75% { transform: translateY(-8px) translateX(4px) rotate(8deg); }
+}
+
+@keyframes geo-float-2 {
+  0%, 100% { transform: translateY(0) translateX(0) rotate(45deg); }
+  33% { transform: translateY(12px) translateX(-10px) rotate(55deg); }
+  66% { transform: translateY(-14px) translateX(6px) rotate(35deg); }
+}
+
+@keyframes geo-float-3 {
+  0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+  50% { transform: translateY(-20px) translateX(-8px) rotate(180deg); }
+}
+
+@keyframes geo-float-4 {
+  0%, 100% { transform: translateY(0) translateX(0) rotate(45deg) scale(1); }
+  25% { transform: translateY(10px) translateX(6px) rotate(50deg) scale(1.05); }
+  75% { transform: translateY(-12px) translateX(-4px) rotate(40deg) scale(0.95); }
+}
+
+.animate-geo-1 { will-change: transform; animation: geo-float-1 24s ease-in-out infinite; }
+.animate-geo-2 { will-change: transform; animation: geo-float-2 28s ease-in-out infinite; }
+.animate-geo-3 { will-change: transform; animation: geo-float-3 32s ease-in-out infinite; }
+.animate-geo-4 { will-change: transform; animation: geo-float-4 36s ease-in-out infinite; }
+
+/* Grain / noise texture overlay */
+@keyframes grain-shift {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -3%); }
+  20% { transform: translate(3%, 1%); }
+  30% { transform: translate(-1%, 4%); }
+  40% { transform: translate(4%, -2%); }
+  50% { transform: translate(-3%, 3%); }
+  60% { transform: translate(2%, -4%); }
+  70% { transform: translate(-4%, 1%); }
+  80% { transform: translate(1%, 3%); }
+  90% { transform: translate(3%, -1%); }
+}
+
+.grain-overlay {
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  opacity: 0.018;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  will-change: transform;
+  animation: grain-shift 0.5s steps(1) infinite;
+}
+
+/* ── AnimatedIcons keyframes (CSS-only Lottie-style) ── */
+
+/* Code bracket pulse — subtle scale + opacity breathe */
+@keyframes code-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+.animate-code-pulse {
+  will-change: transform, opacity;
+  animation: code-pulse 3s ease-in-out infinite;
+}
+
+/* Blinking text cursor */
+@keyframes cursor-blink {
+  0%, 40% { opacity: 1; }
+  50%, 90% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.animate-cursor-blink {
+  animation: cursor-blink 1.1s step-end infinite;
+}
+
+/* Gear / cog rotation — slow, smooth spin */
+@keyframes gear-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.animate-gear-spin {
+  will-change: transform;
+  animation: gear-spin 12s linear infinite;
+}
+
+/* Morphing shapes — circle -> rounded-square -> triangle-ish -> circle */
+@keyframes shape-morph {
+  0%, 100% {
+    border-radius: 50%;
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    border-radius: 18%;
+    transform: rotate(45deg) scale(0.92);
+  }
+  50% {
+    border-radius: 12% 50% 50% 50%;
+    transform: rotate(120deg) scale(1.05);
+  }
+  75% {
+    border-radius: 50% 12% 50% 12%;
+    transform: rotate(240deg) scale(0.95);
+  }
+}
+.animate-shape-morph {
+  will-change: transform, border-radius;
+  animation: shape-morph 8s ease-in-out infinite;
+}
+
+/* Waveform bars — individual bar oscillation */
+@keyframes waveform-bar {
+  0%, 100% { transform: scaleY(0.35); }
+  25% { transform: scaleY(1); }
+  50% { transform: scaleY(0.5); }
+  75% { transform: scaleY(0.85); }
+}
+.animate-waveform-bar {
+  will-change: transform;
+  animation: waveform-bar 1.4s ease-in-out infinite;
+  transform-origin: bottom;
+}
+
+/* Waveform container subtle drift */
+@keyframes waveform-drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.animate-waveform-container {
+  will-change: transform;
+  animation: waveform-drift 4s ease-in-out infinite;
+}
+
+/* Constellation dots — gentle twinkle + float */
+@keyframes constellation-dot {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.4); }
+}
+.animate-constellation-dot {
+  will-change: transform, opacity;
+  animation: constellation-dot 3.5s ease-in-out infinite;
+  fill: var(--brand);
+  opacity: 0.35;
+}
+
+/* ── AnimatedBackground keyframes (slow gradient mesh drift) ── */
+
+/* Hero radial gradient overlay — slow color cycling (replaces JS-driven Framer Motion) */
+@keyframes hero-radial-cycle {
+  0%, 100% {
+    background: radial-gradient(ellipse 900px 600px at 30% 40%, rgba(32,133,53,0.04), transparent 70%);
+  }
+  33% {
+    background: radial-gradient(ellipse 900px 600px at 60% 30%, rgba(6,182,212,0.04), transparent 70%);
+  }
+  66% {
+    background: radial-gradient(ellipse 900px 600px at 45% 55%, rgba(139,92,246,0.04), transparent 70%);
+  }
+}
+
+.animate-hero-radial-cycle {
+  animation: hero-radial-cycle 20s ease-in-out infinite;
+}
+
+@keyframes animated-bg-drift-1 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  25% { transform: translate(5%, 8%) scale(1.05); }
+  50% { transform: translate(-3%, 4%) scale(0.98); }
+  75% { transform: translate(4%, -5%) scale(1.03); }
+}
+@keyframes animated-bg-drift-2 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  25% { transform: translate(-6%, -4%) scale(1.04); }
+  50% { transform: translate(4%, -8%) scale(1.06); }
+  75% { transform: translate(-3%, 5%) scale(0.97); }
+}
+@keyframes animated-bg-drift-3 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  33% { transform: translate(8%, 6%) scale(1.05); }
+  66% { transform: translate(-5%, -4%) scale(0.96); }
+}
+@keyframes animated-bg-drift-4 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); }
+  30% { transform: translate(-4%, 6%) scale(1.04); }
+  60% { transform: translate(6%, -3%) scale(0.97); }
+}
+
+.animate-animated-bg-1 {
+  will-change: transform; animation: animated-bg-drift-1 24s ease-in-out infinite;
+}
+.animate-animated-bg-2 {
+  will-change: transform; animation: animated-bg-drift-2 28s ease-in-out infinite;
+}
+.animate-animated-bg-3 {
+  will-change: transform; animation: animated-bg-drift-3 32s ease-in-out infinite;
+}
+.animate-animated-bg-4 {
+  will-change: transform; animation: animated-bg-drift-4 26s ease-in-out infinite;
+}
+
+/* ── Process page animations ── */
+
+/* Progress bar fill — grows from top to bottom over 2s */
+@keyframes progress-fill {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+.animate-progress-fill {
+  will-change: transform;
+  animation: progress-fill 2s ease-out forwards;
+  transform-origin: top;
+}
+
+/* Step number pulse — subtle ring expand on appear */
+@keyframes step-pulse {
+  0% { box-shadow: 0 0 0 0 var(--step-pulse-color); }
+  70% { box-shadow: 0 0 0 8px rgba(32, 133, 53, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(32, 133, 53, 0); }
+}
+.animate-step-pulse {
+  animation: step-pulse 1.2s ease-out 0.3s 1;
+}
+
+/* Icon bounce — quick vertical bounce on appear */
+@keyframes icon-bounce {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+  60% { transform: translateY(2px); }
+}
+.animate-icon-bounce {
+  animation: icon-bounce 0.6s ease-out 0.2s 1;
+}
+
+/* Scroll-down chevron bounce */
+@keyframes bounce-chevron {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ==========================================================================
+   Progressive Enhancement & Graceful Degradation
+   ========================================================================== */
+
+/* Respect users who prefer reduced motion (OS-level accessibility setting).
+   Disables all animations and transitions site-wide while keeping
+   opacity/visibility functional so content remains accessible. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable custom animation classes explicitly */
+  .animate-float,
+  .animate-float-slow,
+  .animate-float-slower,
+  .animate-mesh-1,
+  .animate-mesh-2,
+  .animate-mesh-3,
+  .animate-mesh-4,
+  .animate-mesh-5,
+  .animate-wave-1,
+  .animate-wave-2,
+  .animate-wave-3,
+  .animate-dot-pulse-1,
+  .animate-dot-pulse-2,
+  .animate-dot-pulse-3,
+  .animate-mesh-orb-1,
+  .animate-mesh-orb-2,
+  .animate-mesh-orb-3,
+  .animate-mesh-orb-4,
+  .animate-geo-1,
+  .animate-geo-2,
+  .animate-geo-3,
+  .animate-geo-4,
+  .animate-gradient-text,
+  .hero-gradient-headline,
+  .hero-pulse-border,
+  .animate-fade-up,
+  .animate-progress-fill,
+  .animate-step-pulse,
+  .animate-icon-bounce,
+  .animate-code-pulse,
+  .animate-cursor-blink,
+  .animate-gear-spin,
+  .animate-shape-morph,
+  .animate-waveform-bar,
+  .animate-waveform-container,
+  .animate-constellation-dot,
+  .animate-animated-bg-1,
+  .animate-animated-bg-2,
+  .animate-animated-bg-3,
+  .animate-animated-bg-4,
+  .animate-hero-radial-cycle,
+  .skeleton-shimmer,
+  .scroll-bar-shimmer,
+  .grain-overlay,
+  .marquee-container,
+  .marquee-container-reverse,
+  .marquee-container-slow,
+  .card-shimmer::before,
+  .card-shimmer:hover::before,
+  .btn-shimmer::after,
+  .btn-shimmer:hover::after {
+    animation: none !important;
+  }
+
+  /* Ensure elements that use opacity/visibility for content reveal
+     remain visible without animation */
+  .animate-fade-up {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Note: Dark mode CSS tokens are prepared above (see [data-theme="dark"]).
+   Activation is controlled via the ThemeToggle component, which sets
+   data-theme="dark" on the <html> element. Light mode remains the default. */
+
+/* ── Blog prose custom styles ── */
+
+/* Article links — brand color with underline on hover */
+.prose-custom a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-decoration-color: rgba(32, 133, 53, 0.3);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+.prose-custom a:hover {
+  color: var(--brand-dark);
+  text-decoration-color: var(--brand);
+}
+
+/* Article images — rounded corners and subtle shadow */
+.prose-custom img {
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.04);
+  margin: 1.75rem 0;
+}
+
+/* Article headings — clear spacing hierarchy */
+.prose-custom h2 {
+  margin-top: 2.75rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+.prose-custom h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
+}
+.prose-custom h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Article paragraphs — comfortable spacing */
+.prose-custom p {
+  margin-bottom: 1.25rem;
+}
+.prose-custom p:last-child {
+  margin-bottom: 0;
+}
+
+/* Lead paragraph — the first paragraph after the H1 gets emphasis.
+   Renders slightly larger with a brand-tinted initial cap for a
+   magazine/premium feel. */
+.prose-custom > p:first-of-type {
+  font-size: 1.15em;
+  line-height: 1.65;
+  color: var(--foreground);
+  margin-bottom: 1.5rem;
+}
+.prose-custom > p:first-of-type::first-letter {
+  font-size: 3.5em;
+  font-weight: 700;
+  line-height: 0.9;
+  float: left;
+  margin-right: 0.08em;
+  margin-top: 0.1em;
+  color: var(--brand);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* Blockquote / pull-quote — used in long-form posts */
+.prose-custom blockquote {
+  border-left: 3px solid var(--brand);
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  margin: 2rem 0;
+  font-size: 1.15em;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--foreground);
+  background: linear-gradient(to right, rgba(32, 133, 53, 0.04), transparent 60%);
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Article lists — readable spacing */
+.prose-custom ul,
+.prose-custom ol {
+  margin: 1.25rem 0;
+  padding-left: 1.5rem;
+}
+.prose-custom ul li,
+.prose-custom ol li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+.prose-custom ul li::marker {
+  color: var(--brand);
+}
+.prose-custom ol li::marker {
+  color: var(--brand);
+  font-weight: 600;
+}
+
+/* Article hr — subtle divider */
+.prose-custom hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
+  margin: 2.5rem 0;
+}
+
+/* Inline code — rounded muted background, monospace */
+.prose-custom code {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-size: 0.875em;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.15em 0.4em;
+  border-radius: 0.375rem;
+  color: var(--foreground-secondary);
+}
+
+/* Code blocks — distinct background with rounded corners */
+.prose-custom pre {
+  background: #1a1a2e;
+  color: #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.prose-custom pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* Pull quote / blockquote — brand green left border, italic, larger text */
+.prose-custom blockquote {
+  border-left: 3px solid var(--brand);
+  margin: 1.75rem 0;
+  padding: 1rem 1.25rem;
+  font-style: italic;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--foreground-secondary);
+  background: rgba(32, 133, 53, 0.04);
+  border-radius: 0 0.5rem 0.5rem 0;
+  position: relative;
+}
+
+.prose-custom blockquote::before {
+  content: "\201C";
+  position: absolute;
+  top: -4px;
+  left: 6px;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--brand);
+  opacity: 0.25;
+  font-style: normal;
+  pointer-events: none;
+}
+
+.prose-custom blockquote p {
+  margin-bottom: 0;
+}
+
+/* Unordered / ordered lists */
+.prose-custom ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.prose-custom ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.prose-custom li {
+  margin-bottom: 0.375rem;
+}
+.prose-custom li::marker {
+  color: var(--brand);
+}
+
+/* Horizontal rule */
+.prose-custom hr {
+  border: none;
+  border-top: 1px solid var(--card-border);
+  margin: 2rem 0;
+}
+
+/* Print styles — hide navigation, fixed elements, animations, and decorative sections;
+   enforce black text on white background for readable printed output. */
+@media print {
+  /* Hide non-content chrome */
+  nav, .fixed, [aria-label="Site footer"], .cookie-consent,
+  .grain-overlay, .animate-float, .animate-float-slow, .animate-float-slower,
+  [aria-hidden="true"] { display: none !important; }
+
+  /* Remove top padding since navbar is hidden */
+  main { padding-top: 0 !important; }
+
+  /* Reset body to print-friendly defaults */
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    overflow-x: visible !important;
+  }
+
+  /* Force black text, white background on everything */
+  * {
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Make links visible via URL appended after text */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    font-weight: normal;
+    text-decoration: none;
+    color: #555 !important;
+  }
+
+  /* Skip internal links to avoid clutter */
+  a[href^="/"]::after,
+  a[href^="#"]::after,
+  a[href^="mailto"]::after { content: none; }
+
+  /* Ensure images are never cut off */
+  img { max-width: 100% !important; page-break-inside: avoid; }
+
+  /* Avoid page breaks inside headings and paragraphs */
+  h1, h2, h3, h4, h5, h6 { page-break-after: avoid; }
+  p, li, blockquote { page-break-inside: avoid; }
+
+  /* Show borders on cards for print readability */
+  .glass-card {
+    border: 1px solid #ccc !important;
+    background: #fff !important;
+  }
+
+  /* Collapse sections that are purely decorative */
+  section[aria-label] { page-break-inside: avoid; }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Spotlight hover utility — used by <SpotlightCard />
+   Radial gradient follows the cursor via --mx / --my custom properties.
+   The element itself must render <SpotlightCard> (which sets the vars).
+   ──────────────────────────────────────────────────────────────── */
+.spotlight-hover {
+  position: relative;
+}
+.spotlight-hover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: radial-gradient(
+    var(--spotlight-radius, 280px) circle at var(--mx, -9999px) var(--my, -9999px),
+    var(--spotlight-color, rgba(32, 133, 53, 0.10)),
+    transparent 70%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 0;
+}
+.spotlight-hover:hover::before {
+  opacity: 1;
+}
+.spotlight-hover > * {
+  position: relative;
+  z-index: 1;
 }
