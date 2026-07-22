@@ -41,6 +41,10 @@ export function Hero3DBackground() {
   if (prefersReducedMotion || !isDesktop) return null;
 
   return (
+    // pointer-events-none on the wrapper so the canvas never traps wheel/tap
+    // events. Cursor parallax is tracked via a window-level pointermove
+    // listener inside HeroScene (see CursorParallaxGroup), not via R3F's
+    // onPointerMove (which would require pointer-events here).
     <div
       className="absolute inset-0 z-0 pointer-events-none"
       aria-hidden="true"

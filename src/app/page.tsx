@@ -114,9 +114,20 @@ export default function HomePage() {
 
       {/* 2. StatsBar — early credibility, visible without scrolling far */}
       <StatsBar />
-      <ScrollVelocityText
-        items={["CMS Development", "CRM Solutions", "ERP Systems", "AI Integration", "Web Applications", "Mobile Development"]}
-      />
+      <div className="space-y-0">
+        <ScrollVelocityText
+          items={["CMS Development", "CRM Solutions", "ERP Systems", "AI Integration", "Web Applications", "Mobile Development"]}
+          direction="forward"
+          variant="gradient"
+          speed={1}
+        />
+        <ScrollVelocityText
+          items={["Custom Software", "Dedicated Teams", "UI/UX Design", "Cloud Architecture", "API Engineering", "Product Strategy"]}
+          direction="reverse"
+          variant="outline"
+          speed={0.8}
+        />
+      </div>
 
       <SectionDivider />
 
@@ -159,6 +170,9 @@ export default function HomePage() {
 
       <ScrollVelocityText
         items={["REACT", "NEXT.JS", "NODE.JS", "PYTHON", "FLUTTER", "AWS", "GCP", "TYPESCRIPT", "AI/ML", "API"]}
+        direction="forward"
+        variant="outline"
+        speed={1.2}
       />
 
       {/* 9. Partners — continued social proof */}
