@@ -513,6 +513,8 @@ export function ContactForm() {
           company: formData.company,
           service: formData.service,
           message: formData.message,
+          // Honeypot — grab the value from the hidden field. Bots fill it.
+          website: (document.querySelector('input[name="website"]') as HTMLInputElement)?.value || undefined,
         }),
       });
       const data = await response.json();
@@ -564,6 +566,15 @@ export function ContactForm() {
   if (wizardMode) {
     return (
       <form onSubmit={handleSubmit} noValidate>
+        {/* Honeypot — visually hidden, bots fill it. */}
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          style={{ position: "absolute", left: "-9999px", opacity: 0, width: 1, height: 1 }}
+        />
         <StepLabels currentStep={currentStep} />
         <StepProgress currentStep={currentStep} totalSteps={TOTAL_STEPS} />
 
@@ -818,6 +829,15 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
+      {/* Honeypot — visually hidden, bots fill it. */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-9999px", opacity: 0, width: 1, height: 1 }}
+      />
       <div className="flex items-center justify-between mb-2">
         <FormProgress formData={formData} />
         <button
