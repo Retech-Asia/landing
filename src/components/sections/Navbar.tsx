@@ -412,6 +412,7 @@ export function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-current={isItemActive(item.href) ? "page" : undefined}
                   className={cn(
                     "group/link relative px-4 py-2 text-sm rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2",
                     isItemActive(item.href)
