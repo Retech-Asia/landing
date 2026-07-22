@@ -33,6 +33,11 @@ function applyTheme(theme: Theme) {
   } else {
     root.removeAttribute("data-theme");
   }
+  // Update the mobile browser chrome color to match the active theme.
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) {
+    meta.setAttribute("content", theme === "dark" ? "#0A0A14" : "#208535");
+  }
 }
 
 /* useSyncExternalStore helpers for reading theme without setState in effects */
