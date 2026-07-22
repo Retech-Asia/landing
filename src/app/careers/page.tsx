@@ -43,22 +43,13 @@ export const metadata: Metadata = {
     description:
       "Join Retech Solutions in Ho Chi Minh City. Build custom software for international clients across healthcare, finance, and e-commerce.",
     url: `${SITE_URL}/careers`,
-    type: "website",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Careers at Retech Solutions",
-      },
-    ],
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title: "Careers",
     description:
-      "Join Retech Solutions in Ho Chi Minh City. Build international software projects.",
-    images: ["/images/og-image.png"],
+      "Join Retech Solutions in Ho Chi Minh City. Build international software projects."
   },
 };
 

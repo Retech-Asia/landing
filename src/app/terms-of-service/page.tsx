@@ -17,22 +17,13 @@ export const metadata: Metadata = {
     description:
       "Terms governing use of Retech Solutions website & software services.",
     url: `${SITE_URL}/terms-of-service`,
-    type: "website",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Terms of Service - Retech Solutions",
-      },
-    ],
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title: "Terms of Service",
     description:
-      "Terms governing use of Retech Solutions website & software services.",
-    images: ["/images/og-image.png"],
+      "Terms governing use of Retech Solutions website & software services."
   },
 };
 

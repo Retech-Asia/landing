@@ -98,14 +98,10 @@ export const metadata: Metadata = {
       "Retech Solutions | Software Development & IT Outsourcing",
     description:
       "Vietnam-based software development: custom CMS, CRM, ERP & AI solutions. Free consultation available.",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Retech Solutions - IT Outsourcing Company in Vietnam",
-      },
-    ],
+    // Image intentionally omitted — Next.js auto-uses src/app/opengraph-image.tsx
+    // which generates a properly-dimensioned 1200x630 branded OG image. The
+    // public/images/og-image.png file is a 2500x305 banner used only as the
+    // navbar logo, not suitable for social share cards.
   },
 
   twitter: {
@@ -114,7 +110,7 @@ export const metadata: Metadata = {
       "Retech Solutions | Software Development & IT Outsourcing",
     description:
       "Custom CMS, CRM, ERP & AI-powered software. Full-cycle development from discovery to deployment. Free consultation.",
-    images: ["/images/og-image.png"],
+    // Same as openGraph — let Next.js's twitter-image route handle it.
   },
 
   verification: {

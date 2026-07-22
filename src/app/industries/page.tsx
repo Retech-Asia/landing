@@ -26,22 +26,13 @@ export const metadata: Metadata = {
     description:
       "Custom software for Healthcare, Finance, E-commerce & more. CMS, CRM, ERP tailored to your industry.",
     url: `${SITE_URL}/industries`,
-    type: "website",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Industries We Serve",
-      },
-    ],
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title: "Industries We Serve",
     description:
-      "Custom software for Healthcare, Finance, E-commerce & more.",
-    images: ["/images/og-image.png"],
+      "Custom software for Healthcare, Finance, E-commerce & more."
   },
 };
 

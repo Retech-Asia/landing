@@ -42,22 +42,13 @@ export const metadata: Metadata = {
     description:
       "Custom CMS, CRM, ERP, web apps, UI/UX & dedicated offshore teams. Full-spectrum IT services from Vietnam.",
     url: `${SITE_URL}/services`,
-    type: "website",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Retech Solutions Services",
-      },
-    ],
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title: "Our Services",
     description:
-      "Custom CMS, CRM, ERP, web apps, UI/UX & dedicated offshore teams from Vietnam.",
-    images: ["/images/og-image.png"],
+      "Custom CMS, CRM, ERP, web apps, UI/UX & dedicated offshore teams from Vietnam."
   },
 };
 

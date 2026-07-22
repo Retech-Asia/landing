@@ -22,22 +22,13 @@ export const metadata: Metadata = {
     description:
       "React, Next.js, Node.js, Python, AWS, GCP & more. Modern tech stack for scalable CMS, CRM, ERP & AI software.",
     url: `${SITE_URL}/technologies`,
-    type: "website",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Our Technology Stack",
-      },
-    ],
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title: "Technologies",
     description:
-      "React, Next.js, Node.js, Python, AWS, GCP & more. Modern tech stack for scalable software.",
-    images: ["/images/og-image.png"],
+      "React, Next.js, Node.js, Python, AWS, GCP & more. Modern tech stack for scalable software."
   },
 };
 

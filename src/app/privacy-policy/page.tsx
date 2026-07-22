@@ -17,22 +17,13 @@ export const metadata: Metadata = {
     description:
       "How we collect, use & protect your data. Your rights & our security practices.",
     url: `${SITE_URL}/privacy-policy`,
-    type: "website",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Privacy Policy - Retech Solutions",
-      },
-    ],
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title: "Privacy Policy",
     description:
-      "How we collect, use & protect your data. Your rights & our security practices.",
-    images: ["/images/og-image.png"],
+      "How we collect, use & protect your data. Your rights & our security practices."
   },
 };
 

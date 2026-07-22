@@ -74,22 +74,14 @@ export function generateMetadata({
           : industry.longDescription,
         url: pageUrl,
         type: "website",
-        images: [
-          {
-            url: "/images/og-image.png",
-            width: 1200,
-            height: 630,
-            alt: `${industry.name} Software Development - Retech Solutions`,
-          },
-        ],
+        // OG image omitted — Next.js auto-uses src/app/opengraph-image.tsx
       },
       twitter: {
         card: "summary_large_image",
         title: `${industry.name} Software Development | Retech Solutions`,
         description: industry.longDescription.length > 155
           ? industry.longDescription.slice(0, 152).replace(/\s+\S*$/, "") + "..."
-          : industry.longDescription,
-        images: ["/images/og-image.png"],
+          : industry.longDescription
       },
     };
   });

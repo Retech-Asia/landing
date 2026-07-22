@@ -34,22 +34,13 @@ export const metadata: Metadata = {
     description:
       "Vietnam-based software outsourcing company. 5+ years experience, 50+ projects across 6 countries. Full-cycle development.",
     url: `${SITE_URL}/about`,
-    type: "website",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "About Retech Solutions",
-      },
-    ],
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title: "About Us",
     description:
-      "Vietnam-based software outsourcing. 5+ years, 50+ projects across 6 countries. Full-cycle development.",
-    images: ["/images/og-image.png"],
+      "Vietnam-based software outsourcing. 5+ years, 50+ projects across 6 countries. Full-cycle development."
   },
 };
 

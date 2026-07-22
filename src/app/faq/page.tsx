@@ -25,22 +25,13 @@ export const metadata: Metadata = {
     description:
       "Common questions about software development services, CMS, CRM, ERP & dedicated teams. Pricing, tech stack & process.",
     url: `${SITE_URL}/faq`,
-    type: "website",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Retech Solutions FAQ",
-      },
-    ],
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title: "FAQ",
     description:
-      "Common questions about software development services, CMS, CRM, ERP & dedicated teams. Pricing & process.",
-    images: ["/images/og-image.png"],
+      "Common questions about software development services, CMS, CRM, ERP & dedicated teams. Pricing & process."
   },
 };
 

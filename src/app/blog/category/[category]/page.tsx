@@ -52,20 +52,12 @@ export async function generateMetadata({
       description,
       url: `${SITE_URL}/blog/category/${categorySlug}`,
       type: "website",
-      images: [
-        {
-          url: "/images/og-image.png",
-          width: 1200,
-          height: 630,
-          alt: `${category.name} Articles | Retech Solutions`,
-        },
-      ],
+      // OG image omitted — Next.js auto-uses src/app/opengraph-image.tsx
     },
     twitter: {
       card: "summary_large_image",
       title,
-      description,
-      images: ["/images/og-image.png"],
+      description
     },
   };
 }

@@ -140,7 +140,7 @@ export default async function BlogPostPage({
         datePublished={post.date}
         dateModified={post.updatedAt ?? post.date}
         authorName={post.author}
-        imageUrl={`${SITE_URL}/images/og-image.png`}
+        imageUrl={`${SITE_URL}/blog/${post.slug}/opengraph-image`}
       />
       <BreadcrumbJsonLd
         items={[

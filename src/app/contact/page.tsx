@@ -24,21 +24,12 @@ export const metadata: Metadata = {
     title: `Contact Us | ${SITE_NAME}`,
     description: `Contact ${SITE_NAME} for a free consultation on custom CMS, CRM, ERP & AI software. Response within 24 hours.`,
     url: `${SITE_URL}/contact`,
-    type: "website",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Contact Retech Solutions",
-      },
-    ],
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title: `Contact Us | ${SITE_NAME}`,
-    description: `Contact ${SITE_NAME} for a free consultation on custom CMS, CRM, ERP & AI software. Response within 24 hours.`,
-    images: ["/images/og-image.png"],
+    description: `Contact ${SITE_NAME} for a free consultation on custom CMS, CRM, ERP & AI software. Response within 24 hours.`
   },
 };
 

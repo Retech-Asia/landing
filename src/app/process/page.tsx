@@ -43,22 +43,13 @@ export const metadata: Metadata = {
     description:
       "Proven 6-phase development methodology from discovery to launch. Agile, transparent & quality-first. 50+ projects delivered.",
     url: `${SITE_URL}/process`,
-    type: "website",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Retech Solutions - Our Process",
-      },
-    ],
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title: "Our Process",
     description:
-      "Proven 6-phase methodology from discovery to launch. Agile, transparent & quality-first.",
-    images: ["/images/og-image.png"],
+      "Proven 6-phase methodology from discovery to launch. Agile, transparent & quality-first."
   },
 };
 

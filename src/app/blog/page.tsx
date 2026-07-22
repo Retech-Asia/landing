@@ -25,22 +25,13 @@ export const metadata: Metadata = {
     description:
       "Expert insights on IT outsourcing, software development & AI trends. Practical guides on CMS, CRM, ERP solutions from Vietnam.",
     url: `${SITE_URL}/blog`,
-    type: "website",
-    images: [
-      {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Retech Solutions Blog",
-      },
-    ],
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title: "Blog",
     description:
-      "Expert insights on IT outsourcing, software development & AI trends. Practical guides on CMS, CRM, ERP solutions.",
-    images: ["/images/og-image.png"],
+      "Expert insights on IT outsourcing, software development & AI trends. Practical guides on CMS, CRM, ERP solutions."
   },
 };
 
