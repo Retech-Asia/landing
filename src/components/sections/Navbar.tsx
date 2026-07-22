@@ -591,11 +591,14 @@ export function Navbar() {
                   animate="visible"
                   exit="exit"
                   custom={navigation.main.length}
-                  className="pt-4"
+                  className="pt-4 space-y-3"
                 >
                   <Button href="/contact" size="md" className="w-full" onClick={() => setIsMobileOpen(false)}>
                     Request Quote
                   </Button>
+                  <div className="flex justify-center pt-2">
+                    <ThemeToggle />
+                  </div>
                 </motion.div>
               </div>
             </motion.div>
