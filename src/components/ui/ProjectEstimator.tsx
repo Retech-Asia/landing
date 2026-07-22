@@ -342,6 +342,8 @@ export function ProjectEstimator() {
         body: JSON.stringify({
           name: leadInfo.name.trim(),
           email: leadInfo.email.trim(),
+          // Honeypot — grab from hidden field
+          website: (document.querySelector('input[name="estimator-website"]') as HTMLInputElement)?.value || undefined,
           company: leadInfo.company.trim() || undefined,
           phone: leadInfo.phone.trim() || undefined,
           notes: leadInfo.notes.trim() || undefined,
@@ -841,6 +843,15 @@ export function ProjectEstimator() {
                   className="mt-6 p-5 sm:p-6 rounded-2xl bg-white border border-black/[0.08] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] space-y-4"
                   noValidate
                 >
+                  {/* Honeypot */}
+                  <input
+                    type="text"
+                    name="estimator-website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{ position: "absolute", left: "-9999px", opacity: 0, width: 1, height: 1 }}
+                  />
                   <div>
                     <h4 className="text-base font-semibold text-foreground">
                       Get your detailed quote
