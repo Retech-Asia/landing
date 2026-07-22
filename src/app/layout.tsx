@@ -13,6 +13,7 @@ import { SITE_URL as SITE_URL_CONST, SITE_NAME as SITE_NAME_CONST, CONTACT } fro
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { hasAnalyticsConsent } from "@/lib/analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -190,8 +191,18 @@ export default function RootLayout({
           <Footer />
         </ReducedMotionProvider>
         </SmoothScrollProvider>
-        <Analytics />
-        <SpeedInsights />
+        <Analytics
+          beforeSend={(event) => {
+            if (!hasAnalyticsConsent()) return null;
+            return event;
+          }}
+        />
+        <SpeedInsights
+          beforeSend={(event) => {
+            if (!hasAnalyticsConsent()) return null;
+            return event;
+          }}
+        />
       </body>
     </html>
   );
