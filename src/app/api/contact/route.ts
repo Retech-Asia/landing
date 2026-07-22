@@ -11,6 +11,8 @@ interface ContactPayload {
   company?: unknown;
   service?: unknown;
   message?: unknown;
+  /** Honeypot — bots fill this, humans don't (it's visually hidden). */
+  website?: unknown;
 }
 
 export async function POST(request: Request) {
@@ -22,6 +24,12 @@ export async function POST(request: Request) {
       { ok: false, error: "Invalid JSON body." },
       { status: 400 },
     );
+  }
+
+  // Honeypot check — if the hidden "website" field is filled, it's a bot.
+  // Return a fake success so the bot thinks it worked.
+  if (payload.website) {
+    return NextResponse.json({ ok: true });
   }
 
   // ---- Validate required fields ----

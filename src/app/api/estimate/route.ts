@@ -9,7 +9,6 @@ interface EstimatePayload {
   email?: unknown;
   company?: unknown;
   phone?: unknown;
-  // Estimator state
   projectType?: unknown;
   projectTypeLabel?: unknown;
   scope?: unknown;
@@ -21,6 +20,8 @@ interface EstimatePayload {
   estimateLabel?: unknown;
   estimateRange?: unknown;
   notes?: unknown;
+  /** Honeypot — bots fill this, humans don't. */
+  website?: unknown;
 }
 
 export async function POST(request: Request) {
@@ -32,6 +33,11 @@ export async function POST(request: Request) {
       { ok: false, error: "Invalid JSON body." },
       { status: 400 },
     );
+  }
+
+  // Honeypot — fake success for bots.
+  if (payload.website) {
+    return NextResponse.json({ ok: true });
   }
 
   // ---- Validate required fields ----
