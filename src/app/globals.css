@@ -144,7 +144,10 @@
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ── Dark mode surface overrides ────────────────────────────────────────
+/* Dynamic theme-color — match mobile browser chrome to active theme */
+[data-theme="dark"] {
+  color-scheme: dark;
+}
    Pragmatic approach: instead of refactoring 129 individual `bg-white`
    instances across the codebase, override them globally here. When dark
    mode is active, all solid-white surfaces become the dark background-subtle
