@@ -321,7 +321,7 @@ export default async function ServiceDetailPage({
 
       {/* ── Sidebar Layout: Features through FAQ ──────────── */}
       <div className="relative">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:flex lg:gap-12 lg:items-start">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:flex lg:gap-12 lg:items-stretch">
           {/* Main content */}
           <div className="min-w-0 flex-1">
 
