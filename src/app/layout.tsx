@@ -147,7 +147,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <meta name="apple-mobile-web-app-title" content="Retech Solutions" />
-        <link rel="preload" as="image" href="/images/logo.svg" />
+        {/* Logo preload intentionally removed — the Navbar uses next/image with
+            priority={true}, which handles LCP preloading automatically. The old
+            manual preload pointed at logo.svg which isn't used in the chrome. */}
         <link rel="alternate" type="application/rss+xml" title="Retech Solutions Blog" href="/feed.xml" />
         <SiteJsonLd />
       </head>

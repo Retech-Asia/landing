@@ -431,6 +431,10 @@ export function Navbar() {
           </div>
 
           {/* Desktop CTA */}
+          {/* ThemeToggle intentionally NOT mounted here — dark mode CSS exists
+              but 129 components use hardcoded bg-white, so the toggle would
+              produce inconsistent theming. Restore once components are
+              refactored to use bg-background / tokens instead. */}
           <div className="hidden lg:flex items-center gap-3">
             <Button href="/contact" size="sm">
               Request Quote
