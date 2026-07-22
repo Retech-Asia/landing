@@ -24,7 +24,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { CONTACT } from "@/lib/constants";
+// CONTACT import removed — no longer needed since mailto was replaced with API POST
 
 // ---------------------------------------------------------------------------
 // Types
@@ -417,7 +417,6 @@ export function ProjectEstimator() {
       : null;
 
   // Lead capture form labels — used by /api/estimate when the user submits.
-  const ptLabel = projectTypes.find((p) => p.id === selections.projectType)?.label ?? "Project";
   const scLabel = scopes.find((s) => s.id === selections.scope);
   const tsLabel = teamSizes.find((t) => t.id === selections.teamSize);
 

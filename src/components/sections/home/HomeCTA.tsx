@@ -9,7 +9,7 @@ import { GradientBackground } from "@/components/ui/GradientBackground";
 import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 import { Magnetic } from "@/components/ui/Magnetic";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useCallback } from "react";
 
 /* ── Floating decorative shapes with mouse parallax ── */
 function FloatingShapes() {

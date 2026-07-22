@@ -1,8 +1,8 @@
 "use client";
 
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, MeshDistortMaterial } from "@react-three/drei";
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useEffect } from "react";
 import type { Mesh, Group, Points } from "three";
 import * as THREE from "three";
 
@@ -26,20 +26,18 @@ const cursorPos = { x: 0, y: 0 };
 function CursorParallaxGroup({ children }: { children: React.ReactNode }) {
   const groupRef = useRef<Group>(null);
   const target = useRef({ x: 0, y: 0 });
-  // Track cursor at window level — works even though the canvas itself
-  // has pointer-events: none (set on the wrapper).
-  if (typeof window !== "undefined" && !(window as Window & { __cursorTracked?: boolean }).__cursorTracked) {
-    (window as Window & { __cursorTracked?: boolean }).__cursorTracked = true;
-    window.addEventListener(
-      "pointermove",
-      (e) => {
-        // Normalise to -1..1 across the viewport width/height.
-        cursorPos.x = (e.clientX / window.innerWidth) * 2 - 1;
-        cursorPos.y = (e.clientY / window.innerHeight) * 2 - 1;
-      },
-      { passive: true },
-    );
-  }
+
+  // Track cursor at window level — set up in useEffect to avoid React 19's
+  // purity rules (which flag mutations during render).
+  useEffect(() => {
+    function handlePointerMove(e: PointerEvent) {
+      // Normalise to -1..1 across the viewport width/height.
+      cursorPos.x = (e.clientX / window.innerWidth) * 2 - 1;
+      cursorPos.y = (e.clientY / window.innerHeight) * 2 - 1;
+    }
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    return () => window.removeEventListener("pointermove", handlePointerMove);
+  }, []);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
@@ -121,10 +119,15 @@ function ParticleField({ count = 220 }: { count?: number }) {
   const pointsRef = useRef<Points>(null);
 
   const positions = useMemo(() => {
+    // Pseudo-random starfield positions — intentionally non-deterministic.
+    // useMemo with [count] ensures this runs once per mount.
     const arr = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
+      // eslint-disable-next-line react-hooks/purity
       const r = 6 + Math.random() * 4;
+      // eslint-disable-next-line react-hooks/purity
       const theta = Math.random() * Math.PI * 2;
+      // eslint-disable-next-line react-hooks/purity
       const phi = Math.acos(2 * Math.random() - 1);
       arr[i * 3] = r * Math.sin(phi) * Math.cos(theta);
       arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
