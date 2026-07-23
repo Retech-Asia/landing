@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   DollarSign,
   GraduationCap,
@@ -136,6 +137,21 @@ export function WhyVietnam() {
             );
           })}
         </StaggerContainer>
+
+        {/* Vietnam cityscape — adds real location context */}
+        <div className="relative h-[200px] md:h-[300px] rounded-2xl overflow-hidden mt-12">
+          <Image
+            src="/images/stock/vietnam-cityscape.webp"
+            alt="Ho Chi Minh City — Vietnam's tech and business hub"
+            fill
+            sizes="(max-width: 768px) 100vw, 1200px"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+          <p className="absolute bottom-4 left-6 text-sm font-medium text-white">
+            Ho Chi Minh City — home to Vietnam&apos;s tech talent
+          </p>
+        </div>
       </Container>
     </section>
   );

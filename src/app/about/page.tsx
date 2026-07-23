@@ -273,6 +273,18 @@ export default function AboutPage() {
         </Container>
       </section>
 
+      {/* Office interior — adds professional workspace context */}
+      <div className="relative h-[200px] md:h-[300px] overflow-hidden">
+        <Image
+          src="/images/stock/office-interior.webp"
+          alt="Retech Solutions modern office workspace"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+      </div>
+
       {/* Global Reach */}
       <GlobalReach />
 

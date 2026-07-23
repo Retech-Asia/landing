@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import {
   Search,
   PenTool,
@@ -472,6 +473,18 @@ export default function ProcessPage() {
           </div>
         </ContainerUI>
       </section>
+
+      {/* Visual break — brainstorming/collaboration photo */}
+      <div className="relative h-[180px] md:h-[260px] overflow-hidden">
+        <Image
+          src="/images/stock/brainstorming.webp"
+          alt="Retech Solutions team brainstorming and planning"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/30 to-transparent" />
+      </div>
 
       {/* ── Tools We Use ─────────────────────────────────────── */}
       <section className="relative py-20 md:py-28 bg-background-subtle overflow-hidden">
