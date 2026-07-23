@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useCallback, useRef, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { servicesNavigation } from "@/lib/navigation";
 
 const accentColors = [
@@ -100,8 +101,10 @@ function TiltCard({ children }: { children: React.ReactNode }) {
 
 export function ServicePreview() {
   return (
-    <section className="py-20 md:py-28 bg-background-subtle relative" aria-label="Our services">
-      <Container>
+    <section className="py-20 md:py-28 bg-background-subtle relative overflow-hidden" aria-label="Our services">
+      {/* Premium background: grid lines fading from center + aurora mesh */}
+      <CompositeSectionBackground layers={["aurora", "grid-center"]} />
+      <Container className="relative z-10">
         <SectionHeader
           label="Our Services"
           title="What We Build"

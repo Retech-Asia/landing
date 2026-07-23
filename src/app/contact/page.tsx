@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Phone, Mail, MessageSquare, FileText, Video, Hash, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card } from "@/components/ui/Card";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
@@ -119,19 +120,10 @@ export default function ContactPage() {
         ]}
       />
 
-      {/* Background layers */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        {/* Subtle gradient orbs */}
-        <div className="absolute -top-20 left-1/4 w-[50vw] h-[50vw] rounded-full bg-brand/[0.025] blur-[160px] animate-mesh-4" />
-        <div className="absolute -bottom-10 right-1/4 w-[40vw] h-[40vw] rounded-full bg-accent-cyan/[0.02] blur-[140px] animate-mesh-5" />
-      </div>
+      {/* Premium background: aurora mesh + grid fade (replaces old blur orbs) */}
+      <CompositeSectionBackground layers={["aurora", "grid-fade"]} grain />
 
-      {/* Background simplified: previously had dot-pattern + grid-pattern +
-          4 decorative floating shapes (rotating circle, floating square,
-          small circle, rotating diamond). All read as visual noise —
-          removed to keep the contact form distraction-free. */}
-
-      <Container className="relative">
+      <Container className="relative z-10">
         <BreadcrumbNav
           items={[
             { label: "Home", href: "/" },

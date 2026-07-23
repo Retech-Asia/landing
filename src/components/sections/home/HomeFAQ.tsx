@@ -6,6 +6,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { useState, useCallback } from "react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { SectionBackground } from "@/components/ui/SectionBackground";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { cn } from "@/lib/cn";
 
@@ -173,8 +174,9 @@ function FAQAccordion({ items }: { items: typeof faqItems }) {
 
 export function HomeFAQ() {
   return (
-    <section className="py-20 md:py-28 bg-background-subtle relative" aria-label="Frequently asked questions">
-      <Container>
+    <section className="py-20 md:py-28 bg-background-subtle relative overflow-hidden" aria-label="Frequently asked questions">
+      <SectionBackground variant="grid-center" />
+      <Container className="relative z-10">
         <SectionHeader
           label="FAQ"
           title="Frequently Asked Questions"

@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/AnimatedSection";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { GradientBackground } from "@/components/ui/GradientBackground";
+import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { IndustryExplorer } from "@/components/ui/IndustryExplorer";
 import { SITE_URL } from "@/lib/constants";
@@ -54,7 +55,7 @@ export default function IndustriesPage() {
 
       {/* Hero */}
       <section className="pt-32 pb-16 md:pt-40 md:pb-20 relative overflow-hidden">
-        <GradientBackground variant="hero" />
+        <CompositeSectionBackground layers={["aurora", "grid-fade"]} grain />
         <Container className="relative z-10">
           <BreadcrumbNav
             items={[{ label: "Home", href: "/" }, { label: "Industries" }]}

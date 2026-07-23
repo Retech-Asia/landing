@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
+import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import {
   AnimatedSection,
@@ -56,8 +57,9 @@ const techGroups = [
 
 export function TechStack() {
   return (
-    <section className="py-20 md:py-28 relative">
-      <Container>
+    <section className="py-20 md:py-28 relative overflow-hidden bg-background-subtle">
+      <CompositeSectionBackground layers={["dots", "spotlight-cyan"]} />
+      <Container className="relative z-10">
         <AnimatedSection>
           <SectionHeader
             label="Tech Stack"

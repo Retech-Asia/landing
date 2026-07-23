@@ -1,7 +1,7 @@
 import { type ReactNode } from "react";
 import { Container } from "@/components/ui/Container";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
-import { GradientBackground } from "@/components/ui/GradientBackground";
+import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { cn } from "@/lib/cn";
 
@@ -49,10 +49,12 @@ export function PageHero({
         className,
       )}
     >
-      {/* Background — single subtle gradient layer. Previously had 3 layers
-          stacked (GradientBackground + GridPattern + dot-pattern) which read
-          as visual noise / AI-generated filler on every internal page. */}
-      <GradientBackground variant="subtle" />
+      {/* Premium background: Vercel-style grid fade from top + aurora mesh.
+          Previously had 3 stacked layers (GradientBackground + GridPattern +
+          dot-pattern) which read as visual noise. Then was simplified to 1
+          GradientBackground (too flat). Now uses the mask-fade grid pattern
+          that fades radially — the technique Vercel/Stripe use for depth. */}
+      <CompositeSectionBackground layers={["aurora", "grid-fade"]} grain />
 
       {/* Content */}
       <Container className="relative z-10">

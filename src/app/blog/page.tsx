@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
+import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { BlogListSkeleton } from "@/components/ui/Skeleton";
 import { blogPosts } from "@/lib/blog-data";
@@ -53,14 +54,10 @@ export default function BlogPage() {
       />
 
       <section className="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden">
-        {/* Decorative gradient orbs */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-          <div className="absolute -top-20 left-[10%] w-[50vw] h-[50vw] rounded-full bg-brand/[0.03] blur-[100px] animate-mesh-4" />
-          <div className="absolute top-[30%] right-[-5%] w-[40vw] h-[40vw] rounded-full bg-accent-cyan/[0.03] blur-[100px] animate-mesh-5" />
-          <div className="absolute -bottom-10 left-[30%] w-[35vw] h-[35vw] rounded-full bg-accent-violet/[0.02] blur-[100px] animate-mesh-3" />
-        </div>
+        {/* Premium background: aurora mesh + grid fade (replaces old blur orbs) */}
+        <CompositeSectionBackground layers={["aurora", "grid-fade"]} grain />
 
-      <Container className="relative">
+      <Container className="relative z-10">
         <BreadcrumbNav
           items={[
             { label: "Home", href: "/" },

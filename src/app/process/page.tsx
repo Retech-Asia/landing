@@ -25,6 +25,7 @@ import {
   StaggerItem,
 } from "@/components/ui/AnimatedSection";
 import { GradientBackground } from "@/components/ui/GradientBackground";
+import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { GridPattern } from "@/components/ui/GridPattern";
 import { GearIcon } from "@/components/ui/AnimatedIcons";
 import { SITE_URL } from "@/lib/constants";
@@ -256,7 +257,7 @@ export default function ProcessPage() {
 
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
-        <GradientBackground variant="subtle" />
+        <CompositeSectionBackground layers={["aurora", "grid-fade"]} grain />
         <ContainerUI className="relative">
           <div className="page-hero-enter">
             <BreadcrumbNav

@@ -312,6 +312,72 @@ p, li {
   background: radial-gradient(ellipse 500px 350px at 50% 50%, var(--radial-violet), transparent);
 }
 
+/* ───────────────────────────────────────────────────────────────────
+   Premium background system — Vercel/Stripe/Linear-inspired.
+   Key technique: mask-image radial-gradient fades the pattern at edges,
+   so the grid/dots feel like they emerge from the background rather than
+   filling it edge-to-edge. This is the #1 differentiator from the old
+   flat grid-pattern class.
+   ─────────────────────────────────────────────────────────────────── */
+
+/* Grid lines with top-centered radial fade — Vercel hero style.
+   The grid fades from full visibility at top → transparent at bottom. */
+.bg-grid-fade {
+  background-image:
+    linear-gradient(to right, var(--pattern-grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--pattern-grid-color) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 90%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 90%);
+}
+
+/* Grid lines with center-centered radial fade — for mid-page sections */
+.bg-grid-fade-center {
+  background-image:
+    linear-gradient(to right, var(--pattern-grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--pattern-grid-color) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 40%, transparent 100%);
+}
+
+/* Dot matrix with center radial fade */
+.bg-dots-fade {
+  background-image: radial-gradient(circle, var(--pattern-dot-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 100%);
+}
+
+/* Aurora mesh — layered brand-color radial gradients that create a
+   flowing, premium feel (à la Stripe/Linear). Three overlapping blobs
+   positioned asymmetrically for organic depth. */
+.bg-aurora {
+  background:
+    radial-gradient(ellipse 50% 50% at 20% 30%, rgba(32, 133, 53, 0.08), transparent 60%),
+    radial-gradient(ellipse 40% 50% at 80% 20%, rgba(6, 182, 212, 0.06), transparent 55%),
+    radial-gradient(ellipse 45% 40% at 50% 80%, rgba(139, 92, 246, 0.05), transparent 60%);
+}
+
+/* Spotlight — single large positioned glow for highlighting content.
+   Use behind key CTAs or stat sections. */
+.bg-spotlight-brand {
+  background: radial-gradient(circle 600px at 50% 40%, rgba(32, 133, 53, 0.08), transparent 70%);
+}
+.bg-spotlight-cyan {
+  background: radial-gradient(circle 600px at 50% 40%, rgba(6, 182, 212, 0.06), transparent 70%);
+}
+.bg-spotlight-violet {
+  background: radial-gradient(circle 600px at 50% 40%, rgba(139, 92, 246, 0.06), transparent 70%);
+}
+
+/* Subtle noise/grain texture — prevents gradient banding on wide-gamut
+   displays. SVG-based, inline, zero network cost. */
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+}
+
 /* Glassmorphism card — light mode */
 .glass-card {
   background: var(--glass-card-bg);

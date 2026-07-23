@@ -20,6 +20,7 @@ import {
   StaggerItem,
 } from "@/components/ui/AnimatedSection";
 import { GradientBackground } from "@/components/ui/GradientBackground";
+import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { GridPattern } from "@/components/ui/GridPattern";
 import { ServiceGridSkeleton } from "@/components/ui/Skeleton";
 import { ServiceQuiz } from "@/components/ui/ServiceQuiz";
@@ -181,7 +182,7 @@ export default function ServicesPage() {
 
       {/* -- Hero / Header ---------------------------------------------- */}
       <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
-        <GradientBackground variant="subtle" />
+        <CompositeSectionBackground layers={["aurora", "grid-fade"]} grain />
         <Container className="relative">
           <div className="page-hero-enter">
             <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Services" }]} />

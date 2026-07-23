@@ -14,6 +14,7 @@ import {
 import { motion, useInView } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { SectionBackground } from "@/components/ui/SectionBackground";
 import {
   AnimatedSection,
   StaggerContainer,
@@ -347,10 +348,11 @@ function ProcessStep({
 export function Testimonials() {
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
-      {/* Subtle background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] radial-glow-brand pointer-events-none" />
+      {/* Premium layered background: spotlight + grid fade */}
+      <SectionBackground variant="spotlight-violet" />
+      <SectionBackground variant="grid-center" />
 
-      <Container>
+      <Container className="relative z-10">
         {/* ── Section Header ── */}
         <SectionHeader
           label="How We Work"

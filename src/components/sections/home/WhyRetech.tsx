@@ -5,6 +5,7 @@ import { Code, Zap, Brain, Users, ArrowRight, type LucideIcon } from "lucide-rea
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { StaggerContainer, StaggerItem } from "@/components/ui/AnimatedSection";
 import { HIGHLIGHTS } from "@/lib/constants";
 
@@ -24,8 +25,9 @@ const iconColors = [
 
 export function WhyRetech() {
   return (
-    <section className="py-20 md:py-28 bg-background-subtle relative">
-      <Container>
+    <section className="py-20 md:py-28 bg-background-subtle relative overflow-hidden">
+      <CompositeSectionBackground layers={["spotlight", "dots"]} grain />
+      <Container className="relative z-10">
         <SectionHeader
           label="Why Retech"
           title="Why Companies Choose Us"

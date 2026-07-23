@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/ui/AnimatedSection";
 import { caseStudies } from "@/lib/case-studies-data";
 
@@ -18,8 +19,9 @@ const previews = caseStudies.map((cs) => ({
 
 export function SuccessStories() {
   return (
-    <section className="py-20 md:py-28 bg-background-subtle relative">
-      <Container>
+    <section className="py-20 md:py-28 bg-background-subtle relative overflow-hidden">
+      <CompositeSectionBackground layers={["aurora", "grid-center"]} />
+      <Container className="relative z-10">
         <AnimatedSection>
           <SectionHeader
             label="Success Stories"

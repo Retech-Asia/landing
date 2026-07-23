@@ -5,6 +5,7 @@ import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
 import { Button } from "@/components/ui/Button";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { GradientBackground } from "@/components/ui/GradientBackground";
+import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { FAQJsonLd, BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/constants";
 import { faqCategories, allFAQs } from "@/lib/faq-data";
@@ -56,7 +57,7 @@ export default function FAQPage() {
 
       {/* ── Hero Section ────────────────────────────────────── */}
       <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
-        <GradientBackground variant="hero" />
+        <CompositeSectionBackground layers={["aurora", "grid-fade"]} grain />
         <Container className="relative">
           <div className="page-hero-enter">
             <BreadcrumbNav
