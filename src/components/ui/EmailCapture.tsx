@@ -219,6 +219,7 @@ export function EmailCapture({
             <motion.button
               type="submit"
               disabled={loading}
+              aria-label="Subscribe to newsletter"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               className={

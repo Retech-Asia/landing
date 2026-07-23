@@ -81,8 +81,8 @@ const reasons = [
 
 const clientMetrics = [
   {
-    value: "On-time",
-    label: "Average Project Delivery",
+    value: "94%",
+    label: "Projects Delivered On Time",
     icon: Clock,
     accent: "brand" as const,
   },
@@ -93,15 +93,15 @@ const clientMetrics = [
     accent: "cyan" as const,
   },
   {
-    value: "50+",
-    label: "Projects Delivered",
-    icon: TrendingUp,
-    accent: "violet" as const,
-  },
-  {
     value: "< 24h",
     label: "Average Response Time",
     icon: Headphones,
+    accent: "violet" as const,
+  },
+  {
+    value: "6",
+    label: "Markets Served",
+    icon: TrendingUp,
     accent: "brand" as const,
   },
 ];
@@ -353,9 +353,9 @@ export function Testimonials() {
       <Container>
         {/* ── Section Header ── */}
         <SectionHeader
-          label="Trusted By Clients"
-          title="Why Clients Choose Us"
-          description="We combine technical excellence with a collaborative approach to deliver software that drives real business results."
+          label="How We Work"
+          title="A Collaborative Engineering Partner"
+          description="We combine technical excellence with a transparent, collaborative approach to deliver software that drives measurable business results."
         />
 
         {/* ── Value Proposition Cards ── */}
@@ -408,35 +408,10 @@ export function Testimonials() {
           </div>
         </AnimatedSection>
 
-        {/* ── Project Highlights (from real case studies) ── */}
-        <AnimatedSection delay={0.2}>
-          <div className="mt-20 md:mt-24">
-            <div className="text-center mb-10 md:mb-12">
-              <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3">
-                Proven Results
-              </p>
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground">
-                Real Projects, Real Impact
-              </h3>
-              <p className="mt-3 text-foreground-secondary max-w-2xl mx-auto">
-                Measurable outcomes from our shipped products across healthcare
-                and finance industries.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              {projectHighlights.map((project) => (
-                <AnimatedSection
-                  key={project.project}
-                  variant="slideUp"
-                  delay={0.1}
-                >
-                  <ProjectCard {...project} />
-                </AnimatedSection>
-              ))}
-            </div>
-          </div>
-        </AnimatedSection>
+        {/* Project Highlights block removed — duplicated SuccessStories metrics
+            (3.2x engagement, 60% efficiency, etc. were shown in BOTH adjacent
+            sections, which reads as padding). SuccessStories section above
+            already covers this content with better visual treatment. */}
 
         {/* ── Trusted Process ── */}
         <AnimatedSection delay={0.2}>

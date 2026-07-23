@@ -1,8 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { Container } from "@/components/ui/Container";
@@ -42,24 +41,11 @@ export function Hero() {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
   const contentY = useTransform(scrollYProgress, [0, 0.55], [0, -60]);
 
-  // Indicator fades immediately on scroll
-  const indicatorOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
-
   // Prevent hydration mismatch: only render scroll-driven styles after mount
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     const raf = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(raf);
-  }, []);
-
-  const scrollToStats = useCallback(() => {
-    const hero = sectionRef.current;
-    if (hero) {
-      const next = hero.nextElementSibling;
-      if (next) {
-        next.scrollIntoView({ behavior: "smooth" });
-      }
-    }
   }, []);
 
   return (
@@ -211,28 +197,8 @@ export function Hero() {
         </Container>
       </motion.div>
 
-      {/* Scroll-down indicator */}
-      <motion.div
-        onClick={scrollToStats}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") scrollToStats();
-        }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 cursor-pointer group px-4 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-lg"
-        style={mounted ? { opacity: indicatorOpacity } : undefined}
-        aria-label="Scroll to explore"
-      >
-        <span className="text-[10px] tracking-[0.2em] uppercase text-foreground-muted/60 group-hover:text-foreground-muted transition-colors">
-          Scroll to explore
-        </span>
-        <span className="block animate-[bounce-chevron_1.8s_ease-in-out_infinite]">
-          <ChevronDown
-            className="w-5 h-5 text-foreground-muted/60 group-hover:text-foreground-muted transition-colors"
-            strokeWidth={1.5}
-          />
-        </span>
-      </motion.div>
+      {/* Scroll-down indicator removed — was template chrome occupying
+          premium above-the-fold space. Users know how to scroll. */}
     </section>
   );
 }

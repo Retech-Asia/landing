@@ -68,24 +68,23 @@ const advantages = [
 
 const stats = [
   { value: "50K+", label: "IT Graduates/Year" },
-  { value: "40-60%", label: "Cost Savings" },
-  { value: "GMT+7", label: "Timezone" },
-  { value: "Top 10", label: "Global Outsourcing Destination" },
+  { value: "40-60%", label: "Cost Savings vs. West" },
+  { value: "GMT+7", label: "Timezone (overlaps EU mornings)" },
+  { value: "6", label: "ASEAN Neighbor Markets" },
 ];
 
 export function WhyVietnam() {
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
-      {/* Subtle background accents */}
+      {/* Subtle background accent — single layer only */}
       <div className="absolute inset-0 radial-glow-brand opacity-50" />
-      <div className="absolute inset-0 dot-pattern opacity-30" />
 
       <Container>
         {/* Section header */}
         <SectionHeader
           label="Why Vietnam"
           title="A Strategic Outsourcing Destination"
-          description="Vietnam has emerged as one of Asia's top outsourcing hubs, offering a unique combination of talent, cost efficiency, and business-friendly policies."
+          description="Vietnam offers a combination of STEM talent, cost efficiency, and business-friendly policies that make it a competitive outsourcing destination within ASEAN."
           gradient
         />
 

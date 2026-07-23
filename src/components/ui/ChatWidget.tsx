@@ -241,7 +241,10 @@ export function ChatWidget() {
                   />
                 </div>
                 <h3 className="text-sm font-semibold text-foreground">
-                  Chat with us
+                  Help Assistant
+                  <span className="ml-2 text-[10px] font-medium uppercase tracking-wider text-foreground-muted">
+                    Automated
+                  </span>
                 </h3>
               </div>
               <div className="flex items-center gap-1">
