@@ -77,14 +77,19 @@ function Orb({
   opacity = 0.92,
 }: OrbProps) {
   const meshRef = useRef<Mesh>(null);
+  // Manual time accumulator — avoids the deprecated THREE.Clock (state.clock)
+  // which triggers "THREE.Clock: This module has been deprecated. Please use
+  // THREE.Timer instead" in three.js r158+.
+  const elapsedRef = useRef(0);
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     if (!meshRef.current) return;
+    elapsedRef.current += delta;
     meshRef.current.rotation.x += delta * rotationSpeed;
     meshRef.current.rotation.y += delta * rotationSpeed * 0.7;
     // Subtle "breathing" scale oscillation — gives the orbs an organic,
     // alive feel even without MeshDistortMaterial's vertex displacement.
-    const breathe = 1 + Math.sin(state.clock.elapsedTime * floatSpeed * 0.5) * 0.04;
+    const breathe = 1 + Math.sin(elapsedRef.current * floatSpeed * 0.5) * 0.04;
     meshRef.current.scale.setScalar(scale * breathe);
   });
 
