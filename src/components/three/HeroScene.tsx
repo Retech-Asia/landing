@@ -1,9 +1,41 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float } from "@react-three/drei";
 import { useRef, useMemo, useEffect } from "react";
 import type { Mesh, Group, Points } from "three";
+
+/* ------------------------------------------------------------------ */
+/*  Custom Float — replaces drei's <Float> which uses the deprecated  */
+/*  THREE.Clock (state.clock.elapsedTime), causing console warnings.  */
+/*  This version uses delta accumulation — functionally identical.     */
+/* ------------------------------------------------------------------ */
+
+function CustomFloat({
+  children,
+  speed = 1.2,
+  rotationIntensity = 0.12,
+  floatIntensity = 0.5,
+}: {
+  children: React.ReactNode;
+  speed?: number;
+  rotationIntensity?: number;
+  floatIntensity?: number;
+}) {
+  const groupRef = useRef<Group>(null);
+  const elapsedRef = useRef(0);
+
+  useFrame((_, delta) => {
+    if (!groupRef.current) return;
+    elapsedRef.current += delta;
+    const t = elapsedRef.current * speed;
+    // Same math as drei's Float: sin-wave bobbing + rotation
+    groupRef.current.position.y = Math.sin(t) * floatIntensity;
+    groupRef.current.rotation.x = Math.cos(t * 0.5) * rotationIntensity;
+    groupRef.current.rotation.y = Math.sin(t * 0.3) * rotationIntensity;
+  });
+
+  return <group ref={groupRef}>{children}</group>;
+}
 
 /* ------------------------------------------------------------------ */
 /*  Module-level cursor position — written by a window pointermove    */
@@ -94,13 +126,9 @@ function Orb({
   });
 
   return (
-    <Float speed={floatSpeed} rotationIntensity={0.12} floatIntensity={0.5}>
+    <CustomFloat speed={floatSpeed} rotationIntensity={0.12} floatIntensity={0.5}>
       <mesh ref={meshRef} position={position} scale={scale}>
         <sphereGeometry args={[1, 64, 64]} />
-        {/* Using standard material instead of MeshDistortMaterial to avoid
-            custom GLSL shader compilation issues on some GPUs/browsers.
-            The Float wrapper provides the organic motion; brand lighting
-            provides the visual depth. No custom shaders = universal compat. */}
         <meshStandardMaterial
           color={color}
           emissive={emissive ?? color}
@@ -111,7 +139,7 @@ function Orb({
           opacity={opacity}
         />
       </mesh>
-    </Float>
+    </CustomFloat>
   );
 }
 
