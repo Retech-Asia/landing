@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Calendar, Clock, User, ArrowLeft, ArrowRight, BookOpen } from "lucide-react";
@@ -219,7 +220,31 @@ export default async function BlogPostPage({
                 <p className="text-foreground-secondary leading-relaxed text-base md:text-lg mb-5">
                   {renderContent(post.content[0])}
                 </p>
-                {contentElements}
+                {contentElements.map((el, i) => (
+                  <div key={i}>
+                    {el}
+                    {/* Insert a category-themed image strip after the 2nd
+                        content block to break up the wall of text. */}
+                    {i === 3 && post.headings.length > 4 && (
+                      <div className="my-10 relative h-48 md:h-64 rounded-2xl overflow-hidden">
+                        <Image
+                          src={
+                            post.category === "Technology"
+                              ? "/images/stock/code-screen.webp"
+                              : post.category === "Guides"
+                                ? "/images/stock/analytics-dashboard.webp"
+                                : "/images/stock/ai-abstract.webp"
+                          }
+                          alt={`${post.category} — visual context`}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 720px"
+                          className="object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                      </div>
+                    )}
+                  </div>
+                ))}
               </article>
             </AnimatedSection>
 

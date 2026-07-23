@@ -218,9 +218,6 @@ export default async function ServiceDetailPage({
     { id: "overview", label: "Overview" },
     { id: "features", label: "Features" },
   ];
-  if (service.timeline && service.timeline.length > 0) {
-    tocItems.push({ id: "timeline", label: "What to Expect" });
-  }
   if (checklistItems.length > 0) {
     tocItems.push({ id: "included", label: "What's Included" });
   }
@@ -375,25 +372,10 @@ export default async function ServiceDetailPage({
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
       </div>
 
-      {/* ── What to Expect Timeline ─────────────────────────── */}
-      {service.timeline && service.timeline.length > 0 && (
-        <section id="timeline" className="relative py-20 md:py-28 overflow-hidden scroll-mt-28">
-          <Container className="relative">
-            <AnimatedSection variant="slideUp">
-              <SectionHeader
-                title="What to Expect"
-                description="A typical project timeline for your engagement. Timelines may vary based on scope and complexity."
-              />
-            </AnimatedSection>
-
-            <AnimatedSection variant="slideUp" delay={0.1}>
-              <div className="max-w-5xl mx-auto">
-                <ServiceTimeline timeline={service.timeline} />
-              </div>
-            </AnimatedSection>
-          </Container>
-        </section>
-      )}
+      {/* Timeline section removed — was redundant with "How We Work"
+          (Process Steps) below. Both covered the same phases (Discovery,
+          Design, Build, Deploy). The timelineDuration field in the data
+          already surfaces the time estimate in the hero. */}
 
       {/* ── What's Included Checklist ───────────────────────── */}
       {checklistItems.length > 0 && (
