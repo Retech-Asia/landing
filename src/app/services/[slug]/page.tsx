@@ -23,6 +23,7 @@ import { caseStudies } from "@/lib/case-studies-data";
 import { blogPosts } from "@/lib/blog-data";
 import { getTestimonialBySlug } from "@/lib/testimonials-data";
 import { SITE_URL } from "@/lib/constants";
+import { cn } from "@/lib/cn";
 
 /* ── Static Params ────────────────────────────────────────────── */
 export function generateStaticParams() {
@@ -616,7 +617,7 @@ export default async function ServiceDetailPage({
                         <th className="px-4 py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-foreground whitespace-nowrap">
                           Staff Augmentation
                         </th>
-                        <th className="px-4 py-3.5 text-center whitespace-nowrap">
+                        <th className="px-4 py-3.5 text-center whitespace-nowrap bg-brand/[0.04]">
                           <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-brand">
                             Dedicated Team
                             <span className="text-[10px] bg-brand/10 text-brand px-1.5 py-0.5 rounded-full normal-case">Popular</span>
@@ -647,13 +648,20 @@ export default async function ServiceDetailPage({
                       ] as [string, boolean, boolean, boolean][]).map((row, rowIdx) => (
                         <tr
                           key={row[0]}
-                          className={rowIdx % 2 === 0 ? "bg-black/[0.012]" : "bg-transparent"}
+                          className="border-b border-black/[0.04] last:border-b-0"
                         >
                           <td className="px-5 py-3 font-medium text-foreground whitespace-nowrap text-sm">
                             {row[0]}
                           </td>
                           {[row[1], row[2], row[3]].map((isSupported, colIdx) => (
-                            <td key={colIdx} className="px-4 py-3 text-center">
+                            <td
+                              key={colIdx}
+                              className={cn(
+                                "px-4 py-3 text-center",
+                                // Highlight the "Popular" column (Dedicated Team = colIdx 1)
+                                colIdx === 1 && "bg-brand/[0.03]"
+                              )}
+                            >
                               {isSupported ? (
                                 <CheckCircle2 size={16} className="inline-block text-brand" />
                               ) : (
