@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import {
   ArrowRight,
   Target,
@@ -136,6 +137,18 @@ export default function AboutPage() {
       {/* Hero with Parallax Background */}
       <ParallaxHero />
 
+      {/* Full-width workspace image — makes the company feel real */}
+      <div className="relative h-[280px] md:h-[420px] overflow-hidden">
+        <Image
+          src="/images/stock/modern-office.webp"
+          alt="Retech Solutions development workspace in Vietnam"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+      </div>
+
       {/* Mission & Vision */}
       <section className="py-20 md:py-28">
         <Container>
@@ -244,8 +257,8 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Leadership */}
-      <LeadershipTeam />
+      {/* Leadership section removed per owner request — company landing
+          page does not need to show individual identities. */}
 
       {/* Parallax Visual Divider */}
       <ParallaxDivider />

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Phone, Mail, MessageSquare, FileText, Video, Hash, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import Image from "next/image";
 import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card } from "@/components/ui/Card";
@@ -219,6 +220,21 @@ export default function ContactPage() {
             delay={0.15}
             className="lg:col-span-2 space-y-5"
           >
+            {/* Team photo — adds human element to the contact page */}
+            <div className="relative h-44 rounded-2xl overflow-hidden">
+              <Image
+                src="/images/stock/team-meeting.webp"
+                alt="Retech Solutions team ready to discuss your project"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              <p className="absolute bottom-3 left-4 text-sm font-medium text-white">
+                Let&apos;s build something together
+              </p>
+            </div>
+
             {/* Location Map */}
             <LocationMap />
 

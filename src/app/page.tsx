@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { Hero } from "@/components/sections/home/Hero";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { WebPageJsonLd, FAQJsonLd } from "@/components/seo/JsonLd";
@@ -171,6 +172,32 @@ export default function HomePage() {
       </ScrollReveal>
 
       <SectionDivider variant="subtle" />
+
+      {/* Visual breather — team collaboration photo between content-heavy
+          sections. Adds human element after the technical TechStack section. */}
+      <section className="relative h-[320px] md:h-[440px] overflow-hidden">
+        <Image
+          src="/images/stock/team-collaboration.webp"
+          alt="Retech Solutions engineering team collaborating on a project"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/20 to-transparent" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div className="max-w-lg">
+              <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-3 text-balance">
+                Built by engineers who care about your outcomes
+              </h2>
+              <p className="text-sm md:text-base text-foreground-secondary leading-relaxed">
+                Every project is led by a senior engineer who owns delivery
+                end-to-end — not handed off to a junior team after the sale.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* 10. SuccessStories — deeper proof */}
       <SuccessStories />
