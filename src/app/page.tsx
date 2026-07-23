@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Hero } from "@/components/sections/home/Hero";
+import { ScrollGradientShift } from "@/components/ui/ScrollGradientShift";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { WebPageJsonLd, FAQJsonLd } from "@/components/seo/JsonLd";
 import {
@@ -107,6 +108,10 @@ export default function HomePage() {
         url="https://www.retech.asia"
       />
       <FAQJsonLd questions={homeFAQItems} />
+
+      {/* Ambient scroll-linked gradient — subtle hue drift across the
+          entire page as user scrolls. GPU-composited, respects reduced-motion. */}
+      <ScrollGradientShift />
 
       {/* 1. Hero — always first */}
       <Hero />
