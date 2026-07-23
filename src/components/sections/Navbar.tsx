@@ -316,23 +316,20 @@ export function Navbar() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo — uses /images/logo.svg (the real Retech hexagonal-R mark,
-              612x612 viewBox, ~2.6KB). The previous src was /images/og-image.png
-              which is a 2500x305 banner being squished into a 40px-tall slot —
-              massive LCP cost for zero visual benefit. SVG is crisp at any
-              size and 1000x smaller payload. */}
+          {/* Full company logo — combined hexagonal-R mark + "Retech Solutions"
+              wordmark as a single SVG asset. Crisp at any size, ~3KB payload.
+              Previous approaches: (1) og-image.png 2500x305 banner — wrong
+              aspect ratio, 85KB, LCP killer; (2) icon-only SVG + HTML text
+              wordmark — didn't match brand. This is the proper full logo. */}
           <Link href="/" className="flex items-center group" aria-label="Retech Solutions home">
             <img
-              src="/images/logo.svg"
+              src="/images/logo-full.svg"
               alt="Retech Solutions"
-              width={40}
-              height={40}
+              width={200}
+              height={50}
               decoding="async"
-              className="h-7 sm:h-8 md:h-9 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-[1.04]"
+              className="h-7 sm:h-8 md:h-9 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-[1.02]"
             />
-            <span className="ml-2.5 text-base sm:text-lg font-semibold tracking-tight text-foreground hidden sm:inline-block">
-              Retech<span className="text-brand"> Solutions</span>
-            </span>
           </Link>
 
           {/* Desktop Nav */}

@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { SiteJsonLd } from "@/components/seo/JsonLd";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
-import { SmoothScrollProvider } from "@/components/ui/SmoothScrollProvider";
 import { ReducedMotionProvider } from "@/components/ui/ReducedMotionProvider";
 import { ClientOnlyWidgets } from "@/components/ui/ClientOnlyWidgets";
 import { DeferredProviders } from "@/components/ui/DeferredProviders";
@@ -182,7 +181,6 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <SmoothScrollProvider>
         {/* Reduced-motion: respect OS-level setting globally for ALL framer-motion
             components. With reducedMotion="user", animations that would transform
             or fade are automatically reduced to instant changes. This is the WCAG
@@ -198,7 +196,6 @@ export default function RootLayout({
           </main>
           <Footer />
         </ReducedMotionProvider>
-        </SmoothScrollProvider>
         <ConsentAwareAnalytics />
       </body>
     </html>

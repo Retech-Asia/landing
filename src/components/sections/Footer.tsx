@@ -89,20 +89,14 @@ export function Footer() {
               className="inline-block mb-5"
             >
               <Link href="/" className="inline-flex items-center group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm" aria-label="Retech Solutions home">
-                {/* SVG logo + wordmark — same treatment as navbar.
-                    Was previously loading /images/og-image.png (2500x305 banner
-                    squished into 220x27 slot — wrong aspect ratio + huge payload). */}
                 <img
-                  src="/images/logo.svg"
+                  src="/images/logo-full.svg"
                   alt="Retech Solutions"
-                  width={32}
-                  height={32}
+                  width={180}
+                  height={45}
                   decoding="async"
-                  className="h-7 w-auto opacity-90 group-hover:opacity-100 transition-opacity"
+                  className="h-8 md:h-9 w-auto opacity-90 group-hover:opacity-100 transition-opacity"
                 />
-                <span className="ml-2 text-base font-semibold tracking-tight text-white">
-                  Retech<span className="text-brand-light"> Solutions</span>
-                </span>
               </Link>
             </motion.div>
             <p className="text-sm text-white/70 leading-relaxed mb-4 max-w-xs">

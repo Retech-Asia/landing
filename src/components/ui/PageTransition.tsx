@@ -7,7 +7,6 @@ import {
 } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { getLenis } from "@/components/ui/SmoothScrollProvider";
 
 /* ------------------------------------------------------------------ */
 /*  PageTransition                                                     */
@@ -70,12 +69,8 @@ export function PageTransition({ children }: PageTransitionProps) {
 
     const reduced = Boolean(prefersReduced);
 
-    // Scroll to top on route change. Lenis hijacks native scroll, so
-    // window.scrollTo() alone is unreliable — prefer lenis.scrollTo().
-    const lenis = getLenis();
-    if (lenis) {
-      lenis.scrollTo(0, { immediate: reduced, duration: reduced ? 0 : 0.6 });
-    } else if (typeof window !== "undefined") {
+    // Scroll to top on route change — native scroll (Lenis removed).
+    if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
     }
 
