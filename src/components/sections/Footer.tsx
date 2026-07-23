@@ -88,15 +88,18 @@ export function Footer() {
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
               className="inline-block mb-5"
             >
-              <Link href="/" className="inline-flex items-center group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm" aria-label="Retech Solutions home">
+              <Link href="/" className="inline-flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm" aria-label="Retech Solutions home">
                 <img
-                  src="/images/logo-full.svg"
+                  src="/images/logo.svg"
                   alt="Retech Solutions"
-                  width={180}
-                  height={45}
+                  width={32}
+                  height={32}
                   decoding="async"
-                  className="h-8 md:h-9 w-auto opacity-90 group-hover:opacity-100 transition-opacity"
+                  className="h-7 md:h-8 w-auto opacity-90 group-hover:opacity-100 transition-opacity"
                 />
+                <span className="text-lg md:text-xl font-bold tracking-tight text-white whitespace-nowrap">
+                  Retech<span className="text-brand-light"> Solutions</span>
+                </span>
               </Link>
             </motion.div>
             <p className="text-sm text-white/70 leading-relaxed mb-4 max-w-xs">

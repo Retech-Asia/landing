@@ -316,20 +316,24 @@ export function Navbar() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Full company logo — combined hexagonal-R mark + "Retech Solutions"
-              wordmark as a single SVG asset. Crisp at any size, ~3KB payload.
-              Previous approaches: (1) og-image.png 2500x305 banner — wrong
-              aspect ratio, 85KB, LCP killer; (2) icon-only SVG + HTML text
-              wordmark — didn't match brand. This is the proper full logo. */}
-          <Link href="/" className="flex items-center group" aria-label="Retech Solutions home">
+          {/* Logo — icon SVG + HTML wordmark. The icon is the real Retech
+              hexagonal-R mark. The wordmark is styled in HTML so it adapts
+              to light/dark themes automatically. Previous attempt with a
+              single SVG containing <text> elements failed: SVG text via <img>
+              can't access web fonts and the hardcoded fill colors didn't
+              adapt to dark backgrounds (navy text invisible on green footer). */}
+          <Link href="/" className="flex items-center gap-2 group shrink-0" aria-label="Retech Solutions home">
             <img
-              src="/images/logo-full.svg"
+              src="/images/logo.svg"
               alt="Retech Solutions"
-              width={200}
-              height={50}
+              width={36}
+              height={36}
               decoding="async"
-              className="h-7 sm:h-8 md:h-9 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-[1.02]"
+              className="h-7 sm:h-8 md:h-9 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-[1.05]"
             />
+            <span className="text-base sm:text-lg md:text-xl font-bold tracking-tight text-foreground whitespace-nowrap">
+              Retech<span className="text-brand"> Solutions</span>
+            </span>
           </Link>
 
           {/* Desktop Nav */}
