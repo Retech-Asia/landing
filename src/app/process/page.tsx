@@ -298,7 +298,7 @@ export default function ProcessPage() {
           <div className="relative max-w-5xl mx-auto">
             {/* ── Vertical progress bar (desktop left side) ── */}
             <div
-              className="absolute left-5 md:left-7 top-0 bottom-0 w-[3px] rounded-full bg-foreground/[0.06] hidden lg:block overflow-hidden"
+              className="absolute left-5 md:left-7 top-0 bottom-0 w-[3px] rounded-full bg-brand/[0.06] hidden lg:block overflow-hidden"
               aria-hidden="true"
             >
               {/* Animated gradient fill that extends the full height */}
@@ -534,7 +534,7 @@ export default function ProcessPage() {
       </section>
 
       {/* ── CTA ──────────────────────────────────────────────── */}
-      <section className="relative py-20 md:py-28 bg-foreground overflow-hidden">
+      <section className="relative py-20 md:py-28 bg-brand-dark overflow-hidden">
         <ContainerUI className="relative z-10">
           <AnimatedSection>
             <div className="max-w-2xl mx-auto text-center">

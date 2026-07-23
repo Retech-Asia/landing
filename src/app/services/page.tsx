@@ -448,7 +448,7 @@ export default function ServicesPage() {
       </section>
 
       {/* -- CTA --------------------------------------------------------- */}
-      <section className="relative py-20 md:py-28 bg-foreground overflow-hidden border-t border-gradient">
+      <section className="relative py-20 md:py-28 bg-brand-dark overflow-hidden border-t border-gradient">
         <Container className="relative z-10">
           <AnimatedSection>
             <div className="max-w-2xl mx-auto text-center">

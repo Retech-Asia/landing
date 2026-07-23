@@ -151,7 +151,7 @@ export default function ContactPage() {
             <StaggerItem key={title}>
               <div className="flex flex-col items-start gap-4 p-6 rounded-xl bg-card-bg border border-card-border">
                 <div className="flex items-center gap-3">
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-foreground text-white text-xs font-bold">
+                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-brand-dark text-white text-xs font-bold">
                     {step}
                   </span>
                   <div className={`p-2 rounded-lg ${bg}`}>
@@ -274,7 +274,7 @@ export default function ContactPage() {
             </div>
 
             {/* Quick Response CTA */}
-            <Card hover={false} padding="md" className="bg-foreground text-white relative overflow-hidden">
+            <Card hover={false} padding="md" className="bg-brand-dark text-white relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand/10 rounded-full blur-3xl" aria-hidden="true" />
               <div className="relative">
                 <h3 className="text-base font-semibold mb-2">

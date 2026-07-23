@@ -54,7 +54,7 @@ export function Tooltip({
             transition={{ duration: 0.15, ease: "easeOut" }}
             role="tooltip"
             className={cn(
-              "absolute z-50 max-w-[220px] rounded-lg px-3 py-2 text-xs leading-relaxed text-white bg-foreground shadow-lg pointer-events-none whitespace-normal",
+              "absolute z-50 max-w-[220px] rounded-lg px-3 py-2 text-xs leading-relaxed text-white bg-brand-dark shadow-lg pointer-events-none whitespace-normal",
               side === "top" && "bottom-full left-1/2 -translate-x-1/2 mb-2",
               side === "bottom" && "top-full left-1/2 -translate-x-1/2 mt-2"
             )}

@@ -91,7 +91,7 @@ export function TechStack() {
                         loading="lazy"
                       />
                       {/* Tech name tooltip */}
-                      <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-foreground px-2 py-0.5 text-[10px] font-medium text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 pointer-events-none">
+                      <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-brand-dark px-2 py-0.5 text-[10px] font-medium text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 pointer-events-none">
                         {item.name}
                       </span>
                     </div>

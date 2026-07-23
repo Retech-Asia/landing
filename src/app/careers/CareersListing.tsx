@@ -116,7 +116,7 @@ export function CareersListing({ jobs, email }: CareersListingProps) {
                   "px-4 py-2 text-sm font-medium rounded-full border transition-all duration-200 cursor-pointer",
                   isActive
                     ? dept === "All"
-                      ? "bg-foreground text-white border-foreground"
+                      ? "bg-brand-dark text-white border-foreground"
                       : `${styles!.pill} border`
                     : "bg-white text-foreground-secondary border-black/[0.08] hover:border-black/[0.16] hover:text-foreground"
                 )}

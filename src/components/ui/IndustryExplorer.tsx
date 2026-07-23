@@ -102,7 +102,7 @@ export function IndustryExplorer() {
                 "relative inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-200 cursor-pointer",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 isActive
-                  ? "bg-foreground text-white shadow-sm"
+                  ? "bg-brand-dark text-white shadow-sm"
                   : "bg-black/[0.04] text-foreground-secondary hover:bg-black/[0.07] hover:text-foreground"
               )}
             >
@@ -159,7 +159,7 @@ export function IndustryExplorer() {
                 {/* Card header - always visible */}
                 <div className="p-5 md:p-6">
                   {/* Icon with background */}
-                  <div className="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl bg-foreground/[0.04] transition-colors duration-300">
+                  <div className="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl bg-brand/[0.04] transition-colors duration-300">
                     <Icon
                       size={22}
                       className={cn(industry.color, "transition-transform duration-300")}

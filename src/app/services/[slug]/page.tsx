@@ -942,7 +942,7 @@ export default async function ServiceDetailPage({
       )}
 
       {/* ── CTA Section ─────────────────────────────────────── */}
-      <section className="relative py-20 md:py-28 bg-foreground overflow-hidden">
+      <section className="relative py-20 md:py-28 bg-brand-dark overflow-hidden">
         <Container className="relative z-10">
           <AnimatedSection>
             <div className="max-w-2xl mx-auto text-center">

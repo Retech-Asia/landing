@@ -185,7 +185,7 @@ export default async function IndustryDetailPage({
             </div>
 
             <AnimatedSection variant="slideUp" delay={0.06}>
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-foreground/[0.04] mb-6">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand/[0.04] mb-6">
                 <Icon size={28} className={industry.color} />
               </div>
             </AnimatedSection>
@@ -285,7 +285,7 @@ export default async function IndustryDetailPage({
                     <div className="relative rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] h-full">
                       {/* Step number badge */}
                       <div className="flex items-center gap-3 mb-4">
-                        <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-foreground/[0.04]">
+                        <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand/[0.04]">
                           <StepIcon size={20} className={industry.color} />
                         </div>
                         <span className="text-sm font-mono font-semibold text-brand tracking-wider">
@@ -465,7 +465,7 @@ export default async function IndustryDetailPage({
                         {cs.results.slice(0, 4).map((r, i) => (
                           <div
                             key={i}
-                            className="text-center p-2 rounded-lg bg-foreground/[0.02]"
+                            className="text-center p-2 rounded-lg bg-brand/[0.02]"
                           >
                             <p className="text-lg font-bold text-brand">
                               {r.value}
@@ -551,7 +551,7 @@ export default async function IndustryDetailPage({
                       className="group block h-full"
                     >
                       <Card padding="lg" className="h-full">
-                        <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-xl bg-foreground/[0.04] group-hover:bg-white/80 transition-colors duration-300">
+                        <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand/[0.04] group-hover:bg-white/80 transition-colors duration-300">
                           <ServiceIcon
                             size={20}
                             className="text-brand"
@@ -602,7 +602,7 @@ export default async function IndustryDetailPage({
                     className="group block h-full"
                   >
                     <Card padding="lg" className="h-full">
-                      <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-xl bg-foreground/[0.04] group-hover:bg-white/80 transition-colors duration-300">
+                      <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand/[0.04] group-hover:bg-white/80 transition-colors duration-300">
                         <OtherIcon size={20} className={other.color} />
                       </div>
                       <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-brand transition-colors">
@@ -628,7 +628,7 @@ export default async function IndustryDetailPage({
       </section>
 
       {/* -- CTA Section -------------------------------------------------- */}
-      <section className="relative py-20 md:py-28 bg-foreground overflow-hidden">
+      <section className="relative py-20 md:py-28 bg-brand-dark overflow-hidden">
         <Container className="relative z-10">
           <AnimatedSection>
             <div className="max-w-2xl mx-auto text-center">

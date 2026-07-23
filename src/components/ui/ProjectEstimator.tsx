@@ -442,7 +442,7 @@ export function ProjectEstimator() {
                     className={cn(
                       "relative w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold transition-colors duration-300",
                       isCompleted && "bg-brand text-white",
-                      isActive && "bg-foreground text-white ring-4 ring-foreground/10",
+                      isActive && "bg-brand text-white ring-4 ring-brand/10",
                       isPending && "bg-black/[0.06] text-foreground-muted",
                     )}
                     animate={

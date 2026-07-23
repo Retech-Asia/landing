@@ -243,7 +243,7 @@ function OfficeHoursCard() {
           <Clock size={16} className="text-brand" strokeWidth={1.75} />
         </div>
         <h4 className="text-sm font-semibold text-foreground">Office Hours</h4>
-        <span className="ml-auto text-[10px] font-mono text-foreground-muted bg-foreground/[0.04] px-2 py-0.5 rounded-full">
+        <span className="ml-auto text-[10px] font-mono text-foreground-muted bg-brand/[0.04] px-2 py-0.5 rounded-full">
           ICT (GMT+7)
         </span>
       </div>

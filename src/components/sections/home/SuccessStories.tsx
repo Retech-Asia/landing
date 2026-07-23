@@ -101,7 +101,7 @@ export function SuccessStories() {
         <AnimatedSection delay={0.3} className="mt-12 text-center">
           <Link
             href="/case-studies"
-            className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-medium text-white transition-all hover:bg-foreground/90 hover:gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-2 rounded-full bg-brand-dark px-6 py-3 text-sm font-medium text-white transition-all hover:bg-brand hover:gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
           >
             View All Case Studies <ArrowRight size={16} aria-hidden="true" />
           </Link>
