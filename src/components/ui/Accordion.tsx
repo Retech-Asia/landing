@@ -87,7 +87,7 @@ export function Accordion({ items, className }: AccordionProps) {
                 >
                   {itemNumber}
                 </span>
-                <span className="text-base font-medium text-foreground group-hover/item:text-brand transition-colors truncate">
+                <span className="text-base font-medium text-foreground group-hover/item:text-brand transition-colors line-clamp-2 min-w-0 flex-1">
                   {item.question}
                 </span>
               </div>

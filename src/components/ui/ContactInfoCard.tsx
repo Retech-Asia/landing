@@ -115,7 +115,7 @@ export function ContactInfoCard({
         {/* Content */}
         <div className="min-w-0 flex-1">
           <p className="text-xs font-medium text-foreground-muted mb-0.5">{label}</p>
-          <p className="text-sm font-semibold text-foreground truncate">{value}</p>
+          <p className="text-sm font-semibold text-foreground break-words">{value}</p>
           {description && (
             <p className="text-xs text-foreground-secondary mt-1 leading-relaxed">{description}</p>
           )}

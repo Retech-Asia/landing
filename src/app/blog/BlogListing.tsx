@@ -221,7 +221,7 @@ function BlogListingGrid({
                     </div>
 
                     <div className="p-6 flex flex-col flex-1">
-                      <h3 className="text-lg font-semibold text-foreground leading-snug mb-2 line-clamp-2 group-hover:text-brand transition-colors">
+                      <h3 className="text-lg font-semibold text-foreground leading-snug mb-2 line-clamp-3 group-hover:text-brand transition-colors">
                         <Link
                           href={`/blog/${post.slug}`}
                           className="hover:underline"

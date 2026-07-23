@@ -145,7 +145,7 @@ function FAQAccordion({
                     String(index + 1).padStart(2, "0")
                   )}
                 </span>
-                <span className="text-base font-medium text-foreground group-hover/item:text-brand transition-colors truncate">
+                <span className="text-base font-medium text-foreground group-hover/item:text-brand transition-colors line-clamp-2 min-w-0 flex-1">
                   <HighlightedText text={item.question} query={searchQuery} />
                 </span>
               </div>

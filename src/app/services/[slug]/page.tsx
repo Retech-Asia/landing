@@ -817,7 +817,7 @@ export default async function ServiceDetailPage({
                       <span className="inline-block text-xs font-semibold uppercase tracking-wider text-accent-cyan bg-accent-cyan/10 rounded-full px-3 py-1 mb-4">
                         {post.category}
                       </span>
-                      <h3 className="text-base font-bold text-foreground mb-2 group-hover:text-brand transition-colors line-clamp-2">
+                      <h3 className="text-base font-bold text-foreground mb-2 group-hover:text-brand transition-colors line-clamp-3">
                         {post.title}
                       </h3>
                       <p className="text-sm text-foreground-secondary leading-relaxed mb-4 line-clamp-3">

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import {
   ArrowUp,
   Mail,
@@ -79,25 +78,31 @@ export function Footer() {
       {/* Main footer content */}
       <Container className="pt-16 pb-12">
         <StaggerContainer
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12"
           staggerDelay={0.12}
         >
-          {/* Column 1 -- Company info */}
-          <StaggerItem className="sm:col-span-2 lg:col-span-1">
+          {/* Column 1 -- Company info (full width on mobile, 4/12 on desktop) */}
+          <StaggerItem className="lg:col-span-4">
             <motion.div
               whileHover={{ scale: 1.03 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
               className="inline-block mb-5"
             >
-              <Link href="/" className="inline-flex items-center group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm">
-                <Image
-                  src="/images/og-image.png"
+              <Link href="/" className="inline-flex items-center group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm" aria-label="Retech Solutions home">
+                {/* SVG logo + wordmark — same treatment as navbar.
+                    Was previously loading /images/og-image.png (2500x305 banner
+                    squished into 220x27 slot — wrong aspect ratio + huge payload). */}
+                <img
+                  src="/images/logo.svg"
                   alt="Retech Solutions"
-                  width={220}
-                  height={27}
-                  sizes="220px"
-                  className="h-6 md:h-7 w-auto rounded-sm opacity-90 group-hover:opacity-100 transition-opacity"
+                  width={32}
+                  height={32}
+                  decoding="async"
+                  className="h-7 w-auto opacity-90 group-hover:opacity-100 transition-opacity"
                 />
+                <span className="ml-2 text-base font-semibold tracking-tight text-white">
+                  Retech<span className="text-brand-light"> Solutions</span>
+                </span>
               </Link>
             </motion.div>
             <p className="text-sm text-white/70 leading-relaxed mb-4 max-w-xs">
@@ -137,62 +142,70 @@ export function Footer() {
             </ul>
           </StaggerItem>
 
-          {/* Column 2 -- Quick Links */}
-          <StaggerItem>
-            <nav aria-label="Quick links">
-              <h4 className="text-sm font-semibold text-white mb-5">Quick Links</h4>
-              <ul className="space-y-3">
-                {quickLinks.map((link) => (
-                  <li key={link.href + link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </StaggerItem>
+          {/* Columns 2-4 -- Grouped nav sections.
+              On mobile these previously stacked vertically (3 sections × 5+
+              items each = ~1500px of dead space). Now grouped in a sub-grid:
+              2 cols on mobile, 3 cols on sm+, fills the remaining 8/12 on lg. */}
+          <div className="lg:col-span-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-6">
+              {/* Quick Links */}
+              <StaggerItem>
+                <nav aria-label="Quick links">
+                  <h4 className="text-sm font-semibold text-white mb-4">Quick Links</h4>
+                  <ul className="space-y-2.5">
+                    {quickLinks.map((link) => (
+                      <li key={link.href + link.label}>
+                        <Link
+                          href={link.href}
+                          className="text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </StaggerItem>
 
-          {/* Column 3 -- Services */}
-          <StaggerItem>
-            <nav aria-label="Services links">
-              <h4 className="text-sm font-semibold text-white mb-5">Services</h4>
-              <ul className="space-y-3">
-                {services.map((service) => (
-                  <li key={service.slug}>
-                    <Link
-                      href={`/services/${service.slug}`}
-                      className="text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
-                    >
-                      {service.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </StaggerItem>
+              {/* Services */}
+              <StaggerItem>
+                <nav aria-label="Services links">
+                  <h4 className="text-sm font-semibold text-white mb-4">Services</h4>
+                  <ul className="space-y-2.5">
+                    {services.map((service) => (
+                      <li key={service.slug}>
+                        <Link
+                          href={`/services/${service.slug}`}
+                          className="text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
+                        >
+                          {service.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </StaggerItem>
 
-          {/* Column 4 -- Resources */}
-          <StaggerItem>
-            <nav aria-label="Resource links">
-              <h4 className="text-sm font-semibold text-white mb-5">Resources</h4>
-              <ul className="space-y-3">
-                {resourceLinks.map((link) => (
-                  <li key={link.href + link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </StaggerItem>
+              {/* Resources */}
+              <StaggerItem className="col-span-2 sm:col-span-1">
+                <nav aria-label="Resource links">
+                  <h4 className="text-sm font-semibold text-white mb-4">Resources</h4>
+                  <ul className="space-y-2.5">
+                    {resourceLinks.map((link) => (
+                      <li key={link.href + link.label}>
+                        <Link
+                          href={link.href}
+                          className="text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </StaggerItem>
+            </div>
+          </div>
         </StaggerContainer>
       </Container>
 

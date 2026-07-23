@@ -341,7 +341,7 @@ export default async function BlogPostPage({
                           </div>
                         </div>
                         <div className="p-5">
-                          <h3 className="text-base font-bold text-foreground group-hover:text-brand transition-colors mb-2 line-clamp-2">
+                          <h3 className="text-base font-bold text-foreground group-hover:text-brand transition-colors mb-2 line-clamp-3">
                             {related.title}
                           </h3>
                           <p className="text-sm text-foreground-secondary line-clamp-2 mb-3">
