@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -61,6 +62,18 @@ export default function TechnologiesPage() {
           <CodeBracketIcon size={52} />
         </div>
       </PageHero>
+
+      {/* Cloud infrastructure visual strip */}
+      <div className="relative h-[200px] md:h-[280px] overflow-hidden">
+        <Image
+          src="/images/stock/cloud-tech.webp"
+          alt="Cloud infrastructure and data center technology"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+      </div>
 
       {/* Interactive tech listing with filters, flow diagram, and cards */}
       <Container>

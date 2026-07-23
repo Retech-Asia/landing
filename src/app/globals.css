@@ -174,6 +174,30 @@
   border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
+/* ── Dark-mode adjustments for premium background system ──
+   In dark mode the background is near-black, so the aurora/spotlight glows
+   need higher opacity to be visible. Light mode values (3-8%) disappear
+   on dark backgrounds — bump to 12-18% here. */
+[data-theme="dark"] .bg-aurora {
+  background:
+    radial-gradient(ellipse 50% 50% at 20% 30%, rgba(46, 160, 67, 0.15), transparent 60%),
+    radial-gradient(ellipse 40% 50% at 80% 20%, rgba(34, 211, 238, 0.12), transparent 55%),
+    radial-gradient(ellipse 45% 40% at 50% 80%, rgba(167, 139, 250, 0.10), transparent 60%);
+}
+[data-theme="dark"] .bg-spotlight-brand {
+  background: radial-gradient(circle 600px at 50% 40%, rgba(46, 160, 67, 0.12), transparent 70%);
+}
+[data-theme="dark"] .bg-spotlight-cyan {
+  background: radial-gradient(circle 600px at 50% 40%, rgba(34, 211, 238, 0.10), transparent 70%);
+}
+[data-theme="dark"] .bg-spotlight-violet {
+  background: radial-gradient(circle 600px at 50% 40%, rgba(167, 139, 250, 0.10), transparent 70%);
+}
+/* Shadows on cards need to be deeper in dark mode for depth perception */
+[data-theme="dark"] .shadow-\[0_1px_3px_rgba\(0\,0\,0\,0\.04\)\,0_4px_12px_rgba\(0\,0\,0\,0\.03\)\] {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2) !important;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-background-subtle: var(--background-subtle);

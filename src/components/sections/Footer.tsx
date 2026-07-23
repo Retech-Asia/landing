@@ -63,7 +63,7 @@ export function Footer() {
   };
 
   return (
-    <footer role="contentinfo" aria-label="Site footer" className="bg-foreground text-white">
+    <footer role="contentinfo" aria-label="Site footer" className="bg-brand-dark text-white">
       {/* Gradient top border */}
       <div
         className="h-[2px]"
