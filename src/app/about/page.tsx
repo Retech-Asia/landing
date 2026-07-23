@@ -16,7 +16,7 @@ import { ABOUT_STATS, SITE_URL } from "@/lib/constants";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import { ParallaxDivider } from "@/components/about/ParallaxDivider";
 import { AnimatedTimeline } from "@/components/about/AnimatedTimeline";
-import { LeadershipTeam } from "@/components/about/LeadershipTeam";
+
 import { ParallaxHero } from "@/components/about/ParallaxHero";
 import { CultureValues } from "@/components/about/CultureValues";
 import { OurCommitment } from "@/components/about/OurCommitment";
@@ -107,32 +107,8 @@ export default function AboutPage() {
         ]}
       />
 
-      {/* Person schema for leadership team — helps Google understand the people
-          behind the company. Powers potential Knowledge Panel results. */}
-      {[
-        { name: "Jay Pham", role: "Founder & CEO" },
-        { name: "Minh Tran", role: "CTO" },
-        { name: "Linh Nguyen", role: "Head of Design" },
-        { name: "Tuan Le", role: "VP of Engineering" },
-      ].map((person) => (
-        <script
-          key={person.name}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: person.name,
-              jobTitle: person.role,
-              worksFor: {
-                "@type": "Organization",
-                name: "Retech Solutions",
-              },
-              url: `${SITE_URL}/about`,
-            }),
-          }}
-        />
-      ))}
+      {/* Person schema removed — leadership section was removed from the
+          page, so the structured data referenced people not visible on-page. */}
 
       {/* Hero with Parallax Background */}
       <ParallaxHero />
@@ -226,7 +202,7 @@ export default function AboutPage() {
                     <h3 className="text-xl font-bold text-foreground">Our Vision</h3>
                   </div>
                   <p className="text-foreground-secondary leading-relaxed mb-5">
-                    To become the leading software development partner in Southeast Asia,
+                    To become the go-to software development partner in Southeast Asia,
                     recognized for delivering exceptional quality, fostering innovation,
                     and creating lasting impact for businesses worldwide.
                   </p>

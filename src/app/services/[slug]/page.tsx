@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, ArrowLeft, Mail, CheckCircle2, Quote } from "lucide-react";
@@ -360,6 +361,19 @@ export default async function ServiceDetailPage({
           </StaggerContainer>
         </Container>
       </section>
+
+      {/* Code/development visual strip — adds tangible "this is what we
+          build" context between the features grid and the project timeline. */}
+      <div className="relative h-[160px] md:h-[220px] overflow-hidden">
+        <Image
+          src="/images/stock/code-screen.webp"
+          alt="Development workspace — code, tools, and engineering process"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+      </div>
 
       {/* ── What to Expect Timeline ─────────────────────────── */}
       {service.timeline && service.timeline.length > 0 && (

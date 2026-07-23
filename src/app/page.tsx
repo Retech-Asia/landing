@@ -155,6 +155,25 @@ export default function HomePage() {
 
       <SectionDivider />
 
+      {/* AI visual strip — adds tech context before the value-prop section */}
+      <div className="relative h-[160px] md:h-[240px] overflow-hidden">
+        <Image
+          src="/images/stock/ai-abstract.webp"
+          alt="AI-powered software development capabilities"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <p className="text-sm md:text-lg font-medium text-foreground-secondary max-w-md">
+              AI-integrated engineering — from ML-powered search to intelligent automation
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* 6. WhyRetech — differentiators / value proposition */}
       <ScrollReveal speed={0.05}>
         <WhyRetech />

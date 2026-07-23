@@ -309,7 +309,7 @@ export const services: ServiceData[] = [
     slug: "dedicated-teams",
     title: "Dedicated Teams",
     subtitle: "Your Offshore Development Team",
-    description: "Build your offshore development team with top-tier talent from Vietnam \u2014 fully managed, scalable, and cost-effective. We handle recruitment, HR, payroll, and infrastructure so you can focus on product development with a team that integrates seamlessly into your existing workflows.",
+    description: "Build your offshore development team with experienced engineers from Vietnam \u2014 fully managed, scalable, and cost-effective. We handle recruitment, HR, payroll, and infrastructure so you can focus on product development with a team that integrates seamlessly into your existing workflows.",
     longDescription: "Our dedicated team model gives you access to pre-vetted senior developers, designers, and project managers who work exclusively on your projects. We handle recruitment, HR, infrastructure, and team management while you maintain full technical control. Scale up or down as needed with minimal overhead and maximum flexibility.",
     icon: UsersRound,
     gradient: "from-accent-violet/10 to-accent-cyan/10",

@@ -246,7 +246,7 @@ export function Footer() {
               </Link>
             </div>
             <p className="text-xs text-white/50">
-              Trusted by businesses worldwide
+              50+ projects delivered across 6 countries
             </p>
             <motion.button
               type="button"
