@@ -35,10 +35,8 @@ const MidPageCTA = dynamic(
   () => import("@/components/sections/home/MidPageCTA").then((m) => m.MidPageCTA),
   { loading: () => <CompactSectionFallback /> },
 );
-const Partners = dynamic(
-  () => import("@/components/sections/home/Partners").then((m) => m.Partners),
-  { loading: () => <SectionFallback /> },
-);
+// Partners section removed — duplicated TechStack content.
+// const Partners = dynamic(...)
 const SuccessStories = dynamic(
   () => import("@/components/sections/home/SuccessStories").then((m) => m.SuccessStories),
   { loading: () => <SectionFallback /> },
@@ -163,20 +161,14 @@ export default function HomePage() {
 
       <SectionDivider />
 
-      {/* 8. TechStack — technical detail after establishing value */}
+      {/* 8. TechStack — technical detail after establishing value.
+          Previously followed by a 3rd ScrollVelocity strip + Partners section.
+          Both removed: ScrollVelocity was redundant with the two at top,
+          Partners duplicated TechStack content (logo grid of the same tech
+          brands we already show above). */}
       <ScrollReveal speed={0.08}>
         <TechStack />
       </ScrollReveal>
-
-      <ScrollVelocityText
-        items={["REACT", "NEXT.JS", "NODE.JS", "PYTHON", "FLUTTER", "AWS", "GCP", "TYPESCRIPT", "AI/ML", "API"]}
-        direction="forward"
-        variant="outline"
-        speed={1.2}
-      />
-
-      {/* 9. Partners — continued social proof */}
-      <Partners />
 
       <SectionDivider variant="subtle" />
 

@@ -257,21 +257,16 @@ export default function ProcessPage() {
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
         <GradientBackground variant="subtle" />
-        <GridPattern className="opacity-60" />
-        <div
-          className="absolute inset-0 dot-pattern pointer-events-none opacity-30"
-          aria-hidden="true"
-        />
         <ContainerUI className="relative">
-          <AnimatedSection variant="slideUp">
+          <div className="page-hero-enter">
             <BreadcrumbNav
               items={[
                 { label: "Home", href: "/" },
                 { label: "Our Process" },
               ]}
             />
-          </AnimatedSection>
-          <AnimatedSection variant="slideUp" delay={0.08}>
+          </div>
+          <div className="page-hero-enter" style={{ animationDelay: "80ms" }}>
             <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3 text-center">Methodology</p>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground text-balance text-center mx-auto">
               How We Deliver
@@ -282,7 +277,7 @@ export default function ProcessPage() {
             <div className="mt-4">
               <GearIcon size={44} />
             </div>
-          </AnimatedSection>
+          </div>
         </ContainerUI>
       </section>
 

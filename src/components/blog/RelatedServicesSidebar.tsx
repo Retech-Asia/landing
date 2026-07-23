@@ -38,8 +38,8 @@ export function RelatedServicesSidebar({ category }: { category: string }) {
                     className="text-brand group-hover:scale-110 transition-transform"
                   />
                 </span>
-                <span>
-                  <span className="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">
+                <span className="flex flex-col">
+                  <span className="block text-sm font-semibold text-foreground group-hover:text-brand transition-colors">
                     {service.title}
                   </span>
                   <span className="block text-xs text-foreground-muted leading-relaxed mt-0.5">

@@ -110,7 +110,12 @@ export function PageTransition({ children }: PageTransitionProps) {
       <AnimatePresence mode="wait">
         <motion.div
           key={pathname}
-          initial={{ opacity: 0, y: 10 }}
+          // initial={false}: skip the entrance animation on first paint.
+          // AnimatePresence still runs exit/enter on subsequent client-side
+          // route changes. Without this, every page loads with opacity:0 in
+          // SSR and stays hidden until Framer Motion hydrates, blowing out
+          // LCP on every route.
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -6 }}
           transition={{ duration: 0.25, ease: "easeInOut" }}

@@ -11,9 +11,7 @@ import { DeferredPageTransition } from "@/components/ui/DeferredPageTransition";
 import { SITE_URL as SITE_URL_CONST, SITE_NAME as SITE_NAME_CONST, CONTACT } from "@/lib/constants";
 
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { hasAnalyticsConsent } from "@/lib/analytics";
+import { ConsentAwareAnalytics } from "@/components/ui/Analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,7 +35,8 @@ const SITE_DESCRIPTION =
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 5,
+  // No maximumScale cap — WCAG 1.4.4 requires users be able to zoom to 200%+.
+  // Capping maximumScale disables browser zoom for low-vision users.
   viewportFit: "cover",
   themeColor: "#208535",
 };
@@ -119,6 +118,15 @@ export const metadata: Metadata = {
 
   verification: {
     google: "EsgT0_yO6zLaAXGgi39ZFUxKQhTV2tkhLNHbA1-l_r8",
+    other: {
+      // Bing Webmaster Tools verification token. Get it from:
+      // https://www.bing.com/webmasters/settings → Site verification →
+      // "Meta tag" → copy the content value from
+      // <meta name="msvalidate.01" content="XXXXXXXX" /> into BING_SITE_VERIFICATION.
+      ...(process.env.BING_SITE_VERIFICATION
+        ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION }
+        : {}),
+    },
   },
 
   category: "technology",
@@ -185,24 +193,13 @@ export default function RootLayout({
           <header role="banner">
           <Navbar />
           </header>
-          <main id="main-content" className="flex-1 overflow-x-hidden">
+          <main id="main-content" className="flex-1 overflow-x-clip">
             <DeferredPageTransition>{children}</DeferredPageTransition>
           </main>
           <Footer />
         </ReducedMotionProvider>
         </SmoothScrollProvider>
-        <Analytics
-          beforeSend={(event) => {
-            if (!hasAnalyticsConsent()) return null;
-            return event;
-          }}
-        />
-        <SpeedInsights
-          beforeSend={(event) => {
-            if (!hasAnalyticsConsent()) return null;
-            return event;
-          }}
-        />
+        <ConsentAwareAnalytics />
       </body>
     </html>
   );

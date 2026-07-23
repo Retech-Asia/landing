@@ -161,7 +161,7 @@ export default async function BlogPostPage({
         <div className="lg:flex lg:gap-12 lg:items-start">
           {/* Main content */}
           <div className="min-w-0 flex-1">
-            <AnimatedSection variant="slideUp">
+            <div className="page-hero-enter">
               <header className="mb-10 md:mb-14">
                 <p className="text-xs font-medium uppercase tracking-wider text-foreground-muted mb-4">
                   {post.category}
@@ -173,35 +173,40 @@ export default async function BlogPostPage({
 
                 <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-foreground-muted">
                   <span className="flex items-center gap-1.5">
-                    <User size={15} />
+                    <User size={15} aria-hidden="true" />
                     {post.author}
                   </span>
-                  <span className="flex items-center gap-1.5">
-                    <Calendar size={15} />
+                  <time
+                    dateTime={post.date}
+                    className="flex items-center gap-1.5"
+                  >
+                    <Calendar size={15} aria-hidden="true" />
                     {new Date(post.date).toLocaleDateString("en-US", {
                       month: "long",
                       day: "numeric",
                       year: "numeric",
                     })}
-                  </span>
+                  </time>
+                  {post.updatedAt && post.updatedAt !== post.date && (
+                    <span className="text-xs text-foreground-muted/70">
+                      (Updated{" "}
+                      <time dateTime={post.updatedAt}>
+                        {new Date(post.updatedAt).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </time>
+                      )
+                    </span>
+                  )}
                   <span className="flex items-center gap-1.5">
-                    <Clock size={15} />
+                    <Clock size={15} aria-hidden="true" />
                     {post.readTime}
                   </span>
                 </div>
-
-                {post.updatedAt && post.updatedAt !== post.date && (
-                  <p className="mt-2 text-xs text-foreground-muted">
-                    Last updated on{" "}
-                    {new Date(post.updatedAt).toLocaleDateString("en-US", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                  </p>
-                )}
               </header>
-            </AnimatedSection>
+            </div>
 
             {/* Category-themed hero banner — visual only, title is in the H1 above */}
             <AnimatedSection variant="slideUp" delay={0.1}>
@@ -382,8 +387,8 @@ export default async function BlogPostPage({
           </div>
 
           {/* Sidebar — desktop only */}
-          <aside className="hidden lg:block w-56 shrink-0">
-            <div className="sticky top-28 space-y-6">
+          <aside className="hidden lg:block w-52 shrink-0">
+            <div className="sticky top-28 space-y-6 max-h-[calc(100vh-9rem)] overflow-y-auto pr-1 -mr-1">
               {post.headings.length > 0 && (
                 <TableOfContents headings={post.headings} />
               )}

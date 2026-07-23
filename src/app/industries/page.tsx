@@ -55,19 +55,11 @@ export default function IndustriesPage() {
       {/* Hero */}
       <section className="pt-32 pb-16 md:pt-40 md:pb-20 relative overflow-hidden">
         <GradientBackground variant="hero" />
-        <div
-          className="absolute inset-0 grid-pattern pointer-events-none opacity-40"
-          aria-hidden="true"
-        />
-        <div
-          className="absolute inset-0 dot-pattern pointer-events-none opacity-20"
-          aria-hidden="true"
-        />
         <Container className="relative z-10">
           <BreadcrumbNav
             items={[{ label: "Home", href: "/" }, { label: "Industries" }]}
           />
-          <AnimatedSection>
+          <div className="page-hero-enter">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6">
               Industries We Serve
             </h1>
@@ -76,7 +68,7 @@ export default function IndustriesPage() {
               deep domain expertise and proven technical capabilities to every
               industry we work in.
             </p>
-          </AnimatedSection>
+          </div>
 
           {/* Quick stats bar */}
           <AnimatedSection variant="slideUp" delay={0.15}>

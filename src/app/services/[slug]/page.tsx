@@ -710,8 +710,8 @@ export default async function ServiceDetailPage({
           </div>{/* end main content */}
 
           {/* ── Sidebar — desktop only ──────────────────────── */}
-          <aside className="hidden lg:block w-56 shrink-0">
-            <div className="sticky top-28">
+          <aside className="hidden lg:block w-52 shrink-0">
+            <div className="sticky top-28 max-h-[calc(100vh-9rem)] overflow-y-auto pr-1 -mr-1">
               <ServiceTOC items={tocItems} />
             </div>
           </aside>

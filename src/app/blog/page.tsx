@@ -68,14 +68,14 @@ export default function BlogPage() {
           ]}
         />
 
-        <AnimatedSection variant="slideUp">
+        <div className="page-hero-enter">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground text-balance text-center mx-auto">
             Insights &amp; Resources
           </h1>
           <p className="mt-4 text-lg text-foreground-secondary leading-relaxed max-w-3xl text-center mx-auto">
             Stay up to date with the latest trends in IT outsourcing, software development, and digital transformation from our team of experts.
           </p>
-        </AnimatedSection>
+        </div>
 
         <Suspense fallback={<BlogListSkeleton />}>
           <BlogListing posts={blogPosts} />

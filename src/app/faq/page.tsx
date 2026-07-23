@@ -58,29 +58,25 @@ export default function FAQPage() {
       <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
         <GradientBackground variant="hero" />
         <Container className="relative">
-          <AnimatedSection variant="slideUp">
+          <div className="page-hero-enter">
             <BreadcrumbNav
               items={[
                 { label: "Home", href: "/" },
                 { label: "FAQ" },
               ]}
             />
-          </AnimatedSection>
+          </div>
 
-          <div className="max-w-3xl">
-            <AnimatedSection variant="slideUp" delay={0.06}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-4">
-                Frequently Asked Questions
-              </h1>
-            </AnimatedSection>
+          <div className="max-w-3xl page-hero-enter" style={{ animationDelay: "80ms" }}>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-4">
+              Frequently Asked Questions
+            </h1>
 
-            <AnimatedSection variant="slideUp" delay={0.12}>
-              <p className="text-lg text-foreground-secondary leading-relaxed max-w-2xl">
-                Everything you need to know about our services, process, and
-                engagement models. Can&apos;t find what you&apos;re looking for?
-                Reach out to our team directly.
-              </p>
-            </AnimatedSection>
+            <p className="text-lg text-foreground-secondary leading-relaxed max-w-2xl">
+              Everything you need to know about our services, process, and
+              engagement models. Can&apos;t find what you&apos;re looking for?
+              Reach out to our team directly.
+            </p>
           </div>
         </Container>
       </section>

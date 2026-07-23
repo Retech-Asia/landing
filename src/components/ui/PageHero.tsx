@@ -2,7 +2,6 @@ import { type ReactNode } from "react";
 import { Container } from "@/components/ui/Container";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
 import { GradientBackground } from "@/components/ui/GradientBackground";
-import { GridPattern } from "@/components/ui/GridPattern";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { cn } from "@/lib/cn";
 
@@ -24,6 +23,18 @@ interface PageHeroProps {
   className?: string;
 }
 
+/**
+ * PageHero — the header block used on every internal page.
+ *
+ * LCP note: the h1 + description render VISIBLE on SSR (no opacity:0 gate).
+ * Previously these were wrapped in `<AnimatedSection variant="slideUp">`
+ * which sets `opacity:0` until Framer Motion hydrates and the IntersectionObserver
+ * fires — on throttled mobile that pushed LCP past 4s on /services, /about, etc.
+ *
+ * Entrance polish is delivered by `.page-hero-enter` (pure CSS keyframe in
+ * globals.css). Below-fold content (children) still uses AnimatedSection since
+ * it's below the fold and the whileInView trigger is appropriate there.
+ */
 export function PageHero({
   title,
   description,
@@ -38,24 +49,24 @@ export function PageHero({
         className,
       )}
     >
-      {/* Background layers */}
+      {/* Background — single subtle gradient layer. Previously had 3 layers
+          stacked (GradientBackground + GridPattern + dot-pattern) which read
+          as visual noise / AI-generated filler on every internal page. */}
       <GradientBackground variant="subtle" />
-      <GridPattern className="opacity-60" />
-      <div
-        className="absolute inset-0 dot-pattern pointer-events-none opacity-30"
-        aria-hidden="true"
-      />
 
       {/* Content */}
       <Container className="relative z-10">
         {breadcrumbs && breadcrumbs.length > 0 && (
-          <AnimatedSection variant="slideUp">
+          <div className="page-hero-enter" style={{ animationDelay: "0ms" }}>
             <BreadcrumbNav items={breadcrumbs} />
-          </AnimatedSection>
+          </div>
         )}
 
-        <AnimatedSection variant="slideUp" delay={0.08}>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6">
+        <div
+          className="page-hero-enter"
+          style={{ animationDelay: breadcrumbs?.length ? "80ms" : "0ms" }}
+        >
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6 text-balance">
             {title}
           </h1>
 
@@ -64,7 +75,7 @@ export function PageHero({
               {description}
             </p>
           )}
-        </AnimatedSection>
+        </div>
 
         {children && (
           <AnimatedSection variant="slideUp" delay={0.16}>

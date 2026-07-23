@@ -18,6 +18,9 @@ const HeroScene = dynamic(
  *
  * Behavior:
  * - Lazy-loaded (only mounts when hero is in viewport via dynamic import)
+ * - **Deferred until after first paint + idle** so the 868KB Three.js chunk
+ *   never blocks LCP/TBT. The orbs appear ~1s after the page settles,
+ *   giving the hero text time to paint first.
  * - SSR-safe (no WebGL during server render)
  * - Respects prefers-reduced-motion (renders nothing; CSS gradients remain)
  * - Skipped on mobile/touch + small screens (battery + perf + visual clutter)
@@ -26,6 +29,7 @@ const HeroScene = dynamic(
 export function Hero3DBackground() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const [isDesktop, setIsDesktop] = useState(false);
+  const [deferred, setDeferred] = useState(false);
 
   useEffect(() => {
     // Only mount the WebGL scene on screens ≥ 768px with a fine pointer
@@ -38,7 +42,26 @@ export function Hero3DBackground() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  if (prefersReducedMotion || !isDesktop) return null;
+  useEffect(() => {
+    if (!isDesktop) return;
+    // Defer Three.js mount until the page is idle. This is the single
+    // biggest perf win on the site — the 868KB chunk was previously
+    // competing with LCP for main-thread time on desktop.
+    const ric =
+      typeof window.requestIdleCallback === "function"
+        ? window.requestIdleCallback
+        : (cb: () => void) => window.setTimeout(cb, 1200);
+    const handle = ric(() => setDeferred(true));
+    return () => {
+      if (typeof window.cancelIdleCallback === "function") {
+        window.cancelIdleCallback(handle as number);
+      } else {
+        window.clearTimeout(handle as number);
+      }
+    };
+  }, [isDesktop]);
+
+  if (prefersReducedMotion || !isDesktop || !deferred) return null;
 
   return (
     // pointer-events-none on the wrapper so the canvas never traps wheel/tap
@@ -53,3 +76,4 @@ export function Hero3DBackground() {
     </div>
   );
 }
+

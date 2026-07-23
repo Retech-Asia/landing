@@ -6,8 +6,7 @@ import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { StaggerContainer, StaggerItem } from "@/components/ui/AnimatedSection";
-import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
-import { HIGHLIGHTS, STATS } from "@/lib/constants";
+import { HIGHLIGHTS } from "@/lib/constants";
 
 const iconMap: Record<string, LucideIcon> = {
   code: Code,
@@ -34,19 +33,9 @@ export function WhyRetech() {
           gradient
         />
 
-        {/* Animated stats row */}
-        <StaggerContainer className="grid grid-cols-3 gap-3 sm:gap-6 max-w-xl mx-auto mb-14 md:mb-20" staggerDelay={0.15}>
-          {STATS.map((stat) => (
-            <StaggerItem key={stat.label}>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold gradient-text-brand">
-                  <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                </div>
-                <p className="text-xs md:text-sm text-foreground-muted mt-1">{stat.label}</p>
-              </div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+        {/* Stats row removed — duplicate of the Hero stats above.
+            Was showing 50+/30+/5+ for the third time on the homepage
+            (Hero → StatsBar → here). Keeping it caused "stats fatigue". */}
 
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" staggerDelay={0.1}>
           {HIGHLIGHTS.map((item, i) => {

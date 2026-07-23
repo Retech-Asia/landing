@@ -116,24 +116,29 @@ export function ServicePreview() {
               <CardReveal key={service.href} index={i}>
                 <TiltCard>
                   <Link href={service.href} className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-2xl focus-visible:ring-offset-2">
-                    <div className="group relative h-full rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
-                      {/* Top accent line */}
-                      <div className="absolute inset-x-0 top-0 h-[2px] rounded-t-2xl bg-gradient-to-r from-transparent via-black/[0.08] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="group relative h-full overflow-hidden rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(32,133,53,0.06)]">
+                      {/* Animated top accent — brand gradient, draws in on hover */}
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out bg-gradient-to-r from-brand via-accent-cyan to-accent-violet"
+                      />
 
                       <Icon size={28} className={`${accentColors[i]} mb-5 transition-transform duration-300 group-hover:-translate-y-1`} />
 
                       <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-brand transition-colors">
                         {service.label}
                       </h3>
-                      <p className="text-sm text-foreground-secondary leading-relaxed mb-4">
+                      <p className="text-sm text-foreground-secondary leading-relaxed mb-5">
                         {service.description}
                       </p>
-                      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-brand opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span className="relative">
-                          Learn more
-                          <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-brand transition-all duration-300 group-hover:w-full" />
-                        </span>
-                        <ArrowRight size={14} />
+                      {/* Always-visible CTA — better discoverability than hover-only */}
+                      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-brand">
+                        Learn more
+                        <ArrowRight
+                          size={14}
+                          className="transition-transform duration-300 group-hover:translate-x-0.5"
+                          aria-hidden="true"
+                        />
                       </span>
                     </div>
                   </Link>

@@ -82,13 +82,13 @@ const communicationChannels = [
     href: CONTACT.phoneHref,
   },
   {
-    icon: Hash,
+    icon: MessageSquare,
     color: "text-accent-violet",
     bg: "bg-accent-violet/10",
-    title: "Email",
-    detail: CONTACT.email,
-    description: "Send us a message — we reply within 24 hours",
-    href: CONTACT.emailHref,
+    title: "Live Chat",
+    detail: "retech.asia",
+    description: "In-app live chat — fastest response (business hours, GMT+7)",
+    href: "/contact",
   },
   {
     icon: Video,
@@ -126,24 +126,10 @@ export default function ContactPage() {
         <div className="absolute -bottom-10 right-1/4 w-[40vw] h-[40vw] rounded-full bg-accent-cyan/[0.02] blur-[140px] animate-mesh-5" />
       </div>
 
-      {/* Dot-pattern overlay */}
-      <div className="absolute inset-0 dot-pattern opacity-[0.12] pointer-events-none" />
-
-      {/* Grid-pattern texture in hero area */}
-      <div className="absolute top-0 left-0 right-0 h-[500px] grid-pattern opacity-[0.04] pointer-events-none" aria-hidden="true" />
-
-      {/* Decorative floating shapes */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        <div
-          className="absolute top-[20%] right-[15%] w-16 h-16 rounded-full border border-brand/[0.08] animate-spin"
-          style={{ animationDuration: '45s' }}
-        />
-        <div
-          className="absolute top-[60%] left-[5%] w-10 h-10 rounded-lg border border-accent-violet/[0.08] animate-float-slow"
-        />
-        <div className="absolute top-[35%] left-[12%] w-6 h-6 rounded-full border border-accent-cyan/[0.06] animate-float-slower" />
-        <div className="absolute top-[75%] right-[8%] w-8 h-8 rounded-md border border-brand/[0.05] rotate-45 animate-geo-2" />
-      </div>
+      {/* Background simplified: previously had dot-pattern + grid-pattern +
+          4 decorative floating shapes (rotating circle, floating square,
+          small circle, rotating diamond). All read as visual noise —
+          removed to keep the contact form distraction-free. */}
 
       <Container className="relative">
         <BreadcrumbNav
@@ -153,7 +139,7 @@ export default function ContactPage() {
           ]}
         />
 
-        <AnimatedSection variant="slideUp">
+        <div className="page-hero-enter">
           <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3 text-center">Contact</p>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground text-balance text-center mx-auto">
             Get In Touch
@@ -161,7 +147,7 @@ export default function ContactPage() {
           <p className="mt-4 text-lg text-foreground-secondary leading-relaxed max-w-3xl text-center mx-auto">
             Have a project in mind? We&apos;d love to hear about it. Fill out the form below and our team will get back to you within one business day.
           </p>
-        </AnimatedSection>
+        </div>
 
         {/* What to Expect */}
         <AnimatedSection variant="slideUp" delay={0.05}>

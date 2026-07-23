@@ -29,45 +29,70 @@ export function SuccessStories() {
         </AnimatedSection>
 
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {previews.map((preview) => (
-            <StaggerItem key={preview.slug}>
-              <Link
-                href={preview.href}
-                className="group card-shimmer block h-full rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-8 transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
-              >
-                {/* Industry badge */}
-                <p className="text-xs font-medium tracking-widest uppercase text-brand mb-3">
-                  {preview.industry}
-                </p>
+          {previews.map((preview) => {
+            const hero = preview.metrics[0];
+            const rest = preview.metrics.slice(1);
+            return (
+              <StaggerItem key={preview.slug}>
+                <Link
+                  href={preview.href}
+                  className="group card-shimmer relative block h-full overflow-hidden rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-8 transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(32,133,53,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
+                >
+                  {/* Animated top accent line — brand gradient, draws in on hover */}
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out bg-gradient-to-r from-brand via-accent-cyan to-accent-violet"
+                  />
 
-                {/* Title & tagline */}
-                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 group-hover:text-brand transition-colors">
-                  {preview.title}
-                </h3>
-                <p className="text-sm text-foreground-muted mb-6">
-                  {preview.tagline}
-                </p>
+                  {/* Industry badge — pill, not just text */}
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand/8 border border-brand/15 text-[11px] font-medium tracking-wide uppercase text-brand-dark mb-4">
+                    <span className="w-1 h-1 rounded-full bg-brand" aria-hidden="true" />
+                    {preview.industry}
+                  </span>
 
-                {/* Key metrics */}
-                <div className="space-y-3 mb-6">
-                  {preview.metrics.map((m) => (
-                    <div key={m.metric} className="flex items-center justify-between">
-                      <span className="text-sm text-foreground-secondary">{m.metric}</span>
-                      <span className="text-sm font-semibold text-foreground">{m.value}</span>
+                  {/* Title & tagline */}
+                  <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 group-hover:text-brand transition-colors">
+                    {preview.title}
+                  </h3>
+                  <p className="text-sm text-foreground-muted mb-6">
+                    {preview.tagline}
+                  </p>
+
+                  {/* Hero metric — big, bold, gradient */}
+                  {hero && (
+                    <div className="mb-5 pb-5 border-b border-black/[0.06]">
+                      <div className="text-3xl md:text-4xl font-bold gradient-text-brand leading-none tracking-tight">
+                        {hero.value}
+                      </div>
+                      <div className="text-xs text-foreground-muted mt-1.5 tracking-wide">
+                        {hero.metric}
+                      </div>
                     </div>
-                  ))}
-                </div>
+                  )}
 
-                {/* Divider */}
-                <div className="h-px bg-black/[0.06] mb-5" />
+                  {/* Secondary metrics — compact rows */}
+                  {rest.length > 0 && (
+                    <div className="space-y-2 mb-6">
+                      {rest.map((m) => (
+                        <div
+                          key={m.metric}
+                          className="flex items-center justify-between text-sm"
+                        >
+                          <span className="text-foreground-secondary">{m.metric}</span>
+                          <span className="font-semibold text-foreground">{m.value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
-                {/* CTA link */}
-                <span className="inline-flex items-center gap-2 text-sm font-medium text-brand group-hover:gap-3 transition-all">
-                  Read Case Study <ArrowRight size={16} aria-hidden="true" />
-                </span>
-              </Link>
-            </StaggerItem>
-          ))}
+                  {/* CTA link */}
+                  <span className="inline-flex items-center gap-2 text-sm font-medium text-brand group-hover:gap-3 transition-all">
+                    Read Case Study <ArrowRight size={16} aria-hidden="true" />
+                  </span>
+                </Link>
+              </StaggerItem>
+            );
+          })}
         </StaggerContainer>
 
         {/* View all button */}

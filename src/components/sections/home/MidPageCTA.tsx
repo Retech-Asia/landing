@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, MessageSquare } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 
@@ -27,14 +27,11 @@ export function MidPageCTA() {
 
           <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div className="flex-1">
-              <div className="flex items-center gap-2.5 mb-3">
-                <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-brand/10">
-                  <MessageSquare size={18} className="text-brand" />
-                </div>
-                <span className="text-xs font-medium tracking-widest uppercase text-brand">
-                  Free Consultation
-                </span>
-              </div>
+              {/* Eyebrow text only — no icon box above it (user flagged that
+                  pattern as AI-generated-feeling). */}
+              <span className="block text-xs font-medium tracking-widest uppercase text-brand mb-3">
+                Free Consultation
+              </span>
               <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">
                 Not Sure Where to Start?
               </h3>
@@ -48,7 +45,7 @@ export function MidPageCTA() {
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:bg-brand-light hover:shadow-[0_4px_20px_rgba(32,133,53,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
               >
-                Book Free Call
+                Get Free Consultation
                 <ArrowRight size={16} aria-hidden="true" />
               </Link>
               <Link

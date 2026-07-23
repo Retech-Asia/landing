@@ -4,7 +4,6 @@ import { motion, AnimatePresence, useMotionValueEvent, useScroll, type Variants 
 import { Menu, X, ChevronDown } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
@@ -283,14 +282,14 @@ export function Navbar() {
   return (
     <motion.nav
       aria-label="Main navigation"
-      initial={{ y: -20, opacity: 0 }}
+      // SSR-visible: opacity stays 1 on first paint so users see the nav
+      // immediately. We still animate `y` for the scroll-hide behavior.
+      initial={false}
       animate={{
         y: hidden ? -80 : 0,
-        opacity: 1,
       }}
       transition={{
         y: { duration: 0.35, ease: [0.23, 1, 0.32, 1] },
-        opacity: { duration: 0.4, ease: "easeOut" },
       }}
       style={{
         backdropFilter: blurAmount > 0 ? `blur(${blurAmount}px)` : undefined,
@@ -317,17 +316,23 @@ export function Navbar() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
+          {/* Logo — uses /images/logo.svg (the real Retech hexagonal-R mark,
+              612x612 viewBox, ~2.6KB). The previous src was /images/og-image.png
+              which is a 2500x305 banner being squished into a 40px-tall slot —
+              massive LCP cost for zero visual benefit. SVG is crisp at any
+              size and 1000x smaller payload. */}
           <Link href="/" className="flex items-center group" aria-label="Retech Solutions home">
-            <Image
-              src="/images/og-image.png"
+            <img
+              src="/images/logo.svg"
               alt="Retech Solutions"
-              width={328}
+              width={40}
               height={40}
-              priority
-              sizes="(max-width: 640px) 200px, (max-width: 1024px) 280px, 328px"
-              className="h-6 sm:h-9 md:h-10 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-[1.03]"
+              decoding="async"
+              className="h-7 sm:h-8 md:h-9 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-[1.04]"
             />
+            <span className="ml-2.5 text-base sm:text-lg font-semibold tracking-tight text-foreground hidden sm:inline-block">
+              Retech<span className="text-brand"> Solutions</span>
+            </span>
           </Link>
 
           {/* Desktop Nav */}
@@ -436,7 +441,7 @@ export function Navbar() {
           <div className="hidden lg:flex items-center gap-2">
             <ThemeToggle />
             <Button href="/contact" size="sm">
-              Request Quote
+              Get Free Consultation
             </Button>
           </div>
 

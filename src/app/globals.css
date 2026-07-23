@@ -148,7 +148,8 @@
 [data-theme="dark"] {
   color-scheme: dark;
 }
-   Pragmatic approach: instead of refactoring 129 individual `bg-white`
+
+/* Pragmatic approach: instead of refactoring 129 individual `bg-white`
    instances across the codebase, override them globally here. When dark
    mode is active, all solid-white surfaces become the dark background-subtle
    token. This also catches `bg-white/80` and `bg-white/90` variants.
@@ -655,6 +656,34 @@ p, li {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: hero-gradient-shift 6s ease-in-out infinite;
+}
+
+/* LCP-critical entrance for the hero content container.
+   Pure CSS so it can't be blocked by client-side JS hydration.
+   The container holds the eyebrow, h1, subhead, CTAs, and stats — they
+   all render visible on SSR, and this animation just adds a subtle
+   0.5s fade+rise polish after first paint. */
+@keyframes hero-content-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero-content-enter {
+  animation: hero-content-rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.page-hero-enter {
+  animation: hero-content-rise 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-content-enter,
+  .page-hero-enter {
+    animation: none;
+  }
 }
 
 /* Hero pulsing border — subtle glow outline */

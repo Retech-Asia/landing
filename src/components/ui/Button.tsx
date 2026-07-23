@@ -32,14 +32,14 @@ export function Button({
   const sizeStyles = {
     sm: "px-4 py-2 text-sm gap-1.5",
     md: "px-6 py-3 text-sm gap-2",
-    lg: "px-8 py-4 text-base gap-2.5",
+    lg: "px-7 py-3.5 text-base gap-2.5",
   };
 
   const variantStyles = {
     primary:
       "bg-brand text-white hover:bg-brand-light hover:shadow-[0_4px_20px_rgba(32,133,53,0.25)] hover:shadow-brand/25 active:bg-brand-dark active:scale-[0.97] btn-shimmer",
     secondary:
-      "bg-white text-foreground border border-black/[0.12] hover:border-black/[0.20] hover:shadow-[0_2px_12px_rgba(0,0,0,0.08)] active:scale-[0.97] active:bg-black/[0.02] shadow-[0_1px_3px_rgba(0,0,0,0.04)]",
+      "bg-white/[0.6] backdrop-blur-md text-foreground border border-foreground/[0.12] hover:border-foreground/25 hover:bg-white/[0.85] hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] active:scale-[0.97] shadow-[0_1px_3px_rgba(0,0,0,0.04)]",
     ghost: "text-foreground-secondary hover:text-foreground hover:bg-black/[0.04] active:bg-black/[0.08] active:scale-[0.97]",
   };
 
