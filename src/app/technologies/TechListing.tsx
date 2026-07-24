@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import Image from "next/image";
+// next/image removed — all tech logos are SVG and use plain <img>.
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/cn";
 
@@ -336,12 +336,16 @@ function TechCard({
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-center gap-3 min-w-0">
             {tech.logo ? (
-              <Image
+              // Plain <img> for SVG logos — next/image blocks SVG without
+              // dangerouslyAllowSVG config. Vectors don't need optimization.
+              <img
                 src={`/images/tech/${tech.logo}`}
                 alt={`${tech.name} logo`}
                 width={36}
                 height={36}
                 className="w-9 h-9 object-contain flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
               />
             ) : (
               <div

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+// Plain <img> for SVG partner/tech logos — next/image blocks SVG.
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -40,14 +40,14 @@ function PartnerCard({
       className="group relative flex-shrink-0 w-44 md:w-52 rounded-2xl bg-white border border-black/[0.06] p-5 md:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:scale-[1.02]"
     >
       <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-black/[0.03] mb-4 transition-transform duration-300 group-hover:scale-110 overflow-hidden">
-        <Image
+        <img
           src={partner.logo}
           alt={`${partner.name} logo`}
           width={24}
           height={24}
-          sizes="24px"
           className="w-6 h-6 object-contain"
           loading="lazy"
+          decoding="async"
         />
       </div>
       <h3 className="text-base font-semibold text-foreground mb-1 group-hover:text-brand transition-colors duration-300">

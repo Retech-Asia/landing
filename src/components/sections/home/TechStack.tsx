@@ -1,6 +1,9 @@
 "use client";
 
-import Image from "next/image";
+// Plain <img> used for tech logos (all SVGs). next/image blocks SVG without
+// dangerouslyAllowSVG config (security: SVG can carry <script>). Vectors
+// don't need optimization — they're already tiny and resolution-independent.
+// Plain <img> is the Next.js-recommended approach for self-hosted SVGs.
 import { Container } from "@/components/ui/Container";
 import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -81,14 +84,14 @@ export function TechStack() {
                       key={item.name}
                       className="group relative flex items-center justify-center w-11 h-11 rounded-xl border border-card-border bg-white p-2.5 transition-all duration-300 hover:border-brand/30 hover:shadow-[0_2px_8px_rgba(32,133,53,0.08)] hover:scale-105"
                     >
-                      <Image
+                      <img
                         src={item.src}
                         alt={item.alt}
                         width={24}
                         height={24}
                         className="w-full h-full object-contain"
-                        sizes="24px"
                         loading="lazy"
+                        decoding="async"
                       />
                       {/* Tech name tooltip */}
                       <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-brand-dark px-2 py-0.5 text-[10px] font-medium text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 pointer-events-none">
