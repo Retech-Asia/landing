@@ -144,7 +144,10 @@ export function Hero() {
             <div className="mb-10 max-w-2xl">
               <p className="text-lg md:text-xl text-foreground-secondary leading-relaxed mb-2">
                 We build{" "}
-                <span className="inline-flex relative h-[1.4em] overflow-hidden align-bottom">
+                <span
+                  className="relative inline-block overflow-hidden align-baseline"
+                  style={{ height: "1em", lineHeight: "1em", verticalAlign: "baseline" }}
+                >
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={rotatingIndex}
@@ -153,12 +156,13 @@ export function Hero() {
                       exit={{ y: "-100%", opacity: 0 }}
                       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                       className="absolute left-0 whitespace-nowrap font-semibold gradient-text-brand"
+                      style={{ lineHeight: "1em", top: "-3px" }}
                     >
                       {rotatingServices[rotatingIndex]}
                     </motion.span>
                   </AnimatePresence>
-                  {/* Invisible spacer to reserve width */}
-                  <span className="invisible font-semibold">
+                  {/* Invisible spacer — reserves width for the longest phrase */}
+                  <span className="invisible font-semibold whitespace-nowrap" style={{ lineHeight: "1em" }}>
                     {rotatingServices.reduce((a, b) => a.length > b.length ? a : b)}
                   </span>
                 </span>
