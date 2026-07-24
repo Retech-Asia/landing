@@ -144,25 +144,19 @@ export function Hero() {
             <div className="mb-10 max-w-2xl">
               <p className="text-lg md:text-xl text-foreground-secondary leading-relaxed mb-2">
                 We build{" "}
-                {/* Rotating service type. Inherits parent line-height so it
-                    sits perfectly on the baseline. Absolute child at top:0
-                    left:0 starts at the same position as the invisible spacer. */}
-                <span className="relative inline font-semibold">
+                <span className="inline-block font-semibold align-baseline">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={rotatingIndex}
-                      initial={{ y: "0.6em", opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: "-0.6em", opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute left-0 top-0 whitespace-nowrap gradient-text-brand"
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                      className="inline-block gradient-text-brand whitespace-nowrap"
                     >
                       {rotatingServices[rotatingIndex]}
                     </motion.span>
                   </AnimatePresence>
-                  <span className="invisible whitespace-nowrap">
-                    {rotatingServices.reduce((a, b) => a.length > b.length ? a : b)}
-                  </span>
                 </span>
                 {" "}your business can rely on.
               </p>
