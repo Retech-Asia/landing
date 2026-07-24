@@ -441,8 +441,9 @@ export default async function BlogPostPage({
             </AnimatedSection>
           </div>
 
-          {/* Sidebar — desktop only */}
-          <aside className="hidden lg:block w-52 shrink-0">
+          {/* Sidebar — desktop only. aria-label promotes <aside> to a
+              complementary landmark so screen readers announce it. */}
+          <aside aria-label="Article sidebar" className="hidden lg:block w-52 shrink-0">
             <div className="sticky top-28 space-y-6 max-h-[calc(100vh-9rem)] overflow-y-auto pr-1 -mr-1">
               {post.headings.length > 0 && (
                 <TableOfContents headings={post.headings} />

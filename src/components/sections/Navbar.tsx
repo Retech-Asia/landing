@@ -271,6 +271,7 @@ export function Navbar() {
   };
 
   return (
+    <>
     <nav
       aria-label="Main navigation"
       className={cn(
@@ -337,7 +338,7 @@ export function Navbar() {
                     className={cn(
                       "group/dropdown flex items-center gap-1 px-4 py-2 text-sm rounded-lg transition-colors duration-200 cursor-pointer",
                       isItemActive(item.href)
-                        ? "text-brand font-medium"
+                        ? "text-brand font-medium nav-active-text"
                         : "text-foreground-secondary hover:text-foreground hover:bg-black/[0.04]"
                     )}
                     onClick={() => setServicesOpen((prev) => !prev)}
@@ -406,7 +407,7 @@ export function Navbar() {
                   className={cn(
                     "group/link relative px-4 py-2 text-sm rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2",
                     isItemActive(item.href)
-                      ? "text-brand font-medium"
+                      ? "text-brand font-medium nav-active-text"
                       : "text-foreground-secondary hover:text-foreground hover:bg-black/[0.04]"
                   )}
                 >
@@ -448,8 +449,16 @@ export function Navbar() {
           </button>
         </div>
       </div>
+    </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — rendered OUTSIDE <nav> as a sibling.
+          When isScrolled is true, the nav gets `backdrop-filter: blur(12px)`,
+          which per CSS spec establishes a containing block for descendant
+          position:fixed elements. That was collapsing the slide-in panel
+          (fixed top-16 bottom-0) down to 0px tall because its containing
+          block became the 64px-tall nav instead of the viewport. Moving
+          the panel (and its backdrop overlay) out from under the filtered
+          nav restores viewport-relative positioning. */}
       <AnimatePresence>
         {isMobileOpen && (
           <>
@@ -514,7 +523,7 @@ export function Navbar() {
                             <Link
                               href="/services"
                               onClick={() => setIsMobileOpen(false)}
-                              className="block px-4 py-2.5 text-sm font-medium text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-lg"
+                              className="block px-4 py-2.5 text-sm font-medium text-brand nav-active-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-lg"
                             >
                               All Services
                             </Link>
@@ -548,7 +557,7 @@ export function Navbar() {
                         className={cn(
                           "block px-4 py-3 text-base rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2",
                           isItemActive(item.href)
-                            ? "text-brand font-medium border-l-2 border-brand bg-brand/[0.03]"
+                            ? "text-brand font-medium nav-active-text border-l-2 border-brand bg-brand/[0.03]"
                             : "text-foreground-secondary hover:text-foreground hover:bg-black/[0.04]"
                         )}
                       >
@@ -579,6 +588,6 @@ export function Navbar() {
           </>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 }

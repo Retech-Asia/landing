@@ -149,6 +149,13 @@
   color-scheme: dark;
 }
 
+/* Active nav items use `text-brand` (#208535) which passes WCAG AA on light
+   backgrounds but fails on dark surfaces (4.18:1 < 4.5). In dark mode,
+   brighten to `--brand-light` (#2EA04E = 5.5:1 on dark). */
+[data-theme="dark"] .nav-active-text {
+  color: var(--brand-light);
+}
+
 /* Pragmatic approach: instead of refactoring 129 individual `bg-white`
    instances across the codebase, override them globally here. When dark
    mode is active, all solid-white surfaces become the dark background-subtle
