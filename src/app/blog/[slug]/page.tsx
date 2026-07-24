@@ -16,6 +16,7 @@ import { ShareButtons } from "@/components/blog/ShareButtons";
 import { FeedbackWidget } from "@/components/blog/FeedbackWidget";
 import { blogPosts, getPostBySlug, getAllSlugs, getRelatedPosts } from "@/lib/blog-data";
 import { renderContent } from "@/lib/render-content";
+import { getBlogImage } from "@/lib/blog-images";
 import { BlogPostingJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import { ReadingProgress } from "./ReadingProgress";
@@ -208,16 +209,15 @@ export default async function BlogPostPage({
               </header>
             </div>
 
-            {/* Featured image — uses the post's auto-generated OG image.
-                Same asset that appears in social shares, now shown in-page. */}
+            {/* Featured image — topic-relevant stock photo (not OG screenshot) */}
             <div className="relative h-[240px] md:h-[360px] rounded-2xl overflow-hidden mb-8">
               <Image
-                src={`/blog/${post.slug}/opengraph-image`}
+                src={getBlogImage(post.slug)}
                 alt={post.title}
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 720px"
-                className="object-cover"
+                className="object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
 
@@ -378,10 +378,10 @@ export default async function BlogPostPage({
                         href={`/blog/${related.slug}`}
                         className="group relative block overflow-hidden rounded-2xl border border-black/[0.06] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
                       >
-                        {/* Real OG image thumbnail */}
+                        {/* Topic-relevant thumbnail */}
                         <div className="relative h-36 overflow-hidden">
                           <Image
-                            src={`/blog/${related.slug}/opengraph-image`}
+                            src={getBlogImage(related.slug)}
                             alt={related.title}
                             fill
                             sizes="(max-width: 768px) 100vw, 360px"

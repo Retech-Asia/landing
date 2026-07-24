@@ -3,6 +3,7 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { getBlogImage } from "@/lib/blog-images";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Clock, ArrowRight, Search, X } from "lucide-react";
 import { Card } from "@/components/ui/Card";
@@ -99,7 +100,7 @@ function BlogListingGrid({
                 } overflow-hidden`}
               >
                 <Image
-                  src={`/blog/${featuredPost.slug}/opengraph-image`}
+                  src={`${getBlogImage(featuredPost.slug)}`}
                   alt={featuredPost.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 40vw"
@@ -202,7 +203,7 @@ function BlogListingGrid({
                       } overflow-hidden`}
                     >
                       <Image
-                        src={`/blog/${post.slug}/opengraph-image`}
+                        src={`${getBlogImage(post.slug)}`}
                         alt={post.title}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
