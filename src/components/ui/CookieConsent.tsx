@@ -46,10 +46,10 @@ function Toggle({
         if (!disabled && onChange) onChange(!checked);
       }}
       onKeyDown={handleKeyDown}
-      className={`group relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30 focus-visible:ring-offset-2 ${
+      className={`group relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 ${
         checked
-          ? "bg-[var(--brand)]"
-          : "bg-gray-300"
+          ? "bg-brand-dark"
+          : "bg-foreground-muted/50"
       } ${disabled ? "opacity-60 cursor-not-allowed" : ""}`}
     >
       {/* Track knob */}
@@ -197,7 +197,7 @@ export function CookieConsent() {
           }}
           className="fixed bottom-0 inset-x-0 z-[60] flex justify-center px-4 pb-4 sm:px-6 sm:pb-6 pointer-events-none"
         >
-          <div className="w-full max-w-4xl pointer-events-auto rounded-2xl border border-gray-200/80 bg-white shadow-[0_-4px_32px_rgba(0,0,0,0.1)] overflow-hidden">
+          <div className="w-full max-w-4xl pointer-events-auto rounded-2xl border border-foreground/10 bg-card shadow-[0_-4px_32px_rgba(0,0,0,0.18)] overflow-hidden">
             {/* Gradient top border accent */}
             <div
               className="h-[2px] w-full"
@@ -210,12 +210,12 @@ export function CookieConsent() {
             <div className="px-5 py-4 sm:px-6 sm:py-5">
               {/* ── Main row ── */}
               <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
-                <p className="text-sm leading-relaxed text-gray-600 flex-1">
+                <p className="text-sm leading-relaxed text-foreground-secondary flex-1">
                   We use cookies to improve your experience and analyse site
                   traffic. You can choose which categories to allow. Read our{" "}
                   <a
                     href="/privacy-policy"
-                    className="font-medium text-gray-900 underline underline-offset-2 transition-colors hover:text-[var(--brand)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/30 focus-visible:ring-offset-2 rounded-sm"
+                    className="font-medium text-foreground underline underline-offset-2 transition-colors hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 rounded-sm"
                   >
                     Privacy Policy
                   </a>{" "}
@@ -225,21 +225,20 @@ export function CookieConsent() {
                 <div className="flex shrink-0 gap-3 w-full sm:w-auto">
                   <button
                     onClick={() => setShowPreferences((p) => !p)}
-                    className="flex-1 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-600 transition-all duration-200 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-300 focus-visible:ring-offset-2 sm:flex-initial cursor-pointer"
+                    className="flex-1 rounded-xl border border-foreground/15 bg-transparent px-4 py-2.5 text-sm font-medium text-foreground-secondary transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 sm:flex-initial cursor-pointer"
                   >
                     {showPreferences ? "Hide Preferences" : "Manage Preferences"}
                   </button>
                   <button
                     onClick={handleDeclineAll}
-                    className="flex-1 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-600 transition-all duration-200 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-300 focus-visible:ring-offset-2 sm:flex-initial cursor-pointer"
+                    className="flex-1 rounded-xl border border-foreground/15 bg-transparent px-4 py-2.5 text-sm font-medium text-foreground-secondary transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 sm:flex-initial cursor-pointer"
                   >
                     Decline
                   </button>
                   <button
                     ref={firstFocusableRef}
                     onClick={handleAcceptAll}
-                    className="flex-1 rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)] focus-visible:ring-offset-2 sm:flex-initial cursor-pointer"
-                    style={{ backgroundColor: "var(--brand)" }}
+                    className="flex-1 rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 sm:flex-initial cursor-pointer bg-brand-dark"
                   >
                     Accept All
                   </button>
@@ -257,7 +256,7 @@ export function CookieConsent() {
                     transition={{ duration: 0.25, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <div className="mt-4 space-y-0 divide-y divide-gray-100 rounded-xl border border-gray-100 bg-gray-50/50">
+                    <div className="mt-4 space-y-0 divide-y divide-foreground/[0.06] rounded-xl border border-foreground/10 bg-foreground/[0.02]">
                       {COOKIE_CATEGORIES.map((cat) => {
                         const isChecked =
                           cat.id === "necessary"
@@ -270,15 +269,15 @@ export function CookieConsent() {
                             className="flex items-center justify-between gap-4 px-4 py-3.5"
                           >
                             <div className="min-w-0 flex-1">
-                              <p className="text-sm font-medium text-gray-900">
+                              <p className="text-sm font-medium text-foreground">
                                 {cat.label}
                                 {cat.required && (
-                                  <span className="ml-1.5 text-xs font-normal text-gray-400">
+                                  <span className="ml-1.5 text-xs font-normal text-foreground-muted">
                                     (always active)
                                   </span>
                                 )}
                               </p>
-                              <p className="mt-0.5 text-xs leading-relaxed text-gray-500">
+                              <p className="mt-0.5 text-xs leading-relaxed text-foreground-secondary">
                                 {cat.description}
                               </p>
                             </div>
@@ -303,14 +302,13 @@ export function CookieConsent() {
                     <div className="mt-4 flex justify-end gap-3">
                       <button
                         onClick={handleDeclineAll}
-                        className="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-600 transition-all duration-200 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-300 focus-visible:ring-offset-2 cursor-pointer"
+                        className="rounded-xl border border-foreground/15 bg-transparent px-4 py-2.5 text-sm font-medium text-foreground-secondary transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 cursor-pointer"
                       >
                         Reject All
                       </button>
                       <button
                         onClick={handleSavePreferences}
-                        className="rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)] focus-visible:ring-offset-2 cursor-pointer"
-                        style={{ backgroundColor: "var(--brand)" }}
+                        className="rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 cursor-pointer bg-brand-dark"
                       >
                         Save Preferences
                       </button>

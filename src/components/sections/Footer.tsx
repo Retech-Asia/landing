@@ -93,7 +93,7 @@ export function Footer() {
               AI-powered digital products from Vietnam.
             </p>
             {/* Vietnam location indicator */}
-            <div className="inline-flex items-center gap-1.5 text-sm text-white/60 mb-6">
+            <div className="inline-flex items-center gap-1.5 text-sm text-white/80 mb-6">
               <MapPin size={14} className="shrink-0" aria-hidden="true" />
               <span>Vietnam 🇻🇳</span>
             </div>
@@ -101,7 +101,7 @@ export function Footer() {
               <li>
                 <a
                   href={CONTACT.emailHref}
-                  className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
+                  className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rounded-sm"
                 >
                   <Mail size={14} className="shrink-0" aria-hidden="true" />
                   {CONTACT.email}
@@ -110,14 +110,14 @@ export function Footer() {
               <li>
                 <a
                   href={CONTACT.phoneHref}
-                  className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
+                  className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rounded-sm"
                 >
                   <Phone size={14} className="shrink-0" aria-hidden="true" />
                   {CONTACT.phone}
                 </a>
               </li>
               <li>
-                <span className="inline-flex items-start gap-2 text-sm text-white/50 leading-relaxed">
+                <span className="inline-flex items-start gap-2 text-sm text-white/80 leading-relaxed">
                   <MapPin size={14} className="shrink-0 mt-0.5" aria-hidden="true" />
                   {CONTACT.address}
                 </span>
@@ -140,7 +140,7 @@ export function Footer() {
                       <li key={link.href + link.label}>
                         <Link
                           href={link.href}
-                          className="text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
+                          className="text-sm text-white/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rounded-sm"
                         >
                           {link.label}
                         </Link>
@@ -159,7 +159,7 @@ export function Footer() {
                       <li key={service.slug}>
                         <Link
                           href={`/services/${service.slug}`}
-                          className="text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
+                          className="text-sm text-white/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rounded-sm"
                         >
                           {service.title}
                         </Link>
@@ -178,7 +178,7 @@ export function Footer() {
                       <li key={link.href + link.label}>
                         <Link
                           href={link.href}
-                          className="text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
+                          className="text-sm text-white/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rounded-sm"
                         >
                           {link.label}
                         </Link>
@@ -206,7 +206,7 @@ export function Footer() {
                 whileHover={{ scale: 1.15, color: hoverColor }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="text-white/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-full flex items-center justify-center w-11 h-11"
+                className="text-white/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rounded-full flex items-center justify-center w-11 h-11"
                 style={{ color: undefined }}
               >
                 {icon}
@@ -216,19 +216,19 @@ export function Footer() {
 
           {/* Copyright + legal links + trust */}
           <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4">
-            <p className="text-xs text-white/60">
+            <p className="text-xs text-white/80">
               &copy; {new Date().getFullYear()} {CONTACT.businessName}
             </p>
-            <div className="flex items-center gap-4 text-xs text-white/60">
-              <Link href="/privacy-policy" className="hover:text-white/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm">
+            <div className="flex items-center gap-4 text-xs text-white/80">
+              <Link href="/privacy-policy" className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rounded-sm">
                 Privacy Policy
               </Link>
               <span aria-hidden="true">|</span>
-              <Link href="/terms-of-service" className="hover:text-white/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm">
+              <Link href="/terms-of-service" className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rounded-sm">
                 Terms of Service
               </Link>
             </div>
-            <p className="text-xs text-white/50">
+            <p className="text-xs text-white/80">
               50+ projects delivered across 6 countries
             </p>
             <motion.button
@@ -237,7 +237,7 @@ export function Footer() {
               aria-label="Back to top"
               whileHover={{ y: -2 }}
               whileTap={{ y: 0 }}
-              className="inline-flex items-center gap-1 text-xs text-white/60 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
+              className="inline-flex items-center gap-1 text-xs text-white/80 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rounded-sm"
             >
               Back to top
               <motion.span
