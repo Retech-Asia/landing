@@ -106,7 +106,7 @@ export const caseStudies: CaseStudy[] = [
     ],
     images: {
       dashboard: {
-        src: "/images/stock/cs-wellness-dashboard.webp",
+        src: "/images/stock/cs-wellness-hero.webp",
         width: 1200,
         height: 800,
       },
@@ -181,7 +181,7 @@ export const caseStudies: CaseStudy[] = [
     ],
     images: {
       dashboard: {
-        src: "/images/stock/cs-asset-dashboard.webp",
+        src: "/images/stock/cs-asset-hero.webp",
         width: 1200,
         height: 800,
       },
@@ -252,7 +252,7 @@ export const caseStudies: CaseStudy[] = [
     ],
     images: {
       dashboard: {
-        src: "/images/stock/cs-intel-dashboard.webp",
+        src: "/images/stock/cs-intel-hero.webp",
         width: 1200,
         height: 800,
       },
@@ -321,7 +321,7 @@ export const caseStudies: CaseStudy[] = [
     ],
     images: {
       dashboard: {
-        src: "/images/stock/cs-fintech-dashboard.webp",
+        src: "/images/stock/cs-fintech-hero.webp",
         width: 1200,
         height: 800,
       },
@@ -390,7 +390,7 @@ export const caseStudies: CaseStudy[] = [
     ],
     images: {
       dashboard: {
-        src: "/images/stock/cs-ai-dashboard.webp",
+        src: "/images/stock/cs-ai-hero.webp",
         width: 1200,
         height: 800,
       },

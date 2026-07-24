@@ -128,39 +128,24 @@ export default function CaseStudiesPage() {
                 <div
                   className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center`}
                 >
-                  {/* Screenshots */}
+                  {/* Project image — single hero, full card width */}
                   <div className={index % 2 !== 0 ? "lg:order-2" : ""}>
-                    <TiltCard maxRotate={4}>
-                      <SpotlightCard
-                        className="spotlight-hover rounded-2xl"
-                        radius={400}
-                      >
-                        <Card hover={false} padding="none" className="overflow-hidden">
-                          <div className="flex gap-2 p-3">
-                            <div className="flex-[3]">
-                              <CaseStudyImage
-                                src={study.images.dashboard.src}
-                                alt={`${study.title} — dashboard interface screenshot`}
-                                width={study.images.dashboard.width}
-                                height={study.images.dashboard.height}
-                                className="rounded-lg w-full h-auto"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 500px"
-                              />
-                            </div>
-                            <div className="flex-[2]">
-                              <CaseStudyImage
-                                src={study.images.mobile.src}
-                                alt={`${study.title} — mobile application view`}
-                                width={study.images.mobile.width}
-                                height={study.images.mobile.height}
-                                className="rounded-lg w-full h-auto"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 330px"
-                              />
-                            </div>
-                          </div>
-                        </Card>
-                      </SpotlightCard>
-                    </TiltCard>
+                    <div className="group relative h-[280px] md:h-[360px] rounded-2xl overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
+                      <CaseStudyImage
+                        src={study.images.dashboard.src}
+                        alt={study.title}
+                        width={study.images.dashboard.width}
+                        height={study.images.dashboard.height}
+                        className="h-full w-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                      <div className="absolute bottom-4 left-5">
+                        <span className="text-xs font-medium uppercase tracking-wider text-white/90">
+                          {study.industry}
+                        </span>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Text */}

@@ -57,74 +57,35 @@ const products = [
   },
 ];
 
-/* ── Parallax screenshot wrapper with blur-to-sharp reveal ── */
-function ParallaxScreenshots({ product, index }: { product: typeof products[number]; index: number }) {
+/* ── Single hero image with scroll parallax (no side-by-side) ── */
+function ProjectImage({ product, index }: { product: typeof products[number]; index: number }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  // Dashboard moves slower than scroll (parallax effect)
-  const dashboardY = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  // Mobile overlay moves slightly faster — subtle depth layering
-  const mobileY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
   return (
-    <div ref={containerRef} className={`${index % 2 !== 0 ? "[direction:ltr]" : ""}`}>
-      <div className="relative pb-32 md:pb-20">
-        {/* Dashboard — blur-to-sharp reveal + parallax */}
-        <motion.div
-          style={{ y: dashboardY }}
-          className="relative rounded-2xl overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.04),0_12px_40px_rgba(0,0,0,0.08)] border border-black/[0.06] bg-white"
-          initial={{ opacity: 0, filter: "blur(10px)" }}
-          whileInView={{ opacity: 1, filter: "blur(0px)" }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <Image
-            src={product.dashboard.src}
-            alt={`${product.name} — ${product.tagline} dashboard interface`}
-            width={product.dashboard.width}
-            height={product.dashboard.height}
-            className="w-full h-auto"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-            placeholder="blur"
-            blurDataURL={BLUR_DATA_URL}
-            loading="lazy"
-          />
-        </motion.div>
-
-        {/* Mobile — parallax + spring bounce entrance */}
-        <motion.div
-          style={{ y: mobileY }}
-          className="absolute bottom-0 right-2 md:bottom-2 md:right-4 w-28 md:w-40 pointer-events-none"
-          initial={{ opacity: 0, x: 60, y: 40, scale: 0.8 }}
-          whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{
-            type: "spring",
-            stiffness: 120,
-            damping: 12,
-            mass: 0.8,
-            delay: 0.5,
-          }}
-        >
-          <div className="rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.12),0_20px_48px_rgba(0,0,0,0.08)] border border-black/[0.08] bg-white">
-            <Image
-              src={product.mobile.src}
-              alt={`${product.name} mobile application view`}
-              width={product.mobile.width}
-              height={product.mobile.height}
-              className="w-full h-auto"
-              sizes="160px"
-              placeholder="blur"
-              blurDataURL={BLUR_DATA_URL}
-              loading="lazy"
-            />
-          </div>
-        </motion.div>
-      </div>
+    <div ref={containerRef} className={index % 2 !== 0 ? "lg:order-2" : ""}>
+      <motion.div
+        style={{ y: imageY }}
+        initial={{ opacity: 0, scale: 0.96 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="group relative h-[260px] md:h-[400px] rounded-2xl overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.04),0_12px_40px_rgba(0,0,0,0.08)] border border-black/[0.06]"
+      >
+        <Image
+          src={product.dashboard.src}
+          alt={`${product.name} — ${product.tagline}`}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+      </motion.div>
     </div>
   );
 }
@@ -190,7 +151,7 @@ export function ProductShowcase() {
                 </motion.div>
 
                 {/* Screenshots — parallax layout */}
-                <ParallaxScreenshots product={product} index={index} />
+                <ProjectImage product={product} index={index} />
               </div>
             </AnimatedSection>
           ))}

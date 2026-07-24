@@ -203,45 +203,31 @@ export default async function CaseStudyDetailPage({
         description={study.description}
       />
 
-      {/* Image Gallery */}
-      <section className="py-20 md:py-28">
-        <Container>
-          <AnimatedSection>
-            <TiltCard maxRotate={3}>
-              <SpotlightCard
-                className="spotlight-hover rounded-2xl"
-                radius={500}
-              >
-                <Card hover={false} padding="none" className="overflow-hidden">
-                  <div className="flex flex-col md:flex-row gap-2 p-3">
-                    <div className="flex-[3]">
-                      <CaseStudyImage
-                        src={study.images.dashboard.src}
-                        alt={`${study.title} — dashboard interface screenshot`}
-                        width={study.images.dashboard.width}
-                        height={study.images.dashboard.height}
-                        className="rounded-lg w-full h-auto"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 700px"
-                        priority
-                      />
-                    </div>
-                    <div className="flex-[2]">
-                      <CaseStudyImage
-                        src={study.images.mobile.src}
-                        alt={`${study.title} — mobile application view`}
-                        width={study.images.mobile.width}
-                        height={study.images.mobile.height}
-                        className="rounded-lg w-full h-auto"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 460px"
-                        priority
-                      />
-                    </div>
-                  </div>
-                </Card>
-              </SpotlightCard>
-            </TiltCard>
-          </AnimatedSection>
-        </Container>
+      {/* Project hero image — full-width, single image, no side-by-side */}
+      <section className="relative">
+        <div className="relative h-[300px] md:h-[480px] overflow-hidden">
+          <Image
+            src={study.images.dashboard.src}
+            alt={study.title}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover transition-transform duration-700 hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0">
+            <Container>
+              <div className="pb-8">
+                <span className="inline-block px-3 py-1 rounded-full bg-brand/15 border border-brand/20 text-xs font-medium text-brand-dark tracking-wide mb-3">
+                  {study.industry}
+                </span>
+                <p className="text-sm md:text-base text-foreground-secondary max-w-2xl">
+                  {study.tagline}
+                </p>
+              </div>
+            </Container>
+          </div>
+        </div>
       </section>
 
       {/* Challenge → Solution → Impact Narrative */}
