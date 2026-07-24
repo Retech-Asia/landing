@@ -213,7 +213,7 @@
   --color-card-bg: var(--card-bg);
   --color-card-border: var(--card-border);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
 
 * {
@@ -1252,7 +1252,7 @@ select:focus {
 
 /* Inline code — rounded muted background, monospace */
 .prose-custom code {
-  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 0.875em;
   background: rgba(0, 0, 0, 0.05);
   padding: 0.15em 0.4em;

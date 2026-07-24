@@ -92,9 +92,9 @@ export function LocationMap() {
             <circle cx="320" cy="70" r="12" fill="#208535" opacity="0.04" />
 
             {/* District labels */}
-            <text x="155" y="86" fill="rgba(255,255,255,0.18)" fontSize="7" fontFamily="var(--font-geist-mono), monospace">D.1</text>
-            <text x="112" y="92" fill="rgba(255,255,255,0.15)" fontSize="6.5" fontFamily="var(--font-geist-mono), monospace">D.3</text>
-            <text x="185" y="112" fill="rgba(255,255,255,0.15)" fontSize="6.5" fontFamily="var(--font-geist-mono), monospace">B.Thanh</text>
+            <text x="155" y="86" fill="rgba(255,255,255,0.18)" fontSize="7" fontFamily="var(--font-mono)">D.1</text>
+            <text x="112" y="92" fill="rgba(255,255,255,0.15)" fontSize="6.5" fontFamily="var(--font-mono)">D.3</text>
+            <text x="185" y="112" fill="rgba(255,255,255,0.15)" fontSize="6.5" fontFamily="var(--font-mono)">B.Thanh</text>
 
             {/* Office location marker area */}
             <circle cx="135" cy="118" r="30" fill="#208535" opacity="0.04" />

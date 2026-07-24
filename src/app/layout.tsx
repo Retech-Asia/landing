@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist } from "next/font/google";
 import { SiteJsonLd } from "@/components/seo/JsonLd";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
@@ -19,12 +19,9 @@ const geistSans = Geist({
   adjustFontFallback: true,
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-  adjustFontFallback: true,
-});
+// Geist Mono removed — was used in only 3 places (industry labels,
+// LocationMap SVG text, code blocks). Replaced with system monospace
+// stack to save one font preload on initial page load.
 
 const SITE_URL = SITE_URL_CONST;
 const SITE_NAME = SITE_NAME_CONST;
@@ -148,7 +145,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />

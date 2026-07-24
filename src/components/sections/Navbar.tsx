@@ -137,10 +137,13 @@ export function Navbar() {
     setIsScrolled(latest > 20);
     setBlurAmount(Math.min(20, Math.max(0, (latest / 200) * 20)));
 
-    // Hide on scroll down, show on scroll up
+    // Hide on scroll down, show on scroll up — BUT ONLY ON DESKTOP.
+    // On mobile, the navbar must always stay visible so the hamburger
+    // toggle remains accessible from anywhere on the page.
+    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
     const delta = latest - lastScrollY.current;
     if (Math.abs(delta) >= SCROLL_THRESHOLD) {
-      if (delta > 0 && latest > 80) {
+      if (delta > 0 && latest > 80 && isDesktop) {
         setHidden(true);
       } else {
         setHidden(false);
