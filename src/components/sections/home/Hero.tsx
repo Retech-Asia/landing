@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
@@ -47,6 +47,23 @@ export function Hero() {
     const raf = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(raf);
   }, []);
+
+  // Rotating service type — cycles through what we build.
+  // Starts after 1.5s (lets headline settle), cycles every 2.5s.
+  const rotatingServices = [
+    "CMS platforms",
+    "CRM systems",
+    "ERP solutions",
+    "AI products",
+    "web apps",
+  ];
+  const [rotatingIndex, setRotatingIndex] = useState(0);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setRotatingIndex((prev) => (prev + 1) % rotatingServices.length);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, [rotatingIndex, rotatingServices.length]);
 
   return (
     <section
@@ -121,37 +138,34 @@ export function Hero() {
               <span className="hero-gradient-headline">Solutions</span>
             </motion.h1>
 
-            {/* Subhead — human, conversational copy with word-by-word
-                reveal animation. Each word fades+lifts in with a staggered
-                delay via CSS (no JS gate — SSR-safe, respects reduced-motion).
-                Previous copy was buzzword-heavy ("Agile, modern stack, AI-native")
-                which read as AI-generated. */}
-            <div className="hero-subhead-reveal mb-10 max-w-2xl">
+            {/* Dynamic subtitle with rotating service type.
+                No em dashes (AI telltale). No buzzword lists. Just clean,
+                human copy with a rotating word that keeps the hero alive. */}
+            <div className="mb-10 max-w-2xl">
               <p className="text-lg md:text-xl text-foreground-secondary leading-relaxed mb-2">
-                {"We design, build, and ship software that grows with your business — from first idea to final deploy."
-                  .split(" ")
-                  .map((word, i) => (
-                    <span
-                      key={i}
-                      className="inline-block hero-word-reveal"
-                      style={{ animationDelay: `${0.4 + i * 0.04}s` }}
+                We build{" "}
+                <span className="inline-flex relative h-[1.4em] overflow-hidden align-bottom">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={rotatingIndex}
+                      initial={{ y: "100%", opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: "-100%", opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute left-0 whitespace-nowrap font-semibold gradient-text-brand"
                     >
-                      {word}&nbsp;
-                    </span>
-                  ))}
+                      {rotatingServices[rotatingIndex]}
+                    </motion.span>
+                  </AnimatePresence>
+                  {/* Invisible spacer to reserve width */}
+                  <span className="invisible font-semibold">
+                    {rotatingServices.reduce((a, b) => a.length > b.length ? a : b)}
+                  </span>
+                </span>
+                {" "}your business can rely on.
               </p>
-              <p className="text-sm md:text-base text-foreground-muted leading-relaxed">
-                {"CMS, CRM, ERP & AI products. Built in Vietnam, delivered worldwide."
-                  .split(" ")
-                  .map((word, i) => (
-                    <span
-                      key={i}
-                      className="inline-block hero-word-reveal"
-                      style={{ animationDelay: `${0.8 + i * 0.03}s` }}
-                    >
-                      {word}&nbsp;
-                    </span>
-                  ))}
+              <p className="text-sm md:text-base text-foreground-muted">
+                Vietnam-based engineering team. Global delivery.
               </p>
             </div>
 
