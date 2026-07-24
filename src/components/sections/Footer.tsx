@@ -15,7 +15,6 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/components/ui/AnimatedSection";
-import { EmailCapture } from "@/components/ui/EmailCapture";
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -41,21 +40,8 @@ const resourceLinks = [
 // real hrefs (do NOT restore as `javascript:void(0)` placeholders).
 const socialLinks: { label: string; href: string; hoverColor: string; icon: React.ReactNode }[] = [];
 
-function NewsletterSection() {
-  return (
-    <div className="bg-background-subtle border-b border-card-border">
-      <Container className="py-14 lg:py-16">
-        <div className="max-w-2xl mx-auto text-center">
-          <EmailCapture
-            variant="full"
-            heading="Stay Updated"
-            description="Get the latest insights on software development, AI, and digital transformation delivered to your inbox."
-          />
-        </div>
-      </Container>
-    </div>
-  );
-}
+// NewsletterSection removed — we don't do marketing email.
+// function NewsletterSection() { ... }
 
 export function Footer() {
   const handleBackToTop = () => {
@@ -73,7 +59,7 @@ export function Footer() {
       />
 
       {/* Newsletter section */}
-      <NewsletterSection />
+      {/* Newsletter section removed — we don't do marketing email. */}
 
       {/* Main footer content */}
       <Container className="pt-16 pb-12">
