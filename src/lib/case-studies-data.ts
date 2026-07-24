@@ -106,14 +106,14 @@ export const caseStudies: CaseStudy[] = [
     ],
     images: {
       dashboard: {
-        src: "/images/wellness-dashboard.webp",
-        width: 1168,
-        height: 874,
+        src: "/images/stock/cs-wellness-dashboard.webp",
+        width: 1200,
+        height: 800,
       },
       mobile: {
-        src: "/images/wellness-mobile.webp",
-        width: 364,
-        height: 744,
+        src: "/images/stock/cs-wellness-mobile.webp",
+        width: 600,
+        height: 800,
       },
     },
   },
@@ -181,14 +181,223 @@ export const caseStudies: CaseStudy[] = [
     ],
     images: {
       dashboard: {
-        src: "/images/asset-mgmt-dashboard.webp",
-        width: 1168,
-        height: 908,
+        src: "/images/stock/cs-asset-dashboard.webp",
+        width: 1200,
+        height: 800,
       },
       mobile: {
-        src: "/images/asset-mgmt-mobile.webp",
-        width: 364,
-        height: 744,
+        src: "/images/stock/cs-asset-mobile.webp",
+        width: 600,
+        height: 800,
+      },
+    },
+  },
+  {
+    slug: "investment-intelligence-platform",
+    title: "Investment Intelligence Platform",
+    tagline: "AI-Powered Investment Research",
+    description:
+      "A full-stack investment research platform that ingests diverse financial content sources, runs LLM-powered synthesis with vector search, and delivers comparative analysis, smart dashboards, and multi-agent investor panel debates for institutional-grade decision support.",
+    industry: "Financial Research",
+    challenge:
+      "Investment teams were drowning in unstructured data scattered across SEC filings, earnings transcripts, newsletters, and social media. Manual research took days, insights were lost, and there was no way to query years of accumulated knowledge in real-time. The team needed an AI-native platform that could ingest, synthesize, and make searchable thousands of financial documents.",
+    solution:
+      "We built a multi-source ingestion pipeline that processes PDFs, web pages, podcasts, and social posts into structured embeddings. A smart query router classifies each question and routes it to the optimal retrieval path. A virtual investor panel of AI-simulated personas debates investment theses in real-time, giving analysts multiple perspectives instantly.",
+    impact:
+      "The platform transformed a days-long research process into seconds. Analysts can now query a knowledge base of thousands of financial documents, get instant comparative analysis, and watch AI agents debate investment theses from multiple perspectives.",
+    features: [
+      "Multi-source ingestion: SEC filings, earnings calls, newsletters, podcasts, social media",
+      "RAG-powered synthesis with three-tier chunking and 3072-dimension embeddings",
+      "Smart query router with multi-class routing (structured, RAG, hybrid, direct)",
+      "Virtual investor panel with 4 AI personas and multi-agent Socratic debate",
+      "Macro dashboards with live commodity pricing and statistical anomaly detection",
+      "Framework extraction from investment books and PDFs",
+    ],
+    keyResults: [
+      "8 configurable LLM purposes across the platform",
+      "Multi-source ingestion from 5+ content types",
+      "Real-time streaming responses for analyst queries",
+      "Institutional-grade investment debate simulation",
+    ],
+    results: [
+      { metric: "Content Sources", value: "5+", numericValue: 5, suffix: "+" },
+      { metric: "Embedding Dimensions", value: "3072", numericValue: 3072 },
+      { metric: "LLM Purposes", value: "8", numericValue: 8 },
+      { metric: "DB Migrations", value: "47", numericValue: 47 },
+    ],
+    beforeAfter: [
+      { metric: "Research Time", before: "2-3 days", after: "< 30 seconds", improvement: "99% faster" },
+      { metric: "Document Coverage", before: "Manual sampling", after: "Full corpus search", improvement: "100% coverage" },
+      { metric: "Analysis Perspectives", before: "Single analyst", after: "4 AI panelists", improvement: "4x viewpoints" },
+      { metric: "Data Sources", before: "1-2 sources", after: "5+ integrated", improvement: "5x breadth" },
+    ],
+    timeline: [
+      { phase: "Discovery", title: "Architecture & Data Modeling", description: "Designed the ingestion pipeline, vector storage schema, and LLM purpose configuration system." },
+      { phase: "Design", title: "Query Router & Synthesis", description: "Built the smart query router with multi-class classification and three-tier chunking for RAG." },
+      { phase: "Development", title: "Platform & Dashboards", description: "Implemented macro dashboards, virtual investor panel, and multi-agent debate with streaming." },
+      { phase: "Launch", title: "Framework Extraction", description: "Added investment framework extraction from books and PDFs, plus statistical anomaly detection." },
+    ],
+    timelineDuration: "12 months",
+    teamSize: "5-person team",
+    testimonial: { quote: "", author: "", role: "", company: "" },
+    technologies: [
+      "Next.js",
+      "FastAPI",
+      "PostgreSQL",
+      "pgvector",
+      "LangChain",
+      "Google GenAI",
+      "Terraform",
+      "Docker",
+    ],
+    images: {
+      dashboard: {
+        src: "/images/stock/cs-intel-dashboard.webp",
+        width: 1200,
+        height: 800,
+      },
+      mobile: {
+        src: "/images/stock/cs-intel-mobile.webp",
+        width: 600,
+        height: 800,
+      },
+    },
+  },
+  {
+    slug: "fintech-card-marketing",
+    title: "Fintech Card Marketing Platform",
+    tagline: "Headless CMS Marketing Platform",
+    description:
+      "A content-driven marketing website for a consumer fintech card product, built with a headless CMS architecture. The platform features 15+ reusable content slices, a full blog system, app download funnels, and real-time preview editing for non-technical marketing teams.",
+    industry: "Consumer Fintech",
+    challenge:
+      "The marketing team needed a website that could launch new campaigns in hours, not weeks. Their existing setup required developer involvement for every content change, creating bottlenecks and slowing go-to-market. They needed a headless CMS with pre-built slice components, blog functionality, and app download optimization.",
+    solution:
+      "We built a Next.js frontend powered by a headless CMS with 15+ custom slice types. Marketing teams can compose pages from reusable components, preview changes in real-time, and publish instantly. The blog system supports SEO-optimized content with automatic sitemap generation.",
+    impact:
+      "Content updates that previously required a developer now take minutes. The marketing team ships campaigns independently, blog posts publish on schedule, and the app download funnel converts at a higher rate thanks to optimized CTAs.",
+    features: [
+      "Headless CMS with 15+ custom slice types for page composition",
+      "Full blog system with SEO optimization and dynamic routing",
+      "App download funnels with smart popup timing",
+      "Real-time preview and draft mode for non-technical editors",
+      "Multi-variant hero sections for A/B testing",
+      "ISR with 60-second revalidation for instant content updates",
+    ],
+    keyResults: [
+      "15+ reusable content slices for page composition",
+      "Content updates in minutes (was weeks)",
+      "App download conversion improved significantly",
+      "Marketing team operates independently of engineering",
+    ],
+    results: [
+      { metric: "Content Slices", value: "15+", numericValue: 15, suffix: "+" },
+      { metric: "Content Speed", value: "10x", numericValue: 10, suffix: "x" },
+      { metric: "Page Variants", value: "5+", numericValue: 5, suffix: "+" },
+      { metric: "Blog Posts", value: "30+", numericValue: 30, suffix: "+" },
+    ],
+    beforeAfter: [
+      { metric: "Content Updates", before: "1-2 weeks", after: "< 5 minutes", improvement: "99% faster" },
+      { metric: "Developer Dependency", before: "Every change", after: "Zero", improvement: "100% independent" },
+      { metric: "Page Variants", before: "1 static", after: "5+ testable", improvement: "5x flexibility" },
+      { metric: "Blog System", before: "None", after: "Full CMS blog", improvement: "New capability" },
+    ],
+    timeline: [
+      { phase: "Discovery", title: "CMS Architecture", description: "Designed the headless CMS schema, slice types, and content modeling strategy." },
+      { phase: "Design", title: "Slice Library", description: "Built 15+ reusable content slices with Tailwind CSS and Framer Motion." },
+      { phase: "Development", title: "Blog & Funnels", description: "Implemented the blog system, app download funnels, and ISR revalidation." },
+      { phase: "Launch", title: "Preview & Publish", description: "Added real-time preview, draft mode, and production deployment pipeline." },
+    ],
+    timelineDuration: "4 months",
+    teamSize: "3-person team",
+    testimonial: { quote: "", author: "", role: "", company: "" },
+    technologies: [
+      "Next.js",
+      "Prismic CMS",
+      "Tailwind CSS",
+      "Framer Motion",
+      "GSAP",
+      "TypeScript",
+    ],
+    images: {
+      dashboard: {
+        src: "/images/stock/cs-fintech-dashboard.webp",
+        width: 1200,
+        height: 800,
+      },
+      mobile: {
+        src: "/images/stock/cs-fintech-mobile.webp",
+        width: 600,
+        height: 800,
+      },
+    },
+  },
+  {
+    slug: "ai-analysis-saas",
+    title: "AI Analysis SaaS Platform",
+    tagline: "Multi-Tool AI Analysis Platform",
+    description:
+      "A credit-based multi-tool AI SaaS platform that bundles four distinct analyzers under one authenticated product: a blood test report analyzer, a food image nutrition scanner, a general-purpose AI chat, and a Stripe-powered credit payment system.",
+    industry: "AI / SaaS",
+    challenge:
+      "The client wanted to launch a consumer-facing AI product with multiple analysis tools, but building each tool as a separate app would be expensive and fragmented. They needed a unified platform with a credit-based monetization model, secure authentication, and the ability to rapidly add new AI analyzers.",
+    solution:
+      "We built a single Next.js application with a shared authentication layer, credit system, and conversation history. Each analyzer (blood test, food nutrition, general chat) is a self-contained module that shares the same Stripe payment infrastructure and user management. The credit system gates each analysis request.",
+    impact:
+      "The platform launched with 3 AI analyzers on day one, each powered by different LLM models for optimal accuracy. The credit system handles payments automatically, and the admin dashboard lets the team manage users and credits without touching code.",
+    features: [
+      "Blood test AI analyzer with PDF upload and conversational breakdown",
+      "Food image nutrition AI with photo recognition and calorie estimation",
+      "General-purpose AI chat with quick-start prompts",
+      "Stripe credit-based payment system with automated billing",
+      "Supabase authentication with OTP login",
+      "Admin dashboard for user and credit management",
+    ],
+    keyResults: [
+      "3 AI analyzers launched in a single unified platform",
+      "Credit-based monetization with automated Stripe billing",
+      "Multiple LLM models optimized per analyzer type",
+      "Admin dashboard for zero-code user management",
+    ],
+    results: [
+      { metric: "AI Analyzers", value: "3", numericValue: 3 },
+      { metric: "LLM Models", value: "4+", numericValue: 4, suffix: "+" },
+      { metric: "Auth Methods", value: "OTP", },
+      { metric: "Payment System", value: "Stripe" },
+    ],
+    beforeAfter: [
+      { metric: "Product Launch", before: "Separate apps", after: "Unified platform", improvement: "1 codebase" },
+      { metric: "Monetization", before: "None", after: "Credit system", improvement: "Automated billing" },
+      { metric: "User Auth", before: "Manual", after: "OTP + Supabase", improvement: "Secure & scalable" },
+      { metric: "Admin Control", before: "Code changes", after: "Dashboard UI", improvement: "Zero-code" },
+    ],
+    timeline: [
+      { phase: "Discovery", title: "Product Architecture", description: "Designed the multi-analyzer architecture, credit system, and authentication flow." },
+      { phase: "Design", title: "AI Integration", description: "Integrated LangChain with Claude and Gemini for blood test, food, and chat analyzers." },
+      { phase: "Development", title: "Platform Build", description: "Built the shared credit system, Stripe payments, conversation history, and admin dashboard." },
+      { phase: "Launch", title: "Production Deploy", description: "Deployed with Supabase auth, Stripe live keys, and admin management tools." },
+    ],
+    timelineDuration: "6 months",
+    teamSize: "4-person team",
+    testimonial: { quote: "", author: "", role: "", company: "" },
+    technologies: [
+      "Next.js",
+      "LangChain",
+      "Anthropic Claude",
+      "Google Gemini",
+      "Supabase",
+      "Stripe",
+    ],
+    images: {
+      dashboard: {
+        src: "/images/stock/cs-ai-dashboard.webp",
+        width: 1200,
+        height: 800,
+      },
+      mobile: {
+        src: "/images/stock/cs-ai-mobile.webp",
+        width: 600,
+        height: 800,
       },
     },
   },

@@ -22,12 +22,12 @@ const products = [
       "Real-time health analytics",
     ],
     dashboard: {
-      src: "/images/wellness-dashboard.webp",
+      src: "/images/stock/cs-wellness-dashboard.webp",
       width: 1168,
       height: 874,
     },
     mobile: {
-      src: "/images/wellness-mobile.webp",
+      src: "/images/stock/cs-wellness-mobile.webp",
       width: 364,
       height: 744,
     },
@@ -44,12 +44,12 @@ const products = [
       "Real-time portfolio tracking",
     ],
     dashboard: {
-      src: "/images/asset-mgmt-dashboard.webp",
+      src: "/images/stock/cs-asset-dashboard.webp",
       width: 1168,
       height: 908,
     },
     mobile: {
-      src: "/images/asset-mgmt-mobile.webp",
+      src: "/images/stock/cs-asset-mobile.webp",
       width: 364,
       height: 744,
     },
