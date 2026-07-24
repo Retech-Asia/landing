@@ -26,7 +26,7 @@ export function Card({
 
   const sharedClasses = cn(
     "rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 group",
-    hover && "card-shimmer hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] cursor-pointer",
+    hover && "card-shimmer hover:border-brand/20 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06),0_12px_32px_rgba(32,133,53,0.08)] cursor-pointer",
     paddingStyles[padding],
     className
   );
