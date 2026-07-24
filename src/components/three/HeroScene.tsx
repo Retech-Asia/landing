@@ -1,6 +1,6 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useRef, useMemo, useEffect } from "react";
 import type { Mesh, Group, Points } from "three";
 
@@ -230,12 +230,51 @@ function BrandLighting() {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Scroll-driven camera rig — flies the camera forward through the    */
+/*  orb field as the user scrolls past the hero. Maps scrollY over    */
+/*  the first viewport of travel to camera.z 7 → 4.5 and a slight     */
+/*  downward y tilt. Reinforces the existing contentOpacity fade so   */
+/*  the hero "recedes" as it leaves the viewport.                     */
+/* ------------------------------------------------------------------ */
+
+function ScrollCameraRig() {
+  const { camera } = useThree();
+  const targetZ = useRef(7);
+  const targetY = useRef(0);
+
+  useEffect(() => {
+    let progress = 0;
+    const compute = () => {
+      // 0 at top → 1 after one viewport of scroll.
+      progress = Math.min(1, window.scrollY / window.innerHeight);
+      targetZ.current = 7 - progress * 2.5;   // 7 → 4.5
+      targetY.current = -progress * 0.35;     // 0 → -0.35 (slight downward tilt)
+    };
+    compute();
+    window.addEventListener("scroll", compute, { passive: true });
+    return () => window.removeEventListener("scroll", compute);
+  }, []);
+
+  useFrame((_, delta) => {
+    // Frame-rate independent lerp toward target. Same shape as the cursor
+    // parallax lerp so the two motions feel cohesive.
+    const lerp = 1 - Math.pow(0.001, delta);
+    camera.position.z += (targetZ.current - camera.position.z) * lerp;
+    camera.position.y += (targetY.current - camera.position.y) * lerp;
+    camera.updateProjectionMatrix();
+  });
+
+  return null;
+}
+
+/* ------------------------------------------------------------------ */
 /*  Scene composition                                                 */
 /* ------------------------------------------------------------------ */
 
 function HeroSceneContents() {
   return (
     <CursorParallaxGroup>
+      <ScrollCameraRig />
       <BrandLighting />
 
       {/* Main brand orb */}
