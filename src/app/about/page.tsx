@@ -120,7 +120,7 @@ export default function AboutPage() {
           alt="Retech Solutions development workspace in Vietnam"
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-700 hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
       </div>
@@ -280,7 +280,7 @@ export default function AboutPage() {
           alt="Retech Solutions modern office workspace"
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-700 hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
       </div>
@@ -312,7 +312,7 @@ export default function AboutPage() {
           alt="Retech Solutions team collaborating in the office"
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-700 hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
       </div>

@@ -481,7 +481,7 @@ export default function ProcessPage() {
           alt="Retech Solutions team brainstorming and planning"
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-700 hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
       </div>

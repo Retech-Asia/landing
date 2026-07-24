@@ -162,7 +162,7 @@ export default function HomePage() {
           alt="AI-powered software development capabilities"
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-700 hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
         <div className="absolute inset-0 flex items-center">
@@ -205,7 +205,7 @@ export default function HomePage() {
           alt="Retech Solutions engineering team collaborating on a project"
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-700 hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-background/10" />
         <div className="absolute inset-0 flex items-center">

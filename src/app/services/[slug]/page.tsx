@@ -367,7 +367,7 @@ export default async function ServiceDetailPage({
           alt="Development workspace — code, tools, and engineering process"
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-700 hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
       </div>
@@ -475,7 +475,7 @@ export default async function ServiceDetailPage({
           alt="Development workspace at Retech Solutions"
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-700 hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-l from-background via-background/50 to-transparent" />
       </div>

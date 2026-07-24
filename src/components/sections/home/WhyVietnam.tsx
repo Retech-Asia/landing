@@ -145,7 +145,7 @@ export function WhyVietnam() {
             alt="Ho Chi Minh City — Vietnam's tech and business hub"
             fill
             sizes="(max-width: 768px) 100vw, 1200px"
-            className="object-cover"
+            className="object-cover transition-transform duration-700 hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
           <p className="absolute bottom-4 left-6 text-sm font-medium text-white">

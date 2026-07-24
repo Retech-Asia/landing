@@ -227,7 +227,7 @@ export default function ContactPage() {
                 alt="Retech Solutions team ready to discuss your project"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover"
+                className="object-cover transition-transform duration-700 hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               <p className="absolute bottom-3 left-4 text-sm font-medium text-white">

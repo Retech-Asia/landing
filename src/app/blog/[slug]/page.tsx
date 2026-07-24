@@ -238,7 +238,7 @@ export default async function BlogPostPage({
                           alt={`${post.category} — visual context`}
                           fill
                           sizes="(max-width: 768px) 100vw, 720px"
-                          className="object-cover"
+                          className="object-cover transition-transform duration-700 hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                       </div>
