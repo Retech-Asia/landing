@@ -14,7 +14,6 @@ import { TableOfContents } from "@/components/ui/TableOfContents";
 import { RelatedServicesSidebar } from "@/components/blog/RelatedServicesSidebar";
 import { ShareButtons } from "@/components/blog/ShareButtons";
 import { FeedbackWidget } from "@/components/blog/FeedbackWidget";
-import { BlogHero } from "@/components/blog/BlogHero";
 import { blogPosts, getPostBySlug, getAllSlugs, getRelatedPosts } from "@/lib/blog-data";
 import { renderContent } from "@/lib/render-content";
 import { BlogPostingJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
@@ -209,10 +208,18 @@ export default async function BlogPostPage({
               </header>
             </div>
 
-            {/* Category-themed hero banner — visual only, title is in the H1 above */}
-            <AnimatedSection variant="slideUp" delay={0.1}>
-              <BlogHero category={post.category} readTime={post.readTime} />
-            </AnimatedSection>
+            {/* Featured image — uses the post's auto-generated OG image.
+                Same asset that appears in social shares, now shown in-page. */}
+            <div className="relative h-[240px] md:h-[360px] rounded-2xl overflow-hidden mb-8">
+              <Image
+                src={`/blog/${post.slug}/opengraph-image`}
+                alt={post.title}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 720px"
+                className="object-cover"
+              />
+            </div>
 
             <AnimatedSection variant="slideUp" delay={0.1}>
               <article className="prose-custom">
@@ -223,8 +230,7 @@ export default async function BlogPostPage({
                 {contentElements.map((el, i) => (
                   <div key={i}>
                     {el}
-                    {/* Insert a category-themed image strip after the 2nd
-                        content block to break up the wall of text. */}
+                    {/* First inline image — category-themed, after 3rd content block */}
                     {i === 3 && post.headings.length > 4 && (
                       <div className="my-10 relative h-48 md:h-64 rounded-2xl overflow-hidden">
                         <Image
@@ -236,6 +242,25 @@ export default async function BlogPostPage({
                                 : "/images/stock/ai-abstract.webp"
                           }
                           alt={`${post.category} — visual context`}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 720px"
+                          className="object-cover transition-transform duration-700 hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                      </div>
+                    )}
+                    {/* Second inline image — different stock photo, later in the article */}
+                    {i === 7 && post.headings.length > 6 && (
+                      <div className="my-10 relative h-48 md:h-64 rounded-2xl overflow-hidden">
+                        <Image
+                          src={
+                            post.category === "Technology"
+                              ? "/images/stock/typing-code.webp"
+                              : post.category === "Guides"
+                                ? "/images/stock/developer-workspace.webp"
+                                : "/images/stock/cloud-tech.webp"
+                          }
+                          alt={`${post.category} — additional context`}
                           fill
                           sizes="(max-width: 768px) 100vw, 720px"
                           className="object-cover transition-transform duration-700 hover:scale-105"
@@ -353,12 +378,17 @@ export default async function BlogPostPage({
                         href={`/blog/${related.slug}`}
                         className="group relative block overflow-hidden rounded-2xl border border-black/[0.06] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
                       >
-                        {/* Decorative image placeholder area */}
-                        <div className="relative h-32 bg-gradient-to-br from-brand/5 via-accent-cyan/5 to-accent-violet/5 overflow-hidden">
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <BookOpen size={28} className="text-brand/20 group-hover:text-brand/30 transition-colors" />
-                          </div>
-                          {/* Category tag overlaid on the image area */}
+                        {/* Real OG image thumbnail */}
+                        <div className="relative h-36 overflow-hidden">
+                          <Image
+                            src={`/blog/${related.slug}/opengraph-image`}
+                            alt={related.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 360px"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                          {/* Category tag overlaid on the image */}
                           <div className="absolute top-3 left-3">
                             <Badge variant="brand" className="text-[10px] uppercase tracking-wider">
                               {related.category}
