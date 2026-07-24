@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
@@ -259,6 +260,18 @@ export default async function IndustryDetailPage({
       </section>
 
       <SectionDivider />
+
+      {/* Visual break — relevant stock photo between Overview and Approach */}
+      <div className="relative h-[180px] md:h-[260px] overflow-hidden">
+        <Image
+          src="/images/stock/analytics-dashboard.webp"
+          alt={`${industry.name} software solutions in action`}
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
+      </div>
 
       {/* -- Our Approach -------------------------------------------------- */}
       <section className="py-20 md:py-28 bg-background-subtle relative overflow-hidden">

@@ -468,6 +468,18 @@ export default async function ServiceDetailPage({
         </Container>
       </section>
 
+      {/* Second image strip — developer workspace between Benefits and Process */}
+      <div className="relative h-[160px] md:h-[220px] overflow-hidden">
+        <Image
+          src="/images/stock/developer-workspace.webp"
+          alt="Development workspace at Retech Solutions"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-l from-background via-background/50 to-transparent" />
+      </div>
+
       {/* ── How We Work (Process Steps) ───────────────────────── */}
       {service.processSteps && service.processSteps.length > 0 && (
         <section id="process" className="relative py-20 md:py-28 overflow-hidden scroll-mt-28">

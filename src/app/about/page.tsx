@@ -305,6 +305,18 @@ export default function AboutPage() {
       {/* Values — 2x3 Grid with Animated Icons */}
       <CultureValues />
 
+      {/* Team portrait — adds human element before the commitment section */}
+      <div className="relative h-[200px] md:h-[300px] overflow-hidden">
+        <Image
+          src="/images/stock/team-portrait.webp"
+          alt="Retech Solutions team collaborating in the office"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+      </div>
+
       {/* Our Commitment — 2x2 Grid */}
       <OurCommitment />
 
