@@ -271,21 +271,21 @@ export function Navbar() {
   };
 
   return (
-    <motion.nav
+    <nav
       aria-label="Main navigation"
-      // Navbar is always visible — no scroll-hide behavior.
-      initial={false}
-      style={{
-        backdropFilter: blurAmount > 0 ? `blur(${blurAmount}px)` : undefined,
-        WebkitBackdropFilter: blurAmount > 0 ? `blur(${blurAmount}px)` : undefined,
-        backgroundColor: blurAmount > 0
-          ? `color-mix(in srgb, var(--background) ${Math.min(92, Math.round(blurAmount / 20 * 92))}%, transparent)`
-          : "transparent",
-      }}
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-[border-color,box-shadow] duration-500",
-        blurAmount > 8 && "border-b border-black/[0.06] shadow-sm"
+        "fixed top-0 left-0 right-0 z-[100] transition-[border-color,box-shadow,background-color] duration-300",
+        isScrolled
+          ? "bg-background/80 backdrop-blur-md border-b border-black/[0.06] shadow-sm"
+          : "bg-transparent"
       )}
+      style={{
+        backgroundColor: isScrolled
+          ? "color-mix(in srgb, var(--background) 85%, transparent)"
+          : "transparent",
+        backdropFilter: isScrolled ? "blur(12px)" : "none",
+        WebkitBackdropFilter: isScrolled ? "blur(12px)" : "none",
+      }}
     >
       {/* Scroll progress indicator */}
       {isScrolled && (
@@ -565,7 +565,7 @@ export function Navbar() {
                         className={cn(
                           "block px-4 py-3 text-base rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2",
                           isItemActive(item.href)
-                            ? "text-brand font-medium bg-brand/5"
+                            ? "text-brand font-medium border-l-2 border-brand bg-brand/[0.03]"
                             : "text-foreground-secondary hover:text-foreground hover:bg-black/[0.04]"
                         )}
                       >
@@ -596,6 +596,6 @@ export function Navbar() {
           </>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
   );
 }

@@ -2,10 +2,12 @@
 
 import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
+import { getBlogImage } from "@/lib/blog-images";
 import type { BlogPost } from "@/lib/blog-data";
 
 const POSTS_PER_PAGE = 6;
@@ -100,18 +102,23 @@ export function CategoryBlogListing({ posts }: CategoryBlogListingProps) {
                   padding="none"
                   className="group h-full flex flex-col overflow-hidden border-transparent hover:border-brand/15"
                 >
-                  <div
-                    className={`relative h-48 bg-gradient-to-br ${
-                      categoryGradients[post.category] ??
-                      "from-brand/80 to-accent-cyan/80"
-                    } flex items-end p-5 transition-transform duration-500 ease-out group-hover:scale-[1.03]`}
-                  >
-                    <Badge
-                      variant="outline"
-                      className="bg-white/90 text-foreground-secondary backdrop-blur-sm"
-                    >
-                      {post.category}
-                    </Badge>
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={getBlogImage(post.slug)}
+                      alt={post.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute bottom-3 left-3">
+                      <Badge
+                        variant="outline"
+                        className="bg-white/90 text-foreground-secondary backdrop-blur-sm"
+                      >
+                        {post.category}
+                      </Badge>
+                    </div>
                   </div>
 
                   <div className="p-6 flex flex-col flex-1">
