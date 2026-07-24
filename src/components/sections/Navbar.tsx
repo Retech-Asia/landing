@@ -439,29 +439,12 @@ export function Navbar() {
             onClick={() => setIsMobileOpen(!isMobileOpen)}
             className="lg:hidden relative z-50 p-3 text-foreground-secondary hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2 rounded-lg"
           >
-            <AnimatePresence mode="wait" initial={false}>
-              {isMobileOpen ? (
-                <motion.span
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <X size={20} />
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Menu size={20} />
-                </motion.span>
-              )}
-            </AnimatePresence>
+            {/* Simple icon swap — no AnimatePresence (was causing zero-size button) */}
+            {isMobileOpen ? (
+              <X size={22} className="shrink-0" />
+            ) : (
+              <Menu size={22} className="shrink-0" />
+            )}
           </button>
         </div>
       </div>
