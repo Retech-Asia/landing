@@ -84,6 +84,10 @@
   --brand: #208535;
   --brand-light: #258539;
   --brand-dark: #186B2B;
+  /* Foreground-only bright brand — for active nav items on dark surfaces where
+     --brand-light (#258539) fails AA (3.88:1). #2EA04E = ~5.8:1 on dark bg.
+     Do NOT use as a background with white text — would fail (3.28:1). */
+  --brand-bright: #2EA04E;
 
   /* Accents */
   --accent-cyan: #22D3EE;
@@ -151,9 +155,9 @@
 
 /* Active nav items use `text-brand` (#208535) which passes WCAG AA on light
    backgrounds but fails on dark surfaces (4.18:1 < 4.5). In dark mode,
-   brighten to `--brand-light` (#2EA04E = 5.5:1 on dark). */
+   brighten to `--brand-bright` (#2EA04E = ~5.8:1 on dark). */
 [data-theme="dark"] .nav-active-text {
-  color: var(--brand-light);
+  color: var(--brand-bright);
 }
 
 /* Pragmatic approach: instead of refactoring 129 individual `bg-white`

@@ -748,9 +748,9 @@ export default async function ServiceDetailPage({
               />
               <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div className="flex-1">
-                  <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">
+                  <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">
                     Questions Answered? Let&apos;s Talk.
-                  </h3>
+                  </h2>
                   <p className="text-sm md:text-base text-foreground-secondary leading-relaxed max-w-lg">
                     Schedule a free consultation to discuss your {service.title.toLowerCase()} requirements and get a detailed project estimate.
                   </p>

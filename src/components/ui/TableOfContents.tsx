@@ -121,7 +121,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
               } ${
                 activeId === heading.id
                   ? "text-brand font-medium"
-                  : "text-foreground-muted hover:text-foreground-secondary"
+                  : "text-foreground-secondary hover:text-foreground"
               }`}
               aria-current={activeId === heading.id ? "true" : undefined}
             >

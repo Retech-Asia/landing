@@ -77,8 +77,8 @@ export function ServiceTOC({ items }: ServiceTOCProps) {
 
   return (
     <nav aria-label="Table of contents" className="w-full">
-      <div className="rounded-xl border border-black/[0.06] bg-white/60 backdrop-blur-sm p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
-        <p className="text-xs font-semibold uppercase tracking-wider text-foreground-muted mb-3 px-2">
+      <div className="rounded-xl border border-foreground/10 bg-card backdrop-blur-sm p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
+        <p className="text-xs font-semibold uppercase tracking-wider text-foreground-secondary mb-3 px-2">
           On this page
         </p>
         <ul className="relative space-y-0.5">
@@ -108,8 +108,8 @@ export function ServiceTOC({ items }: ServiceTOCProps) {
                 onClick={() => handleClick(item.id)}
                 className={`relative z-10 w-full text-left text-sm leading-snug py-1.5 px-2 rounded-lg transition-colors duration-200 ${
                   activeId === item.id
-                    ? "text-brand font-medium"
-                    : "text-foreground-muted hover:text-foreground-secondary hover:bg-black/[0.02]"
+                    ? "text-brand nav-active-text font-medium"
+                    : "text-foreground-secondary hover:text-foreground hover:bg-foreground/[0.03]"
                 }`}
                 aria-current={activeId === item.id ? "true" : undefined}
               >

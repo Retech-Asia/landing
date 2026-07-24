@@ -263,7 +263,7 @@ function ProjectCard({
       </span>
 
       {/* Project name */}
-      <h4 className="text-lg font-bold text-foreground mb-4">{project}</h4>
+      <h3 className="text-lg font-bold text-foreground mb-4">{project}</h3>
 
       {/* Metrics */}
       <div className="space-y-3">
@@ -330,9 +330,9 @@ function ProcessStep({
 
       {/* Right: content */}
       <div className={`pb-8 ${isLast ? "pb-0" : ""}`}>
-        <h4 className="text-base font-semibold text-foreground mb-1">
+        <p className="text-base font-semibold text-foreground mb-1">
           {title}
-        </h4>
+        </p>
         <p className="text-sm text-foreground-secondary leading-relaxed">
           {description}
         </p>
