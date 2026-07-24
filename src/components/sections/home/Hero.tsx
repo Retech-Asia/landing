@@ -144,25 +144,23 @@ export function Hero() {
             <div className="mb-10 max-w-2xl">
               <p className="text-lg md:text-xl text-foreground-secondary leading-relaxed mb-2">
                 We build{" "}
-                <span
-                  className="relative inline-block overflow-hidden align-baseline"
-                  style={{ height: "1em", lineHeight: "1em", verticalAlign: "baseline" }}
-                >
+                {/* Rotating service type. Inherits parent line-height so it
+                    sits perfectly on the baseline. Absolute child at top:0
+                    left:0 starts at the same position as the invisible spacer. */}
+                <span className="relative inline font-semibold">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={rotatingIndex}
-                      initial={{ y: "100%", opacity: 0 }}
+                      initial={{ y: "0.6em", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: "-100%", opacity: 0 }}
-                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute left-0 whitespace-nowrap font-semibold gradient-text-brand"
-                      style={{ lineHeight: "1em", top: "-3px" }}
+                      exit={{ y: "-0.6em", opacity: 0 }}
+                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute left-0 top-0 whitespace-nowrap gradient-text-brand"
                     >
                       {rotatingServices[rotatingIndex]}
                     </motion.span>
                   </AnimatePresence>
-                  {/* Invisible spacer — reserves width for the longest phrase */}
-                  <span className="invisible font-semibold whitespace-nowrap" style={{ lineHeight: "1em" }}>
+                  <span className="invisible whitespace-nowrap">
                     {rotatingServices.reduce((a, b) => a.length > b.length ? a : b)}
                   </span>
                 </span>
