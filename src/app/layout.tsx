@@ -188,6 +188,12 @@ export default function RootLayout({
           <header role="banner">
           <Navbar />
           </header>
+          {/* overflow-x-clip on <main> clips horizontal overflow from animated
+              content (slideRight/slideLeft variants, decorative blobs) WITHOUT
+              creating a scroll container — `clip` preserves overflow-y: visible
+              so sticky TOCs still work. Crucially, the Navbar is NOT a descendant
+              of <main> (it's in <header>), so this does NOT affect its
+              position: fixed containing block the way body-level overflow did. */}
           <main id="main-content" className="flex-1 overflow-x-clip">
             <DeferredPageTransition>{children}</DeferredPageTransition>
           </main>

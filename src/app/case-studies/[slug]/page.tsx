@@ -231,7 +231,7 @@ export default async function CaseStudyDetailPage({
       </section>
 
       {/* Challenge → Solution → Impact Narrative */}
-      <section className="py-20 md:py-28 bg-background-subtle">
+      <section className="py-20 md:py-28 bg-background-subtle overflow-hidden">
         <Container>
           <AnimatedSection>
             <div className="text-center mb-12">
