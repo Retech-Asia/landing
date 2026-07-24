@@ -173,7 +173,10 @@ function StickyStack() {
     <div ref={sectionRef} className="hidden lg:block h-[180vh]">
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         <Container>
-          <div className="relative" style={{ perspective: "1500px" }}>
+          {/* Explicit height on the relative wrapper so the absolute-positioned
+              cards (absolute inset-0) have a bounding box. Without this, the
+              cards collapse to 0×0 and the section renders as empty space. */}
+          <div className="relative h-[480px]" style={{ perspective: "1500px" }}>
             {products.map((product, i) => (
               <motion.div
                 key={product.name}

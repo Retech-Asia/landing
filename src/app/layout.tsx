@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Instrument_Serif } from "next/font/google";
 import { SiteJsonLd } from "@/components/seo/JsonLd";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
@@ -15,6 +15,21 @@ import { ConsentAwareAnalytics } from "@/components/ui/Analytics";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: true,
+});
+
+// Instrument Serif — display-only. Used for H1/H2 across the site to break
+// out of the "default Vercel-era Geist look" and add editorial weight to
+// marketing headlines. Loaded with `swap` so body text renders immediately
+// and the serif swaps in once loaded (no FOIT).
+// weight 400 only — it's a single-weight display face, which is the point:
+// the visual personality comes from the letterforms, not from a weight ramp.
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
   adjustFontFallback: true,
 });
@@ -145,7 +160,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />

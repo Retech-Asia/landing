@@ -277,9 +277,25 @@ export default async function ServiceDetailPage({
               <Icon size={220} className="text-brand opacity-[0.05]" strokeWidth={0.8} />
             </div>
 
-            {/* Animated hero icon with glow */}
+            {/* Animated hero icon with glow.
+                ERP page pilots a hand-drawn illustration (Lukasz Adam, CC0)
+                instead of the lucide-in-glow-card — that pattern reads as
+                AI-template. If the pilot lands, we'll roll forward to the
+                other 5 service pages with per-page illustrations. */}
             <AnimatedSection variant="slideUp" delay={0.06}>
-              <ServiceHeroIcon slug={service.slug} color={service.heroColor} className="mb-6" />
+              {service.slug === "erp-solutions" ? (
+                <img
+                  src="/images/illustrations/lukasz-coding-people.svg"
+                  alt=""
+                  aria-hidden="true"
+                  width={240}
+                  height={180}
+                  decoding="async"
+                  className="mb-6 h-auto w-56 md:w-64 lg:w-72"
+                />
+              ) : (
+                <ServiceHeroIcon slug={service.slug} color={service.heroColor} className="mb-6" />
+              )}
             </AnimatedSection>
 
             <AnimatedSection variant="slideUp" delay={0.12}>
