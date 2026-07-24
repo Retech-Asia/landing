@@ -16,7 +16,7 @@ const industries = [
 
 function IndustryPill({ name }: { name: string }) {
   return (
-    <span className="inline-flex items-center mx-3 px-5 py-2.5 rounded-full border border-foreground/10 bg-white/70 select-none whitespace-nowrap text-base font-medium text-foreground-secondary transition-colors duration-200 hover:border-foreground/20 hover:text-foreground">
+    <span className="inline-flex items-center mx-3 px-5 py-2.5 rounded-full border border-foreground/10 bg-card-bg select-none whitespace-nowrap text-base font-medium text-foreground-secondary transition-colors duration-200 hover:border-foreground/20 hover:text-foreground">
       {name}
     </span>
   );

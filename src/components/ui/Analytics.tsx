@@ -5,15 +5,19 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { hasAnalyticsConsent } from "@/lib/analytics";
 
 /**
- * Wrapper that lets us pass a `beforeSend` callback to Vercel Analytics and
- * Speed Insights from a Server Component (layout.tsx). Both underlying
- * components are Client Components, so the callback cannot cross the
- * server/client boundary inline — it must live inside a "use client" file.
+ * Wrapper for Vercel Analytics + Speed Insights.
+ *
+ * Only renders in Vercel production — the underlying scripts (/_vercel/insights,
+ * /_vercel/speed-insights) only exist on Vercel deployments. On local dev,
+ * preview, or non-Vercel hosts, they 404 and pollute the console with errors.
  *
  * Consent gate happens here, on the client, so no PII is shipped before
  * the user accepts the cookie banner.
  */
 export function ConsentAwareAnalytics() {
+  // Only render on Vercel production (not local, not preview)
+  if (process.env.NODE_ENV !== "production") return null;
+
   return (
     <>
       <Analytics

@@ -126,9 +126,7 @@ export default function CaseStudiesPage() {
                 variant={index % 2 === 0 ? "slideRight" : "slideLeft"}
               >
                 <div
-                  className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center ${
-                    index % 2 !== 0 ? "lg:direction-rtl" : ""
-                  }`}
+                  className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center`}
                 >
                   {/* Screenshots */}
                   <div className={index % 2 !== 0 ? "lg:order-2" : ""}>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import {
   Clock,
   DollarSign,
@@ -285,6 +286,25 @@ export default function CareersPage() {
           via the public site right now. To re-enable, restore the Job Listings
           section + import { jobListings } from "@/lib/careers-data" and render
           <CareersListing jobs={jobListings} email={CONTACT.email} /> here. */}
+
+      {/* Team photo — careers pages need human element for employer branding */}
+      <div className="relative h-[220px] md:h-[320px] overflow-hidden">
+        <Image
+          src="/images/stock/team-portrait.webp"
+          alt="Retech Solutions team in our Ho Chi Minh City office"
+          fill
+          sizes="100vw"
+          className="object-cover transition-transform duration-700 hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+        <div className="absolute bottom-6 left-0 right-0">
+          <Container>
+            <p className="text-lg md:text-2xl font-bold text-foreground">
+              Join a team that ships.
+            </p>
+          </Container>
+        </div>
+      </div>
 
       {/* Benefits */}
       <section className="py-20 md:py-28 relative overflow-hidden">

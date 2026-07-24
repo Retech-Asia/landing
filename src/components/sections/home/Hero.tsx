@@ -195,13 +195,13 @@ export function Hero() {
             {/* Stats — premium strip with dividers, big number + label rhythm */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-wrap items-end gap-x-8 gap-y-6 sm:gap-x-12"
+              className="flex flex-wrap items-end gap-x-6 gap-y-6 sm:gap-x-10"
             >
               {STATS.map((stat, i) => (
-                <div key={stat.label} className="flex items-end gap-8 sm:gap-12">
+                <div key={stat.label} className="flex items-end">
                   {i > 0 && (
                     <span
-                      className="hidden sm:block h-12 w-px bg-gradient-to-b from-transparent via-foreground/15 to-transparent self-center"
+                      className="hidden sm:block h-12 w-px bg-gradient-to-b from-transparent via-foreground/15 to-transparent self-center mr-6 sm:mr-10"
                       aria-hidden="true"
                     />
                   )}
