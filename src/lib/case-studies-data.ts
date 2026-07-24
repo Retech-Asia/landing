@@ -106,12 +106,12 @@ export const caseStudies: CaseStudy[] = [
     ],
     images: {
       dashboard: {
-        src: "/images/wellness-dashboard.png",
+        src: "/images/wellness-dashboard.webp",
         width: 1168,
         height: 874,
       },
       mobile: {
-        src: "/images/wellness-mobile.png",
+        src: "/images/wellness-mobile.webp",
         width: 364,
         height: 744,
       },
@@ -181,12 +181,12 @@ export const caseStudies: CaseStudy[] = [
     ],
     images: {
       dashboard: {
-        src: "/images/asset-mgmt-dashboard.png",
+        src: "/images/asset-mgmt-dashboard.webp",
         width: 1168,
         height: 908,
       },
       mobile: {
-        src: "/images/asset-mgmt-mobile.png",
+        src: "/images/asset-mgmt-mobile.webp",
         width: 364,
         height: 744,
       },
