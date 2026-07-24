@@ -122,7 +122,7 @@ export default function AboutPage() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
       </div>
 
       {/* Mission & Vision */}
@@ -282,7 +282,7 @@ export default function AboutPage() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
       </div>
 
       {/* Global Reach */}

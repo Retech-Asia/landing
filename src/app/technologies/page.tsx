@@ -72,7 +72,7 @@ export default function TechnologiesPage() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
       </div>
 
       {/* Interactive tech listing with filters, flow diagram, and cards */}

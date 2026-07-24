@@ -164,7 +164,7 @@ export default function HomePage() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <p className="text-sm md:text-lg font-medium text-foreground-secondary max-w-md">
@@ -207,7 +207,7 @@ export default function HomePage() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-background/10" />
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="max-w-lg">

@@ -136,20 +136,8 @@ export function Navbar() {
     // Scrolled state + progressive blur
     setIsScrolled(latest > 20);
     setBlurAmount(Math.min(20, Math.max(0, (latest / 200) * 20)));
-
-    // Hide on scroll down, show on scroll up — BUT ONLY ON DESKTOP.
-    // On mobile, the navbar must always stay visible so the hamburger
-    // toggle remains accessible from anywhere on the page.
-    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
-    const delta = latest - lastScrollY.current;
-    if (Math.abs(delta) >= SCROLL_THRESHOLD) {
-      if (delta > 0 && latest > 80 && isDesktop) {
-        setHidden(true);
-      } else {
-        setHidden(false);
-      }
-      lastScrollY.current = latest;
-    }
+    // Navbar scroll-hide removed entirely — was causing the mobile hamburger
+    // to disappear on scroll. Not worth the complexity for a marketing site.
   });
 
   // --- Active section highlighting (homepage only) ---
@@ -285,15 +273,8 @@ export function Navbar() {
   return (
     <motion.nav
       aria-label="Main navigation"
-      // SSR-visible: opacity stays 1 on first paint so users see the nav
-      // immediately. We still animate `y` for the scroll-hide behavior.
+      // Navbar is always visible — no scroll-hide behavior.
       initial={false}
-      animate={{
-        y: hidden ? -80 : 0,
-      }}
-      transition={{
-        y: { duration: 0.35, ease: [0.23, 1, 0.32, 1] },
-      }}
       style={{
         backdropFilter: blurAmount > 0 ? `blur(${blurAmount}px)` : undefined,
         WebkitBackdropFilter: blurAmount > 0 ? `blur(${blurAmount}px)` : undefined,
