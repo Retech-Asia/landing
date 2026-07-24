@@ -121,23 +121,39 @@ export function Hero() {
               <span className="hero-gradient-headline">Solutions</span>
             </motion.h1>
 
-            {/* Subhead — short, value-first, scannable.
-                Replaces the 4-line typewriter paragraph with a single
-                crisp line plus a thin supporting line. */}
-            <motion.p
-              variants={itemVariants}
-              className="text-lg md:text-xl text-foreground-secondary leading-relaxed max-w-2xl mb-3"
-            >
-              Custom software, CMS, CRM, ERP &amp; AI products —
-              engineered for scale.
-            </motion.p>
-            <motion.p
-              variants={itemVariants}
-              className="text-sm md:text-base text-foreground-muted leading-relaxed max-w-2xl mb-10"
-            >
-              Full-cycle delivery: strategy, design, build, deploy. Agile,
-              modern stack, AI-native.
-            </motion.p>
+            {/* Subhead — human, conversational copy with word-by-word
+                reveal animation. Each word fades+lifts in with a staggered
+                delay via CSS (no JS gate — SSR-safe, respects reduced-motion).
+                Previous copy was buzzword-heavy ("Agile, modern stack, AI-native")
+                which read as AI-generated. */}
+            <div className="hero-subhead-reveal mb-10 max-w-2xl">
+              <p className="text-lg md:text-xl text-foreground-secondary leading-relaxed mb-2">
+                {"We design, build, and ship software that grows with your business — from first idea to final deploy."
+                  .split(" ")
+                  .map((word, i) => (
+                    <span
+                      key={i}
+                      className="inline-block hero-word-reveal"
+                      style={{ animationDelay: `${0.4 + i * 0.04}s` }}
+                    >
+                      {word}&nbsp;
+                    </span>
+                  ))}
+              </p>
+              <p className="text-sm md:text-base text-foreground-muted leading-relaxed">
+                {"CMS, CRM, ERP & AI products. Built in Vietnam, delivered worldwide."
+                  .split(" ")
+                  .map((word, i) => (
+                    <span
+                      key={i}
+                      className="inline-block hero-word-reveal"
+                      style={{ animationDelay: `${0.8 + i * 0.03}s` }}
+                    >
+                      {word}&nbsp;
+                    </span>
+                  ))}
+              </p>
+            </div>
 
             {/* CTAs — primary brand dominates, secondary is visibly subordinate.
                 On mobile (<sm) buttons stack full-width for proper tap targets. */}
