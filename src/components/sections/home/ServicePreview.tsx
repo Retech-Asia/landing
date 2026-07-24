@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useCallback, useRef, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -17,6 +17,11 @@ const accentColors = [
   "text-accent-cyan",
   "text-accent-violet",
 ];
+
+// Per-card depth layer. Cards alternate between back/center/front to create
+// a layered parallax scene (Linear-style). On scroll, depth shifts so the
+// layer separation becomes visible.
+const cardDepths = [-18, 0, 18, -18, 0, 18];
 
 /* ── Card-level animation wrapper — staggered fade-in + slide-up ── */
 function CardReveal({ children, index }: { children: React.ReactNode; index: number }) {
@@ -33,6 +38,30 @@ function CardReveal({ children, index }: { children: React.ReactNode; index: num
     >
       {children}
     </motion.div>
+  );
+}
+
+/* ── Scroll-driven parallax depth. Each card sits at its own Z layer;
+   as the section scrolls through the viewport, the Z shifts subtly so
+   front cards feel closer and back cards recede. ── */
+function ParallaxDepth({
+  depth,
+  children,
+  scrollYProgress,
+}: {
+  depth: number;
+  children: React.ReactNode;
+  scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"];
+}) {
+  // Map scroll progress (0 → 1 over the section's travel) to a Z translation.
+  // depth=18 → ±10px swing; depth=0 → no movement (anchor layer).
+  const zRange: [number, number] =
+    depth === 0 ? [0, 0] : depth > 0 ? [0, depth * 0.6] : [depth * 0.6, 0];
+  const z = useTransform(scrollYProgress, [0, 1], zRange);
+  const y = useTransform(scrollYProgress, [0, 1], [depth * 0.4, -depth * 0.4]);
+
+  return (
+    <motion.div style={{ z, y, transformStyle: "preserve-3d" }}>{children}</motion.div>
   );
 }
 
@@ -100,8 +129,18 @@ function TiltCard({ children }: { children: React.ReactNode }) {
 }
 
 export function ServicePreview() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
   return (
-    <section className="py-20 md:py-28 bg-background-subtle relative overflow-hidden" aria-label="Our services">
+    <section
+      ref={sectionRef}
+      className="py-20 md:py-28 bg-background-subtle relative overflow-hidden"
+      aria-label="Our services"
+    >
       {/* Premium background: grid lines fading from center + aurora mesh */}
       <CompositeSectionBackground layers={["aurora", "grid-center"]} />
       <Container className="relative z-10">
@@ -112,40 +151,48 @@ export function ServicePreview() {
           gradient
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* perspective on the grid container so child translateZ values
+            create actual depth perception. preserve-3d so children's
+            transforms don't flatten. */}
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          style={{ perspective: "1200px", perspectiveOrigin: "50% 30%" }}
+        >
           {servicesNavigation.map((service, i) => {
             const Icon = service.icon;
             return (
               <CardReveal key={service.href} index={i}>
-                <TiltCard>
-                  <Link href={service.href} className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-2xl focus-visible:ring-offset-2">
-                    <div className="group relative h-full overflow-hidden rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(32,133,53,0.06)]">
-                      {/* Animated top accent — brand gradient, draws in on hover */}
-                      <span
-                        aria-hidden="true"
-                        className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out bg-gradient-to-r from-brand via-accent-cyan to-accent-violet"
-                      />
-
-                      <Icon size={28} className={`${accentColors[i]} mb-5 transition-transform duration-300 group-hover:-translate-y-1`} />
-
-                      <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-brand transition-colors">
-                        {service.label}
-                      </h3>
-                      <p className="text-sm text-foreground-secondary leading-relaxed mb-5">
-                        {service.description}
-                      </p>
-                      {/* Always-visible CTA — better discoverability than hover-only */}
-                      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-brand">
-                        Learn more
-                        <ArrowRight
-                          size={14}
-                          className="transition-transform duration-300 group-hover:translate-x-0.5"
+                <ParallaxDepth depth={cardDepths[i % cardDepths.length]} scrollYProgress={scrollYProgress}>
+                  <TiltCard>
+                    <Link href={service.href} className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-2xl focus-visible:ring-offset-2">
+                      <div className="group relative h-full overflow-hidden rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(32,133,53,0.06)]">
+                        {/* Animated top accent — brand gradient, draws in on hover */}
+                        <span
                           aria-hidden="true"
+                          className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out bg-gradient-to-r from-brand via-accent-cyan to-accent-violet"
                         />
-                      </span>
-                    </div>
-                  </Link>
-                </TiltCard>
+
+                        <Icon size={28} className={`${accentColors[i]} mb-5 transition-transform duration-300 group-hover:-translate-y-1`} />
+
+                        <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-brand transition-colors">
+                          {service.label}
+                        </h3>
+                        <p className="text-sm text-foreground-secondary leading-relaxed mb-5">
+                          {service.description}
+                        </p>
+                        {/* Always-visible CTA — better discoverability than hover-only */}
+                        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-brand">
+                          Learn more
+                          <ArrowRight
+                            size={14}
+                            className="transition-transform duration-300 group-hover:translate-x-0.5"
+                            aria-hidden="true"
+                          />
+                        </span>
+                      </div>
+                    </Link>
+                  </TiltCard>
+                </ParallaxDepth>
               </CardReveal>
             );
           })}

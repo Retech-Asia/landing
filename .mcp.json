@@ -12,8 +12,8 @@
     },
     "playwright": {
       "command": "npx",
-      "args": ["-y", "@playwright/mcp@latest"],
-      "description": "Browser automation, screenshots, responsive testing, frontend debugging"
+      "args": ["-y", "@playwright/mcp@latest", "--headless"],
+      "description": "Browser automation, screenshots, responsive testing, frontend debugging (headless)"
     },
     "fetch": {
       "command": "npx",
