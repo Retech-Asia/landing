@@ -349,10 +349,16 @@ function TechCard({
               />
             ) : (
               <div
-                className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold"
+                className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold text-foreground"
                 style={{
-                  backgroundColor: `${tech.color}15`,
-                  color: tech.color === "#000000" ? "var(--foreground)" : tech.color,
+                  backgroundColor: `${tech.color}20`,
+                  /* Border uses brand color so the badge still reads as
+                     brand-tinted, but text stays foreground for AA contrast.
+                     Tech brand colors (#61DAFB cyan, #06B6D4 etc.) are
+                     designed for white backgrounds and fail WCAG AA when
+                     used as text on near-white tinted cards. */
+                  borderColor: `${tech.color}40`,
+                  borderWidth: 1,
                 }}
                 aria-hidden="true"
               >
@@ -364,10 +370,13 @@ function TechCard({
             </h3>
           </div>
           <span
-            className="shrink-0 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium"
+            className="shrink-0 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium text-foreground"
             style={{
-              backgroundColor: `${tech.color}10`,
-              color: tech.color === "#000000" ? "var(--foreground)" : tech.color,
+              /* Brand color as background tint (still recognizable) +
+                 border accent. Text uses var(--foreground) for AA. */
+              backgroundColor: `${tech.color}18`,
+              borderColor: `${tech.color}40`,
+              borderWidth: 1,
             }}
           >
             {tech.category}
