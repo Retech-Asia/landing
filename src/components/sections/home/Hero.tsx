@@ -21,10 +21,14 @@ import { STATS } from "@/lib/constants";
 // Entrance polish is delivered by a single CSS keyframe on the container
 // (.hero-content-enter in globals.css). Framer Motion is still used below
 // for scroll-driven parallax (which doesn't gate first paint).
-const itemVariants = {
-  hidden: {},
-  visible: { opacity: 1, y: 0, transition: { duration: 0 } },
-};
+//
+// Note: the previous `itemVariants` constant was a no-op
+// ({hidden:{}, visible:{opacity:1,y:0,duration:0}}). The motion wrappers
+// around h1 / CTA / stats still hydrate useScroll/useTransform internally
+// even when the variants do nothing — pure hydration cost with zero
+// visual payoff. Replaced those wrappers with plain DOM elements. The
+// only motion.* usages that remain are the scroll-opacity wrapper
+// (real animation) and the rotating-word AnimatePresence.
 
 /* ------------------------------------------------------------------ */
 /*  Hero component                                                    */
@@ -121,22 +125,16 @@ export function Hero() {
         className="relative z-10 w-full"
       >
         <Container className="py-20 md:py-28">
-          <motion.div
-            variants={itemVariants}
-            initial="hidden"
-            animate="visible"
-            className="hero-content-enter max-w-4xl"
-          >
+          <div className="hero-content-enter max-w-4xl">
             {/* Headline — LCP-critical: CSS-only entrance, no JS gate. */}
-            <motion.h1
-              variants={itemVariants}
+            <h1
               className="text-[2.75rem] leading-[1.05] sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold tracking-[-0.02em] text-foreground mb-6 text-balance"
             >
               Turning Ideas
               <br />
               into{" "}
               <span className="hero-gradient-headline">Solutions</span>
-            </motion.h1>
+            </h1>
 
             {/* Dynamic subtitle with rotating service type.
                 No em dashes (AI telltale). No buzzword lists. Just clean,
@@ -167,8 +165,7 @@ export function Hero() {
 
             {/* CTAs — primary brand dominates, secondary is visibly subordinate.
                 On mobile (<sm) buttons stack full-width for proper tap targets. */}
-            <motion.div
-              variants={itemVariants}
+            <div
               className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 mb-14"
             >
               <Magnetic strength={6}>
@@ -190,11 +187,10 @@ export function Hero() {
                   Explore Services
                 </Button>
               </Magnetic>
-            </motion.div>
+            </div>
 
             {/* Stats — premium strip with dividers, big number + label rhythm */}
-            <motion.div
-              variants={itemVariants}
+            <div
               className="flex flex-wrap items-end gap-x-6 gap-y-6 sm:gap-x-10"
             >
               {STATS.map((stat, i) => (
@@ -218,8 +214,8 @@ export function Hero() {
                   </div>
                 </div>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </Container>
       </motion.div>
 
