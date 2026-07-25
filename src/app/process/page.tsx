@@ -413,7 +413,7 @@ export default function ProcessPage() {
                           {phase.title}
                         </h3>
 
-                        <span className="ml-auto text-xs font-medium text-foreground-muted bg-background-muted px-3 py-1 rounded-full whitespace-nowrap">
+                        <span className="ml-auto text-xs font-medium text-foreground-secondary bg-background-muted px-3 py-1 rounded-full whitespace-nowrap">
                           {phase.timeline}
                         </span>
                       </div>

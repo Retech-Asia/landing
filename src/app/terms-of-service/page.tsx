@@ -241,7 +241,7 @@ export default function TermsOfServicePage() {
                               </p>
                               <p>
                                 <strong className="text-foreground">Email:</strong>{" "}
-                                <a href={CONTACT.emailHref} className="text-brand hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-sm">
+                                <a href={CONTACT.emailHref} className="text-brand nav-active-text hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-sm">
                                   {CONTACT.email}
                                 </a>
                               </p>

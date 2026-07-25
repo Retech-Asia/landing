@@ -40,7 +40,7 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
               <span
                 className={cn(
                   "text-base md:text-lg font-semibold transition-colors duration-200",
-                  isOpen ? "text-brand" : "text-foreground"
+                  isOpen ? "text-brand nav-active-text" : "text-foreground"
                 )}
               >
                 {item.question}
