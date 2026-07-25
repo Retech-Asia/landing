@@ -573,7 +573,10 @@ export function ContactForm() {
           tabIndex={-1}
           autoComplete="off"
           aria-hidden="true"
-          style={{ position: "absolute", left: "-9999px", opacity: 0, width: 1, height: 1 }}
+          /* Honeypot field — visually hidden but accessible to spam bots that
+             blindly fill all inputs. Tailwind utility equivalent of the
+             previous inline style. */
+          className="absolute -left-[9999px] h-px w-px opacity-0"
         />
         <StepLabels currentStep={currentStep} />
         <StepProgress currentStep={currentStep} totalSteps={TOTAL_STEPS} />
@@ -836,7 +839,7 @@ export function ContactForm() {
         tabIndex={-1}
         autoComplete="off"
         aria-hidden="true"
-        style={{ position: "absolute", left: "-9999px", opacity: 0, width: 1, height: 1 }}
+        className="absolute -left-[9999px] h-px w-px opacity-0"
       />
       <div className="flex items-center justify-between mb-2">
         <FormProgress formData={formData} />
