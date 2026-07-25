@@ -169,8 +169,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            className="absolute top-4 right-6 md:top-2 md:right-10 select-none pointer-events-none"
-            style={{ fontSize: "10rem", lineHeight: 1 }}
+            className="absolute top-4 right-6 md:top-2 md:right-10 select-none pointer-events-none text-[10rem] leading-none"
             aria-hidden="true"
           >
             <span className="bg-gradient-to-br from-brand/10 to-accent-violet/10 bg-clip-text text-transparent font-serif">

@@ -26,8 +26,7 @@ export default function Error({
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background decorations */}
       <div
-        className="absolute inset-0 grid-pattern pointer-events-none z-0"
-        style={{ opacity: 0.5 }}
+        className="absolute inset-0 grid-pattern pointer-events-none z-0 opacity-50"
         aria-hidden="true"
       />
       <div
