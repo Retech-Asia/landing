@@ -68,7 +68,7 @@ export default function FAQPage() {
             />
           </div>
 
-          <div className="max-w-3xl page-hero-enter" style={{ animationDelay: "80ms" }}>
+          <div className="max-w-3xl page-hero-enter [animation-delay:80ms]">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-4">
               Frequently Asked Questions
             </h1>
