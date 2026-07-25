@@ -214,7 +214,7 @@ function StickyStack() {
                     </ul>
                     <Link
                       href={product.href}
-                      className="inline-flex items-center gap-2 text-sm font-medium text-brand hover:gap-3 transition-all py-2 -my-2 px-1 -mx-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-sm"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-brand nav-active-text hover:gap-3 transition-all py-2 -my-2 px-1 -mx-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-sm"
                     >
                       View Case Study <ArrowRight size={16} aria-hidden="true" />
                     </Link>

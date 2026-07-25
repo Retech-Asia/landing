@@ -129,7 +129,7 @@ function FAQAccordion({
                     "shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-300",
                     isOpen
                       ? "bg-brand text-white scale-100"
-                      : "bg-black/[0.05] text-black/30 group-hover/item:bg-brand/10 group-hover/item:text-brand scale-95"
+                      : "bg-foreground/[0.08] text-foreground-secondary group-hover/item:bg-brand/10 group-hover/item:text-brand scale-95"
                   )}
                 >
                   {isOpen ? (
@@ -294,7 +294,7 @@ export function FAQClientPage({ categories }: FAQClientPageProps) {
                 className={cn(
                   "inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer",
                   activeCategory === "all"
-                    ? "bg-brand text-white shadow-[0_2px_8px_rgba(32,133,53,0.2)]"
+                    ? "bg-brand-dark text-white shadow-[0_2px_8px_rgba(32,133,53,0.2)]"
                     : "bg-white text-foreground-secondary border border-black/[0.06] hover:border-black/[0.12] hover:text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
                 )}
               >
@@ -318,7 +318,7 @@ export function FAQClientPage({ categories }: FAQClientPageProps) {
                     className={cn(
                       "inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer",
                       isActive
-                        ? "bg-brand text-white shadow-[0_2px_8px_rgba(32,133,53,0.2)]"
+                        ? "bg-brand-dark text-white shadow-[0_2px_8px_rgba(32,133,53,0.2)]"
                         : "bg-white text-foreground-secondary border border-black/[0.06] hover:border-black/[0.12] hover:text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
                     )}
                   >
