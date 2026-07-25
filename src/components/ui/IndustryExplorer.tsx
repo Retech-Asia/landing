@@ -180,8 +180,8 @@ export function IndustryExplorer() {
                       "inline-flex items-center gap-1.5 mt-4 text-sm font-medium transition-all duration-200 cursor-pointer",
                       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 rounded-lg px-2 py-1.5 -ml-2",
                       isExpanded
-                        ? "text-brand"
-                        : "text-foreground-muted hover:text-foreground"
+                        ? "text-brand nav-active-text"
+                        : "text-foreground-secondary hover:text-foreground"
                     )}
                     aria-expanded={isExpanded}
                     aria-controls={`industry-panel-${industry.slug}`}
@@ -266,7 +266,7 @@ export function IndustryExplorer() {
                         {/* CTA link */}
                         <Link
                           href={`/industries/${industry.slug}`}
-                          className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:gap-2.5 transition-all duration-300"
+                          className="inline-flex items-center gap-1.5 text-sm font-medium text-brand nav-active-text hover:gap-2.5 transition-all duration-300"
                         >
                           Explore {industry.name}
                           <ArrowRight size={14} className="transition-transform duration-300" />
