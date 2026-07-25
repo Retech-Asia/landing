@@ -133,7 +133,9 @@ export function generateMetadata({
           ? study.description.slice(0, 152).replace(/\s+\S*$/, "") + "..."
           : study.description,
         url: pageUrl,
-        type: "website",
+        // "article" enables rich social cards (author, publish date, etc.)
+        // — case studies are time-published content, not landing pages.
+        type: "article",
         images: [
           {
             url: `/case-studies/${study.slug}/opengraph-image`,
