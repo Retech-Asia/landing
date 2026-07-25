@@ -15,8 +15,13 @@ import { hasAnalyticsConsent } from "@/lib/analytics";
  * the user accepts the cookie banner.
  */
 export function ConsentAwareAnalytics() {
-  // Only render on Vercel production (not local, not preview)
-  if (process.env.NODE_ENV !== "production") return null;
+  // Only render on real Vercel deployments (production OR preview).
+  // `npm run start` locally also sets NODE_ENV=production but isn't on
+  // Vercel, so the scripts 404 and pollute the console. Use VERCEL env
+  // var instead — Vercel sets it to "1" on every deployment.
+  if (process.env.NEXT_PUBLIC_VERCEL_ENV !== "production" && process.env.NEXT_PUBLIC_VERCEL_ENV !== "preview") {
+    if (!process.env.VERCEL) return null;
+  }
 
   return (
     <>
