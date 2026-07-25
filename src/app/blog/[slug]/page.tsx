@@ -111,7 +111,7 @@ export default async function BlogPostPage({
       <h2
         key={`heading-${heading.id}`}
         id={heading.id}
-        className="text-xl md:text-2xl font-bold text-foreground mt-10 mb-4 scroll-mt-24"
+        className="font-display text-2xl md:text-3xl text-foreground mt-12 mb-4 scroll-mt-24"
       >
         {heading.text}
       </h2>
@@ -223,16 +223,30 @@ export default async function BlogPostPage({
 
             <AnimatedSection variant="slideUp" delay={0.1}>
               <article className="prose-custom">
-                {/* Intro paragraph (before any headings) */}
-                <p className="text-foreground-secondary leading-relaxed text-base md:text-lg mb-5">
+                {/* Lede paragraph — larger, foreground color (not secondary) for emphasis,
+                    subtle brand-tinted left rule. Readers scan the first sentence before
+                    committing; making it visually distinct improves engagement. */}
+                <p className="text-foreground leading-relaxed text-xl md:text-2xl font-medium mb-8 pl-5 border-l-2 border-brand/40">
                   {renderContent(post.content[0])}
                 </p>
                 {contentElements.map((el, i) => (
                   <div key={i}>
                     {el}
-                    {/* First inline image — category-themed, after 3rd content block */}
+                    {/* Decorative section break between major sections — a small
+                        gradient dot centered, gives visual rhythm without
+                        adding fake content. */}
+                    {post.headings.length > 4 && i === Math.floor(contentElements.length / 2) - 1 && (
+                      <div className="flex justify-center my-12" aria-hidden="true">
+                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand/40" />
+                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent-cyan/40 mx-2" />
+                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent-violet/40" />
+                      </div>
+                    )}
+                    {/* First inline image — full-bleed on desktop (breaks out of the
+                        720px article column to ~1200px for visual variety). On mobile
+                        keeps standard card width. */}
                     {i === 3 && post.headings.length > 4 && (
-                      <div className="my-10 relative h-48 md:h-64 rounded-2xl overflow-hidden">
+                      <figure className="my-12 md:my-16 md:w-screen md:max-w-[1200px] md:-ml-[240px] relative h-56 md:h-80 rounded-2xl overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.04),0_24px_60px_rgba(0,0,0,0.10)]">
                         <Image
                           src={
                             post.category === "Technology"
@@ -243,15 +257,18 @@ export default async function BlogPostPage({
                           }
                           alt={`${post.category} — visual context`}
                           fill
-                          sizes="(max-width: 768px) 100vw, 720px"
+                          sizes="(max-width: 768px) 100vw, 1200px"
                           className="object-cover transition-transform duration-700 hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                      </div>
+                        <figcaption className="absolute bottom-3 left-4 text-xs text-white/80 font-medium tracking-wide">
+                          {post.category} — visual context
+                        </figcaption>
+                      </figure>
                     )}
-                    {/* Second inline image — different stock photo, later in the article */}
+                    {/* Second inline image — same full-bleed treatment */}
                     {i === 7 && post.headings.length > 6 && (
-                      <div className="my-10 relative h-48 md:h-64 rounded-2xl overflow-hidden">
+                      <figure className="my-12 md:my-16 md:w-screen md:max-w-[1200px] md:-ml-[240px] relative h-56 md:h-80 rounded-2xl overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.04),0_24px_60px_rgba(0,0,0,0.10)]">
                         <Image
                           src={
                             post.category === "Technology"
@@ -262,11 +279,14 @@ export default async function BlogPostPage({
                           }
                           alt={`${post.category} — additional context`}
                           fill
-                          sizes="(max-width: 768px) 100vw, 720px"
+                          sizes="(max-width: 768px) 100vw, 1200px"
                           className="object-cover transition-transform duration-700 hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                      </div>
+                        <figcaption className="absolute bottom-3 left-4 text-xs text-white/80 font-medium tracking-wide">
+                          {post.category} — additional context
+                        </figcaption>
+                      </figure>
                     )}
                   </div>
                 ))}
