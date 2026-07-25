@@ -223,8 +223,8 @@
   --color-accent-violet: var(--accent-violet);
   --color-card-bg: var(--card-bg);
   --color-card-border: var(--card-border);
-  --font-sans: var(--font-geist-sans);
-  --font-serif: var(--font-instrument-serif), "Times New Roman", serif;
+  --font-sans: var(--font-general-sans), "General Sans", system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-cabinet-grotesk), "Cabinet Grotesk", system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
 
@@ -253,7 +253,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-general-sans), "General Sans", system-ui, sans-serif;
   /* No overflow-x on body. Even `overflow-x: clip` breaks `position: fixed`
      on older iOS Safari (<16.4) — it treats clip like hidden and establishes
      a scroll container, which makes the navbar scroll away instead of
@@ -272,31 +272,10 @@ html[data-scroll-locked="true"] body {
 
 /* Base typography defaults */
 h1, h2, h3, h4, h5, h6 {
-  line-height: 1.2;
+  line-height: 1.15;
   text-wrap: balance;
-}
-
-/* Display headlines (h1) use Instrument Serif for editorial weight.
-   The serif is a single-weight display face (400 only), so we force
-   normal weight regardless of any `font-bold` utility applied to the h1
-   — synthetic bold on a single-weight serif looks noticeably worse than
-   the natural letterforms. Declared outside @layer so it wins over
-   Tailwind utilities without needing !important sprinkled everywhere.
-   Letter-spacing tightened slightly for display-size optical alignment.
-   h2-h6 stay on Geist Sans; those are functional UI labels / sidebar
-   headers where the sans family reads better at small sizes. */
-h1 {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: -0.015em;
-}
-
-/* Utility for opt-in serif on selected h2 hero subsections / quote blocks.
-   Use sparingly — Instrument Serif is loud at display sizes. */
-.font-display {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: -0.015em;
+  font-family: var(--font-cabinet-grotesk), "Cabinet Grotesk", system-ui, sans-serif;
+  letter-spacing: -0.02em;
 }
 
 p, li {
@@ -1266,7 +1245,7 @@ select:focus {
   margin-right: 0.08em;
   margin-top: 0.1em;
   color: var(--brand);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-general-sans), "General Sans", system-ui, sans-serif;
 }
 
 /* Blockquote / pull-quote — used in long-form posts */

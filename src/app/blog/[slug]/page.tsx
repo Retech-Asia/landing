@@ -209,6 +209,34 @@ export default async function BlogPostPage({
               </header>
             </div>
 
+            {/* Mobile TOC disclosure — same pattern as service detail pages.
+                Native <details> for zero-JS accessibility. */}
+            {post.headings.length > 0 && (
+              <details className="lg:hidden group mb-8 rounded-xl border border-foreground/10 bg-card overflow-hidden">
+                <summary className="flex items-center justify-between cursor-pointer list-none px-4 py-3 text-sm font-medium text-foreground select-none">
+                  <span className="text-xs uppercase tracking-wider text-foreground-secondary">On this page</span>
+                  <svg
+                    className="w-4 h-4 text-foreground-secondary transition-transform duration-200 group-open:rotate-180"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <ul className="px-4 pb-3 pt-1 space-y-1 border-t border-foreground/[0.06]">
+                  {post.headings.map((h) => (
+                    <li key={h.id}>
+                      <a
+                        href={`#${h.id}`}
+                        className="block py-1.5 text-sm text-foreground-secondary hover:text-foreground transition-colors"
+                      >
+                        {h.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            )}
+
             {/* Featured image — topic-relevant stock photo (not OG screenshot) */}
             <div className="relative h-[240px] md:h-[360px] rounded-2xl overflow-hidden mb-8">
               <Image

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Instrument_Serif } from "next/font/google";
+import localFont from "next/font/local";
 import { SiteJsonLd } from "@/components/seo/JsonLd";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
@@ -12,26 +12,40 @@ import { SITE_URL as SITE_URL_CONST, SITE_NAME as SITE_NAME_CONST, CONTACT } fro
 import "./globals.css";
 import { ConsentAwareAnalytics } from "@/components/ui/Analytics";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+// Font system — Cabinet Grotesk (display headlines) + General Sans (body).
+// Both from Fontshare (free OFL), designed by Indian Type Foundry as a
+// coherent geometric-grotesk pair. Replaces Geist Sans because Geist had
+// become the "default Vercel-era tech look" — visually competent but
+// visually anonymous. Cabinet Grotesk's quirky "G" and "a" give Retech a
+// distinctive typographic signature without breaking B2B credibility.
+//
+// Previous attempt paired Geist with Instrument Serif — the didone serif
+// clashed with Geist's geometric skeleton. Cabinet + General Sans share
+// design DNA (same foundry, same era, same geometric construction) so the
+// pairing reads as one family.
+//
+// Files are self-hosted (no Fontshare CDN request) for performance,
+// privacy, and offline dev. Total weight ~175KB across 8 woff2 files.
+const cabinetGrotesk = localFont({
+  src: [
+    { path: "../../public/fonts/cabinet-grotesk-400.woff2", weight: "400", style: "normal" },
+    { path: "../../public/fonts/cabinet-grotesk-500.woff2", weight: "500", style: "normal" },
+    { path: "../../public/fonts/cabinet-grotesk-700.woff2", weight: "700", style: "normal" },
+    { path: "../../public/fonts/cabinet-grotesk-800.woff2", weight: "800", style: "normal" },
+  ],
+  variable: "--font-cabinet-grotesk",
   display: "swap",
-  adjustFontFallback: true,
 });
 
-// Instrument Serif — display-only. Used for H1/H2 across the site to break
-// out of the "default Vercel-era Geist look" and add editorial weight to
-// marketing headlines. Loaded with `swap` so body text renders immediately
-// and the serif swaps in once loaded (no FOIT).
-// weight 400 only — it's a single-weight display face, which is the point:
-// the visual personality comes from the letterforms, not from a weight ramp.
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
+const generalSans = localFont({
+  src: [
+    { path: "../../public/fonts/general-sans-400.woff2", weight: "400", style: "normal" },
+    { path: "../../public/fonts/general-sans-500.woff2", weight: "500", style: "normal" },
+    { path: "../../public/fonts/general-sans-600.woff2", weight: "600", style: "normal" },
+    { path: "../../public/fonts/general-sans-700.woff2", weight: "700", style: "normal" },
+  ],
+  variable: "--font-general-sans",
   display: "swap",
-  adjustFontFallback: true,
 });
 
 // Geist Mono removed — was used in only 3 places (industry labels,
@@ -160,7 +174,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${generalSans.variable} ${cabinetGrotesk.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />

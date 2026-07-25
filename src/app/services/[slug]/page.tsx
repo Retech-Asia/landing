@@ -16,7 +16,6 @@ import { ROICalculator } from "@/components/ui/ROICalculator";
 import { ServiceJsonLd, FAQJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { ServiceTimeline } from "@/components/services/ServiceTimeline";
 import { ServiceTOC, type TocItem } from "@/components/services/ServiceTOC";
-import { ServiceHeroIcon } from "@/components/services/ServiceHeroIcon";
 import { AnimatedChecklist } from "@/components/services/AnimatedChecklist";
 import { TechBadges } from "@/components/services/TechBadges";
 import { services, getServiceBySlug } from "@/lib/services-data";
@@ -192,8 +191,6 @@ export default async function ServiceDetailPage({
     notFound();
   }
 
-  const Icon = service.icon;
-
   const checklistItems = serviceChecklists[slug] ?? [];
   const relatedCaseStudySlugs = serviceCaseStudyMap[slug] ?? [];
   const relatedCaseStudies = caseStudies.filter((cs) =>
@@ -272,33 +269,47 @@ export default async function ServiceDetailPage({
           </AnimatedSection>
 
           <div className="max-w-3xl relative">
-            {/* Large semi-transparent icon behind the title */}
-            <div className="absolute -top-8 -right-8 md:-right-16 pointer-events-none select-none" aria-hidden="true">
-              <Icon size={220} className="text-brand opacity-[0.05]" strokeWidth={0.8} />
-            </div>
+            {/* Mobile TOC disclosure — appears only on <lg screens where
+                the sticky sidebar TOC is hidden. Uses native <details> so
+                it works without JS and is keyboard/screen-reader accessible.
+                Long service pages (this one is ~12700px tall) lose orientation
+                on mobile without it. */}
+            {tocItems.length > 0 && (
+              <details className="lg:hidden group mb-8 rounded-xl border border-foreground/10 bg-card overflow-hidden">
+                <summary className="flex items-center justify-between cursor-pointer list-none px-4 py-3 text-sm font-medium text-foreground select-none">
+                  <span className="flex items-center gap-2">
+                    <span className="text-xs uppercase tracking-wider text-foreground-secondary">On this page</span>
+                  </span>
+                  <svg
+                    className="w-4 h-4 text-foreground-secondary transition-transform duration-200 group-open:rotate-180"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <ul className="px-4 pb-3 pt-1 space-y-1 border-t border-foreground/[0.06]">
+                  {tocItems.map((item) => (
+                    <li key={item.id}>
+                      <a
+                        href={`#${item.id}`}
+                        className="block py-1.5 text-sm text-foreground-secondary hover:text-foreground transition-colors"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            )}
 
-            {/* Animated hero icon with glow.
-                ERP page pilots a hand-drawn illustration (Lukasz Adam, CC0)
-                instead of the lucide-in-glow-card — that pattern reads as
-                AI-template. If the pilot lands, we'll roll forward to the
-                other 5 service pages with per-page illustrations. */}
+            {/* Hero is intentionally typographic — no icon, no glow card,
+                no decorative background glyph. This matches the
+                Stripe/Linear/Vercel hero pattern where the headline carries
+                the moment and icons are reserved for feature lists below
+                the fold where they aid scannability. The previous
+                lucide-in-glow-card read as a generic AI-template element. */}
+
             <AnimatedSection variant="slideUp" delay={0.06}>
-              {service.slug === "erp-solutions" ? (
-                <img
-                  src="/images/illustrations/lukasz-coding-people.svg"
-                  alt=""
-                  aria-hidden="true"
-                  width={240}
-                  height={180}
-                  decoding="async"
-                  className="mb-6 h-auto w-56 md:w-64 lg:w-72"
-                />
-              ) : (
-                <ServiceHeroIcon slug={service.slug} color={service.heroColor} className="mb-6" />
-              )}
-            </AnimatedSection>
-
-            <AnimatedSection variant="slideUp" delay={0.12}>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-3">
                 {service.title}
               </h1>
