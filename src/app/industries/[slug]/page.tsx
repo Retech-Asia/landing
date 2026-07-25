@@ -29,7 +29,7 @@ import { GradientBackground } from "@/components/ui/GradientBackground";
 import { GridPattern } from "@/components/ui/GridPattern";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { Badge } from "@/components/ui/Badge";
-import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbJsonLd, ServiceJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import {
   industries,
   getIndustryBySlug,
@@ -139,6 +139,12 @@ export default async function IndustryDetailPage({
         title={`${industry.name} Software Development`}
         description={industry.longDescription.slice(0, 160)}
         url={pageUrl}
+      />
+      <ServiceJsonLd
+        name={`${industry.name} Software Development`}
+        description={industry.longDescription.slice(0, 160)}
+        url={pageUrl}
+        serviceType={`${industry.name} Software Development`}
       />
       <BreadcrumbJsonLd
         items={[

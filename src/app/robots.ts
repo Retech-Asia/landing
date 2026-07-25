@@ -16,18 +16,23 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: ["/api/", "/_next/", "/_vercel"],
       },
-      // Open AI crawlers (ChatGPT search, etc.) — explicitly welcomed.
+      // Open AI crawlers (ChatGPT search, etc.) — explicitly welcomed,
+      // but still disallowed from internal/api/static-asset paths so they
+      // don't waste crawl budget on non-content routes.
       {
         userAgent: "GPTBot",
         allow: "/",
+        disallow: ["/api/", "/_next/", "/_vercel"],
       },
       {
         userAgent: "ChatGPT-User",
         allow: "/",
+        disallow: ["/api/", "/_next/", "/_vercel"],
       },
       {
         userAgent: "CCBot",
         allow: "/",
+        disallow: ["/api/", "/_next/", "/_vercel"],
       },
       // Default — everything else.
       {
