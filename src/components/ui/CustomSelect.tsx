@@ -231,7 +231,7 @@ export function CustomSelect({
             exit={{ opacity: 0, y: -4, scaleY: 0.96 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
             style={{ transformOrigin: "top" }}
-            className="absolute z-50 mt-1.5 w-full rounded-xl border border-black/[0.08] bg-white shadow-[0_4px_6px_rgba(0,0,0,0.04),0_10px_24px_rgba(0,0,0,0.08)] overflow-hidden"
+            className="absolute z-[var(--z-dropdown)] mt-1.5 w-full rounded-xl border border-black/[0.08] bg-white shadow-[0_4px_6px_rgba(0,0,0,0.04),0_10px_24px_rgba(0,0,0,0.08)] overflow-hidden"
           >
             <div
               id={listboxId}

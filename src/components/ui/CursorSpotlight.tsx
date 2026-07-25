@@ -26,7 +26,7 @@ export function CursorSpotlight() {
   return (
     <div
       ref={ref}
-      className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
+      className="pointer-events-none fixed inset-0 z-[var(--z-cursor)] transition-opacity duration-300"
       aria-hidden="true"
     />
   );

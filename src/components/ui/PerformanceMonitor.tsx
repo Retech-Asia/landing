@@ -86,7 +86,7 @@ export function PerformanceMonitor() {
   if (!visible) {
     return (
       <div
-        className="fixed bottom-4 left-4 z-[9999] flex items-center gap-1.5 rounded-lg bg-black/75 px-2.5 py-1.5 font-mono text-[10px] text-white/60 backdrop-blur-sm select-none"
+        className="fixed bottom-4 left-4 z-[var(--z-devtools)] flex items-center gap-1.5 rounded-lg bg-black/75 px-2.5 py-1.5 font-mono text-[10px] text-white/60 backdrop-blur-sm select-none"
         title="Ctrl+Shift+P to expand"
       >
         <span className="inline-block h-1.5 w-1.5 rounded-full bg-green-400" />
@@ -103,7 +103,7 @@ export function PerformanceMonitor() {
         : "text-red-400";
 
   return (
-    <div className="fixed bottom-4 left-4 z-[9999] w-52 rounded-xl bg-black/85 p-3 font-mono text-[11px] text-white/80 shadow-2xl backdrop-blur-md select-none">
+    <div className="fixed bottom-4 left-4 z-[var(--z-devtools)] w-52 rounded-xl bg-black/85 p-3 font-mono text-[11px] text-white/80 shadow-2xl backdrop-blur-md select-none">
       <div className="mb-2 flex items-center justify-between">
         <span className="text-white/50 text-[10px] uppercase tracking-wider">
           Performance

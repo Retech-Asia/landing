@@ -32,7 +32,7 @@ function TopProgressBar({ isNavigating }: { isNavigating: boolean }) {
     <AnimatePresence>
       {isNavigating && (
         <motion.div
-          className="fixed inset-x-0 top-0 z-[9999] h-[2px] origin-left pointer-events-none"
+          className="fixed inset-x-0 top-0 z-[var(--z-devtools)] h-[2px] origin-left pointer-events-none"
           initial={{ scaleX: 0, opacity: 1 }}
           animate={{
             scaleX: [0, 0.4, 0.7, 0.9, 1],

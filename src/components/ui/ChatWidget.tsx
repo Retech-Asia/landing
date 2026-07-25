@@ -34,7 +34,7 @@ export function ChatWidget() {
       transition={{ delay: 1.2, duration: 0.4, ease: "easeOut" }}
       whileHover={{ scale: 1.06 }}
       whileTap={{ scale: 0.96 }}
-      className="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full bg-[#25D366] px-4 py-3.5 text-white shadow-[0_8px_24px_rgba(37,211,102,0.35)] transition-shadow hover:shadow-[0_12px_32px_rgba(37,211,102,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
+      className="fixed bottom-5 right-5 z-[var(--z-overlay)] flex items-center gap-2.5 rounded-full bg-[#25D366] px-4 py-3.5 text-white shadow-[0_8px_24px_rgba(37,211,102,0.35)] transition-shadow hover:shadow-[0_12px_32px_rgba(37,211,102,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
     >
       {/* Official WhatsApp glyph (simplified path) */}
       <svg

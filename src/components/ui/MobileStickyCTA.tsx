@@ -57,7 +57,7 @@ export function MobileStickyCTA() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 80, opacity: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="lg:hidden fixed bottom-0 inset-x-0 z-40 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 px-4 bg-gradient-to-t from-background via-background/95 to-transparent pointer-events-none"
+          className="lg:hidden fixed bottom-0 inset-x-0 z-[var(--z-overlay)] pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 px-4 bg-gradient-to-t from-background via-background/95 to-transparent pointer-events-none"
         >
           <Link
             href="/contact"

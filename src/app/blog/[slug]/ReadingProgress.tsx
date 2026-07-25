@@ -35,7 +35,7 @@ export function ReadingProgress() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed top-16 left-0 right-0 z-40 h-[3px]"
+          className="fixed top-16 left-0 right-0 z-[var(--z-overlay)] h-[3px]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

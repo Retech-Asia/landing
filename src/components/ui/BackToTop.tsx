@@ -59,7 +59,7 @@ export function BackToTop() {
           }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="fixed bottom-36 right-6 z-40 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brand text-white shadow-[0_4px_14px_rgba(32,133,53,0.35)] transition-all duration-200 hover:bg-brand-dark hover:shadow-[0_6px_20px_rgba(32,133,53,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="fixed bottom-36 right-6 z-[var(--z-overlay)] flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-brand text-white shadow-[0_4px_14px_rgba(32,133,53,0.35)] transition-all duration-200 hover:bg-brand-dark hover:shadow-[0_6px_20px_rgba(32,133,53,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           {/* Circular progress ring */}
           <svg

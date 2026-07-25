@@ -275,7 +275,7 @@ export function Navbar() {
     <nav
       aria-label="Main navigation"
       className={cn(
-        "fixed top-0 left-0 right-0 z-[100] transition-[border-color,box-shadow,background-color] duration-300",
+        "fixed top-0 left-0 right-0 z-[var(--z-navbar)] transition-[border-color,box-shadow,background-color] duration-300",
         isScrolled
           ? "bg-background/80 backdrop-blur-md border-b border-black/[0.06] shadow-sm"
           : "bg-transparent"
@@ -468,7 +468,7 @@ export function Navbar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="lg:hidden fixed inset-0 top-16 bg-black/20 backdrop-blur-sm z-40"
+              className="lg:hidden fixed inset-0 top-16 bg-black/20 backdrop-blur-sm z-[var(--z-dropdown)]"
               onClick={() => setIsMobileOpen(false)}
               aria-hidden="true"
             />
@@ -484,7 +484,7 @@ export function Navbar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="lg:hidden fixed top-16 right-0 bottom-0 w-full max-w-sm bg-background/[0.98] backdrop-blur-xl z-40 overflow-y-auto border-l border-black/[0.06]"
+              className="lg:hidden fixed top-16 right-0 bottom-0 w-full max-w-sm bg-background/[0.98] backdrop-blur-xl z-[var(--z-dropdown)] overflow-y-auto border-l border-black/[0.06]"
               onKeyDown={handleMobileKeyDown}
             >
               <div className="px-6 py-6 space-y-1">
