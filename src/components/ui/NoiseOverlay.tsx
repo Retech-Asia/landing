@@ -20,7 +20,7 @@ export function NoiseOverlay() {
         </filter>
       </svg>
       <div
-        className="pointer-events-none fixed inset-0 z-[45] opacity-[0.015] mix-blend-multiply"
+        className="pointer-events-none fixed inset-0 z-[var(--z-cursor)] opacity-[0.015] mix-blend-multiply"
         style={{ filter: "url(#noise)" }}
         aria-hidden="true"
       />
