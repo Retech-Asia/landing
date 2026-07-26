@@ -119,7 +119,7 @@ function FAQAccordion({ items }: { items: typeof faqItems }) {
                 >
                   {itemNumber}
                 </span>
-                <span className="text-base font-medium text-foreground group-hover/item:text-brand transition-colors truncate">
+                <span className="text-base font-medium text-foreground group-hover/item:text-brand transition-colors">
                   {item.question}
                 </span>
               </div>
