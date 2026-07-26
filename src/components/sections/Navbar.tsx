@@ -585,6 +585,11 @@ export function Navbar() {
                   <Button href="/contact" size="md" className="w-full" onClick={() => setIsMobileOpen(false)}>
                     Request Quote
                   </Button>
+                  {/* WhatsApp as a secondary mobile CTA — replaces the old
+                      floating button that overlapped content. Full-width
+                      pill in the mobile menu, discoverable without being
+                      intrusive. */}
+                  <WhatsAppButton variant="navbar" className="w-full justify-center" />
                   <div className="flex justify-center pt-2">
                     <ThemeToggle />
                   </div>
