@@ -806,6 +806,34 @@ export const blogPosts: BlogPost[] = [
     author: "Retech Solutions",
     readTime: "8 min read",
   },
+  {
+    slug: "rag-retrieval-augmented-generation-best-practices-2026",
+    title: "RAG Best Practices in 2026: Building Production Retrieval-Augmented Generation",
+    excerpt:
+      "Practical patterns for production RAG systems — chunking strategies, embedding choices, vector databases, reranking, and the evaluation metrics that separate working prototypes from reliable systems.",
+    content: [
+      "Retrieval-Augmented Generation (RAG) has become the default architecture for connecting LLMs to private data. The concept is simple: retrieve relevant documents from a knowledge base, inject them into the LLM's context window, and let the model generate a grounded answer. The execution is where teams struggle — a RAG prototype that works on 10 documents often fails on 10,000. This guide covers the patterns that separate production-grade RAG from demo-grade RAG.",
+      "The retrieval pipeline has four stages: chunking (splitting source documents into searchable pieces), embedding (converting chunks into vector representations), search (finding the most relevant chunks for a given query), and generation (feeding those chunks to the LLM). Each stage has decisions that determine whether your system returns the right answer 95% of the time or 70% of the time. [LangChain's RAG documentation](https://python.langchain.com/docs/use_cases/question_answering/) covers the fundamentals well — this guide focuses on the production decisions that come after.",
+      "Chunking strategy is the first decision and the one teams get wrong most often. The default approach — fixed-size chunks of 500-1000 tokens — works for uniform text (articles, documentation) but fails on structured data (tables, code, legal documents). Production RAG systems use semantic chunking: split on natural boundaries (paragraph breaks, section headers, function definitions) and keep chunk size between 200 and 800 tokens. Smaller chunks improve retrieval precision (less irrelevant text per match) but increase the total chunk count (more storage, slower search). Most teams converge on 400-600 token chunks with 50-100 token overlap between adjacent chunks to preserve context at boundaries.",
+      "Embedding model choice affects both retrieval quality and cost. The dominant options in 2026 are OpenAI's text-embedding-3-large (3072 dimensions), [Cohere's embed-v4](https://cohere.com/blog/intembed-v4) (1536 dimensions), and open-source models like [BGE-large](https://huggingface.co/BAAI/bge-large-en-v1.5) (1024 dimensions). Higher dimensionality captures more semantic nuance but costs more to store and search. For most enterprise use cases, 1024-1536 dimensions is the sweet spot — enough nuance for precise retrieval, manageable storage costs at scale.",
+      "Vector database selection is where architecture decisions get concrete. [PostgreSQL with pgvector](https://github.com/pgvector/pgvector) is the default for teams already running Postgres — it's free, ACID-compliant, and handles up to ~10 million vectors before performance degrades. Managed services like [Pinecone](https://www.pinecone.io/) and [Weaviate](https://weaviate.io/) are better for larger-scale deployments (100M+ vectors) or when you need managed infrastructure. For most enterprise RAG systems processing 100K-1M documents, pgvector on Postgres is sufficient and avoids the operational complexity of a separate vector database.",
+      "Reranking is the technique that separates good RAG from great RAG. After initial vector search retrieves the top-K candidates (typically K=20-50), a reranker re-scores those candidates using a more expensive cross-encoder model. The reranker's cross-attention mechanism captures query-document relevance that bi-encoder embeddings miss. [Cohere's rerank API](https://cohere.com/blog/rerank) and open-source models like [bge-reranker](https://huggingface.co/BAAI/bge-reranker-large) are the standard choices. Production RAG systems typically retrieve 20-50 candidates with vector search, then rerank to the top 3-5 before feeding to the LLM. This two-stage approach improves answer quality by 15-25% compared to single-stage retrieval.",
+      "Evaluation is the part most teams skip and regret later. A RAG system without automated evaluation is a black box — you can't answer \"is retrieval quality improving or degrading?\" without metrics. The two metrics that matter: context recall (did the retriever find the right documents?) and faithfulness (did the LLM's answer match the retrieved context?). [Ragas](https://github.com/explodinggradients/ragas) and [TruLens](https://www.trulens.org/) are the standard evaluation frameworks. Teams should build a golden test set of 50-100 query-answer pairs and run automated evaluation on every pipeline change.",
+      "At [Retech Solutions](/), we've built RAG systems for legal document search, financial analysis, and internal knowledge bases. The pattern we see repeatedly: teams launch a RAG prototype in days using LangChain's defaults, then spend weeks debugging retrieval quality issues that better chunking, reranking, and evaluation would have caught early. If you're building a production RAG system or migrating from prototype to scale, [we can help](/contact) you avoid the pitfalls.",
+    ],
+    headings: [
+      { id: "retrieval-pipeline", text: "The Four-Stage Retrieval Pipeline", level: 2 },
+      { id: "chunking-strategy", text: "Chunking: The Decision Teams Get Wrong Most", level: 2 },
+      { id: "embedding-models", text: "Embedding Models: Dimensionality vs Cost", level: 2 },
+      { id: "vector-databases", text: "Vector Databases: pgvector vs Managed Services", level: 2 },
+      { id: "reranking", text: "Reranking: The Quality Multiplier", level: 2 },
+      { id: "evaluation", text: "Evaluation: Metrics That Separate Good from Great", level: 2 },
+    ],
+    category: "Guides",
+    date: "2026-07-26",
+    author: "Retech Solutions",
+    readTime: "9 min read",
+  },
 ];
 
 export const BLOG_CATEGORIES = [
