@@ -282,16 +282,13 @@ export default async function BlogPostPage({
                                 ? "/images/stock/analytics-dashboard.webp"
                                 : "/images/stock/ai-abstract.webp"
                           }
-                          alt={`${post.category} — visual context`}
+                          alt={`${post.title} — development workspace and code overview`}
                           fill
                           quality={90}
                           sizes="(max-width: 768px) 100vw, 1200px"
                           className="object-cover transition-transform duration-700 hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                        <figcaption className="absolute bottom-3 left-4 text-xs text-white/80 font-medium tracking-wide">
-                          {post.category} — visual context
-                        </figcaption>
                       </figure>
                     )}
                     {/* Second inline image — same full-bleed treatment */}
@@ -305,16 +302,13 @@ export default async function BlogPostPage({
                                 ? "/images/stock/developer-workspace.webp"
                                 : "/images/stock/cloud-tech.webp"
                           }
-                          alt={`${post.category} — additional context`}
+                          alt={`${post.title} — engineering tools and technical implementation`}
                           fill
                           quality={90}
                           sizes="(max-width: 768px) 100vw, 1200px"
                           className="object-cover transition-transform duration-700 hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                        <figcaption className="absolute bottom-3 left-4 text-xs text-white/80 font-medium tracking-wide">
-                          {post.category} — additional context
-                        </figcaption>
                       </figure>
                     )}
                   </div>
