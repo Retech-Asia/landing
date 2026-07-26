@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Instrument_Serif } from "next/font/google";
 import { SiteJsonLd } from "@/components/seo/JsonLd";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
@@ -12,29 +13,24 @@ import { SITE_URL as SITE_URL_CONST, SITE_NAME as SITE_NAME_CONST, CONTACT } fro
 import "./globals.css";
 import { ConsentAwareAnalytics } from "@/components/ui/Analytics";
 
-// Font system — Cabinet Grotesk (display headlines) + General Sans (body).
-// Both from Fontshare (free OFL), designed by Indian Type Foundry as a
-// coherent geometric-grotesk pair. Replaces Geist Sans because Geist had
-// become the "default Vercel-era tech look" — visually competent but
-// visually anonymous. Cabinet Grotesk's quirky "G" and "a" give Retech a
-// distinctive typographic signature without breaking B2B credibility.
+// Font system — Instrument Serif (display headlines) + General Sans (body
+// and subheads). Cabinet Grotesk removed per user direction (read as
+// "competent but anonymous"). Instrument Serif is a single-weight display
+// face with letterforms that give Retech editorial elegance on hero h1s
+// without going full-fashion-magazine. Its italic is genuinely beautiful
+// for accent words. General Sans handles body and h2-h6 — bold weights
+// carry the structured UI hierarchy.
 //
-// Previous attempt paired Geist with Instrument Serif — the didone serif
-// clashed with Geist's geometric skeleton. Cabinet + General Sans share
-// design DNA (same foundry, same era, same geometric construction) so the
-// pairing reads as one family.
-//
-// Files are self-hosted (no Fontshare CDN request) for performance,
-// privacy, and offline dev. Total weight ~175KB across 8 woff2 files.
-const cabinetGrotesk = localFont({
-  src: [
-    { path: "../../public/fonts/cabinet-grotesk-400.woff2", weight: "400", style: "normal" },
-    { path: "../../public/fonts/cabinet-grotesk-500.woff2", weight: "500", style: "normal" },
-    { path: "../../public/fonts/cabinet-grotesk-700.woff2", weight: "700", style: "normal" },
-    { path: "../../public/fonts/cabinet-grotesk-800.woff2", weight: "800", style: "normal" },
-  ],
-  variable: "--font-cabinet-grotesk",
+// Instrument Serif is loaded via next/font/google (one woff2, ~10KB
+// latin subset, swap display so body paints first). General Sans stays
+// self-hosted for performance, privacy, offline dev.
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
+  adjustFontFallback: true,
 });
 
 const generalSans = localFont({
@@ -174,7 +170,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${generalSans.variable} ${cabinetGrotesk.variable} h-full antialiased`}
+      className={`${generalSans.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />

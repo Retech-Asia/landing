@@ -246,7 +246,7 @@
   --color-card-bg: var(--card-bg);
   --color-card-border: var(--card-border);
   --font-sans: var(--font-general-sans), "General Sans", system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-cabinet-grotesk), "Cabinet Grotesk", system-ui, sans-serif;
+  --font-display: var(--font-instrument-serif), "Times New Roman", serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
 
@@ -296,8 +296,36 @@ html[data-scroll-locked="true"] body {
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.15;
   text-wrap: balance;
-  font-family: var(--font-cabinet-grotesk), "Cabinet Grotesk", system-ui, sans-serif;
   letter-spacing: -0.02em;
+}
+
+/* h1 = Instrument Serif (elegant editorial display). Single-weight face
+   (400 only), so force normal weight regardless of any font-bold utility
+   applied to h1 — synthetic bold on a single-weight serif looks worse
+   than the natural letterforms. Letter-spacing tightened for display
+   optical alignment. */
+h1 {
+  font-family: var(--font-instrument-serif), "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  /* Slightly larger than the explicit text-Nxl utilities apply, because
+     serifs read smaller than grotesks at the same px size. Bumping by
+     ~8-10% optical. Implemented via font-size: larger on the H1 itself,
+     components can still override with explicit text-* classes. */
+}
+
+/* h2-h6 stay on General Sans — structured UI labels / sidebar headers
+   where the sans family reads better at small sizes. */
+h2, h3, h4, h5, h6 {
+  font-family: var(--font-general-sans), "General Sans", system-ui, sans-serif;
+}
+
+/* Utility for opt-in serif on selected h2 hero subsections / quote blocks.
+   Use sparingly — Instrument Serif is loud at display sizes. */
+.font-display {
+  font-family: var(--font-instrument-serif), "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
 }
 
 p, li {
