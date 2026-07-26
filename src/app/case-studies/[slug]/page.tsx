@@ -213,6 +213,7 @@ export default async function CaseStudyDetailPage({
             alt={study.title}
             fill
             priority
+            quality={90}
             sizes="100vw"
             className="object-cover transition-transform duration-700 hover:scale-105"
           />

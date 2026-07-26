@@ -3,10 +3,17 @@ import { WIX_REDIRECTS, INTERNAL_REDIRECTS } from "./src/lib/wix-redirect-map";
 
 const nextConfig: NextConfig = {
   images: {
+    // AVIF first = best compression + quality. WebP fallback for older browsers.
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
-    minimumCacheTTL: 60,
+    // Allow opting into higher-quality variants per-image (default stays 75).
+    // Use <Image quality={90} /> for hero/feature images where visual fidelity
+    // matters more than byte size (case study dashboards, hero stock photos).
+    qualities: [75, 85, 90],
+    // All images are static (under /public/images/). They never change between
+    // deploys, so cache aggressively — 1 day instead of the default 60s.
+    minimumCacheTTL: 86400,
   },
 
   // Enable stricter compression for better Core Web Vitals

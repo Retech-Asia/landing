@@ -161,6 +161,7 @@ export default function HomePage() {
           src="/images/stock/ai-abstract.webp"
           alt="AI-powered software development capabilities"
           fill
+          quality={90}
           sizes="100vw"
           className="object-cover transition-transform duration-700 hover:scale-105"
         />
@@ -204,6 +205,7 @@ export default function HomePage() {
           src="/images/stock/team-collaboration.webp"
           alt="Retech Solutions engineering team collaborating on a project"
           fill
+          quality={90}
           sizes="100vw"
           className="object-cover transition-transform duration-700 hover:scale-105"
         />

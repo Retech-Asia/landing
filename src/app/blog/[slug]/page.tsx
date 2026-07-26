@@ -244,6 +244,7 @@ export default async function BlogPostPage({
                 alt={post.title}
                 fill
                 priority
+                quality={90}
                 sizes="(max-width: 768px) 100vw, 720px"
                 className="object-cover transition-transform duration-700 hover:scale-105"
               />
@@ -285,6 +286,7 @@ export default async function BlogPostPage({
                           }
                           alt={`${post.category} — visual context`}
                           fill
+                          quality={90}
                           sizes="(max-width: 768px) 100vw, 1200px"
                           className="object-cover transition-transform duration-700 hover:scale-105"
                         />
@@ -307,6 +309,7 @@ export default async function BlogPostPage({
                           }
                           alt={`${post.category} — additional context`}
                           fill
+                          quality={90}
                           sizes="(max-width: 768px) 100vw, 1200px"
                           className="object-cover transition-transform duration-700 hover:scale-105"
                         />
