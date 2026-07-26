@@ -160,12 +160,12 @@ const serviceChecklists: Record<string, string[]> = {
 
 /* ── Case study mapping per service ───────────────────────────── */
 const serviceCaseStudyMap: Record<string, string[]> = {
-  "cms-platforms": ["wellness-platform"],
-  "web-development": ["wellness-platform"],
-  "ui-ux-design": ["wellness-platform", "asset-management-platform"],
+  "cms-platforms": ["mining-analytics-platform"],
+  "web-development": ["mining-analytics-platform"],
+  "ui-ux-design": ["mining-analytics-platform", "asset-management-platform"],
   "crm-systems": ["asset-management-platform"],
   "erp-solutions": ["asset-management-platform"],
-  "dedicated-teams": ["wellness-platform", "asset-management-platform"],
+  "dedicated-teams": ["mining-analytics-platform", "asset-management-platform"],
 };
 
 /* ── Blog post mapping per service ────────────────────────────── */

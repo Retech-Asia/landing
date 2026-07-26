@@ -95,6 +95,6 @@ export const WIX_REDIRECTS: WixRedirect[] = [
  * keep resolving. Safe to remove after 6+ months of stable traffic.
  */
 export const INTERNAL_REDIRECTS: WixRedirect[] = [
-  { source: "/case-studies/signsbeat", destination: "/case-studies/wellness-platform", permanent: true },
+  { source: "/case-studies/signsbeat", destination: "/case-studies/mining-analytics-platform", permanent: true },
   { source: "/case-studies/dune-asset-management", destination: "/case-studies/asset-management-platform", permanent: true },
 ];

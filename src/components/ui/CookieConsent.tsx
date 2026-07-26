@@ -197,7 +197,7 @@ export function CookieConsent() {
           }}
           className="fixed bottom-0 inset-x-0 z-[var(--z-cookie)] flex justify-center px-4 pb-4 sm:px-6 sm:pb-6 pointer-events-none"
         >
-          <div className="w-full max-w-4xl pointer-events-auto rounded-2xl border border-foreground/10 bg-card shadow-[0_-4px_32px_rgba(0,0,0,0.18)] overflow-hidden">
+          <div className="w-full max-w-4xl pointer-events-auto rounded-2xl border border-foreground/10 bg-background shadow-[0_-4px_32px_rgba(0,0,0,0.18)] overflow-hidden">
             {/* Gradient top border accent */}
             <div
               className="h-[2px] w-full"

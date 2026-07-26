@@ -47,13 +47,13 @@ import {
 
 /* ── Case study to services mapping ─────────────────────────── */
 const caseStudyServiceMap: Record<string, string[]> = {
-  "wellness-platform": ["cms-platforms", "web-development", "ui-ux-design", "dedicated-teams"],
+  "mining-analytics-platform": ["web-development", "ui-ux-design", "dedicated-teams"],
   "asset-management-platform": ["crm-systems", "erp-solutions", "ui-ux-design", "dedicated-teams"],
 };
 
 /* ── Case study to blog posts mapping ─────────────────────── */
 const caseStudyBlogMap: Record<string, string[]> = {
-  "wellness-platform": ["rise-of-headless-cms-separating-content-from-presentation", "building-accessible-websites-practical-guide-2026"],
+  "mining-analytics-platform": ["nextjs-16-server-components-performance-guide", "why-typescript-became-default-enterprise-development"],
   "asset-management-platform": ["erp-modernization-legacy-systems-migration-guide", "cloud-native-erp-microservices-architecture-future", "cms-vs-crm-choosing-right-system-business"],
 };
 

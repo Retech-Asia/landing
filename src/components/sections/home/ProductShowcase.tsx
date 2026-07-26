@@ -11,14 +11,14 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 
 const products = [
   {
-    name: "Wellness Platform",
-    tagline: "Next-Generation Wellness Platform",
+    name: "Mining Analytics Platform",
+    tagline: "BTC Mining Operations Dashboard",
     description:
-      "A lifestyle and wellness application designed to empower users with personalized health insights, real-time analytics, and an integrated Women's Health Card.",
+      "A full-stack BTC mining analytics platform unifying F2Pool + ViaBTC hashrate data, CoinGecko market pricing, and mempool difficulty projections into one operator dashboard.",
     features: [
-      "Enhanced credential security",
-      "Seamless login experiences",
-      "Real-time health analytics",
+      "Multi-pool ingestion (F2Pool + ViaBTC)",
+      "CoinGecko + Mempool difficulty projections",
+      "JWT auth with refresh rotation",
     ],
     dashboard: {
       src: "/images/stock/cs-wellness-dashboard.webp",
@@ -30,7 +30,7 @@ const products = [
       width: 364,
       height: 744,
     },
-    href: "/case-studies/wellness-platform",
+    href: "/case-studies/mining-analytics-platform",
   },
   {
     name: "Asset Management Platform",
@@ -61,7 +61,7 @@ const products = [
     desktop-only without duplicating content markup. ── */
 function FlatList() {
   return (
-    <div className="space-y-24 md:space-y-32 lg:hidden">
+    <Container className="space-y-24 md:space-y-32 lg:hidden">
       {products.map((product, index) => (
         <AnimatedSection key={product.name}>
           <div
@@ -125,7 +125,7 @@ function FlatList() {
           </div>
         </AnimatedSection>
       ))}
-    </div>
+    </Container>
   );
 }
 
