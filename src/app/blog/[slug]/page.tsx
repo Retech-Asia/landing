@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Calendar, Clock, User, ArrowLeft, ArrowRight, BookOpen } from "lucide-react";
+import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
@@ -55,7 +55,7 @@ export function generateMetadata({
         type: "article",
         publishedTime: post.date,
         modifiedTime: post.updatedAt ?? post.date,
-        authors: [post.author],
+        authors: ["Retech Solutions"],
         tags: [post.category, "IT Outsourcing", "Software Development"],
         images: [
           {
@@ -173,10 +173,8 @@ export default async function BlogPostPage({
                 </h1>
 
                 <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-foreground-muted">
-                  <span className="flex items-center gap-1.5">
-                    <User size={15} aria-hidden="true" />
-                    {post.author}
-                  </span>
+                  {/* Author byline removed — Retech Solutions is the sole
+                      author of every post; repeating it adds noise. */}
                   <time
                     dateTime={post.date}
                     className="flex items-center gap-1.5"
@@ -336,52 +334,10 @@ export default async function BlogPostPage({
               <FeedbackWidget />
             </AnimatedSection>
 
-            {/* Author card */}
-            <AnimatedSection variant="slideUp" delay={0.12}>
-              <div className="mt-10 relative overflow-hidden rounded-2xl border border-black/[0.06] bg-background-subtle">
-                {/* Subtle gradient accent at the top */}
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/40 to-transparent" />
-                <div className="p-6 md:p-8 flex flex-col sm:flex-row items-start gap-5">
-                  {/* Gradient avatar circle */}
-                  <div className="relative shrink-0">
-                    <div className="h-16 w-16 rounded-full bg-gradient-to-br from-brand via-accent-cyan to-accent-violet p-[2px]">
-                      <div className="flex h-full w-full items-center justify-center rounded-full bg-background-subtle">
-                        <span className="text-lg font-bold gradient-text-brand">RS</span>
-                      </div>
-                    </div>
-                    <span className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand text-white ring-2 ring-background-subtle">
-                      <svg width="10" height="10" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 8.5L6.5 11L12 5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-lg font-bold text-foreground">
-                      Retech Solutions
-                    </p>
-                    <p className="text-sm font-medium text-brand mt-0.5">
-                      Software Development Team
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-foreground-secondary max-w-xl">
-                      We are a team of 30+ engineers based in Ho Chi Minh City,
-                      building custom CMS, CRM, and ERP solutions for businesses
-                      worldwide. Our focus is on delivering enterprise-grade software
-                      with modern technologies and agile practices.
-                    </p>
-                    <div className="mt-3 flex items-center gap-4 text-xs text-foreground-muted">
-                      <span className="flex items-center gap-1">
-                        <BookOpen size={12} />
-                        {blogPosts.filter((p) => p.author === post.author).length} articles
-                      </span>
-                      <Link
-                        href="/about"
-                        className="font-medium text-brand hover:text-brand-dark transition-colors"
-                      >
-                        Learn more about us &rarr;
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </AnimatedSection>
+            {/* Author card removed — Retech Solutions is the sole author
+                of every post, so a per-post author card added visual noise
+                without information value. The byline "Retech Solutions"
+                in the post header already communicates authorship. */}
 
             <AnimatedSection variant="slideUp" delay={0.15}>
               <div className="flex items-center justify-between mt-12 pt-8 border-t border-black/[0.06]">
