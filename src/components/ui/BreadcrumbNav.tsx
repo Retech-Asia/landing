@@ -13,8 +13,10 @@ interface BreadcrumbNavProps {
   /** Max number of items to show before collapsing middle items with an ellipsis.
    *  Default 3 (Home › Second › ... › Last). Set to 0 or a large number to disable. */
   maxItems?: number;
-  /** Max characters per breadcrumb label before truncating with an ellipsis.
-   *  Per PatternFly guidance: leave at least 4 characters visible. Default 40. */
+  /** Max characters for the LAST (current page) label before truncating with
+   *  an ellipsis. Only the current page truncates — short items like "Home"
+   *  and "Blog" never truncate regardless of length. Per PatternFly guidance:
+   *  leave at least 4 characters visible. Default 50. */
   maxLabelChars?: number;
 }
 
@@ -33,12 +35,11 @@ export function BreadcrumbNav({
   items,
   className,
   maxItems = 3,
-  maxLabelChars = 40,
+  maxLabelChars = 50,
 }: BreadcrumbNavProps) {
   // Collapse middle items if path is longer than maxItems. Keep first,
-  // second (if present), and last. The user's intent: "if more than 3 paths,
-  // show first, second and last, hide middles with ...".
-  // NN/g + Pencil & Paper both confirm ellipsis-collapse is the standard.
+  // second (if present), and last. NN/g + Pencil & Paper confirm
+  // ellipsis-collapse is the standard convention for long paths.
   let visibleItems: VisibleNode[];
   if (maxItems > 0 && items.length > maxItems) {
     const head = items.slice(0, 2);
@@ -58,10 +59,12 @@ export function BreadcrumbNav({
 
   return (
     <nav aria-label="Breadcrumb" className={cn("mb-6", className)}>
-      <ol className="flex flex-nowrap items-center gap-1.5 text-sm overflow-hidden">
+      {/* flex-wrap (not flex-nowrap) so short items can wrap to a 2nd line
+          if needed instead of getting force-truncated. The user explicitly
+          preferred 2-3 line breaks over nonsensical "Ho... > B..." truncation
+          on short labels. */}
+      <ol className="flex flex-wrap items-center gap-1.5 text-sm">
         {visibleItems.map((node, index) => {
-          // Collapsed-middle marker: ellipsis glyph with tooltip listing
-          // hidden items. Not a link — explicit user choice to hide middles.
           if (node.kind === "collapsed") {
             return (
               <li
@@ -78,12 +81,17 @@ export function BreadcrumbNav({
 
           const { item } = node;
           const isLast = index === visibleItems.length - 1;
-          const { text: labelText, truncated } = truncateLabel(item.label, maxLabelChars);
+          // Only the current page (last item) can be long enough to warrant
+          // truncation. Short ancestor items (Home, Blog, Services) never
+          // truncate — they always show in full. If they wrap, that's fine.
+          const { text: labelText, truncated } = isLast
+            ? truncateLabel(item.label, maxLabelChars)
+            : { text: item.label, truncated: false };
 
           return (
             <li
               key={`${item.label}-${index}`}
-              className="flex items-center gap-1.5 min-w-0"
+              className="flex items-center gap-1.5"
             >
               {index > 0 && (
                 <ChevronRight size={14} className="text-foreground-muted shrink-0" />
@@ -91,15 +99,21 @@ export function BreadcrumbNav({
               {item.href && !isLast ? (
                 <Link
                   href={item.href}
-                  title={truncated ? item.label : undefined}
-                  className="text-foreground-muted hover:text-foreground transition-colors truncate"
+                  className="text-foreground-muted hover:text-foreground transition-colors whitespace-nowrap"
                 >
-                  {labelText}
+                  {item.label}
                 </Link>
               ) : (
                 <span
                   title={truncated ? item.label : undefined}
-                  className="text-foreground font-medium truncate min-w-0"
+                  className={cn(
+                    "text-foreground font-medium",
+                    // Only the last item gets truncation + min-w-0 so it can
+                    // shrink within the flex row. Ancestor items have no
+                    // min-w-0 and no truncation — they wrap naturally.
+                    isLast && "min-w-0",
+                    isLast && truncated && "truncate",
+                  )}
                 >
                   {labelText}
                 </span>

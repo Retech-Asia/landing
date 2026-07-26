@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { navigation } from "@/lib/navigation";
 
 const SCROLL_THRESHOLD = 5;
@@ -426,6 +427,11 @@ export function Navbar() {
           {/* Desktop CTA + theme toggle */}
           <div className="hidden lg:flex items-center gap-2">
             <ThemeToggle />
+            {/* WhatsApp as secondary CTA — paired with primary "Get Free
+                Consultation". Replaces the old floating button that
+                overlapped other CTAs and annoyed mobile users. Icon-only
+                here so it doesn't compete with the primary CTA visually. */}
+            <WhatsAppButton variant="navbar" iconOnly aria-label="Chat on WhatsApp" />
             <Button href="/contact" size="sm">
               Get Free Consultation
             </Button>

@@ -14,11 +14,6 @@ const NoiseOverlay = dynamic(
   { ssr: false },
 );
 
-const ChatWidget = dynamic(
-  () => import("@/components/ui/ChatWidget").then((m) => m.ChatWidget),
-  { ssr: false },
-);
-
 const PerformanceMonitor = dynamic(
   () =>
     import("@/components/ui/PerformanceMonitor").then(
@@ -31,13 +26,17 @@ const PerformanceMonitor = dynamic(
  * Client-only widgets that require `ssr: false`.
  * Moved into a separate Client Component because Next.js 16
  * does not allow `next/dynamic` with `ssr: false` in Server Components.
+ *
+ * ChatWidget (floating WhatsApp button) removed — overlapped other CTAs
+ * ("Get Free Consultation" was hidden behind it) and was annoying on
+ * mobile. WhatsApp now lives in the Navbar, Footer, and Contact page
+ * via <WhatsAppButton /> — same destination, contextual placement.
  */
 export function ClientOnlyWidgets() {
   return (
     <>
       <CursorSpotlight />
       <NoiseOverlay />
-      <ChatWidget />
       <PerformanceMonitor />
     </>
   );
