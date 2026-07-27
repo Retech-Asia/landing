@@ -36,7 +36,7 @@ export function MidPageCTA() {
                 Not Sure Where to Start?
               </h3>
               <p className="text-sm md:text-base text-foreground-secondary leading-relaxed max-w-lg">
-                Book a free 30-minute consultation with our technical lead. We will map out the right approach, tech stack, and timeline — no strings attached.
+                Book a free 30-minute consultation with our technical lead. We will map out the right approach, tech stack, and timeline. No strings attached.
               </p>
             </div>
 

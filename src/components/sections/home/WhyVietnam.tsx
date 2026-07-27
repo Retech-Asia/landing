@@ -149,7 +149,7 @@ export function WhyVietnam() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
           <p className="absolute bottom-4 left-6 text-sm font-medium text-white">
-            Ho Chi Minh City — home to Vietnam&apos;s tech talent
+            Ho Chi Minh City, home to Vietnam&apos;s tech talent
           </p>
         </div>
       </Container>

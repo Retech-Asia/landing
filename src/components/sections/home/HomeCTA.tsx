@@ -202,7 +202,7 @@ export function HomeCTA() {
               <br />
               <span className="relative inline-block">
                 <span className="gradient-text">
-                  <ScrollSplitText text="— On Time &amp; On Budget" baseDelay={0.25} />
+                  <ScrollSplitText text="On Time, On Budget" baseDelay={0.25} />
                 </span>
                 {/* Shimmer overlay */}
                 <motion.span
@@ -227,7 +227,7 @@ export function HomeCTA() {
             </h2>
 
             <p className="text-lg text-foreground-secondary mb-10 max-w-lg mx-auto">
-              Get a detailed project plan and estimate within 24 hours. From first call to production deployment — we have done it 50+ times.
+              Get a detailed project plan and estimate within 24 hours. From first call to production deployment, we have done it 50+ times.
             </p>
 
             {/* CTA buttons — primary + ghost outline */}

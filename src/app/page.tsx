@@ -169,7 +169,7 @@ export default function HomePage() {
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <p className="text-sm md:text-lg font-medium text-foreground-secondary max-w-md">
-              AI-integrated engineering — from ML-powered search to intelligent automation
+              AI-integrated engineering, from ML-powered search to intelligent automation
             </p>
           </div>
         </div>
@@ -218,7 +218,7 @@ export default function HomePage() {
               </h2>
               <p className="text-sm md:text-base text-foreground-secondary leading-relaxed">
                 Every project is led by a senior engineer who owns delivery
-                end-to-end — not handed off to a junior team after the sale.
+                end to end. No handoff to a junior team after the sale.
               </p>
             </div>
           </div>
