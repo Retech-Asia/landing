@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/Button";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { Container } from "@/components/ui/Container";
 import { Magnetic } from "@/components/ui/Magnetic";
-// Hero3DBackground swapped for ConstellationHero — SVG stars representing
-// real shipped Retech work (case studies + recent AI blog posts), with
-// connections showing semantic relationships. No Three.js.
-import { ConstellationHero } from "@/components/sections/home/ConstellationHero";
+// ConstellationHero swapped for LatticeField — abstract 3D lattice hero
+// (4×4×4 octahedral grid, slowly rotating, depth-bucketed SVG paths).
+// Premium ambient motion, no labels, no clickable elements.
+import { LatticeField } from "@/components/sections/home/LatticeField";
 import { STATS } from "@/lib/constants";
 
 /* ------------------------------------------------------------------ */
@@ -69,12 +69,12 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      {/* Constellation of shipped work — stars on right side representing
-          real Retech case studies + recent AI blog posts. Connections
-          show semantic relationships. Hover any star for a tooltip,
-          click to navigate. Desktop-only (mobile gets clean text hero).
-          Replaces the previous 3D orbs scene. */}
-      <ConstellationHero />
+      {/* Lattice field — abstract 3D lattice hero. 4×4×4 octahedral grid
+          slowly rotating in 3D space, depth-bucketed SVG paths, brand-color
+          vertex dots. Premium ambient motion that signals engineering
+          precision without being literal. Desktop-only, mouse parallax,
+          reduced-motion aware. */}
+      <LatticeField />
 
       {/* Text scrim — left-to-right gradient that darkens the left portion
           of the hero so the headline stays readable over any star halo. */}
