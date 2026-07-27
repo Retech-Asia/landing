@@ -56,7 +56,7 @@ export const industries: Industry[] = [
     name: "Healthcare",
     icon: HeartPulse,
     description:
-      "HIPAA-compliant platforms for patient management, telemedicine, and health analytics that improve care delivery and clinical outcomes. We build secure, reliable systems that integrate with existing EHR infrastructure using HL7/FHIR standards for seamless data exchange. From patient portals to clinical decision-support dashboards, our solutions are designed to reduce administrative burden and let healthcare professionals focus on what matters most — patient care.",
+      "HIPAA-compliant platforms for patient management, telemedicine, and health analytics that improve care delivery and clinical outcomes. We build secure, reliable systems that integrate with existing EHR infrastructure using HL7/FHIR standards for seamless data exchange. From patient portals to clinical decision-support dashboards, our solutions are designed to reduce administrative burden and let healthcare professionals focus on what matters most: patient care.",
     longDescription:
       "The healthcare industry is undergoing a massive digital transformation, driven by the need for better patient outcomes, regulatory compliance, and operational efficiency. From electronic health records to telemedicine platforms, technology is reshaping how care is delivered, managed, and experienced by patients worldwide.\n\nRetech Solutions brings deep expertise in building HIPAA-compliant healthcare software that meets the highest standards of security and reliability. Our team understands the complexities of healthcare data interoperability, patient privacy regulations, and the critical importance of system uptime in clinical environments.\n\nWhether you need a patient portal, a health analytics dashboard, or a full-scale telemedicine platform, we deliver solutions that integrate seamlessly with existing clinical workflows and comply with HL7/FHIR standards for health data exchange.",
     challenges: [
@@ -83,7 +83,7 @@ export const industries: Industry[] = [
       { value: 3, suffix: "x", label: "Patient Engagement" },
     ],
     approach: [
-      { step: "01", title: "Compliance Audit", description: "We start by mapping your regulatory requirements — HIPAA, HL7, FHIR — and establishing a security-first architecture baseline." },
+      { step: "01", title: "Compliance Audit", description: "We start by mapping your regulatory requirements (HIPAA, HL7, FHIR) and establishing a security-first architecture baseline." },
       { step: "02", title: "Clinical Discovery", description: "We work alongside clinicians and administrators to understand real workflows, pain points, and integration needs." },
       { step: "03", title: "Secure Development", description: "Iterative, test-driven development with continuous security review, audit trail logging, and data encryption at every layer." },
       { step: "04", title: "Integration & Launch", description: "Seamless EHR/EMR integration, user acceptance testing with clinical staff, and phased deployment with monitoring." },
@@ -138,7 +138,7 @@ export const industries: Industry[] = [
     name: "E-commerce",
     icon: ShoppingCart,
     description:
-      "High-performance online stores and marketplace platforms with advanced inventory, payment, and customer management features. We specialize in building commerce experiences that drive conversion — from headless architectures with sub-second page loads to AI-powered product recommendations. Whether B2C or B2B marketplace, our solutions scale with your business and integrate with the payment, logistics, and marketing tools you already use.",
+      "High-performance online stores and marketplace platforms with advanced inventory, payment, and customer management features. We specialize in building commerce experiences that drive conversion, from headless architectures with sub-second page loads to AI-powered product recommendations. Whether B2C or B2B marketplace, our solutions scale with your business and integrate with the payment, logistics, and marketing tools you already use.",
     longDescription:
       "The e-commerce landscape is more competitive than ever, with consumers expecting fast, seamless shopping experiences across every device and channel. Building a successful online retail platform requires robust architecture, intelligent product discovery, and frictionless checkout flows that maximize conversion rates.\n\nRetech Solutions specializes in building high-performance e-commerce platforms that scale with your business. From custom storefronts and marketplace systems to inventory management and payment integration, we deliver solutions that drive revenue and customer satisfaction.\n\nOur team has deep experience with modern e-commerce architectures, including headless CMS integrations, omnichannel commerce strategies, and advanced features like AI-powered product recommendations, dynamic pricing, and real-time inventory synchronization across multiple warehouses.",
     challenges: [
@@ -166,7 +166,7 @@ export const industries: Industry[] = [
     ],
     approach: [
       { step: "01", title: "Commerce Audit", description: "We analyze your current storefront performance, conversion funnel, and customer journey to identify optimization opportunities." },
-      { step: "02", title: "Platform Strategy", description: "We recommend the right commerce architecture — headless, monolithic, or marketplace — based on your catalog and traffic needs." },
+      { step: "02", title: "Platform Strategy", description: "We recommend the right commerce architecture (headless, monolithic, or marketplace) based on your catalog and traffic needs." },
       { step: "03", title: "Iterative Build", description: "Sprint-based development with continuous performance testing, conversion optimization, and payment integration validation." },
       { step: "04", title: "Launch & Optimize", description: "Load testing, SEO migration, analytics setup, and post-launch optimization with A/B testing and monitoring." },
     ],
@@ -196,7 +196,7 @@ export const industries: Industry[] = [
     ],
     technologies: ["Next.js", "Node.js", "PostgreSQL", "WebRTC", "AWS", "Redis", "TensorFlow"],
     caseStudyExcerpt:
-      "We have developed learning management platforms with adaptive learning paths, real-time collaboration tools, and AI-powered study recommendations — enabling educational institutions to significantly improve student engagement and completion rates.",
+      "We have developed learning management platforms with adaptive learning paths, real-time collaboration tools, and AI-powered study recommendations, enabling educational institutions to significantly improve student engagement and completion rates.",
     color: "text-brand",
     gradient: "from-brand/10 via-accent-cyan/5 to-brand/5",
     stats: [
@@ -220,7 +220,7 @@ export const industries: Industry[] = [
     name: "Real Estate",
     icon: Building2,
     description:
-      "Property management systems, listing platforms, and CRM tools that streamline operations for agents, developers, and investors. We build data-rich real estate platforms that connect buyers, sellers, and property managers through intuitive interfaces with virtual tours, automated valuations, and predictive market analytics. Our solutions cover residential, commercial, and industrial real estate — reducing overhead and accelerating deal cycles.",
+      "Property management systems, listing platforms, and CRM tools that streamline operations for agents, developers, and investors. We build data-rich real estate platforms that connect buyers, sellers, and property managers through intuitive interfaces with virtual tours, automated valuations, and predictive market analytics. Our solutions cover residential, commercial, and industrial real estate, reducing overhead and accelerating deal cycles.",
     longDescription:
       "The real estate industry is embracing digital transformation to streamline property management, enhance buyer experiences, and optimize investment decisions. Modern real estate platforms need to handle complex property data, virtual tours, automated valuations, and seamless transaction workflows.\n\nRetech Solutions builds real estate technology platforms that connect buyers, sellers, agents, and property managers through intuitive, data-rich interfaces. From MLS-integrated listing platforms to property management systems with automated rent collection, we deliver solutions that modernize every aspect of real estate operations.\n\nOur experience spans residential, commercial, and industrial real estate, with solutions that incorporate AI-powered property valuations, virtual tour integrations, and predictive market analytics.",
     challenges: [
@@ -237,7 +237,7 @@ export const industries: Industry[] = [
     ],
     technologies: ["React", "Next.js", "Node.js", "PostgreSQL", "AWS", "Google Maps API", "Stripe", "Redis"],
     caseStudyExcerpt:
-      "We deliver real estate platforms that combine rich property data, intelligent search, and seamless transaction workflows — helping agents close deals faster and property managers reduce operational overhead.",
+      "We deliver real estate platforms that combine rich property data, intelligent search, and seamless transaction workflows, helping agents close deals faster and property managers reduce operational overhead.",
     color: "text-accent-cyan",
     gradient: "from-accent-cyan/10 via-brand/5 to-accent-cyan/5",
     stats: [
@@ -261,7 +261,7 @@ export const industries: Industry[] = [
     name: "Logistics",
     icon: Truck,
     description:
-      "Fleet management, route optimization, and supply chain visibility tools that reduce costs and improve delivery performance. We leverage AI, real-time GPS tracking, and predictive analytics to optimize every link in the supply chain — from warehouse management to last-mile delivery. Our platforms help logistics companies scale operations without proportional overhead increases, keeping deliveries on time and budgets intact.",
+      "Fleet management, route optimization, and supply chain visibility tools that reduce costs and improve delivery performance. We leverage AI, real-time GPS tracking, and predictive analytics to optimize every link in the supply chain, from warehouse management to last-mile delivery. Our platforms help logistics companies scale operations without proportional overhead increases, keeping deliveries on time and budgets intact.",
     longDescription:
       "The logistics industry operates on razor-thin margins where efficiency gains directly translate to competitive advantage. From last-mile delivery optimization to warehouse management and supply chain visibility, technology is the key differentiator in modern logistics operations.\n\nRetech Solutions builds intelligent logistics platforms that leverage AI, real-time GPS tracking, and predictive analytics to optimize every link in the supply chain. Our solutions help logistics companies reduce costs, improve on-time delivery rates, and scale operations without proportional overhead increases.\n\nWhether you need a fleet management dashboard, a route optimization engine, or a full-stack logistics platform with driver apps and customer portals, we deliver solutions that keep your operations moving efficiently.",
     challenges: [
@@ -278,7 +278,7 @@ export const industries: Industry[] = [
     ],
     technologies: ["React", "Python", "PostgreSQL", "Redis", "Docker", "Google Maps API", "TensorFlow", "WebSocket"],
     caseStudyExcerpt:
-      "We have built logistics platforms with AI-powered route optimization, real-time fleet tracking, and automated dispatch systems — helping logistics companies reduce fuel costs and improve on-time delivery rates across their operations.",
+      "We have built logistics platforms with AI-powered route optimization, real-time fleet tracking, and automated dispatch systems, helping logistics companies reduce fuel costs and improve on-time delivery rates across their operations.",
     color: "text-accent-violet",
     gradient: "from-accent-violet/10 via-brand/5 to-accent-violet/5",
     stats: [
@@ -302,9 +302,9 @@ export const industries: Industry[] = [
     name: "Manufacturing",
     icon: Factory,
     description:
-      "Production tracking, inventory management, and ERP integrations that boost operational efficiency and reduce unplanned downtime. We build software that bridges the gap between operational technology and information technology — connecting IoT sensors, legacy PLC systems, and enterprise planning tools into a unified, real-time view of your operations. Our shop-floor-friendly interfaces are designed for workers with varying technical skills, not just IT teams.",
+      "Production tracking, inventory management, and ERP integrations that boost operational efficiency and reduce unplanned downtime. We build software that bridges the gap between operational technology and information technology, connecting IoT sensors, legacy PLC systems, and enterprise planning tools into a unified, real-time view of your operations. Our shop-floor-friendly interfaces are designed for workers with varying technical skills, not just IT teams.",
     longDescription:
-      "Manufacturing is undergoing its fourth industrial revolution, with IoT sensors, AI-driven quality control, and real-time production monitoring transforming factory floors worldwide. Software plays a critical role in connecting machines, people, and processes to maximize throughput and minimize waste.\n\nRetech Solutions builds manufacturing software that bridges the gap between operational technology and information technology. From production tracking dashboards and quality management systems to full ERP integrations, we deliver solutions that give manufacturers real-time visibility and control over their operations.\n\nOur team understands the unique challenges of manufacturing environments — from integrating with legacy PLC systems to building intuitive interfaces for shop floor workers — and we design solutions that work in the real world, not just on paper.",
+      "Manufacturing is undergoing its fourth industrial revolution, with IoT sensors, AI-driven quality control, and real-time production monitoring transforming factory floors worldwide. Software plays a critical role in connecting machines, people, and processes to maximize throughput and minimize waste.\n\nRetech Solutions builds manufacturing software that bridges the gap between operational technology and information technology. From production tracking dashboards and quality management systems to full ERP integrations, we deliver solutions that give manufacturers real-time visibility and control over their operations.\n\nOur team understands the unique challenges of manufacturing environments, from integrating with legacy PLC systems to building intuitive interfaces for shop floor workers, and we design solutions that work in the real world, not just on paper.",
     challenges: [
       "Connecting legacy machinery and PLC systems to modern cloud platforms",
       "Building intuitive interfaces for shop floor workers with varying technical skills",
@@ -319,7 +319,7 @@ export const industries: Industry[] = [
     ],
     technologies: ["React", "Python", "PostgreSQL", "Docker", "MQTT", "Kubernetes", "AWS IoT", "Grafana"],
     caseStudyExcerpt:
-      "We build manufacturing software that connects shop floor operations with enterprise systems — giving managers real-time visibility into production, quality, and inventory across every line.",
+      "We build manufacturing software that connects shop floor operations with enterprise systems, giving managers real-time visibility into production, quality, and inventory across every line.",
     color: "text-brand",
     gradient: "from-brand/10 via-accent-violet/5 to-brand/5",
     stats: [
@@ -343,9 +343,9 @@ export const industries: Industry[] = [
     name: "Technology",
     icon: Cpu,
     description:
-      "Developer tools, SaaS platforms, and cloud-native applications built with modern architectures and scalable infrastructure. We speak your language — our engineers bring deep expertise in microservices, event-driven architectures, and infrastructure automation. From MVP development and rapid prototyping to full-scale platform engineering, we help technology companies ship faster and scale reliably.",
+      "Developer tools, SaaS platforms, and cloud-native applications built with modern architectures and scalable infrastructure. We speak your language. Our engineers bring deep expertise in microservices, event-driven architectures, and infrastructure automation. From MVP development and rapid prototyping to full-scale platform engineering, we help technology companies ship faster and scale reliably.",
     longDescription:
-      "Technology companies need software partners who speak their language — engineers who understand distributed systems, API design, and the trade-offs involved in building products that scale from hundreds to millions of users. Whether you are building a developer tool, a SaaS platform, or a cloud-native application, the quality of your engineering directly impacts your competitive position.\n\nRetech Solutions partners with technology companies to build products that are architected for scale from day one. Our engineers bring deep expertise in microservices, event-driven architectures, and cloud infrastructure — and we apply the same rigorous engineering practices to your product that we would to our own.\n\nFrom MVP development and rapid prototyping to full-scale platform engineering and DevOps automation, we help technology companies ship faster, scale reliably, and maintain the engineering velocity they need to win in competitive markets.",
+      "Technology companies need software partners who speak their language: engineers who understand distributed systems, API design, and the trade-offs involved in building products that scale from hundreds to millions of users. Whether you are building a developer tool, a SaaS platform, or a cloud-native application, the quality of your engineering directly impacts your competitive position.\n\nRetech Solutions partners with technology companies to build products that are architected for scale from day one. Our engineers bring deep expertise in microservices, event-driven architectures, and cloud infrastructure, and we apply the same rigorous engineering practices to your product that we would to our own.\n\nFrom MVP development and rapid prototyping to full-scale platform engineering and DevOps automation, we help technology companies ship faster, scale reliably, and maintain the engineering velocity they need to win in competitive markets.",
     challenges: [
       "Architecting systems that scale from MVP to millions of users without re-platforming",
       "Building developer-friendly APIs with comprehensive documentation and SDKs",
@@ -360,7 +360,7 @@ export const industries: Industry[] = [
     ],
     technologies: ["React", "Go", "TypeScript", "Kubernetes", "AWS", "Terraform", "PostgreSQL", "Kafka"],
     caseStudyExcerpt:
-      "We help technology companies build products that scale — from MVP to enterprise — with the engineering rigor, architectural patterns, and DevOps practices that high-growth startups and established tech firms demand.",
+      "We help technology companies build products that scale, from MVP to enterprise, with the engineering rigor, architectural patterns, and DevOps practices that high-growth startups and established tech firms demand.",
     color: "text-accent-cyan",
     gradient: "from-accent-cyan/10 via-accent-violet/5 to-accent-cyan/5",
     stats: [
@@ -371,7 +371,7 @@ export const industries: Industry[] = [
     ],
     approach: [
       { step: "01", title: "Technical Audit", description: "We review your existing architecture, codebase, and infrastructure to identify bottlenecks, risks, and improvement opportunities." },
-      { step: "02", title: "Architecture Design", description: "We design scalable system architecture — event-driven, microservices, or monolithic — based on your specific scale and latency needs." },
+      { step: "02", title: "Architecture Design", description: "We design scalable system architecture (event-driven, microservices, or monolithic) based on your specific scale and latency needs." },
       { step: "03", title: "Engineering Sprint", description: "Dedicated engineering sprints with code reviews, pair programming, and continuous integration following your team's practices." },
       { step: "04", title: "Scale & Operate", description: "Load testing, performance optimization, infrastructure automation, and handoff with comprehensive documentation and runbooks." },
     ],
@@ -384,9 +384,9 @@ export const industries: Industry[] = [
     name: "Media & Entertainment",
     icon: Film,
     description:
-      "Content management platforms, streaming solutions, and digital publishing tools that engage audiences at scale. We understand the unique demands of content-heavy applications — from high-traffic streaming infrastructure to intelligent recommendation engines. Whether you need a CMS for digital publishing or a full video streaming platform, we deliver solutions that perform under pressure and keep audiences coming back.",
+      "Content management platforms, streaming solutions, and digital publishing tools that engage audiences at scale. We understand the unique demands of content-heavy applications, from high-traffic streaming infrastructure to intelligent recommendation engines. Whether you need a CMS for digital publishing or a full video streaming platform, we deliver solutions that perform under pressure and keep audiences coming back.",
     longDescription:
-      "The media and entertainment industry is in constant flux, with streaming platforms, digital publishing, and social media reshaping how content is created, distributed, and monetized. Success requires technology that can handle massive audiences, deliver rich media experiences, and adapt quickly to changing consumption patterns.\n\nRetech Solutions builds media technology platforms that handle the unique demands of content-heavy applications — from high-traffic streaming infrastructure to intelligent content recommendation engines. We understand the technical challenges of delivering rich media experiences at scale, and we build solutions that keep audiences engaged.\n\nWhether you need a content management system for a digital publisher, a video streaming platform, or an analytics dashboard for audience insights, our team delivers solutions that perform under pressure and scale with your audience.",
+      "The media and entertainment industry is in constant flux, with streaming platforms, digital publishing, and social media reshaping how content is created, distributed, and monetized. Success requires technology that can handle massive audiences, deliver rich media experiences, and adapt quickly to changing consumption patterns.\n\nRetech Solutions builds media technology platforms that handle the unique demands of content-heavy applications, from high-traffic streaming infrastructure to intelligent content recommendation engines. We understand the technical challenges of delivering rich media experiences at scale, and we build solutions that keep audiences engaged.\n\nWhether you need a content management system for a digital publisher, a video streaming platform, or an analytics dashboard for audience insights, our team delivers solutions that perform under pressure and scale with your audience.",
     challenges: [
       "Delivering high-quality video and audio streaming to global audiences with minimal latency",
       "Managing massive content libraries with intelligent tagging, search, and recommendation",
@@ -401,7 +401,7 @@ export const industries: Industry[] = [
     ],
     technologies: ["React", "Node.js", "PostgreSQL", "AWS", "FFmpeg", "Redis", "Elasticsearch", "CDN"],
     caseStudyExcerpt:
-      "We build media platforms that engage audiences at scale — from high-performance streaming infrastructure to intelligent content management systems that keep viewers coming back.",
+      "We build media platforms that engage audiences at scale, from high-performance streaming infrastructure to intelligent content management systems that keep viewers coming back.",
     color: "text-accent-violet",
     gradient: "from-accent-violet/10 via-accent-cyan/5 to-accent-violet/5",
     stats: [

@@ -38,7 +38,7 @@ export const HIGHLIGHTS = [
   {
     iconKey: "code",
     title: "Full-Cycle Development",
-    description: "From business analysis and design to development, testing, and deployment — we handle the entire software lifecycle.",
+    description: "From business analysis and design to development, testing, and deployment. We handle the entire software lifecycle.",
   },
   {
     iconKey: "zap",
@@ -48,7 +48,7 @@ export const HIGHLIGHTS = [
   {
     iconKey: "brain",
     title: "AI-Driven Solutions",
-    description: "Integrated AI capabilities across CMS, CRM, and ERP platforms — from automated content tagging and predictive analytics to intelligent workflow automation.",
+    description: "Integrated AI capabilities across CMS, CRM, and ERP platforms, from automated content tagging and predictive analytics to intelligent workflow automation.",
   },
   {
     iconKey: "users",

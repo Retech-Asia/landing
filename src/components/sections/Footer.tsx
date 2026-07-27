@@ -219,7 +219,7 @@ export function Footer() {
               <motion.a
                 key={label}
                 href={href}
-                title={`${label} — coming soon`}
+                title={`${label} (coming soon)`}
                 aria-label={label}
                 whileHover={{ scale: 1.15, color: hoverColor }}
                 whileTap={{ scale: 0.95 }}

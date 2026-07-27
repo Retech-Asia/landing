@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Retech Solutions — Custom Software Development from Vietnam";
+export const alt = "Retech Solutions | Custom Software Development from Vietnam";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -185,7 +185,7 @@ export default async function Image() {
               display: "flex",
             }}
           >
-            Custom software, CMS, CRM, ERP &amp; AI products — engineered for scale.
+            Custom software, CMS, CRM, ERP &amp; AI products, engineered for scale.
           </div>
         </div>
 

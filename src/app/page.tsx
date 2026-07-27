@@ -89,12 +89,12 @@ const homeFAQItems = [
   {
     question: "How do you handle communication and project management?",
     answer:
-      "We use agile methodologies with regular sprint planning, daily standups, and retrospectives. Communication happens through your preferred channels — Slack, Microsoft Teams, or Zoom. You receive weekly progress reports and have direct access to the project manager and development team. We also use tools like Jira, Linear, or Notion for transparent task tracking, so you always know the status of your project.",
+      "We use agile methodologies with regular sprint planning, daily standups, and retrospectives. Communication happens through your preferred channels: Slack, Microsoft Teams, or Zoom. You receive weekly progress reports and have direct access to the project manager and development team. We also use tools like Jira, Linear, or Notion for transparent task tracking, so you always know the status of your project.",
   },
   {
     question: "What are your pricing models?",
     answer:
-      "We offer three flexible pricing models: (1) Fixed Price — ideal for projects with well-defined scope and requirements, giving you cost certainty upfront. (2) Time & Materials — best for evolving projects where flexibility is needed, billed hourly based on actual work. (3) Dedicated Team — a monthly retainer for ongoing collaboration with a dedicated team. We recommend the best model based on your project scope and business objectives during our initial consultation.",
+      "We offer three flexible pricing models: (1) Fixed Price, ideal for projects with well-defined scope and requirements, giving you cost certainty upfront. (2) Time & Materials, best for evolving projects where flexibility is needed, billed hourly based on actual work. (3) Dedicated Team, a monthly retainer for ongoing collaboration with a dedicated team. We recommend the best model based on your project scope and business objectives during our initial consultation.",
   },
 ];
 
@@ -103,7 +103,7 @@ export default function HomePage() {
     <>
       <WebPageJsonLd
         title="Retech Solutions | Software Development & IT Outsourcing"
-        description="Full-cycle software development outsourcing — from business analysis and design to development, testing, and deployment. Agile methodologies, modern technologies, and AI-driven solutions for web and mobile applications."
+        description="Full-cycle software development outsourcing, from business analysis and design to development, testing, and deployment. Agile methodologies, modern technologies, and AI-driven solutions for web and mobile applications."
         url="https://www.retech.asia"
       />
       <FAQJsonLd questions={homeFAQItems} />

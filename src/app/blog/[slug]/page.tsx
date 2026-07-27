@@ -39,7 +39,7 @@ export function generateMetadata({
     const pageUrl = `${SITE_URL}/blog/${post.slug}`;
 
     return {
-      title: `${post.title} — Blog`,
+      title: `${post.title} | Blog`,
       description: post.excerpt.length > 155
         ? post.excerpt.slice(0, 152).replace(/\s+\S*$/, "") + "..."
         : post.excerpt,
@@ -282,7 +282,7 @@ export default async function BlogPostPage({
                                 ? "/images/stock/analytics-dashboard.webp"
                                 : "/images/stock/ai-abstract.webp"
                           }
-                          alt={`${post.title} — development workspace and code overview`}
+                          alt={`${post.title} | development workspace and code overview`}
                           fill
                           quality={90}
                           sizes="(max-width: 768px) 100vw, 1200px"
@@ -302,7 +302,7 @@ export default async function BlogPostPage({
                                 ? "/images/stock/developer-workspace.webp"
                                 : "/images/stock/cloud-tech.webp"
                           }
-                          alt={`${post.title} — engineering tools and technical implementation`}
+                          alt={`${post.title} | engineering tools and technical implementation`}
                           fill
                           quality={90}
                           sizes="(max-width: 768px) 100vw, 1200px"

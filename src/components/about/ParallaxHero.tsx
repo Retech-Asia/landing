@@ -56,7 +56,7 @@ export function ParallaxHero() {
             About Retech Solutions
           </h1>
           <p className="text-lg md:text-xl text-foreground-secondary max-w-3xl leading-relaxed">
-            We provide full-cycle software development services — from business
+            We provide full-cycle software development services, from business
             analysis and design through development, testing, and deployment for
             solutions across web and mobile applications.
           </p>

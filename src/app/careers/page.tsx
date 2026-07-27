@@ -174,7 +174,7 @@ const hiringSteps = [
     icon: Code2,
     title: "Technical Assessment",
     description:
-      "A practical take-home or live coding exercise relevant to the role. We evaluate problem-solving ability, code quality, and communication — not trick questions.",
+      "A practical take-home or live coding exercise relevant to the role. We evaluate problem-solving ability, code quality, and communication, not trick questions.",
     timeline: "2-3 hours",
   },
   {
@@ -205,7 +205,7 @@ export default function CareersPage() {
       {/* Structured Data */}
       <WebPageJsonLd
         title="Careers"
-        description="Join Retech Solutions in Ho Chi Minh City. We're always interested in hearing from talented engineers, designers, and project managers — even when we don't have public openings listed."
+        description="Join Retech Solutions in Ho Chi Minh City. We're always interested in hearing from talented engineers, designers, and project managers, even when we don't have public openings listed."
         url={`${SITE_URL}/careers`}
       />
       {/* JobPosting structured data intentionally omitted — no active public
@@ -351,7 +351,7 @@ export default function CareersPage() {
           <SectionHeader
             label="Hiring Process"
             title="How We Hire"
-            description="Our process is thorough but respectful of your time. No trick questions, no endless rounds — just meaningful conversations to see if we are a great match."
+            description="Our process is thorough but respectful of your time. No trick questions, no endless rounds, just meaningful conversations to see if we are a great match."
           />
 
           <div className="max-w-4xl mx-auto relative">

@@ -28,7 +28,7 @@ const differentiators: Differentiator[] = [
     icon: Code2,
     title: "Technical Excellence",
     description:
-      "Our engineers bring deep expertise in modern stacks — React, Next.js, Node.js, Python, and cloud-native architectures. Every solution is built on proven best practices with clean, maintainable code.",
+      "Our engineers bring deep expertise in modern stacks: React, Next.js, Node.js, Python, and cloud-native architectures. Every solution is built on proven best practices with clean, maintainable code.",
     color: "text-brand",
     bgColor: "bg-brand/10",
   },

@@ -142,7 +142,7 @@ export function WhyVietnam() {
         <div className="relative h-[200px] md:h-[300px] rounded-2xl overflow-hidden mt-12">
           <Image
             src="/images/stock/vietnam-cityscape.webp"
-            alt="Ho Chi Minh City — Vietnam's tech and business hub"
+            alt="Ho Chi Minh City: Vietnam's tech and business hub"
             fill
             sizes="(max-width: 768px) 100vw, 1200px"
             className="object-cover transition-transform duration-700 hover:scale-105"

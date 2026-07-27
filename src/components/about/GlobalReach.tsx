@@ -53,7 +53,7 @@ export function GlobalReach() {
           <SectionHeader
             label="Global Reach"
             title="Serving Clients Worldwide"
-            description="From our base in Ho Chi Minh City, we collaborate with businesses across three continents — delivering quality software regardless of borders."
+            description="From our base in Ho Chi Minh City, we collaborate with businesses across three continents, delivering quality software regardless of borders."
           />
         </AnimatedSection>
 

@@ -89,7 +89,7 @@ const communicationChannels = [
     bg: "bg-accent-violet/10",
     title: "Live Chat",
     detail: "retech.asia",
-    description: "In-app live chat — fastest response (business hours, GMT+7)",
+    description: "In-app live chat, fastest response (business hours, GMT+7)",
     href: "/contact",
   },
   {

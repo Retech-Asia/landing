@@ -33,7 +33,7 @@ const values: ValueItem[] = [
     icon: Lightbulb,
     title: "Innovation",
     description:
-      "We integrate AI, machine learning, and modern cloud-native patterns into real products — not just prototypes. When we adopted AI-assisted workflows in 2024, every CMS, CRM, and ERP we shipped afterward benefited from automated content tagging, predictive analytics, and smarter data pipelines.",
+      "We integrate AI, machine learning, and modern cloud-native patterns into real products, not just prototypes. When we adopted AI-assisted workflows in 2024, every CMS, CRM, and ERP we shipped afterward benefited from automated content tagging, predictive analytics, and smarter data pipelines.",
     color: "text-brand",
     bgColor: "bg-brand/10",
   },
@@ -41,7 +41,7 @@ const values: ValueItem[] = [
     icon: Shield,
     title: "Quality",
     description:
-      "We do not ship code that has not been reviewed by at least two senior engineers and validated by automated test suites. Our QA process caught 0.3% defect rates across 50+ projects — because one bug in production is one too many for the clients who trust us with their business systems.",
+      "We do not ship code that has not been reviewed by at least two senior engineers and validated by automated test suites. Our QA process caught 0.3% defect rates across 50+ projects, because one bug in production is one too many for the clients who trust us with their business systems.",
     color: "text-accent-cyan",
     bgColor: "bg-accent-cyan/10",
   },
@@ -73,7 +73,7 @@ const values: ValueItem[] = [
     icon: Sparkles,
     title: "Excellence",
     description:
-      "We hold ourselves to a high bar — clean architecture, thorough code reviews, automated testing, and proactive communication. Not because a process document says so, but because our engineers genuinely care about the craft of building software that lasts.",
+      "We hold ourselves to a high bar: clean architecture, thorough code reviews, automated testing, and proactive communication. Not because a process document says so, but because our engineers genuinely care about the craft of building software that lasts.",
     color: "text-accent-violet",
     bgColor: "bg-accent-violet/10",
   },

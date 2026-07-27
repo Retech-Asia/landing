@@ -65,7 +65,7 @@ export default function IndustriesPage() {
               Industries We Serve
             </h1>
             <p className="text-lg md:text-xl text-foreground-secondary max-w-3xl leading-relaxed">
-              From healthcare to finance, e-commerce to manufacturing — we bring
+              From healthcare to finance, e-commerce to manufacturing, we bring
               deep domain expertise and proven technical capabilities to every
               industry we work in.
             </p>
@@ -132,7 +132,7 @@ export default function IndustriesPage() {
                     development. With strong university programs in computer
                     science and a culture that emphasizes analytical thinking,
                     Vietnamese development teams consistently deliver
-                    high-quality solutions across complex industry domains — from
+                    high-quality solutions across complex industry domains, from
                     healthcare compliance systems to real-time financial
                     platforms.
                   </p>
@@ -206,7 +206,7 @@ export default function IndustriesPage() {
                   step: "03",
                   title: "Delivery",
                   description:
-                    "We deploy, monitor, and support your solution in production — ensuring a smooth launch and long-term reliability.",
+                    "We deploy, monitor, and support your solution in production, ensuring a smooth launch and long-term reliability.",
                 },
               ].map((item, index) => (
                 <div

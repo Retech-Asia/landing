@@ -31,7 +31,7 @@ export function WhyRetech() {
         <SectionHeader
           label="Why Retech"
           title="Why Companies Choose Us"
-          description="Engineering teams delivering custom CMS, CRM, ERP, and AI-powered solutions — with full-cycle ownership from discovery through deployment and ongoing support."
+          description="Engineering teams delivering custom CMS, CRM, ERP, and AI-powered solutions, with full-cycle ownership from discovery through deployment and ongoing support."
           gradient
         />
 

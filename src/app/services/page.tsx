@@ -80,7 +80,7 @@ const processSteps = [
     step: "04",
     title: "Delivery",
     description:
-      "We launch, monitor, and optimize your product — providing ongoing support, maintenance, and iterative improvements.",
+      "We launch, monitor, and optimize your product, providing ongoing support, maintenance, and iterative improvements.",
   },
 ];
 
@@ -112,7 +112,7 @@ const comparisonFeatures: {
   },
   {
     feature: "ERP Capabilities",
-    tooltip: "Full enterprise resource planning — finance, HR, procurement, inventory in one platform.",
+    tooltip: "Full enterprise resource planning: finance, HR, procurement, inventory in one platform.",
     supported: [false, false, true, false, false, false],
   },
   // -- Technical features --
@@ -168,7 +168,7 @@ export default function ServicesPage() {
             "@type": "ItemList",
             name: "Retech Solutions Services",
             description:
-              "Full-spectrum IT services from Vietnam — CMS, CRM, ERP, web development, UI/UX design, and dedicated teams.",
+              "Full-spectrum IT services from Vietnam: CMS, CRM, ERP, web development, UI/UX design, and dedicated teams.",
             numberOfItems: services.length,
             itemListElement: services.map((s, i) => ({
               "@type": "ListItem",
@@ -289,7 +289,7 @@ export default function ServicesPage() {
           <AnimatedSection variant="slideUp">
             <SectionHeader
               title="Compare Our Services"
-              description="Find the right solution for your business needs — see which capabilities each service includes at a glance."
+              description="Find the right solution for your business needs. See which capabilities each service includes at a glance."
             />
           </AnimatedSection>
 
@@ -416,7 +416,7 @@ export default function ServicesPage() {
           <AnimatedSection variant="slideUp">
             <SectionHeader
               title="How We Work"
-              description="A proven four-phase approach that turns your ideas into production-ready products — on time and on budget."
+              description="A proven four-phase approach that turns your ideas into production-ready products, on time and on budget."
             />
           </AnimatedSection>
 

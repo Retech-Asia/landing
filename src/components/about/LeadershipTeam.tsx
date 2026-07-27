@@ -25,7 +25,7 @@ const teamMembers: TeamMember[] = [
     name: "Minh Tran",
     role: "CTO",
     initials: "MT",
-    bio: "Systems architect with deep experience in enterprise platforms — from multi-tenant SaaS to real-time financial systems. Minh defines technical strategy, leads architecture reviews, and ensures every project meets production-grade standards for security and performance.",
+    bio: "Systems architect with deep experience in enterprise platforms, from multi-tenant SaaS to real-time financial systems. Minh defines technical strategy, leads architecture reviews, and ensures every project meets production-grade standards for security and performance.",
     gradient: "from-accent-cyan via-brand to-accent-violet",
   },
   {

@@ -215,7 +215,7 @@ export function CareersListing({ jobs, email }: CareersListingProps) {
                   {/* CTA */}
                   <div className="mt-auto pt-4 border-t border-black/[0.06]">
                     <a
-                      href={`mailto:${email}?subject=Application for ${encodeURIComponent(job.title)} — ${job.slug}`}
+                      href={`mailto:${email}?subject=Application for ${encodeURIComponent(job.title)} | ${job.slug}`}
                       className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-gradient-to-r from-brand to-brand-dark px-5 py-2.5 rounded-full hover:shadow-[0_4px_16px_rgba(32,133,53,0.25)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
                     >
                       Apply Now

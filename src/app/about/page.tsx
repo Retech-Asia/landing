@@ -80,7 +80,7 @@ const milestones = [
     year: "2025",
     title: "Serving Clients in 6 Countries",
     description:
-      "Expanded our client base across Asia Pacific, North America, and Europe — reaching businesses in Vietnam, Singapore, Japan, the US, the UK, and Germany.",
+      "Expanded our client base across Asia Pacific, North America, and Europe, reaching businesses in Vietnam, Singapore, Japan, the US, the UK, and Germany.",
   },
   {
     year: "2026",
@@ -151,7 +151,7 @@ export default function AboutPage() {
                   </p>
                   <p>
                     With over five years of experience and more than 50 projects
-                    delivered, we have proven that great software can come from anywhere —
+                    delivered, we have proven that great software can come from anywhere,
                     and that the right partnership can transform ideas into successful
                     products.
                   </p>
@@ -330,7 +330,7 @@ export default function AboutPage() {
                 Ready to Work With Us?
               </h2>
               <p className="text-lg text-foreground-secondary mb-8">
-                Tell us about your project and we will come back with a tailored plan — team composition, technology choices, timeline, and transparent pricing. No templates, no pressure.
+                Tell us about your project and we will come back with a tailored plan: team composition, technology choices, timeline, and transparent pricing. No templates, no pressure.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Button href="/contact" size="lg">

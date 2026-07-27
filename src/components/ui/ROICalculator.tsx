@@ -64,7 +64,7 @@ const projectionYears: { value: ProjectionYear; label: string }[] = [
 const hiddenCostFactors = [
   { label: "Recruitment & Onboarding", savings: 0.08, description: "We handle hiring, vetting, and onboarding at no extra cost." },
   { label: "Office & Infrastructure", savings: 0.05, description: "No office space, equipment, or utility costs." },
-  { label: "Benefits & Insurance", savings: 0.12, description: "Health insurance, retirement, paid leave — all included." },
+  { label: "Benefits & Insurance", savings: 0.12, description: "Health insurance, retirement, paid leave, all included." },
   { label: "Payroll & Compliance", savings: 0.04, description: "We handle local labor laws, taxes, and compliance." },
   { label: "Training & Development", savings: 0.03, description: "Continuous skills development covered by us." },
 ];
@@ -271,7 +271,7 @@ export function ROICalculator() {
   ].join("\n");
 
   const mailtoHref = `${CONTACT.emailHref}?subject=${encodeURIComponent(
-    `ROI Inquiry — ${config.label} Outsourcing to Vietnam`
+    `ROI Inquiry | ${config.label} Outsourcing to Vietnam`
   )}&body=${encodeURIComponent(mailtoBody)}`;
 
   return (

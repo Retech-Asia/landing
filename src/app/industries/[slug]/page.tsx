@@ -287,7 +287,7 @@ export default async function IndustryDetailPage({
             <SectionHeader
               label="Methodology"
               title="Our Approach"
-              description={`How we deliver successful ${industry.name.toLowerCase()} software projects — from discovery to deployment.`}
+              description={`How we deliver successful ${industry.name.toLowerCase()} software projects, from discovery to deployment.`}
             />
           </AnimatedSection>
 

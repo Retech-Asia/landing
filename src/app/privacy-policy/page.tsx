@@ -34,7 +34,7 @@ const sections = [
     content: [
       {
         heading: "Personal Information",
-        text: "When you interact with us — such as by filling out a contact form, subscribing to our newsletter, or requesting a consultation — we may collect personal information including your name, email address, phone number, company name, and any other details you choose to provide.",
+        text: "When you interact with us (such as by filling out a contact form, subscribing to our newsletter, or requesting a consultation), we may collect personal information including your name, email address, phone number, company name, and any other details you choose to provide.",
       },
       {
         heading: "Usage Data",

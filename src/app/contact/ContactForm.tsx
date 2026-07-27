@@ -530,7 +530,7 @@ export function ContactForm() {
       setSubmitted(true);
     } catch {
       setSubmitError(
-        "Network error — please check your connection and try again, or email us directly.",
+        "Network error. Please check your connection and try again, or email us directly.",
       );
       setShakeSubmit(true);
       setTimeout(() => setShakeSubmit(false), 600);
@@ -678,7 +678,7 @@ export function ContactForm() {
                       <span className="font-medium text-foreground">
                         Send them via email after submission
                       </span>{" "}
-                      — we&apos;ll review everything together.
+                      and we&apos;ll review everything together.
                     </p>
                   </div>
                 </div>

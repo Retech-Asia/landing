@@ -87,7 +87,7 @@ const sections = [
     title: "4. Intellectual Property",
     content: [
       {
-        text: "All content on this Site — including text, graphics, logos, images, software, and the overall design — is the property of Retech Solutions Co., Ltd. or its content suppliers and is protected by international copyright, trademark, and intellectual property laws.",
+        text: "All content on this Site, including text, graphics, logos, images, software, and the overall design, is the property of Retech Solutions Co., Ltd. or its content suppliers and is protected by international copyright, trademark, and intellectual property laws.",
       },
       {
         text: "You may not reproduce, distribute, modify, create derivative works from, publicly display, or commercially exploit any content from this Site without our prior written consent. The Retech Solutions name, logo, and all related names, logos, product and service names, designs, and slogans are trademarks of Retech Solutions Co., Ltd.",

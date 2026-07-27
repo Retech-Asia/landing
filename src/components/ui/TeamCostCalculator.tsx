@@ -140,10 +140,10 @@ export function TeamCostCalculator() {
   }, []);
 
   const seniorityOptions: { value: Seniority; label: string }[] = [
-    { value: "junior", label: `${SENIORITY_LABELS.junior} — $${RATES.junior.toLocaleString()}/mo` },
-    { value: "mid", label: `${SENIORITY_LABELS.mid} — $${RATES.mid.toLocaleString()}/mo` },
-    { value: "senior", label: `${SENIORITY_LABELS.senior} — $${RATES.senior.toLocaleString()}/mo` },
-    { value: "lead", label: `${SENIORITY_LABELS.lead} — $${RATES.lead.toLocaleString()}/mo` },
+    { value: "junior", label: `${SENIORITY_LABELS.junior} · $${RATES.junior.toLocaleString()}/mo` },
+    { value: "mid", label: `${SENIORITY_LABELS.mid} · $${RATES.mid.toLocaleString()}/mo` },
+    { value: "senior", label: `${SENIORITY_LABELS.senior} · $${RATES.senior.toLocaleString()}/mo` },
+    { value: "lead", label: `${SENIORITY_LABELS.lead} · $${RATES.lead.toLocaleString()}/mo` },
   ];
 
   const durationOptions: { value: Duration; label: string }[] = [

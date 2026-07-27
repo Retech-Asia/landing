@@ -242,7 +242,7 @@ export default async function CaseStudyDetailPage({
                 The Story Behind the Build
               </h2>
               <p className="mt-3 text-foreground-secondary max-w-2xl mx-auto">
-                From problem to lasting impact — how we approached {study.title} end to end.
+                From problem to lasting impact: how we approached {study.title} end to end.
               </p>
             </div>
           </AnimatedSection>
@@ -472,7 +472,7 @@ export default async function CaseStudyDetailPage({
                 Project Timeline
               </h2>
               <p className="mt-3 text-foreground-secondary max-w-2xl mx-auto">
-                From initial discovery to successful launch — our proven delivery process.
+                From initial discovery to successful launch: our proven delivery process.
               </p>
             </div>
           </AnimatedSection>

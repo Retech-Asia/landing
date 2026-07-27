@@ -147,7 +147,7 @@ export function ServicePreview() {
         <SectionHeader
           label="Our Services"
           title="What We Build"
-          description="Tailored web solutions built on leading platforms — enhanced with AI for smarter, more reliable performance."
+          description="Tailored web solutions built on leading platforms, enhanced with AI for smarter, more reliable performance."
           gradient
         />
 

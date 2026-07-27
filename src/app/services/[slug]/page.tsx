@@ -391,7 +391,7 @@ export default async function ServiceDetailPage({
       <div className="relative h-[160px] md:h-[220px] overflow-hidden">
         <Image
           src="/images/stock/code-screen.webp"
-          alt="Development workspace — code, tools, and engineering process"
+          alt="Development workspace: code, tools, and engineering process"
           fill
           sizes="100vw"
           className="object-cover transition-transform duration-700 hover:scale-105"
@@ -415,7 +415,7 @@ export default async function ServiceDetailPage({
                   What&apos;s Included
                 </h2>
                 <p className="text-lg text-foreground-secondary leading-relaxed">
-                  Every {service.title.toLowerCase()} engagement comes with a comprehensive set of deliverables to ensure your project is built to the highest standards — from initial planning through post-launch support.
+                  Every {service.title.toLowerCase()} engagement comes with a comprehensive set of deliverables to ensure your project is built to the highest standards, from initial planning through post-launch support.
                 </p>
               </AnimatedSection>
 
@@ -990,7 +990,7 @@ export default async function ServiceDetailPage({
                 <span className="text-white/70">{service.title} Solution</span>
               </h2>
               <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto">
-                Our {service.title.toLowerCase()} specialists will review your requirements and return a detailed proposal with architecture recommendations, team allocation, and clear milestones — typically within one business day.
+                Our {service.title.toLowerCase()} specialists will review your requirements and return a detailed proposal with architecture recommendations, team allocation, and clear milestones, typically within one business day.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button

@@ -370,7 +370,7 @@ export function ProjectEstimator() {
       setSubmitted(true);
     } catch {
       setSubmitError(
-        "Network error — please check your connection and try again.",
+        "Network error. Please check your connection and try again.",
       );
     } finally {
       setSubmitting(false);
@@ -819,7 +819,7 @@ export function ProjectEstimator() {
                     <Check size={24} strokeWidth={2.5} />
                   </div>
                   <h4 className="text-base font-semibold text-foreground mb-1">
-                    Thanks — request received
+                    Thanks, request received
                   </h4>
                   <p className="text-sm text-foreground-secondary max-w-md mx-auto">
                     We&apos;ll review your project details and reply within 24

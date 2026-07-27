@@ -35,7 +35,7 @@ const commitments: CommitmentItem[] = [
     icon: MessageSquare,
     title: "Transparent Communication",
     description:
-      "Regular updates, clear timelines, and direct access to the team working on your project. No middlemen, no surprises — just honest, open dialogue.",
+      "Regular updates, clear timelines, and direct access to the team working on your project. No middlemen, no surprises, just honest, open dialogue.",
     color: "text-accent-cyan",
     bgColor: "bg-accent-cyan/10",
   },

@@ -121,7 +121,7 @@ const phases = [
     timeline: "Ongoing",
     icon: ShieldCheck,
     description:
-      "Quality is not an afterthought — it is woven into every phase. Our QA engineers run automated test suites, perform manual exploratory testing, and benchmark performance under load. Security audits and accessibility checks ensure your product meets the highest standards.",
+      "Quality is not an afterthought; it is woven into every phase. Our QA engineers run automated test suites, perform manual exploratory testing, and benchmark performance under load. Security audits and accessibility checks ensure your product meets the highest standards.",
     activities: [
       "Automated unit & integration testing",
       "Manual exploratory QA",
@@ -274,7 +274,7 @@ export default function ProcessPage() {
               How We Deliver
             </h1>
             <p className="mt-4 text-lg text-foreground-secondary leading-relaxed max-w-3xl text-center mx-auto">
-              A proven methodology refined over 50+ successful projects — from first conversation to long-term growth.
+              A proven methodology refined over 50+ successful projects, from first conversation to long-term growth.
             </p>
             <div className="mt-4">
               <GearIcon size={44} />

@@ -51,7 +51,7 @@ export const caseStudies: CaseStudy[] = [
       "A full-stack BTC mining analytics platform that ingests hashrate and worker metrics from F2Pool and ViaBTC, layers in CoinGecko market pricing and mempool-derived difficulty projections, and gives operators and admins a unified dashboard for performance, accounting, and manual data entry.",
     industry: "Blockchain & Crypto",
     challenge:
-      "Mining operators were juggling multiple pool dashboards (F2Pool, ViaBTC), market data sources (CoinGecko, Mempool.space), and spreadsheets for manual adjustments. There was no single source of truth for hashrate, worker health, network difficulty, and BTC pricing — making it hard to forecast revenue or audit manual inputs after the fact.",
+      "Mining operators were juggling multiple pool dashboards (F2Pool, ViaBTC), market data sources (CoinGecko, Mempool.space), and spreadsheets for manual adjustments. There was no single source of truth for hashrate, worker health, network difficulty, and BTC pricing, making it hard to forecast revenue or audit manual inputs after the fact.",
     solution:
       "Retech Solutions built a NestJS + Prisma + PostgreSQL backend with a Next.js 15 frontend. The backend integrates with F2Pool and ViaBTC for pool metrics (encrypted credential storage, hourly/daily series capture, per-worker analytics), CoinGecko for cached market pricing, and Mempool.space for difficulty projections and reward window stats. JWT auth with refresh-token rotation and role-based guards separates user and super-admin surfaces. A manual-input flow with audit trails records operator adjustments alongside the automated feeds.",
     impact:
@@ -125,7 +125,7 @@ export const caseStudies: CaseStudy[] = [
       "A web-based investment management system with interconnected admin, customer, and introducer portals for scalable financial operations. The platform streamlines investment workflows across three stakeholder roles with role-based access, portfolio and dividend tracking, document handling, and CSV/XLSX reporting.",
     industry: "Finance",
     challenge:
-      "The client was managing investment operations through fragmented spreadsheets and disconnected legacy systems, leading to slow reporting, manual errors, and limited scalability. They needed a unified platform that could serve three distinct user roles — administrators, investors, and introducers — with role-based access control, portfolio tracking, and document workflows built for compliance.",
+      "The client was managing investment operations through fragmented spreadsheets and disconnected legacy systems, leading to slow reporting, manual errors, and limited scalability. They needed a unified platform that could serve three distinct user roles (administrators, investors, and introducers) with role-based access control, portfolio tracking, and document workflows built for compliance.",
     solution:
       "Retech Solutions built a multi-portal architecture on NestJS + PostgreSQL + Prisma with a shared backend that serves administrators, customers, and introducers through tailored interfaces. We implemented portfolio and dividend tracking, document management with read-tracking and email notifications, a dedicated introducer module, and CSV/XLSX import-export for bulk operations. A separate FastAPI file-management service handles large document uploads with rate limiting.",
     impact:
@@ -269,7 +269,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Fintech Card Marketing Platform",
     tagline: "Headless CMS Marketing Platform",
     description:
-      "A content-driven marketing website for a consumer fintech card product, built on a headless CMS architecture. The platform gives non-technical marketing teams full page-composition control, blog publishing, app download funnels, and real-time preview editing — no developer involvement required.",
+      "A content-driven marketing website for a consumer fintech card product, built on a headless CMS architecture. The platform gives non-technical marketing teams full page-composition control, blog publishing, app download funnels, and real-time preview editing. No developer involvement required.",
     industry: "Consumer Fintech",
     challenge:
       "The marketing team needed a website that could launch new campaigns in hours, not weeks. Their existing setup required developer involvement for every content change, creating bottlenecks and slowing go-to-market. They needed a headless CMS with reusable page components, blog functionality, and app download optimization.",
