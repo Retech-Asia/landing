@@ -147,7 +147,7 @@ export function ServicePreview() {
         <SectionHeader
           label="Our Services"
           title="What We Build"
-          description="Tailored web solutions built on leading platforms, enhanced with AI for smarter, more reliable performance."
+          description="Custom software with AI built in: RAG search, LLM features, and intelligent automation shipped inside every CMS, CRM, and ERP we deliver."
           gradient
         />
 

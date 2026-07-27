@@ -25,37 +25,37 @@ export const servicesNavigation: NavChild[] = [
   {
     label: "CMS Platforms",
     href: "/services/cms-platforms",
-    description: "Content management made easy with powerful, flexible platforms",
+    description: "Headless and traditional CMS with AI tagging, smart search, and editorial copilots",
     icon: Layout,
   },
   {
     label: "CRM Systems",
     href: "/services/crm-systems",
-    description: "Customer-centric tools for engagement and relationship management",
+    description: "CRMs with AI lead scoring, conversation intelligence, and predictive workflows",
     icon: Users,
   },
   {
     label: "ERP Solutions",
     href: "/services/erp-solutions",
-    description: "Insightful dashboards connecting departments and optimizing operations",
+    description: "ERPs with AI forecasting, anomaly detection, and automated reporting",
     icon: BarChart3,
   },
   {
     label: "Web Development",
     href: "/services/web-development",
-    description: "Custom web applications built with modern frameworks and best practices",
+    description: "Web apps with optional LLM features, vector search, and AI-assisted ops baked in",
     icon: Globe,
   },
   {
     label: "UI/UX Design",
     href: "/services/ui-ux-design",
-    description: "User-centered design that drives engagement and conversion",
+    description: "Product design for AI-native interfaces, including copilot UX and conversational flows",
     icon: Palette,
   },
   {
     label: "Dedicated Teams",
     href: "/services/dedicated-teams",
-    description: "Offshore development teams scaled to your project needs",
+    description: "Embedded engineers experienced in shipping RAG, agents, and LLM integrations",
     icon: UsersRound,
   },
 ];

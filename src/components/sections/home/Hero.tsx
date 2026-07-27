@@ -159,7 +159,8 @@ export function Hero() {
                 {" "}your business can rely on.
               </p>
               <p className="text-sm md:text-base text-foreground-muted">
-                Vietnam-based engineering team. Global delivery.
+                AI-integrated engineering for web, mobile, and cloud products.
+                Shipped from Vietnam to teams worldwide.
               </p>
             </div>
 
