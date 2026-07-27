@@ -454,33 +454,36 @@ function ScrollCameraRig() {
 
 const AGENTS = [
   {
-    position: [2.8, 0.4, -1] as [number, number, number],
-    scale: 2.2,
+    // Primary orchestrator (green) — top-right, biggest, closest to camera
+    position: [3.6, 1.0, -0.5] as [number, number, number],
+    scale: 2.0,
     color: "#208535",
     emissive: "#186B2B",
     floatSpeed: 1.0,
     rotationSpeed: 0.05,
-    opacity: 0.95,
+    opacity: 0.92,
     ringSpeed: 0.4,
   },
   {
-    position: [-3.8, 1.8, -2] as [number, number, number],
+    // Data specialist (cyan) — middle-right, medium
+    position: [4.8, -0.6, -2.5] as [number, number, number],
     scale: 1.1,
     color: "#06b6d4",
     emissive: "#0e7490",
     floatSpeed: 1.4,
     rotationSpeed: 0.08,
-    opacity: 0.85,
+    opacity: 0.82,
     ringSpeed: 0.6,
   },
   {
-    position: [3.4, -2.2, -3] as [number, number, number],
+    // Synthesis specialist (violet) — bottom-right, smallest, deepest
+    position: [3.0, -2.6, -4] as [number, number, number],
     scale: 0.85,
     color: "#8b5cf6",
     emissive: "#6d28d9",
     floatSpeed: 1.1,
     rotationSpeed: 0.07,
-    opacity: 0.78,
+    opacity: 0.75,
     ringSpeed: 0.5,
   },
 ];
@@ -514,13 +517,14 @@ export function HeroScene() {
   return (
     <Canvas
       dpr={[1, 1.75]}
-      camera={{ position: [0, 0, 7], fov: 45 }}
+      // Camera shifted right + back so the right-side orb cluster frames
+      // well against the hero text on the left.
+      camera={{ position: [1.5, 0, 8], fov: 45 }}
       gl={{
         antialias: true,
         alpha: true,
         powerPreference: "high-performance",
       }}
-      style={{ width: "100%", height: "100%", pointerEvents: "none" }}
     >
       <HeroSceneContents />
     </Canvas>

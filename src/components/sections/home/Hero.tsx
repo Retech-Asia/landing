@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/Button";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { Container } from "@/components/ui/Container";
 import { Magnetic } from "@/components/ui/Magnetic";
+// Hero3DBackground restored — orbs repositioned to right side only so they
+// never cross the headline text. Stripe-style typography + 3D atmosphere.
+import { Hero3DBackground } from "@/components/three/Hero3DBackground";
 import { STATS } from "@/lib/constants";
 
 /* ------------------------------------------------------------------ */
@@ -58,11 +61,41 @@ export function Hero() {
       ref={sectionRef}
       className="relative min-h-screen flex items-center overflow-hidden pt-16"
     >
-      {/* Background: single subtle grid pattern. No orbs, no glow blobs,
-          no animated overlays. Stripe-style restraint. */}
+      {/* Background: subtle grid pattern (low opacity). */}
       <div
         className="absolute inset-0 grid-pattern pointer-events-none z-0"
         style={{ opacity: 0.4 }}
+        aria-hidden="true"
+      />
+
+      {/* 3D agent entities — restored with repositioning. All orbs now sit
+          on the right side of the viewport (x ≥ 0), so they never cross
+          the headline text. Canvas is masked via CSS to fade out toward
+          the left edge. The orbs live BEHIND the text (z-0) and the text
+          floats above (z-10). A subtle gradient scrim on the left
+          guarantees headline readability even when an orb's halo extends
+          slightly into the text area. */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent 0%, transparent 35%, black 60%, black 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent 0%, transparent 35%, black 60%, black 100%)",
+        }}
+        aria-hidden="true"
+      >
+        <Hero3DBackground />
+      </div>
+
+      {/* Text scrim — left-to-right gradient that darkens the left portion
+          of the hero so the headline stays readable over any orb halo. */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to right, var(--background) 0%, var(--background) 30%, transparent 60%)",
+        }}
         aria-hidden="true"
       />
 
