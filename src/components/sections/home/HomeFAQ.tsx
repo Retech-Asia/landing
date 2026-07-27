@@ -7,7 +7,6 @@ import { useState, useCallback } from "react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SectionBackground } from "@/components/ui/SectionBackground";
-import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { cn } from "@/lib/cn";
 
 const faqItems = [
@@ -183,11 +182,11 @@ export function HomeFAQ() {
           description="Get answers to common questions about working with Retech Solutions."
         />
 
-        <AnimatedSection className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <FAQAccordion items={faqItems} />
-        </AnimatedSection>
+        </div>
 
-        <AnimatedSection delay={0.2} className="mt-8 text-center">
+        <div className="mt-8 text-center">
           <Link
             href="/faq"
             className="inline-flex items-center gap-2 text-sm font-medium text-brand hover:gap-3 transition-all py-2 -my-2 px-1 -mx-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-sm"
@@ -195,7 +194,7 @@ export function HomeFAQ() {
             View all FAQ
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
-        </AnimatedSection>
+        </div>
       </Container>
     </section>
   );

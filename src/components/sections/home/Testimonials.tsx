@@ -16,7 +16,6 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SectionBackground } from "@/components/ui/SectionBackground";
 import {
-  AnimatedSection,
   StaggerContainer,
   StaggerItem,
 } from "@/components/ui/AnimatedSection";
@@ -389,26 +388,22 @@ export function Testimonials() {
         </StaggerContainer>
 
         {/* ── Client Results Metrics ── */}
-        <AnimatedSection delay={0.2}>
-          <div className="mt-20 md:mt-24">
-            <div className="text-center mb-10 md:mb-12">
-              <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3">
-                Client Results
-              </p>
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground">
-                Numbers That Speak for Themselves
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {clientMetrics.map((metric) => (
-                <AnimatedSection key={metric.label} variant="scale" delay={0.1}>
-                  <AnimatedStat {...metric} />
-                </AnimatedSection>
-              ))}
-            </div>
+        <div className="mt-20 md:mt-24">
+          <div className="text-center mb-10 md:mb-12">
+            <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3">
+              Client Results
+            </p>
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground">
+              Numbers That Speak for Themselves
+            </h3>
           </div>
-        </AnimatedSection>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {clientMetrics.map((metric) => (
+              <AnimatedStat key={metric.label} {...metric} />
+            ))}
+          </div>
+        </div>
 
         {/* Project Highlights block removed — duplicated SuccessStories metrics
             (3.2x engagement, 60% efficiency, etc. were shown in BOTH adjacent
@@ -416,9 +411,8 @@ export function Testimonials() {
             already covers this content with better visual treatment. */}
 
         {/* ── Trusted Process ── */}
-        <AnimatedSection delay={0.2}>
-          <div className="mt-20 md:mt-24">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="mt-20 md:mt-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
               {/* Left: heading */}
               <div>
                 <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3">
@@ -465,7 +459,6 @@ export function Testimonials() {
               </div>
             </div>
           </div>
-        </AnimatedSection>
       </Container>
     </section>
   );

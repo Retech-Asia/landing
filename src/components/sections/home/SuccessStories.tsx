@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
-import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/ui/AnimatedSection";
+import { StaggerContainer, StaggerItem } from "@/components/ui/AnimatedSection";
 import { caseStudies } from "@/lib/case-studies-data";
 
 const previews = caseStudies.map((cs) => ({
@@ -22,13 +22,11 @@ export function SuccessStories() {
     <section className="py-20 md:py-28 bg-background-subtle relative overflow-hidden">
       <CompositeSectionBackground layers={["aurora", "grid-center"]} />
       <Container className="relative z-10">
-        <AnimatedSection>
-          <SectionHeader
-            label="Success Stories"
-            title="Success Stories"
-            description="Real results from real projects. See how we've helped businesses transform their digital presence."
-          />
-        </AnimatedSection>
+        <SectionHeader
+          label="Success Stories"
+          title="Success Stories"
+          description="Real results from real projects. See how we've helped businesses transform their digital presence."
+        />
 
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {previews.map((preview) => {
@@ -98,14 +96,14 @@ export function SuccessStories() {
         </StaggerContainer>
 
         {/* View all button */}
-        <AnimatedSection delay={0.3} className="mt-12 text-center">
+        <div className="mt-12 text-center">
           <Link
             href="/case-studies"
             className="inline-flex items-center gap-2 rounded-full bg-brand-dark px-6 py-3 text-sm font-medium text-white transition-all hover:bg-brand hover:gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
           >
             View All Case Studies <ArrowRight size={16} aria-hidden="true" />
           </Link>
-        </AnimatedSection>
+        </div>
       </Container>
     </section>
   );

@@ -8,7 +8,6 @@ import { Container } from "@/components/ui/Container";
 import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import {
-  AnimatedSection,
   StaggerContainer,
   StaggerItem,
 } from "@/components/ui/AnimatedSection";
@@ -73,13 +72,11 @@ export function TechStack() {
     <section className="py-20 md:py-28 relative overflow-hidden bg-background-subtle">
       <CompositeSectionBackground layers={["dots", "spotlight-cyan"]} />
       <Container className="relative z-10">
-        <AnimatedSection>
-          <SectionHeader
-            label="Tech Stack"
-            title="Our Technology Stack"
-            description="Modern, proven technologies across the stack. AI engineering runs on LangChain, pgvector, and the OpenAI and Anthropic APIs."
-          />
-        </AnimatedSection>
+        <SectionHeader
+          label="Tech Stack"
+          title="Our Technology Stack"
+          description="Modern, proven technologies across the stack. AI engineering runs on LangChain, pgvector, and the OpenAI and Anthropic APIs."
+        />
 
         <StaggerContainer className="space-y-8 max-w-4xl mx-auto">
           {techGroups.map((group) => (

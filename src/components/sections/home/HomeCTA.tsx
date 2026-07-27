@@ -4,7 +4,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/ui/AnimatedSection";
+import { StaggerContainer, StaggerItem } from "@/components/ui/AnimatedSection";
 import { GradientBackground } from "@/components/ui/GradientBackground";
 import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 import { Magnetic } from "@/components/ui/Magnetic";
@@ -194,7 +194,7 @@ export function HomeCTA() {
       <FloatingShapes />
 
       <Container className="relative z-10">
-        <AnimatedSection>
+        <div>
           <div className="max-w-2xl mx-auto text-center">
             {/* Animated heading with per-word scroll reveal */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-4 text-balance">
@@ -257,7 +257,7 @@ export function HomeCTA() {
             {/* Trust indicators */}
             <TrustIndicators />
           </div>
-        </AnimatedSection>
+        </div>
       </Container>
     </section>
   );
