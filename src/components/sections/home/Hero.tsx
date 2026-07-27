@@ -6,7 +6,10 @@ import { Button } from "@/components/ui/Button";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { Container } from "@/components/ui/Container";
 import { Magnetic } from "@/components/ui/Magnetic";
-import { Hero3DBackground } from "@/components/three/Hero3DBackground";
+// Hero3DBackground import retained for revert convenience but unused while
+// the orbs are removed. Stage B (full uninstall) will delete this import
+// along with the three/* files and the package.json deps.
+// import { Hero3DBackground } from "@/components/three/Hero3DBackground";
 import { STATS } from "@/lib/constants";
 
 /* ------------------------------------------------------------------ */
@@ -108,8 +111,16 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      {/* Layer 4: WebGL 3D orbs — lazy-loaded, respects prefers-reduced-motion */}
-      <Hero3DBackground />
+      {/* Layer 4: WebGL 3D orbs — REMOVED per Hallmark audit (decorative
+          non-interactive WebGL is a critical AI-tool tell; 150KB bundle
+          for ambient decoration the user can't touch, reorient, or
+          customise). Single-line revert:
+            git checkout 7560c6d -- src/components/sections/home/Hero.tsx
+          Files retained on disk for Stage B decision:
+            src/components/three/Hero3DBackground.tsx
+            src/components/three/HeroScene.tsx
+          Baseline: docs/hallmark-revamp-baseline.md */}
+      {/* <Hero3DBackground /> */}
 
       {/* Bottom fade to background — soft transition into StatsBar */}
       <div
