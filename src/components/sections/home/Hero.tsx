@@ -6,11 +6,10 @@ import { Button } from "@/components/ui/Button";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { Container } from "@/components/ui/Container";
 import { Magnetic } from "@/components/ui/Magnetic";
-// Hero3DBackground import retained for revert convenience but unused while
-// the orbs are removed. Stage B (full uninstall) will delete this import
-// along with the three/* files and the package.json deps.
-// import { Hero3DBackground } from "@/components/three/Hero3DBackground";
-import { HeroAgentViz } from "@/components/sections/home/HeroAgentViz";
+// Hero3DBackground restored — extended with agent-entity shells, orbiting
+// rings, and inter-agent connections. Original orbs code preserved; new
+// geometry layers added on top. HeroAgentViz (product cards) removed.
+import { Hero3DBackground } from "@/components/three/Hero3DBackground";
 import { STATS } from "@/lib/constants";
 
 /* ------------------------------------------------------------------ */
@@ -112,15 +111,15 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      {/* Layer 4: Multi-agent investment research visualization.
-          Replaces the decorative Three.js orbs removed per Hallmark audit.
-          SVG-based (zero bundle hit), represents real Retech architecture
-          from the Investment Intelligence Platform case study, interactive
-          (hover any node to see the agent's role). Desktop-only.
-          Single-line revert to the orbs:
-            git checkout 7560c6d -- src/components/sections/home/Hero.tsx
-          Baseline: docs/hallmark-revamp-baseline.md */}
-      <HeroAgentViz />
+      {/* Layer 4: 3D agent entities — restored with extensions. Each agent
+          has: glowing core sphere, wireframe icosahedron shell, two
+          orbiting rings, breathing scale, and animated data-pulse
+          connections to the other agents. Reads as a coordinated AI
+          swarm, not decorative bubbles.
+          Original code: src/components/three/HeroScene.tsx
+          Revert to plain orbs: git checkout 7560c6d -- src/components/three/HeroScene.tsx
+          Revert to product cards: git checkout 7b3787d -- src/components/sections/home/ */}
+      <Hero3DBackground />
 
       {/* Bottom fade to background — soft transition into StatsBar */}
       <div

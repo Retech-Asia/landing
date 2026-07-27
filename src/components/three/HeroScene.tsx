@@ -4,11 +4,10 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useRef, useMemo, useEffect } from "react";
 import type { Mesh, Group, Points } from "three";
 
-/* ------------------------------------------------------------------ */
-/*  Custom Float — replaces drei's <Float> which uses the deprecated  */
-/*  THREE.Clock (state.clock.elapsedTime), causing console warnings.  */
-/*  This version uses delta accumulation — functionally identical.     */
-/* ------------------------------------------------------------------ */
+/* ──────────────────────────────────────────────────────────────────
+ *  Custom Float — replaces drei's <Float> (which uses deprecated
+ *  THREE.Clock). Uses delta accumulation instead.
+ * ────────────────────────────────────────────────────────────────── */
 
 function CustomFloat({
   children,
@@ -28,7 +27,6 @@ function CustomFloat({
     if (!groupRef.current) return;
     elapsedRef.current += delta;
     const t = elapsedRef.current * speed;
-    // Same math as drei's Float: sin-wave bobbing + rotation
     groupRef.current.position.y = Math.sin(t) * floatIntensity;
     groupRef.current.rotation.x = Math.cos(t * 0.5) * rotationIntensity;
     groupRef.current.rotation.y = Math.sin(t * 0.3) * rotationIntensity;
@@ -37,32 +35,19 @@ function CustomFloat({
   return <group ref={groupRef}>{children}</group>;
 }
 
-/* ------------------------------------------------------------------ */
-/*  Module-level cursor position — written by a window pointermove    */
-/*  listener, read by CursorParallaxGroup. Lives outside React state  */
-/*  to avoid re-renders.                                              */
-/* ------------------------------------------------------------------ */
+/* ──────────────────────────────────────────────────────────────────
+ *  Cursor parallax — whole scene tilts based on pointer position.
+ *  Tracked at window level so canvas can stay pointer-events:none.
+ * ────────────────────────────────────────────────────────────────── */
+
 const cursorPos = { x: 0, y: 0 };
 
-/* ------------------------------------------------------------------ */
-/*  Cursor-following group — adds the "alive" 3D feel                 */
-/* ------------------------------------------------------------------ */
-
-/**
- * Wraps the entire scene. Tracks the cursor at the window level (not via
- * R3F's onPointerMove — that would require pointer-events on the canvas,
- * which would trap wheel/tap events). The pointer position is normalised
- * to -1..1 and used to smoothly rotate the group for a parallax response.
- */
 function CursorParallaxGroup({ children }: { children: React.ReactNode }) {
   const groupRef = useRef<Group>(null);
   const target = useRef({ x: 0, y: 0 });
 
-  // Track cursor at window level — set up in useEffect to avoid React 19's
-  // purity rules (which flag mutations during render).
   useEffect(() => {
     function handlePointerMove(e: PointerEvent) {
-      // Normalise to -1..1 across the viewport width/height.
       cursorPos.x = (e.clientX / window.innerWidth) * 2 - 1;
       cursorPos.y = (e.clientY / window.innerHeight) * 2 - 1;
     }
@@ -74,7 +59,6 @@ function CursorParallaxGroup({ children }: { children: React.ReactNode }) {
     if (!groupRef.current) return;
     target.current.x = cursorPos.x;
     target.current.y = cursorPos.y;
-    // Frame-rate independent lerp
     const lerp = 1 - Math.pow(0.001, delta);
     groupRef.current.rotation.y +=
       (target.current.x * 0.2 - groupRef.current.rotation.y) * lerp;
@@ -85,11 +69,21 @@ function CursorParallaxGroup({ children }: { children: React.ReactNode }) {
   return <group ref={groupRef}>{children}</group>;
 }
 
-/* ------------------------------------------------------------------ */
-/*  Distorted orb — the core hero element                             */
-/* ------------------------------------------------------------------ */
+/* ──────────────────────────────────────────────────────────────────
+ *  Agent entity — what used to be "Orb". Now reads as an AI agent:
+ *
+ *    - Glowing core sphere (the agent's "consciousness")
+ *    - Wireframe icosahedron shell (the agent's "body"/container)
+ *    - Two orbiting torus rings at perpendicular axes (atomic, alive)
+ *    - Breathing scale (organic, not mechanical)
+ *
+ *  Each agent has a distinct color + role identity:
+ *    green   = primary orchestrator
+ *    cyan    = data/analytics specialist
+ *    violet  = synthesis/risk specialist
+ * ────────────────────────────────────────────────────────────────── */
 
-type OrbProps = {
+type AgentProps = {
   position: [number, number, number];
   scale?: number;
   color: string;
@@ -97,9 +91,11 @@ type OrbProps = {
   floatSpeed?: number;
   rotationSpeed?: number;
   opacity?: number;
+  /** Ring orbit speed — distinct per agent for variety */
+  ringSpeed?: number;
 };
 
-function Orb({
+function AgentEntity({
   position,
   scale = 1,
   color,
@@ -107,52 +103,265 @@ function Orb({
   floatSpeed = 1.2,
   rotationSpeed = 0.06,
   opacity = 0.92,
-}: OrbProps) {
-  const meshRef = useRef<Mesh>(null);
-  // Manual time accumulator — avoids the deprecated THREE.Clock (state.clock)
-  // which triggers "THREE.Clock: This module has been deprecated. Please use
-  // THREE.Timer instead" in three.js r158+.
+  ringSpeed = 0.4,
+}: AgentProps) {
+  const coreRef = useRef<Mesh>(null);
+  const shellRef = useRef<Mesh>(null);
+  const ring1Ref = useRef<Mesh>(null);
+  const ring2Ref = useRef<Mesh>(null);
   const elapsedRef = useRef(0);
 
   useFrame((_, delta) => {
-    if (!meshRef.current) return;
+    if (!coreRef.current) return;
     elapsedRef.current += delta;
-    meshRef.current.rotation.x += delta * rotationSpeed;
-    meshRef.current.rotation.y += delta * rotationSpeed * 0.7;
-    // Subtle "breathing" scale oscillation — gives the orbs an organic,
-    // alive feel even without MeshDistortMaterial's vertex displacement.
-    const breathe = 1 + Math.sin(elapsedRef.current * floatSpeed * 0.5) * 0.04;
-    meshRef.current.scale.setScalar(scale * breathe);
+    const t = elapsedRef.current;
+
+    // Core: slow rotation + breathing scale
+    coreRef.current.rotation.x += delta * rotationSpeed;
+    coreRef.current.rotation.y += delta * rotationSpeed * 0.7;
+    const breathe = 1 + Math.sin(t * floatSpeed * 0.5) * 0.04;
+    coreRef.current.scale.setScalar(breathe);
+
+    // Shell: counter-rotates (feels like layers of consciousness)
+    if (shellRef.current) {
+      shellRef.current.rotation.x -= delta * rotationSpeed * 0.5;
+      shellRef.current.rotation.y -= delta * rotationSpeed * 0.35;
+    }
+
+    // Rings: orbit at perpendicular axes, different speeds (atomic feel)
+    if (ring1Ref.current) {
+      ring1Ref.current.rotation.z += delta * ringSpeed;
+      ring1Ref.current.rotation.x = Math.PI / 2;
+    }
+    if (ring2Ref.current) {
+      ring2Ref.current.rotation.x += delta * ringSpeed * 0.8;
+      ring2Ref.current.rotation.y = Math.PI / 3;
+    }
   });
 
   return (
     <CustomFloat speed={floatSpeed} rotationIntensity={0.12} floatIntensity={0.5}>
-      <mesh ref={meshRef} position={position} scale={scale}>
-        <sphereGeometry args={[1, 64, 64]} />
-        <meshStandardMaterial
-          color={color}
-          emissive={emissive ?? color}
-          emissiveIntensity={0.25}
-          roughness={0.35}
-          metalness={0.3}
-          transparent
-          opacity={opacity}
-        />
-      </mesh>
+      <group position={position} scale={scale}>
+        {/* Glowing core sphere */}
+        <mesh ref={coreRef}>
+          <sphereGeometry args={[1, 64, 64]} />
+          <meshStandardMaterial
+            color={color}
+            emissive={emissive ?? color}
+            emissiveIntensity={0.45}
+            roughness={0.3}
+            metalness={0.35}
+            transparent
+            opacity={opacity}
+          />
+        </mesh>
+
+        {/* Wireframe icosahedron shell — the agent's "body" */}
+        <mesh ref={shellRef} scale={1.45}>
+          <icosahedronGeometry args={[1, 1]} />
+          <meshBasicMaterial
+            color={emissive ?? color}
+            wireframe
+            transparent
+            opacity={0.35}
+          />
+        </mesh>
+
+        {/* Orbiting ring 1 — horizontal */}
+        <mesh ref={ring1Ref} scale={1.85}>
+          <torusGeometry args={[1, 0.025, 16, 64]} />
+          <meshBasicMaterial
+            color={emissive ?? color}
+            transparent
+            opacity={0.55}
+          />
+        </mesh>
+
+        {/* Orbiting ring 2 — angled, counter-rotates */}
+        <mesh ref={ring2Ref} scale={2.15}>
+          <torusGeometry args={[1, 0.018, 16, 64]} />
+          <meshBasicMaterial
+            color={emissive ?? color}
+            transparent
+            opacity={0.35}
+          />
+        </mesh>
+      </group>
     </CustomFloat>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  Particle field — gives depth & airiness behind the orbs           */
-/* ------------------------------------------------------------------ */
+/* ──────────────────────────────────────────────────────────────────
+ *  Agent connections — animated curves between the 3 agents showing
+ *  they're a coordinated network (data flowing between them).
+ * ────────────────────────────────────────────────────────────────── */
+
+function AgentConnections({
+  agents,
+}: {
+  agents: { position: [number, number, number]; color: string }[];
+}) {
+  const groupRef = useRef<Group>(null);
+  const elapsedRef = useRef(0);
+
+  // Precompute curve points for each connection (3 pairs for 3 agents)
+  const connections = useMemo(() => {
+    const pairs: {
+      from: [number, number, number];
+      to: [number, number, number];
+      midColor: string;
+    }[] = [];
+    for (let i = 0; i < agents.length; i++) {
+      for (let j = i + 1; j < agents.length; j++) {
+        pairs.push({
+          from: agents[i].position,
+          to: agents[j].position,
+          midColor: agents[i].color,
+        });
+      }
+    }
+    return pairs;
+  }, [agents]);
+
+  useFrame((_, delta) => {
+    elapsedRef.current += delta;
+  });
+
+  return (
+    <group ref={groupRef}>
+      {connections.map((conn, i) => {
+        const start = conn.from;
+        const end = conn.to;
+        // Mid point with slight perpendicular offset for curve
+        const mid: [number, number, number] = [
+          (start[0] + end[0]) / 2,
+          (start[1] + end[1]) / 2 + 0.5,
+          (start[2] + end[2]) / 2,
+        ];
+        return (
+          <group key={i}>
+            {/* Static dim line */}
+            <QuadraticCurve
+              start={start}
+              mid={mid}
+              end={end}
+              color={conn.midColor}
+              baseOpacity={0.15}
+            />
+            {/* Animated pulse traveling along the curve */}
+            <PulseOnCurve
+              start={start}
+              mid={mid}
+              end={end}
+              color={conn.midColor}
+              delay={i * 0.7}
+              groupRef={groupRef}
+              elapsedRef={elapsedRef}
+            />
+          </group>
+        );
+      })}
+    </group>
+  );
+}
+
+function QuadraticCurve({
+  start,
+  mid,
+  end,
+  color,
+  baseOpacity,
+}: {
+  start: [number, number, number];
+  mid: [number, number, number];
+  end: [number, number, number];
+  color: string;
+  baseOpacity: number;
+}) {
+  // Three.js BufferGeometry with quadratic bezier points
+  const points = useMemo(() => {
+    const pts: number[] = [];
+    const s = start;
+    const m = mid;
+    const e = end;
+    const segments = 32;
+    for (let i = 0; i <= segments; i++) {
+      const t = i / segments;
+      const x = (1 - t) * (1 - t) * s[0] + 2 * (1 - t) * t * m[0] + t * t * e[0];
+      const y = (1 - t) * (1 - t) * s[1] + 2 * (1 - t) * t * m[1] + t * t * e[1];
+      const z = (1 - t) * (1 - t) * s[2] + 2 * (1 - t) * t * m[2] + t * t * e[2];
+      pts.push(x, y, z);
+    }
+    return new Float32Array(pts);
+  }, [start, mid, end]);
+
+  return (
+    <line>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" args={[points, 3]} />
+      </bufferGeometry>
+      <lineBasicMaterial color={color} transparent opacity={baseOpacity} />
+    </line>
+  );
+}
+
+function PulseOnCurve({
+  start,
+  mid,
+  end,
+  color,
+  delay,
+  groupRef,
+  elapsedRef,
+}: {
+  start: [number, number, number];
+  mid: [number, number, number];
+  end: [number, number, number];
+  color: string;
+  delay: number;
+  groupRef: React.RefObject<Group | null>;
+  elapsedRef: React.RefObject<number>;
+}) {
+  const pulseRef = useRef<Mesh>(null);
+
+  useFrame(() => {
+    if (!pulseRef.current || !elapsedRef.current) return;
+    const t = ((elapsedRef.current + delay) % 3) / 3; // 0..1 loop
+    const s = start;
+    const m = mid;
+    const e = end;
+    const x = (1 - t) * (1 - t) * s[0] + 2 * (1 - t) * t * m[0] + t * t * e[0];
+    const y = (1 - t) * (1 - t) * s[1] + 2 * (1 - t) * t * m[1] + t * t * e[1];
+    const z = (1 - t) * (1 - t) * s[2] + 2 * (1 - t) * t * m[2] + t * t * e[2];
+    pulseRef.current.position.set(x, y, z);
+    // Fade at endpoints so the loop is invisible
+    const fade = Math.min(t * 6, 1) * Math.min((1 - t) * 6, 1);
+    const mat = pulseRef.current.material as { opacity: number } & unknown;
+    (mat as { opacity: number }).opacity = 0.9 * fade;
+  });
+
+  return (
+    <mesh ref={pulseRef}>
+      <sphereGeometry args={[0.08, 12, 12]} />
+      <meshBasicMaterial
+        color={color}
+        transparent
+        opacity={0}
+        blending={2} // AdditiveBlending
+        depthWrite={false}
+      />
+    </mesh>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────────────
+ *  Particle field — depth atmosphere behind the agents
+ * ────────────────────────────────────────────────────────────────── */
 
 function ParticleField({ count = 220 }: { count?: number }) {
   const pointsRef = useRef<Points>(null);
 
   const positions = useMemo(() => {
-    // Pseudo-random starfield positions — intentionally non-deterministic.
-    // useMemo with [count] ensures this runs once per mount.
     const arr = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       // eslint-disable-next-line react-hooks/purity
@@ -177,10 +386,7 @@ function ParticleField({ count = 220 }: { count?: number }) {
   return (
     <points ref={pointsRef}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-        />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
         size={0.04}
@@ -194,48 +400,26 @@ function ParticleField({ count = 220 }: { count?: number }) {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  Lighting rig — brand-tinted, no shadows (perf)                    */
-/* ------------------------------------------------------------------ */
+/* ──────────────────────────────────────────────────────────────────
+ *  Brand-tinted lighting rig
+ * ────────────────────────────────────────────────────────────────── */
 
 function BrandLighting() {
   return (
     <>
       <ambientLight intensity={0.7} color="#ffffff" />
-      <directionalLight
-        position={[5, 6, 4]}
-        intensity={2.2}
-        color="#ffffff"
-      />
-      <pointLight
-        position={[-6, -2, -4]}
-        intensity={30}
-        color="#06b6d4"
-        distance={25}
-      />
-      <pointLight
-        position={[6, 3, 2]}
-        intensity={25}
-        color="#8b5cf6"
-        distance={22}
-      />
-      <pointLight
-        position={[0, -5, 6]}
-        intensity={20}
-        color="#208535"
-        distance={20}
-      />
+      <directionalLight position={[5, 6, 4]} intensity={2.2} color="#ffffff" />
+      <pointLight position={[-6, -2, -4]} intensity={30} color="#06b6d4" distance={25} />
+      <pointLight position={[6, 3, 2]} intensity={25} color="#8b5cf6" distance={22} />
+      <pointLight position={[0, -5, 6]} intensity={20} color="#208535" distance={20} />
     </>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  Scroll-driven camera rig — flies the camera forward through the    */
-/*  orb field as the user scrolls past the hero. Maps scrollY over    */
-/*  the first viewport of travel to camera.z 7 → 4.5 and a slight     */
-/*  downward y tilt. Reinforces the existing contentOpacity fade so   */
-/*  the hero "recedes" as it leaves the viewport.                     */
-/* ------------------------------------------------------------------ */
+/* ──────────────────────────────────────────────────────────────────
+ *  Scroll-driven camera rig — camera flies forward as user scrolls
+ *  past the hero. Maps scrollY over first viewport to camera z 7→4.5.
+ * ────────────────────────────────────────────────────────────────── */
 
 function ScrollCameraRig() {
   const { camera } = useThree();
@@ -245,10 +429,9 @@ function ScrollCameraRig() {
   useEffect(() => {
     let progress = 0;
     const compute = () => {
-      // 0 at top → 1 after one viewport of scroll.
       progress = Math.min(1, window.scrollY / window.innerHeight);
-      targetZ.current = 7 - progress * 2.5;   // 7 → 4.5
-      targetY.current = -progress * 0.35;     // 0 → -0.35 (slight downward tilt)
+      targetZ.current = 7 - progress * 2.5;
+      targetY.current = -progress * 0.35;
     };
     compute();
     window.addEventListener("scroll", compute, { passive: true });
@@ -256,8 +439,6 @@ function ScrollCameraRig() {
   }, []);
 
   useFrame((_, delta) => {
-    // Frame-rate independent lerp toward target. Same shape as the cursor
-    // parallax lerp so the two motions feel cohesive.
     const lerp = 1 - Math.pow(0.001, delta);
     camera.position.z += (targetZ.current - camera.position.z) * lerp;
     camera.position.y += (targetY.current - camera.position.y) * lerp;
@@ -267,9 +448,42 @@ function ScrollCameraRig() {
   return null;
 }
 
-/* ------------------------------------------------------------------ */
-/*  Scene composition                                                 */
-/* ------------------------------------------------------------------ */
+/* ──────────────────────────────────────────────────────────────────
+ *  Scene composition — 3 agent entities + connections + particle field
+ * ────────────────────────────────────────────────────────────────── */
+
+const AGENTS = [
+  {
+    position: [2.8, 0.4, -1] as [number, number, number],
+    scale: 2.2,
+    color: "#208535",
+    emissive: "#186B2B",
+    floatSpeed: 1.0,
+    rotationSpeed: 0.05,
+    opacity: 0.95,
+    ringSpeed: 0.4,
+  },
+  {
+    position: [-3.8, 1.8, -2] as [number, number, number],
+    scale: 1.1,
+    color: "#06b6d4",
+    emissive: "#0e7490",
+    floatSpeed: 1.4,
+    rotationSpeed: 0.08,
+    opacity: 0.85,
+    ringSpeed: 0.6,
+  },
+  {
+    position: [3.4, -2.2, -3] as [number, number, number],
+    scale: 0.85,
+    color: "#8b5cf6",
+    emissive: "#6d28d9",
+    floatSpeed: 1.1,
+    rotationSpeed: 0.07,
+    opacity: 0.78,
+    ringSpeed: 0.5,
+  },
+];
 
 function HeroSceneContents() {
   return (
@@ -277,38 +491,14 @@ function HeroSceneContents() {
       <ScrollCameraRig />
       <BrandLighting />
 
-      {/* Main brand orb */}
-      <Orb
-        position={[2.8, 0.4, -1]}
-        scale={2.2}
-        color="#208535"
-        emissive="#186B2B"
-        floatSpeed={1.0}
-        rotationSpeed={0.05}
-        opacity={0.95}
-      />
+      {/* 3 agent entities — primary orchestrator (green), data specialist
+          (cyan), synthesis specialist (violet) */}
+      {AGENTS.map((agent, i) => (
+        <AgentEntity key={i} {...agent} />
+      ))}
 
-      {/* Cyan orb */}
-      <Orb
-        position={[-3.8, 1.8, -2]}
-        scale={1.1}
-        color="#06b6d4"
-        emissive="#0e7490"
-        floatSpeed={1.4}
-        rotationSpeed={0.08}
-        opacity={0.85}
-      />
-
-      {/* Violet orb */}
-      <Orb
-        position={[3.4, -2.2, -3]}
-        scale={0.85}
-        color="#8b5cf6"
-        emissive="#6d28d9"
-        floatSpeed={1.1}
-        rotationSpeed={0.07}
-        opacity={0.78}
-      />
+      {/* Curved connections with traveling data pulses */}
+      <AgentConnections agents={AGENTS} />
 
       <ParticleField count={220} />
       <fog attach="fog" args={["#0a0a0a", 8, 18]} />
@@ -316,9 +506,9 @@ function HeroSceneContents() {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  Exported canvas wrapper                                           */
-/* ------------------------------------------------------------------ */
+/* ──────────────────────────────────────────────────────────────────
+ *  Exported canvas wrapper
+ * ────────────────────────────────────────────────────────────────── */
 
 export function HeroScene() {
   return (
@@ -330,12 +520,6 @@ export function HeroScene() {
         alpha: true,
         powerPreference: "high-performance",
       }}
-      // Explicit pointer-events: none on the canvas itself. The wrapper
-      // already has pointer-events-none, but R3F adds internal divs that
-      // may receive events — this guarantees the canvas can never trap
-      // wheel/tap events. Cursor parallax is tracked at the window level
-      // (see CursorParallaxGroup above), so we don't need pointer events
-      // here.
       style={{ width: "100%", height: "100%", pointerEvents: "none" }}
     >
       <HeroSceneContents />
