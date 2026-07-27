@@ -670,28 +670,14 @@ p, li {
   100% { transform: translateX(100%) translateY(100%); }
 }
 
-/* Card shimmer overlay */
+/* Card shimmer overlay removed per Hallmark audit (cousin of
+   universal hover:scale-105 tell). The shimmer sweep crawls across
+   the card on hover and reads as decorative chrome. The hover-lift
+   (translate-y + shadow grow) is preserved on the card class itself,
+   so genuine interaction feedback still works.
+   Revert: git checkout 7560c6d -- src/app/globals.css */
 .card-shimmer {
   position: relative;
-  overflow: hidden;
-}
-.card-shimmer::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    transparent 30%,
-    var(--shimmer-highlight) 50%,
-    transparent 70%
-  );
-  transform: translateX(-100%) translateY(-100%);
-  transition: none;
-  pointer-events: none;
-  z-index: 1;
-}
-.card-shimmer:hover::before {
-  animation: shimmer 0.6s ease-out forwards;
 }
 
 /* Button shimmer overlay */
@@ -1189,8 +1175,6 @@ select:focus {
   .marquee-container,
   .marquee-container-reverse,
   .marquee-container-slow,
-  .card-shimmer::before,
-  .card-shimmer:hover::before,
   .btn-shimmer::after,
   .btn-shimmer:hover::after {
     animation: none !important;

@@ -50,13 +50,9 @@ export function Footer() {
 
   return (
     <footer role="contentinfo" aria-label="Site footer" className="bg-brand-dark text-white">
-      {/* Gradient top border */}
-      <div
-        className="h-[2px]"
-        style={{
-          background: "linear-gradient(to right, #208535, #34d058, #06b6d4)",
-        }}
-      />
+      {/* Gradient top border removed per Hallmark audit (decorative chrome
+          that adds nothing the bg-brand-dark surface doesn't already
+          communicate). Revert: git checkout 7560c6d -- src/components/sections/Footer.tsx */}
 
       {/* Newsletter section */}
       {/* Newsletter section removed — we don't do marketing email. */}
