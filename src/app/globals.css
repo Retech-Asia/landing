@@ -787,34 +787,10 @@ p, li {
   animation: gradient-shift-text 3s linear infinite;
 }
 
-/* Hero headline gradient — slow, elegant color shift */
-@keyframes hero-gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.hero-gradient-headline {
-  background: linear-gradient(
-    270deg,
-    var(--brand) 0%,
-    var(--brand-light) 20%,
-    var(--accent-cyan) 50%,
-    var(--brand-light) 80%,
-    var(--brand) 100%
-  );
-  background-size: 300% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: hero-gradient-shift 6s ease-in-out infinite;
-}
+/* Removed .hero-gradient-headline + @keyframes hero-gradient-shift per
+   Hallmark audit (gradient-text fill is a critical AI tell). The hero
+   "Solutions" span now uses Instrument Serif italic + var(--brand)
+   accent. Baseline captured in docs/hallmark-revamp-baseline.md. */
 
 /* LCP-critical entrance for the hero content container.
    Pure CSS so it can't be blocked by client-side JS hydration.
