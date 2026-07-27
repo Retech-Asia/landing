@@ -10,6 +10,7 @@ import { Magnetic } from "@/components/ui/Magnetic";
 // the orbs are removed. Stage B (full uninstall) will delete this import
 // along with the three/* files and the package.json deps.
 // import { Hero3DBackground } from "@/components/three/Hero3DBackground";
+import { HeroAgentViz } from "@/components/sections/home/HeroAgentViz";
 import { STATS } from "@/lib/constants";
 
 /* ------------------------------------------------------------------ */
@@ -111,16 +112,15 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      {/* Layer 4: WebGL 3D orbs — REMOVED per Hallmark audit (decorative
-          non-interactive WebGL is a critical AI-tool tell; 150KB bundle
-          for ambient decoration the user can't touch, reorient, or
-          customise). Single-line revert:
+      {/* Layer 4: Multi-agent investment research visualization.
+          Replaces the decorative Three.js orbs removed per Hallmark audit.
+          SVG-based (zero bundle hit), represents real Retech architecture
+          from the Investment Intelligence Platform case study, interactive
+          (hover any node to see the agent's role). Desktop-only.
+          Single-line revert to the orbs:
             git checkout 7560c6d -- src/components/sections/home/Hero.tsx
-          Files retained on disk for Stage B decision:
-            src/components/three/Hero3DBackground.tsx
-            src/components/three/HeroScene.tsx
           Baseline: docs/hallmark-revamp-baseline.md */}
-      {/* <Hero3DBackground /> */}
+      <HeroAgentViz />
 
       {/* Bottom fade to background — soft transition into StatsBar */}
       <div
