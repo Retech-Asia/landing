@@ -1471,3 +1471,23 @@ select:focus {
   position: relative;
   z-index: 1;
 }
+
+/* ── Constellation hero: star halo pulse ── */
+@keyframes star-halo-pulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+/* Reduced motion: disable the halo pulse animation entirely */
+@media (prefers-reduced-motion: reduce) {
+  .connection,
+  .constellation-star [r] {
+    animation: none !important;
+  }
+}
