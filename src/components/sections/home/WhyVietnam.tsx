@@ -92,7 +92,7 @@ export function WhyVietnam() {
         {/* Stats bar */}
         <StaggerContainer
           staggerDelay={0.12}
-          className="mb-14 md:mb-18 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6 md:p-8 rounded-2xl bg-white/60 border border-black/[0.06] backdrop-blur-sm"
+          className="mb-14 md:mb-18 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6 md:p-8 rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]"
         >
           {stats.map((stat, index) => (
             <StaggerItem key={stat.label}>
