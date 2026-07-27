@@ -36,9 +36,9 @@ export const ABOUT_STATS = [
 
 export const HIGHLIGHTS = [
   {
-    iconKey: "code",
-    title: "Full-Cycle Development",
-    description: "From business analysis and design to development, testing, and deployment. We handle the entire software lifecycle.",
+    iconKey: "brain",
+    title: "AI-Integrated Engineering",
+    description: "RAG, vector search, LLM features, and multi-agent orchestration shipped as standard. AI is part of how we build, not a separate SKU.",
   },
   {
     iconKey: "zap",
@@ -51,8 +51,8 @@ export const HIGHLIGHTS = [
     description: "Integrated AI capabilities across CMS, CRM, and ERP platforms, from automated content tagging and predictive analytics to intelligent workflow automation.",
   },
   {
-    iconKey: "users",
-    title: "Scalable Teams",
-    description: "Flexible, dedicated development teams that scale with your project needs and grow alongside your business.",
+    iconKey: "code",
+    title: "Production AI Expertise",
+    description: "LangChain, pgvector, OpenAI, and Anthropic in production across 5+ shipped platforms. We have built the RAG pipelines, query routers, and agent systems you are planning.",
   },
 ] as const;

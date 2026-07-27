@@ -56,6 +56,16 @@ const techGroups = [
       { name: "Storybook", alt: "Storybook component library logo", src: "/images/tech/storybook.svg" },
     ],
   },
+  {
+    label: "AI & ML",
+    items: [
+      { name: "LangChain", alt: "LangChain framework logo", src: "/images/tech/langchain.svg" },
+      { name: "OpenAI", alt: "OpenAI platform logo", src: "/images/tech/openai.svg" },
+      { name: "Anthropic", alt: "Anthropic Claude platform logo", src: "/images/tech/anthropic.svg" },
+      { name: "pgvector", alt: "pgvector PostgreSQL extension logo", src: "/images/tech/postgresql.svg" },
+      { name: "Hugging Face", alt: "Hugging Face ML platform logo", src: "/images/tech/huggingface.svg" },
+    ],
+  },
 ];
 
 export function TechStack() {
@@ -67,7 +77,7 @@ export function TechStack() {
           <SectionHeader
             label="Tech Stack"
             title="Our Technology Stack"
-            description="We use modern, proven technologies to build reliable, scalable solutions."
+            description="Modern, proven technologies across the stack. AI engineering runs on LangChain, pgvector, and the OpenAI and Anthropic APIs."
           />
         </AnimatedSection>
 

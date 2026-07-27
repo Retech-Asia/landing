@@ -15,6 +15,7 @@ import {
   Paintbrush,
   Box,
   TestTube2,
+  Brain,
 } from "lucide-react";
 import { Container as ContainerUI } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -64,12 +65,13 @@ const phases = [
     timeline: "Week 1-2",
     icon: Search,
     description:
-      "Every successful project starts with deep understanding. We conduct stakeholder interviews, map business processes, and analyze your competitive landscape to define a clear project scope. Our team assesses technical feasibility and identifies risks early, ensuring the roadmap is realistic and aligned with your goals.",
+      "Every successful project starts with deep understanding. We conduct stakeholder interviews, map business processes, and analyze your competitive landscape to define a clear project scope. Our team assesses technical feasibility and identifies risks early, ensuring the roadmap is realistic and aligned with your goals. An AI opportunity assessment identifies which workflows benefit from LLM features, RAG search, or agentic automation, and which do not.",
     activities: [
       "Stakeholder interviews & workshops",
       "Requirements gathering & documentation",
       "Competitive & market analysis",
       "Technical feasibility assessment",
+      "AI opportunity assessment: identify workflows where RAG, agents, or LLM features add value",
     ],
     deliverables: [
       "Project brief",
@@ -83,12 +85,13 @@ const phases = [
     timeline: "Week 2-4",
     icon: PenTool,
     description:
-      "We design systems that scale. Our architects define the technical backbone while our designers craft intuitive interfaces that users love. From database schemas to pixel-perfect mockups, every decision is documented and validated before a single line of code is written.",
+      "We design systems that scale. Our architects define the technical backbone while our designers craft intuitive interfaces that users love. From database schemas to pixel-perfect mockups, every decision is documented and validated before a single line of code is written. For AI-native features, we design the retrieval architecture, embedding strategy, and evaluation harness alongside the system architecture.",
     activities: [
       "System architecture design",
       "Database modeling & design",
       "UI/UX wireframes & prototyping",
       "Design system creation",
+      "AI feature architecture: retrieval design, embedding strategy, evaluation harness",
     ],
     deliverables: [
       "Architecture document",
@@ -102,12 +105,13 @@ const phases = [
     timeline: "Week 4-12",
     icon: Code2,
     description:
-      "Development happens in focused two-week sprints with clear goals and full transparency. Daily standups keep everyone aligned, while sprint reviews give you regular visibility into progress. Continuous integration ensures every change is tested and deployable from day one.",
+      "Development happens in focused two-week sprints with clear goals and full transparency. Daily standups keep everyone aligned, while sprint reviews give you regular visibility into progress. Continuous integration ensures every change is tested and deployable from day one. AI features follow the same rigor: evaluation suites run in CI to catch regressions in retrieval quality and LLM output.",
     activities: [
       "Agile development in 2-week sprints",
       "Daily standups & progress tracking",
       "Sprint reviews & retrospectives",
       "Continuous integration & delivery",
+      "LLM evaluation harness in CI for retrieval and output quality",
     ],
     deliverables: [
       "Working software increments",
@@ -121,12 +125,13 @@ const phases = [
     timeline: "Ongoing",
     icon: ShieldCheck,
     description:
-      "Quality is not an afterthought; it is woven into every phase. Our QA engineers run automated test suites, perform manual exploratory testing, and benchmark performance under load. Security audits and accessibility checks ensure your product meets the highest standards.",
+      "Quality is not an afterthought; it is woven into every phase. Our QA engineers run automated test suites, perform manual exploratory testing, and benchmark performance under load. Security audits and accessibility checks ensure your product meets the highest standards. AI features receive additional scrutiny for prompt injection, data leakage, and hallucination surfaces.",
     activities: [
       "Automated unit & integration testing",
       "Manual exploratory QA",
       "Performance & load testing",
       "Security auditing & accessibility compliance",
+      "AI red-teaming: prompt injection, data leakage, hallucination surface testing",
     ],
     deliverables: [
       "Test reports",
@@ -146,6 +151,7 @@ const phases = [
       "Monitoring & alerting setup",
       "Performance optimization",
       "Team training & documentation",
+      "LLM cost and latency monitoring dashboards",
     ],
     deliverables: [
       "Production deployment",
@@ -165,6 +171,7 @@ const phases = [
       "New feature development",
       "Performance monitoring & optimization",
       "Strategic consulting & roadmap planning",
+      "Ongoing evaluation of AI feature quality against production traffic",
     ],
     deliverables: [
       "Monthly reports",
@@ -189,6 +196,11 @@ const toolCategories = [
     name: "Development",
     icon: GitBranch,
     tools: ["GitHub", "VS Code", "Cursor"],
+  },
+  {
+    name: "AI Engineering",
+    icon: Brain,
+    tools: ["LangChain", "pgvector", "OpenAI", "Anthropic", "Cursor"],
   },
   {
     name: "Design",

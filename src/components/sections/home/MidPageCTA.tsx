@@ -33,10 +33,10 @@ export function MidPageCTA() {
                 Free Consultation
               </span>
               <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">
-                Not Sure Where to Start?
+                Not Sure Where AI Fits?
               </h3>
               <p className="text-sm md:text-base text-foreground-secondary leading-relaxed max-w-lg">
-                Book a free 30-minute consultation with our technical lead. We will map out the right approach, tech stack, and timeline. No strings attached.
+                Book a free 30-minute consultation with our technical lead. We will map out the right approach, tech stack, AI opportunity surface, and timeline. No strings attached.
               </p>
             </div>
 

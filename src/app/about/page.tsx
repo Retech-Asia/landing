@@ -143,11 +143,11 @@ export default function AboutPage() {
                     software development services.
                   </p>
                   <p>
-                    Our team of experienced developers, designers, and project managers
-                    work closely with clients to understand their unique challenges and
-                    deliver tailored solutions that drive real business outcomes. We
-                    specialize in custom CMS, CRM, and ERP systems, as well as AI-powered
-                    digital products that help businesses stay ahead of the curve.
+                    Our team of engineers, designers, and project managers works closely
+                    with clients to turn business problems into shipped software. We
+                    specialize in custom CMS, CRM, and ERP platforms, and we ship AI-native
+                    products that use RAG, multi-agent orchestration, and LLM features
+                    where they actually add value.
                   </p>
                   <p>
                     With over five years of experience and more than 50 projects

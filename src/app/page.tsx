@@ -169,7 +169,7 @@ export default function HomePage() {
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <p className="text-sm md:text-lg font-medium text-foreground-secondary max-w-md">
-              AI-integrated engineering, from ML-powered search to intelligent automation
+              AI-integrated engineering: RAG search, multi-agent orchestration, and LLM features shipped inside the products we build.
             </p>
           </div>
         </div>
