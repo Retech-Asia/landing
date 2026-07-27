@@ -6,35 +6,16 @@ import { Button } from "@/components/ui/Button";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { Container } from "@/components/ui/Container";
 import { Magnetic } from "@/components/ui/Magnetic";
-// Hero3DBackground restored — extended with agent-entity shells, orbiting
-// rings, and inter-agent connections. Original orbs code preserved; new
-// geometry layers added on top. HeroAgentViz (product cards) removed.
-import { Hero3DBackground } from "@/components/three/Hero3DBackground";
 import { STATS } from "@/lib/constants";
 
 /* ------------------------------------------------------------------ */
-/*  Framer Motion variants                                            */
-/* ------------------------------------------------------------------ */
-
-// LCP-critical: every text element in the hero renders VISIBLE on SSR.
-// We do NOT use Framer Motion's initial="hidden" + animate="visible" here
-// because that requires client JS to hydrate before any hero text paints,
-// which on throttled mobile networks blows out LCP (was 4.5s → now ~1s).
-//
-// Entrance polish is delivered by a single CSS keyframe on the container
-// (.hero-content-enter in globals.css). Framer Motion is still used below
-// for scroll-driven parallax (which doesn't gate first paint).
-//
-// Note: the previous `itemVariants` constant was a no-op
-// ({hidden:{}, visible:{opacity:1,y:0,duration:0}}). The motion wrappers
-// around h1 / CTA / stats still hydrate useScroll/useTransform internally
-// even when the variants do nothing — pure hydration cost with zero
-// visual payoff. Replaced those wrappers with plain DOM elements. The
-// only motion.* usages that remain are the scroll-opacity wrapper
-// (real animation) and the rotating-word AnimatePresence.
-
-/* ------------------------------------------------------------------ */
-/*  Hero component                                                    */
+/*  Hero — Stripe-style minimal. Pure typography, no decorative 3D.   */
+/*                                                                    */
+/*  Previously: 4 layers of background decoration (grid pattern, 3    */
+/*  radial glow blobs, animated radial overlay, Three.js orbs).       */
+/*  Now: just a subtle grid pattern. Stripe / Vercel / Linear win by  */
+/*  restraint. The visual showcase moves to a dedicated section       */
+/*  below the hero (ProductShowcase + SuccessStories).                */
 /* ------------------------------------------------------------------ */
 
 export function Hero() {
@@ -77,49 +58,13 @@ export function Hero() {
       ref={sectionRef}
       className="relative min-h-screen flex items-center overflow-hidden pt-16"
     >
-      {/* Layer 1: Subtle line grid — the only background decoration we keep.
-          Removed: dot pattern, 5 mesh blobs, 3 floating accent lines, 6
-          geometric outlines (rotating ring, square, dot grid, plus sign,
-          outlined circles, diamond, diagonal line), SVG noise overlay.
-          Stripe/Vercel/Linear win by restraint, not by adding more layers. */}
+      {/* Background: single subtle grid pattern. No orbs, no glow blobs,
+          no animated overlays. Stripe-style restraint. */}
       <div
         className="absolute inset-0 grid-pattern pointer-events-none z-0"
-        style={{ opacity: 0.5 }}
+        style={{ opacity: 0.4 }}
         aria-hidden="true"
       />
-
-      {/* Layer 2: Three radial glow spots — brand palette, breathing pulse */}
-      <div
-        className="absolute -top-20 -left-40 w-[700px] h-[550px] radial-glow-brand pointer-events-none z-0 animate-float"
-        aria-hidden="true"
-        style={{ animationDuration: "7s" }}
-      />
-      <div
-        className="absolute top-1/3 -right-20 w-[600px] h-[450px] radial-glow-cyan pointer-events-none z-0 animate-float"
-        aria-hidden="true"
-        style={{ animationDuration: "9s", animationDelay: "1.5s" }}
-      />
-      <div
-        className="absolute -bottom-20 left-1/4 w-[500px] h-[350px] radial-glow-violet pointer-events-none z-0 animate-float"
-        aria-hidden="true"
-        style={{ animationDuration: "11s", animationDelay: "3s" }}
-      />
-
-      {/* Layer 3: Slow-drifting radial gradient overlay — ties brand colors */}
-      <div
-        className="absolute inset-0 pointer-events-none z-0 animate-hero-radial-cycle"
-        aria-hidden="true"
-      />
-
-      {/* Layer 4: 3D agent entities — restored with extensions. Each agent
-          has: glowing core sphere, wireframe icosahedron shell, two
-          orbiting rings, breathing scale, and animated data-pulse
-          connections to the other agents. Reads as a coordinated AI
-          swarm, not decorative bubbles.
-          Original code: src/components/three/HeroScene.tsx
-          Revert to plain orbs: git checkout 7560c6d -- src/components/three/HeroScene.tsx
-          Revert to product cards: git checkout 7b3787d -- src/components/sections/home/ */}
-      <Hero3DBackground />
 
       {/* Bottom fade to background — soft transition into StatsBar */}
       <div
@@ -136,7 +81,9 @@ export function Hero() {
       >
         <Container className="py-20 md:py-28">
           <div className="hero-content-enter max-w-4xl">
-            {/* Headline — LCP-critical: CSS-only entrance, no JS gate. */}
+            {/* Headline — LCP-critical: CSS-only entrance, no JS gate.
+                Instrument Serif italic on "Solutions" carries the emphasis
+                without gradient text (gradient was a critical AI tell). */}
             <h1
               className="text-[2.75rem] leading-[1.05] sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold tracking-[-0.02em] text-foreground mb-6 text-balance"
             >
@@ -146,9 +93,7 @@ export function Hero() {
               <span className="italic text-brand">Solutions</span>
             </h1>
 
-            {/* Dynamic subtitle with rotating service type.
-                No em dashes (AI telltale). No buzzword lists. Just clean,
-                human copy with a rotating word that keeps the hero alive. */}
+            {/* Dynamic subtitle with rotating service type. */}
             <div className="mb-10 max-w-2xl">
               <p className="text-lg md:text-xl text-foreground-secondary leading-relaxed mb-2">
                 We build{" "}
@@ -174,11 +119,8 @@ export function Hero() {
               </p>
             </div>
 
-            {/* CTAs — primary brand dominates, secondary is visibly subordinate.
-                On mobile (<sm) buttons stack full-width for proper tap targets. */}
-            <div
-              className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 mb-14"
-            >
+            {/* CTAs — primary brand dominates, secondary is visibly subordinate. */}
+            <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 mb-14">
               <Magnetic strength={6}>
                 <Button
                   href="/contact"
@@ -201,9 +143,7 @@ export function Hero() {
             </div>
 
             {/* Stats — premium strip with dividers, big number + label rhythm */}
-            <div
-              className="flex flex-wrap items-end gap-x-6 gap-y-6 sm:gap-x-10"
-            >
+            <div className="flex flex-wrap items-end gap-x-6 gap-y-6 sm:gap-x-10">
               {STATS.map((stat, i) => (
                 <div key={stat.label} className="flex items-end">
                   {i > 0 && (
@@ -229,9 +169,6 @@ export function Hero() {
           </div>
         </Container>
       </motion.div>
-
-      {/* Scroll-down indicator removed — was template chrome occupying
-          premium above-the-fold space. Users know how to scroll. */}
     </section>
   );
 }

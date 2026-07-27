@@ -36,6 +36,10 @@ const MidPageCTA = dynamic(
   () => import("@/components/sections/home/MidPageCTA").then((m) => m.MidPageCTA),
   { loading: () => <CompactSectionFallback /> },
 );
+const ProductTabs = dynamic(
+  () => import("@/components/sections/home/ProductTabs").then((m) => m.ProductTabs),
+  { loading: () => <SectionFallback /> },
+);
 // Partners section removed — duplicated TechStack content.
 // const Partners = dynamic(...)
 const SuccessStories = dynamic(
@@ -155,25 +159,11 @@ export default function HomePage() {
 
       <SectionDivider />
 
-      {/* AI visual strip — adds tech context before the value-prop section */}
-      <div className="relative h-[160px] md:h-[240px] overflow-hidden">
-        <Image
-          src="/images/stock/ai-abstract.webp"
-          alt="AI-powered software development capabilities"
-          fill
-          quality={90}
-          sizes="100vw"
-          className="object-cover transition-transform duration-700 hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
-        <div className="absolute inset-0 flex items-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <p className="text-sm md:text-lg font-medium text-foreground-secondary max-w-md">
-              AI-integrated engineering: RAG search, multi-agent orchestration, and LLM features shipped inside the products we build.
-            </p>
-          </div>
-        </div>
-      </div>
+      {/* Stripe-style tabbed product showcase — replaces the AI visual strip.
+          Auto-rotating tabs showing real Retech product surfaces (Investment
+          Intelligence dashboard, Mining Analytics, AI Analysis chat, multi-agent
+          architecture diagram). Buyer sees 4 different shipped products in 20s. */}
+      <ProductTabs />
 
       {/* 6. WhyRetech — differentiators / value proposition */}
       <ScrollReveal speed={0.05}>
