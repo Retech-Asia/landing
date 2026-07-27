@@ -860,6 +860,35 @@ export const blogPosts: BlogPost[] = [
     author: "Retech Solutions",
     readTime: "7 min read",
   },
+  {
+    slug: "pgvector-vector-search-production-patterns-2026",
+    title: "Vector Search with pgvector: Production Patterns and Trade-offs",
+    excerpt:
+      "pgvector turns PostgreSQL into a capable vector database for RAG and similarity search. We shipped it in production on a multi-source investment research platform. Here is what works, what does not, and when to pick a dedicated vector DB instead.",
+    content: [
+      "pgvector is the PostgreSQL extension that lets you store and query vector embeddings alongside your regular relational data. For teams already running Postgres in production, it removes the operational cost of standing up a separate vector database. We shipped pgvector in production on a multi-source investment research platform where it powers retrieval-augmented generation over SEC filings, earnings transcripts, and analyst notes, and the experience reshaped how we scope vector search projects.",
+      "The core value proposition is simple. Instead of managing two systems (Postgres for relational data, Pinecone or Weaviate for vectors), you keep everything in one database. Joins between embeddings and metadata are trivial. ACID transactions cover your vector inserts. Your existing Postgres backup, replication, and monitoring story extends to vectors for free. For most RAG workloads under a few million vectors, pgvector is the right call.",
+      "Embedding dimensions matter more than most teams expect. The default OpenAI text-embedding-3-large model produces 3072-dimensional vectors. That is 12,288 bytes per row at float4 precision, before index overhead. We standardized on 3072-dim early because downgrading later means re-embedding every document, which is expensive and breaks search quality A/B tests. The [pgvector README](https://github.com/pgvector/pgvector) covers the storage math in detail. Plan for it.",
+      "Index choice is the most consequential decision after embedding model. pgvector supports two approximate nearest neighbor indexes: IVFFlat and HNSW. We picked HNSW for our workload because it delivers better recall at the latency we need (under 50ms p99 at 1.5M vectors). IVFFlat builds faster and uses less memory, but recall drops more sharply as the dataset grows. The [PostgreSQL documentation on HNSW](https://www.postgresql.org/docs/current/indexes-types.html) explains the parameters in depth. Tune m and ef_construction on real data, not synthetic benchmarks.",
+      "When does pgvector break down? Three pain points show up consistently. First, very high query volume at low latency (sub-10ms at hundreds of QPS) starts to strain even a tuned HNSW index, because Postgres pays connection and planning overhead per query. Second, hybrid search combining vector similarity with strict metadata filters can produce poor plans if the planner picks a sequential scan over the vector index. Third, multi-tenant isolation gets awkward without careful schema design. For these cases, a dedicated vector database like [Pinecone](https://www.pinecone.io/) or [Qdrant](https://qdrant.tech/) wins on raw performance and operational ergonomics.",
+      "Retrieval quality is not just an embedding problem. Chunking strategy, metadata filters, and re-ranking all matter as much as the vector index. On the investment research platform, we run a query router that classifies each incoming query into one of four paths: structured lookup, naive similarity, hybrid structured plus RAG, or direct LLM. About 35 percent of queries never hit the vector index at all, because they are pure data lookups. Routing reduces pgvector load by a third and improves answer quality at the same time. The [Anthropic RAG overview](https://docs.anthropic.com/en/docs/build-with-claude/retrieval-augmented-generation) covers similar patterns from the model side.",
+      "Evaluation is the part most teams skip and regret later. Vector search feels magical in demos and breaks silently in production. We run an evaluation harness in CI that scores retrieval quality on a fixed set of 200 queries with known-good answer chunks. Any code change that drops recall below 0.85 at k=10 blocks the merge. This catches problems that latency dashboards miss, like an embedding model upgrade that produces semantically similar but subtly reordered rankings.",
+      "Our bottom line for teams scoping a vector search project in 2026: start with pgvector unless you have a hard requirement that rules it out. The operational simplicity of one database is worth more than the marginal performance gain of a dedicated vector DB for most workloads. If you outgrow pgvector, migrating later is mechanical. Going the other direction (consolidating a dedicated vector DB back into Postgres) is much harder. For a deeper look at how we structured the surrounding RAG pipeline, see our [RAG best practices guide](/blog/rag-retrieval-augmented-generation-best-practices-2026) and our [case study on the investment research platform](/case-studies/investment-intelligence-platform).",
+    ],
+    headings: [
+      { id: "value-proposition", text: "Why pgvector Wins for Most Workloads", level: 2 },
+      { id: "embedding-dimensions", text: "Embedding Dimensions and Storage Math", level: 2 },
+      { id: "index-choice", text: "HNSW vs IVFFlat Index Choice", level: 2 },
+      { id: "when-pgvector-breaks", text: "When pgvector Breaks Down", level: 2 },
+      { id: "retrieval-quality", text: "Retrieval Quality Beyond the Index", level: 2 },
+      { id: "evaluation", text: "Evaluation in CI", level: 2 },
+      { id: "bottom-line", text: "Bottom Line", level: 2 },
+    ],
+    category: "Technology",
+    date: "2026-07-27",
+    author: "Retech Solutions",
+    readTime: "7 min read",
+  },
 ];
 
 export const BLOG_CATEGORIES = [
