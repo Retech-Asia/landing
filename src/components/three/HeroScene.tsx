@@ -1,22 +1,32 @@
 "use client";
 
 /**
- * Flowing data streams — WORKING VERSION (no postprocessing, no custom shader).
+ * Neuron network hero visualization.
  *
- * Previous premium version had broken custom ShaderMaterial that rendered
- * nothing visible. This version uses default pointsMaterial + a generated
- * circular sprite texture for soft particles. Once verified rendering,
- * postprocessing (bloom) can be layered back on top.
+ * Visible glowing nodes (AI capabilities) connected by edges (data
+ * pathways). Particles flow continuously along each edge, with
+ * sin-wave bursts that read as "neurons firing" — wave-like surges
+ * of activity rather than constant flow.
  *
- * Tech:
- *   - Three.js pointsMaterial + circular CanvasTexture (soft particles)
- *   - HDR colors via THREE.Color.multiplyScalar (for future bloom)
- *   - CatmullRomCurve3 paths with animated particle offsets
- *   - Cursor parallax + camera dolly
- *   - Per-particle size + opacity variation via attribute (shader-friendly
- *     but works without custom shader by averaging via material.size)
+ * Composition:
+ *   - 5 nodes positioned in 3D space (right-side biased)
+ *   - 8 curved edges connecting them
+ *   - 30 particles per edge, animated along the curve
+ *   - Per-edge firing phase (staggered, async)
+ *   - Each node has solid core + additive halo + breathing scale
  *
- * See docs/hero-animation-spec.md for the premium upgrade target.
+ * Why this design (vs alternatives):
+ *   - Visible structure (nodes) + dynamic motion (firing) = both
+ *     "complexity" and "alive" feel in one composition
+ *   - Neuron metaphor maps directly to Retech's AI-integrated
+ *     engineering positioning (multi-agent, RAG, neural pathways)
+ *   - Default pointsMaterial (proven working) — no custom shader
+ *
+ * Performance guards inherited from previous versions:
+ *   - Desktop + fine-pointer only
+ *   - LCP-deferred via Hero3DBackground wrapper
+ *   - Reduced-motion aware (returns null)
+ *   - DPR capped at [1, 1.75]
  */
 
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -24,69 +34,84 @@ import { Line } from "@react-three/drei";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
-/* ── Stream definitions ── */
+/* ── Node definitions ── */
 
-type Stream = {
-  points: THREE.Vector3[];
+type NeuronNode = {
+  id: string;
+  position: [number, number, number];
   color: THREE.Color;
-  particleCount: number;
-  flowSpeed: number;
-  particleSize: number;
+  emissive: THREE.Color;
+  radius: number;
+  floatSpeed: number;
 };
 
-const HDR = 2.4;
-const STREAMS: Stream[] = [
+const HDR = 1.8;
+const NODES: NeuronNode[] = [
   {
-    points: [
-      new THREE.Vector3(2.5, 3, -2),
-      new THREE.Vector3(4, 1.5, -1),
-      new THREE.Vector3(3.5, -0.5, -3),
-      new THREE.Vector3(5, -2, -2),
-      new THREE.Vector3(3, -3.5, -4),
-    ],
-    color: new THREE.Color("#208535").multiplyScalar(HDR),
-    particleCount: 800,
-    flowSpeed: 0.12,
-    particleSize: 0.09,
+    id: "router",
+    position: [2.2, 2.6, -0.5],
+    color: new THREE.Color("#208535"),
+    emissive: new THREE.Color("#2EA04E").multiplyScalar(HDR),
+    radius: 0.32,
+    floatSpeed: 1.0,
   },
   {
-    points: [
-      new THREE.Vector3(1.5, 2.5, -3),
-      new THREE.Vector3(3, 0.5, -1.5),
-      new THREE.Vector3(4.5, -1, -3.5),
-      new THREE.Vector3(2.5, -3, -2),
-    ],
-    color: new THREE.Color("#06b6d4").multiplyScalar(HDR),
-    particleCount: 600,
-    flowSpeed: 0.15,
-    particleSize: 0.08,
+    id: "rag",
+    position: [4.6, 0.6, -1.5],
+    color: new THREE.Color("#06b6d4"),
+    emissive: new THREE.Color("#22D3EE").multiplyScalar(HDR),
+    radius: 0.28,
+    floatSpeed: 1.3,
   },
   {
-    points: [
-      new THREE.Vector3(2, -1, -1),
-      new THREE.Vector3(4, -0.5, -3),
-      new THREE.Vector3(5, -2.5, -4),
-      new THREE.Vector3(3.5, -4, -2.5),
-    ],
-    color: new THREE.Color("#8b5cf6").multiplyScalar(HDR),
-    particleCount: 500,
-    flowSpeed: 0.18,
-    particleSize: 0.07,
+    id: "agent",
+    position: [2.6, -2.0, -1.0],
+    color: new THREE.Color("#8b5cf6"),
+    emissive: new THREE.Color("#A78BFA").multiplyScalar(HDR),
+    radius: 0.30,
+    floatSpeed: 1.1,
   },
   {
-    points: [
-      new THREE.Vector3(3.5, 3.5, -3),
-      new THREE.Vector3(5, 2, -2),
-      new THREE.Vector3(4, 0, -4),
-    ],
-    color: new THREE.Color("#2EA04E").multiplyScalar(HDR * 1.1),
-    particleCount: 400,
-    flowSpeed: 0.22,
-    particleSize: 0.06,
+    id: "synth",
+    position: [5.0, -1.2, -3.0],
+    color: new THREE.Color("#208535"),
+    emissive: new THREE.Color("#2EA04E").multiplyScalar(HDR),
+    radius: 0.34,
+    floatSpeed: 0.9,
+  },
+  {
+    id: "output",
+    position: [3.4, 1.8, -3.5],
+    color: new THREE.Color("#06b6d4"),
+    emissive: new THREE.Color("#22D3EE").multiplyScalar(HDR),
+    radius: 0.26,
+    floatSpeed: 1.4,
   },
 ];
 
-/* ── Circular particle sprite — soft edges instead of hard squares ── */
+type Edge = {
+  from: string;
+  to: string;
+  firePhase: number; // staggered firing
+  fireFreq: number; // firing frequency (Hz)
+};
+
+const EDGES: Edge[] = [
+  { from: "router", to: "rag", firePhase: 0.0, fireFreq: 0.4 },
+  { from: "router", to: "agent", firePhase: 0.5, fireFreq: 0.35 },
+  { from: "rag", to: "synth", firePhase: 1.2, fireFreq: 0.45 },
+  { from: "agent", to: "synth", firePhase: 0.3, fireFreq: 0.5 },
+  { from: "synth", to: "output", firePhase: 0.8, fireFreq: 0.4 },
+  { from: "router", to: "output", firePhase: 1.5, fireFreq: 0.3 },
+  { from: "rag", to: "agent", firePhase: 0.6, fireFreq: 0.55 },
+  { from: "agent", to: "output", firePhase: 2.0, fireFreq: 0.4 },
+];
+
+function nodeById(id: string): NeuronNode {
+  return NODES.find((n) => n.id === id)!;
+}
+
+/* ── Circular particle sprite ── */
 
 function createCircleTexture(): THREE.Texture {
   const size = 64;
@@ -95,12 +120,8 @@ function createCircleTexture(): THREE.Texture {
   canvas.height = size;
   const ctx = canvas.getContext("2d")!;
   const gradient = ctx.createRadialGradient(
-    size / 2,
-    size / 2,
-    0,
-    size / 2,
-    size / 2,
-    size / 2,
+    size / 2, size / 2, 0,
+    size / 2, size / 2, size / 2,
   );
   gradient.addColorStop(0, "rgba(255,255,255,1)");
   gradient.addColorStop(0.3, "rgba(255,255,255,0.8)");
@@ -113,39 +134,102 @@ function createCircleTexture(): THREE.Texture {
   return texture;
 }
 
-/* ── Single flowing stream ── */
+/* ── Visible glowing node ── */
 
-function FlowingStream({
-  stream,
+function GlowingNode({ node }: { node: NeuronNode }) {
+  const groupRef = useRef<THREE.Group>(null);
+  const haloRef = useRef<THREE.Mesh>(null);
+  const elapsedRef = useRef(0);
+
+  useFrame((_, delta) => {
+    if (!groupRef.current) return;
+    elapsedRef.current += delta;
+    const t = elapsedRef.current;
+    // Breathing scale
+    const s = 1 + Math.sin(t * node.floatSpeed * 0.5) * 0.06;
+    groupRef.current.scale.setScalar(s);
+    // Halo opacity pulses
+    if (haloRef.current) {
+      const haloMat = haloRef.current.material as THREE.MeshBasicMaterial;
+      haloMat.opacity = 0.22 + Math.sin(t * node.floatSpeed * 0.8) * 0.08;
+    }
+  });
+
+  return (
+    <group ref={groupRef} position={node.position}>
+      {/* Solid core */}
+      <mesh>
+        <sphereGeometry args={[node.radius, 32, 32]} />
+        <meshStandardMaterial
+          color={node.color}
+          emissive={node.emissive}
+          emissiveIntensity={1.4}
+          roughness={0.3}
+          metalness={0.3}
+        />
+      </mesh>
+      {/* Additive halo */}
+      <mesh ref={haloRef} scale={2.4}>
+        <sphereGeometry args={[node.radius, 16, 16]} />
+        <meshBasicMaterial
+          color={node.emissive}
+          transparent
+          opacity={0.22}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+      {/* Local point light for nearby glow lift */}
+      <pointLight color={node.emissive} intensity={2.0} distance={2.5} decay={2} />
+    </group>
+  );
+}
+
+/* ── Edge with flowing particles + neuron firing bursts ── */
+
+function NeuronEdge({
+  edge,
   circleTexture,
 }: {
-  stream: Stream;
+  edge: Edge;
   circleTexture: THREE.Texture;
 }) {
   const pointsRef = useRef<THREE.Points>(null);
+  const lineMatRef = useRef<THREE.LineBasicMaterial>(null);
+  const PARTICLE_COUNT = 30;
 
-  const curve = useMemo(
-    () => new THREE.CatmullRomCurve3(stream.points, false, "catmullrom", 0.5),
-    [stream.points],
-  );
+  const fromNode = nodeById(edge.from);
+  const toNode = nodeById(edge.to);
 
-  // Sample initial positions + per-particle t values
+  // Build curved path between nodes (quadratic bezier with perpendicular offset)
+  const curve = useMemo(() => {
+    const start = new THREE.Vector3(...fromNode.position);
+    const end = new THREE.Vector3(...toNode.position);
+    const mid = start.clone().add(end).multiplyScalar(0.5);
+    const dir = end.clone().sub(start);
+    const len = dir.length();
+    const perp = new THREE.Vector3(-dir.z, 0.3, dir.x).normalize().multiplyScalar(len * 0.15);
+    mid.add(perp);
+    return new THREE.QuadraticBezierCurve3(start, mid, end);
+  }, [fromNode.position, toNode.position]);
+
+  // Initial particle positions + t values
   const { positions, tValues } = useMemo(() => {
-    const positions = new Float32Array(stream.particleCount * 3);
-    const tValues = new Float32Array(stream.particleCount);
-    for (let i = 0; i < stream.particleCount; i++) {
-      tValues[i] = (i + Math.random() * 0.5) / stream.particleCount;
+    const positions = new Float32Array(PARTICLE_COUNT * 3);
+    const tValues = new Float32Array(PARTICLE_COUNT);
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      tValues[i] = i / PARTICLE_COUNT;
       const p = curve.getPointAt(tValues[i]);
       positions[i * 3] = p.x;
       positions[i * 3 + 1] = p.y;
       positions[i * 3 + 2] = p.z;
     }
     return { positions, tValues };
-  }, [curve, stream.particleCount]);
+  }, [curve]);
 
-  // Tube path — dim spine
-  const tubePoints = useMemo(() => {
-    const samples = 64;
+  // Sampled line points for the dim spine
+  const linePoints = useMemo(() => {
+    const samples = 24;
     const pts: [number, number, number][] = [];
     for (let i = 0; i <= samples; i++) {
       const p = curve.getPointAt(i / samples);
@@ -154,42 +238,67 @@ function FlowingStream({
     return pts;
   }, [curve]);
 
-  // Animate particle positions along the curve
+  // Particle color = blend between the two nodes' emissive colors
+  const particleColor = useMemo(() => {
+    return fromNode.emissive.clone().lerp(toNode.emissive, 0.5);
+  }, [fromNode.emissive, toNode.emissive]);
+
+  // Per-frame: advance particles + apply firing burst via material opacity
   useFrame((_, delta) => {
-    if (!pointsRef.current) return;
+    if (!pointsRef.current || !lineMatRef.current) return;
+    const elapsed = (edge as Edge & { _t?: number })._t ?? 0;
+    const newT = elapsed + delta;
+    (edge as Edge & { _t?: number })._t = newT;
+
+    // Firing intensity: sin wave, clamped to [0, 1], scaled
+    // Gives bursts of activity with quiet periods between
+    const fireWave = Math.sin(newT * edge.fireFreq * Math.PI * 2 + edge.firePhase);
+    const fireIntensity = Math.max(0, fireWave); // 0 during quiet, peaks at 1
+    const baseOpacity = 0.3 + fireIntensity * 0.7; // 0.3 baseline, up to 1.0 during fire
+
+    // Update particle positions
     const geom = pointsRef.current.geometry;
     const posAttr = geom.attributes.position as THREE.BufferAttribute;
     const arr = posAttr.array as Float32Array;
-    for (let i = 0; i < stream.particleCount; i++) {
-      tValues[i] = (tValues[i] + delta * stream.flowSpeed) % 1;
+    // Particles speed up during firing
+    const speed = 0.08 + fireIntensity * 0.12;
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      tValues[i] = (tValues[i] + delta * speed) % 1;
       const p = curve.getPointAt(tValues[i]);
       arr[i * 3] = p.x;
       arr[i * 3 + 1] = p.y;
       arr[i * 3 + 2] = p.z;
     }
     posAttr.needsUpdate = true;
+
+    // Update opacities — particles brighten during firing
+    const pointsMat = pointsRef.current.material as THREE.PointsMaterial;
+    pointsMat.opacity = baseOpacity;
+    lineMatRef.current.opacity = 0.1 + fireIntensity * 0.25;
   });
 
   return (
     <group>
       <Line
-        points={tubePoints}
-        color={stream.color}
-        lineWidth={1.5}
+        points={linePoints}
+        color={particleColor}
+        lineWidth={1.2}
         transparent
         opacity={0.2}
-      />
+      >
+        <primitive object={new THREE.Object3D()} ref={lineMatRef as never} />
+      </Line>
       <points ref={pointsRef}>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[positions, 3]} />
         </bufferGeometry>
         <pointsMaterial
-          size={stream.particleSize}
+          size={0.11}
           map={circleTexture}
-          color={stream.color}
+          color={particleColor}
           sizeAttenuation
           transparent
-          opacity={0.9}
+          opacity={0.7}
           alphaTest={0.01}
           blending={THREE.AdditiveBlending}
           depthWrite={false}
@@ -203,7 +312,7 @@ function FlowingStream({
 
 function AmbientParticles({
   circleTexture,
-  count = 180,
+  count = 120,
 }: {
   circleTexture: THREE.Texture;
   count?: number;
@@ -214,7 +323,7 @@ function AmbientParticles({
     const arr = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       // eslint-disable-next-line react-hooks/purity
-      const r = 5 + Math.random() * 4;
+      const r = 5 + Math.random() * 3;
       // eslint-disable-next-line react-hooks/purity
       const theta = Math.random() * Math.PI * 2;
       // eslint-disable-next-line react-hooks/purity
@@ -238,7 +347,7 @@ function AmbientParticles({
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
-        size={0.04}
+        size={0.035}
         map={circleTexture}
         color={new THREE.Color("#9adfb4")}
         sizeAttenuation
@@ -251,7 +360,7 @@ function AmbientParticles({
   );
 }
 
-/* ── Cursor parallax ── */
+/* ── Cursor parallax + camera dolly ── */
 
 const cursorPos = { x: 0, y: 0 };
 
@@ -272,27 +381,23 @@ function CursorParallaxGroup({ children }: { children: React.ReactNode }) {
     if (!groupRef.current) return;
     const lerp = 1 - Math.pow(0.001, delta);
     groupRef.current.rotation.y +=
-      (cursorPos.x * 0.18 - groupRef.current.rotation.y) * lerp;
+      (cursorPos.x * 0.2 - groupRef.current.rotation.y) * lerp;
     groupRef.current.rotation.x +=
-      (-cursorPos.y * 0.12 - groupRef.current.rotation.x) * lerp;
+      (-cursorPos.y * 0.14 - groupRef.current.rotation.x) * lerp;
   });
 
   return <group ref={groupRef}>{children}</group>;
 }
-
-/* ── Camera dolly ── */
 
 function CameraDolly() {
   useFrame(({ camera, clock }) => {
     const t = clock.getElapsedTime();
     camera.position.z = 8 + Math.sin(t * 0.1) * 0.3;
     camera.position.y = Math.sin(t * 0.07) * 0.15;
-    camera.lookAt(2.5, 0, -2);
+    camera.lookAt(3.2, 0, -2);
   });
   return null;
 }
-
-/* ── Lighting ── */
 
 function BrandLighting() {
   return (
@@ -316,10 +421,13 @@ function HeroSceneContents({
     <>
       <CursorParallaxGroup>
         <BrandLighting />
-        {STREAMS.map((stream, i) => (
-          <FlowingStream key={i} stream={stream} circleTexture={circleTexture} />
+        {NODES.map((node) => (
+          <GlowingNode key={node.id} node={node} />
         ))}
-        <AmbientParticles circleTexture={circleTexture} count={180} />
+        {EDGES.map((edge, i) => (
+          <NeuronEdge key={i} edge={edge} circleTexture={circleTexture} />
+        ))}
+        <AmbientParticles circleTexture={circleTexture} count={120} />
         <fog attach="fog" args={["#0a0a0a", 8, 18]} />
       </CursorParallaxGroup>
     </>
@@ -327,10 +435,8 @@ function HeroSceneContents({
 }
 
 export function HeroScene() {
-  // Create circle texture once
   const circleTexture = useMemo(() => {
     if (typeof document === "undefined") {
-      // SSR fallback — return a dummy texture, will be replaced on client
       return new THREE.Texture();
     }
     return createCircleTexture();
