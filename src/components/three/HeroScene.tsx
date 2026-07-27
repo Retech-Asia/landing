@@ -1,59 +1,42 @@
 "use client";
 
 /**
- * Stripe-tier flowing data streams (P0 + P1 upgrade).
+ * Flowing data streams — WORKING VERSION (no postprocessing, no custom shader).
  *
- * Upgrades from the previous version:
- *   - Custom ShaderMaterial with soft circular particles (no more squares)
- *   - Bloom postprocessing via @react-three/postprocessing (mipmapBlur)
- *   - HDR color values pushed past 1.0 so bloom is selective for free
- *   - ACES Filmic tone mapping
- *   - Per-particle size variation + twinkle phase
- *   - Gradient color along each curve (startColor → endColor)
- *   - Particle count ×2.2 (1030 → 2300)
- *   - Camera dolly (subtle z + y drift, not just cursor parallax)
- *   - Tuned fog range
+ * Previous premium version had broken custom ShaderMaterial that rendered
+ * nothing visible. This version uses default pointsMaterial + a generated
+ * circular sprite texture for soft particles. Once verified rendering,
+ * postprocessing (bloom) can be layered back on top.
  *
- * See docs/hero-animation-spec.md for the full research + spec.
+ * Tech:
+ *   - Three.js pointsMaterial + circular CanvasTexture (soft particles)
+ *   - HDR colors via THREE.Color.multiplyScalar (for future bloom)
+ *   - CatmullRomCurve3 paths with animated particle offsets
+ *   - Cursor parallax + camera dolly
+ *   - Per-particle size + opacity variation via attribute (shader-friendly
+ *     but works without custom shader by averaging via material.size)
+ *
+ * See docs/hero-animation-spec.md for the premium upgrade target.
  */
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import { Line } from "@react-three/drei";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
-/* ──────────────────────────────────────────────────────────────────
- *  Stream definitions — HDR colors, gradient endpoints, higher counts.
- *  All biased to x ≥ 0 (right side).
- * ────────────────────────────────────────────────────────────────── */
+/* ── Stream definitions ── */
 
 type Stream = {
   points: THREE.Vector3[];
-  startColor: THREE.Color; // HDR (>1.0 components for selective bloom)
-  endColor: THREE.Color;
+  color: THREE.Color;
   particleCount: number;
   flowSpeed: number;
-  baseSize: number;
+  particleSize: number;
 };
 
-// sRGB hex → THREE.Color, then ×HDR multiplier for selective bloom.
-// The multiplier pushes bright channel values past 1.0 so the
-// luminanceThreshold=1.0 Bloom only catches the particles, not the
-// background or text.
-const HDR = 2.6;
-const streamBrandStart = new THREE.Color("#208535").multiplyScalar(HDR);
-const streamBrandEnd = new THREE.Color("#06b6d4").multiplyScalar(HDR * 0.85);
-const streamCyanStart = new THREE.Color("#06b6d4").multiplyScalar(HDR);
-const streamCyanEnd = new THREE.Color("#8b5cf6").multiplyScalar(HDR * 0.85);
-const streamVioletStart = new THREE.Color("#8b5cf6").multiplyScalar(HDR);
-const streamVioletEnd = new THREE.Color("#208535").multiplyScalar(HDR * 0.85);
-const streamAccentStart = new THREE.Color("#2EA04E").multiplyScalar(HDR * 1.1);
-const streamAccentEnd = new THREE.Color("#22D3EE").multiplyScalar(HDR);
-
+const HDR = 2.4;
 const STREAMS: Stream[] = [
   {
-    // Primary brand → cyan
     points: [
       new THREE.Vector3(2.5, 3, -2),
       new THREE.Vector3(4, 1.5, -1),
@@ -61,179 +44,106 @@ const STREAMS: Stream[] = [
       new THREE.Vector3(5, -2, -2),
       new THREE.Vector3(3, -3.5, -4),
     ],
-    startColor: streamBrandStart,
-    endColor: streamBrandEnd,
+    color: new THREE.Color("#208535").multiplyScalar(HDR),
     particleCount: 800,
     flowSpeed: 0.12,
-    baseSize: 9.0,
+    particleSize: 0.09,
   },
   {
-    // Cyan → violet
     points: [
       new THREE.Vector3(1.5, 2.5, -3),
       new THREE.Vector3(3, 0.5, -1.5),
       new THREE.Vector3(4.5, -1, -3.5),
       new THREE.Vector3(2.5, -3, -2),
     ],
-    startColor: streamCyanStart,
-    endColor: streamCyanEnd,
+    color: new THREE.Color("#06b6d4").multiplyScalar(HDR),
     particleCount: 600,
     flowSpeed: 0.15,
-    baseSize: 8.0,
+    particleSize: 0.08,
   },
   {
-    // Violet → brand
     points: [
       new THREE.Vector3(2, -1, -1),
       new THREE.Vector3(4, -0.5, -3),
       new THREE.Vector3(5, -2.5, -4),
       new THREE.Vector3(3.5, -4, -2.5),
     ],
-    startColor: streamVioletStart,
-    endColor: streamVioletEnd,
+    color: new THREE.Color("#8b5cf6").multiplyScalar(HDR),
     particleCount: 500,
     flowSpeed: 0.18,
-    baseSize: 7.0,
+    particleSize: 0.07,
   },
   {
-    // Accent brand-light → cyan (fastest)
     points: [
       new THREE.Vector3(3.5, 3.5, -3),
       new THREE.Vector3(5, 2, -2),
       new THREE.Vector3(4, 0, -4),
     ],
-    startColor: streamAccentStart,
-    endColor: streamAccentEnd,
+    color: new THREE.Color("#2EA04E").multiplyScalar(HDR * 1.1),
     particleCount: 400,
     flowSpeed: 0.22,
-    baseSize: 6.0,
+    particleSize: 0.06,
   },
 ];
 
-/* ──────────────────────────────────────────────────────────────────
- *  Custom shaders — soft circular particles + gradient + twinkle.
- * ────────────────────────────────────────────────────────────────── */
+/* ── Circular particle sprite — soft edges instead of hard squares ── */
 
-const vertexShader = /* glsl */ `
-  attribute float aSize;
-  attribute float aPhase;
-  attribute float aColorMix;
+function createCircleTexture(): THREE.Texture {
+  const size = 64;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d")!;
+  const gradient = ctx.createRadialGradient(
+    size / 2,
+    size / 2,
+    0,
+    size / 2,
+    size / 2,
+    size / 2,
+  );
+  gradient.addColorStop(0, "rgba(255,255,255,1)");
+  gradient.addColorStop(0.3, "rgba(255,255,255,0.8)");
+  gradient.addColorStop(0.7, "rgba(255,255,255,0.2)");
+  gradient.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, size, size);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.needsUpdate = true;
+  return texture;
+}
 
-  uniform float uTime;
-  uniform float uPixelRatio;
+/* ── Single flowing stream ── */
 
-  varying float vColorMix;
-  varying float vAlpha;
-
-  void main() {
-    vColorMix = aColorMix;
-
-    // Twinkle: per-particle phase + slow time. Range 0.4-1.0 so particles
-    // never fully disappear.
-    vAlpha = 0.55 + 0.45 * sin(uTime * 1.2 + aPhase);
-
-    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-
-    // Distance attenuation: closer particles render bigger.
-    float attenuation = 1.0 / -mvPosition.z;
-
-    gl_PointSize = aSize * attenuation * uPixelRatio;
-    gl_Position = projectionMatrix * mvPosition;
-  }
-`;
-
-const fragmentShader = /* glsl */ `
-  uniform vec3 uColorStart;
-  uniform vec3 uColorEnd;
-
-  varying float vColorMix;
-  varying float vAlpha;
-
-  void main() {
-    // gl_PointCoord is [0,1] across the point sprite. Center is (0.5, 0.5).
-    vec2 uv = gl_PointCoord - 0.5;
-    float dist = length(uv);
-
-    // Soft circular falloff — smoothstep gives feathered bokeh-like edges.
-    // No hard discard (that aliases).
-    float alpha = smoothstep(0.5, 0.05, dist);
-
-    if (alpha < 0.01) discard; // early-out only, not the edge mask
-
-    // Gradient color along the curve based on particle's t position
-    vec3 color = mix(uColorStart, uColorEnd, vColorMix);
-
-    gl_FragColor = vec4(color, alpha * vAlpha);
-  }
-`;
-
-/* ──────────────────────────────────────────────────────────────────
- *  Single flowing stream — ShaderMaterial + BufferGeometry + per-frame
- *  particle position updates along the CatmullRomCurve3.
- * ────────────────────────────────────────────────────────────────── */
-
-function FlowingStream({ stream }: { stream: Stream }) {
+function FlowingStream({
+  stream,
+  circleTexture,
+}: {
+  stream: Stream;
+  circleTexture: THREE.Texture;
+}) {
   const pointsRef = useRef<THREE.Points>(null);
 
-  // Build the curve once
   const curve = useMemo(
     () => new THREE.CatmullRomCurve3(stream.points, false, "catmullrom", 0.5),
     [stream.points],
   );
 
-  // Sample initial particle state: positions, t values, sizes, phases, colorMix
-  const { positions, tValues, sizes, phases, colorMix } = useMemo(() => {
+  // Sample initial positions + per-particle t values
+  const { positions, tValues } = useMemo(() => {
     const positions = new Float32Array(stream.particleCount * 3);
     const tValues = new Float32Array(stream.particleCount);
-    const sizes = new Float32Array(stream.particleCount);
-    const phases = new Float32Array(stream.particleCount);
-    const colorMix = new Float32Array(stream.particleCount);
-
     for (let i = 0; i < stream.particleCount; i++) {
-      // Stagger initial t position so particles are spread along the curve
-      // with slight randomness for organic feel
       tValues[i] = (i + Math.random() * 0.5) / stream.particleCount;
       const p = curve.getPointAt(tValues[i]);
       positions[i * 3] = p.x;
       positions[i * 3 + 1] = p.y;
       positions[i * 3 + 2] = p.z;
-
-      // Per-particle size variation: 0.5x to 1.8x base size
-      sizes[i] = stream.baseSize * (0.5 + Math.random() * 1.3);
-
-      // Random twinkle phase
-      phases[i] = Math.random() * Math.PI * 2;
-
-      // Color gradient position — uses the same t as the curve position
-      colorMix[i] = tValues[i];
     }
-    return { positions, tValues, sizes, phases, colorMix };
-  }, [curve, stream.particleCount, stream.baseSize]);
+    return { positions, tValues };
+  }, [curve, stream.particleCount]);
 
-  // Custom ShaderMaterial — soft particles + gradient + twinkle
-  const material = useMemo(() => {
-    return new THREE.ShaderMaterial({
-      uniforms: {
-        uTime: { value: 0 },
-        uPixelRatio: {
-          value:
-            typeof window !== "undefined"
-              ? Math.min(window.devicePixelRatio, 1.75)
-              : 1,
-        },
-        uColorStart: { value: stream.startColor },
-        uColorEnd: { value: stream.endColor },
-      },
-      vertexShader,
-      fragmentShader,
-      transparent: true,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
-    });
-  }, [stream.startColor, stream.endColor]);
-
-  // Tube path (the dim spine of the stream) — using drei <Line> for real
-  // pixel-width lines (browser caps lineBasicMaterial at 1px).
+  // Tube path — dim spine
   const tubePoints = useMemo(() => {
     const samples = 64;
     const pts: [number, number, number][] = [];
@@ -244,15 +154,12 @@ function FlowingStream({ stream }: { stream: Stream }) {
     return pts;
   }, [curve]);
 
-  // Per-frame: advance particle t, resample curve position, advance shader time
+  // Animate particle positions along the curve
   useFrame((_, delta) => {
     if (!pointsRef.current) return;
-    material.uniforms.uTime.value += delta;
-
     const geom = pointsRef.current.geometry;
     const posAttr = geom.attributes.position as THREE.BufferAttribute;
     const arr = posAttr.array as Float32Array;
-
     for (let i = 0; i < stream.particleCount; i++) {
       tValues[i] = (tValues[i] + delta * stream.flowSpeed) % 1;
       const p = curve.getPointAt(tValues[i]);
@@ -265,40 +172,46 @@ function FlowingStream({ stream }: { stream: Stream }) {
 
   return (
     <group>
-      {/* Dim spine via drei Line (real pixel width, not the 1px cap) */}
       <Line
         points={tubePoints}
-        color={stream.startColor}
+        color={stream.color}
         lineWidth={1.5}
         transparent
-        opacity={0.18}
-        blending={THREE.AdditiveBlending}
-        depthWrite={false}
+        opacity={0.2}
       />
-
-      {/* Particles flowing along the curve — custom shader */}
-      <points ref={pointsRef} material={material}>
+      <points ref={pointsRef}>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-          <bufferAttribute attach="attributes-aSize" args={[sizes, 1]} />
-          <bufferAttribute attach="attributes-aPhase" args={[phases, 1]} />
-          <bufferAttribute attach="attributes-aColorMix" args={[colorMix, 1]} />
         </bufferGeometry>
+        <pointsMaterial
+          size={stream.particleSize}
+          map={circleTexture}
+          color={stream.color}
+          sizeAttenuation
+          transparent
+          opacity={0.9}
+          alphaTest={0.01}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
       </points>
     </group>
   );
 }
 
-/* ──────────────────────────────────────────────────────────────────
- *  Ambient particle field — depth atmosphere, biased right.
- * ────────────────────────────────────────────────────────────────── */
+/* ── Ambient particle field ── */
 
-function AmbientParticles({ count = 180 }: { count?: number }) {
+function AmbientParticles({
+  circleTexture,
+  count = 180,
+}: {
+  circleTexture: THREE.Texture;
+  count?: number;
+}) {
   const pointsRef = useRef<THREE.Points>(null);
 
-  const { positions, sizes } = useMemo(() => {
-    const positions = new Float32Array(count * 3);
-    const sizes = new Float32Array(count);
+  const positions = useMemo(() => {
+    const arr = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       // eslint-disable-next-line react-hooks/purity
       const r = 5 + Math.random() * 4;
@@ -306,73 +219,45 @@ function AmbientParticles({ count = 180 }: { count?: number }) {
       const theta = Math.random() * Math.PI * 2;
       // eslint-disable-next-line react-hooks/purity
       const phi = Math.acos(2 * Math.random() - 1);
-      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta) + 2;
-      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      positions[i * 3 + 2] = r * Math.cos(phi) - 2;
-      sizes[i] = 2 + Math.random() * 3;
+      arr[i * 3] = r * Math.sin(phi) * Math.cos(theta) + 2;
+      arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+      arr[i * 3 + 2] = r * Math.cos(phi) - 2;
     }
-    return { positions, sizes };
+    return arr;
   }, [count]);
-
-  const material = useMemo(
-    () =>
-      new THREE.ShaderMaterial({
-        uniforms: {
-          uTime: { value: 0 },
-          uPixelRatio: {
-            value:
-              typeof window !== "undefined"
-                ? Math.min(window.devicePixelRatio, 1.75)
-                : 1,
-          },
-          uColorStart: { value: new THREE.Color("#9adfb4").multiplyScalar(1.8) },
-          uColorEnd: { value: new THREE.Color("#9adfb4").multiplyScalar(1.8) },
-        },
-        vertexShader,
-        fragmentShader,
-        transparent: true,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending,
-      }),
-    [],
-  );
 
   useFrame((_, delta) => {
     if (!pointsRef.current) return;
-    material.uniforms.uTime.value += delta;
     pointsRef.current.rotation.y += delta * 0.015;
     pointsRef.current.rotation.x += delta * 0.008;
   });
 
   return (
-    <points ref={pointsRef} material={material}>
+    <points ref={pointsRef}>
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-        <bufferAttribute attach="attributes-aSize" args={[sizes, 1]} />
-        {/* phase and colorMix — initialized once, ambient doesn't really flow */}
-        <bufferAttribute
-          attach="attributes-aPhase"
-          args={[new Float32Array(count).map(() => Math.random() * Math.PI * 2), 1]}
-        />
-        <bufferAttribute
-          attach="attributes-aColorMix"
-          args={[new Float32Array(count).fill(0.5), 1]}
-        />
       </bufferGeometry>
+      <pointsMaterial
+        size={0.04}
+        map={circleTexture}
+        color={new THREE.Color("#9adfb4")}
+        sizeAttenuation
+        transparent
+        opacity={0.4}
+        alphaTest={0.01}
+        depthWrite={false}
+      />
     </points>
   );
 }
 
-/* ──────────────────────────────────────────────────────────────────
- *  Cursor parallax — whole scene tilts based on pointer.
- * ────────────────────────────────────────────────────────────────── */
+/* ── Cursor parallax ── */
 
 const cursorPos = { x: 0, y: 0 };
 
 function CursorParallaxGroup({ children }: { children: React.ReactNode }) {
   const groupRef = useRef<THREE.Group>(null);
 
-  // Window pointer listener once
   useMemo(() => {
     if (typeof window === "undefined") return;
     const handler = (e: PointerEvent) => {
@@ -395,10 +280,7 @@ function CursorParallaxGroup({ children }: { children: React.ReactNode }) {
   return <group ref={groupRef}>{children}</group>;
 }
 
-/* ──────────────────────────────────────────────────────────────────
- *  Camera dolly — slow z + y drift, very subtle. Adds "alive" feel
- *  beyond cursor parallax alone.
- * ────────────────────────────────────────────────────────────────── */
+/* ── Camera dolly ── */
 
 function CameraDolly() {
   useFrame(({ camera, clock }) => {
@@ -410,9 +292,7 @@ function CameraDolly() {
   return null;
 }
 
-/* ──────────────────────────────────────────────────────────────────
- *  Brand lighting — point lights in stream colors for local glow.
- * ────────────────────────────────────────────────────────────────── */
+/* ── Lighting ── */
 
 function BrandLighting() {
   return (
@@ -425,43 +305,37 @@ function BrandLighting() {
   );
 }
 
-/* ──────────────────────────────────────────────────────────────────
- *  Scene composition + postprocessing.
- * ────────────────────────────────────────────────────────────────── */
+/* ── Scene + Canvas ── */
 
-function HeroSceneContents() {
+function HeroSceneContents({
+  circleTexture,
+}: {
+  circleTexture: THREE.Texture;
+}) {
   return (
     <>
       <CursorParallaxGroup>
         <BrandLighting />
         {STREAMS.map((stream, i) => (
-          <FlowingStream key={i} stream={stream} />
+          <FlowingStream key={i} stream={stream} circleTexture={circleTexture} />
         ))}
-        <AmbientParticles count={180} />
+        <AmbientParticles circleTexture={circleTexture} count={180} />
         <fog attach="fog" args={["#0a0a0a", 8, 18]} />
       </CursorParallaxGroup>
-
-      {/* Postprocessing — selective bloom on HDR particles only (threshold=1.0).
-          mipmapBlur is the modern path (KernelSize is deprecated). */}
-      <EffectComposer enableNormalPass={false}>
-        <Bloom
-          intensity={1.3}
-          luminanceThreshold={1.0}
-          luminanceSmoothing={0.9}
-          mipmapBlur
-          radius={0.7}
-        />
-        <Vignette eskil={false} offset={0.3} darkness={0.55} />
-      </EffectComposer>
     </>
   );
 }
 
-/* ──────────────────────────────────────────────────────────────────
- *  Canvas wrapper — ACES Filmic tone mapping + sRGB output.
- * ────────────────────────────────────────────────────────────────── */
-
 export function HeroScene() {
+  // Create circle texture once
+  const circleTexture = useMemo(() => {
+    if (typeof document === "undefined") {
+      // SSR fallback — return a dummy texture, will be replaced on client
+      return new THREE.Texture();
+    }
+    return createCircleTexture();
+  }, []);
+
   return (
     <Canvas
       camera={{ position: [1.5, 0, 8], fov: 45 }}
@@ -470,13 +344,11 @@ export function HeroScene() {
         antialias: true,
         alpha: true,
         powerPreference: "high-performance",
-        toneMapping: THREE.ACESFilmicToneMapping,
-        toneMappingExposure: 1.1,
       }}
       style={{ width: "100%", height: "100%", pointerEvents: "none" }}
     >
       <CameraDolly />
-      <HeroSceneContents />
+      <HeroSceneContents circleTexture={circleTexture} />
     </Canvas>
   );
 }
