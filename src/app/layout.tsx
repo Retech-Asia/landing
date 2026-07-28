@@ -54,6 +54,21 @@ const SITE_NAME = SITE_NAME_CONST;
 const SITE_DESCRIPTION =
   "Vietnam-based software development company delivering custom CMS, CRM, ERP & AI-powered solutions. Free consultation.";
 
+/**
+ * Extract the Bing verification token from BING_SITE_VERIFICATION.
+ * Tolerates either:
+ *   - bare token:  "<32-char hex string>"
+ *   - full tag:    `<meta name="msvalidate.01" content="<token>" />`
+ * Users often paste the full meta tag from Bing's UI; without this we'd
+ * emit `<meta content="<meta name=...>">` which Bing can't parse.
+ */
+function extractBingToken(raw: string): string {
+  const trimmed = raw.trim();
+  // Match the content attribute inside a <meta ...> tag.
+  const match = trimmed.match(/content\s*=\s*["']([^"']+)["']/i);
+  return match ? match[1].trim() : trimmed;
+}
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -139,14 +154,20 @@ export const metadata: Metadata = {
   },
 
   verification: {
-    google: "EsgT0_yO6zLaAXGgi39ZFUxKQhTV2tkhLNHbA1-l_r8",
+    // Search-engine verification tokens. Both are read from env vars so no
+    // secrets land in the repo:
+    //   - GOOGLE_SITE_VERIFICATION (content value from Google Search Console)
+    //   - BING_SITE_VERIFICATION    (content value from Bing Webmaster Tools)
+    //
+    // For Bing, extractBingToken tolerates either the bare token or the
+    // full <meta ...> tag pasted by mistake (Bing shows the whole tag in
+    // their UI, so users often copy the entire thing).
+    ...(process.env.GOOGLE_SITE_VERIFICATION
+      ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+      : {}),
     other: {
-      // Bing Webmaster Tools verification token. Get it from:
-      // https://www.bing.com/webmasters/settings → Site verification →
-      // "Meta tag" → copy the content value from
-      // <meta name="msvalidate.01" content="XXXXXXXX" /> into BING_SITE_VERIFICATION.
       ...(process.env.BING_SITE_VERIFICATION
-        ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION }
+        ? { "msvalidate.01": extractBingToken(process.env.BING_SITE_VERIFICATION) }
         : {}),
     },
   },
