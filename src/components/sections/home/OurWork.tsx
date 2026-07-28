@@ -4,32 +4,57 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import {
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/ui/AnimatedSection";
 import { caseStudies } from "@/lib/case-studies-data";
+import { useEffect, useState, useCallback } from "react";
 
 /**
- * OurWork — unified proof-of-work section.
+ * OurWork — Auto-rotating featured story.
  *
- * Replaces the previous ProductShowcase + ProductTabs + SuccessStories
- * trio that overlapped heavily (Mining Analytics appeared in all 3).
+ * ONE case study visible at a time, split layout (text left, visual
+ * right). Auto-rotates through 3 featured projects every 5 seconds.
+ * Pause on hover. Progress dots at bottom.
  *
- * Research finding: no top IT consulting firm (Toptal, BairesDev,
- * ThoughtWorks, EPAM, Globant) shows "products" on their homepage.
- * What Retech called "products" are case studies in competitor terms.
- * This section consolidates all proof-of-work into one dense, metric-led
- * section following the EPAM / Kyanon pattern.
- *
- * Structure: 5 cards (one per case study), 2-column grid on desktop.
- * Each card: title, tagline, industry badge, hero metric, tech badges,
- * "Read case study" link.
+ * Compact: ~400px total height (vs ~1,800px for 5 stacked cards).
  */
 
+const FEATURED_SLUGS = [
+  "investment-intelligence-platform",
+  "ai-analysis-saas",
+  "mining-analytics-platform",
+];
+
+const FEATURED = FEATURED_SLUGS.map(
+  (slug) => caseStudies.find((c) => c.slug === slug)!,
+);
+
+const AUTO_ROTATE_MS = 5000;
+
 export function OurWork() {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const next = useCallback(
+    () => setActive((p) => (p + 1) % FEATURED.length),
+    [],
+  );
+
+  useEffect(() => {
+    if (paused) return;
+    const timer = setInterval(next, AUTO_ROTATE_MS);
+    return () => clearInterval(timer);
+  }, [next, paused]);
+
+  const project = FEATURED[active];
+  const heroMetric = project.results[0];
+
   return (
-    <section className="py-20 md:py-28 bg-background-subtle relative">
+    <section
+      className="py-20 md:py-28 bg-background-subtle relative"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
       <Container>
         <SectionHeader
           label="Our Work"
@@ -37,71 +62,117 @@ export function OurWork() {
           description="Real production systems running today. From RAG-powered investment research to multi-tool AI SaaS platforms."
         />
 
-        <StaggerContainer
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-12"
-          staggerDelay={0.1}
-        >
-          {caseStudies.map((cs) => {
-            const heroMetric = cs.results[0];
-            return (
-              <StaggerItem key={cs.slug}>
-                <Link
-                  href={`/case-studies/${cs.slug}`}
-                  className="group relative block h-full overflow-hidden rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 md:p-8 transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(32,133,53,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
+        {/* Tab strip */}
+        <div className="flex flex-wrap gap-2 mb-8 border-b border-black/[0.06] pb-3">
+          {FEATURED.map((p, i) => (
+            <button
+              key={p.slug}
+              onClick={() => setActive(i)}
+              className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 ${
+                active === i
+                  ? "text-brand bg-brand/[0.06]"
+                  : "text-foreground-secondary hover:text-foreground hover:bg-black/[0.03]"
+              }`}
+            >
+              {p.title.replace(" Platform", "").replace(" SaaS Platform", "")}
+            </button>
+          ))}
+        </div>
+
+        {/* Split layout: text left, visual right */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[320px]">
+          {/* Left: content */}
+          <div>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand/8 border border-brand/15 text-[11px] font-medium tracking-wide uppercase text-brand-dark mb-4">
+              {project.industry}
+            </span>
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+              {project.title}
+            </h3>
+            <p className="text-sm text-foreground-muted mb-5">{project.tagline}</p>
+
+            {heroMetric && (
+              <div className="mb-5">
+                <div className="text-4xl font-bold gradient-text-brand leading-none tracking-tight">
+                  {heroMetric.value}
+                </div>
+                <div className="text-xs text-foreground-muted mt-1.5 tracking-wide">
+                  {heroMetric.metric}
+                </div>
+              </div>
+            )}
+
+            <div className="flex flex-wrap gap-1.5 mb-6">
+              {project.technologies.slice(0, 4).map((tech) => (
+                <span
+                  key={tech}
+                  className="text-[10px] font-medium px-2 py-1 rounded bg-foreground/[0.05] text-foreground-secondary"
                 >
-                  {/* Industry badge */}
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand/8 border border-brand/15 text-[11px] font-medium tracking-wide uppercase text-brand-dark mb-4">
-                    <span className="w-1 h-1 rounded-full bg-brand" aria-hidden="true" />
-                    {cs.industry}
-                  </span>
+                  {tech}
+                </span>
+              ))}
+            </div>
 
-                  {/* Title + tagline */}
-                  <h3 className="text-xl md:text-2xl font-bold text-foreground mb-1 group-hover:text-brand transition-colors">
-                    {cs.title}
-                  </h3>
-                  <p className="text-sm text-foreground-muted mb-5">
-                    {cs.tagline}
+            <Link
+              href={`/case-studies/${project.slug}`}
+              className="inline-flex items-center gap-2 text-sm font-medium text-brand hover:gap-3 transition-all"
+            >
+              Read Case Study <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+
+          {/* Right: visual panel with gradient + project name */}
+          <div className="relative h-[240px] md:h-[300px] rounded-2xl overflow-hidden border border-black/[0.06]">
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  active === 0
+                    ? "linear-gradient(135deg, rgba(32,133,53,0.08), rgba(6,182,212,0.06))"
+                    : active === 1
+                      ? "linear-gradient(135deg, rgba(6,182,212,0.08), rgba(139,92,246,0.06))"
+                      : "linear-gradient(135deg, rgba(32,133,53,0.06), rgba(46,160,78,0.08))",
+              }}
+            />
+            <div className="absolute inset-0 flex items-center justify-center p-8">
+              <div className="text-center">
+                <p className="text-xs uppercase tracking-widest text-foreground-muted mb-2">
+                  {project.industry}
+                </p>
+                <p className="text-xl md:text-2xl font-bold text-foreground/30">
+                  {project.title}
+                </p>
+                {heroMetric && (
+                  <p className="text-3xl md:text-4xl font-bold gradient-text-brand mt-3">
+                    {heroMetric.value}
                   </p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
 
-                  {/* Hero metric */}
-                  {heroMetric && (
-                    <div className="mb-5 pb-5 border-b border-black/[0.06]">
-                      <div className="text-3xl md:text-4xl font-bold gradient-text-brand leading-none tracking-tight">
-                        {heroMetric.value}
-                      </div>
-                      <div className="text-xs text-foreground-muted mt-1.5 tracking-wide">
-                        {heroMetric.metric}
-                      </div>
-                    </div>
-                  )}
+        {/* Progress dots */}
+        <div className="flex justify-center gap-2 mt-6">
+          {FEATURED.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActive(i)}
+              aria-label={`Show project ${i + 1}`}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                active === i
+                  ? "w-8 bg-brand"
+                  : "w-2 bg-foreground/20 hover:bg-foreground/40"
+              }`}
+            />
+          ))}
+        </div>
 
-                  {/* Tech badges */}
-                  <div className="flex flex-wrap gap-1.5 mb-5">
-                    {cs.technologies.slice(0, 4).map((tech) => (
-                      <span
-                        key={tech}
-                        className="text-[10px] font-medium px-2 py-1 rounded bg-foreground/[0.05] text-foreground-secondary"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* CTA */}
-                  <span className="inline-flex items-center gap-2 text-sm font-medium text-brand group-hover:gap-3 transition-all">
-                    Read Case Study <ArrowRight size={16} aria-hidden="true" />
-                  </span>
-                </Link>
-              </StaggerItem>
-            );
-          })}
-        </StaggerContainer>
-
-        {/* View all button */}
-        <div className="mt-12 text-center">
+        {/* View all */}
+        <div className="mt-8 text-center">
           <Link
             href="/case-studies"
-            className="inline-flex items-center gap-2 rounded-full bg-brand-dark px-6 py-3 text-sm font-medium text-white transition-all hover:bg-brand hover:gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-2 rounded-full bg-brand-dark px-6 py-3 text-sm font-medium text-white transition-all hover:bg-brand hover:gap-3"
           >
             View All Case Studies <ArrowRight size={16} aria-hidden="true" />
           </Link>
