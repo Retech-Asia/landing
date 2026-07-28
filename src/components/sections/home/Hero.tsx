@@ -180,7 +180,7 @@ export function Hero() {
                         suffix={stat.suffix}
                       />
                     </div>
-                    <p className="text-xs sm:text-sm text-foreground-muted mt-2 tracking-wide">
+                    <p className="text-sm text-foreground-muted mt-2 tracking-wide">
                       {stat.label}
                     </p>
                   </div>

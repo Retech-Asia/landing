@@ -222,26 +222,30 @@ export function CookieConsent() {
                   to learn more.
                 </p>
 
-                <div className="flex shrink-0 gap-3 w-full sm:w-auto">
-                  <button
-                    onClick={() => setShowPreferences((p) => !p)}
-                    className="flex-1 rounded-xl border border-foreground/15 bg-transparent px-4 py-2.5 text-sm font-medium text-foreground-secondary transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 sm:flex-initial cursor-pointer"
-                  >
-                    {showPreferences ? "Hide Preferences" : "Manage Preferences"}
-                  </button>
-                  <button
-                    onClick={handleDeclineAll}
-                    className="flex-1 rounded-xl border border-foreground/15 bg-transparent px-4 py-2.5 text-sm font-medium text-foreground-secondary transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 sm:flex-initial cursor-pointer"
-                  >
-                    Decline
-                  </button>
+                <div className="flex shrink-0 flex-col gap-2 w-full sm:w-auto sm:flex-row sm:gap-3">
+                  {/* Primary CTA — full width on mobile, auto on desktop */}
                   <button
                     ref={firstFocusableRef}
                     onClick={handleAcceptAll}
-                    className="flex-1 rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 sm:flex-initial cursor-pointer bg-brand-dark"
+                    className="w-full sm:w-auto rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 cursor-pointer bg-brand-dark"
                   >
                     Accept All
                   </button>
+                  {/* Secondary buttons — side by side on mobile, inline on desktop */}
+                  <div className="flex gap-2 sm:gap-3">
+                    <button
+                      onClick={() => setShowPreferences((p) => !p)}
+                      className="flex-1 rounded-xl border border-foreground/15 bg-transparent px-3 py-2.5 text-sm font-medium text-foreground-secondary transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 sm:flex-initial cursor-pointer"
+                    >
+                      {showPreferences ? "Hide" : "Preferences"}
+                    </button>
+                    <button
+                      onClick={handleDeclineAll}
+                      className="flex-1 rounded-xl border border-foreground/15 bg-transparent px-3 py-2.5 text-sm font-medium text-foreground-secondary transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 sm:flex-initial cursor-pointer"
+                    >
+                      Decline
+                    </button>
+                  </div>
                 </div>
               </div>
 

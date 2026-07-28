@@ -359,36 +359,13 @@ export function Testimonials() {
           description="We combine technical excellence with a transparent, collaborative approach to deliver software that drives measurable business results."
         />
 
-        {/* ── Value Proposition Cards ── */}
-        <StaggerContainer
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          staggerDelay={0.08}
-        >
-          {reasons.map((reason) => (
-            <StaggerItem key={reason.title}>
-              <div className="group card-shimmer h-full rounded-2xl bg-white border border-black/[0.06] p-6 md:p-7 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
-                <div
-                  className={`w-10 h-10 rounded-xl ${reason.bg} flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110`}
-                >
-                  <reason.icon
-                    size={20}
-                    className={reason.color}
-                    strokeWidth={2}
-                  />
-                </div>
-                <h3 className="text-base font-semibold text-foreground mb-2">
-                  {reason.title}
-                </h3>
-                <p className="text-sm text-foreground-secondary leading-relaxed">
-                  {reason.description}
-                </p>
-              </div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+        {/* Value Proposition Cards removed — duplicated WhyRetech's
+            differentiator cards (On-Time Delivery, Quality Assurance,
+            etc.). Removing saves ~1,200px on mobile without losing
+            unique information. WhyRetech already covers these points. */}
 
         {/* ── Client Results Metrics ── */}
-        <div className="mt-20 md:mt-24">
+        <div className="mt-12 md:mt-16">
           <div className="text-center mb-10 md:mb-12">
             <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3">
               Client Results
