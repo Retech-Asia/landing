@@ -6,19 +6,10 @@ import { WebPageJsonLd, FAQJsonLd } from "@/components/seo/JsonLd";
 import {
   SectionFallback,
   CompactSectionFallback,
-  ScrollVelocityFallback,
 } from "@/components/ui/Skeleton";
 
-// Heavy framer-motion components — lazy-loaded to reduce initial JS bundle.
-const StatsBar = dynamic(
-  () => import("@/components/sections/home/StatsBar").then((m) => m.StatsBar),
-  { loading: () => <SectionFallback className="py-6 md:py-8 border-y border-black/[0.06]" /> },
-);
-const ScrollVelocityText = dynamic(
-  () => import("@/components/ui/ScrollVelocityText").then((m) => m.ScrollVelocityText),
-  { loading: () => <ScrollVelocityFallback /> },
-);
-
+// StatsBar + ScrollVelocityText removed — duplicated hero stats and
+// service categories that already appear in the hero + ServicePreview.
 // Below-fold sections: lazy-loaded to reduce initial JS bundle
 const TrustedBy = dynamic(
   () => import("@/components/sections/home/TrustedBy").then((m) => m.TrustedBy),
@@ -120,26 +111,10 @@ export default function HomePage() {
       {/* 1. Hero — always first */}
       <Hero />
 
-      {/* 2. StatsBar — early credibility, visible without scrolling far */}
-      <StatsBar />
-      <div className="space-y-0">
-        <ScrollVelocityText
-          items={["CMS Development", "CRM Solutions", "ERP Systems", "AI Integration", "Web Applications", "Mobile Development"]}
-          direction="forward"
-          variant="gradient"
-          speed={1}
-        />
-        <ScrollVelocityText
-          items={["Custom Software", "Dedicated Teams", "UI/UX Design", "Cloud Architecture", "API Engineering", "Product Strategy"]}
-          direction="reverse"
-          variant="outline"
-          speed={0.8}
-        />
-      </div>
+      {/* StatsBar + ScrollVelocityText strips removed — duplicated hero
+          stats and service categories. Hero → directly into TrustedBy. */}
 
-      <SectionDivider />
-
-      {/* 3. TrustedBy — social proof as early as possible */}
+      {/* 2. TrustedBy — social proof as early as possible */}
       <TrustedBy />
 
       <SectionDivider />
