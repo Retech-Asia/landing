@@ -2,6 +2,15 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import {
+  FileText,
+  AddressBook,
+  ChartBar,
+  Code,
+  PencilRuler,
+  UsersThree,
+  type Icon as PhosphorIconType,
+} from "@phosphor-icons/react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useCallback, useRef, useState } from "react";
 import { Container } from "@/components/ui/Container";
@@ -16,6 +25,26 @@ const accentColors = [
   "text-brand",
   "text-accent-cyan",
   "text-accent-violet",
+];
+
+// Professional duotone icons (Phosphor) — replaces Lucide for marketing quality.
+// Duotone weight has a secondary opacity layer giving depth/premium feel.
+const PHOSPHOR_ICONS: Record<string, PhosphorIconType> = {
+  "/services/cms-platforms": FileText,
+  "/services/crm-systems": AddressBook,
+  "/services/erp-solutions": ChartBar,
+  "/services/web-development": Code,
+  "/services/ui-ux-design": PencilRuler,
+  "/services/dedicated-teams": UsersThree,
+};
+
+const iconBgs = [
+  "bg-brand/8",
+  "bg-accent-cyan/8",
+  "bg-accent-violet/8",
+  "bg-brand/8",
+  "bg-accent-cyan/8",
+  "bg-accent-violet/8",
 ];
 
 // Per-card depth layer. Cards alternate between back/center/front to create
@@ -159,7 +188,7 @@ export function ServicePreview() {
           style={{ perspective: "1200px", perspectiveOrigin: "50% 30%" }}
         >
           {servicesNavigation.map((service, i) => {
-            const Icon = service.icon;
+            const PhosphorIcon = PHOSPHOR_ICONS[service.href] ?? FileText;
             return (
               <CardReveal key={service.href} index={i}>
                 <ParallaxDepth depth={cardDepths[i % cardDepths.length]} scrollYProgress={scrollYProgress}>
@@ -172,7 +201,10 @@ export function ServicePreview() {
                           className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out bg-gradient-to-r from-brand via-accent-cyan to-accent-violet"
                         />
 
-                        <Icon size={28} className={`${accentColors[i]} mb-5 transition-transform duration-300 group-hover:-translate-y-1`} />
+                        {/* Phosphor duotone icon in branded container */}
+                        <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${iconBgs[i % iconBgs.length]} mb-5 transition-transform duration-300 group-hover:-translate-y-1`}>
+                          <PhosphorIcon size={28} weight="duotone" className={accentColors[i]} />
+                        </div>
 
                         <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-brand transition-colors">
                           {service.label}

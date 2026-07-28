@@ -8,14 +8,24 @@ import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { StaggerContainer, StaggerItem } from "@/components/ui/AnimatedSection";
 import { caseStudies } from "@/lib/case-studies-data";
 
-const previews = caseStudies.map((cs) => ({
-  slug: cs.slug,
-  title: cs.title,
-  tagline: cs.tagline,
-  industry: cs.industry,
-  metrics: cs.results.slice(0, 3),
-  href: `/case-studies/${cs.slug}`,
-}));
+// Feature 3 best case studies on homepage — full catalog at /case-studies
+const FEATURED_SLUGS = [
+  "investment-intelligence-platform",
+  "ai-analysis-saas",
+  "mining-analytics-platform",
+];
+
+const previews = FEATURED_SLUGS.map((slug) => {
+  const cs = caseStudies.find((c) => c.slug === slug)!;
+  return {
+    slug: cs.slug,
+    title: cs.title,
+    tagline: cs.tagline,
+    industry: cs.industry,
+    metrics: cs.results.slice(0, 3),
+    href: `/case-studies/${cs.slug}`,
+  };
+});
 
 export function SuccessStories() {
   return (
@@ -28,7 +38,7 @@ export function SuccessStories() {
           description="Real results from real projects. See how we've helped businesses transform their digital presence."
         />
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {previews.map((preview) => {
             const hero = preview.metrics[0];
             const rest = preview.metrics.slice(1);
