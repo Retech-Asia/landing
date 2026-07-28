@@ -1,6 +1,12 @@
 export const SITE_URL = "https://www.retech.asia";
 export const SITE_NAME = "Retech Solutions";
 
+// Last content review date for SEO sitemap. Update when the relevant
+// content is meaningfully revised. Static pages, services, industries,
+// and case studies rarely change — use this stable timestamp instead of
+// `new Date()` so crawlers see a consistent lastmod signal across builds.
+export const CONTENT_LAST_UPDATED = "2026-07-28";
+
 export const CONTACT = {
   phone: "(+84) 769 294 225",
   phoneHref: "tel:+84769294225",

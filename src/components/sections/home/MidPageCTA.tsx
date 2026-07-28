@@ -32,9 +32,9 @@ export function MidPageCTA() {
               <span className="block text-xs font-medium tracking-widest uppercase text-brand mb-3">
                 Free Consultation
               </span>
-              <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">
+              <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">
                 Not Sure Where AI Fits?
-              </h3>
+              </h2>
               <p className="text-sm md:text-base text-foreground-secondary leading-relaxed max-w-lg">
                 Book a free 30-minute consultation with our technical lead. We will map out the right approach, tech stack, AI opportunity surface, and timeline. No strings attached.
               </p>

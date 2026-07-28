@@ -3,7 +3,12 @@ import { services } from "@/lib/services-data";
 import { caseStudies } from "@/lib/case-studies-data";
 import { blogPosts, BLOG_CATEGORIES } from "@/lib/blog-data";
 import { industries } from "@/lib/industries-data";
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL, CONTENT_LAST_UPDATED } from "@/lib/constants";
+
+// Stable lastModified timestamp — see CONTENT_LAST_UPDATED in constants.ts.
+// Avoids the anti-pattern of every build emitting `new Date()` and marking
+// every URL as freshly modified, which flattens the freshness signal.
+const CONTENT_LAST_MODIFIED = new Date(CONTENT_LAST_UPDATED);
 
 const staticPages = [
   { path: "", priority: 1.0, changeFrequency: "weekly" as const },
@@ -24,14 +29,14 @@ const staticPages = [
 export default function sitemap(): MetadataRoute.Sitemap {
   const servicePages = services.map((service) => ({
     url: `${SITE_URL}/services/${service.slug}`,
-    lastModified: new Date(),
+    lastModified: CONTENT_LAST_MODIFIED,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
   const caseStudyPages = caseStudies.map((study) => ({
     url: `${SITE_URL}/case-studies/${study.slug}`,
-    lastModified: new Date(),
+    lastModified: CONTENT_LAST_MODIFIED,
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
@@ -45,21 +50,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const industryPages = industries.map((industry) => ({
     url: `${SITE_URL}/industries/${industry.slug}`,
-    lastModified: new Date(),
+    lastModified: CONTENT_LAST_MODIFIED,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
   const blogCategoryPages = BLOG_CATEGORIES.map((cat) => ({
     url: `${SITE_URL}/blog/category/${cat.slug}`,
-    lastModified: new Date(),
+    lastModified: CONTENT_LAST_MODIFIED,
     changeFrequency: "weekly" as const,
     priority: 0.5,
   }));
 
   const staticEntries = staticPages.map((page) => ({
     url: `${SITE_URL}${page.path}`,
-    lastModified: new Date(),
+    lastModified: CONTENT_LAST_MODIFIED,
     changeFrequency: page.changeFrequency,
     priority: page.priority,
   }));

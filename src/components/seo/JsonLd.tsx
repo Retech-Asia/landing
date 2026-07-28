@@ -52,8 +52,18 @@ function getOrganizationSchema() {
     "@type": "Organization",
     "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
-    alternateName: ["Retech Asia", "Retech Solutions Vietnam"],
+    alternateName: [
+      "Retech Solutions Ltd",
+      "Retech Solutions Co., Ltd.",
+      "Retech Asia",
+      "Retech Solutions Vietnam",
+    ],
     url: SITE_URL,
+    sameAs: [
+      "https://www.linkedin.com/company/retech-vn/",
+      "https://github.com/Retech-Asia",
+      "https://share.google/iPFPexnE8RbI51ODu",
+    ],
     logo: {
       "@type": "ImageObject",
       url: LOGO_URL,
@@ -179,21 +189,16 @@ function getWebSiteSchema() {
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
     name: SITE_NAME,
-    alternateName: "Retech Asia",
+    alternateName: ["Retech Solutions Ltd", "Retech Asia"],
     url: SITE_URL,
     description: SITE_DESCRIPTION,
     publisher: {
       "@id": `${SITE_URL}/#organization`,
     },
     inLanguage: "en",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/blog?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
+    // SearchAction intentionally omitted — no on-site search endpoint exists.
+    // Re-add only when /blog?q= or /search?q= is implemented; otherwise Google
+    // may flag the sitelinks searchbox as non-functional.
   };
 }
 
@@ -210,7 +215,7 @@ function getLocalBusinessSchema() {
     "@type": "ProfessionalService",
     "@id": `${SITE_URL}/#localbusiness`,
     name: SITE_NAME,
-    alternateName: "Retech Asia",
+    alternateName: ["Retech Solutions Ltd", "Retech Asia"],
     url: SITE_URL,
     logo: LOGO_URL,
     image: LOGO_URL,
@@ -498,7 +503,7 @@ export function ContactPageLocalBusinessJsonLd() {
     "@type": "ProfessionalService",
     "@id": `${SITE_URL}/contact/#localbusiness`,
     name: SITE_NAME,
-    alternateName: "Retech Asia",
+    alternateName: ["Retech Solutions Ltd", "Retech Asia"],
     url: `${SITE_URL}/contact`,
     logo: LOGO_URL,
     image: LOGO_URL,

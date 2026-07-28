@@ -18,22 +18,22 @@ import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "Industries We Serve",
   description:
-    "Custom software for Healthcare, Finance, E-commerce & more. CMS, CRM, ERP and AI-powered solutions tailored to your industry.",
+    "Industry-specific software from Vietnam: Healthcare, Finance, E-commerce & more. CMS, CRM, ERP and AI-powered solutions tailored to your vertical.",
   alternates: {
     canonical: `${SITE_URL}/industries`,
   },
   openGraph: {
-    title: "Industries We Serve",
+    title: "Industries We Serve — Vietnam Software Development",
     description:
-      "Custom software for Healthcare, Finance, E-commerce & more. CMS, CRM, ERP tailored to your industry.",
+      "Industry-specific software from Vietnam: Healthcare, Finance, E-commerce & more. CMS, CRM, ERP tailored to your vertical.",
     url: `${SITE_URL}/industries`,
     type: "website"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Industries We Serve",
+    title: "Industries We Serve — Vietnam Software Development",
     description:
-      "Custom software for Healthcare, Finance, E-commerce & more."
+      "Industry-specific software from Vietnam for Healthcare, Finance, E-commerce & more."
   },
 };
 

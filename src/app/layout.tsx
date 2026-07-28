@@ -67,7 +67,7 @@ export const metadata: Metadata = {
 
   title: {
     default:
-      "Retech Solutions | Software Development & IT Outsourcing",
+      "Retech Solutions | Vietnam Software Development & IT Outsourcing",
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -119,7 +119,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: SITE_NAME,
     title:
-      "Retech Solutions | Software Development & IT Outsourcing",
+      "Retech Solutions | Vietnam Software Development & IT Outsourcing",
     description:
       "Vietnam-based software development: custom CMS, CRM, ERP & AI solutions. Free consultation available.",
     // Image intentionally omitted — Next.js auto-uses src/app/opengraph-image.tsx
@@ -131,7 +131,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "Retech Solutions | Software Development & IT Outsourcing",
+      "Retech Solutions | Vietnam Software Development & IT Outsourcing",
     description:
       "Custom CMS, CRM, ERP & AI-powered software. Full-cycle development from discovery to deployment. Free consultation.",
     // Same as openGraph — let Next.js's twitter-image route handle it.

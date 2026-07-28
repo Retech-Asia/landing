@@ -102,17 +102,29 @@ export function Hero() {
       >
         <Container className="py-20 md:py-28">
           <div className="hero-content-enter max-w-4xl">
-            {/* Headline — LCP-critical: CSS-only entrance, no JS gate.
+            {/* SEO H1 — visually hidden. The visible tagline below is the
+                brand voice; this h1 gives crawlers an unambiguous primary
+                heading that pairs the company name with Vietnam positioning
+                and core service keywords. Tagline is aria-hidden so screen
+                readers get one clean H1 rather than two competing headings. */}
+            <h1 className="sr-only">
+              Retech Solutions — Vietnam Software Development & IT Outsourcing
+            </h1>
+
+            {/* Visible tagline — LCP-critical: CSS-only entrance, no JS gate.
                 Instrument Serif italic on "Solutions" carries the emphasis
-                without gradient text (gradient was a critical AI tell). */}
-            <h1
+                without gradient text (gradient was a critical AI tell).
+                Rendered as a <p> with aria-hidden so it does not compete with
+                the SEO H1 above; visual styling is unchanged. */}
+            <p
+              aria-hidden="true"
               className="text-[2.75rem] leading-[1.05] sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold tracking-[-0.02em] text-foreground mb-6 text-balance"
             >
               Turning Ideas
               <br />
               into{" "}
               <span className="italic text-brand">Solutions</span>
-            </h1>
+            </p>
 
             {/* Dynamic subtitle with rotating service type. */}
             <div className="mb-10 max-w-2xl">

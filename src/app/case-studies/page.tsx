@@ -67,17 +67,17 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/case-studies`,
   },
   openGraph: {
-    title: "Case Studies",
+    title: "Case Studies — Vietnam Software Development",
     description:
-      "Real results from real projects. Case studies in healthcare, finance & e-commerce. Custom software on time & budget.",
+      "Real results from real projects. Case studies in healthcare, finance & e-commerce. Vietnam-built software delivered on time & budget.",
     url: `${SITE_URL}/case-studies`,
     type: "website"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Case Studies",
+    title: "Case Studies — Vietnam Software Development",
     description:
-      "Real results from real projects. Case studies in healthcare, finance & e-commerce."
+      "Vietnam-built software for healthcare, finance & e-commerce. Real results, real projects."
   },
 };
 

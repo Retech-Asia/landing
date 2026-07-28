@@ -32,14 +32,14 @@ import { SITE_URL } from "@/lib/constants";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Our Services",
+  title: "IT Outsourcing Services",
   description:
-    "Custom CMS, CRM, ERP, web apps, UI/UX design & dedicated teams. Full-cycle development services.",
+    "Custom CMS, CRM, ERP, web apps, UI/UX design & dedicated teams from Vietnam. Full-cycle IT outsourcing services for global businesses.",
   alternates: {
     canonical: `${SITE_URL}/services`,
   },
   openGraph: {
-    title: "Our Services",
+    title: "IT Outsourcing Services from Vietnam",
     description:
       "Custom CMS, CRM, ERP, web apps, UI/UX & dedicated offshore teams. Full-spectrum IT services from Vietnam.",
     url: `${SITE_URL}/services`,
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Our Services",
+    title: "IT Outsourcing Services from Vietnam",
     description:
       "Custom CMS, CRM, ERP, web apps, UI/UX & dedicated offshore teams from Vietnam."
   },
