@@ -1,73 +1,211 @@
 "use client";
 
 /**
- * LatticeField — abstract 3D lattice hero visualization.
+ * Stripe-style flowing gradient hero.
  *
- * A 4×4×4 octahedral lattice slowly rotating in 3D space. Pure SVG +
- * minimal JS for rotation/projection (no Three.js). Self-contained,
- * transparent background, no labels, no clickable elements.
+ * Fragment shader plane with drifting radial color sources (brand green,
+ * cyan, violet, brand-light). Slow ambient motion via low-frequency noise.
+ * Adapted from the variant tested at /hero-variants (Variant E).
  *
- * Animation constraints:
- *   - Rotation oscillates within a narrow safe range around the 3/4
- *     view (y∈[0.4, 0.8], x∈[0.3, 0.5]) — never reaches face-on angles
- *     (0 or π/2) where the lattice could read as a plain cube
- *   - Period ~60s for Y, ~45s for X (different periods prevent sync)
- *   - Mouse parallax: ±0.05 rad (~3°) added on top, lerp follow
- *
- * Performance:
- *   - 64 vertices, 108 edges, reprojected every frame
- *   - Single rAF, runs only when: not reduced-motion AND in viewport
- *     AND mouse has moved recently (idle suspension)
- *   - Single SVG path per depth bucket = 3 DOM updates per frame
- *
- * Accessibility:
- *   - aria-hidden (purely decorative)
- *   - pointer-events: none (no interaction)
- *   - prefers-reduced-motion: static render at default angle, no rAF
- *
- * Mobile (< 768px): returns null, clean text-only hero
+ * Position: right side of hero, masked via CSS gradient to fade left edge.
+ * Mobile (< 768px): returns null, clean text-only hero.
+ * Reduced motion: static render at uTime=0, no rAF.
  */
 
+import { Canvas, useFrame } from "@react-three/fiber";
+import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  LATTICE_VERTICES,
-  LATTICE_EDGES,
-  rotateX,
-  rotateY,
-  project,
-} from "@/lib/lattice-geometry";
+import * as THREE from "three";
 
-/* ── Constants ── */
+/* ── Shaders ── */
 
-const CAMERA_DISTANCE = 5;
-const FOCAL_LENGTH = 600;
-const CENTER_X = 500; // viewBox center (1000 wide)
-const CENTER_Y = 350; // viewBox center (700 tall)
+const vertexShader = /* glsl */ `
+  varying vec2 vUv;
+  void main() {
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
 
-// Safe angle range — keeps lattice in "crystal" reading zone, never face-on
-const BASE_ANGLE_Y = 0.6;
-const BASE_ANGLE_X = 0.4;
-const OSC_Y_AMPLITUDE = 0.2; // ±0.2 rad around base (~±11°)
-const OSC_X_AMPLITUDE = 0.1; // ±0.1 rad around base (~±6°)
-const OSC_Y_PERIOD_MS = 60000; // 60 second Y period
-const OSC_X_PERIOD_MS = 45000; // 45 second X period (different = no sync)
+const fragmentShader = /* glsl */ `
+  precision highp float;
 
-const PARALLAX_RANGE_Y = 0.05; // ±0.05 rad (~±3°) Y parallax
-const PARALLAX_RANGE_X = 0.035; // ±0.035 rad (~±2°) X parallax
-const PARALLAX_LERP = 0.06; // smooth follow rate
+  uniform float uTime;
+  uniform vec2 uResolution;
 
-/* ── Component ── */
+  varying vec2 vUv;
+
+  vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+  vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+  vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+
+  float snoise(vec2 v) {
+    const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+                       -0.577350269189626, 0.024390243902439);
+    vec2 i  = floor(v + dot(v, C.yy));
+    vec2 x0 = v - i + dot(i, C.xx);
+    vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+    vec4 x12 = x0.xyxy + C.xxzz;
+    x12.xy -= i1;
+    i = mod289(i);
+    vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0))
+                            + i.x + vec3(0.0, i1.x, 1.0));
+    vec3 m = max(0.5 - vec3(dot(x0, x0), dot(x12.xy, x12.xy),
+                             dot(x12.zw, x12.zw)), 0.0);
+    m = m*m; m = m*m;
+    vec3 x = 2.0 * fract(p * C.www) - 1.0;
+    vec3 h = abs(x) - 0.5;
+    vec3 ox = floor(x + 0.5);
+    vec3 a0 = x - ox;
+    m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+    vec3 g;
+    g.x  = a0.x  * x0.x  + h.x  * x0.y;
+    g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+    return 130.0 * dot(m, g);
+  }
+
+  float fbm(vec2 p) {
+    float v = 0.0;
+    float a = 0.5;
+    for (int i = 0; i < 3; i++) {
+      v += a * snoise(p);
+      p *= 2.0;
+      a *= 0.5;
+    }
+    return v;
+  }
+
+  float smootherstep(float edge0, float edge1, float x) {
+    float t = clamp((x - edge0) / (edge1 - edge0), 0.0, 1.0);
+    return t * t * t * (t * (t * 6.0 - 15.0) + 10.0);
+  }
+
+  float radialSource(vec2 uv, vec2 center, float radius) {
+    float d = distance(uv, center);
+    return 1.0 - smootherstep(0.0, radius, d);
+  }
+
+  vec3 aces(vec3 x) {
+    const float a = 2.51;
+    const float b = 0.03;
+    const float c = 2.43;
+    const float d = 0.59;
+    const float e = 0.14;
+    return clamp((x * (a * x + b)) / (x * (c * x + d) + e), 0.0, 1.0);
+  }
+
+  void main() {
+    vec2 uv = vUv;
+    float aspect = uResolution.x / max(uResolution.y, 1.0);
+    vec2 aspectUv = vec2(uv.x * aspect, uv.y);
+    float t = uTime * 0.03;
+
+    // 4 drifting radial color sources — biased to right side
+    vec2 src1Pos = vec2(
+      (0.55 + snoise(vec2(t * 0.5, 0.0)) * 0.15) * aspect,
+      0.65 + snoise(vec2(0.0, t * 0.5)) * 0.12
+    );
+    float src1 = radialSource(aspectUv, src1Pos, 0.6);
+
+    vec2 src2Pos = vec2(
+      (0.85 + snoise(vec2(t * 0.4 + 5.0, 0.0)) * 0.12) * aspect,
+      0.45 + snoise(vec2(0.0, t * 0.4 + 5.0)) * 0.12
+    );
+    float src2 = radialSource(aspectUv, src2Pos, 0.55);
+
+    vec2 src3Pos = vec2(
+      (0.70 + snoise(vec2(t * 0.6 + 10.0, 0.0)) * 0.13) * aspect,
+      0.22 + snoise(vec2(0.0, t * 0.6 + 10.0)) * 0.10
+    );
+    float src3 = radialSource(aspectUv, src3Pos, 0.5);
+
+    vec2 src4Pos = vec2(
+      (0.95 + snoise(vec2(t * 0.7 + 15.0, 0.0)) * 0.08) * aspect,
+      0.75 + snoise(vec2(0.0, t * 0.7 + 15.0)) * 0.08
+    );
+    float src4 = radialSource(aspectUv, src4Pos, 0.35);
+
+    // Subtle FBM distortion
+    float distortion = fbm(aspectUv * 1.5 + vec2(t * 0.3, t * 0.2));
+    src1 += distortion * 0.05;
+    src2 += distortion * 0.05;
+    src3 += distortion * 0.05;
+
+    // Brand colors
+    vec3 color1 = vec3(0.13, 0.52, 0.21); // brand green
+    vec3 color2 = vec3(0.02, 0.71, 0.83); // cyan
+    vec3 color3 = vec3(0.55, 0.36, 0.96); // violet
+    vec3 color4 = vec3(0.18, 0.63, 0.30); // brand-light
+
+    float totalWeight = src1 + src2 + src3 + src4 + 0.01;
+    vec3 color = (color1 * src1 + color2 * src2 + color3 * src3 + color4 * src4) / totalWeight;
+
+    // Edge falloff
+    float edgeFalloff = smootherstep(0.0, 0.5, 1.0 - length(uv - vec2(0.65, 0.5)) * 1.4);
+    color *= 0.55 + edgeFalloff * 0.45;
+
+    // HDR lift
+    color *= 1.15;
+
+    // Barely-perceptible grain
+    float grain = fract(sin(dot(uv * uResolution / 128.0, vec2(12.9898, 78.233)) + uTime) * 43758.5453);
+    color += (grain - 0.5) * 0.008;
+
+    color = aces(color);
+    gl_FragColor = vec4(color, 1.0);
+  }
+`;
+
+/* ── Scene ── */
+
+function GradientPlane() {
+  const matRef = useRef<THREE.ShaderMaterial>(null);
+  const uniforms = useMemo(
+    () => ({
+      uTime: { value: 0 },
+      uResolution: { value: new THREE.Vector2(800, 600) },
+    }),
+    [],
+  );
+
+  useFrame(({ clock, size }) => {
+    if (!matRef.current) return;
+    matRef.current.uniforms.uTime.value = clock.getElapsedTime();
+    matRef.current.uniforms.uResolution.value.set(size.width, size.height);
+  });
+
+  return (
+    <mesh>
+      <planeGeometry args={[2, 2]} />
+      <shaderMaterial
+        ref={matRef}
+        vertexShader={vertexShader}
+        fragmentShader={fragmentShader}
+        uniforms={uniforms}
+      />
+    </mesh>
+  );
+}
+
+function GradientScene() {
+  return (
+    <>
+      <GradientPlane />
+      <EffectComposer enableNormalPass={false}>
+        <Bloom intensity={0.35} luminanceThreshold={1.0} mipmapBlur radius={0.5} />
+        <Vignette eskil={false} offset={0.2} darkness={0.25} />
+      </EffectComposer>
+    </>
+  );
+}
+
+/* ── Main component — wrapper with guards ── */
 
 export function LatticeField() {
+  const [mounted, setMounted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [isInView, setIsInView] = useState(true);
 
-  // Track pointer position via ref (no re-renders)
-  const pointerRef = useRef({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Detect desktop + reduced motion
   useEffect(() => {
     if (typeof window === "undefined") return;
     const desktopMq = window.matchMedia("(min-width: 768px)");
@@ -85,175 +223,51 @@ export function LatticeField() {
     };
   }, []);
 
-  // IntersectionObserver: only animate when in viewport
+  // Defer mount until idle (LCP protection)
   useEffect(() => {
-    if (!containerRef.current) return;
-    const observer = new IntersectionObserver(
-      (entries) => setIsInView(entries[0]?.isIntersecting ?? false),
-      { threshold: 0 },
-    );
-    observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  // Pointer tracking at window level
-  useEffect(() => {
-    if (!isDesktop || prefersReducedMotion) return;
-    const handler = (e: PointerEvent) => {
-      pointerRef.current.x = (e.clientX / window.innerWidth) * 2 - 1; // -1..1
-      pointerRef.current.y = (e.clientY / window.innerHeight) * 2 - 1;
-    };
-    window.addEventListener("pointermove", handler, { passive: true });
-    return () => window.removeEventListener("pointermove", handler);
-  }, [isDesktop, prefersReducedMotion]);
-
-  // Compute current angles (static if reduced motion or not in view)
-  const [angles, setAngles] = useState({
-    angleY: BASE_ANGLE_Y,
-    angleX: BASE_ANGLE_X,
-  });
-
-  useEffect(() => {
-    if (!isDesktop || prefersReducedMotion || !isInView) return;
-
-    let rafId: number | null = null;
-    let lastPointerX = 0;
-    let lastPointerY = 0;
-    let currentParallaxX = 0;
-    let currentParallaxY = 0;
-
-    const tick = () => {
-      const now = performance.now();
-      // Base oscillation
-      const oscY = Math.sin((now / OSC_Y_PERIOD_MS) * Math.PI * 2) * OSC_Y_AMPLITUDE;
-      const oscX = Math.sin((now / OSC_X_PERIOD_MS) * Math.PI * 2) * OSC_X_AMPLITUDE;
-
-      // Parallax lerp
-      const targetPX = pointerRef.current.x * PARALLAX_RANGE_Y;
-      const targetPY = pointerRef.current.y * PARALLAX_RANGE_X;
-      currentParallaxX += (targetPX - currentParallaxX) * PARALLAX_LERP;
-      currentParallaxY += (targetPY - currentParallaxY) * PARALLAX_LERP;
-
-      const angleY = BASE_ANGLE_Y + oscY + currentParallaxX;
-      const angleX = BASE_ANGLE_X + oscX + currentParallaxY;
-
-      setAngles({ angleY, angleX });
-
-      // Continue only if parallax is still settling or pointer moved
-      const pointerDelta =
-        Math.abs(pointerRef.current.x - lastPointerX) +
-        Math.abs(pointerRef.current.y - lastPointerY);
-      const parallaxDelta =
-        Math.abs(targetPX - currentParallaxX) + Math.abs(targetPY - currentParallaxY);
-      lastPointerX = pointerRef.current.x;
-      lastPointerY = pointerRef.current.y;
-
-      // Always continue — base oscillation is continuous
-      rafId = requestAnimationFrame(tick);
-      void pointerDelta;
-      void parallaxDelta;
-    };
-
-    rafId = requestAnimationFrame(tick);
+    if (!isDesktop) return;
+    const idle =
+      (window as Window & {
+        requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      }).requestIdleCallback ??
+      ((cb: () => void) => setTimeout(cb, 1200));
+    const handle = idle(() => setMounted(true), { timeout: 2000 });
     return () => {
-      if (rafId !== null) cancelAnimationFrame(rafId);
+      const cancel =
+        (window as Window & { cancelIdleCallback?: (h: number) => void })
+          .cancelIdleCallback ??
+        ((h: number) => clearTimeout(h));
+      cancel(handle as number);
     };
-  }, [isDesktop, prefersReducedMotion, isInView]);
+  }, [isDesktop]);
 
-  // Render the SVG with current angles
-  const svgContent = useMemo(() => {
-    return buildLatticeSvgPaths(angles.angleY, angles.angleX);
-  }, [angles]);
-
-  // Don't render on mobile
-  if (!isDesktop) return null;
+  if (!isDesktop || !mounted) return null;
 
   return (
     <div
-      ref={containerRef}
       className="absolute inset-0 z-0 pointer-events-none hidden md:block"
       aria-hidden="true"
       style={{
         maskImage:
-          "linear-gradient(to right, transparent 0%, transparent 30%, black 55%, black 100%)",
+          "linear-gradient(to right, transparent 0%, transparent 25%, black 50%, black 100%)",
         WebkitMaskImage:
-          "linear-gradient(to right, transparent 0%, transparent 30%, black 55%, black 100%)",
+          "linear-gradient(to right, transparent 0%, transparent 25%, black 50%, black 100%)",
       }}
     >
-      <svg
-        viewBox="0 0 1000 700"
-        preserveAspectRatio="xMidYMid slice"
-        className="absolute inset-0 w-full h-full"
+      <Canvas
+        camera={{ position: [0, 0, 1], fov: 50 }}
+        dpr={[1, 1.75]}
+        gl={{
+          antialias: true,
+          alpha: true,
+          powerPreference: "high-performance",
+          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 1.0,
+        }}
+        style={{ width: "100%", height: "100%" }}
       >
-        {/* Far edges — dimmest */}
-        <path
-          d={svgContent.farPath}
-          stroke="var(--foreground-muted)"
-          strokeWidth="1"
-          fill="none"
-          opacity="0.10"
-        />
-        {/* Mid edges */}
-        <path
-          d={svgContent.midPath}
-          stroke="var(--foreground-muted)"
-          strokeWidth="1"
-          fill="none"
-          opacity="0.22"
-        />
-        {/* Near edges — most visible */}
-        <path
-          d={svgContent.nearPath}
-          stroke="var(--foreground-muted)"
-          strokeWidth="1"
-          fill="none"
-          opacity="0.42"
-        />
-        {/* Vertex dots — brand color, depth-weighted */}
-        {svgContent.vertices.map((v, i) => (
-          <circle
-            key={i}
-            cx={v.x}
-            cy={v.y}
-            r={v.depth < 4.7 ? 2.2 : v.depth < 5.3 ? 1.6 : 1}
-            fill="var(--brand)"
-            opacity={v.depth < 4.7 ? 0.6 : v.depth < 5.3 ? 0.35 : 0.18}
-          />
-        ))}
-      </svg>
+        <GradientScene />
+      </Canvas>
     </div>
   );
-}
-
-/* ── Pure helper: build SVG path strings for given angles ── */
-
-function buildLatticeSvgPaths(angleY: number, angleX: number) {
-  const farSegs: string[] = [];
-  const midSegs: string[] = [];
-  const nearSegs: string[] = [];
-
-  for (const edge of LATTICE_EDGES) {
-    const fromR = rotateX(rotateY(edge.from, angleY), angleX);
-    const toR = rotateX(rotateY(edge.to, angleY), angleX);
-    const fromP = project(fromR, CAMERA_DISTANCE, FOCAL_LENGTH, CENTER_X, CENTER_Y);
-    const toP = project(toR, CAMERA_DISTANCE, FOCAL_LENGTH, CENTER_X, CENTER_Y);
-    const avgDepth = (fromP.depth + toP.depth) / 2;
-
-    const seg = `M ${fromP.x.toFixed(1)} ${fromP.y.toFixed(1)} L ${toP.x.toFixed(1)} ${toP.y.toFixed(1)}`;
-    if (avgDepth > 5.5) farSegs.push(seg);
-    else if (avgDepth > 4.5) midSegs.push(seg);
-    else nearSegs.push(seg);
-  }
-
-  const vertices = LATTICE_VERTICES.map((v) => {
-    const r = rotateX(rotateY(v, angleY), angleX);
-    return project(r, CAMERA_DISTANCE, FOCAL_LENGTH, CENTER_X, CENTER_Y);
-  });
-
-  return {
-    farPath: farSegs.join(" "),
-    midPath: midSegs.join(" "),
-    nearPath: nearSegs.join(" "),
-    vertices,
-  };
 }

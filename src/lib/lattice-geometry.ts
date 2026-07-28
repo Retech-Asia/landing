@@ -47,7 +47,7 @@ function generateLattice(size: number): { vertices: Vec3[]; edges: Edge[] } {
   return { vertices: centeredVertices, edges: centeredEdges };
 }
 
-export const LATTICE_SIZE = 4;
+export const LATTICE_SIZE = 5;
 const generated = generateLattice(LATTICE_SIZE);
 export const LATTICE_VERTICES: Vec3[] = generated.vertices;
 export const LATTICE_EDGES: Edge[] = generated.edges;
