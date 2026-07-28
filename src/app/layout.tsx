@@ -8,6 +8,7 @@ import { ReducedMotionProvider } from "@/components/ui/ReducedMotionProvider";
 import { ClientOnlyWidgets } from "@/components/ui/ClientOnlyWidgets";
 import { DeferredProviders } from "@/components/ui/DeferredProviders";
 import { DeferredPageTransition } from "@/components/ui/DeferredPageTransition";
+import { GA4 } from "@/components/ui/GA4";
 import { SITE_URL as SITE_URL_CONST, SITE_NAME as SITE_NAME_CONST, CONTACT } from "@/lib/constants";
 
 import "./globals.css";
@@ -183,6 +184,7 @@ export default function RootLayout({
             manual preload pointed at logo.svg which isn't used in the chrome. */}
         <link rel="alternate" type="application/rss+xml" title="Retech Solutions Blog" href="/feed.xml" />
         <SiteJsonLd />
+        <GA4 />
       </head>
       <body id="top" className="min-h-full flex flex-col bg-background">
         <noscript>

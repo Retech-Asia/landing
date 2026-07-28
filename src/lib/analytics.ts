@@ -46,7 +46,6 @@ function sendPayload(payload: Record<string, unknown>): void {
   });
 
   // --- Send to your own analytics endpoint ---
-  // Replace "/api/analytics" with your real endpoint when ready.
   fetch("/api/analytics", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -56,24 +55,19 @@ function sendPayload(payload: Record<string, unknown>): void {
     // Silently swallow errors — analytics should never break the UI.
   });
 
-  // --- Google Analytics 4 integration placeholder ---
-  // To enable GA4:
-  // 1. Install gtag.js via <Script> in layout.tsx (load conditionally)
-  // 2. Uncomment the block below and replace GA_MEASUREMENT_ID.
-  //
-  // if (typeof window !== "undefined" && "gtag" in window) {
-  //   window.gtag("event", payload.event as string, {
-  //     event_category: payload.category,
-  //     event_label: payload.label,
-  //     value: payload.value,
-  //   });
-  // }
-
-  // --- Vercel Analytics integration placeholder ---
-  // If you install @vercel/analytics, uncomment:
-  //
-  // import { track } from "@vercel/analytics";
-  // track(payload.event as string, payload as Record<string, string>);
+  // --- Google Analytics 4 integration ---
+  // gtag is loaded by <GA4 /> (src/components/ui/GA4.tsx) when
+  // NEXT_PUBLIC_GA_MEASUREMENT_ID is set. Consent Mode v2 ensures
+  // events are only associated with cookies after the user accepts
+  // analytics in the cookie banner.
+  if (typeof window !== "undefined" && "gtag" in window) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).gtag("event", payload.event as string, {
+      event_category: payload.category,
+      event_label: payload.label,
+      value: payload.value,
+    });
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -91,15 +85,6 @@ export function trackPageView(url: string): void {
     event: "page_view",
     url,
   });
-
-  // --- GA4 page view placeholder ---
-  // if (typeof window !== "undefined" && "gtag" in window) {
-  //   window.gtag("config", "GA_MEASUREMENT_ID", { page_path: url });
-  // }
-
-  // --- Vercel Analytics placeholder ---
-  // import { track } from "@vercel/analytics";
-  // track("page_view", { url });
 }
 
 /**
@@ -118,15 +103,6 @@ export function trackEvent(
     event: name,
     ...properties,
   });
-
-  // --- GA4 custom event placeholder ---
-  // if (typeof window !== "undefined" && "gtag" in window) {
-  //   window.gtag("event", name, properties);
-  // }
-
-  // --- Vercel Analytics placeholder ---
-  // import { track } from "@vercel/analytics";
-  // track(name, properties ?? {});
 }
 
 /**
@@ -144,15 +120,6 @@ export function trackScrollDepth(depth: number): void {
     label: `${depth}%`,
     value: depth,
   });
-
-  // --- GA4 scroll event placeholder ---
-  // if (typeof window !== "undefined" && "gtag" in window) {
-  //   window.gtag("event", "scroll", {
-  //     event_category: "engagement",
-  //     event_label: `${depth}%`,
-  //     value: depth,
-  //   });
-  // }
 }
 
 /**

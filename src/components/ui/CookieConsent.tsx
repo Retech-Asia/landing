@@ -16,6 +16,17 @@ import {
   saveConsent,
 } from "@/lib/cookie-consent";
 
+/**
+ * Notify analytics listeners (GA4 Consent Mode, etc.) that the user just
+ * saved consent preferences. The native `storage` event only fires in
+ * OTHER tabs, so we dispatch a CustomEvent on the same window for in-tab
+ * subscribers. GA4 reads the new state from localStorage on receipt.
+ */
+function notifyConsentChange() {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new CustomEvent("retech:consent-change"));
+}
+
 /** Toggle switch accessible via keyboard. */
 function Toggle({
   checked,
@@ -93,11 +104,13 @@ export function CookieConsent() {
 
   const handleAcceptAll = useCallback(() => {
     acceptAll();
+    notifyConsentChange();
     setVisible(false);
   }, []);
 
   const handleDeclineAll = useCallback(() => {
     declineAll();
+    notifyConsentChange();
     setVisible(false);
   }, []);
 
@@ -109,6 +122,7 @@ export function CookieConsent() {
       timestamp: Date.now(),
     };
     saveConsent(record);
+    notifyConsentChange();
     setVisible(false);
   }, [preferences]);
 

@@ -29,57 +29,20 @@ export function WebVitals() {
       // Respect cookie consent before sending to analytics.
       if (!hasAnalyticsConsent()) return;
 
-      // ── Google Analytics 4 integration ──────────────────────────
-      // To enable GA4 Web Vitals reporting, add the following scripts
-      // to src/app/layout.tsx <head> section. They should only load
-      // AFTER the user grants analytics consent (see CookieConsent):
-      //
-      //   import Script from "next/script";
-      //
-      //   <Script
-      //     src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX`}
-      //     strategy="afterInteractive"
-      //   />
-      //   <Script id="gtag-init" strategy="afterInteractive">
-      //     {`
-      //       window.dataLayer = window.dataLayer || [];
-      //       function gtag(){dataLayer.push(arguments);}
-      //       gtag('js', new Date());
-      //       gtag('config', 'G-XXXXXXXXXX', {
-      //         send_page_view: false
-      //       });
-      //     `}
-      //   </Script>
-      //
-      // Then uncomment below to send Web Vitals events to GA4:
-      //
-      // if (typeof window !== "undefined" && "gtag" in window) {
-      //   window.gtag("event", metric.name, {
-      //     value: Math.round(metric.name === "CLS" ? metric.value * 1000 : metric.value),
-      //     metric_id: (metric as any).id,
-      //     metric_value: metric.value,
-      //     metric_delta: metric.delta,
-      //     metric_rating: metric.rating,
-      //   });
-      // }
-
-      // ── Custom analytics endpoint ───────────────────────────────
-      // Replace "/api/analytics/web-vitals" with your real endpoint.
-      // Example:
-      // fetch("/api/analytics/web-vitals", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({
-      //     name: metric.name,
-      //     value: metric.value,
-      //     rating: metric.rating,
-      //     delta: metric.delta,
-      //     navigationType: metric.navigationType,
-      //     path: window.location.pathname,
-      //     timestamp: Date.now(),
-      //   }),
-      //   keepalive: true,
-      // }).catch(() => {});
+      // ── Google Analytics 4 Web Vitals reporting ────────────────
+      // gtag is loaded by <GA4 /> in layout.tsx when
+      // NEXT_PUBLIC_GA_MEASUREMENT_ID is set. Consent Mode v2 ensures
+      // these events are only cookie-backed after the user accepts.
+      if (typeof window !== "undefined" && "gtag" in window) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any).gtag("event", metric.name, {
+          value: Math.round(metric.name === "CLS" ? metric.value * 1000 : metric.value),
+          metric_id: (metric as { id?: string }).id,
+          metric_value: metric.value,
+          metric_delta: metric.delta,
+          metric_rating: metric.rating,
+        });
+      }
     },
     []
   );

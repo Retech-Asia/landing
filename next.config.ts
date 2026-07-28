@@ -60,11 +60,21 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com",
+              // When NEXT_PUBLIC_GA_MEASUREMENT_ID is set, allow Google's
+              // gtag.js loader + GA4 collection endpoints. Otherwise the
+              // policy stays stricter (no third-party script origins).
+              ...(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+                ? [
+                    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://www.googletagmanager.com",
+                    "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://www.google-analytics.com https://*.google-analytics.com https://*.googletagmanager.com",
+                  ]
+                : [
+                    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com",
+                    "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com",
+                  ]),
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: blob:",
-              "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com",
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self' mailto:",
