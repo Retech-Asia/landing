@@ -1,15 +1,10 @@
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { Hero } from "@/components/sections/home/Hero";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { WebPageJsonLd, FAQJsonLd } from "@/components/seo/JsonLd";
-import {
-  SectionFallback,
-  CompactSectionFallback,
-} from "@/components/ui/Skeleton";
+import { SectionFallback, CompactSectionFallback } from "@/components/ui/Skeleton";
+import { OurWork } from "@/components/sections/home/OurWork";
 
-// StatsBar + ScrollVelocityText removed — duplicated hero stats and
-// service categories that already appear in the hero + ServicePreview.
 // Below-fold sections: lazy-loaded to reduce initial JS bundle
 const TrustedBy = dynamic(
   () => import("@/components/sections/home/TrustedBy").then((m) => m.TrustedBy),
@@ -19,27 +14,9 @@ const ServicePreview = dynamic(
   () => import("@/components/sections/home/ServicePreview").then((m) => m.ServicePreview),
   { loading: () => <SectionFallback /> },
 );
-const ProductShowcase = dynamic(
-  () => import("@/components/sections/home/ProductShowcase").then((m) => m.ProductShowcase),
-  { loading: () => <SectionFallback /> },
-);
 const MidPageCTA = dynamic(
   () => import("@/components/sections/home/MidPageCTA").then((m) => m.MidPageCTA),
   { loading: () => <CompactSectionFallback /> },
-);
-const ProductTabs = dynamic(
-  () => import("@/components/sections/home/ProductTabs").then((m) => m.ProductTabs),
-  { loading: () => <SectionFallback /> },
-);
-// Partners section removed — duplicated TechStack content.
-// const Partners = dynamic(...)
-const SuccessStories = dynamic(
-  () => import("@/components/sections/home/SuccessStories").then((m) => m.SuccessStories),
-  { loading: () => <SectionFallback /> },
-);
-const Testimonials = dynamic(
-  () => import("@/components/sections/home/Testimonials").then((m) => m.Testimonials),
-  { loading: () => <SectionFallback /> },
 );
 const WhyRetech = dynamic(
   () => import("@/components/sections/home/WhyRetech").then((m) => m.WhyRetech),
@@ -53,17 +30,24 @@ const TechStack = dynamic(
   () => import("@/components/sections/home/TechStack").then((m) => m.TechStack),
   { loading: () => <SectionFallback /> },
 );
-const HomeFAQ = dynamic(
-  () => import("@/components/sections/home/HomeFAQ").then((m) => m.HomeFAQ),
+const Testimonials = dynamic(
+  () => import("@/components/sections/home/Testimonials").then((m) => m.Testimonials),
   { loading: () => <SectionFallback /> },
 );
 const HomeCTA = dynamic(
   () => import("@/components/sections/home/HomeCTA").then((m) => m.HomeCTA),
   { loading: () => <CompactSectionFallback /> },
 );
-const ScrollReveal = dynamic(
-  () => import("@/components/ui/ScrollReveal").then((m) => m.ScrollReveal),
-);
+
+// Removed per competitor research (docs/competitor-homepage-research.md):
+// - StatsBar (duplicate of hero stats)
+// - ScrollVelocityText × 2 (redundant marquee)
+// - ProductShowcase (merged into OurWork)
+// - ProductTabs (merged into OurWork)
+// - SuccessStories (merged into OurWork)
+// - HomeFAQ (competitors put FAQ at /faq, not homepage)
+// - Team collaboration photo (filler, no competitor does this)
+// - ScrollReveal wrappers (double animation)
 
 const homeFAQItems = [
   {
@@ -103,47 +87,32 @@ export default function HomePage() {
       />
       <FAQJsonLd questions={homeFAQItems} />
 
-      {/* ScrollGradientShift removed — was causing scroll jank. The
-          filter:hue-rotate() on a fixed full-viewport element forces a
-          full-layer repaint every scroll frame, making scrolling feel
-          "stuck" at certain points. Not worth the visual payoff. */}
-
-      {/* 1. Hero — always first */}
+      {/* 1. Hero */}
       <Hero />
 
-      {/* StatsBar + ScrollVelocityText strips removed — duplicated hero
-          stats and service categories. Hero → directly into TrustedBy. */}
-
-      {/* 2. TrustedBy — social proof as early as possible */}
+      {/* 2. TrustedBy — social proof */}
       <TrustedBy />
 
       <SectionDivider />
 
-      {/* 4. ServicePreview — what we do */}
+      {/* 3. ServicePreview — what we do */}
       <ServicePreview />
 
       <SectionDivider />
 
-      {/* 5. ProductShowcase — proof of capability (show before claims) */}
-      <ProductShowcase />
+      {/* 4. OurWork — unified proof-of-work (replaces ProductShowcase +
+          ProductTabs + SuccessStories). 5 case study cards, metric-led. */}
+      <OurWork />
 
       <SectionDivider />
 
-      {/* 5.5 Mid-page CTA — capture interest while engagement is high */}
+      {/* 5. MidPageCTA */}
       <MidPageCTA />
 
       <SectionDivider />
 
-      {/* Stripe-style tabbed product showcase — replaces the AI visual strip.
-          Auto-rotating tabs showing real Retech product surfaces (Investment
-          Intelligence dashboard, Mining Analytics, AI Analysis chat, multi-agent
-          architecture diagram). Buyer sees 4 different shipped products in 20s. */}
-      <ProductTabs />
-
-      {/* 6. WhyRetech — differentiators / value proposition */}
-      <ScrollReveal speed={0.05}>
-        <WhyRetech />
-      </ScrollReveal>
+      {/* 6. WhyRetech — differentiators */}
+      <WhyRetech />
 
       <SectionDivider />
 
@@ -152,60 +121,17 @@ export default function HomePage() {
 
       <SectionDivider />
 
-      {/* 8. TechStack — technical detail after establishing value.
-          Previously followed by a 3rd ScrollVelocity strip + Partners section.
-          Both removed: ScrollVelocity was redundant with the two at top,
-          Partners duplicated TechStack content (logo grid of the same tech
-          brands we already show above). */}
-      <ScrollReveal speed={0.08}>
-        <TechStack />
-      </ScrollReveal>
+      {/* 8. TechStack — technical credibility */}
+      <TechStack />
 
       <SectionDivider variant="subtle" />
 
-      {/* Visual breather — team collaboration photo between content-heavy
-          sections. Adds human element after the technical TechStack section. */}
-      <section className="relative h-[320px] md:h-[440px] overflow-hidden">
-        <Image
-          src="/images/stock/team-collaboration.webp"
-          alt="Retech Solutions engineering team collaborating on a project"
-          fill
-          quality={90}
-          sizes="100vw"
-          className="object-cover transition-transform duration-700 hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-background/10" />
-        <div className="absolute inset-0 flex items-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="max-w-lg">
-              <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-3 text-balance">
-                Built by engineers who care about your outcomes
-              </h2>
-              <p className="text-sm md:text-base text-foreground-secondary leading-relaxed">
-                Every project is led by a senior engineer who owns delivery
-                end to end. No handoff to a junior team after the sale.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 10. SuccessStories — deeper proof */}
-      <SuccessStories />
-
-      <SectionDivider variant="subtle" />
-
-      {/* 11. Testimonials — voice of customers */}
+      {/* 9. Testimonials — client metrics + trusted process */}
       <Testimonials />
 
-      <SectionDivider />
-
-      {/* 12. FAQ — objection handling before final CTA */}
-      <HomeFAQ />
-
       <SectionDivider variant="subtle" />
 
-      {/* 13. HomeCTA — final conversion push */}
+      {/* 10. HomeCTA — final conversion */}
       <HomeCTA />
     </>
   );
