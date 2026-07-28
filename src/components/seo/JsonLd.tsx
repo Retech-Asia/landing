@@ -228,8 +228,8 @@ function getLocalBusinessSchema() {
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 10.8231,
-      longitude: 106.6297,
+      latitude: 10.790034,
+      longitude: 106.685207,
     },
     telephone: CONTACT.phoneHref.replace("tel:", ""),
     email: CONTACT.email,
@@ -518,8 +518,8 @@ export function ContactPageLocalBusinessJsonLd() {
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 10.8231,
-      longitude: 106.6297,
+      latitude: 10.790034,
+      longitude: 106.685207,
     },
     telephone: CONTACT.phoneHref.replace("tel:", ""),
     email: CONTACT.email,
