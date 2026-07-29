@@ -85,7 +85,7 @@ export function WhyVietnam() {
         <SectionHeader
           label="Why Vietnam"
           title="A Strategic Outsourcing Destination"
-          description="Vietnam offers a combination of STEM talent, cost efficiency, and business-friendly policies that make it a competitive outsourcing destination within ASEAN."
+          description="Vietnam IT outsourcing combines deep STEM talent, cost efficiency, and timezone overlap with APAC and EU — making it a competitive offshore software development destination within ASEAN."
           gradient
         />
 

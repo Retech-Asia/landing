@@ -158,7 +158,7 @@ function BlogListingGrid({
                   href={`/blog/${featuredPost.slug}`}
                   className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand-dark transition-colors group/link"
                 >
-                  Read article
+                  Read <span className="sr-only">{featuredPost.title}</span>
                   <ArrowRight
                     size={14}
                     className="group-hover/link:translate-x-0.5 transition-transform"
@@ -253,10 +253,10 @@ function BlogListingGrid({
 
                         <Link
                           href={`/blog/${post.slug}`}
-                          aria-label={`Read more about ${post.title}`}
+                          aria-label={`Read ${post.title}`}
                           className="text-sm font-medium text-brand hover:text-brand-dark transition-colors inline-flex items-center gap-1"
                         >
-                          Read more
+                          Read <span className="sr-only">{post.title}</span>
                           <ArrowRight
                             size={14}
                             className="group-hover:translate-x-0.5 transition-transform"

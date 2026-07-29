@@ -471,7 +471,7 @@ export default async function ServiceDetailPage({
           <AnimatedSection variant="slideUp">
             <SectionHeader
               title={`Why Choose Our ${service.title}`}
-              description="The key advantages that set our solutions apart."
+              description={`The advantages of partnering with our Vietnam-based team for ${service.title.toLowerCase()} — and what sets our delivery apart from typical outsourcing engagements.`}
             />
           </AnimatedSection>
 
