@@ -8,8 +8,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/ping-indexnow.js",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "ping:indexnow": "node scripts/ping-indexnow.js"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
