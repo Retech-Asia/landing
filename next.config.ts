@@ -65,19 +65,26 @@ const nextConfig: NextConfig = {
               // policy stays stricter (no third-party script origins).
               ...(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
                 ? [
+                    // GA4 uses multiple Google domains. Per Google's docs:
+                    // - googletagmanager.com hosts the gtag.js loader
+                    // - google-analytics.com + analytics.google.com receive events
+                    // - www.google.com/g/collect is a fallback collect endpoint
+                    // - www.google.<tld>/ads/ga-audiences is the Google Signals
+                    //   pixel (region-specific TLD, e.g. google.com.vn for VN)
                     "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://www.googletagmanager.com",
-                    "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://www.google-analytics.com https://*.google-analytics.com https://*.googletagmanager.com",
+                    "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://*.google.com https://*.googletagmanager.com",
+                    "img-src 'self' data: blob: https://*.google.com https://www.google.com.vn https://*.google-analytics.com https://*.googletagmanager.com",
                   ]
                 : [
                     "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com",
                     "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com",
+                    "img-src 'self' data: blob:",
                   ]),
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: blob:",
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self' mailto:",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "font-src 'self' https://fonts.gstatic.com",
             ].join("; "),
           },
         ],
