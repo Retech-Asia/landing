@@ -11,7 +11,8 @@
     "postbuild": "node scripts/ping-indexnow.js",
     "start": "next start",
     "lint": "eslint",
-    "ping:indexnow": "node scripts/ping-indexnow.js"
+    "ping:indexnow": "node scripts/ping-indexnow.js",
+    "generate:favicon": "node scripts/generate-favicon.js"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
@@ -39,6 +40,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
