@@ -123,7 +123,7 @@ export function Hero() {
               Turning Ideas
               <br />
               into{" "}
-              <span className="italic text-brand">Solutions</span>
+              <span className="font-display italic text-brand">Solutions</span>
             </p>
 
             {/* Dynamic subtitle with rotating service type. */}
