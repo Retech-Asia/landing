@@ -308,7 +308,7 @@ export function Navbar() {
               single SVG containing <text> elements failed: SVG text via <img>
               can't access web fonts and the hardcoded fill colors didn't
               adapt to dark backgrounds (navy text invisible on green footer). */}
-          <Link href="/" className="flex items-center gap-2 group shrink-0" aria-label="Retech Solutions home">
+          <Link href="/" className="flex items-center gap-1.5 group shrink-0" aria-label="Retech Solutions home">
             <img
               src="/images/logo.svg"
               alt="Retech Solutions"
@@ -317,7 +317,7 @@ export function Navbar() {
               decoding="async"
               className="h-7 sm:h-8 md:h-9 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-[1.05]"
             />
-            <span className="text-base sm:text-lg md:text-xl font-bold tracking-tight text-foreground whitespace-nowrap">
+            <span className="text-base sm:text-lg md:text-xl font-bold tracking-[-0.04em] text-foreground whitespace-nowrap">
               Retech<span className="text-brand"> Solutions</span>
             </span>
           </Link>
