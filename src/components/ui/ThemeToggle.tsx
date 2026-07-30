@@ -78,32 +78,16 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Initialise theme from stored/system preference on mount
+  // Initialise theme: explicit user choice wins, otherwise default to light
+  // (do NOT auto-follow system preference). The initial server snapshot is
+  // also "light" (see getThemeServerSnapshot above) so there is no flash.
   useEffect(() => {
     const stored = getStoredPreference();
-    const resolved = stored ?? getSystemPreference();
+    const resolved = stored ?? "light";
     setTheme(resolved);
     // eslint-disable-next-line react-hooks/set-state-in-effect -- mount flag, fires once
     setMounted(true);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Listen for system preference changes when no explicit preference is stored
-  useEffect(() => {
-    if (!mounted) return;
-
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      // Only auto-switch if the user hasn't explicitly chosen a theme
-      if (!getStoredPreference()) {
-        const newTheme = e.matches ? "dark" : "light";
-        setTheme(newTheme);
-      }
-    };
-
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [mounted, setTheme]);
 
   const toggleTheme = useCallback(() => {
     const next = theme === "light" ? "dark" : "light";
