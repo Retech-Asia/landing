@@ -10,7 +10,6 @@ import {
 import { motion } from "framer-motion";
 import { CONTACT } from "@/lib/constants";
 import { services } from "@/lib/services-data";
-import { BrandLockup } from "@/components/ui/BrandLockup";
 import { Container } from "@/components/ui/Container";
 import {
   StaggerContainer,
@@ -73,14 +72,20 @@ export function Footer() {
             >
               <Link
                 href="/"
-                className="inline-flex items-center group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm text-white"
+                className="inline-flex items-center gap-1.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
                 aria-label="Retech Solutions home"
-                style={{ ["--lockup-accent" as string]: "var(--brand-light)" }}
               >
-                <BrandLockup
-                  title="Retech Solutions — home"
+                <img
+                  src="/images/logo.svg"
+                  alt="Retech Solutions"
+                  width={32}
+                  height={32}
+                  decoding="async"
                   className="h-7 md:h-8 w-auto opacity-90 group-hover:opacity-100 transition-opacity"
                 />
+                <span className="text-lg md:text-xl font-bold tracking-[-0.04em] text-white whitespace-nowrap">
+                  Retech<span className="text-brand-light"> Solutions</span>
+                </span>
               </Link>
             </motion.div>
             <p className="text-sm text-white/70 leading-relaxed mb-4 max-w-xs">

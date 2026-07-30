@@ -5,7 +5,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BrandLockup } from "@/components/ui/BrandLockup";
+import Image from "next/image";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -303,20 +303,22 @@ export function Navbar() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Brand lockup — composed icon + wordmark as a single inline SVG.
-              Wordmark paths converted from General Sans 700 via
-              scripts/generate-logo-full.js so it renders identically across
-              browsers/OS without web fonts. Inlined (not <img>) so CSS custom
-              properties propagate from parent and color adapts per surface:
-              "Retech" follows currentColor; "Solutions" follows
-              --lockup-accent (defaults to var(--brand)). */}
+          {/* Brand lockup — composed icon + wordmark as a single designed
+              asset. Source: public/images/og-image.webp (the canonical
+              banner), trimmed to content bounds via scripts/crop-logo-lockup.js
+              so the lockup fills its image box cleanly at small navbar sizes. */}
           <Link
             href="/"
-            className="flex items-center group shrink-0 text-foreground"
+            className="flex items-center group shrink-0"
             aria-label="Retech Solutions home"
           >
-            <BrandLockup
-              title="Retech Solutions — home"
+            <Image
+              src="/images/logo-lockup.webp"
+              alt="Retech Solutions"
+              width={284}
+              height={33}
+              priority
+              decoding="async"
               className="h-7 sm:h-8 md:h-9 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-[1.03]"
             />
           </Link>
