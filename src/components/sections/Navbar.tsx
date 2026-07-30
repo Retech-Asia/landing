@@ -5,6 +5,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BrandLockup } from "@/components/ui/BrandLockup";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -302,24 +303,22 @@ export function Navbar() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo — icon SVG + HTML wordmark. The icon is the real Retech
-              hexagonal-R mark. The wordmark is styled in HTML so it adapts
-              to light/dark themes automatically. Previous attempt with a
-              single SVG containing <text> elements failed: SVG text via <img>
-              can't access web fonts and the hardcoded fill colors didn't
-              adapt to dark backgrounds (navy text invisible on green footer). */}
-          <Link href="/" className="flex items-center gap-1.5 group shrink-0" aria-label="Retech Solutions home">
-            <img
-              src="/images/logo.svg"
-              alt="Retech Solutions"
-              width={36}
-              height={36}
-              decoding="async"
-              className="h-7 sm:h-8 md:h-9 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-[1.05]"
+          {/* Brand lockup — composed icon + wordmark as a single inline SVG.
+              Wordmark paths converted from General Sans 700 via
+              scripts/generate-logo-full.js so it renders identically across
+              browsers/OS without web fonts. Inlined (not <img>) so CSS custom
+              properties propagate from parent and color adapts per surface:
+              "Retech" follows currentColor; "Solutions" follows
+              --lockup-accent (defaults to var(--brand)). */}
+          <Link
+            href="/"
+            className="flex items-center group shrink-0 text-foreground"
+            aria-label="Retech Solutions home"
+          >
+            <BrandLockup
+              title="Retech Solutions — home"
+              className="h-7 sm:h-8 md:h-9 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-[1.03]"
             />
-            <span className="text-base sm:text-lg md:text-xl font-bold tracking-[-0.04em] text-foreground whitespace-nowrap">
-              Retech<span className="text-brand"> Solutions</span>
-            </span>
           </Link>
 
           {/* Desktop Nav */}

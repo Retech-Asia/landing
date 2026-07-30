@@ -12,7 +12,8 @@
     "start": "next start",
     "lint": "eslint",
     "ping:indexnow": "node scripts/ping-indexnow.js",
-    "generate:favicon": "node scripts/generate-favicon.js"
+    "generate:favicon": "node scripts/generate-favicon.js",
+    "generate:logo-full": "node scripts/generate-logo-full.js"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
@@ -40,6 +41,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "fontkit": "^2.0.4",
     "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "typescript": "^5"
