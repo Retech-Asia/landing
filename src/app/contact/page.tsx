@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Phone, Mail, MessageSquare, FileText, Video, Hash, ArrowRight } from "lucide-react";
+import { Clock, Mail, MessageSquare, FileText, Video, Hash, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import Image from "next/image";
 import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
@@ -75,13 +75,13 @@ const communicationChannels = [
     href: CONTACT.emailHref,
   },
   {
-    icon: Phone,
+    icon: Clock,
     color: "text-accent-cyan",
     bg: "bg-accent-cyan/10",
-    title: "Call Us",
-    detail: CONTACT.phone,
-    description: "Speak directly with our team",
-    href: CONTACT.phoneHref,
+    title: "Response Time",
+    detail: "< 1 business day",
+    description: "We reply to every inquiry within one business day",
+    href: CONTACT.emailHref,
   },
   {
     icon: MessageSquare,
@@ -253,10 +253,10 @@ export default function ContactPage() {
                 iconName="phone"
                 iconBg="bg-accent-cyan/10"
                 iconColor="text-accent-cyan"
-                label="Phone"
-                value={CONTACT.phone}
-                description="Speak directly with our team"
-                action={{ type: "link", href: CONTACT.phoneHref, label: "Call us" }}
+                label="Email"
+                value={CONTACT.email}
+                description="Replies within one business day"
+                action={{ type: "link", href: CONTACT.emailHref, label: "Email us" }}
               />
               <ContactInfoCard
                 iconName="mapPin"
@@ -281,16 +281,16 @@ export default function ContactPage() {
                   Quick Response Guaranteed
                 </h3>
                 <p className="text-sm text-white/60 mb-4">
-                  We respond to all inquiries within one business day. For urgent
-                  requests, call us directly.
+                  We respond to all inquiries within one business day. Email
+                  is the fastest channel — we monitor it throughout the day.
                 </p>
                 <Button
                   variant="secondary"
-                  href={CONTACT.phoneHref}
+                  href={CONTACT.emailHref}
                   size="sm"
                 >
-                  <Phone size={14} />
-                  Call Now
+                  <Mail size={14} />
+                  Email Us
                 </Button>
               </div>
             </Card>

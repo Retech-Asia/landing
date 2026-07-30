@@ -1,6 +1,6 @@
 "use client";
 
-import { Globe, MapPin, Building2, Clock, Mail, Phone } from "lucide-react";
+import { Globe, MapPin, Building2, Clock, Mail } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import {
@@ -131,13 +131,6 @@ export function GlobalReach() {
                   >
                     <Mail size={14} className="shrink-0" />
                     {CONTACT.email}
-                  </a>
-                  <a
-                    href={CONTACT.phoneHref}
-                    className="flex items-center gap-2 text-sm text-foreground-secondary hover:text-brand transition-colors"
-                  >
-                    <Phone size={14} className="shrink-0" />
-                    {CONTACT.phone}
                   </a>
                 </div>
               </div>

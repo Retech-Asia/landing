@@ -219,7 +219,6 @@ export default function RootLayout({
             <p style={{ marginBottom: '1rem', lineHeight: 1.6 }}>Please enable JavaScript for the full interactive experience, or contact us directly:</p>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               <li style={{ marginBottom: '0.375rem' }}><strong>Email:</strong> <a href={CONTACT.emailHref} style={{ color: '#208535' }}>{CONTACT.email}</a></li>
-              <li style={{ marginBottom: '0.375rem' }}><strong>Phone:</strong> <a href={CONTACT.phoneHref} style={{ color: '#208535' }}>{CONTACT.phone}</a></li>
               <li><strong>Website:</strong> <a href={SITE_URL} style={{ color: '#208535' }}>retech.asia</a></li>
             </ul>
           </div>

@@ -778,6 +778,17 @@ p, li {
    "Solutions" span now uses Instrument Serif italic + var(--brand)
    accent. Baseline captured in docs/hallmark-revamp-baseline.md. */
 
+/* Footer brand lockup silhouette.
+   The og-image-derived lockup has navy "Retech" + brand green "Solutions"
+   which disappear on the footer's dark green background. Filter to a pure
+   white silhouette so the lockup reads cleanly. Trade-off: we lose the
+   brand green accent in the footer — acceptable since the navbar carries
+   the full-color lockup. Stripe/Vercel use the same pattern for footer
+   logos on dark surfaces. */
+.footer-logo-silhouette {
+  filter: brightness(0) invert(1);
+}
+
 /* Hero shader composition helpers.
    .lattice-mask — clips the LatticeField shader plane.
      Desktop: right-biased (text column on the left stays clean).

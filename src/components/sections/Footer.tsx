@@ -1,11 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import {
-  ArrowUp,
+import Image from "next/image";
+import {  ArrowUp,
   Mail,
   MapPin,
-  Phone,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { CONTACT } from "@/lib/constants";
@@ -72,20 +71,17 @@ export function Footer() {
             >
               <Link
                 href="/"
-                className="inline-flex items-center gap-1.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
+                className="inline-flex items-center group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
                 aria-label="Retech Solutions home"
               >
-                <img
-                  src="/images/logo.svg"
+                <Image
+                  src="/images/logo-lockup.webp"
                   alt="Retech Solutions"
-                  width={32}
-                  height={32}
+                  width={284}
+                  height={33}
                   decoding="async"
-                  className="h-7 md:h-8 w-auto opacity-90 group-hover:opacity-100 transition-opacity"
+                  className="h-7 md:h-8 w-auto opacity-90 group-hover:opacity-100 transition-opacity footer-logo-silhouette"
                 />
-                <span className="text-lg md:text-xl font-bold tracking-[-0.04em] text-white whitespace-nowrap">
-                  Retech<span className="text-brand-light"> Solutions</span>
-                </span>
               </Link>
             </motion.div>
             <p className="text-sm text-white/70 leading-relaxed mb-4 max-w-xs">
@@ -108,16 +104,7 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a
-                  href={CONTACT.phoneHref}
-                  className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rounded-sm"
-                >
-                  <Phone size={14} className="shrink-0" aria-hidden="true" />
-                  {CONTACT.phone}
-                </a>
-              </li>
-              <li>
-                {/* WhatsApp — styled to match the Mail/Phone contact rows.
+                {/* WhatsApp — styled to match the Mail contact row.
                     Uses the WhatsApp green (#25D366) on the icon so it's
                     recognizable as WhatsApp without being a loud CTA in the
                     footer context. */}

@@ -83,7 +83,6 @@ function getOrganizationSchema() {
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
-      telephone: CONTACT.phoneHref.replace("tel:", ""),
       email: CONTACT.email,
       availableLanguage: ["English", "Vietnamese"],
     },
@@ -231,7 +230,6 @@ function getLocalBusinessSchema() {
       latitude: 10.790034,
       longitude: 106.685207,
     },
-    telephone: CONTACT.phoneHref.replace("tel:", ""),
     email: CONTACT.email,
     priceRange: "$$",
     openingHoursSpecification: [
@@ -521,7 +519,6 @@ export function ContactPageLocalBusinessJsonLd() {
       latitude: 10.790034,
       longitude: 106.685207,
     },
-    telephone: CONTACT.phoneHref.replace("tel:", ""),
     email: CONTACT.email,
     priceRange: "$$",
     openingHoursSpecification: [
