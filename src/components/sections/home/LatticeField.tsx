@@ -1,15 +1,21 @@
 "use client";
 
 /**
- * Stripe-style flowing gradient hero.
+ * Hero ambient gradient — fragment-shader plane.
  *
- * Fragment shader plane with drifting radial color sources (brand green,
- * cyan, violet, brand-light). Slow ambient motion via low-frequency noise.
- * Adapted from the variant tested at /hero-variants (Variant E).
+ * Four drifting radial color sources (brand green, cyan, violet, brand
+ * light) blended per-pixel as a weighted average. Slow ambient drift via
+ * 2-octave simplex noise + FBM turbulence. ACES tonemapped + Bloom +
+ * Vignette postprocessing. Reads as atmospheric light, not a graphic.
  *
- * Position: right side of hero, masked via CSS gradient to fade left edge.
- * Mobile (< 768px): returns null, clean text-only hero.
- * Reduced motion: static render at uTime=0, no rAF.
+ * Responsive: right-biased on desktop (mask fades the left edge so text
+ * reads cleanly), full-coverage with reduced opacity on mobile.
+ *
+ * LCP-safe: mount is deferred via requestIdleCallback until the browser
+ * is idle (max 2s timeout), so the shader never blocks first paint.
+ *
+ * Reduced motion: uTime is frozen at a balanced static frame; no rAF
+ * advancement.
  */
 
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -98,9 +104,13 @@ const fragmentShader = /* glsl */ `
     vec2 uv = vUv;
     float aspect = uResolution.x / max(uResolution.y, 1.0);
     vec2 aspectUv = vec2(uv.x * aspect, uv.y);
-    float t = uTime * 0.03;
+    float t = uTime * 0.05;
 
-    // 4 drifting radial color sources — biased to right side
+    // 4 drifting radial color sources — biased to right side.
+    // Start positions tuned so all four colors are visible from frame 1
+    // (the original tune had src3/violet starting at y=0.22, hidden in
+    // the bottom corner — users saw "only green" for ~15s until violet
+    // drifted into the focal area).
     vec2 src1Pos = vec2(
       (0.55 + snoise(vec2(t * 0.5, 0.0)) * 0.15) * aspect,
       0.65 + snoise(vec2(0.0, t * 0.5)) * 0.12
@@ -114,10 +124,10 @@ const fragmentShader = /* glsl */ `
     float src2 = radialSource(aspectUv, src2Pos, 0.55);
 
     vec2 src3Pos = vec2(
-      (0.70 + snoise(vec2(t * 0.6 + 10.0, 0.0)) * 0.13) * aspect,
-      0.22 + snoise(vec2(0.0, t * 0.6 + 10.0)) * 0.10
+      (0.72 + snoise(vec2(t * 0.6 + 10.0, 0.0)) * 0.13) * aspect,
+      0.48 + snoise(vec2(0.0, t * 0.6 + 10.0)) * 0.12
     );
-    float src3 = radialSource(aspectUv, src3Pos, 0.5);
+    float src3 = radialSource(aspectUv, src3Pos, 0.55);
 
     vec2 src4Pos = vec2(
       (0.95 + snoise(vec2(t * 0.7 + 15.0, 0.0)) * 0.08) * aspect,
@@ -158,7 +168,7 @@ const fragmentShader = /* glsl */ `
 
 /* ── Scene ── */
 
-function GradientPlane() {
+function GradientPlane({ freezeTime }: { freezeTime: number | null }) {
   const matRef = useRef<THREE.ShaderMaterial>(null);
   const uniforms = useMemo(
     () => ({
@@ -170,7 +180,10 @@ function GradientPlane() {
 
   useFrame(({ clock, size }) => {
     if (!matRef.current) return;
-    matRef.current.uniforms.uTime.value = clock.getElapsedTime();
+    // Reduced motion: lock to a fixed moment that shows all four colors
+    // (the rebalanced start positions are tuned for this).
+    matRef.current.uniforms.uTime.value =
+      freezeTime ?? clock.getElapsedTime();
     matRef.current.uniforms.uResolution.value.set(size.width, size.height);
   });
 
@@ -187,10 +200,10 @@ function GradientPlane() {
   );
 }
 
-function GradientScene() {
+function GradientScene({ freezeTime }: { freezeTime: number | null }) {
   return (
     <>
-      <GradientPlane />
+      <GradientPlane freezeTime={freezeTime} />
       <EffectComposer enableNormalPass={false}>
         <Bloom intensity={0.35} luminanceThreshold={1.0} mipmapBlur radius={0.5} />
         <Vignette eskil={false} offset={0.2} darkness={0.25} />
@@ -203,29 +216,19 @@ function GradientScene() {
 
 export function LatticeField() {
   const [mounted, setMounted] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const desktopMq = window.matchMedia("(min-width: 768px)");
     const motionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => {
-      setIsDesktop(desktopMq.matches);
-      setPrefersReducedMotion(motionMq.matches);
-    };
+    const update = () => setPrefersReducedMotion(motionMq.matches);
     update();
-    desktopMq.addEventListener("change", update);
     motionMq.addEventListener("change", update);
-    return () => {
-      desktopMq.removeEventListener("change", update);
-      motionMq.removeEventListener("change", update);
-    };
+    return () => motionMq.removeEventListener("change", update);
   }, []);
 
   // Defer mount until idle (LCP protection)
   useEffect(() => {
-    if (!isDesktop) return;
     const idle =
       (window as Window & {
         requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
@@ -239,20 +242,18 @@ export function LatticeField() {
         ((h: number) => clearTimeout(h));
       cancel(handle as number);
     };
-  }, [isDesktop]);
+  }, []);
 
-  if (!isDesktop || !mounted) return null;
+  if (!mounted) return null;
+
+  // Reduced motion: lock uTime so the frame is static at a balanced moment.
+  // uTime=10 with the rebalanced start positions shows all four colors.
+  const freezeTime = prefersReducedMotion ? 10 : null;
 
   return (
     <div
-      className="absolute inset-0 z-0 pointer-events-none hidden md:block"
+      className="absolute inset-0 z-0 pointer-events-none lattice-mask"
       aria-hidden="true"
-      style={{
-        maskImage:
-          "linear-gradient(to right, transparent 0%, transparent 25%, black 50%, black 100%)",
-        WebkitMaskImage:
-          "linear-gradient(to right, transparent 0%, transparent 25%, black 50%, black 100%)",
-      }}
     >
       <Canvas
         camera={{ position: [0, 0, 1], fov: 50 }}
@@ -266,7 +267,7 @@ export function LatticeField() {
         }}
         style={{ width: "100%", height: "100%" }}
       >
-        <GradientScene />
+        <GradientScene freezeTime={freezeTime} />
       </Canvas>
     </div>
   );

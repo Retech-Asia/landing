@@ -207,7 +207,11 @@ export default function RootLayout({
         <SiteJsonLd />
         <GA4 />
       </head>
-      <body id="top" className="min-h-full flex flex-col bg-background">
+      <body
+        id="top"
+        className="min-h-full flex flex-col bg-background"
+        suppressHydrationWarning
+      >
         <noscript>
           <div style={{ padding: '32px 20px', textAlign: 'center', fontFamily: 'system-ui, sans-serif', maxWidth: '640px', margin: '0 auto' }}>
             <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '0.75rem' }}>{SITE_NAME}</h1>

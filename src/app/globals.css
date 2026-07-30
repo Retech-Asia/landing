@@ -778,6 +778,84 @@ p, li {
    "Solutions" span now uses Instrument Serif italic + var(--brand)
    accent. Baseline captured in docs/hallmark-revamp-baseline.md. */
 
+/* Hero shader composition helpers.
+   .lattice-mask — clips the LatticeField shader plane.
+     Desktop: right-biased (text column on the left stays clean).
+     Mobile:  full coverage at near-full opacity, no aggressive fade.
+   .hero-grid-overlay — grid pattern as a texture over the shader, using
+     blend-mode: overlay. Radial mask fades the grid at the hero edges so
+     it feels etched into the gradient, not painted on top of it.
+   .hero-text-scrim — darkens the text region of the hero so the headline
+     stays readable over the shader.
+     Desktop: left-to-right gradient (text column dark, shader bright).
+     Mobile:  center-out radial scrim focused behind the headline + CTAs. */
+.lattice-mask {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    transparent 25%,
+    black 50%,
+    black 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    transparent 25%,
+    black 50%,
+    black 100%
+  );
+}
+.hero-grid-overlay {
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 70% at 60% 45%,
+    black 50%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 80% 70% at 60% 45%,
+    black 50%,
+    transparent 100%
+  );
+}
+.hero-text-scrim {
+  background: linear-gradient(
+    to right,
+    var(--background) 0%,
+    var(--background) 30%,
+    transparent 60%
+  );
+}
+@media (max-width: 767px) {
+  .lattice-mask {
+    opacity: 0.85;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .hero-grid-overlay {
+    opacity: 0.28;
+    mix-blend-mode: overlay;
+    -webkit-mask-image: radial-gradient(
+      ellipse 90% 70% at 50% 40%,
+      black 50%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 90% 70% at 50% 40%,
+      black 50%,
+      transparent 100%
+    );
+  }
+  .hero-text-scrim {
+    background: radial-gradient(
+      ellipse 90% 55% at 50% 40%,
+      var(--background) 0%,
+      transparent 70%
+    );
+  }
+}
+
 /* LCP-critical entrance for the hero content container.
    Pure CSS so it can't be blocked by client-side JS hydration.
    The container holds the eyebrow, h1, subhead, CTAs, and stats — they

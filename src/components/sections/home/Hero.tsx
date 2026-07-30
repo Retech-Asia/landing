@@ -6,9 +6,11 @@ import { Button } from "@/components/ui/Button";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { Container } from "@/components/ui/Container";
 import { Magnetic } from "@/components/ui/Magnetic";
-// ConstellationHero swapped for LatticeField — abstract 3D lattice hero
-// (4×4×4 octahedral grid, slowly rotating, depth-bucketed SVG paths).
-// Premium ambient motion, no labels, no clickable elements.
+// Hero ambient gradient (LatticeField is the historical component name;
+// the implementation is now a fragment-shader gradient plane — see
+// LatticeField.tsx for the recipe). Four drifting brand color sources,
+// right-biased on desktop, full-coverage on mobile. Idle-deferred so it
+// never blocks LCP.
 import { LatticeField } from "@/components/sections/home/LatticeField";
 import { STATS } from "@/lib/constants";
 
@@ -62,28 +64,24 @@ export function Hero() {
       ref={sectionRef}
       className="relative min-h-screen flex items-center overflow-hidden pt-16"
     >
-      {/* Background: subtle grid pattern (low opacity). */}
+      {/* Background layers (bottom to top):
+          1. LatticeField shader (four drifting brand-colored light sources)
+          2. Grid pattern overlay (blend-mode: overlay) — engineering texture
+             on top of the gradient, Stripe/Linear-style. Both layers are
+             masked so the headline area stays readable. */}
+      <LatticeField />
       <div
-        className="absolute inset-0 grid-pattern pointer-events-none z-0"
-        style={{ opacity: 0.4 }}
+        className="absolute inset-0 grid-pattern hero-grid-overlay pointer-events-none z-0"
         aria-hidden="true"
       />
 
-      {/* Lattice field — abstract 3D lattice hero. 4×4×4 octahedral grid
-          slowly rotating in 3D space, depth-bucketed SVG paths, brand-color
-          vertex dots. Premium ambient motion that signals engineering
-          precision without being literal. Desktop-only, mouse parallax,
-          reduced-motion aware. */}
-      <LatticeField />
-
-      {/* Text scrim — left-to-right gradient that darkens the left portion
-          of the hero so the headline stays readable over any star halo. */}
+      {/* Text scrim — responsive gradient that keeps the headline readable
+          over the shader. Desktop: left-to-right (dark behind the text
+          column, transparent where the shader peaks on the right).
+          Mobile: top-to-bottom (dark over the headline area, fading to
+          transparent below). */}
       <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to right, var(--background) 0%, var(--background) 30%, transparent 60%)",
-        }}
+        className="absolute inset-0 z-[1] pointer-events-none hero-text-scrim"
         aria-hidden="true"
       />
 
@@ -101,7 +99,7 @@ export function Hero() {
         className="relative z-10 w-full"
       >
         <Container className="py-20 md:py-28">
-          <div className="hero-content-enter max-w-4xl">
+          <div className="hero-content-enter max-w-4xl text-center md:text-left mx-auto">
             {/* SEO H1 — visually hidden. The visible tagline below is the
                 brand voice; this h1 gives crawlers an unambiguous primary
                 heading that pairs the company name with Vietnam positioning
@@ -153,7 +151,7 @@ export function Hero() {
             </div>
 
             {/* CTAs — primary brand dominates, secondary is visibly subordinate. */}
-            <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 mb-14">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center md:justify-start gap-3 sm:gap-4 mb-14">
               <Magnetic strength={6}>
                 <Button
                   href="/contact"
@@ -176,7 +174,7 @@ export function Hero() {
             </div>
 
             {/* Stats — premium strip with dividers, big number + label rhythm */}
-            <div className="flex flex-wrap items-end gap-x-6 gap-y-6 sm:gap-x-10">
+            <div className="flex flex-wrap items-end justify-center md:justify-start gap-x-6 gap-y-6 sm:gap-x-10">
               {STATS.map((stat, i) => (
                 <div key={stat.label} className="flex items-end">
                   {i > 0 && (
