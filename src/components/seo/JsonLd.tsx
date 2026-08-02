@@ -15,10 +15,14 @@
  * @see https://developers.google.com/search/docs/appearance/structured-data
  */
 
-import { CONTACT, SITE_URL as SITE_URL_CONST } from "@/lib/constants";
+import { CONTACT, SITE_URL as SITE_URL_CONST, SITE_NAME as SITE_DISPLAY_NAME } from "@/lib/constants";
 
 const SITE_URL = SITE_URL_CONST;
-const SITE_NAME = CONTACT.businessName;
+// Display name (what users/Google should show in SERPs) — "Retech Solutions".
+// Google reads WebSite.name as the site name; legal name in all-caps makes it
+// fall back to showing the domain instead.
+const SITE_NAME = SITE_DISPLAY_NAME;
+const LEGAL_NAME = CONTACT.businessName;
 const SITE_DESCRIPTION =
   "Retech Solutions is a Vietnam-based software development company offering custom CMS, CRM, ERP solutions, and AI-powered services.";
 const LOGO_URL = `${SITE_URL}/images/logo.svg`;
@@ -52,12 +56,8 @@ function getOrganizationSchema() {
     "@type": "Organization",
     "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
-    alternateName: [
-      "Retech Solutions Ltd",
-      "Retech Solutions Co., Ltd.",
-      "Retech Asia",
-      "Retech Solutions Vietnam",
-    ],
+    legalName: LEGAL_NAME,
+    alternateName: ["Retech", "Retech Asia", LEGAL_NAME],
     url: SITE_URL,
     sameAs: [
       "https://www.linkedin.com/company/retech-vn/",
@@ -188,7 +188,7 @@ function getWebSiteSchema() {
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
     name: SITE_NAME,
-    alternateName: ["Retech Solutions Ltd", "Retech Asia"],
+    alternateName: ["Retech", "RETECH SOLUTIONS CO., LTD."],
     url: SITE_URL,
     description: SITE_DESCRIPTION,
     publisher: {
@@ -214,7 +214,7 @@ function getLocalBusinessSchema() {
     "@type": "ProfessionalService",
     "@id": `${SITE_URL}/#localbusiness`,
     name: SITE_NAME,
-    alternateName: ["Retech Solutions Ltd", "Retech Asia"],
+    alternateName: ["Retech", "RETECH SOLUTIONS CO., LTD."],
     url: SITE_URL,
     logo: LOGO_URL,
     image: LOGO_URL,
@@ -501,7 +501,7 @@ export function ContactPageLocalBusinessJsonLd() {
     "@type": "ProfessionalService",
     "@id": `${SITE_URL}/contact/#localbusiness`,
     name: SITE_NAME,
-    alternateName: ["Retech Solutions Ltd", "Retech Asia"],
+    alternateName: ["Retech", "RETECH SOLUTIONS CO., LTD."],
     url: `${SITE_URL}/contact`,
     logo: LOGO_URL,
     image: LOGO_URL,

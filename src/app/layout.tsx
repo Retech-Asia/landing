@@ -52,7 +52,7 @@ const generalSans = localFont({
 const SITE_URL = SITE_URL_CONST;
 const SITE_NAME = SITE_NAME_CONST;
 const SITE_DESCRIPTION =
-  "Vietnam-based software development company delivering custom CMS, CRM, ERP & AI-powered solutions. Free consultation.";
+  "Retech Solutions is a Vietnam-based software development firm building custom CMS, CRM, ERP and AI-powered products for teams worldwide. Free consultation.";
 
 /**
  * Extract the Bing verification token from BING_SITE_VERIFICATION.
@@ -137,7 +137,7 @@ export const metadata: Metadata = {
     title:
       "Retech Solutions | Vietnam Software Development & IT Outsourcing",
     description:
-      "Vietnam-based software development: custom CMS, CRM, ERP & AI solutions. Free consultation available.",
+      "Retech Solutions — Vietnam-based software development firm building custom CMS, CRM, ERP and AI-powered products. Free consultation.",
     // Image intentionally omitted — Next.js auto-uses src/app/opengraph-image.tsx
     // which generates a properly-dimensioned 1200x630 branded OG image. The
     // public/images/og-image.png file is a 2500x305 banner used only as the
@@ -148,8 +148,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title:
       "Retech Solutions | Vietnam Software Development & IT Outsourcing",
-    description:
-      "Custom CMS, CRM, ERP & AI-powered software. Full-cycle development from discovery to deployment. Free consultation.",
+    description: SITE_DESCRIPTION,
     // Same as openGraph — let Next.js's twitter-image route handle it.
   },
 
