@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export interface TocItem {
   id: string;
@@ -13,6 +14,7 @@ interface ServiceTOCProps {
 }
 
 export function ServiceTOC({ items }: ServiceTOCProps) {
+  const t = useTranslations("serviceDetail.toc");
   const [activeId, setActiveId] = useState<string>(
     () => (items.length > 0 ? items[0].id : "")
   );
@@ -76,10 +78,10 @@ export function ServiceTOC({ items }: ServiceTOCProps) {
   const activeIndex = items.findIndex((item) => item.id === activeId);
 
   return (
-    <nav aria-label="Table of contents" className="w-full">
+    <nav aria-label={t("onThisPage")} className="w-full">
       <div className="rounded-xl border border-foreground/10 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
         <p className="text-xs font-semibold uppercase tracking-wider text-foreground-secondary mb-3 px-2">
-          On this page
+          {t("onThisPage")}
         </p>
         <ul className="relative space-y-0.5">
           {/* Animated active background highlight */}

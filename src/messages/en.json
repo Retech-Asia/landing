@@ -213,5 +213,136 @@
       "webPageTitle": "Retech Solutions | Software Development & IT Outsourcing",
       "webPageDescription": "Full-cycle software development outsourcing, from business analysis and design to development, testing, and deployment. Agile methodologies, modern technologies, and AI-driven solutions for web and mobile applications."
     }
+  },
+  "serviceDetail": {
+    "toc": {
+      "onThisPage": "On this page",
+      "overview": "Overview",
+      "features": "Features",
+      "included": "What's Included",
+      "testimonial": "Testimonial",
+      "benefits": "Benefits",
+      "process": "How We Work",
+      "engagementModels": "Engagement Models",
+      "technologies": "Technologies",
+      "faq": "FAQ"
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "services": "Services"
+    },
+    "hero": {
+      "ctaConsult": "Get a Free Consultation",
+      "ctaAllServices": "All Services"
+    },
+    "features": {
+      "title": "What's Included in {service}",
+      "description": "Every engagement is tailored to your needs. Here are the core capabilities we bring to the table."
+    },
+    "included": {
+      "title": "What's Included",
+      "body": "Every {service} engagement comes with a comprehensive set of deliverables to ensure your project is built to the highest standards, from initial planning through post-launch support."
+    },
+    "benefits": {
+      "title": "Why Choose Our {service}",
+      "description": "The advantages of partnering with our Vietnam-based team for {service} — and what sets our delivery apart from typical outsourcing engagements."
+    },
+    "process": {
+      "title": "How We Work",
+      "description": "Our proven engagement process ensures predictable outcomes from first conversation to final delivery."
+    },
+    "engagement": {
+      "title": "Engagement Models",
+      "description": "Choose the collaboration model that fits your needs. All plans include pre-vetted senior talent and transparent reporting.",
+      "mostPopular": "Most Popular",
+      "popular": "Popular",
+      "bestForPrefix": "Best for:",
+      "compare": {
+        "title": "Compare Engagement Models",
+        "featureHeader": "Feature"
+      },
+      "models": {
+        "staff": {
+          "title": "Staff Augmentation",
+          "description": "Add individual developers to your existing team. You manage directly, we handle HR and payroll.",
+          "price": "From $2,500/mo per engineer",
+          "bestFor": "Teams needing specific skills fast"
+        },
+        "team": {
+          "title": "Dedicated Team",
+          "description": "A fully managed team working exclusively on your project with a dedicated project manager.",
+          "price": "From $8,000/mo for a 3-person team",
+          "bestFor": "Ongoing product development"
+        },
+        "project": {
+          "title": "Project-Based",
+          "description": "Fixed scope, fixed price. We handle everything from design to deployment.",
+          "price": "Custom quote",
+          "bestFor": "Well-defined, time-bound projects"
+        }
+      },
+      "comparisonRows": [
+        "Pre-vetted talent",
+        "HR & payroll managed",
+        "Dedicated project manager",
+        "Direct developer management",
+        "Flexible team scaling",
+        "Agile process setup",
+        "Infrastructure & equipment",
+        "Weekly progress reports",
+        "IP protection & NDAs",
+        "Timezone-friendly overlap",
+        "Fixed-price guarantee",
+        "Design & UX included",
+        "QA & testing included",
+        "Dedicated account manager",
+        "No minimum commitment"
+      ]
+    },
+    "technologies": {
+      "title": "Technologies We Use",
+      "description": "The tools and frameworks we leverage to deliver robust, scalable solutions."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "description": "Common questions about our {service} services. Can't find what you're looking for? Reach out to our team."
+    },
+    "postCta": {
+      "title": "Questions Answered? Let's Talk.",
+      "body": "Schedule a free consultation to discuss your {service} requirements and get a detailed project estimate.",
+      "cta": "Get Free Consultation"
+    },
+    "related": {
+      "caseStudies": {
+        "title": "Related Case Studies",
+        "description": "See how we've delivered similar solutions for our clients.",
+        "viewLink": "View Case Study"
+      },
+      "articles": {
+        "title": "Related Articles",
+        "description": "Deep dives into the topics that matter for your project.",
+        "readLink": "Read Article",
+        "viewAll": "View All Articles"
+      },
+      "services": {
+        "title": "Related Services",
+        "description": "Discover other ways we can help your business grow.",
+        "learnMore": "Learn More"
+      }
+    },
+    "next": {
+      "label": "Next Service",
+      "explore": "Explore Service"
+    },
+    "finalCta": {
+      "title": "Build Your {service} Solution",
+      "body": "Our {service} specialists will review your requirements and return a detailed proposal with architecture recommendations, team allocation, and clear milestones, typically within one business day.",
+      "ctaPrimary": "Get a Free Consultation",
+      "ctaSecondary": "Browse Services"
+    },
+    "imageAlts": {
+      "codeStrip": "Development workspace: code, tools, and engineering process",
+      "workspaceStrip": "Development workspace at Retech Solutions"
+    }
   }
 }

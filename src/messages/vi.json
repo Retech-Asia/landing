@@ -213,5 +213,136 @@
       "webPageTitle": "Retech Solutions | Phát triển Phần mềm & Gia công IT",
       "webPageDescription": "Gia công phát triển phần mềm toàn vòng đời, từ phân tích nghiệp vụ và thiết kế đến phát triển, kiểm thử và triển khai. Phương pháp agile, công nghệ hiện đại và giải pháp AI cho ứng dụng web và di động."
     }
+  },
+  "serviceDetail": {
+    "toc": {
+      "onThisPage": "Trong trang này",
+      "overview": "Tổng quan",
+      "features": "Tính năng",
+      "included": "Đi kèm",
+      "testimonial": "Khách hàng nói",
+      "benefits": "Lợi ích",
+      "process": "Cách chúng tôi làm việc",
+      "engagementModels": "Mô hình Hợp tác",
+      "technologies": "Công nghệ",
+      "faq": "Câu hỏi thường gặp"
+    },
+    "breadcrumb": {
+      "home": "Trang chủ",
+      "services": "Dịch vụ"
+    },
+    "hero": {
+      "ctaConsult": "Tư vấn Miễn phí",
+      "ctaAllServices": "Tất cả Dịch vụ"
+    },
+    "features": {
+      "title": "Đi kèm trong {service}",
+      "description": "Mỗi lần hợp tác được điều chỉnh theo nhu cầu của bạn. Đây là các năng lực cốt lõi chúng tôi mang đến."
+    },
+    "included": {
+      "title": "Đi kèm",
+      "body": "Mỗi hợp đồng {service} đi kèm một bộ bàn giao toàn diện để đảm bảo dự án được xây dựng theo tiêu chuẩn cao nhất, từ lập kế hoạch ban đầu đến hỗ trợ sau triển khai."
+    },
+    "benefits": {
+      "title": "Vì sao chọn {service} của chúng tôi",
+      "description": "Những lợi thế khi hợp tác với đội ngũ tại Việt Nam của chúng tôi cho {service} — và điều làm nên sự khác biệt so với các lần gia công thông thường."
+    },
+    "process": {
+      "title": "Cách chúng tôi làm việc",
+      "description": "Quy trình hợp tác đã được kiểm chứng đảm bảo kết quả dự đoán được từ cuộc trò chuyện đầu tiên đến bàn giao cuối cùng."
+    },
+    "engagement": {
+      "title": "Mô hình Hợp tác",
+      "description": "Chọn mô hình hợp tác phù hợp với nhu cầu của bạn. Tất cả các gói đều bao gồm nhân sự senior đã sàng lọc và báo cáo minh bạch.",
+      "mostPopular": "Phổ biến nhất",
+      "popular": "Phổ biến",
+      "bestForPrefix": "Phù hợp với:",
+      "compare": {
+        "title": "So sánh các Mô hình Hợp tác",
+        "featureHeader": "Tính năng"
+      },
+      "models": {
+        "staff": {
+          "title": "Tăng cường Nhân sự",
+          "description": "Thêm từng developer vào đội hiện có của bạn. Bạn quản lý trực tiếp, chúng tôi lo HR và payroll.",
+          "price": "Từ $2,500/tháng mỗi kỹ sư",
+          "bestFor": "Đội cần kỹ năng cụ thể nhanh"
+        },
+        "team": {
+          "title": "Đội Chuyên trách",
+          "description": "Đội được quản lý toàn diện làm việc độc quyền cho dự án của bạn với project manager chuyên trách.",
+          "price": "Từ $8,000/tháng cho đội 3 người",
+          "bestFor": "Phát triển sản phẩm liên tục"
+        },
+        "project": {
+          "title": "Theo Dự án",
+          "description": "Phạm vi cố định, giá cố định. Chúng tôi lo toàn bộ từ thiết kế đến triển khai.",
+          "price": "Báo giá theo yêu cầu",
+          "bestFor": "Dự án có phạm vi rõ ràng, giới hạn thời gian"
+        }
+      },
+      "comparisonRows": [
+        "Nhân sự đã sàng lọc",
+        "HR & payroll được quản lý",
+        "Project manager chuyên trách",
+        "Quản lý developer trực tiếp",
+        "Mở rộng đội linh hoạt",
+        "Thiết lập quy trình agile",
+        "Hạ tầng & thiết bị",
+        "Báo cáo tiến độ hàng tuần",
+        "Bảo vệ IP & NDA",
+        "Chồng lệch múi giờ",
+        "Đảm bảo giá cố định",
+        "Thiết kế & UX đi kèm",
+        "QA & kiểm thử đi kèm",
+        "Account manager chuyên trách",
+        "Không cam kết tối thiểu"
+      ]
+    },
+    "technologies": {
+      "title": "Công nghệ chúng tôi sử dụng",
+      "description": "Các công cụ và framework chúng tôi sử dụng để bàn giao giải pháp mạnh mẽ, khả mở."
+    },
+    "faq": {
+      "title": "Câu hỏi Thường gặp",
+      "description": "Các câu hỏi thường gặp về dịch vụ {service} của chúng tôi. Không tìm thấy thông tin? Liên hệ với đội của chúng tôi."
+    },
+    "postCta": {
+      "title": "Đã giải đáp thắc mắc? Hãy trò chuyện.",
+      "body": "Đặt tư vấn miễn phí để thảo luận yêu cầu {service} của bạn và nhận báo giá dự án chi tiết.",
+      "cta": "Tư vấn Miễn phí"
+    },
+    "related": {
+      "caseStudies": {
+        "title": "Dự án Liên quan",
+        "description": "Xem cách chúng tôi đã bàn giao các giải pháp tương tự cho khách hàng.",
+        "viewLink": "Xem Dự án"
+      },
+      "articles": {
+        "title": "Bài viết Liên quan",
+        "description": "Phân tích chuyên sâu về các chủ đề quan trọng cho dự án của bạn.",
+        "readLink": "Đọc Bài",
+        "viewAll": "Xem Tất cả Bài viết"
+      },
+      "services": {
+        "title": "Dịch vụ Liên quan",
+        "description": "Khám phá các cách khác chúng tôi có thể giúp doanh nghiệp của bạn phát triển.",
+        "learnMore": "Tìm hiểu thêm"
+      }
+    },
+    "next": {
+      "label": "Dịch vụ Tiếp theo",
+      "explore": "Khám phá Dịch vụ"
+    },
+    "finalCta": {
+      "title": "Xây dựng Giải pháp {service} của Bạn",
+      "body": "Chuyên gia {service} của chúng tôi sẽ xem xét yêu cầu và trả lại đề xuất chi tiết với đề xuất kiến trúc, phân bổ đội và milestone rõ ràng, thường trong vòng một ngày làm việc.",
+      "ctaPrimary": "Tư vấn Miễn phí",
+      "ctaSecondary": "Xem Dịch vụ"
+    },
+    "imageAlts": {
+      "codeStrip": "Không gian làm việc phát triển: code, công cụ và quy trình kỹ thuật",
+      "workspaceStrip": "Không gian làm việc phát triển tại Retech Solutions"
+    }
   }
 }

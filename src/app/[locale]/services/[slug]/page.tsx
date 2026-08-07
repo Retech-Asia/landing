@@ -24,7 +24,7 @@ import { blogPosts } from "@/lib/blog-data";
 import { getTestimonialBySlug } from "@/lib/testimonials-data";
 import { SITE_URL } from "@/lib/constants";
 import { cn } from "@/lib/cn";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { routing, type Locale } from "@/i18n/routing";
 
 /* ── Static Params ────────────────────────────────────────────── */
@@ -97,80 +97,167 @@ export function generateMetadata({
   });
 }
 
-/* ── Checklist items per service ──────────────────────────────── */
-const serviceChecklists: Record<string, string[]> = {
-  "cms-platforms": [
-    "Custom theme development",
-    "Responsive & mobile-first design",
-    "Security hardening & audits",
-    "SEO setup & optimization",
-    "Content workflow configuration",
-    "Analytics integration",
-    "Performance optimization",
-    "Testing & QA",
-    "Documentation & training",
-    "30-day post-launch support",
-  ],
-  "crm-systems": [
-    "Custom CRM development",
-    "Sales pipeline automation",
-    "Data migration & deduplication",
-    "Security & compliance audit",
-    "Analytics dashboard setup",
-    "Third-party integrations",
-    "Testing & QA",
-    "Documentation & training",
-    "User onboarding sessions",
-    "30-day post-launch support",
-  ],
-  "erp-solutions": [
-    "Custom ERP modules",
-    "Cross-department workflow automation",
-    "Data governance & compliance setup",
-    "Cloud deployment & scaling",
-    "Mobile access configuration",
-    "Performance optimization",
-    "Testing & QA",
-    "Documentation & training",
-    "System integration",
-    "30-day post-launch support",
-  ],
-  "web-development": [
-    "Full-stack custom development",
-    "Responsive & progressive web apps",
-    "SEO-friendly architecture",
-    "Security-first implementation",
-    "Performance optimization",
-    "Analytics integration",
-    "Testing & QA",
-    "Technical documentation",
-    "Deployment & CI/CD setup",
-    "30-day post-launch support",
-  ],
-  "ui-ux-design": [
-    "User research & interviews",
-    "Wireframing & prototyping",
-    "Visual design & branding",
-    "Interactive prototypes",
-    "Usability testing",
-    "Design system creation",
-    "Accessibility audit (WCAG)",
-    "Developer handoff package",
-    "Iteration rounds",
-    "30-day design support",
-  ],
-  "dedicated-teams": [
-    "Pre-vetted senior talent",
-    "Fully managed HR & payroll",
-    "Agile process setup",
-    "IP protection & NDAs",
-    "Transparent weekly reporting",
-    "Timezone-friendly overlap",
-    "Infrastructure & equipment",
-    "Performance tracking",
-    "Team scaling flexibility",
-    "Dedicated account manager",
-  ],
+/* ── Checklist items per service ────────────────────────────────
+ * Bilingual content (kept inline rather than moved to services-data.ts
+ * because it's page-specific UI copy, not data-model content).
+ */
+const serviceChecklists: Record<string, { en: string[]; vi: string[] }> = {
+  "cms-platforms": {
+    en: [
+      "Custom theme development",
+      "Responsive & mobile-first design",
+      "Security hardening & audits",
+      "SEO setup & optimization",
+      "Content workflow configuration",
+      "Analytics integration",
+      "Performance optimization",
+      "Testing & QA",
+      "Documentation & training",
+      "30-day post-launch support",
+    ],
+    vi: [
+      "Phát triển giao diện tùy chỉnh",
+      "Thiết kế responsive mobile-first",
+      "Tăng cường bảo mật & audit",
+      "Thiết lập & tối ưu SEO",
+      "Cấu hình quy trình nội dung",
+      "Tích hợp analytics",
+      "Tối ưu hiệu suất",
+      "Kiểm thử & QA",
+      "Tài liệu & đào tạo",
+      "30 ngày hỗ trợ sau triển khai",
+    ],
+  },
+  "crm-systems": {
+    en: [
+      "Custom CRM development",
+      "Sales pipeline automation",
+      "Data migration & deduplication",
+      "Security & compliance audit",
+      "Analytics dashboard setup",
+      "Third-party integrations",
+      "Testing & QA",
+      "Documentation & training",
+      "User onboarding sessions",
+      "30-day post-launch support",
+    ],
+    vi: [
+      "Phát triển CRM tùy chỉnh",
+      "Tự động hóa pipeline bán hàng",
+      "Di chuyển dữ liệu & khử trùng lặp",
+      "Audit bảo mật & tuân thủ",
+      "Thiết lập dashboard analytics",
+      "Tích hợp bên thứ ba",
+      "Kiểm thử & QA",
+      "Tài liệu & đào tạo",
+      "Phiên onboarding người dùng",
+      "30 ngày hỗ trợ sau triển khai",
+    ],
+  },
+  "erp-solutions": {
+    en: [
+      "Custom ERP modules",
+      "Cross-department workflow automation",
+      "Data governance & compliance setup",
+      "Cloud deployment & scaling",
+      "Mobile access configuration",
+      "Performance optimization",
+      "Testing & QA",
+      "Documentation & training",
+      "System integration",
+      "30-day post-launch support",
+    ],
+    vi: [
+      "Module ERP tùy chỉnh",
+      "Tự động hóa quy trình xuyên phòng ban",
+      "Thiết lập quản trị dữ liệu & tuân thủ",
+      "Triển khai & mở rộng cloud",
+      "Cấu hình truy cập mobile",
+      "Tối ưu hiệu suất",
+      "Kiểm thử & QA",
+      "Tài liệu & đào tạo",
+      "Tích hợp hệ thống",
+      "30 ngày hỗ trợ sau triển khai",
+    ],
+  },
+  "web-development": {
+    en: [
+      "Full-stack custom development",
+      "Responsive & progressive web apps",
+      "SEO-friendly architecture",
+      "Security-first implementation",
+      "Performance optimization",
+      "Analytics integration",
+      "Testing & QA",
+      "Technical documentation",
+      "Deployment & CI/CD setup",
+      "30-day post-launch support",
+    ],
+    vi: [
+      "Phát triển full-stack tùy chỉnh",
+      "Responsive & progressive web apps",
+      "Kiến trúc thân thiện SEO",
+      "Triển khai bảo mật lên đầu",
+      "Tối ưu hiệu suất",
+      "Tích hợp analytics",
+      "Kiểm thử & QA",
+      "Tài liệu kỹ thuật",
+      "Triển khai & thiết lập CI/CD",
+      "30 ngày hỗ trợ sau triển khai",
+    ],
+  },
+  "ui-ux-design": {
+    en: [
+      "User research & interviews",
+      "Wireframing & prototyping",
+      "Visual design & branding",
+      "Interactive prototypes",
+      "Usability testing",
+      "Design system creation",
+      "Accessibility audit (WCAG)",
+      "Developer handoff package",
+      "Iteration rounds",
+      "30-day design support",
+    ],
+    vi: [
+      "Nghiên cứu & phỏng vấn người dùng",
+      "Wireframe & prototyping",
+      "Thiết kế thị giác & branding",
+      "Prototype tương tác",
+      "Kiểm thử khả năng sử dụng",
+      "Tạo design system",
+      "Audit khả năng tiếp cận (WCAG)",
+      "Gói bàn giao cho developer",
+      "Vòng lặp lại",
+      "30 ngày hỗ trợ thiết kế",
+    ],
+  },
+  "dedicated-teams": {
+    en: [
+      "Pre-vetted senior talent",
+      "Fully managed HR & payroll",
+      "Agile process setup",
+      "IP protection & NDAs",
+      "Transparent weekly reporting",
+      "Timezone-friendly overlap",
+      "Infrastructure & equipment",
+      "Performance tracking",
+      "Team scaling flexibility",
+      "Dedicated account manager",
+    ],
+    vi: [
+      "Nhân sự senior đã sàng lọc",
+      "HR & payroll được quản lý toàn diện",
+      "Thiết lập quy trình agile",
+      "Bảo vệ IP & NDA",
+      "Báo cáo minh bạch hàng tuần",
+      "Chồng lệch múi giờ",
+      "Hạ tầng & thiết bị",
+      "Theo dõi hiệu suất",
+      "Linh hoạt mở rộng đội",
+      "Account manager chuyên trách",
+    ],
+  },
 };
 
 /* ── Case study mapping per service ───────────────────────────── */
@@ -202,6 +289,7 @@ export default async function ServiceDetailPage({
   const { slug, locale } = await params;
   const loc = locale as Locale;
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "serviceDetail" });
   const service = getFlatService(slug, loc);
 
   if (!service) {
@@ -213,7 +301,7 @@ export default async function ServiceDetailPage({
   // for all services in services-data.ts. Use service.id, not the
   // locale-rendered slug, to look up.
   const lookupKey = service.id;
-  const checklistItems = serviceChecklists[lookupKey] ?? [];
+  const checklistItems = serviceChecklists[lookupKey]?.[loc] ?? [];
   const relatedCaseStudySlugs = serviceCaseStudyMap[lookupKey] ?? [];
   const relatedCaseStudies = caseStudies.filter((cs) =>
     relatedCaseStudySlugs.includes(cs.slug)
@@ -237,25 +325,25 @@ export default async function ServiceDetailPage({
 
   // Build TOC items based on which sections will actually render
   const tocItems: TocItem[] = [
-    { id: "overview", label: "Overview" },
-    { id: "features", label: "Features" },
+    { id: "overview", label: t("toc.overview") },
+    { id: "features", label: t("toc.features") },
   ];
   if (checklistItems.length > 0) {
-    tocItems.push({ id: "included", label: "What's Included" });
+    tocItems.push({ id: "included", label: t("toc.included") });
   }
   if (testimonial) {
-    tocItems.push({ id: "testimonial", label: "Testimonial" });
+    tocItems.push({ id: "testimonial", label: t("toc.testimonial") });
   }
-  tocItems.push({ id: "benefits", label: "Benefits" });
+  tocItems.push({ id: "benefits", label: t("toc.benefits") });
   if (service.processSteps && service.processSteps.length > 0) {
-    tocItems.push({ id: "process", label: "How We Work" });
+    tocItems.push({ id: "process", label: t("toc.process") });
   }
   if (slug === "dedicated-teams") {
     tocItems.push({ id: "roi-calculator", label: "ROI Calculator" });
-    tocItems.push({ id: "engagement-models", label: "Engagement Models" });
+    tocItems.push({ id: "engagement-models", label: t("toc.engagementModels") });
   }
-  tocItems.push({ id: "technologies", label: "Technologies" });
-  tocItems.push({ id: "faq", label: "FAQ" });
+  tocItems.push({ id: "technologies", label: t("toc.technologies") });
+  tocItems.push({ id: "faq", label: t("toc.faq") });
 
   return (
     <>
@@ -268,8 +356,8 @@ export default async function ServiceDetailPage({
       <FAQJsonLd questions={service.faq} />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Services", url: `${SITE_URL}/services` },
+          { name: t("breadcrumb.home"), url: SITE_URL },
+          { name: t("breadcrumb.services"), url: `${SITE_URL}/services` },
           { name: service.title, url: pageUrl },
         ]}
       />
@@ -286,8 +374,8 @@ export default async function ServiceDetailPage({
           <AnimatedSection variant="slideUp">
             <BreadcrumbNav
               items={[
-                { label: "Home", href: "/" },
-                { label: "Services", href: "/services" },
+                { label: t("breadcrumb.home"), href: "/" },
+                { label: t("breadcrumb.services"), href: "/services" },
                 { label: service.title },
               ]}
             />
@@ -303,7 +391,7 @@ export default async function ServiceDetailPage({
               <details className="lg:hidden group mb-8 rounded-xl border border-foreground/10 bg-card overflow-hidden">
                 <summary className="flex items-center justify-between cursor-pointer list-none px-4 py-3 text-sm font-medium text-foreground select-none">
                   <span className="flex items-center gap-2">
-                    <span className="text-xs uppercase tracking-wider text-foreground-secondary">On this page</span>
+                    <span className="text-xs uppercase tracking-wider text-foreground-secondary">{t("toc.onThisPage")}</span>
                   </span>
                   <svg
                     className="w-4 h-4 text-foreground-secondary transition-transform duration-200 group-open:rotate-180"
@@ -358,11 +446,11 @@ export default async function ServiceDetailPage({
               <div className="flex flex-col sm:flex-row items-start gap-4 mt-8">
                 <Button href="/contact" size="lg">
                   <Mail size={18} />
-                  Get a Free Consultation
+                  {t("hero.ctaConsult")}
                 </Button>
                 <Button href="/services" variant="secondary" size="lg">
                   <ArrowLeft size={18} />
-                  All Services
+                  {t("hero.ctaAllServices")}
                 </Button>
               </div>
             </AnimatedSection>
@@ -384,8 +472,8 @@ export default async function ServiceDetailPage({
         <Container>
           <AnimatedSection variant="slideUp">
             <SectionHeader
-              title={`What's Included in ${service.title}`}
-              description="Every engagement is tailored to your needs. Here are the core capabilities we bring to the table."
+              title={t("features.title", { service: service.title })}
+              description={t("features.description")}
             />
           </AnimatedSection>
 
@@ -416,7 +504,7 @@ export default async function ServiceDetailPage({
       <div className="relative h-[160px] md:h-[220px] overflow-hidden">
         <Image
           src="/images/stock/code-screen.webp"
-          alt="Development workspace: code, tools, and engineering process"
+          alt={t("imageAlts.codeStrip")}
           fill
           sizes="100vw"
           className="object-cover transition-transform duration-700 hover:scale-105"
@@ -437,10 +525,10 @@ export default async function ServiceDetailPage({
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
               <AnimatedSection variant="slideUp">
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4">
-                  What&apos;s Included
+                  {t("included.title")}
                 </h2>
                 <p className="text-lg text-foreground-secondary leading-relaxed">
-                  Every {service.title.toLowerCase()} engagement comes with a comprehensive set of deliverables to ensure your project is built to the highest standards, from initial planning through post-launch support.
+                  {t("included.body", { service: service.title.toLowerCase() })}
                 </p>
               </AnimatedSection>
 
@@ -495,8 +583,8 @@ export default async function ServiceDetailPage({
         <Container className="relative">
           <AnimatedSection variant="slideUp">
             <SectionHeader
-              title={`Why Choose Our ${service.title}`}
-              description={`The advantages of partnering with our Vietnam-based team for ${service.title.toLowerCase()} — and what sets our delivery apart from typical outsourcing engagements.`}
+              title={t("benefits.title", { service: service.title })}
+              description={t("benefits.description", { service: service.title.toLowerCase() })}
             />
           </AnimatedSection>
 
@@ -524,7 +612,7 @@ export default async function ServiceDetailPage({
       <div className="relative h-[160px] md:h-[220px] overflow-hidden">
         <Image
           src="/images/stock/developer-workspace.webp"
-          alt="Development workspace at Retech Solutions"
+          alt={t("imageAlts.workspaceStrip")}
           fill
           sizes="100vw"
           className="object-cover transition-transform duration-700 hover:scale-105"
@@ -538,8 +626,8 @@ export default async function ServiceDetailPage({
           <Container>
             <AnimatedSection variant="slideUp">
               <SectionHeader
-                title="How We Work"
-                description="Our proven engagement process ensures predictable outcomes from first conversation to final delivery."
+                title={t("process.title")}
+                description={t("process.description")}
               />
             </AnimatedSection>
 
@@ -599,8 +687,8 @@ export default async function ServiceDetailPage({
           <Container>
             <AnimatedSection variant="slideUp">
               <SectionHeader
-                title="Engagement Models"
-                description="Choose the collaboration model that fits your needs. All plans include pre-vetted senior talent and transparent reporting."
+                title={t("engagement.title")}
+                description={t("engagement.description")}
               />
             </AnimatedSection>
 
@@ -608,28 +696,31 @@ export default async function ServiceDetailPage({
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               {[
                 {
-                  title: "Staff Augmentation",
-                  description: "Add individual developers to your existing team. You manage directly, we handle HR and payroll.",
-                  price: "From $2,500/mo per engineer",
-                  bestFor: "Teams needing specific skills fast",
+                  title: t("engagement.models.staff.title"),
+                  description: t("engagement.models.staff.description"),
+                  price: t("engagement.models.staff.price"),
+                  bestFor: t("engagement.models.staff.bestFor"),
                   featured: false,
+                  key: "staff",
                 },
                 {
-                  title: "Dedicated Team",
-                  description: "A fully managed team working exclusively on your project with a dedicated project manager.",
-                  price: "From $8,000/mo for a 3-person team",
-                  bestFor: "Ongoing product development",
+                  title: t("engagement.models.team.title"),
+                  description: t("engagement.models.team.description"),
+                  price: t("engagement.models.team.price"),
+                  bestFor: t("engagement.models.team.bestFor"),
                   featured: true,
+                  key: "team",
                 },
                 {
-                  title: "Project-Based",
-                  description: "Fixed scope, fixed price. We handle everything from design to deployment.",
-                  price: "Custom quote",
-                  bestFor: "Well-defined, time-bound projects",
+                  title: t("engagement.models.project.title"),
+                  description: t("engagement.models.project.description"),
+                  price: t("engagement.models.project.price"),
+                  bestFor: t("engagement.models.project.bestFor"),
                   featured: false,
+                  key: "project",
                 },
               ].map((model) => (
-                <StaggerItem key={model.title}>
+                <StaggerItem key={model.key}>
                   <div
                     className={`relative h-full rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 ${
                       model.featured
@@ -639,7 +730,7 @@ export default async function ServiceDetailPage({
                   >
                     {model.featured && (
                       <span className="inline-block text-xs font-semibold uppercase tracking-wider text-brand bg-brand/10 rounded-full px-3 py-1 mb-4">
-                        Most Popular
+                        {t("engagement.mostPopular")}
                       </span>
                     )}
                     <h3 className="text-lg font-bold text-foreground mb-3">
@@ -649,7 +740,7 @@ export default async function ServiceDetailPage({
                       {model.description}
                     </p>
                     <p className="text-xs font-medium text-foreground-muted mb-4">
-                      Best for: {model.bestFor}
+                      {t("engagement.bestForPrefix")} {model.bestFor}
                     </p>
                     <p className="text-sm font-semibold text-brand mt-auto">
                       {model.price}
@@ -664,7 +755,7 @@ export default async function ServiceDetailPage({
               <div className="rounded-2xl border border-black/[0.06] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
                 <div className="px-6 py-4 border-b border-black/[0.06] bg-black/[0.015]">
                   <h3 className="text-base font-semibold text-foreground">
-                    Compare Engagement Models
+                    {t("engagement.compare.title")}
                   </h3>
                 </div>
                 <div className="overflow-x-auto">
@@ -672,46 +763,48 @@ export default async function ServiceDetailPage({
                     <thead>
                       <tr className="border-b border-black/[0.08]">
                         <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wider text-foreground-secondary whitespace-nowrap">
-                          Feature
+                          {t("engagement.compare.featureHeader")}
                         </th>
                         <th className="px-4 py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-foreground whitespace-nowrap">
-                          Staff Augmentation
+                          {t("engagement.models.staff.title")}
                         </th>
                         <th className="px-4 py-3.5 text-center whitespace-nowrap bg-brand/[0.04]">
                           <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-brand">
-                            Dedicated Team
-                            <span className="text-[10px] bg-brand/10 text-brand px-1.5 py-0.5 rounded-full normal-case">Popular</span>
+                            {t("engagement.models.team.title")}
+                            <span className="text-[10px] bg-brand/10 text-brand px-1.5 py-0.5 rounded-full normal-case">{t("engagement.popular")}</span>
                           </span>
                         </th>
                         <th className="px-4 py-3.5 text-center text-xs font-semibold uppercase tracking-wider text-foreground whitespace-nowrap">
-                          Project-Based
+                          {t("engagement.models.project.title")}
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       {([
-                        ["Pre-vetted talent", true, true, true],
-                        ["HR & payroll managed", true, true, true],
-                        ["Dedicated project manager", false, true, true],
-                        ["Direct developer management", true, false, false],
-                        ["Flexible team scaling", true, true, false],
-                        ["Agile process setup", false, true, true],
-                        ["Infrastructure & equipment", false, true, true],
-                        ["Weekly progress reports", false, true, true],
-                        ["IP protection & NDAs", true, true, true],
-                        ["Timezone-friendly overlap", true, true, true],
-                        ["Fixed-price guarantee", false, false, true],
-                        ["Design & UX included", false, false, true],
-                        ["QA & testing included", false, true, true],
-                        ["Dedicated account manager", false, true, true],
-                        ["No minimum commitment", true, false, false],
-                      ] as [string, boolean, boolean, boolean][]).map((row, rowIdx) => (
+                        [0, true, true, true],
+                        [1, true, true, true],
+                        [2, false, true, true],
+                        [3, true, false, false],
+                        [4, true, true, false],
+                        [5, false, true, true],
+                        [6, false, true, true],
+                        [7, false, true, true],
+                        [8, true, true, true],
+                        [9, true, true, true],
+                        [10, false, false, true],
+                        [11, false, false, true],
+                        [12, false, true, true],
+                        [13, false, true, true],
+                        [14, true, false, false],
+                      ] as [number, boolean, boolean, boolean][]).map((row, rowIdx) => {
+                        const labels = t.raw("engagement.comparisonRows") as string[];
+                        return (
                         <tr
                           key={row[0]}
                           className="border-b border-black/[0.04] last:border-b-0"
                         >
                           <td className="px-5 py-3 font-medium text-foreground whitespace-nowrap text-sm">
-                            {row[0]}
+                            {labels[row[0]]}
                           </td>
                           {[row[1], row[2], row[3]].map((isSupported, colIdx) => (
                             <td
@@ -732,7 +825,8 @@ export default async function ServiceDetailPage({
                             </td>
                           ))}
                         </tr>
-                      ))}
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
@@ -747,8 +841,8 @@ export default async function ServiceDetailPage({
         <Container>
           <AnimatedSection variant="slideUp">
             <SectionHeader
-              title="Technologies We Use"
-              description="The tools and frameworks we leverage to deliver robust, scalable solutions."
+              title={t("technologies.title")}
+              description={t("technologies.description")}
             />
           </AnimatedSection>
 
@@ -762,8 +856,8 @@ export default async function ServiceDetailPage({
         <Container className="relative">
           <AnimatedSection variant="slideUp">
             <SectionHeader
-              title="Frequently Asked Questions"
-              description={`Common questions about our ${service.title.toLowerCase()} services. Can't find what you're looking for? Reach out to our team.`}
+              title={t("faq.title")}
+              description={t("faq.description", { service: service.title.toLowerCase() })}
             />
           </AnimatedSection>
 
@@ -801,16 +895,16 @@ export default async function ServiceDetailPage({
               <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div className="flex-1">
                   <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">
-                    Questions Answered? Let&apos;s Talk.
+                    {t("postCta.title")}
                   </h2>
                   <p className="text-sm md:text-base text-foreground-secondary leading-relaxed max-w-lg">
-                    Schedule a free consultation to discuss your {service.title.toLowerCase()} requirements and get a detailed project estimate.
+                    {t("postCta.body", { service: service.title.toLowerCase() })}
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3 shrink-0">
                   <Button href="/contact" size="lg">
                     <Mail size={18} />
-                    Get Free Consultation
+                    {t("postCta.cta")}
                   </Button>
                 </div>
               </div>
@@ -825,8 +919,8 @@ export default async function ServiceDetailPage({
           <Container>
             <AnimatedSection variant="slideUp">
               <SectionHeader
-                title="Related Case Studies"
-                description="See how we've delivered similar solutions for our clients."
+                title={t("related.caseStudies.title")}
+                description={t("related.caseStudies.description")}
               />
             </AnimatedSection>
 
@@ -848,7 +942,7 @@ export default async function ServiceDetailPage({
                         {cs.tagline}
                       </p>
                       <div className="flex items-center gap-1.5 text-sm font-medium text-brand group-hover:gap-2.5 transition-all duration-300">
-                        View Case Study
+                        {t("related.caseStudies.viewLink")}
                         <ArrowRight
                           size={15}
                           className="transition-transform duration-300 group-hover:translate-x-0.5"
@@ -869,8 +963,8 @@ export default async function ServiceDetailPage({
           <Container>
             <AnimatedSection variant="slideUp">
               <SectionHeader
-                title="Related Articles"
-                description="Deep dives into the topics that matter for your project."
+                title={t("related.articles.title")}
+                description={t("related.articles.description")}
               />
             </AnimatedSection>
 
@@ -892,7 +986,7 @@ export default async function ServiceDetailPage({
                         {post.excerpt}
                       </p>
                       <div className="flex items-center gap-1.5 text-sm font-medium text-brand group-hover:gap-2.5 transition-all duration-300">
-                        Read Article
+                        {t("related.articles.readLink")}
                         <ArrowRight
                           size={15}
                           className="transition-transform duration-300 group-hover:translate-x-0.5"
@@ -906,7 +1000,7 @@ export default async function ServiceDetailPage({
 
             <AnimatedSection variant="slideUp" delay={0.2} className="mt-10 text-center">
               <Button href="/blog" variant="secondary">
-                View All Articles <ArrowRight size={15} />
+                {t("related.articles.viewAll")} <ArrowRight size={15} />
               </Button>
             </AnimatedSection>
           </Container>
@@ -918,8 +1012,8 @@ export default async function ServiceDetailPage({
         <Container>
           <AnimatedSection variant="slideUp">
             <SectionHeader
-              title="Related Services"
-              description="Discover other ways we can help your business grow."
+              title={t("related.services.title")}
+              description={t("related.services.description")}
             />
           </AnimatedSection>
 
@@ -948,7 +1042,7 @@ export default async function ServiceDetailPage({
                         </p>
 
                         <div className="flex items-center gap-1.5 text-sm font-medium text-brand group-hover:gap-2.5 transition-all duration-300">
-                          Learn More
+                          {t("related.services.learnMore")}
                           <ArrowRight
                             size={15}
                             className="transition-transform duration-300 group-hover:translate-x-0.5"
@@ -982,7 +1076,7 @@ export default async function ServiceDetailPage({
                   </div>
                   <div>
                     <p className="text-xs font-medium uppercase tracking-wider text-foreground-muted mb-1">
-                      Next Service
+                      {t("next.label")}
                     </p>
                     <h3 className="text-lg font-bold text-foreground group-hover:text-brand transition-colors">
                       {nextService.title}
@@ -993,7 +1087,7 @@ export default async function ServiceDetailPage({
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-sm font-medium text-brand group-hover:gap-3 transition-all duration-300 shrink-0">
-                  Explore Service
+                  {t("next.explore")}
                   <ArrowRight
                     size={16}
                     className="transition-transform duration-300 group-hover:translate-x-1"
@@ -1011,11 +1105,10 @@ export default async function ServiceDetailPage({
           <AnimatedSection>
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4">
-                Build Your{" "}
-                <span className="text-white/70">{service.title} Solution</span>
+                {t("finalCta.title", { service: service.title })}
               </h2>
               <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto">
-                Our {service.title.toLowerCase()} specialists will review your requirements and return a detailed proposal with architecture recommendations, team allocation, and clear milestones, typically within one business day.
+                {t("finalCta.body", { service: service.title.toLowerCase() })}
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button
@@ -1024,7 +1117,7 @@ export default async function ServiceDetailPage({
                   className="bg-white text-foreground hover:bg-white/90"
                 >
                   <Mail size={18} />
-                  Get a Free Consultation
+                  {t("finalCta.ctaPrimary")}
                 </Button>
                 <Button
                   href="/services"
@@ -1033,7 +1126,7 @@ export default async function ServiceDetailPage({
                   className="text-white/70 hover:text-white hover:bg-white/10"
                 >
                   <ArrowLeft size={18} />
-                  All Services
+                  {t("finalCta.ctaSecondary")}
                 </Button>
               </div>
             </div>
