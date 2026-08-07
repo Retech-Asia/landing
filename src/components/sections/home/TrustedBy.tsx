@@ -1,18 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/Container";
-
-const industries = [
-  "Healthcare",
-  "Finance",
-  "E-commerce",
-  "Logistics",
-  "Education",
-  "Real Estate",
-  "SaaS",
-  "Manufacturing",
-];
 
 function IndustryPill({ name }: { name: string }) {
   return (
@@ -61,8 +51,10 @@ function MarqueeRow({
 }
 
 export function TrustedBy() {
+  const t = useTranslations("home.trustedBy");
+  const industries = t.raw("industries") as string[];
   return (
-    <section className="py-16 md:py-20 relative overflow-hidden marquee-hover-pause" aria-label="Industries we serve">
+    <section className="py-16 md:py-20 relative overflow-hidden marquee-hover-pause" aria-label={t("title")}>
       <Container>
         <motion.p
           initial={{ opacity: 0, y: 12 }}
@@ -71,7 +63,7 @@ export function TrustedBy() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="text-center text-sm font-medium tracking-widest uppercase text-foreground-muted mb-10"
         >
-          Serving industries worldwide
+          {t("title")}
         </motion.p>
       </Container>
 

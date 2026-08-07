@@ -18,33 +18,41 @@ import { ServiceTimeline } from "@/components/services/ServiceTimeline";
 import { ServiceTOC, type TocItem } from "@/components/services/ServiceTOC";
 import { AnimatedChecklist } from "@/components/services/AnimatedChecklist";
 import { TechBadges } from "@/components/services/TechBadges";
-import { services, getServiceBySlug } from "@/lib/services-data";
+import { services, getServiceBySlug, getFlatService, flattenService, type FlatService } from "@/lib/services-data";
 import { caseStudies } from "@/lib/case-studies-data";
 import { blogPosts } from "@/lib/blog-data";
 import { getTestimonialBySlug } from "@/lib/testimonials-data";
 import { SITE_URL } from "@/lib/constants";
 import { cn } from "@/lib/cn";
+import { setRequestLocale } from "next-intl/server";
+import { routing, type Locale } from "@/i18n/routing";
 
 /* ── Static Params ────────────────────────────────────────────── */
 export function generateStaticParams() {
-  return services.map((service) => ({
-    slug: service.slug,
-  }));
+  return routing.locales.flatMap((locale) =>
+    services.map((service) => ({ locale, slug: service.slug[locale] }))
+  );
 }
 
 /* ── Metadata ─────────────────────────────────────────────────── */
 export function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  return params.then(({ slug }) => {
-    const service = getServiceBySlug(slug);
+  return params.then(({ slug, locale }) => {
+    const loc = locale as Locale;
+    const service = getFlatService(slug, loc);
     if (!service) {
       return { title: "Service Not Found" };
     }
 
-    const pageUrl = `${SITE_URL}/services/${service.slug}`;
+    const pageUrl = `${SITE_URL}/${locale}/services/${service.slug}`;
+    // Look up the raw service to find both locale slugs (the flat projection
+    // only exposes the active locale's slug).
+    const raw = getServiceBySlug(service.slug, loc);
+    const enUrl = `${SITE_URL}/en/services/${raw?.slug.en ?? service.slug}`;
+    const viUrl = `${SITE_URL}/vi/services/${raw?.slug.vi ?? service.slug}`;
 
     return {
       title: service.title,
@@ -53,6 +61,13 @@ export function generateMetadata({
         : service.description,
       alternates: {
         canonical: pageUrl,
+        // Both service locale variants exist post-Phase 2 — declare
+        // bidirectional hreflang so Google indexes the right version.
+        languages: {
+          en: enUrl,
+          vi: viUrl,
+          "x-default": enUrl,
+        },
       },
       openGraph: {
         title: `${service.title} | Retech Solutions`,
@@ -182,29 +197,39 @@ const serviceBlogMap: Record<string, string[]> = {
 export default async function ServiceDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const { slug, locale } = await params;
+  const loc = locale as Locale;
+  setRequestLocale(locale);
+  const service = getFlatService(slug, loc);
 
   if (!service) {
     notFound();
   }
 
-  const checklistItems = serviceChecklists[slug] ?? [];
-  const relatedCaseStudySlugs = serviceCaseStudyMap[slug] ?? [];
+  // Cross-reference maps (`serviceChecklists`, `serviceCaseStudyMap`,
+  // `serviceBlogMap`) are keyed by invariant EN slug — same as service.id
+  // for all services in services-data.ts. Use service.id, not the
+  // locale-rendered slug, to look up.
+  const lookupKey = service.id;
+  const checklistItems = serviceChecklists[lookupKey] ?? [];
+  const relatedCaseStudySlugs = serviceCaseStudyMap[lookupKey] ?? [];
   const relatedCaseStudies = caseStudies.filter((cs) =>
     relatedCaseStudySlugs.includes(cs.slug)
   );
 
-  const relatedBlogSlugs = serviceBlogMap[slug] ?? [];
+  const relatedBlogSlugs = serviceBlogMap[lookupKey] ?? [];
   const relatedBlogPosts = blogPosts.filter((p) =>
     relatedBlogSlugs.includes(p.slug)
   );
 
-  const currentIndex = services.findIndex((s) => s.slug === service.slug);
-  const nextService = services[(currentIndex + 1) % services.length];
-  const otherServices = services.filter((s) => s.slug !== service.slug).slice(0, 3);
+  const currentIndex = services.findIndex((s) => s.id === service.id);
+  const nextServiceRaw = services[(currentIndex + 1) % services.length];
+  const otherServicesRaw = services.filter((s) => s.id !== service.id).slice(0, 3);
+  // Flatten for rendering — these get the active locale's strings.
+  const nextService: FlatService | null = nextServiceRaw ? flattenService(nextServiceRaw, loc) : null;
+  const otherServices: FlatService[] = otherServicesRaw.map((s) => flattenService(s, loc));
 
   const testimonial = getTestimonialBySlug(slug);
 

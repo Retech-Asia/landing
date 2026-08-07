@@ -18,10 +18,15 @@ export const CONTACT = {
   businessName: "RETECH SOLUTIONS CO., LTD.",
 } as const;
 
+/**
+ * Locale-aware labels — `{en, vi}` so consumers can pick by active locale
+ * via `useLocale()` without a message-catalog round-trip. Numeric values
+ * stay language-invariant; only the label needs translation.
+ */
 export const STATS = [
-  { value: 50, suffix: "+", label: "Projects Delivered" },
-  { value: 30, suffix: "+", label: "Expert Engineers" },
-  { value: 5, suffix: "+", label: "Years of Experience" },
+  { value: 50, suffix: "+", label: { en: "Projects Delivered", vi: "Dự án Đã bàn giao" } },
+  { value: 30, suffix: "+", label: { en: "Expert Engineers", vi: "Kỹ sư Chuyên môn" } },
+  { value: 5, suffix: "+", label: { en: "Years of Experience", vi: "Năm Kinh nghiệm" } },
 ] as const;
 
 export const STATS_BAR = [

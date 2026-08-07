@@ -3,14 +3,16 @@
 import { motion, AnimatePresence, useMotionValueEvent, useScroll, type Variants } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
+import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
+import { LocaleSwitcher } from "@/components/i18n/LocaleSwitcher";
 import { navigation } from "@/lib/navigation";
+import { localizeServiceHref } from "@/lib/services-data";
 
 const SCROLL_THRESHOLD = 5;
 
@@ -125,6 +127,12 @@ export function Navbar() {
   const mobileToggleRef = useRef<HTMLButtonElement>(null);
   const lastScrollY = useRef(0);
   const isHomePage = pathname === "/";
+
+  // Locale-aware translations for nav labels + CTA strings.
+  const tNav = useTranslations("nav.main");
+  const tCta = useTranslations("nav.cta");
+  const tServices = useTranslations("nav.services");
+  const locale = useLocale() as "en" | "vi";
 
   const { scrollY, scrollYProgress } = useScroll();
 
@@ -346,7 +354,7 @@ export function Navbar() {
                     onClick={() => setServicesOpen((prev) => !prev)}
                     onBlur={handleServicesLeave}
                   >
-                    {item.label}
+                    {tNav(item.labelKey)}
                     <ChevronDown
                       size={14}
                       className={cn(
@@ -378,7 +386,7 @@ export function Navbar() {
                             return (
                               <Link
                                 key={child.href}
-                                href={child.href}
+                                href={localizeServiceHref(child.href, locale)}
                                 role="menuitem"
                                 className="flex items-start gap-3 p-3 rounded-xl hover:bg-black/[0.04] transition-colors group"
                               >
@@ -387,10 +395,10 @@ export function Navbar() {
                                 </div>
                                 <div>
                                   <p className="text-sm font-medium text-foreground group-hover:text-brand transition-colors">
-                                    {child.label}
+                                    {tServices(child.labelKey)}
                                   </p>
                                   <p className="text-xs text-foreground-muted leading-relaxed mt-0.5">
-                                    {child.description}
+                                    {tServices(child.descriptionKey)}
                                   </p>
                                 </div>
                               </Link>
@@ -413,7 +421,7 @@ export function Navbar() {
                       : "text-foreground-secondary hover:text-foreground hover:bg-black/[0.04]"
                   )}
                 >
-                  {item.label}
+                  {tNav(item.labelKey)}
                   <span
                     className={cn(
                       "absolute bottom-0.5 left-4 right-4 h-[2px] rounded-full bg-brand origin-left transition-transform duration-300",
@@ -425,8 +433,9 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Desktop CTA + theme toggle */}
+          {/* Desktop CTA + locale switcher + theme toggle */}
           <div className="hidden lg:flex items-center gap-2">
+            <LocaleSwitcher />
             <ThemeToggle />
             {/* WhatsApp as secondary CTA — paired with primary "Get Free
                 Consultation". Replaces the old floating button that
@@ -434,14 +443,14 @@ export function Navbar() {
                 here so it doesn't compete with the primary CTA visually. */}
             <WhatsAppButton variant="navbar" iconOnly aria-label="Chat on WhatsApp" />
             <Button href="/contact" size="sm">
-              Get Free Consultation
+              {tCta("consultation")}
             </Button>
           </div>
 
           {/* Mobile toggle */}
           <button
             ref={mobileToggleRef}
-            aria-label={isMobileOpen ? "Close menu" : "Open menu"}
+            aria-label={isMobileOpen ? tCta("closeMenu") : tCta("openMenu")}
             aria-expanded={isMobileOpen}
             aria-controls="mobile-menu"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
@@ -510,7 +519,7 @@ export function Navbar() {
                         aria-expanded={mobileServicesOpen}
                         className="flex items-center justify-between w-full px-4 py-3 text-base text-foreground-secondary hover:text-foreground transition-colors rounded-lg hover:bg-black/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2 cursor-pointer"
                       >
-                        <span>{item.label}</span>
+                        <span>{tNav(item.labelKey)}</span>
                         <motion.span
                           animate={{ rotate: mobileServicesOpen ? 180 : 0 }}
                           transition={{ duration: 0.2 }}
@@ -532,17 +541,17 @@ export function Navbar() {
                               onClick={() => setIsMobileOpen(false)}
                               className="block px-4 py-2.5 text-sm font-medium text-brand nav-active-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-lg"
                             >
-                              All Services
+                              {tCta("allServices")}
                             </Link>
                             {item.children.map((child) => (
                               <Link
                                 key={child.href}
-                                href={child.href}
+                                href={localizeServiceHref(child.href, locale)}
                                 onClick={() => setIsMobileOpen(false)}
                                 className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground-secondary hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-lg"
                               >
                                 <child.icon size={16} className="text-foreground-muted" aria-hidden="true" />
-                                {child.label}
+                                {tServices(child.labelKey)}
                               </Link>
                             ))}
                           </motion.div>
@@ -568,13 +577,13 @@ export function Navbar() {
                             : "text-foreground-secondary hover:text-foreground hover:bg-black/[0.04]"
                         )}
                       >
-                        {item.label}
+                        {tNav(item.labelKey)}
                       </Link>
                     </motion.div>
                   )
                 )}
 
-                {/* CTA button */}
+                {/* CTA button + mobile locale switcher */}
                 <motion.div
                   variants={mobileLinkVariants}
                   initial="hidden"
@@ -584,7 +593,7 @@ export function Navbar() {
                   className="pt-4 space-y-3"
                 >
                   <Button href="/contact" size="md" className="w-full" onClick={() => setIsMobileOpen(false)}>
-                    Request Quote
+                    {tCta("quote")}
                   </Button>
                   {/* WhatsApp as a secondary mobile CTA — replaces the old
                       floating button that overlapped content. Full-width
@@ -594,6 +603,7 @@ export function Navbar() {
                   <div className="flex justify-center pt-2">
                     <ThemeToggle />
                   </div>
+                  <LocaleSwitcher variant="mobile" />
                 </motion.div>
               </div>
             </motion.div>

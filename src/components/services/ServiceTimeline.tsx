@@ -9,10 +9,16 @@ import {
   Rocket,
   type LucideIcon,
 } from "lucide-react";
-import type { ServiceTimeline } from "@/lib/services-data";
+// Flat timeline phase — receives locale-resolved strings from the page
+// (FlatService.timeline shape, not the localized `{en, vi}` shape).
+interface TimelinePhase {
+  week: string;
+  phase: string;
+  description: string;
+}
 
 interface ServiceTimelineProps {
-  timeline: ServiceTimeline[];
+  timeline: TimelinePhase[];
 }
 
 const stepIcons: LucideIcon[] = [Lightbulb, PenTool, Code2, Rocket];
@@ -53,7 +59,7 @@ function DesktopStep({
   total,
   isLeft,
 }: {
-  phase: ServiceTimeline;
+  phase: TimelinePhase;
   index: number;
   total: number;
   isLeft: boolean;

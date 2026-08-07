@@ -1,0 +1,217 @@
+{
+  "metadata": {
+    "title": "Retech Solutions | Vietnam Software Development & IT Outsourcing",
+    "description": "Retech Solutions is a Vietnam-based software development firm building custom CMS, CRM, ERP and AI-powered products for teams worldwide. Free consultation.",
+    "keywords": [
+      "IT outsourcing Vietnam",
+      "software development Vietnam",
+      "custom software development",
+      "offshore development team",
+      "CMS development",
+      "CRM systems",
+      "ERP solutions",
+      "AI-powered solutions",
+      "web application development",
+      "mobile app development",
+      "IT consulting Vietnam",
+      "software outsourcing company",
+      "Vietnam IT company",
+      "Retech Solutions",
+      "Retech Asia",
+      "digital transformation",
+      "software development outsourcing"
+    ]
+  },
+  "nav": {
+    "main": {
+      "services": "Services",
+      "process": "Process",
+      "industries": "Industries",
+      "caseStudies": "Case Studies",
+      "about": "About",
+      "blog": "Blog"
+    },
+    "cta": {
+      "quote": "Request Quote",
+      "consultation": "Get Free Consultation",
+      "allServices": "All Services",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu"
+    },
+    "services": {
+      "cms": "CMS Platforms",
+      "cmsDesc": "Headless and traditional CMS with AI tagging, smart search, and editorial copilots",
+      "crm": "CRM Systems",
+      "crmDesc": "CRMs with AI lead scoring, conversation intelligence, and predictive workflows",
+      "erp": "ERP Solutions",
+      "erpDesc": "ERPs with AI forecasting, anomaly detection, and automated reporting",
+      "web": "Web Development",
+      "webDesc": "Web apps with optional LLM features, vector search, and AI-assisted ops baked in",
+      "uiux": "UI/UX Design",
+      "uiuxDesc": "Product design for AI-native interfaces, including copilot UX and conversational flows",
+      "teams": "Dedicated Teams",
+      "teamsDesc": "Embedded engineers experienced in shipping RAG, agents, and LLM integrations"
+    },
+    "footer": {
+      "home": "Home",
+      "about": "About Us",
+      "services": "Services",
+      "process": "Process",
+      "industries": "Industries",
+      "caseStudies": "Case Studies",
+      "blog": "Blog",
+      "contact": "Contact",
+      "faq": "FAQ",
+      "technologies": "Technologies",
+      "careers": "Careers",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "quickLinks": "Quick Links",
+      "resources": "Resources",
+      "servicesHeader": "Services",
+      "backToTop": "Back to top",
+      "rightsReserved": "All rights reserved.",
+      "companyTagline": "Custom software development, CMS/CRM/ERP solutions, and AI-powered digital products from Vietnam.",
+      "projectsDelivered": "50+ projects delivered across 6 countries",
+      "chatWhatsApp": "Chat on WhatsApp",
+      "vietnam": "Vietnam"
+    },
+    "languageSwitcher": {
+      "label": "Language",
+      "en": "English",
+      "vi": "Tiếng Việt",
+      "ariaLabel": "Switch language"
+    }
+  },
+  "home": {
+    "hero": {
+      "seoH1": "Retech Solutions — Vietnam Software Development & IT Outsourcing",
+      "taglinePre": "Turning Ideas",
+      "taglineInto": "into",
+      "taglineAccent": "Solutions",
+      "subheadLead": "We build",
+      "subheadTrail": "your business can rely on.",
+      "mutedLine": "AI-integrated engineering for web, mobile, and cloud products. Shipped from Vietnam to teams worldwide.",
+      "ctaPrimary": "Get Free Consultation",
+      "ctaSecondary": "Explore Services",
+      "rotatingServices": [
+        "CMS platforms",
+        "CRM systems",
+        "ERP solutions",
+        "AI products",
+        "web apps"
+      ]
+    },
+    "trustedBy": {
+      "title": "Serving industries worldwide",
+      "industries": ["Healthcare", "Finance", "E-commerce", "Logistics", "Education", "Real Estate", "SaaS", "Manufacturing"]
+    },
+    "servicesPreview": {
+      "label": "Our Services",
+      "title": "What We Build",
+      "subtitle": "Custom software with AI built in: RAG search, LLM features, and intelligent automation shipped inside every CMS, CRM, and ERP we deliver.",
+      "learnMore": "Learn more",
+      "exploreAll": "Explore all services"
+    },
+    "ourWork": {
+      "title": "Proof of work",
+      "subtitle": "Real projects with measurable outcomes. The kind of work we'd rather show than tell.",
+      "caseStudyLabel": "Case study",
+      "viewAll": "View all case studies"
+    },
+    "midCta": {
+      "eyebrow": "Free Consultation",
+      "title": "Not Sure Where AI Fits?",
+      "body": "Book a free 30-minute consultation with our technical lead. We will map out the right approach, tech stack, AI opportunity surface, and timeline. No strings attached.",
+      "cta": "Get Free Consultation",
+      "secondary": "See Our Work"
+    },
+    "whyRetech": {
+      "title": "Why teams pick Retech",
+      "subtitle": "Senior engineers, modern stack, transparent process. The fundamentals that make offshore development actually work.",
+      "learnMore": "Learn more"
+    },
+    "whyVietnam": {
+      "title": "Why Vietnam",
+      "subtitle": "A deep engineering talent pool, time-zone overlap with APAC and EMEA, and a government actively investing in tech. The math is straightforward.",
+      "advantages": {
+        "talent": {
+          "title": "Engineering talent pool",
+          "description": "Vietnam graduates 50,000+ IT engineers annually. The talent pool is deep in modern web stacks (React, Node.js, Python) and mobile (React Native, Flutter)."
+        },
+        "timezone": {
+          "title": "Time-zone advantage",
+          "description": "GMT+7 overlaps same-day with APAC (Tokyo, Singapore, Sydney) and morning overlap with EMEA (London, Berlin). Follow-the-sun engineering is real here."
+        },
+        "cost": {
+          "title": "Cost-to-quality ratio",
+          "description": "Senior engineering rates 40-60% below US/EU equivalents, without the quality compromise. You pay for output, not overhead."
+        },
+        "government": {
+          "title": "Tech-forward policy",
+          "description": "National Digital Transformation program, R&D tax incentives, and aggressive fiber + 5G rollout. The infrastructure supports modern dev work."
+        }
+      }
+    },
+    "techStack": {
+      "title": "Our technical stack",
+      "subtitle": "Modern, well-supported frameworks. We avoid exotic stacks that lock teams into maintenance debt.",
+      "categories": {
+        "frontend": "Frontend",
+        "backend": "Backend",
+        "mobile": "Mobile",
+        "database": "Database",
+        "devops": "DevOps",
+        "ai": "AI & ML"
+      }
+    },
+    "testimonials": {
+      "title": "Built on trust",
+      "subtitle": "What clients say about working with Retech."
+    },
+    "finalCta": {
+      "titleLine1": "Let's Ship Your Product",
+      "titleLine2": "On Time, On Budget",
+      "body": "Get a detailed project plan and estimate within 24 hours. From first call to production deployment, we have done it 50+ times.",
+      "cta": "Get Your Free Estimate",
+      "secondary": "View Our Work",
+      "trust": {
+        "freeConsult": "Free consultation",
+        "estimate24h": "Estimate within 24 hours",
+        "noCommit": "No commitment required"
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "subtitle": "The questions we hear most often from founders and engineering leaders evaluating Retech.",
+      "items": {
+        "q1": {
+          "q": "What services does Retech Solutions offer?",
+          "a": "We offer full-cycle software development services including custom web and mobile applications, CMS platforms (WordPress, Strapi, Webflow), CRM solutions (Salesforce, HubSpot integrations), ERP systems, AI-powered products, and dedicated development team services. Our expertise spans the entire lifecycle from business analysis and UI/UX design through development, testing, and deployment."
+        },
+        "q2": {
+          "q": "How does the dedicated team model work?",
+          "a": "Our dedicated team model provides you with a fully integrated extension of your in-house team. We assemble developers, designers, and project managers based on your tech stack and project requirements. The team works exclusively on your project, follows your processes, and reports directly to you. You retain full control over priorities and sprint planning while we handle recruitment, infrastructure, and HR."
+        },
+        "q3": {
+          "q": "What technologies do you specialize in?",
+          "a": "We work with a modern tech stack including React, Next.js, Vue.js, Node.js, Python, and TypeScript on the frontend and backend. For mobile, we use React Native and Flutter. Our CMS expertise covers WordPress, Strapi, and headless CMS architectures. We also have strong experience with cloud platforms (AWS, GCP, Azure), and we integrate AI/ML capabilities using frameworks like TensorFlow and OpenAI APIs."
+        },
+        "q4": {
+          "q": "How do you handle communication and project management?",
+          "a": "We use agile methodologies with regular sprint planning, daily standups, and retrospectives. Communication happens through your preferred channels: Slack, Microsoft Teams, or Zoom. You receive weekly progress reports and have direct access to the project manager and development team. We also use tools like Jira, Linear, or Notion for transparent task tracking, so you always know the status of your project."
+        },
+        "q5": {
+          "q": "What are your pricing models?",
+          "a": "We offer three flexible pricing models: (1) Fixed Price, ideal for projects with well-defined scope and requirements, giving you cost certainty upfront. (2) Time & Materials, best for evolving projects where flexibility is needed, billed hourly based on actual work. (3) Dedicated Team, a monthly retainer for ongoing collaboration with a dedicated team. We recommend the best model based on your project scope and business objectives during our initial consultation."
+        }
+      }
+    }
+  },
+  "homepage": {
+    "jsonLd": {
+      "webPageTitle": "Retech Solutions | Software Development & IT Outsourcing",
+      "webPageDescription": "Full-cycle software development outsourcing, from business analysis and design to development, testing, and deployment. Agile methodologies, modern technologies, and AI-driven solutions for web and mobile applications."
+    }
+  }
+}

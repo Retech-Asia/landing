@@ -182,7 +182,7 @@ function getOrganizationSchema() {
  *
  * @see https://developers.google.com/search/docs/appearance/structured-data/sitelinks-searchbox
  */
-function getWebSiteSchema() {
+function getWebSiteSchema(locale: "en" | "vi" = "en") {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -194,7 +194,7 @@ function getWebSiteSchema() {
     publisher: {
       "@id": `${SITE_URL}/#organization`,
     },
-    inLanguage: "en",
+    inLanguage: locale,
     // SearchAction intentionally omitted — no on-site search endpoint exists.
     // Re-add only when /blog?q= or /search?q= is implemented; otherwise Google
     // may flag the sitelinks searchbox as non-functional.
@@ -289,12 +289,15 @@ function getLocalBusinessSchema() {
 
 /**
  * Renders all sitewide structured data (Organization, WebSite, LocalBusiness).
- * Included once in the root layout via <SiteJsonLd />.
+ * Included once in the root layout via <SiteJsonLd locale={locale} />.
+ *
+ * `locale` flows into the WebSite schema's `inLanguage` so Google indexes
+ * the page in the right language bucket.
  */
-export function SiteJsonLd() {
+export function SiteJsonLd({ locale = "en" }: { locale?: "en" | "vi" }) {
   const schemas = [
     getOrganizationSchema(),
-    getWebSiteSchema(),
+    getWebSiteSchema(locale),
     getLocalBusinessSchema(),
   ];
 

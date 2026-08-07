@@ -91,13 +91,13 @@ export default function BlogPage() {
               </p>
               <ul className="space-y-2.5">
                 {services.slice(0, 4).map((service) => (
-                  <li key={service.slug}>
+                  <li key={service.id}>
                     <Link
-                      href={`/services/${service.slug}`}
+                      href={`/services/${service.slug.en}`}
                       className="group inline-flex items-center gap-2 text-sm text-foreground-secondary hover:text-brand transition-colors"
                     >
                       <ArrowRight size={14} className="text-brand" aria-hidden="true" />
-                      {service.title}
+                      {service.title.en}
                     </Link>
                   </li>
                 ))}

@@ -1,24 +1,29 @@
 import { ImageResponse } from "next/og";
 import { services } from "@/lib/services-data";
+import { routing, type Locale } from "@/i18n/routing";
 
 export const alt = "Retech Solutions Services";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export function generateStaticParams() {
-  return services.map((service) => ({ slug: service.slug }));
+  // Cartesian product: each locale × each service slug for that locale.
+  return routing.locales.flatMap((locale) =>
+    services.map((service) => ({ locale, slug: service.slug[locale] }))
+  );
 }
 
 export default async function Image({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const service = services.find((s) => s.slug === slug);
+  const { slug, locale } = await params;
+  const loc = locale as Locale;
+  const service = services.find((s) => s.slug[loc] === slug);
 
-  const title = service?.title ?? "Our Services";
-  const subtitle = service?.subtitle ?? "Retech Solutions";
+  const title = service?.title[loc] ?? "Our Services";
+  const subtitle = service?.subtitle[loc] ?? "Retech Solutions";
 
   return new ImageResponse(
     (

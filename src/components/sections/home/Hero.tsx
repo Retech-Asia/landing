@@ -2,10 +2,12 @@
 
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/Button";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { Container } from "@/components/ui/Container";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { Link } from "@/i18n/navigation";
 // Hero ambient gradient (LatticeField is the historical component name;
 // the implementation is now a fragment-shader gradient plane — see
 // LatticeField.tsx for the recipe). Four drifting brand color sources,
@@ -25,6 +27,8 @@ import { STATS } from "@/lib/constants";
 /* ------------------------------------------------------------------ */
 
 export function Hero() {
+  const t = useTranslations("home.hero");
+  const locale = useLocale();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -43,14 +47,8 @@ export function Hero() {
   }, []);
 
   // Rotating service type — cycles through what we build.
-  // Starts after 1.5s (lets headline settle), cycles every 2.5s.
-  const rotatingServices = [
-    "CMS platforms",
-    "CRM systems",
-    "ERP solutions",
-    "AI products",
-    "web apps",
-  ];
+  // Pulled from message catalog so it renders in the active locale.
+  const rotatingServices = t.raw("rotatingServices") as string[];
   const [rotatingIndex, setRotatingIndex] = useState(0);
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -106,7 +104,7 @@ export function Hero() {
                 and core service keywords. Tagline is aria-hidden so screen
                 readers get one clean H1 rather than two competing headings. */}
             <h1 className="sr-only">
-              Retech Solutions — Vietnam Software Development & IT Outsourcing
+              {t("seoH1")}
             </h1>
 
             {/* Visible tagline — LCP-critical: CSS-only entrance, no JS gate.
@@ -118,16 +116,16 @@ export function Hero() {
               aria-hidden="true"
               className="text-[2.75rem] leading-[1.05] sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold tracking-[-0.02em] text-foreground mb-6 text-balance"
             >
-              Turning Ideas
+              {t("taglinePre")}
               <br />
-              into{" "}
-              <span className="font-display italic text-brand">Solutions</span>
+              {t("taglineInto")}{" "}
+              <span className="font-display italic text-brand">{t("taglineAccent")}</span>
             </p>
 
             {/* Dynamic subtitle with rotating service type. */}
             <div className="mb-10 max-w-2xl">
               <p className="text-lg md:text-xl text-foreground-secondary leading-relaxed mb-2">
-                We build{" "}
+                {t("subheadLead")}{" "}
                 <span className="inline-block font-semibold align-baseline">
                   <AnimatePresence mode="wait">
                     <motion.span
@@ -142,11 +140,10 @@ export function Hero() {
                     </motion.span>
                   </AnimatePresence>
                 </span>
-                {" "}your business can rely on.
+                {" "}{t("subheadTrail")}
               </p>
               <p className="text-sm md:text-base text-foreground-muted">
-                AI-integrated engineering for web, mobile, and cloud products.
-                Shipped from Vietnam to teams worldwide.
+                {t("mutedLine")}
               </p>
             </div>
 
@@ -158,7 +155,7 @@ export function Hero() {
                   size="lg"
                   className="font-semibold w-full sm:w-auto"
                 >
-                  Get Free Consultation
+                  {t("ctaPrimary")}
                 </Button>
               </Magnetic>
               <Magnetic strength={4}>
@@ -168,7 +165,7 @@ export function Hero() {
                   size="md"
                   className="w-full sm:w-auto"
                 >
-                  Explore Services
+                  {t("ctaSecondary")}
                 </Button>
               </Magnetic>
             </div>
@@ -176,7 +173,7 @@ export function Hero() {
             {/* Stats — premium strip with dividers, big number + label rhythm */}
             <div className="flex flex-wrap items-end justify-center md:justify-start gap-x-6 gap-y-6 sm:gap-x-10">
               {STATS.map((stat, i) => (
-                <div key={stat.label} className="flex items-end">
+                <div key={stat.label.en} className="flex items-end">
                   {i > 0 && (
                     <span
                       className="hidden sm:block h-12 w-px bg-gradient-to-b from-transparent via-foreground/15 to-transparent self-center mr-6 sm:mr-10"
@@ -191,7 +188,7 @@ export function Hero() {
                       />
                     </div>
                     <p className="text-sm text-foreground-muted mt-2 tracking-wide">
-                      {stat.label}
+                      {stat.label[locale as "en" | "vi"]}
                     </p>
                   </div>
                 </div>

@@ -1,0 +1,217 @@
+{
+  "metadata": {
+    "title": "Retech Solutions | Phát triển Phần mềm & Gia công IT tại Việt Nam",
+    "description": "Retech Solutions là công ty phát triển phần mềm tại Việt Nam, chuyên xây dựng các sản phẩm CMS, CRM, ERP và ứng dụng AI theo yêu cầu cho khách hàng toàn cầu. Tư vấn miễn phí.",
+    "keywords": [
+      "gia công IT Việt Nam",
+      "phát triển phần mềm Việt Nam",
+      "phát triển phần mềm theo yêu cầu",
+      "đội ngũ lập trình viên offshore",
+      "phát triển CMS",
+      "hệ thống CRM",
+      "giải pháp ERP",
+      "tích hợp AI",
+      "phát triển ứng dụng web",
+      "phát triển ứng dụng di động",
+      "tư vấn IT Việt Nam",
+      "công ty gia công phần mềm",
+      "công ty IT Việt Nam",
+      "Retech Solutions",
+      "Retech Asia",
+      "chuyển đổi số",
+      "outsourcing phần mềm"
+    ]
+  },
+  "nav": {
+    "main": {
+      "services": "Dịch vụ",
+      "process": "Quy trình",
+      "industries": "Ngành",
+      "caseStudies": "Dự án",
+      "about": "Giới thiệu",
+      "blog": "Blog"
+    },
+    "cta": {
+      "quote": "Nhận Báo giá",
+      "consultation": "Tư vấn Miễn phí",
+      "allServices": "Tất cả Dịch vụ",
+      "openMenu": "Mở menu",
+      "closeMenu": "Đóng menu"
+    },
+    "services": {
+      "cms": "Nền tảng CMS",
+      "cmsDesc": "CMS headless và truyền thống với gắn thẻ AI, tìm kiếm thông minh và trợ lý biên tập",
+      "crm": "Hệ thống CRM",
+      "crmDesc": "CRM với chấm điểm lead bằng AI, phân tích hội thoại và quy trình dự đoán",
+      "erp": "Giải pháp ERP",
+      "erpDesc": "ERP với dự báo AI, phát hiện bất thường và báo cáo tự động",
+      "web": "Phát triển Web",
+      "webDesc": "Ứng dụng web với tính năng LLM tùy chọn, tìm kiếm vector và vận hành hỗ trợ AI",
+      "uiux": "Thiết kế UI/UX",
+      "uiuxDesc": "Thiết kế sản phẩm cho giao diện AI-native, bao gồm UX copilot và luồng hội thoại",
+      "teams": "Đội ngũ Chuyên trách",
+      "teamsDesc": "Kỹ sư tích hợp có kinh nghiệm triển khai RAG, agents và tích hợp LLM"
+    },
+    "footer": {
+      "home": "Trang chủ",
+      "about": "Giới thiệu",
+      "services": "Dịch vụ",
+      "process": "Quy trình",
+      "industries": "Ngành",
+      "caseStudies": "Dự án",
+      "blog": "Blog",
+      "contact": "Liên hệ",
+      "faq": "Câu hỏi thường gặp",
+      "technologies": "Công nghệ",
+      "careers": "Tuyển dụng",
+      "privacy": "Chính sách Bảo mật",
+      "terms": "Điều khoản Dịch vụ",
+      "quickLinks": "Liên kết Nhanh",
+      "resources": "Tài nguyên",
+      "servicesHeader": "Dịch vụ",
+      "backToTop": "Về đầu trang",
+      "rightsReserved": "Mọi quyền được bảo lưu.",
+      "companyTagline": "Phát triển phần mềm theo yêu cầu, giải pháp CMS/CRM/ERP và sản phẩm số tích hợp AI từ Việt Nam.",
+      "projectsDelivered": "50+ dự án đã bàn giao tại 6 quốc gia",
+      "chatWhatsApp": "Trò chuyện trên WhatsApp",
+      "vietnam": "Việt Nam"
+    },
+    "languageSwitcher": {
+      "label": "Ngôn ngữ",
+      "en": "English",
+      "vi": "Tiếng Việt",
+      "ariaLabel": "Chuyển ngôn ngữ"
+    }
+  },
+  "home": {
+    "hero": {
+      "seoH1": "Retech Solutions — Phát triển Phần mềm & Gia công IT tại Việt Nam",
+      "taglinePre": "Biến Ý tưởng",
+      "taglineInto": "thành",
+      "taglineAccent": "Giải pháp",
+      "subheadLead": "Chúng tôi xây dựng",
+      "subheadTrail": "mà doanh nghiệp của bạn có thể tin tưởng.",
+      "mutedLine": "Kỹ thuật tích hợp AI cho sản phẩm web, di động và cloud. Bàn giao từ Việt Nam đến các đội ngũ trên toàn cầu.",
+      "ctaPrimary": "Tư vấn Miễn phí",
+      "ctaSecondary": "Xem Dịch vụ",
+      "rotatingServices": [
+        "nền tảng CMS",
+        "hệ thống CRM",
+        "giải pháp ERP",
+        "sản phẩm AI",
+        "ứng dụng web"
+      ]
+    },
+    "trustedBy": {
+      "title": "Phục vụ ngành nghề toàn cầu",
+      "industries": ["Y tế", "Tài chính", "Thương mại điện tử", "Logistics", "Giáo dục", "Bất động sản", "SaaS", "Sản xuất"]
+    },
+    "servicesPreview": {
+      "label": "Dịch vụ",
+      "title": "Chúng tôi Xây dựng Gì",
+      "subtitle": "Phần mềm theo yêu cầu với AI tích hợp sẵn: RAG search, tính năng LLM và tự động hóa thông minh trong từng CMS, CRM, ERP chúng tôi bàn giao.",
+      "learnMore": "Tìm hiểu thêm",
+      "exploreAll": "Xem tất cả dịch vụ"
+    },
+    "ourWork": {
+      "title": "Kết quả thực tế",
+      "subtitle": "Các dự án thực tế với kết quả đo lường được. Chúng tôi thích minh bạch bằng con số hơn là lời hứa.",
+      "caseStudyLabel": "Dự án",
+      "viewAll": "Xem tất cả dự án"
+    },
+    "midCta": {
+      "eyebrow": "Tư vấn Miễn phí",
+      "title": "Chưa rõ nơi AI phát huy hiệu lực?",
+      "body": "Đặt tư vấn miễn phí 30 phút với trưởng nhóm kỹ thuật. Chúng tôi sẽ phác đồ hướng tiếp cận, tech stack, phạm vi cơ hội AI và timeline phù hợp. Không ràng buộc.",
+      "cta": "Tư vấn Miễn phí",
+      "secondary": "Xem Dự án"
+    },
+    "whyRetech": {
+      "title": "Vì sao chọn Retech",
+      "subtitle": "Kỹ sư cấp cao, công nghệ hiện đại, quy trình minh bạch. Những yếu tố cơ bản để gia công offshore thực sự hiệu quả.",
+      "learnMore": "Tìm hiểu thêm"
+    },
+    "whyVietnam": {
+      "title": "Vì sao chọn Việt Nam",
+      "subtitle": "Nguồn kỹ sư chất lượng, chồng lệch múi giờ với APAC và EMEA, và chính phủ đầu tư mạnh vào công nghệ. Con số rõ ràng.",
+      "advantages": {
+        "talent": {
+          "title": "Nguồn kỹ sư",
+          "description": "Việt Nam có hơn 50.000 kỹ sư IT tốt nghiệp mỗi năm. Nguồn lực dồi dào về công nghệ web hiện đại (React, Node.js, Python) và di động (React Native, Flutter)."
+        },
+        "timezone": {
+          "title": "Lợi thế múi giờ",
+          "description": "GMT+7 chồng lệch trong ngày với APAC (Tokyo, Singapore, Sydney) và chồng lệch giờ sáng với EMEA (London, Berlin). Mô hình phát triển theo mặt trời hoạt động hiệu quả tại đây."
+        },
+        "cost": {
+          "title": "Tỷ lệ chi phí / chất lượng",
+          "description": "Mức giá kỹ sư cấp thấp hơn 40-60% so với Mỹ/Châu Âu tương đương, mà không phải đánh đổi chất lượng. Bạn trả tiền cho kết quả, không phải chi phí vận hành."
+        },
+        "government": {
+          "title": "Chính sách hướng tới công nghệ",
+          "description": "Chương trình Chuyển đổi số Quốc gia, ưu đãi thuế R&D, triển khai aggressive cáp quang và 5G. Hạ tầng đáp ứng tốt công việc phát triển hiện đại."
+        }
+      }
+    },
+    "techStack": {
+      "title": "Stack công nghệ của chúng tôi",
+      "subtitle": "Các framework hiện đại, được hỗ trợ tốt. Chúng tôi tránh các stack độc lạ dễ đẩy đội vào nợ bảo trì.",
+      "categories": {
+        "frontend": "Frontend",
+        "backend": "Backend",
+        "mobile": "Mobile",
+        "database": "Cơ sở dữ liệu",
+        "devops": "DevOps",
+        "ai": "AI & ML"
+      }
+    },
+    "testimonials": {
+      "title": "Xây dựng trên nền tảng tin cậy",
+      "subtitle": "Khách hàng nói gì khi làm việc với Retech."
+    },
+    "finalCta": {
+      "titleLine1": "Hãy Bàn giao Sản phẩm của Bạn",
+      "titleLine2": "Đúng Hạn, Đúng Ngân sách",
+      "body": "Nhận kế hoạch dự án chi tiết và báo giá trong vòng 24 giờ. Từ cuộc gọi đầu tiên đến triển khai sản xuất, chúng tôi đã thực hiện hơn 50 lần.",
+      "cta": "Nhận Báo giá Miễn phí",
+      "secondary": "Xem Dự án",
+      "trust": {
+        "freeConsult": "Tư vấn miễn phí",
+        "estimate24h": "Báo giá trong 24 giờ",
+        "noCommit": "Không ràng buộc"
+      }
+    },
+    "faq": {
+      "title": "Câu hỏi thường gặp",
+      "subtitle": "Những câu hỏi chúng tôi nhận được nhiều nhất từ các founder và lãnh đạo kỹ thuật khi đánh giá Retech.",
+      "items": {
+        "q1": {
+          "q": "Retech Solutions cung cấp những dịch vụ gì?",
+          "a": "Chúng tôi cung cấp dịch vụ phát triển phần mềm toàn vòng đời, bao gồm ứng dụng web và di động theo yêu cầu, nền tảng CMS (WordPress, Strapi, Webflow), giải pháp CRM (tích hợp Salesforce, HubSpot), hệ thống ERP, sản phẩm tích hợp AI và dịch vụ đội ngũ phát triển chuyên trách. Chuyên môn của chúng tôi trải dài từ phân tích nghiệp vụ và thiết kế UI/UX đến phát triển, kiểm thử và triển khai."
+        },
+        "q2": {
+          "q": "Mô hình đội ngũ chuyên trách hoạt động như thế nào?",
+          "a": "Mô hình đội ngũ chuyên trách cung cấp cho bạn một phần mở rộng hoàn toàn tích hợp của đội nội bộ. Chúng tôi tổ chức đội gồm các lập trình viên, nhà thiết kế và quản lý dự án dựa trên tech stack và yêu cầu dự án của bạn. Đội làm việc độc quyền cho dự án của bạn, tuân theo quy trình của bạn và báo cáo trực tiếp cho bạn. Bạn giữ toàn quyền kiểm soát ưu tiên và lập kế hoạch sprint, trong khi chúng tôi đảm nhiệm tuyển dụng, hạ tầng và nhân sự."
+        },
+        "q3": {
+          "q": "Bạn chuyên về những công nghệ gì?",
+          "a": "Chúng tôi làm việc với tech stack hiện đại bao gồm React, Next.js, Vue.js, Node.js, Python và TypeScript ở frontend và backend. Về mobile, chúng tôi sử dụng React Native và Flutter. Chuyên môn CMS của chúng tôi bao gồm WordPress, Strapi và kiến trúc headless CMS. Chúng tôi cũng có kinh nghiệm mạnh với các nền tảng cloud (AWS, GCP, Azure) và tích hợp khả năng AI/ML sử dụng các framework như TensorFlow và OpenAI APIs."
+        },
+        "q4": {
+          "q": "Bạn xử lý giao tiếp và quản lý dự án như thế nào?",
+          "a": "Chúng tôi sử dụng phương pháp agile với lập kế hoạch sprint định kỳ, standup hàng ngày và retrospective. Giao tiếp diễn ra qua kênh bạn ưu tiên: Slack, Microsoft Teams hoặc Zoom. Bạn nhận được báo cáo tiến độ hàng tuần và có quyền truy cập trực tiếp đến quản lý dự án và đội phát triển. Chúng tôi cũng sử dụng các công cụ như Jira, Linear hoặc Notion để theo dõi nhiệm vụ minh bạch, để bạn luôn biết trạng thái dự án."
+        },
+        "q5": {
+          "q": "Mô hình giá của bạn là gì?",
+          "a": "Chúng tôi cung cấp ba mô hình giá linh hoạt: (1) Giá cố định, phù hợp cho các dự án có phạm vi và yêu cầu được xác định rõ, mang lại sự chắc chắn về chi phí từ đầu. (2) Thời gian & Vật tư, phù hợp nhất cho các dự án đang tiến hóa cần sự linh hoạt, tính phí theo giờ dựa trên công việc thực tế. (3) Đội ngũ Chuyên trách, phí cố định hàng tháng cho hợp tác liên tục với một đội chuyên trách. Chúng tôi đề xuất mô hình phù hợp dựa trên phạm vi dự án và mục tiêu kinh doanh của bạn trong buổi tư vấn ban đầu."
+        }
+      }
+    }
+  },
+  "homepage": {
+    "jsonLd": {
+      "webPageTitle": "Retech Solutions | Phát triển Phần mềm & Gia công IT",
+      "webPageDescription": "Gia công phát triển phần mềm toàn vòng đời, từ phân tích nghiệp vụ và thiết kế đến phát triển, kiểm thử và triển khai. Phương pháp agile, công nghệ hiện đại và giải pháp AI cho ứng dụng web và di động."
+    }
+  }
+}

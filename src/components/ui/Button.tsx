@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/cn";
 import { type ReactNode } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 interface ButtonProps {
   children: ReactNode;

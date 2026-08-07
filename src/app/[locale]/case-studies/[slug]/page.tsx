@@ -35,6 +35,8 @@ import {
   CaseStudyJsonLd,
 } from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/constants";
+import { setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 import { AnimatedMetrics } from "@/components/case-studies/AnimatedMetrics";
 import { BeforeAfter } from "@/components/case-studies/BeforeAfter";
 import { ProjectTimeline } from "@/components/case-studies/ProjectTimeline";
@@ -105,19 +107,21 @@ function CaseStudyImage({
 }
 
 export function generateStaticParams() {
-  return caseStudies.map((study) => ({ slug: study.slug }));
+  return routing.locales.flatMap((locale) =>
+    caseStudies.map((study) => ({ locale, slug: study.slug }))
+  );
 }
 
 export function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  return params.then(({ slug }) => {
+  return params.then(({ slug, locale }) => {
     const study = getCaseStudy(slug);
     if (!study) return { title: "Case Study Not Found" };
 
-    const pageUrl = `${SITE_URL}/case-studies/${study.slug}`;
+    const pageUrl = `${SITE_URL}/${locale}/case-studies/${study.slug}`;
 
     return {
       title: `${study.title} Case Study`,
@@ -160,9 +164,10 @@ export function generateMetadata({
 export default async function CaseStudyDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+  setRequestLocale(locale);
   const study = getCaseStudy(slug);
 
   if (!study) {
@@ -172,7 +177,7 @@ export default async function CaseStudyDetailPage({
   const relatedStudy = caseStudies.find((cs) => cs.slug !== study.slug);
   const relatedServiceSlugs = caseStudyServiceMap[study.slug] ?? [];
   const relatedServices = services.filter((s) =>
-    relatedServiceSlugs.includes(s.slug)
+    relatedServiceSlugs.includes(s.slug.en)
   );
   const relatedBlogSlugs = caseStudyBlogMap[study.slug] ?? [];
   const relatedBlogs = blogPosts.filter((p) =>
@@ -587,18 +592,18 @@ export default async function CaseStudyDetailPage({
               {relatedServices.map((service) => {
                 const ServiceIcon = service.icon;
                 return (
-                  <StaggerItem key={service.slug}>
+                  <StaggerItem key={service.id}>
                     <Link
-                      href={`/services/${service.slug}`}
+                      href={`/services/${service.slug.en}`}
                       className="group block h-full"
                     >
                       <div className="relative h-full rounded-2xl bg-white border border-black/[0.06] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                         <ServiceIcon size={22} className="text-brand mb-4" />
                         <h3 className="text-base font-bold text-foreground mb-1 group-hover:text-brand transition-colors">
-                          {service.title}
+                          {service.title.en}
                         </h3>
                         <p className="text-sm text-foreground-secondary leading-relaxed mb-4">
-                          {service.description}
+                          {service.description.en}
                         </p>
                         <div className="flex items-center gap-1.5 text-sm font-medium text-brand group-hover:gap-2.5 transition-all duration-300">
                           Learn More

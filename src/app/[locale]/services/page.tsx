@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { setRequestLocale } from "next-intl/server";
+import type { Locale } from "@/i18n/routing";
 import {
   ArrowRight,
   Search,
@@ -31,27 +33,42 @@ import { services } from "@/lib/services-data";
 import { SITE_URL } from "@/lib/constants";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 
-export const metadata: Metadata = {
-  title: "IT Outsourcing Services",
-  description:
-    "Custom CMS, CRM, ERP, web apps, UI/UX design & dedicated teams from Vietnam. Full-cycle IT outsourcing services for global businesses.",
-  alternates: {
-    canonical: `${SITE_URL}/services`,
-  },
-  openGraph: {
-    title: "IT Outsourcing Services from Vietnam",
-    description:
-      "Custom CMS, CRM, ERP, web apps, UI/UX & dedicated offshore teams. Full-spectrum IT services from Vietnam.",
-    url: `${SITE_URL}/services`,
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "IT Outsourcing Services from Vietnam",
-    description:
-      "Custom CMS, CRM, ERP, web apps, UI/UX & dedicated offshore teams from Vietnam."
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === "en";
+  const title = isEn ? "IT Outsourcing Services" : "Dịch vụ Gia công IT";
+  const description = isEn
+    ? "Custom CMS, CRM, ERP, web apps, UI/UX design & dedicated teams from Vietnam. Full-cycle IT outsourcing services for global businesses."
+    : "CMS, CRM, ERP, ứng dụng web, UI/UX và đội chuyên trách từ Việt Nam. Dịch vụ gia công IT toàn vòng đời cho doanh nghiệp toàn cầu.";
+  const enUrl = `${SITE_URL}/en/services`;
+  const viUrl = `${SITE_URL}/vi/services`;
+  const canonical = isEn ? enUrl : viUrl;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical,
+      languages: { en: enUrl, vi: viUrl, "x-default": enUrl },
+    },
+    openGraph: {
+      title: isEn ? "IT Outsourcing Services from Vietnam" : "Dịch vụ Gia công IT từ Việt Nam",
+      description,
+      url: canonical,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: isEn ? "IT Outsourcing Services from Vietnam" : "Dịch vụ Gia công IT từ Việt Nam",
+      description,
+    },
+  };
+}
+
 
 const processSteps = [
   {
@@ -144,7 +161,15 @@ const comparisonFeatures: {
   },
 ];
 
-export default function ServicesPage() {
+export default async function ServicesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const loc = locale as Locale;
+
   return (
     <>
       {/* Structured Data */}
@@ -248,21 +273,21 @@ export default function ServicesPage() {
                     ? "text-accent-cyan"
                     : "text-accent-violet";
                 return (
-                  <StaggerItem key={service.slug} className="h-full">
-                    <Link href={`/services/${service.slug}`} className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-2xl focus-visible:ring-offset-2">
+                  <StaggerItem key={service.id} className="h-full">
+                    <Link href={`/services/${service.slug[loc]}`} className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-2xl focus-visible:ring-offset-2">
                       <div className="relative h-full rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 md:p-8 transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                         {/* Icon */}
                         <Icon size={28} className={`${iconColor} mb-5`} />
 
                         {/* Content */}
                         <h2 className="text-xl font-semibold text-foreground mb-1 group-hover:text-brand transition-colors">
-                          {service.title}
+                          {service.title[loc]}
                         </h2>
                         <p className="text-sm font-medium text-foreground-muted mb-3">
-                          {service.subtitle}
+                          {service.subtitle[loc]}
                         </p>
                         <p className="text-sm text-foreground-secondary leading-relaxed mb-6">
-                          {service.description}
+                          {service.description[loc]}
                         </p>
 
                         {/* Learn More link */}
@@ -306,11 +331,11 @@ export default function ServicesPage() {
                       {services.map((service) => {
                         const ServiceIcon = service.icon;
                         return (
-                          <th key={service.slug} className="px-4 py-4 text-center whitespace-nowrap">
+                          <th key={service.id} className="px-4 py-4 text-center whitespace-nowrap">
                             <div className="flex flex-col items-center gap-1.5">
                               <ServiceIcon size={18} className="text-brand" />
                               <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
-                                {service.title.split(" ")[0]}
+                                {service.title[loc].split(" ")[0]}
                               </span>
                             </div>
                           </th>
@@ -359,19 +384,19 @@ export default function ServicesPage() {
                 const ServiceIcon = service.icon;
                 return (
                   <div
-                    key={service.slug}
+                    key={service.id}
                     className="rounded-2xl border border-black/[0.06] bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
                   >
                     <div className="flex items-center gap-2.5 mb-4">
                       <ServiceIcon size={20} className="text-brand" />
                       <h2 className="text-base font-semibold text-foreground">
-                        {service.title}
+                        {service.title[loc]}
                       </h2>
                     </div>
                     <ul className="space-y-2.5">
                       {comparisonFeatures.map((row) => {
                         const colIndex = services.findIndex(
-                          (s) => s.slug === service.slug,
+                          (s) => s.id === service.id,
                         );
                         const isSupported = row.supported[colIndex];
                         return (

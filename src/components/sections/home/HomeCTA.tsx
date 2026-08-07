@@ -2,6 +2,7 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { CheckCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { StaggerContainer, StaggerItem } from "@/components/ui/AnimatedSection";
@@ -123,20 +124,16 @@ function FloatingShapes() {
 }
 
 /* ── Trust indicators ── */
-const trustItems = [
-  { label: "Free consultation" },
-  { label: "Estimate within 24 hours" },
-  { label: "No commitment required" },
-];
-
 function TrustIndicators() {
+  const t = useTranslations("home.finalCta.trust");
+  const trustKeys = ["freeConsult", "estimate24h", "noCommit"] as const;
   return (
     <StaggerContainer className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-8" staggerDelay={0.1}>
-      {trustItems.map((item) => (
-        <StaggerItem key={item.label}>
+      {trustKeys.map((key) => (
+        <StaggerItem key={key}>
           <div className="flex items-center gap-1.5 text-sm text-foreground-muted">
             <CheckCircle className="w-4 h-4 text-brand shrink-0" />
-            <span>{item.label}</span>
+            <span>{t(key)}</span>
           </div>
         </StaggerItem>
       ))}
@@ -182,6 +179,7 @@ function ScrollSplitText({ text, baseDelay = 0 }: { text: string; baseDelay?: nu
 
 /* ── Main CTA section ── */
 export function HomeCTA() {
+  const t = useTranslations("home.finalCta");
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
       {/* Gradient orb background — brand green + cyan */}
@@ -198,11 +196,11 @@ export function HomeCTA() {
           <div className="max-w-2xl mx-auto text-center">
             {/* Animated heading with per-word scroll reveal */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-4 text-balance">
-              <ScrollSplitText text="Let&apos;s Ship Your Product" />
+              <ScrollSplitText text={t("titleLine1")} />
               <br />
               <span className="relative inline-block">
                 <span className="gradient-text">
-                  <ScrollSplitText text="On Time, On Budget" baseDelay={0.25} />
+                  <ScrollSplitText text={t("titleLine2")} baseDelay={0.25} />
                 </span>
                 {/* Shimmer overlay */}
                 <motion.span
@@ -227,7 +225,7 @@ export function HomeCTA() {
             </h2>
 
             <p className="text-lg text-foreground-secondary mb-10 max-w-lg mx-auto">
-              Get a detailed project plan and estimate within 24 hours. From first call to production deployment, we have done it 50+ times.
+              {t("body")}
             </p>
 
             {/* CTA buttons — primary + ghost outline */}
@@ -244,12 +242,12 @@ export function HomeCTA() {
               </div>
               <Magnetic strength={5}>
                 <Button href="/contact" size="lg">
-                  Get Your Free Estimate
+                  {t("cta")}
                 </Button>
               </Magnetic>
               <Magnetic strength={5}>
                 <Button href="/case-studies" variant="secondary" size="lg">
-                  View Our Work
+                  {t("secondary")}
                 </Button>
               </Magnetic>
             </div>

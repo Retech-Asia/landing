@@ -38,27 +38,29 @@ import {
 import { services } from "@/lib/services-data";
 import { caseStudies } from "@/lib/case-studies-data";
 import { SITE_URL } from "@/lib/constants";
+import { setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 
 /* -- Static Params -------------------------------------------------------- */
 export function generateStaticParams() {
-  return industries.map((industry) => ({
-    slug: industry.slug,
-  }));
+  return routing.locales.flatMap((locale) =>
+    industries.map((industry) => ({ locale, slug: industry.slug }))
+  );
 }
 
 /* -- Metadata ------------------------------------------------------------ */
 export function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  return params.then(({ slug }) => {
+  return params.then(({ slug, locale }) => {
     const industry = getIndustryBySlug(slug);
     if (!industry) {
       return { title: "Industry Not Found" };
     }
 
-    const pageUrl = `${SITE_URL}/industries/${industry.slug}`;
+    const pageUrl = `${SITE_URL}/${locale}/industries/${industry.slug}`;
 
     return {
       title: `${industry.name} Software Development`,
@@ -103,7 +105,7 @@ function getRelatedCaseStudies(industry: Industry) {
 /* -- Related services lookup --------------------------------------------- */
 function getRelatedServices(industry: Industry) {
   return industry.relatedServiceSlugs
-    .map((slug) => services.find((s) => s.slug === slug))
+    .map((slug) => services.find((s) => s.slug.en === slug))
     .filter(Boolean);
 }
 
@@ -111,9 +113,10 @@ function getRelatedServices(industry: Industry) {
 export default async function IndustryDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+  setRequestLocale(locale);
   const industry = getIndustryBySlug(slug);
 
   if (!industry) {
@@ -564,9 +567,9 @@ export default async function IndustryDetailPage({
                 if (!service) return null;
                 const ServiceIcon = service.icon;
                 return (
-                  <StaggerItem key={service.slug}>
+                  <StaggerItem key={service.id}>
                     <Link
-                      href={`/services/${service.slug}`}
+                      href={`/services/${service.slug.en}`}
                       className="group block h-full"
                     >
                       <Card padding="lg" className="h-full">
@@ -577,10 +580,10 @@ export default async function IndustryDetailPage({
                           />
                         </div>
                         <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-brand transition-colors">
-                          {service.title}
+                          {service.title.en}
                         </h3>
                         <p className="text-sm text-foreground-secondary leading-relaxed mb-4">
-                          {service.subtitle}
+                          {service.subtitle.en}
                         </p>
                         <div className="flex items-center gap-1.5 text-sm font-medium text-brand group-hover:gap-2.5 transition-all duration-300">
                           Learn More

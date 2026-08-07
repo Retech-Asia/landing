@@ -16,22 +16,24 @@ import {
   SLUG_TO_CATEGORY,
 } from "@/lib/blog-data";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
+import { setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 import { CategoryBlogListing } from "./CategoryBlogListing";
 
 interface CategoryPageProps {
-  params: Promise<{ category: string }>;
+  params: Promise<{ locale: string; category: string }>;
 }
 
 export function generateStaticParams() {
-  return getAllCategorySlugs().map((slug) => ({
-    category: slug,
-  }));
+  return routing.locales.flatMap((locale) =>
+    getAllCategorySlugs().map((slug) => ({ locale, category: slug }))
+  );
 }
 
 export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
-  const { category: categorySlug } = await params;
+  const { category: categorySlug, locale } = await params;
   const category = getCategoryBySlug(categorySlug);
 
   if (!category) {
@@ -45,12 +47,12 @@ export async function generateMetadata({
     title: `${category.name} Blog`,
     description,
     alternates: {
-      canonical: `${SITE_URL}/blog/category/${categorySlug}`,
+      canonical: `${SITE_URL}/${locale}/blog/category/${categorySlug}`,
     },
     openGraph: {
       title,
       description,
-      url: `${SITE_URL}/blog/category/${categorySlug}`,
+      url: `${SITE_URL}/${locale}/blog/category/${categorySlug}`,
       type: "website",
       // OG image omitted — Next.js auto-uses src/app/opengraph-image.tsx
     },
@@ -63,7 +65,8 @@ export async function generateMetadata({
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { category: categorySlug } = await params;
+  const { category: categorySlug, locale } = await params;
+  setRequestLocale(locale);
   const category = getCategoryBySlug(categorySlug);
 
   if (!category) {

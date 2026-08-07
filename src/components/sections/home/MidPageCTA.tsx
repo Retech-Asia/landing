@@ -1,13 +1,15 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 
 export function MidPageCTA() {
+  const t = useTranslations("home.midCta");
   return (
-    <section className="py-16 md:py-20 relative" aria-label="Free consultation">
+    <section className="py-16 md:py-20 relative" aria-label={t("title")}>
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -30,13 +32,13 @@ export function MidPageCTA() {
               {/* Eyebrow text only — no icon box above it (user flagged that
                   pattern as AI-generated-feeling). */}
               <span className="block text-xs font-medium tracking-widest uppercase text-brand mb-3">
-                Free Consultation
+                {t("eyebrow")}
               </span>
               <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">
-                Not Sure Where AI Fits?
+                {t("title")}
               </h2>
               <p className="text-sm md:text-base text-foreground-secondary leading-relaxed max-w-lg">
-                Book a free 30-minute consultation with our technical lead. We will map out the right approach, tech stack, AI opportunity surface, and timeline. No strings attached.
+                {t("body")}
               </p>
             </div>
 
@@ -45,14 +47,14 @@ export function MidPageCTA() {
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:bg-brand-light hover:shadow-[0_4px_20px_rgba(32,133,53,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
               >
-                Get Free Consultation
+                {t("cta")}
                 <ArrowRight size={16} aria-hidden="true" />
               </Link>
               <Link
                 href="/case-studies"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-foreground border border-black/[0.12] px-6 py-3 text-sm font-medium transition-all duration-300 hover:border-black/[0.20] hover:shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-[0_1px_3px_rgba(0,0,0,0.04)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
               >
-                See Our Work
+                {t("secondary")}
               </Link>
             </div>
           </div>

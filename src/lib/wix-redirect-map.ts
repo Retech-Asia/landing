@@ -40,48 +40,48 @@ export type WixRedirect = {
  * finalized. Until then we route them to /case-studies so they don't 404.
  */
 export const WIX_REDIRECTS: WixRedirect[] = [
-  { source: "/about-us", destination: "/about", permanent: true },
-  { source: "/book-online", destination: "/contact", permanent: true },
-  { source: "/accessibility-statement", destination: "/", permanent: true, note: "No equivalent page yet; route home until we publish one" },
-  { source: "/blank", destination: "/", permanent: true, note: "Wix template page, never user-facing" },
+  { source: "/about-us", destination: "/en/about", permanent: true },
+  { source: "/book-online", destination: "/en/contact", permanent: true },
+  { source: "/accessibility-statement", destination: "/en", permanent: true, note: "No equivalent page yet; route home until we publish one" },
+  { source: "/blank", destination: "/en", permanent: true, note: "Wix template page, never user-facing" },
   {
     source: "/portfolio-collections/my-portfolio",
-    destination: "/case-studies",
+    destination: "/en/case-studies",
     permanent: true,
   },
   {
     source: "/portfolio-collections/my-portfolio/project-title-1",
-    destination: "/case-studies",
+    destination: "/en/case-studies",
     permanent: true,
     note: "Map to specific case-study slug once confirmed",
   },
   {
     source: "/portfolio-collections/my-portfolio/project-title-2",
-    destination: "/case-studies",
+    destination: "/en/case-studies",
     permanent: true,
     note: "Map to specific case-study slug once confirmed",
   },
   {
     source: "/portfolio-collections/my-portfolio/project-title-3",
-    destination: "/case-studies",
+    destination: "/en/case-studies",
     permanent: true,
     note: "Map to specific case-study slug once confirmed",
   },
   {
     source: "/portfolio-collections/my-portfolio/project-title-4",
-    destination: "/case-studies",
+    destination: "/en/case-studies",
     permanent: true,
     note: "Map to specific case-study slug once confirmed",
   },
   {
     source: "/portfolio-collections/my-portfolio/project-title-5",
-    destination: "/case-studies",
+    destination: "/en/case-studies",
     permanent: true,
     note: "Map to specific case-study slug once confirmed",
   },
   {
     source: "/portfolio-collections/my-portfolio/project-title-6",
-    destination: "/case-studies",
+    destination: "/en/case-studies",
     permanent: true,
     note: "Map to specific case-study slug once confirmed",
   },
@@ -93,8 +93,12 @@ export const WIX_REDIRECTS: WixRedirect[] = [
  * 2026-07-20: Scrubbed client brand names from case study slugs/titles.
  * Old slugs redirected to new ones so any internal links or stale indexes
  * keep resolving. Safe to remove after 6+ months of stable traffic.
+ *
+ * 2026-08-05: Destinations re-prefixed with `/en` so any remaining legacy
+ * inbound links single-hop to the canonical English URL (the root locale
+ * prefix is now required after the next-intl migration).
  */
 export const INTERNAL_REDIRECTS: WixRedirect[] = [
-  { source: "/case-studies/signsbeat", destination: "/case-studies/mining-analytics-platform", permanent: true },
-  { source: "/case-studies/dune-asset-management", destination: "/case-studies/asset-management-platform", permanent: true },
+  { source: "/case-studies/signsbeat", destination: "/en/case-studies/mining-analytics-platform", permanent: true },
+  { source: "/case-studies/dune-asset-management", destination: "/en/case-studies/asset-management-platform", permanent: true },
 ];

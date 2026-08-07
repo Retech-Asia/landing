@@ -4,6 +4,7 @@ import { SectionDivider } from "@/components/ui/SectionDivider";
 import { WebPageJsonLd, FAQJsonLd } from "@/components/seo/JsonLd";
 import { SectionFallback, CompactSectionFallback } from "@/components/ui/Skeleton";
 import { OurWork } from "@/components/sections/home/OurWork";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 
 // Below-fold sections: lazy-loaded to reduce initial JS bundle
 const TrustedBy = dynamic(
@@ -49,40 +50,28 @@ const HomeCTA = dynamic(
 // - Team collaboration photo (filler, no competitor does this)
 // - ScrollReveal wrappers (double animation)
 
-const homeFAQItems = [
-  {
-    question: "What services does Retech Solutions offer?",
-    answer:
-      "We offer full-cycle software development services including custom web and mobile applications, CMS platforms (WordPress, Strapi, Webflow), CRM solutions (Salesforce, HubSpot integrations), ERP systems, AI-powered products, and dedicated development team services. Our expertise spans the entire lifecycle from business analysis and UI/UX design through development, testing, and deployment.",
-  },
-  {
-    question: "How does the dedicated team model work?",
-    answer:
-      "Our dedicated team model provides you with a fully integrated extension of your in-house team. We assemble developers, designers, and project managers based on your tech stack and project requirements. The team works exclusively on your project, follows your processes, and reports directly to you. You retain full control over priorities and sprint planning while we handle recruitment, infrastructure, and HR.",
-  },
-  {
-    question: "What technologies do you specialize in?",
-    answer:
-      "We work with a modern tech stack including React, Next.js, Vue.js, Node.js, Python, and TypeScript on the frontend and backend. For mobile, we use React Native and Flutter. Our CMS expertise covers WordPress, Strapi, and headless CMS architectures. We also have strong experience with cloud platforms (AWS, GCP, Azure), and we integrate AI/ML capabilities using frameworks like TensorFlow and OpenAI APIs.",
-  },
-  {
-    question: "How do you handle communication and project management?",
-    answer:
-      "We use agile methodologies with regular sprint planning, daily standups, and retrospectives. Communication happens through your preferred channels: Slack, Microsoft Teams, or Zoom. You receive weekly progress reports and have direct access to the project manager and development team. We also use tools like Jira, Linear, or Notion for transparent task tracking, so you always know the status of your project.",
-  },
-  {
-    question: "What are your pricing models?",
-    answer:
-      "We offer three flexible pricing models: (1) Fixed Price, ideal for projects with well-defined scope and requirements, giving you cost certainty upfront. (2) Time & Materials, best for evolving projects where flexibility is needed, billed hourly based on actual work. (3) Dedicated Team, a monthly retainer for ongoing collaboration with a dedicated team. We recommend the best model based on your project scope and business objectives during our initial consultation.",
-  },
-];
+const faqKeys = ["q1", "q2", "q3", "q4", "q5"] as const;
 
-export default function HomePage() {
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const tHome = await getTranslations({ locale, namespace: "home.faq" });
+  const tJsonLd = await getTranslations({ locale, namespace: "homepage.jsonLd" });
+
+  const homeFAQItems = faqKeys.map((k) => ({
+    question: tHome(`items.${k}.q`),
+    answer: tHome(`items.${k}.a`),
+  }));
+
   return (
     <>
       <WebPageJsonLd
-        title="Retech Solutions | Software Development & IT Outsourcing"
-        description="Full-cycle software development outsourcing, from business analysis and design to development, testing, and deployment. Agile methodologies, modern technologies, and AI-driven solutions for web and mobile applications."
+        title={tJsonLd("webPageTitle")}
+        description={tJsonLd("webPageDescription")}
         url="https://www.retech.asia"
       />
       <FAQJsonLd questions={homeFAQItems} />

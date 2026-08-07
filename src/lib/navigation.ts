@@ -8,88 +8,109 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+/**
+ * Navigation data — locale-aware.
+ *
+ * - `labelKey` / `descriptionKey` are translation keys into the `nav.*`
+ *   namespace in `src/messages/{en,vi}.json`. The Navbar/Footer resolve them
+ *   via `useTranslations("nav")`.
+ * - `href` is a locale-stripped path (e.g. `/services/cms-platforms`). The
+ *   locale-aware `Link` from `@/i18n/navigation` prepends `/en` or `/vi`
+ *   automatically at render time.
+ *
+ * Service detail page slugs are still English-only at the URL level for
+ * Phase 1 — we'll add `slug: {en, vi}` translation in Phase 2 when service
+ * detail content gets translated.
+ */
 export interface NavChild {
-  label: string;
+  labelKey: string;
   href: string;
-  description: string;
+  descriptionKey: string;
   icon: LucideIcon;
 }
 
 export interface NavItem {
-  label: string;
+  labelKey: string;
   href: string;
   children?: NavChild[];
 }
 
 export const servicesNavigation: NavChild[] = [
   {
-    label: "CMS Platforms",
+    labelKey: "cms",
     href: "/services/cms-platforms",
-    description: "Headless and traditional CMS with AI tagging, smart search, and editorial copilots",
+    descriptionKey: "cmsDesc",
     icon: Layout,
   },
   {
-    label: "CRM Systems",
+    labelKey: "crm",
     href: "/services/crm-systems",
-    description: "CRMs with AI lead scoring, conversation intelligence, and predictive workflows",
+    descriptionKey: "crmDesc",
     icon: Users,
   },
   {
-    label: "ERP Solutions",
+    labelKey: "erp",
     href: "/services/erp-solutions",
-    description: "ERPs with AI forecasting, anomaly detection, and automated reporting",
+    descriptionKey: "erpDesc",
     icon: BarChart3,
   },
   {
-    label: "Web Development",
+    labelKey: "web",
     href: "/services/web-development",
-    description: "Web apps with optional LLM features, vector search, and AI-assisted ops baked in",
+    descriptionKey: "webDesc",
     icon: Globe,
   },
   {
-    label: "UI/UX Design",
+    labelKey: "uiux",
     href: "/services/ui-ux-design",
-    description: "Product design for AI-native interfaces, including copilot UX and conversational flows",
+    descriptionKey: "uiuxDesc",
     icon: Palette,
   },
   {
-    label: "Dedicated Teams",
+    labelKey: "teams",
     href: "/services/dedicated-teams",
-    description: "Embedded engineers experienced in shipping RAG, agents, and LLM integrations",
+    descriptionKey: "teamsDesc",
     icon: UsersRound,
   },
 ];
 
 export const navigation: {
   main: NavItem[];
-  cta: { label: string; href: string };
+  cta: { labelKey: string; href: string };
 } = {
   main: [
     {
-      label: "Services",
+      labelKey: "services",
       href: "/services",
       children: servicesNavigation,
     },
-    { label: "Process", href: "/process" },
-    { label: "Industries", href: "/industries" },
-    { label: "Case Studies", href: "/case-studies" },
-    { label: "About", href: "/about" },
-    { label: "Blog", href: "/blog" },
+    { labelKey: "process", href: "/process" },
+    { labelKey: "industries", href: "/industries" },
+    { labelKey: "caseStudies", href: "/case-studies" },
+    { labelKey: "about", href: "/about" },
+    { labelKey: "blog", href: "/blog" },
   ],
-  cta: { label: "Request Quote", href: "/contact" },
+  cta: { labelKey: "quote", href: "/contact" },
 };
 
-export const footerLinks = {
-  company: [
-    { label: "About Us", href: "/about" },
-    { label: "Case Studies", href: "/case-studies" },
-    { label: "Blog", href: "/blog" },
-    { label: "Contact", href: "/contact" },
-  ],
-  services: servicesNavigation.map((s) => ({ label: s.label, href: s.href })),
-  resources: [
-    { label: "Industries", href: "/industries" },
-    { label: "Blog", href: "/blog" },
-    { label: "Case Studies", href: "/case-studies" },
-  ],
-};
+/**
+ * Footer quick-links column. Keys resolve in `nav.footer.*` namespace.
+ */
+export const footerQuickLinks: { labelKey: string; href: string }[] = [
+  { labelKey: "home", href: "/" },
+  { labelKey: "about", href: "/about" },
+  { labelKey: "services", href: "/services" },
+  { labelKey: "process", href: "/process" },
+  { labelKey: "industries", href: "/industries" },
+  { labelKey: "caseStudies", href: "/case-studies" },
+  { labelKey: "blog", href: "/blog" },
+  { labelKey: "contact", href: "/contact" },
+];
+
+export const footerResourceLinks: { labelKey: string; href: string }[] = [
+  { labelKey: "faq", href: "/faq" },
+  { labelKey: "technologies", href: "/technologies" },
+  { labelKey: "careers", href: "/careers" },
+  { labelKey: "privacy", href: "/privacy-policy" },
+  { labelKey: "terms", href: "/terms-of-service" },
+];

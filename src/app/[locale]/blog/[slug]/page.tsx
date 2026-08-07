@@ -19,24 +19,28 @@ import { renderContent } from "@/lib/render-content";
 import { getBlogImage } from "@/lib/blog-images";
 import { BlogPostingJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
+import { setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 import { ReadingProgress } from "./ReadingProgress";
 
 export function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }));
+  return routing.locales.flatMap((locale) =>
+    getAllSlugs().map((slug) => ({ locale, slug }))
+  );
 }
 
 export function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  return params.then(({ slug }) => {
+  return params.then(({ slug, locale }) => {
     const post = getPostBySlug(slug);
     if (!post) {
       return { title: "Post Not Found" };
     }
 
-    const pageUrl = `${SITE_URL}/blog/${post.slug}`;
+    const pageUrl = `${SITE_URL}/${locale}/blog/${post.slug}`;
 
     return {
       title: `${post.title} | Blog`,
@@ -81,9 +85,10 @@ export function generateMetadata({
 export default async function BlogPostPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+  setRequestLocale(locale);
   const post = getPostBySlug(slug);
 
   if (!post) {

@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations, useLocale } from "next-intl";
 import { ArrowRight } from "lucide-react";
 import {
   FileText,
@@ -17,6 +18,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { servicesNavigation } from "@/lib/navigation";
+import { localizeServiceHref } from "@/lib/services-data";
 
 const accentColors = [
   "text-brand",
@@ -158,6 +160,9 @@ function TiltCard({ children }: { children: React.ReactNode }) {
 }
 
 export function ServicePreview() {
+  const tHeader = useTranslations("home.servicesPreview");
+  const tServices = useTranslations("nav.services");
+  const locale = useLocale() as "en" | "vi";
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -168,15 +173,15 @@ export function ServicePreview() {
     <section
       ref={sectionRef}
       className="py-20 md:py-28 bg-background-subtle relative overflow-hidden"
-      aria-label="Our services"
+      aria-label={tHeader("title")}
     >
       {/* Premium background: grid lines fading from center + aurora mesh */}
       <CompositeSectionBackground layers={["aurora", "grid-center"]} />
       <Container className="relative z-10">
         <SectionHeader
-          label="Our Services"
-          title="What We Build"
-          description="Custom software with AI built in: RAG search, LLM features, and intelligent automation shipped inside every CMS, CRM, and ERP we deliver."
+          label={tHeader("label")}
+          title={tHeader("title")}
+          description={tHeader("subtitle")}
           gradient
         />
 
@@ -193,7 +198,7 @@ export function ServicePreview() {
               <CardReveal key={service.href} index={i}>
                 <ParallaxDepth depth={cardDepths[i % cardDepths.length]} scrollYProgress={scrollYProgress}>
                   <TiltCard>
-                    <Link href={service.href} className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-2xl focus-visible:ring-offset-2">
+                    <Link href={localizeServiceHref(service.href, locale)} className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-2xl focus-visible:ring-offset-2">
                       <div className="group relative h-full overflow-hidden rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(32,133,53,0.06)]">
                         {/* Animated top accent — brand gradient, draws in on hover */}
                         <span
@@ -207,14 +212,14 @@ export function ServicePreview() {
                         </div>
 
                         <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-brand transition-colors">
-                          {service.label}
+                          {tServices(service.labelKey)}
                         </h3>
                         <p className="text-sm text-foreground-secondary leading-relaxed mb-5">
-                          {service.description}
+                          {tServices(service.descriptionKey)}
                         </p>
                         {/* Always-visible CTA — better discoverability than hover-only */}
                         <span className="inline-flex items-center gap-1.5 text-sm font-medium text-brand">
-                          Learn more
+                          {tHeader("learnMore")}
                           <ArrowRight
                             size={14}
                             className="transition-transform duration-300 group-hover:translate-x-0.5"

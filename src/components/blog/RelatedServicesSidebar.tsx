@@ -12,7 +12,7 @@ export function RelatedServicesSidebar({ category }: { category: string }) {
   const slugs = categoryToServices[category] ?? categoryToServices["Technology"];
 
   const related = slugs
-    .map((slug) => services.find((s) => s.slug === slug))
+    .map((slug) => services.find((s) => s.slug.en === slug))
     .filter(Boolean);
 
   if (related.length === 0) return null;
@@ -27,9 +27,9 @@ export function RelatedServicesSidebar({ category }: { category: string }) {
           if (!service) return null;
           const Icon = service.icon;
           return (
-            <li key={service.slug}>
+            <li key={service.id}>
               <Link
-                href={`/services/${service.slug}`}
+                href={`/services/${service.slug.en}`}
                 className="group flex items-start gap-3 rounded-xl p-2 -mx-2 transition-colors hover:bg-black/[0.03]"
               >
                 <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-brand/10 to-accent-cyan/10">
@@ -40,10 +40,10 @@ export function RelatedServicesSidebar({ category }: { category: string }) {
                 </span>
                 <span className="flex flex-col">
                   <span className="block text-sm font-semibold text-foreground group-hover:text-brand transition-colors">
-                    {service.title}
+                    {service.title.en}
                   </span>
                   <span className="block text-xs text-foreground-muted leading-relaxed mt-0.5">
-                    {service.subtitle}
+                    {service.subtitle.en}
                   </span>
                 </span>
               </Link>
