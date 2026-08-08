@@ -15,7 +15,19 @@ import {
 import { Container } from "@/components/ui/Container";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { cn } from "@/lib/cn";
-import type { FAQCategory } from "@/lib/faq-data";
+// Flat (single-locale) FAQ shape — received from the server page after
+// flattenFAQCategory resolves the active locale.
+interface FlatFAQItem {
+  question: string;
+  answer: string;
+}
+interface FlatFAQCategory {
+  slug: string;
+  title: string;
+  description: string;
+  icon: string;
+  items: FlatFAQItem[];
+}
 
 /* ── Icon map for category pills ─────────────────────────────── */
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
@@ -29,7 +41,7 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
 
 /* ── Props ───────────────────────────────────────────────────── */
 interface FAQClientPageProps {
-  categories: FAQCategory[];
+  categories: FlatFAQCategory[];
 }
 
 /* ── Highlight matching text ─────────────────────────────────── */
@@ -59,7 +71,7 @@ function FAQAccordion({
   items,
   searchQuery,
 }: {
-  items: FAQCategory["items"];
+  items: FlatFAQItem[];
   searchQuery: string;
 }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);

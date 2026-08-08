@@ -396,7 +396,22 @@
     },
     "faq": {
       "title": "Câu hỏi Thường gặp",
-      "description": "Các câu hỏi thường gặp về dịch vụ phát triển phần mềm, quy trình, mô hình giá và lựa chọn hợp tác."
+      "description": "Các câu hỏi thường gặp về dịch vụ phát triển phần mềm, quy trình, mô hình giá và lựa chọn hợp tác.",
+      "chrome": {
+        "breadcrumb": { "home": "Trang chủ", "faq": "Câu hỏi Thường gặp" },
+        "title": "Câu hỏi Thường gặp",
+        "description": "Câu trả lời cho các câu hỏi thường gặp về dịch vụ phát triển phần mềm, CMS, CRM, ERP và đội chuyên trách.",
+        "headline": "Câu hỏi Thường gặp",
+        "subhead": "Tất cả những gì bạn cần biết về dịch vụ, quy trình và mô hình hợp tác của chúng tôi. Không tìm thấy thông tin? Liên hệ trực tiếp với đội của chúng tôi.",
+        "ctaTitle": "Vẫn còn câu hỏi?",
+        "ctaBody": "Đội ngũ của chúng tôi sẵn lòng thảo luận dự án của bạn, trả lời câu hỏi kỹ thuật và giúp bạn tìm giải pháp phù hợp cho doanh nghiệp.",
+        "ctaPrimary": "Liên hệ",
+        "ctaSecondary": "Xem Tất cả Dịch vụ",
+        "searchPlaceholder": "Tìm câu hỏi...",
+        "noResults": "Không có câu hỏi phù hợp tìm kiếm của bạn. Thử từ khác hoặc liên hệ trực tiếp.",
+        "allCategories": "Tất cả",
+        "popularLabel": "Phổ biến"
+      }
     },
     "process": {
       "title": "Quy trình Phát triển",

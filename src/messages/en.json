@@ -396,7 +396,22 @@
     },
     "faq": {
       "title": "FAQ",
-      "description": "Common questions about our software development services, process, pricing models, and engagement options."
+      "description": "Common questions about our software development services, process, pricing models, and engagement options.",
+      "chrome": {
+        "breadcrumb": { "home": "Home", "faq": "FAQ" },
+        "title": "FAQ",
+        "description": "Common questions about software development services, CMS, CRM, ERP & dedicated teams answered.",
+        "headline": "Frequently Asked Questions",
+        "subhead": "Everything you need to know about our services, process, and engagement models. Can't find what you're looking for? Reach out to our team directly.",
+        "ctaTitle": "Still Have Questions?",
+        "ctaBody": "Our team is happy to discuss your project, answer technical questions, and help you find the right solution for your business.",
+        "ctaPrimary": "Get in Touch",
+        "ctaSecondary": "View All Services",
+        "searchPlaceholder": "Search questions...",
+        "noResults": "No questions match your search. Try a different term or reach out to us directly.",
+        "allCategories": "All",
+        "popularLabel": "Popular"
+      }
     },
     "process": {
       "title": "Development Process",

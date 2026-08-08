@@ -8,10 +8,11 @@ import { GradientBackground } from "@/components/ui/GradientBackground";
 import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { FAQJsonLd, BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/constants";
-import { faqCategories, allFAQs } from "@/lib/faq-data";
+import { faqCategories, allFAQs, flattenFAQItem, flattenFAQCategory } from "@/lib/faq-data";
 import { FAQClientPage } from "./faq-client";
 import { buildPageMetadata } from "@/lib/page-metadata";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
+import type { Locale } from "@/i18n/routing";
 
 const PAGE_URL = `${SITE_URL}/faq`;
 
@@ -32,20 +33,28 @@ export default async function FAQPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const loc = locale as Locale;
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "pages.faq.chrome" });
+
+  // Flatten categories + items to single-locale shape before passing to
+  // client component. JSON-LD also gets flattened items.
+  const flatCategories = faqCategories.map((c) => flattenFAQCategory(c, loc));
+  const flatFAQs = allFAQs.map((i) => flattenFAQItem(i, loc));
+
   return (
     <>
       {/* ── Structured Data ─────────────────────────────────── */}
-      <FAQJsonLd questions={allFAQs} />
+      <FAQJsonLd questions={flatFAQs} />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "FAQ", url: PAGE_URL },
+          { name: t("breadcrumb.home"), url: SITE_URL },
+          { name: t("breadcrumb.faq"), url: PAGE_URL },
         ]}
       />
       <WebPageJsonLd
-        title="FAQ"
-        description="Common questions about software development services, CMS, CRM, ERP & dedicated teams answered."
+        title={t("title")}
+        description={t("description")}
         url={PAGE_URL}
         type="FAQPage"
       />
@@ -57,28 +66,26 @@ export default async function FAQPage({
           <div className="page-hero-enter">
             <BreadcrumbNav
               items={[
-                { label: "Home", href: "/" },
-                { label: "FAQ" },
+                { label: t("breadcrumb.home"), href: "/" },
+                { label: t("breadcrumb.faq") },
               ]}
             />
           </div>
 
           <div className="max-w-3xl page-hero-enter [animation-delay:80ms]">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-4">
-              Frequently Asked Questions
+              {t("headline")}
             </h1>
 
             <p className="text-lg text-foreground-secondary leading-relaxed max-w-2xl">
-              Everything you need to know about our services, process, and
-              engagement models. Can&apos;t find what you&apos;re looking for?
-              Reach out to our team directly.
+              {t("subhead")}
             </p>
           </div>
         </Container>
       </section>
 
       {/* ── Interactive FAQ Content (Client Component) ──────── */}
-      <FAQClientPage categories={faqCategories} />
+      <FAQClientPage categories={flatCategories} />
 
       {/* ── CTA Section ─────────────────────────────────────── */}
       <section className="relative py-20 md:py-28 bg-brand-dark overflow-hidden">
@@ -86,13 +93,10 @@ export default async function FAQPage({
           <AnimatedSection>
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4">
-                Still Have{" "}
-                <span className="text-white/70">Questions?</span>
+                {t("ctaTitle")}
               </h2>
               <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto">
-                Our team is happy to discuss your project, answer technical
-                questions, and help you find the right solution for your
-                business.
+                {t("ctaBody")}
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button
@@ -101,7 +105,7 @@ export default async function FAQPage({
                   className="bg-white text-foreground hover:bg-white/90"
                 >
                   <Mail size={18} />
-                  Get in Touch
+                  {t("ctaPrimary")}
                 </Button>
                 <Button
                   href="/services"
@@ -109,7 +113,7 @@ export default async function FAQPage({
                   size="lg"
                   className="text-white/70 hover:text-white hover:bg-white/10"
                 >
-                  View All Services
+                  {t("ctaSecondary")}
                 </Button>
               </div>
             </div>
