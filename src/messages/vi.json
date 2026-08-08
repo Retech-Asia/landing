@@ -415,7 +415,24 @@
     },
     "process": {
       "title": "Quy trình Phát triển",
-      "description": "Phương pháp đã được kiểm chứng qua 50+ dự án thành công — khám phá, thiết kế, xây dựng, triển khai."
+      "description": "Phương pháp đã được kiểm chứng qua 50+ dự án thành công — khám phá, thiết kế, xây dựng, triển khai.",
+      "chrome": {
+        "heroEyebrow": "Phương pháp",
+        "heroTitle": "Cách chúng tôi Bàn giao",
+        "heroLead": "Phương pháp đã được kiểm chứng qua hơn 50 dự án thành công — từ khám phá đến ra mắt và hơn thế nữa.",
+        "toolsEyebrow": "Công cụ",
+        "toolsTitle": "Công cụ chúng tôi sử dụng",
+        "toolsDescription": "Chúng tôi tận dụng công cụ đã được kiểm chứng ở mọi giai đoạn vòng đời phát triển để đảm bảo chất lượng, tốc độ và minh bạch.",
+        "faqEyebrow": "Câu hỏi Thường gặp",
+        "faqTitle": "Câu hỏi Thường gặp",
+        "faqDescription": "Các câu hỏi thường gặp về cách chúng tôi làm việc, điều cần kỳ vọng và cách chúng tôi đảm bảo dự án thành công.",
+        "ctaTitle": "Sẵn sàng Bắt đầu Dự án?",
+        "ctaBody": "Quy trình đã được kiểm chứng đảm bảo dự án của bạn được bàn giao đúng hạn, đúng ngân sách và đạt tiêu chuẩn chất lượng cao nhất. Hãy trò chuyện về những gì bạn đang xây dựng.",
+        "ctaPrimary": "Nhận Báo giá Miễn phí",
+        "ctaSecondary": "Xem Dự án",
+        "keyActivities": "Hoạt động Chính",
+        "deliverables": "Bàn giao"
+      }
     },
     "technologies": {
       "title": "Stack Công nghệ",

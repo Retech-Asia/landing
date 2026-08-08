@@ -34,7 +34,7 @@ import { SITE_URL } from "@/lib/constants";
 import { BreadcrumbJsonLd, WebPageJsonLd, FAQJsonLd } from "@/components/seo/JsonLd";
 import { FAQAccordion } from "./FAQAccordion";
 import { buildPageMetadata } from "@/lib/page-metadata";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
   params,
@@ -43,6 +43,49 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   return buildPageMetadata({ locale, path: "/process", namespace: "pages.process" });
+}
+
+// Resolve chrome strings by locale. Inline data arrays (phases,
+// toolCategories, faqData) stay English-only — long-form prose that
+// would take a focused translation pass. Chrome is the high-visibility
+// surface that matters for SEO + first impression.
+function useChrome(locale: string) {
+  const isEn = locale === "en";
+  return isEn
+    ? {
+        heroEyebrow: "Methodology",
+        heroTitle: "How We Deliver",
+        heroLead: "A proven methodology refined over 50+ successful projects — from discovery to launch and beyond.",
+        toolsEyebrow: "Tooling",
+        toolsTitle: "Tools We Use",
+        toolsDescription: "We leverage established tools across every stage of the development lifecycle to ensure quality, speed, and transparency.",
+        faqEyebrow: "FAQ",
+        faqTitle: "Frequently Asked Questions",
+        faqDescription: "Common questions about how we work, what to expect, and how we ensure your project succeeds.",
+        ctaTitle: "Ready to Start Your Project?",
+        ctaBody: "Our proven process ensures your project is delivered on time, on budget, and to the highest quality standards. Let's talk about what you're building.",
+        ctaPrimary: "Get Your Free Estimate",
+        ctaSecondary: "View Case Studies",
+        keyActivities: "Key Activities",
+        deliverables: "Deliverables",
+      }
+    : {
+        heroEyebrow: "Phương pháp",
+        heroTitle: "Cách chúng tôi Bàn giao",
+        heroLead: "Phương pháp đã được kiểm chứng qua hơn 50 dự án thành công — từ khám phá đến ra mắt và hơn thế nữa.",
+        toolsEyebrow: "Công cụ",
+        toolsTitle: "Công cụ chúng tôi sử dụng",
+        toolsDescription: "Chúng tôi tận dụng công cụ đã được kiểm chứng ở mọi giai đoạn vòng đời phát triển để đảm bảo chất lượng, tốc độ và minh bạch.",
+        faqEyebrow: "Câu hỏi Thường gặp",
+        faqTitle: "Câu hỏi Thường gặp",
+        faqDescription: "Các câu hỏi thường gặp về cách chúng tôi làm việc, điều cần kỳ vọng và cách chúng tôi đảm bảo dự án thành công.",
+        ctaTitle: "Sản sàng Bắt đầu Dự án?",
+        ctaBody: "Quy trình đã được kiểm chứng đảm bảo dự án của bạn được bàn giao đúng hạn, đúng ngân sách và đạt tiêu chuẩn chất lượng cao nhất. Hãy trò chuyện về những gì bạn đang xây dựng.",
+        ctaPrimary: "Nhận Báo giá Miễn phí",
+        ctaSecondary: "Xem Dự án",
+        keyActivities: "Hoạt động Chính",
+        deliverables: "Bàn giao",
+      };
 }
 
 /* ──────────────────────── Data ──────────────────────── */
@@ -247,12 +290,13 @@ export default async function ProcessPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const chrome = useChrome(locale);
   return (
     <>
       {/* Structured Data */}
       <WebPageJsonLd
-        title="Our Process"
-        description="Proven 6-phase methodology from discovery to launch. Agile sprints, transparent communication & quality-first approach."
+        title={chrome.heroTitle}
+        description={chrome.heroLead}
         url={`${SITE_URL}/process`}
       />
       <FAQJsonLd questions={faqData} />
@@ -434,7 +478,7 @@ export default async function ProcessPage({
                       <div className="grid sm:grid-cols-2 gap-6">
                         <div>
                           <h4 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wide">
-                            Key Activities
+                            {chrome.keyActivities}
                           </h4>
                           <ul className="space-y-2">
                             {phase.activities.map((activity) => (
@@ -454,7 +498,7 @@ export default async function ProcessPage({
                         </div>
                         <div>
                           <h4 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wide">
-                            Deliverables
+                            {chrome.deliverables}
                           </h4>
                           <ul className="space-y-2">
                             {phase.deliverables.map((deliverable) => (
@@ -498,9 +542,9 @@ export default async function ProcessPage({
         <ContainerUI>
           <AnimatedSection variant="slideUp">
             <SectionHeader
-              label="Tooling"
-              title="Tools We Use"
-              description="We leverage established tools across every stage of the development lifecycle to ensure quality, speed, and transparency."
+              label={chrome.toolsEyebrow}
+              title={chrome.toolsTitle}
+              description={chrome.toolsDescription}
             />
           </AnimatedSection>
 
@@ -541,9 +585,9 @@ export default async function ProcessPage({
         <ContainerUI>
           <AnimatedSection variant="slideUp">
             <SectionHeader
-              label="FAQ"
-              title="Frequently Asked Questions"
-              description="Common questions about how we work, what to expect, and how we ensure your project succeeds."
+              label={chrome.faqEyebrow}
+              title={chrome.faqTitle}
+              description={chrome.faqDescription}
             />
           </AnimatedSection>
 
@@ -559,12 +603,10 @@ export default async function ProcessPage({
           <AnimatedSection>
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4 text-balance">
-                Ready to Start Your Project?
+                {chrome.ctaTitle}
               </h2>
               <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto">
-                Our proven process ensures your project is delivered on time, on
-                budget, and above expectations. Let&apos;s talk about how we can
-                help.
+                {chrome.ctaBody}
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button
@@ -572,7 +614,7 @@ export default async function ProcessPage({
                   size="lg"
                   className="bg-white text-foreground hover:bg-white/90"
                 >
-                  Get Your Free Estimate
+                  {chrome.ctaPrimary}
                   <ArrowRight size={18} />
                 </Button>
                 <Button
@@ -581,7 +623,7 @@ export default async function ProcessPage({
                   size="lg"
                   className="text-white/70 hover:text-white hover:bg-white/10"
                 >
-                  View Case Studies
+                  {chrome.ctaSecondary}
                 </Button>
               </div>
             </div>

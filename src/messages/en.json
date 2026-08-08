@@ -415,7 +415,24 @@
     },
     "process": {
       "title": "Development Process",
-      "description": "Our proven methodology refined over 50+ successful projects — discovery, design, build, deploy."
+      "description": "Our proven methodology refined over 50+ successful projects — discovery, design, build, deploy.",
+      "chrome": {
+        "heroEyebrow": "Methodology",
+        "heroTitle": "How We Deliver",
+        "heroLead": "A proven methodology refined over 50+ successful projects — from discovery to launch and beyond.",
+        "toolsEyebrow": "Tooling",
+        "toolsTitle": "Tools We Use",
+        "toolsDescription": "We leverage established tools across every stage of the development lifecycle to ensure quality, speed, and transparency.",
+        "faqEyebrow": "FAQ",
+        "faqTitle": "Frequently Asked Questions",
+        "faqDescription": "Common questions about how we work, what to expect, and how we ensure your project succeeds.",
+        "ctaTitle": "Ready to Start Your Project?",
+        "ctaBody": "Our proven process ensures your project is delivered on time, on budget, and to the highest quality standards. Let's talk about what you're building.",
+        "ctaPrimary": "Get Your Free Estimate",
+        "ctaSecondary": "View Case Studies",
+        "keyActivities": "Key Activities",
+        "deliverables": "Deliverables"
+      }
     },
     "technologies": {
       "title": "Technology Stack",
