@@ -4,28 +4,17 @@ import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SITE_URL, CONTACT } from "@/lib/constants";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/page-metadata";
+import { setRequestLocale } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Terms of Service",
-  description:
-    "Terms of Service for Retech Solutions. Governs use of our website & software development services including CMS, CRM, ERP & AI solutions.",
-  alternates: {
-    canonical: `${SITE_URL}/terms-of-service`,
-  },
-  openGraph: {
-    title: "Terms of Service",
-    description:
-      "Terms governing use of Retech Solutions website & software services.",
-    url: `${SITE_URL}/terms-of-service`,
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Terms of Service",
-    description:
-      "Terms governing use of Retech Solutions website & software services."
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return buildPageMetadata({ locale, path: "/terms-of-service", namespace: "pages.terms" });
+}
 
 const sections = [
   {
@@ -179,7 +168,13 @@ const sections = [
   },
 ];
 
-export default function TermsOfServicePage() {
+export default async function TermsOfServicePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <>
       <BreadcrumbJsonLd

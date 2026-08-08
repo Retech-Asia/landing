@@ -453,6 +453,14 @@
     "caseStudies": {
       "title": "Case Studies",
       "description": "Real production systems shipped by Retech Solutions — mining analytics, asset management, AI platforms."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "How we collect, use & protect your data. Your rights, data security practices & GDPR compliance."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "Terms governing use of Retech Solutions website & software development services."
     }
   }
 }

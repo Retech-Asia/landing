@@ -453,6 +453,14 @@
     "caseStudies": {
       "title": "Dự án Thực tế",
       "description": "Hệ thống sản xuất thực tế đã bàn giao bởi Retech Solutions — phân tích mining, quản lý tài sản, nền tảng AI."
+    },
+    "privacy": {
+      "title": "Chính sách Bảo mật",
+      "description": "Cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu của bạn. Quyền của bạn, thực hành bảo mật dữ liệu và tuân thủ GDPR."
+    },
+    "terms": {
+      "title": "Điều khoản Dịch vụ",
+      "description": "Điều khoản chi phối việc sử dụng website và dịch vụ phát triển phần mềm của Retech Solutions."
     }
   }
 }

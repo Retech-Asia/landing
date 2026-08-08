@@ -4,28 +4,17 @@ import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { SITE_URL, CONTACT } from "@/lib/constants";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/page-metadata";
+import { setRequestLocale } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description:
-    "Retech Solutions privacy policy: how we collect, use & protect your data. Your rights, data security practices & GDPR compliance.",
-  alternates: {
-    canonical: `${SITE_URL}/privacy-policy`,
-  },
-  openGraph: {
-    title: "Privacy Policy",
-    description:
-      "How we collect, use & protect your data. Your rights & our security practices.",
-    url: `${SITE_URL}/privacy-policy`,
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Privacy Policy",
-    description:
-      "How we collect, use & protect your data. Your rights & our security practices."
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return buildPageMetadata({ locale, path: "/privacy-policy", namespace: "pages.privacy" });
+}
 
 const sections = [
   {
@@ -202,7 +191,13 @@ const sections = [
   },
 ];
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <>
       <BreadcrumbJsonLd
