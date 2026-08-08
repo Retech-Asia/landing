@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { services } from "@/lib/services-data";
 import { caseStudies } from "@/lib/case-studies-data";
 import { blogPosts, BLOG_CATEGORIES } from "@/lib/blog-data";
+import { blogViMeta } from "@/lib/blog-i18n";
 import { industries } from "@/lib/industries-data";
 import { SITE_URL, CONTENT_LAST_UPDATED } from "@/lib/constants";
 import { routing } from "@/i18n/routing";
@@ -157,13 +158,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ];
   });
 
-  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${SITE_URL}/en/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-    alternates: { languages: { en: `${SITE_URL}/en/blog/${post.slug}`, "x-default": `${SITE_URL}/en/blog/${post.slug}` } },
-  }));
+  const blogPages: MetadataRoute.Sitemap = blogPosts.flatMap((post) => {
+    const viSlug = blogViMeta[post.slug]?.slug ?? post.slug;
+    const enUrl = `${SITE_URL}/en/blog/${post.slug}`;
+    const viUrl = `${SITE_URL}/vi/blog/${viSlug}`;
+    return [
+      {
+        url: enUrl,
+        lastModified: new Date(post.date),
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+        alternates: { languages: { en: enUrl, vi: viUrl, "x-default": enUrl } },
+      },
+      {
+        url: viUrl,
+        lastModified: new Date(post.date),
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+        alternates: { languages: { en: enUrl, vi: viUrl, "x-default": enUrl } },
+      },
+    ];
+  });
 
   const industryPages: MetadataRoute.Sitemap = industries.flatMap((industry) => {
     const enUrl = `${SITE_URL}/en/industries/${industry.slug.en}`;

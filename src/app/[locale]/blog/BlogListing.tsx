@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 import Image from "next/image";
 import { getBlogImage } from "@/lib/blog-images";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,6 +10,7 @@ import { Calendar, Clock, ArrowRight, Search, X } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { CATEGORY_SLUG_MAP, type BlogPost } from "@/lib/blog-data";
+import { getBlogMeta } from "@/lib/blog-i18n";
 
 const POSTS_PER_PAGE = 6;
 
@@ -44,6 +46,7 @@ function BlogListingGrid({
   posts: BlogPost[];
   featuredPost: BlogPost | null;
 }) {
+  const locale = useLocale() as "en" | "vi";
   const [extraPages, setExtraPages] = useState(0);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const visibleCount = POSTS_PER_PAGE + extraPages * POSTS_PER_PAGE;
@@ -182,7 +185,9 @@ function BlogListingGrid({
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           >
             <AnimatePresence mode="popLayout">
-              {gridPosts.map((post) => (
+              {gridPosts.map((post) => {
+                const meta = getBlogMeta(post, locale);
+                return (
                 <motion.div
                   key={post.slug}
                   layout
@@ -204,7 +209,7 @@ function BlogListingGrid({
                     >
                       <Image
                         src={`${getBlogImage(post.slug)}`}
-                        alt={post.title}
+                        alt={meta.title}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
@@ -216,7 +221,7 @@ function BlogListingGrid({
                           variant="outline"
                           className="bg-white/90 text-foreground-secondary backdrop-blur-sm"
                         >
-                          {post.category}
+                          {meta.category}
                         </Badge>
                       </div>
                     </div>
@@ -224,22 +229,22 @@ function BlogListingGrid({
                     <div className="p-6 flex flex-col flex-1">
                       <h3 className="text-lg font-semibold text-foreground leading-snug mb-2 line-clamp-3 group-hover:text-brand transition-colors">
                         <Link
-                          href={`/blog/${post.slug}`}
+                          href={`/blog/${meta.slug}`}
                           className="hover:underline"
                         >
-                          {post.title}
+                          {meta.title}
                         </Link>
                       </h3>
 
                       <p className="text-sm text-foreground-secondary leading-relaxed mb-4 flex-1 line-clamp-3">
-                        {post.excerpt}
+                        {meta.excerpt}
                       </p>
 
                       <div className="flex items-center justify-between pt-4 border-t border-black/[0.06]">
                         <div className="flex items-center gap-4 text-xs text-foreground-muted">
                           <span className="flex items-center gap-1">
                             <Calendar size={13} />
-                            {new Date(post.date).toLocaleDateString("en-US", {
+                            {new Date(post.date).toLocaleDateString(locale === "vi" ? "vi-VN" : "en-US", {
                               month: "short",
                               day: "numeric",
                               year: "numeric",
@@ -252,11 +257,11 @@ function BlogListingGrid({
                         </div>
 
                         <Link
-                          href={`/blog/${post.slug}`}
-                          aria-label={`Read ${post.title}`}
+                          href={`/blog/${meta.slug}`}
+                          aria-label={`Read ${meta.title}`}
                           className="text-sm font-medium text-brand hover:text-brand-dark transition-colors inline-flex items-center gap-1"
                         >
-                          Read <span className="sr-only">{post.title}</span>
+                          Read <span className="sr-only">{meta.title}</span>
                           <ArrowRight
                             size={14}
                             className="group-hover:translate-x-0.5 transition-transform"
@@ -266,7 +271,8 @@ function BlogListingGrid({
                     </div>
                   </Card>
                 </motion.div>
-              ))}
+                );
+              })}
             </AnimatePresence>
           </motion.div>
         ) : (

@@ -20,13 +20,14 @@ import { getBlogImage } from "@/lib/blog-images";
 import { BlogPostingJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import { setRequestLocale } from "next-intl/server";
-import { routing } from "@/i18n/routing";
+import { routing, type Locale } from "@/i18n/routing";
+import { getBlogMeta, getEnSlugByViSlug, blogViMeta } from "@/lib/blog-i18n";
 import { ReadingProgress } from "./ReadingProgress";
 
 export function generateStaticParams() {
-  return routing.locales.flatMap((locale) =>
-    getAllSlugs().map((slug) => ({ locale, slug }))
-  );
+  const enParams = getAllSlugs().map((slug) => ({ locale: "en", slug }));
+  const viParams = Object.values(blogViMeta).map((vi) => ({ locale: "vi", slug: vi.slug }));
+  return [...enParams, ...viParams];
 }
 
 export function generateMetadata({
@@ -35,32 +36,43 @@ export function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   return params.then(({ slug, locale }) => {
-    const post = getPostBySlug(slug);
+    const loc = locale as Locale;
+    // Resolve VI slug → EN slug for content lookup
+    const effectiveSlug = loc === "vi" ? (getEnSlugByViSlug(slug) ?? slug) : slug;
+    const post = getPostBySlug(effectiveSlug);
     if (!post) {
       return { title: "Post Not Found" };
     }
 
-    const pageUrl = `${SITE_URL}/${locale}/blog/${post.slug}`;
+    const meta = getBlogMeta(post, loc);
+    const pageUrl = `${SITE_URL}/${locale}/blog/${meta.slug}`;
+    const enUrl = `${SITE_URL}/en/blog/${post.slug}`;
+    const viUrl = `${SITE_URL}/vi/blog/${blogViMeta[post.slug]?.slug ?? post.slug}`;
 
     return {
-      title: `${post.title} | Blog`,
-      description: post.excerpt.length > 155
-        ? post.excerpt.slice(0, 152).replace(/\s+\S*$/, "") + "..."
-        : post.excerpt,
+      title: `${meta.title} | Blog`,
+      description: meta.excerpt.length > 155
+        ? meta.excerpt.slice(0, 152).replace(/\s+\S*$/, "") + "..."
+        : meta.excerpt,
       alternates: {
         canonical: pageUrl,
+        languages: {
+          en: enUrl,
+          vi: viUrl,
+          "x-default": enUrl,
+        },
       },
       openGraph: {
-        title: `${post.title} | ${SITE_NAME} Blog`,
-        description: post.excerpt.length > 155
-          ? post.excerpt.slice(0, 152).replace(/\s+\S*$/, "") + "..."
-          : post.excerpt,
+        title: `${meta.title} | ${SITE_NAME} Blog`,
+        description: meta.excerpt.length > 155
+          ? meta.excerpt.slice(0, 152).replace(/\s+\S*$/, "") + "..."
+          : meta.excerpt,
         url: pageUrl,
         type: "article",
         publishedTime: post.date,
         modifiedTime: post.updatedAt ?? post.date,
         authors: ["Retech Solutions"],
-        tags: [post.category, "IT Outsourcing", "Software Development"],
+        tags: [meta.category, "IT Outsourcing", "Software Development"],
         images: [
           {
             url: `/blog/${post.slug}/opengraph-image`,
@@ -72,10 +84,10 @@ export function generateMetadata({
       },
       twitter: {
         card: "summary_large_image",
-        title: `${post.title} | ${SITE_NAME} Blog`,
-        description: post.excerpt.length > 155
-          ? post.excerpt.slice(0, 152).replace(/\s+\S*$/, "") + "..."
-          : post.excerpt,
+        title: `${meta.title} | ${SITE_NAME} Blog`,
+        description: meta.excerpt.length > 155
+          ? meta.excerpt.slice(0, 152).replace(/\s+\S*$/, "") + "..."
+          : meta.excerpt,
         images: [`/blog/${post.slug}/opengraph-image`],
       },
     };
@@ -88,8 +100,12 @@ export default async function BlogPostPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { slug, locale } = await params;
+  const loc = locale as Locale;
   setRequestLocale(locale);
-  const post = getPostBySlug(slug);
+  // Resolve VI slug → EN slug for content lookup
+  const effectiveSlug = loc === "vi" ? (getEnSlugByViSlug(slug) ?? slug) : slug;
+  const post = getPostBySlug(effectiveSlug);
+  const meta = post ? getBlogMeta(post, loc) : null;
 
   if (!post) {
     notFound();
@@ -140,8 +156,8 @@ export default async function BlogPostPage({
 
       {/* Structured Data */}
       <BlogPostingJsonLd
-        title={post.title}
-        description={post.excerpt}
+        title={meta!.title}
+        description={meta!.excerpt}
         url={pageUrl}
         datePublished={post.date}
         dateModified={post.updatedAt ?? post.date}
@@ -152,7 +168,7 @@ export default async function BlogPostPage({
         items={[
           { name: "Home", url: SITE_URL },
           { name: "Blog", url: `${SITE_URL}/blog` },
-          { name: post.title, url: pageUrl },
+          { name: meta!.title, url: pageUrl },
         ]}
       />
       <Container className="max-w-6xl">
@@ -160,7 +176,7 @@ export default async function BlogPostPage({
           items={[
             { label: "Home", href: "/" },
             { label: "Blog", href: "/blog" },
-            { label: post.title },
+            { label: meta!.title },
           ]}
         />
 
@@ -170,11 +186,11 @@ export default async function BlogPostPage({
             <div className="page-hero-enter">
               <header className="mb-10 md:mb-14">
                 <p className="text-xs font-medium uppercase tracking-wider text-foreground-muted mb-4">
-                  {post.category}
+                  {meta!.category}
                 </p>
 
                 <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tight text-foreground leading-tight mb-5">
-                  {post.title}
+                  {meta!.title}
                 </h1>
 
                 <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-foreground-muted">
@@ -244,7 +260,7 @@ export default async function BlogPostPage({
             <div className="relative h-[240px] md:h-[360px] rounded-2xl overflow-hidden mb-8">
               <Image
                 src={getBlogImage(post.slug)}
-                alt={post.title}
+                alt={meta!.title}
                 fill
                 priority
                 quality={90}
