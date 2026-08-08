@@ -344,5 +344,83 @@
       "codeStrip": "Không gian làm việc phát triển: code, công cụ và quy trình kỹ thuật",
       "workspaceStrip": "Không gian làm việc phát triển tại Retech Solutions"
     }
+  },
+  "industryDetail": {
+    "breadcrumb": {
+      "home": "Trang chủ",
+      "industries": "Ngành"
+    },
+    "breadcrumbJsonLd": {
+      "home": "Trang chủ",
+      "industries": "Ngành"
+    },
+    "approach": {
+      "eyebrow": "Phương pháp",
+      "title": "Cách chúng tôi Tiếp cận"
+    },
+    "problems": {
+      "title": "Từ Vấn đề đến Giải pháp"
+    },
+    "technologies": {
+      "title": "Công nghệ chúng tôi sử dụng"
+    },
+    "results": {
+      "eyebrow": "Kết quả",
+      "title": "Kết quả Đã chứng minh"
+    },
+    "caseStudies": {
+      "eyebrow": "Minh chứng",
+      "title": "Kết quả Thực tế"
+    },
+    "relatedServices": {
+      "eyebrow": "Dịch vụ",
+      "title": "Dịch vụ Liên quan"
+    },
+    "otherIndustries": {
+      "title": "Ngành khác chúng tôi Phục vụ",
+      "description": "Khám phá cách chúng tôi giúp doanh nghiệp trên các lĩnh vực khác."
+    },
+    "challengesLabel": "Thách thức Ngành",
+    "solutionsLabel": "Cách chúng tôi Giải quyết",
+    "viewIndustry": "Khám phá",
+    "learnMore": "Tìm hiểu thêm"
+  },
+  "pages": {
+    "about": {
+      "title": "Giới thiệu Retech Solutions",
+      "description": "Công ty gia công phần mềm tại Việt Nam, bàn giao sản phẩm CMS, CRM, ERP và tích hợp AI theo yêu cầu cho khách hàng toàn cầu."
+    },
+    "contact": {
+      "title": "Liên hệ Retech Solutions",
+      "description": "Nhận tư vấn miễn phí. Chúng tôi phản hồi trong vòng một ngày làm việc với đề xuất kiến trúc, phân bổ đội và milestone rõ ràng."
+    },
+    "faq": {
+      "title": "Câu hỏi Thường gặp",
+      "description": "Các câu hỏi thường gặp về dịch vụ phát triển phần mềm, quy trình, mô hình giá và lựa chọn hợp tác."
+    },
+    "process": {
+      "title": "Quy trình Phát triển",
+      "description": "Phương pháp đã được kiểm chứng qua 50+ dự án thành công — khám phá, thiết kế, xây dựng, triển khai."
+    },
+    "technologies": {
+      "title": "Stack Công nghệ",
+      "description": "Công nghệ hiện đại, đã được chứng minh — React, Next.js, Node.js, TypeScript, AWS và hơn thế nữa."
+    },
+    "careers": {
+      "title": "Tuyển dụng tại Retech Solutions",
+      "description": "Xây dựng tương lai phát triển phần mềm từ Việt Nam. Tham gia đội ngũ thực sự tung ra sản phẩm."
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Insight về phát triển phần mềm, tích hợp AI, outsourcing Việt Nam và thực hành engineering hiện đại."
+    },
+    "industries": {
+      "title": "Ngành chúng tôi Phục vụ",
+      "description": "Phần mềm theo yêu cầu cho y tế, tài chính, thương mại điện tử, logistics, giáo dục, bất động sản, sản xuất và công nghệ."
+    },
+    "caseStudies": {
+      "title": "Dự án Thực tế",
+      "description": "Hệ thống sản xuất thực tế đã bàn giao bởi Retech Solutions — phân tích mining, quản lý tài sản, nền tảng AI."
+    }
   }
 }

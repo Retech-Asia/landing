@@ -25,7 +25,7 @@ import {
 import { GradientBackground } from "@/components/ui/GradientBackground";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
-import { caseStudies, getCaseStudy } from "@/lib/case-studies-data";
+import { caseStudies, getCaseStudy, getFlatCaseStudy, flattenCaseStudy, type FlatCaseStudy } from "@/lib/case-studies-data";
 import { services } from "@/lib/services-data";
 import { blogPosts } from "@/lib/blog-data";
 import { BLUR_DATA_URL } from "@/lib/image-placeholders";
@@ -36,7 +36,7 @@ import {
 } from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/constants";
 import { setRequestLocale } from "next-intl/server";
-import { routing } from "@/i18n/routing";
+import { routing, type Locale } from "@/i18n/routing";
 import { AnimatedMetrics } from "@/components/case-studies/AnimatedMetrics";
 import { BeforeAfter } from "@/components/case-studies/BeforeAfter";
 import { ProjectTimeline } from "@/components/case-studies/ProjectTimeline";
@@ -108,7 +108,7 @@ function CaseStudyImage({
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
-    caseStudies.map((study) => ({ locale, slug: study.slug }))
+    caseStudies.map((study) => ({ locale, slug: study.slug[locale] }))
   );
 }
 
@@ -118,10 +118,14 @@ export function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   return params.then(({ slug, locale }) => {
-    const study = getCaseStudy(slug);
+    const loc = locale as Locale;
+    const study = getFlatCaseStudy(slug, loc);
     if (!study) return { title: "Case Study Not Found" };
 
     const pageUrl = `${SITE_URL}/${locale}/case-studies/${study.slug}`;
+    const raw = getCaseStudy(study.slug, loc);
+    const enUrl = `${SITE_URL}/en/case-studies/${raw?.slug.en ?? study.slug}`;
+    const viUrl = `${SITE_URL}/vi/case-studies/${raw?.slug.vi ?? study.slug}`;
 
     return {
       title: `${study.title} Case Study`,
@@ -130,6 +134,11 @@ export function generateMetadata({
         : study.description,
       alternates: {
         canonical: pageUrl,
+        languages: {
+          en: enUrl,
+          vi: viUrl,
+          "x-default": enUrl,
+        },
       },
       openGraph: {
         title: `${study.title} Case Study | Retech Solutions`,
@@ -167,23 +176,27 @@ export default async function CaseStudyDetailPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { slug, locale } = await params;
+  const loc = locale as Locale;
   setRequestLocale(locale);
-  const study = getCaseStudy(slug);
+  const study = getFlatCaseStudy(slug, loc);
 
   if (!study) {
     notFound();
   }
 
-  const relatedStudy = caseStudies.find((cs) => cs.slug !== study.slug);
-  const relatedServiceSlugs = caseStudyServiceMap[study.slug] ?? [];
+  const relatedStudyRaw = caseStudies.find((cs) => cs.id !== study.id);
+  const relatedStudy: FlatCaseStudy | null = relatedStudyRaw
+    ? flattenCaseStudy(relatedStudyRaw, loc)
+    : null;
+  const relatedServiceSlugs = caseStudyServiceMap[study.id] ?? [];
   const relatedServices = services.filter((s) =>
     relatedServiceSlugs.includes(s.slug.en)
   );
-  const relatedBlogSlugs = caseStudyBlogMap[study.slug] ?? [];
+  const relatedBlogSlugs = caseStudyBlogMap[study.id] ?? [];
   const relatedBlogs = blogPosts.filter((p) =>
     relatedBlogSlugs.includes(p.slug)
   );
-  const pageUrl = `${SITE_URL}/case-studies/${study.slug}`;
+  const pageUrl = `${SITE_URL}/${locale}/case-studies/${study.slug}`;
 
   return (
     <>

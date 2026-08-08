@@ -1,25 +1,29 @@
 import { ImageResponse } from "next/og";
 import { caseStudies } from "@/lib/case-studies-data";
+import { routing, type Locale } from "@/i18n/routing";
 
 export const alt = "Case Study from Retech Solutions";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export function generateStaticParams() {
-  return caseStudies.map((study) => ({ slug: study.slug }));
+  return routing.locales.flatMap((locale) =>
+    caseStudies.map((study) => ({ locale, slug: study.slug[locale] }))
+  );
 }
 
 export default async function Image({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const study = caseStudies.find((s) => s.slug === slug);
+  const { slug, locale } = await params;
+  const loc = locale as Locale;
+  const study = caseStudies.find((s) => s.slug[loc] === slug);
 
-  const title = study?.title ?? "Case Study";
-  const tagline = study?.tagline ?? "Retech Solutions";
-  const industry = study?.industry ?? "";
+  const title = study?.title[loc] ?? "Case Study";
+  const tagline = study?.tagline[loc] ?? "Retech Solutions";
+  const industry = study?.industry[loc] ?? "";
 
   // Pick accent color based on industry
   const isFinance = industry.toLowerCase().includes("finance");

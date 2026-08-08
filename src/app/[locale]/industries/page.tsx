@@ -14,30 +14,26 @@ import { SectionDivider } from "@/components/ui/SectionDivider";
 import { IndustryExplorer } from "@/components/ui/IndustryExplorer";
 import { SITE_URL } from "@/lib/constants";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/page-metadata";
+import { setRequestLocale } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Industries We Serve",
-  description:
-    "Industry-specific software from Vietnam: Healthcare, Finance, E-commerce & more. CMS, CRM, ERP and AI-powered solutions tailored to your vertical.",
-  alternates: {
-    canonical: `${SITE_URL}/industries`,
-  },
-  openGraph: {
-    title: "Industries We Serve — Vietnam Software Development",
-    description:
-      "Industry-specific software from Vietnam: Healthcare, Finance, E-commerce & more. CMS, CRM, ERP tailored to your vertical.",
-    url: `${SITE_URL}/industries`,
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Industries We Serve — Vietnam Software Development",
-    description:
-      "Industry-specific software from Vietnam for Healthcare, Finance, E-commerce & more."
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  // VI listing is now translated (IndustryExplorer consumes flattened locale data)
+  return buildPageMetadata({ locale, path: "/industries", namespace: "pages.industries", viReady: true });
+}
 
-export default function IndustriesPage() {
+export default async function IndustriesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <>
       {/* Structured Data */}

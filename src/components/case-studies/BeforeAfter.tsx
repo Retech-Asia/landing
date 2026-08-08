@@ -4,10 +4,17 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/components/ui/AnimatedSection";
-import type { BeforeAfterMetric } from "@/lib/case-studies-data";
+
+// Flat (single-locale) metric shape passed in by the page.
+interface FlatBeforeAfterMetric {
+  metric: string;
+  before: string;
+  after: string;
+  improvement: string;
+}
 
 interface BeforeAfterProps {
-  data: BeforeAfterMetric[];
+  data: FlatBeforeAfterMetric[];
 }
 
 function parseNumericValue(val: string): number {
@@ -91,7 +98,7 @@ function ComparisonBar({
 function MetricComparisonCard({
   item,
 }: {
-  item: BeforeAfterMetric;
+  item: FlatBeforeAfterMetric;
 }) {
   return (
     <StaggerItem>

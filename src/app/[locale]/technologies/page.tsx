@@ -10,30 +10,25 @@ import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import { ArrowRight } from "lucide-react";
 import { TechListing } from "./TechListing";
 import { CodeBracketIcon } from "@/components/ui/AnimatedIcons";
+import { buildPageMetadata } from "@/lib/page-metadata";
+import { setRequestLocale } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Technologies",
-  description:
-    "React, Next.js, Node.js, Python, AWS, GCP & more. Our modern tech stack delivers scalable, reliable software for CMS, CRM, ERP & AI projects.",
-  alternates: {
-    canonical: `${SITE_URL}/technologies`,
-  },
-  openGraph: {
-    title: "Technologies",
-    description:
-      "React, Next.js, Node.js, Python, AWS, GCP & more. Modern tech stack for scalable CMS, CRM, ERP & AI software.",
-    url: `${SITE_URL}/technologies`,
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Technologies",
-    description:
-      "React, Next.js, Node.js, Python, AWS, GCP & more. Modern tech stack for scalable software."
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return buildPageMetadata({ locale, path: "/technologies", namespace: "pages.technologies" });
+}
 
-export default function TechnologiesPage() {
+export default async function TechnologiesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <>
       {/* Structured Data */}

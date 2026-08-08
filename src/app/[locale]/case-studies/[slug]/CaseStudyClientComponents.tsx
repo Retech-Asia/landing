@@ -11,7 +11,7 @@ import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import type { Testimonial } from "@/lib/case-studies-data";
+import type { TimelinePhase } from "@/lib/case-studies-data";
 
 /* -------------------------------------------------------------------------- */
 /*  1. Hero Parallax Section                                                  */
@@ -155,7 +155,7 @@ export function TechPillsStagger({ technologies }: TechPillsStaggerProps) {
 /* -------------------------------------------------------------------------- */
 
 interface TestimonialCardProps {
-  testimonial: Testimonial;
+  testimonial: { quote: string; author: string; role: string; company: string };
 }
 
 export function TestimonialCard({ testimonial }: TestimonialCardProps) {

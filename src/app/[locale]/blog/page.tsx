@@ -13,30 +13,25 @@ import { SITE_URL } from "@/lib/constants";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 
 import { BlogListing } from "./BlogListing";
+import { buildPageMetadata } from "@/lib/page-metadata";
+import { setRequestLocale } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Blog",
-  description:
-    "Expert insights on IT outsourcing, custom software development & AI trends from Vietnam. Practical guides on CMS, CRM, ERP solutions for global businesses.",
-  alternates: {
-    canonical: `${SITE_URL}/blog`,
-  },
-  openGraph: {
-    title: "Blog",
-    description:
-      "Expert insights on IT outsourcing, software development & AI trends. Practical guides on CMS, CRM, ERP solutions from Vietnam.",
-    url: `${SITE_URL}/blog`,
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Blog",
-    description:
-      "Expert insights on IT outsourcing, software development & AI trends. Practical guides on CMS, CRM, ERP solutions."
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return buildPageMetadata({ locale, path: "/blog", namespace: "pages.blog" });
+}
 
-export default function BlogPage() {
+export default async function BlogPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <>
       {/* Structured Data */}

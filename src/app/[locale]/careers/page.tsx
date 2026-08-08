@@ -31,28 +31,17 @@ import { GradientBackground } from "@/components/ui/GradientBackground";
 import { SITE_URL, CONTACT } from "@/lib/constants";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 // CareersListing + jobListings intentionally not imported — no public openings right now.
+import { buildPageMetadata } from "@/lib/page-metadata";
+import { setRequestLocale } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Careers",
-  description:
-    "Join Retech Solutions in Ho Chi Minh City. Build custom software for international clients across healthcare, finance, and e-commerce. Competitive pay and career growth.",
-  alternates: {
-    canonical: `${SITE_URL}/careers`,
-  },
-  openGraph: {
-    title: "Careers",
-    description:
-      "Join Retech Solutions in Ho Chi Minh City. Build custom software for international clients across healthcare, finance, and e-commerce.",
-    url: `${SITE_URL}/careers`,
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Careers",
-    description:
-      "Join Retech Solutions in Ho Chi Minh City. Build international software projects."
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return buildPageMetadata({ locale, path: "/careers", namespace: "pages.careers" });
+}
 
 /* ------------------------------------------------------------------ */
 /*  Benefits data                                                      */
@@ -199,7 +188,13 @@ const hiringSteps = [
 /*  Page                                                               */
 /* ------------------------------------------------------------------ */
 
-export default function CareersPage() {
+export default async function CareersPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <>
       {/* Structured Data */}

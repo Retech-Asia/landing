@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronDown,
@@ -8,9 +8,10 @@ import {
   CheckCircle2,
   AlertTriangle,
 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 import { cn } from "@/lib/cn";
-import { industries, type IndustryCategory } from "@/lib/industries-data";
+import { industries, flattenIndustry, type FlatIndustry, type IndustryCategory } from "@/lib/industries-data";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -71,10 +72,18 @@ const expandVariants = {
 export function IndustryExplorer() {
   const [activeFilter, setActiveFilter] = useState<IndustryCategory | "all">("all");
   const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
+  const locale = useLocale() as "en" | "vi";
+
+  // Project all industries to the active locale once. Avoids per-render
+  // re-flatten and gives JSX flat strings to consume.
+  const flatIndustries = useMemo(
+    () => industries.map((i) => flattenIndustry(i, locale)),
+    [locale]
+  ) as FlatIndustry[];
 
   const filteredIndustries = activeFilter === "all"
-    ? industries
-    : industries.filter((ind) => ind.category === activeFilter);
+    ? flatIndustries
+    : flatIndustries.filter((ind) => ind.category === activeFilter);
 
   const toggleExpand = useCallback((slug: string) => {
     setExpandedSlug((prev) => (prev === slug ? null : slug));

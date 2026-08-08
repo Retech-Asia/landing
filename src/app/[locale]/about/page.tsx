@@ -13,6 +13,8 @@ import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/ui/
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { GradientBackground } from "@/components/ui/GradientBackground";
 import { ABOUT_STATS, SITE_URL } from "@/lib/constants";
+import { buildPageMetadata } from "@/lib/page-metadata";
+import { setRequestLocale } from "next-intl/server";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import { ParallaxDivider } from "@/components/about/ParallaxDivider";
 import { AnimatedTimeline } from "@/components/about/AnimatedTimeline";
@@ -23,27 +25,14 @@ import { OurCommitment } from "@/components/about/OurCommitment";
 import { GlobalReach } from "@/components/about/GlobalReach";
 import { WhatSetsUsApart } from "@/components/about/WhatSetsUsApart";
 
-export const metadata: Metadata = {
-  title: "About Us",
-  description:
-    "Vietnam-based software outsourcing company. 5+ years experience, 50+ projects across 6 countries. Full-cycle development from strategy to deployment.",
-  alternates: {
-    canonical: `${SITE_URL}/about`,
-  },
-  openGraph: {
-    title: "About Us",
-    description:
-      "Vietnam-based software outsourcing company. 5+ years experience, 50+ projects across 6 countries. Full-cycle development.",
-    url: `${SITE_URL}/about`,
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About Us",
-    description:
-      "Vietnam-based software outsourcing. 5+ years, 50+ projects across 6 countries. Full-cycle development."
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return buildPageMetadata({ locale, path: "/about", namespace: "pages.about" });
+}
 
 const milestones = [
   {
@@ -90,7 +79,13 @@ const milestones = [
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <>
       {/* Structured Data */}

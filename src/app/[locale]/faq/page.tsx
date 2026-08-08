@@ -10,34 +10,29 @@ import { FAQJsonLd, BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/Jso
 import { SITE_URL } from "@/lib/constants";
 import { faqCategories, allFAQs } from "@/lib/faq-data";
 import { FAQClientPage } from "./faq-client";
+import { buildPageMetadata } from "@/lib/page-metadata";
+import { setRequestLocale } from "next-intl/server";
 
 const PAGE_URL = `${SITE_URL}/faq`;
 
 /* ── Metadata ─────────────────────────────────────────────────── */
-export const metadata: Metadata = {
-  title: "FAQ",
-  description:
-    "Common questions about our software development services, CMS, CRM, ERP & dedicated teams. Pricing, tech stack & process explained.",
-  alternates: {
-    canonical: `${SITE_URL}/faq`,
-  },
-  openGraph: {
-    title: "FAQ",
-    description:
-      "Common questions about software development services, CMS, CRM, ERP & dedicated teams. Pricing, tech stack & process.",
-    url: `${SITE_URL}/faq`,
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "FAQ",
-    description:
-      "Common questions about software development services, CMS, CRM, ERP & dedicated teams. Pricing & process."
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return buildPageMetadata({ locale, path: "/faq", namespace: "pages.faq" });
+}
 
 /* ── Page ──────────────────────────────────────────────────────── */
-export default function FAQPage() {
+export default async function FAQPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <>
       {/* ── Structured Data ─────────────────────────────────── */}

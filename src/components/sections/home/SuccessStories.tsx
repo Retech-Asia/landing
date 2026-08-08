@@ -16,13 +16,13 @@ const FEATURED_SLUGS = [
 ];
 
 const previews = FEATURED_SLUGS.map((slug) => {
-  const cs = caseStudies.find((c) => c.slug === slug)!;
+  const cs = caseStudies.find((c) => c.id === slug)!;
   return {
-    slug: cs.slug,
-    title: cs.title,
-    tagline: cs.tagline,
-    industry: cs.industry,
-    metrics: cs.results.slice(0, 3),
+    slug: cs.slug.en,
+    title: cs.title.en,
+    tagline: cs.tagline.en,
+    industry: cs.industry.en,
+    metrics: cs.results.slice(0, 3).map((r) => ({ value: r.value.en, metric: r.metric.en })),
     href: `/case-studies/${cs.slug}`,
   };
 });

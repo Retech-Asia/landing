@@ -1,10 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { caseStudies } from "@/lib/case-studies-data";
+import { caseStudies, flattenCaseStudy, localizeCaseStudyHref } from "@/lib/case-studies-data";
 
 const FEATURED_SLUGS = [
   "investment-intelligence-platform",
@@ -12,11 +13,13 @@ const FEATURED_SLUGS = [
   "mining-analytics-platform",
 ];
 
-const FEATURED = FEATURED_SLUGS.map(
-  (slug) => caseStudies.find((c) => c.slug === slug)!,
-);
-
 export function OurWork() {
+  const locale = useLocale() as "en" | "vi";
+  const FEATURED = FEATURED_SLUGS
+    .map((slug) => caseStudies.find((c) => c.id === slug))
+    .filter(Boolean)
+    .map((c) => flattenCaseStudy(c!, locale));
+
   return (
     <section className="py-20 md:py-28 bg-background-subtle">
       <Container>
@@ -31,8 +34,8 @@ export function OurWork() {
             const metric = project.results[0];
             return (
               <Link
-                key={project.slug}
-                href={`/case-studies/${project.slug}`}
+                key={project.id}
+                href={localizeCaseStudyHref(`/case-studies/${project.slug}`, locale)}
                 className="group block rounded-2xl bg-white border border-black/[0.06] p-6 md:p-7 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(32,133,53,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
               >
                 <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-brand/8 border border-brand/15 text-[10px] font-medium tracking-wide uppercase text-brand-dark mb-4">

@@ -10,10 +10,13 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { GradientBackground } from "@/components/ui/GradientBackground";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
-import { caseStudies } from "@/lib/case-studies-data";
+import { caseStudies, flattenCaseStudy } from "@/lib/case-studies-data";
 import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 import { SITE_URL } from "@/lib/constants";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/page-metadata";
+import { setRequestLocale } from "next-intl/server";
+import type { Locale } from "@/i18n/routing";
 
 function CaseStudyImage({
   src,
@@ -59,29 +62,25 @@ function CaseStudyImage({
   );
 }
 
-export const metadata: Metadata = {
-  title: "Case Studies",
-  description:
-    "Real results from real projects. Case studies in healthcare, finance & e-commerce. Vietnam team delivers custom software on time & budget.",
-  alternates: {
-    canonical: `${SITE_URL}/case-studies`,
-  },
-  openGraph: {
-    title: "Case Studies — Vietnam Software Development",
-    description:
-      "Real results from real projects. Case studies in healthcare, finance & e-commerce. Vietnam-built software delivered on time & budget.",
-    url: `${SITE_URL}/case-studies`,
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Case Studies — Vietnam Software Development",
-    description:
-      "Vietnam-built software for healthcare, finance & e-commerce. Real results, real projects."
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  // VI case studies are translated; listing reads flattened locale data
+  return buildPageMetadata({ locale, path: "/case-studies", namespace: "pages.caseStudies", viReady: true });
+}
 
-export default function CaseStudiesPage() {
+export default async function CaseStudiesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const loc = locale as Locale;
+  setRequestLocale(locale);
+  const studies = caseStudies.map((cs) => flattenCaseStudy(cs, loc));
   return (
     <>
       {/* Structured Data */}
@@ -120,9 +119,9 @@ export default function CaseStudiesPage() {
       <section className="py-20 md:py-28">
         <Container>
           <div className="space-y-20">
-            {caseStudies.map((study, index) => (
+            {studies.map((study, index) => (
               <AnimatedSection
-                key={study.slug}
+                key={study.id}
                 variant={index % 2 === 0 ? "slideRight" : "slideLeft"}
               >
                 <div

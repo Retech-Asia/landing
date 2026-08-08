@@ -34,8 +34,8 @@ const staticPages = [
   { path: "/services", priority: 0.9, changeFrequency: "monthly" as const, viReady: true },
   { path: "/process", priority: 0.8, changeFrequency: "monthly" as const, viReady: false },
   { path: "/technologies", priority: 0.7, changeFrequency: "monthly" as const, viReady: false },
-  { path: "/industries", priority: 0.7, changeFrequency: "monthly" as const, viReady: false },
-  { path: "/case-studies", priority: 0.8, changeFrequency: "monthly" as const, viReady: false },
+  { path: "/industries", priority: 0.7, changeFrequency: "monthly" as const, viReady: true },
+  { path: "/case-studies", priority: 0.8, changeFrequency: "monthly" as const, viReady: true },
   { path: "/blog", priority: 0.8, changeFrequency: "weekly" as const, viReady: false },
   { path: "/faq", priority: 0.7, changeFrequency: "monthly" as const, viReady: false },
   { path: "/contact", priority: 0.7, changeFrequency: "monthly" as const, viReady: false },
@@ -97,6 +97,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   };
 
+  // Vietnamese industries + case-studies listings — paired via hreflang.
+  const viListings: MetadataRoute.Sitemap = [
+    { path: "/industries", priority: 0.7 },
+    { path: "/case-studies", priority: 0.8 },
+  ].map(({ path, priority }) => ({
+    url: `${SITE_URL}/vi${path}`,
+    lastModified: CONTENT_LAST_MODIFIED,
+    changeFrequency: "monthly" as const,
+    priority,
+    alternates: {
+      languages: {
+        en: `${SITE_URL}/en${path}`,
+        vi: `${SITE_URL}/vi${path}`,
+        "x-default": `${SITE_URL}/en${path}`,
+      },
+    },
+  }));
+
   const servicePages: MetadataRoute.Sitemap = services.flatMap((service) => {
     const enUrl = `${SITE_URL}/en/services/${service.slug.en}`;
     const viUrl = `${SITE_URL}/vi/services/${service.slug.vi}`;
@@ -118,13 +136,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ];
   });
 
-  const caseStudyPages: MetadataRoute.Sitemap = caseStudies.map((study) => ({
-    url: `${SITE_URL}/en/case-studies/${study.slug}`,
-    lastModified: CONTENT_LAST_MODIFIED,
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-    alternates: { languages: { en: `${SITE_URL}/en/case-studies/${study.slug}`, "x-default": `${SITE_URL}/en/case-studies/${study.slug}` } },
-  }));
+  const caseStudyPages: MetadataRoute.Sitemap = caseStudies.flatMap((study) => {
+    const enUrl = `${SITE_URL}/en/case-studies/${study.slug.en}`;
+    const viUrl = `${SITE_URL}/vi/case-studies/${study.slug.vi}`;
+    return [
+      {
+        url: enUrl,
+        lastModified: CONTENT_LAST_MODIFIED,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+        alternates: { languages: { en: enUrl, vi: viUrl, "x-default": enUrl } },
+      },
+      {
+        url: viUrl,
+        lastModified: CONTENT_LAST_MODIFIED,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+        alternates: { languages: { en: enUrl, vi: viUrl, "x-default": enUrl } },
+      },
+    ];
+  });
 
   const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${SITE_URL}/en/blog/${post.slug}`,
@@ -134,13 +165,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     alternates: { languages: { en: `${SITE_URL}/en/blog/${post.slug}`, "x-default": `${SITE_URL}/en/blog/${post.slug}` } },
   }));
 
-  const industryPages: MetadataRoute.Sitemap = industries.map((industry) => ({
-    url: `${SITE_URL}/en/industries/${industry.slug}`,
-    lastModified: CONTENT_LAST_MODIFIED,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-    alternates: { languages: { en: `${SITE_URL}/en/industries/${industry.slug}`, "x-default": `${SITE_URL}/en/industries/${industry.slug}` } },
-  }));
+  const industryPages: MetadataRoute.Sitemap = industries.flatMap((industry) => {
+    const enUrl = `${SITE_URL}/en/industries/${industry.slug.en}`;
+    const viUrl = `${SITE_URL}/vi/industries/${industry.slug.vi}`;
+    return [
+      {
+        url: enUrl,
+        lastModified: CONTENT_LAST_MODIFIED,
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+        alternates: { languages: { en: enUrl, vi: viUrl, "x-default": enUrl } },
+      },
+      {
+        url: viUrl,
+        lastModified: CONTENT_LAST_MODIFIED,
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+        alternates: { languages: { en: enUrl, vi: viUrl, "x-default": enUrl } },
+      },
+    ];
+  });
 
   const blogCategoryPages: MetadataRoute.Sitemap = BLOG_CATEGORIES.map((cat) => ({
     url: `${SITE_URL}/en/blog/category/${cat.slug}`,
@@ -154,6 +198,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticEntries,
     viHomepage,
     viServicesListing,
+    ...viListings,
     ...servicePages,
     ...caseStudyPages,
     ...blogPages,

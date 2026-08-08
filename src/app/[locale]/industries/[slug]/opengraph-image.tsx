@@ -1,26 +1,28 @@
 import { ImageResponse } from "next/og";
 import { industries } from "@/lib/industries-data";
+import { routing, type Locale } from "@/i18n/routing";
 
 export const alt = "Retech Solutions Industry";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export function generateStaticParams() {
-  return industries.map((industry) => ({ slug: industry.slug }));
+  return routing.locales.flatMap((locale) =>
+    industries.map((industry) => ({ locale, slug: industry.slug[locale] }))
+  );
 }
 
 export default async function Image({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const industry = industries.find((i) => i.slug === slug);
+  const { slug, locale } = await params;
+  const loc = locale as Locale;
+  const industry = industries.find((i) => i.slug[loc] === slug);
 
-  const title = industry?.name ?? "Industry";
-  // longDescription is the richest subtitle source; trim to ~110 chars so it
-  // fits the OG card without overflowing.
-  const rawSubtitle = industry?.longDescription ?? "Custom software for your industry.";
+  const title = industry?.name[loc] ?? "Industry";
+  const rawSubtitle = industry?.longDescription[loc] ?? "Custom software for your industry.";
   const subtitle =
     rawSubtitle.length > 110
       ? rawSubtitle.slice(0, 107).replace(/\s+\S*$/, "") + "..."

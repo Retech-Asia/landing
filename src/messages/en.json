@@ -344,5 +344,83 @@
       "codeStrip": "Development workspace: code, tools, and engineering process",
       "workspaceStrip": "Development workspace at Retech Solutions"
     }
+  },
+  "industryDetail": {
+    "breadcrumb": {
+      "home": "Home",
+      "industries": "Industries"
+    },
+    "breadcrumbJsonLd": {
+      "home": "Home",
+      "industries": "Industries"
+    },
+    "approach": {
+      "eyebrow": "Methodology",
+      "title": "Our Approach"
+    },
+    "problems": {
+      "title": "From Problem to Solution"
+    },
+    "technologies": {
+      "title": "Technologies We Use"
+    },
+    "results": {
+      "eyebrow": "Results",
+      "title": "Proven Results"
+    },
+    "caseStudies": {
+      "eyebrow": "Proof",
+      "title": "Real-World Results"
+    },
+    "relatedServices": {
+      "eyebrow": "Services",
+      "title": "Related Services"
+    },
+    "otherIndustries": {
+      "title": "Other Industries We Serve",
+      "description": "Explore how we help businesses across different sectors."
+    },
+    "challengesLabel": "Industry Challenges",
+    "solutionsLabel": "How We Solve Them",
+    "viewIndustry": "Explore",
+    "learnMore": "Learn More"
+  },
+  "pages": {
+    "about": {
+      "title": "About Retech Solutions",
+      "description": "Vietnam-based software outsourcing company delivering custom CMS, CRM, ERP, and AI-powered products to teams worldwide."
+    },
+    "contact": {
+      "title": "Contact Retech Solutions",
+      "description": "Get a free consultation. We respond within one business day with architecture recommendations, team allocation, and clear milestones."
+    },
+    "faq": {
+      "title": "FAQ",
+      "description": "Common questions about our software development services, process, pricing models, and engagement options."
+    },
+    "process": {
+      "title": "Development Process",
+      "description": "Our proven methodology refined over 50+ successful projects — discovery, design, build, deploy."
+    },
+    "technologies": {
+      "title": "Technology Stack",
+      "description": "Modern, proven technologies we build with — React, Next.js, Node.js, TypeScript, AWS, and more."
+    },
+    "careers": {
+      "title": "Careers at Retech Solutions",
+      "description": "Build the future of software development from Vietnam. Join a team that ships."
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Insights on software development, AI integration, Vietnam outsourcing, and modern engineering practices."
+    },
+    "industries": {
+      "title": "Industries We Serve",
+      "description": "Custom software for healthcare, finance, e-commerce, logistics, education, real estate, manufacturing, and technology."
+    },
+    "caseStudies": {
+      "title": "Case Studies",
+      "description": "Real production systems shipped by Retech Solutions — mining analytics, asset management, AI platforms."
+    }
   }
 }

@@ -33,18 +33,20 @@ import { BreadcrumbJsonLd, ServiceJsonLd, WebPageJsonLd } from "@/components/seo
 import {
   industries,
   getIndustryBySlug,
-  type Industry,
+  getFlatIndustry,
+  flattenIndustry,
+  type FlatIndustry,
 } from "@/lib/industries-data";
 import { services } from "@/lib/services-data";
-import { caseStudies } from "@/lib/case-studies-data";
+import { caseStudies, flattenCaseStudy } from "@/lib/case-studies-data";
 import { SITE_URL } from "@/lib/constants";
-import { setRequestLocale } from "next-intl/server";
-import { routing } from "@/i18n/routing";
+import { setRequestLocale, getTranslations } from "next-intl/server";
+import { routing, type Locale } from "@/i18n/routing";
 
 /* -- Static Params -------------------------------------------------------- */
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
-    industries.map((industry) => ({ locale, slug: industry.slug }))
+    industries.map((industry) => ({ locale, slug: industry.slug[locale] }))
   );
 }
 
@@ -55,12 +57,16 @@ export function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   return params.then(({ slug, locale }) => {
-    const industry = getIndustryBySlug(slug);
+    const loc = locale as Locale;
+    const industry = getFlatIndustry(slug, loc);
     if (!industry) {
       return { title: "Industry Not Found" };
     }
 
     const pageUrl = `${SITE_URL}/${locale}/industries/${industry.slug}`;
+    const raw = getIndustryBySlug(industry.slug, loc);
+    const enUrl = `${SITE_URL}/en/industries/${raw?.slug.en ?? industry.slug}`;
+    const viUrl = `${SITE_URL}/vi/industries/${raw?.slug.vi ?? industry.slug}`;
 
     return {
       title: `${industry.name} Software Development`,
@@ -69,6 +75,11 @@ export function generateMetadata({
         : industry.longDescription,
       alternates: {
         canonical: pageUrl,
+        languages: {
+          en: enUrl,
+          vi: viUrl,
+          "x-default": enUrl,
+        },
       },
       openGraph: {
         title: `${industry.name} Software Development | Retech Solutions`,
@@ -94,19 +105,19 @@ export function generateMetadata({
 const approachIcons = [Compass, Layers, Wrench, Rocket];
 
 /* -- Related case studies lookup ----------------------------------------- */
-function getRelatedCaseStudies(industry: Industry) {
+function getRelatedCaseStudies(industry: FlatIndustry, locale: Locale) {
   return caseStudies.filter(
     (cs) =>
-      cs.industry === industry.caseStudyIndustry ||
-      cs.industry.toLowerCase().includes(industry.slug.replace("-", " "))
+      cs.industry[locale] === industry.caseStudyIndustry ||
+      cs.industry[locale].toLowerCase().includes(industry.slug.replace("-", " "))
   );
 }
 
 /* -- Related services lookup --------------------------------------------- */
-function getRelatedServices(industry: Industry) {
+function getRelatedServices(industry: FlatIndustry) {
   return industry.relatedServiceSlugs
     .map((slug) => services.find((s) => s.slug.en === slug))
-    .filter(Boolean);
+    .filter(Boolean) as typeof services;
 }
 
 /* -- Page Component ------------------------------------------------------ */
@@ -116,23 +127,25 @@ export default async function IndustryDetailPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { slug, locale } = await params;
+  const loc = locale as Locale;
   setRequestLocale(locale);
-  const industry = getIndustryBySlug(slug);
+  const t = await getTranslations({ locale, namespace: "industryDetail" });
+  const industry = getFlatIndustry(slug, loc);
 
   if (!industry) {
     notFound();
   }
 
   const Icon = industry.icon;
-  const pageUrl = `${SITE_URL}/industries/${industry.slug}`;
+  const pageUrl = `${SITE_URL}/${locale}/industries/${industry.slug}`;
 
   const paragraphs = industry.longDescription.split("\n\n").filter(Boolean);
 
-  const otherIndustries = industries.filter(
-    (i) => i.slug !== industry.slug
-  );
+  const otherIndustries = industries
+    .filter((i) => i.id !== industry.id)
+    .map((i) => flattenIndustry(i, loc));
 
-  const relatedCaseStudies = getRelatedCaseStudies(industry);
+  const relatedCaseStudies = getRelatedCaseStudies(industry, loc);
   const relatedServices = getRelatedServices(industry);
 
   return (
@@ -151,8 +164,8 @@ export default async function IndustryDetailPage({
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Industries", url: `${SITE_URL}/industries` },
+          { name: t("breadcrumbJsonLd.home"), url: SITE_URL },
+          { name: t("breadcrumbJsonLd.industries"), url: `${SITE_URL}/industries` },
           { name: industry.name, url: pageUrl },
         ]}
       />
@@ -174,8 +187,8 @@ export default async function IndustryDetailPage({
           <AnimatedSection variant="slideUp">
             <BreadcrumbNav
               items={[
-                { label: "Home", href: "/" },
-                { label: "Industries", href: "/industries" },
+                { label: t("breadcrumb.home"), href: "/" },
+                { label: t("breadcrumb.industries"), href: "/industries" },
                 { label: industry.name },
               ]}
             />
@@ -288,8 +301,8 @@ export default async function IndustryDetailPage({
         <Container className="relative">
           <AnimatedSection variant="slideUp">
             <SectionHeader
-              label="Methodology"
-              title="Our Approach"
+              label={t("approach.eyebrow")}
+              title={t("approach.title")}
               description={`How we deliver successful ${industry.name.toLowerCase()} software projects, from discovery to deployment.`}
             />
           </AnimatedSection>
@@ -342,7 +355,7 @@ export default async function IndustryDetailPage({
           <AnimatedSection variant="slideUp">
             <SectionHeader
               label="Challenges & Solutions"
-              title="From Problem to Solution"
+              title={t("problems.title")}
               description={`The ${industry.name.toLowerCase()} industry faces unique technical and regulatory challenges. Here is how we solve them.`}
             />
           </AnimatedSection>
@@ -432,7 +445,7 @@ export default async function IndustryDetailPage({
         <Container className="relative">
           <AnimatedSection variant="slideUp">
             <SectionHeader
-              title="Technologies We Use"
+              title={t("technologies.title")}
               description={`The tools and frameworks we leverage to deliver robust, scalable solutions for the ${industry.name.toLowerCase()} industry.`}
             />
           </AnimatedSection>
@@ -460,14 +473,16 @@ export default async function IndustryDetailPage({
             <AnimatedSection variant="slideUp">
               <SectionHeader
                 label="Case Studies"
-                title="Proven Results"
+                title={t("results.title")}
                 description={`Real projects we've delivered in the ${industry.name.toLowerCase()} space.`}
               />
             </AnimatedSection>
 
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {relatedCaseStudies.map((cs) => (
-                <StaggerItem key={cs.slug}>
+              {relatedCaseStudies.map((rawCs) => {
+                const cs = flattenCaseStudy(rawCs, loc);
+                return (
+                <StaggerItem key={cs.id}>
                   <Link
                     href={`/case-studies/${cs.slug}`}
                     className="group block h-full"
@@ -508,7 +523,8 @@ export default async function IndustryDetailPage({
                     </Card>
                   </Link>
                 </StaggerItem>
-              ))}
+                );
+              })}
             </StaggerContainer>
           </Container>
         </section>
@@ -556,8 +572,8 @@ export default async function IndustryDetailPage({
           <Container className="relative">
             <AnimatedSection variant="slideUp">
               <SectionHeader
-                label="Services"
-                title="Related Services"
+                label={t("relatedServices.eyebrow")}
+                title={t("relatedServices.title")}
                 description={`The core capabilities we bring to ${industry.name.toLowerCase()} projects.`}
               />
             </AnimatedSection>
@@ -609,8 +625,8 @@ export default async function IndustryDetailPage({
         <Container>
           <AnimatedSection variant="slideUp">
             <SectionHeader
-              title="Other Industries We Serve"
-              description="Explore how we help businesses across different sectors."
+              title={t("otherIndustries.title")}
+              description={t("otherIndustries.description")}
             />
           </AnimatedSection>
 

@@ -15,25 +15,17 @@ import { ProjectEstimator } from "@/components/ui/ProjectEstimator";
 import { ContactPageLocalBusinessJsonLd, BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import { LocationMap } from "@/components/ui/LocationMap";
 import { ContactInfoCard } from "@/components/ui/ContactInfoCard";
+import { buildPageMetadata } from "@/lib/page-metadata";
+import { setRequestLocale } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Contact Us",
-  description: `Contact ${SITE_NAME} for a free consultation on custom CMS, CRM, ERP & AI software. Response within 24 hours. Based in Ho Chi Minh City.`,
-  alternates: {
-    canonical: `${SITE_URL}/contact`,
-  },
-  openGraph: {
-    title: `Contact Us | ${SITE_NAME}`,
-    description: `Contact ${SITE_NAME} for a free consultation on custom CMS, CRM, ERP & AI software. Response within 24 hours.`,
-    url: `${SITE_URL}/contact`,
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `Contact Us | ${SITE_NAME}`,
-    description: `Contact ${SITE_NAME} for a free consultation on custom CMS, CRM, ERP & AI software. Response within 24 hours.`
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return buildPageMetadata({ locale, path: "/contact", namespace: "pages.contact" });
+}
 
 const whatToExpectItems = [
   {
@@ -103,7 +95,13 @@ const communicationChannels = [
   },
 ];
 
-export default function ContactPage() {
+export default async function ContactPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
       {/* Structured Data */}

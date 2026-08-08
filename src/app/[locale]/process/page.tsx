@@ -33,28 +33,17 @@ import { GearIcon } from "@/components/ui/AnimatedIcons";
 import { SITE_URL } from "@/lib/constants";
 import { BreadcrumbJsonLd, WebPageJsonLd, FAQJsonLd } from "@/components/seo/JsonLd";
 import { FAQAccordion } from "./FAQAccordion";
+import { buildPageMetadata } from "@/lib/page-metadata";
+import { setRequestLocale } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Our Process",
-  description:
-    "Proven 6-phase development methodology from discovery to launch. Agile sprints, transparent communication & quality-first approach. 50+ projects delivered.",
-  alternates: {
-    canonical: `${SITE_URL}/process`,
-  },
-  openGraph: {
-    title: "Our Process",
-    description:
-      "Proven 6-phase development methodology from discovery to launch. Agile, transparent & quality-first. 50+ projects delivered.",
-    url: `${SITE_URL}/process`,
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Our Process",
-    description:
-      "Proven 6-phase methodology from discovery to launch. Agile, transparent & quality-first."
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return buildPageMetadata({ locale, path: "/process", namespace: "pages.process" });
+}
 
 /* ──────────────────────── Data ──────────────────────── */
 
@@ -251,7 +240,13 @@ export const faqData = [
 
 /* ──────────────────────── Page ──────────────────────── */
 
-export default function ProcessPage() {
+export default async function ProcessPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <>
       {/* Structured Data */}

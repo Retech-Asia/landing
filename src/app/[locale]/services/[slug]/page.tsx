@@ -19,7 +19,7 @@ import { ServiceTOC, type TocItem } from "@/components/services/ServiceTOC";
 import { AnimatedChecklist } from "@/components/services/AnimatedChecklist";
 import { TechBadges } from "@/components/services/TechBadges";
 import { services, getServiceBySlug, getFlatService, flattenService, type FlatService } from "@/lib/services-data";
-import { caseStudies } from "@/lib/case-studies-data";
+import { caseStudies, flattenCaseStudy } from "@/lib/case-studies-data";
 import { blogPosts } from "@/lib/blog-data";
 import { getTestimonialBySlug } from "@/lib/testimonials-data";
 import { SITE_URL } from "@/lib/constants";
@@ -304,7 +304,7 @@ export default async function ServiceDetailPage({
   const checklistItems = serviceChecklists[lookupKey]?.[loc] ?? [];
   const relatedCaseStudySlugs = serviceCaseStudyMap[lookupKey] ?? [];
   const relatedCaseStudies = caseStudies.filter((cs) =>
-    relatedCaseStudySlugs.includes(cs.slug)
+    relatedCaseStudySlugs.includes(cs.slug.en)
   );
 
   const relatedBlogSlugs = serviceBlogMap[lookupKey] ?? [];
@@ -925,8 +925,10 @@ export default async function ServiceDetailPage({
             </AnimatedSection>
 
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-3xl mx-auto">
-              {relatedCaseStudies.map((cs) => (
-                <StaggerItem key={cs.slug}>
+              {relatedCaseStudies.map((rawCs) => {
+                const cs = flattenCaseStudy(rawCs, loc);
+                return (
+                <StaggerItem key={cs.id}>
                   <Link
                     href={`/case-studies/${cs.slug}`}
                     className="group block h-full"
@@ -951,7 +953,8 @@ export default async function ServiceDetailPage({
                     </div>
                   </Link>
                 </StaggerItem>
-              ))}
+                );
+              })}
             </StaggerContainer>
           </Container>
         </section>
