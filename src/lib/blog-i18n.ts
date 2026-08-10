@@ -194,6 +194,12 @@ export const blogViMeta: Record<string, BlogViMeta> = {
     excerpt: "Hướng dẫn từng bước để xây dựng đội phát triển chuyên trách tại Việt Nam — từ tuyển dụng, onboarding đến quản lý hiệu suất và cultural integration.",
     category: "Insight Ngành",
   },
+  "view-transitions-api-production-guide-202608": {
+    slug: "view-transitions-api-huong-dan-thuc-te-202608",
+    title: "View Transitions API trong Production: Hướng dẫn Thực tế 2026",
+    excerpt: "View Transitions API hiện hoạt động cross-browser cho điều hướng same-document và cross-document. Hướng dẫn thực tế với code example cho React, Next.js và CSS thuần.",
+    category: "Công nghệ",
+  },
 };
 
 /**
