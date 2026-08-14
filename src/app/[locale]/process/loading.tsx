@@ -37,7 +37,7 @@ export default function ProcessLoading() {
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 space-y-3"
+                className="rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 space-y-3"
               >
                 <div className="flex items-center gap-3">
                   <Skeleton className="h-8 w-8 rounded-lg" />
@@ -59,7 +59,7 @@ export default function ProcessLoading() {
             <Skeleton className="h-9 md:h-11 w-48 rounded-lg mb-8" />
             <div className="space-y-3">
               {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="rounded-xl bg-white border border-black/[0.06] p-5">
+                <div key={i} className="rounded-xl bg-card-bg border border-card-border p-5">
                   <Skeleton className="h-5 w-3/4 rounded-lg" />
                 </div>
               ))}

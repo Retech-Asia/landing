@@ -87,13 +87,13 @@ export default async function CaseStudiesPage({
       <WebPageJsonLd
         title="Case Studies"
         description="Real results from real projects. Explore case studies in healthcare, finance & e-commerce. Custom software on time & budget."
-        url={`${SITE_URL}/case-studies`}
+        url={`${SITE_URL}/${locale}/case-studies`}
         type="CollectionPage"
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Case Studies", url: `${SITE_URL}/case-studies` },
+          { name: "Home", url: `${SITE_URL}/${locale}` },
+          { name: "Case Studies", url: `${SITE_URL}/${locale}/case-studies` },
         ]}
       />
 

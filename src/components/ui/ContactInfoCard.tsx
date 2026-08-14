@@ -94,7 +94,7 @@ export function ContactInfoCard({
       onClick={interactive ? handleClick : undefined}
       onKeyDown={interactive ? handleKeyDown : undefined}
       className={cn(
-        "group relative rounded-xl border border-card-border bg-white p-5 transition-all duration-300",
+        "group relative rounded-xl border border-card-border bg-card-bg p-5 transition-all duration-300",
         interactive
           ? "cursor-pointer hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           : "cursor-default",

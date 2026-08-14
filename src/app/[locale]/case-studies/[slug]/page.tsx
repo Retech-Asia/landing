@@ -211,8 +211,8 @@ export default async function CaseStudyDetailPage({
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Case Studies", url: `${SITE_URL}/case-studies` },
+          { name: "Home", url: `${SITE_URL}/${locale}` },
+          { name: "Case Studies", url: `${SITE_URL}/${locale}/case-studies` },
           { name: study.title, url: pageUrl },
         ]}
       />
@@ -470,7 +470,7 @@ export default async function CaseStudyDetailPage({
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.08}>
             {study.features.map((feature, index) => (
               <StaggerItem key={index}>
-                <div className="flex items-start gap-3 p-4 rounded-xl bg-background-subtle border border-black/[0.04]">
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-background-subtle border border-card-border">
                   <span className="mt-0.5 shrink-0" aria-hidden="true">
                     <CheckCircle2 size={16} className="text-brand" />
                   </span>
@@ -562,7 +562,7 @@ export default async function CaseStudyDetailPage({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
                 {study.keyResults.map((result, i) => (
                   <AnimatedSection key={result} variant="slideUp" delay={i * 0.08}>
-                    <div className="flex items-start gap-3 p-5 rounded-xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
+                    <div className="flex items-start gap-3 p-5 rounded-xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
                       <div className="flex-shrink-0 w-7 h-7 rounded-full bg-brand/10 text-brand flex items-center justify-center mt-0.5">
                         <CheckCircle2 size={16} strokeWidth={2.5} />
                       </div>
@@ -613,7 +613,7 @@ export default async function CaseStudyDetailPage({
                       href={`/services/${service.slug.en}`}
                       className="group block h-full"
                     >
-                      <div className="relative h-full rounded-2xl bg-white border border-black/[0.06] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
+                      <div className="relative h-full rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                         <ServiceIcon size={22} className="text-brand mb-4" />
                         <h3 className="text-base font-bold text-foreground mb-1 group-hover:text-brand transition-colors">
                           {service.title.en}
@@ -679,7 +679,7 @@ export default async function CaseStudyDetailPage({
                     href={`/blog/${post.slug}`}
                     className="group block h-full"
                   >
-                    <div className="relative h-full rounded-2xl bg-white border border-black/[0.06] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
+                    <div className="relative h-full rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                       <span className="inline-block text-xs font-semibold uppercase tracking-wider text-accent-cyan bg-accent-cyan/10 rounded-full px-3 py-1 mb-4">
                         {post.category}
                       </span>

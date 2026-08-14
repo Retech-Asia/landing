@@ -52,7 +52,7 @@ export function MidPageCTA() {
               </Link>
               <Link
                 href="/case-studies"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-foreground border border-black/[0.12] px-6 py-3 text-sm font-medium transition-all duration-300 hover:border-black/[0.20] hover:shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-[0_1px_3px_rgba(0,0,0,0.04)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-card-bg text-foreground border border-foreground/10 px-6 py-3 text-sm font-medium transition-all duration-300 hover:border-foreground/20 hover:shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-[0_1px_3px_rgba(0,0,0,0.04)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
               >
                 {t("secondary")}
               </Link>

@@ -75,8 +75,8 @@ function PreviewShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl bg-white border border-black/[0.08] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15),0_8px_24px_-8px_rgba(0,0,0,0.08)] overflow-hidden">
-      <div className="flex items-center justify-between px-5 py-3 border-b border-black/[0.06] bg-gradient-to-r from-brand/[0.03] to-accent-cyan/[0.02]">
+    <div className="rounded-2xl bg-card-bg border border-card-border shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15),0_8px_24px_-8px_rgba(0,0,0,0.08)] overflow-hidden">
+      <div className="flex items-center justify-between px-5 py-3 border-b border-card-border bg-gradient-to-r from-brand/[0.03] to-accent-cyan/[0.02]">
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
           <span className="text-xs font-semibold text-foreground">{title}</span>
@@ -344,7 +344,7 @@ export function ProductTabs() {
         </div>
 
         {/* Tab strip */}
-        <div className="flex flex-wrap gap-2 mb-8 border-b border-black/[0.06] pb-3">
+        <div className="flex flex-wrap gap-2 mb-8 border-b border-card-border pb-3">
           {TABS.map((tab, i) => (
             <button
               key={tab.id}

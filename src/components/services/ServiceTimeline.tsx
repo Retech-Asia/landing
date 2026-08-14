@@ -189,7 +189,7 @@ export function ServiceTimeline({ timeline }: ServiceTimelineProps) {
                   </div>
 
                   {/* Content card */}
-                  <div className="rounded-2xl border border-black/[0.06] bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow duration-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
+                  <div className="rounded-2xl border border-card-border bg-card-bg p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow duration-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
                     <span
                       className={`inline-block text-xs font-semibold uppercase tracking-wider ${colors.text} ${colors.bg} rounded-full px-3 py-1 mb-2`}
                     >

@@ -35,12 +35,12 @@ export default async function TechnologiesPage({
       <WebPageJsonLd
         title="Technologies"
         description="React, Next.js, Node.js, Python, AWS & more. Modern tech stack for scalable software."
-        url={`${SITE_URL}/technologies`}
+        url={`${SITE_URL}/${locale}/technologies`}
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Technologies", url: `${SITE_URL}/technologies` },
+          { name: "Home", url: `${SITE_URL}/${locale}` },
+          { name: "Technologies", url: `${SITE_URL}/${locale}/technologies` },
         ]}
       />
 

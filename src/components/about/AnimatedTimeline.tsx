@@ -98,7 +98,7 @@ function TimelineItem({
           delay: 0.15,
           ease: [0.25, 0.46, 0.45, 0.94],
         }}
-        className="relative rounded-xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.03),0_4px_12px_rgba(0,0,0,0.02)] p-5 group hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.05),0_8px_24px_rgba(0,0,0,0.05)] transition-all duration-300"
+        className="relative rounded-xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.03),0_4px_12px_rgba(0,0,0,0.02)] p-5 group hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.05),0_8px_24px_rgba(0,0,0,0.05)] transition-all duration-300"
       >
         {/* Year badge */}
         <motion.span
@@ -119,7 +119,7 @@ function TimelineItem({
         </p>
 
         {/* Step indicator */}
-        <div className="absolute -right-3 top-5 w-6 h-6 rounded-full bg-white border border-black/[0.06] flex items-center justify-center text-[10px] font-bold text-foreground-muted">
+        <div className="absolute -right-3 top-5 w-6 h-6 rounded-full bg-card-bg border border-card-border flex items-center justify-center text-[10px] font-bold text-foreground-muted">
           {index + 1}/{totalItems}
         </div>
       </motion.div>

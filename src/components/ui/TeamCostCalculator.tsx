@@ -182,7 +182,7 @@ export function TeamCostCalculator() {
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
           className="mx-auto max-w-4xl"
         >
-          <div className="rounded-2xl border border-black/[0.06] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+          <div className="rounded-2xl border border-card-border bg-card-bg shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
             {/* Controls row */}
             <div className="p-6 md:p-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -299,7 +299,7 @@ export function TeamCostCalculator() {
               </div>
 
               {/* Comparison bar */}
-              <div className="mt-6 pt-6 border-t border-black/[0.06]">
+              <div className="mt-6 pt-6 border-t border-card-border">
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-xs font-semibold uppercase tracking-wider text-foreground-muted">
                     Cost Comparison
@@ -344,7 +344,7 @@ export function TeamCostCalculator() {
               </div>
 
               {/* CTA */}
-              <div className="mt-6 pt-6 border-t border-black/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="mt-6 pt-6 border-t border-card-border flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p className="text-sm text-foreground-secondary">
                   Need a tailored estimate? We&apos;ll match the right team to your project scope.
                 </p>

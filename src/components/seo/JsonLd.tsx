@@ -498,14 +498,18 @@ export function WebPageJsonLd({
  * LocalBusiness schema specifically for the Contact page.
  * Includes expanded contact and location information.
  */
-export function ContactPageLocalBusinessJsonLd() {
+export function ContactPageLocalBusinessJsonLd({
+  locale = "en",
+}: {
+  locale?: string;
+}) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": `${SITE_URL}/contact/#localbusiness`,
+    "@id": `${SITE_URL}/${locale}/contact/#localbusiness`,
     name: SITE_NAME,
     alternateName: ["Retech", "RETECH SOLUTIONS CO., LTD."],
-    url: `${SITE_URL}/contact`,
+    url: `${SITE_URL}/${locale}/contact`,
     logo: LOGO_URL,
     image: LOGO_URL,
     description:
@@ -557,32 +561,32 @@ export function ContactPageLocalBusinessJsonLd() {
         {
           "@type": "OfferCatalog",
           name: "CMS Platforms",
-          url: `${SITE_URL}/services/cms-platforms`,
+          url: `${SITE_URL}/${locale}/services/cms-platforms`,
         },
         {
           "@type": "OfferCatalog",
           name: "CRM Systems",
-          url: `${SITE_URL}/services/crm-systems`,
+          url: `${SITE_URL}/${locale}/services/crm-systems`,
         },
         {
           "@type": "OfferCatalog",
           name: "ERP Solutions",
-          url: `${SITE_URL}/services/erp-solutions`,
+          url: `${SITE_URL}/${locale}/services/erp-solutions`,
         },
         {
           "@type": "OfferCatalog",
           name: "Web Development",
-          url: `${SITE_URL}/services/web-development`,
+          url: `${SITE_URL}/${locale}/services/web-development`,
         },
         {
           "@type": "OfferCatalog",
           name: "UI/UX Design",
-          url: `${SITE_URL}/services/ui-ux-design`,
+          url: `${SITE_URL}/${locale}/services/ui-ux-design`,
         },
         {
           "@type": "OfferCatalog",
           name: "Dedicated Teams",
-          url: `${SITE_URL}/services/dedicated-teams`,
+          url: `${SITE_URL}/${locale}/services/dedicated-teams`,
         },
       ],
     },

@@ -40,12 +40,12 @@ export default async function IndustriesPage({
       <WebPageJsonLd
         title="Industries We Serve"
         description="Custom software for Healthcare, Finance, E-commerce & more. Industry-specific CMS, CRM, ERP and AI solutions."
-        url={`${SITE_URL}/industries`}
+        url={`${SITE_URL}/${locale}/industries`}
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Industries", url: `${SITE_URL}/industries` },
+          { name: "Home", url: `${SITE_URL}/${locale}` },
+          { name: "Industries", url: `${SITE_URL}/${locale}/industries` },
         ]}
       />
 
@@ -152,7 +152,7 @@ export default async function IndustriesPage({
                       IT graduates annually
                     </p>
                   </div>
-                  <div className="border-t border-black/[0.06]" />
+                  <div className="border-t border-card-border" />
                   <div>
                     <p className="text-3xl font-bold text-accent-cyan">
                       40&ndash;60%
@@ -161,7 +161,7 @@ export default async function IndustriesPage({
                       Lower development costs
                     </p>
                   </div>
-                  <div className="border-t border-black/[0.06]" />
+                  <div className="border-t border-card-border" />
                   <div>
                     <p className="text-3xl font-bold text-accent-violet">
                       GMT+7

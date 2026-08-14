@@ -13,7 +13,7 @@ export function FeedbackWidget() {
 
   if (feedback) {
     return (
-      <div className="mt-10 pt-8 border-t border-black/[0.06] text-center">
+      <div className="mt-10 pt-8 border-t border-card-border text-center">
         <div className="inline-flex items-center gap-2 rounded-full bg-brand/10 px-4 py-2 text-sm font-medium text-brand">
           <svg
             width="16"
@@ -37,7 +37,7 @@ export function FeedbackWidget() {
   }
 
   return (
-    <div className="mt-10 pt-8 border-t border-black/[0.06]">
+    <div className="mt-10 pt-8 border-t border-card-border">
       <p className="text-sm text-foreground-muted text-center mb-3">
         Was this article helpful?
       </p>
@@ -46,7 +46,7 @@ export function FeedbackWidget() {
           type="button"
           onClick={() => setFeedback("up")}
           aria-label="Yes, this article was helpful"
-          className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.08] px-4 py-2 text-sm font-medium text-foreground-secondary hover:border-brand/30 hover:bg-brand/5 hover:text-brand transition-all duration-200 cursor-pointer"
+          className="inline-flex items-center gap-1.5 rounded-full border border-card-border px-4 py-2 text-sm font-medium text-foreground-secondary hover:border-brand/30 hover:bg-brand/5 hover:text-brand transition-all duration-200 cursor-pointer"
         >
           <ThumbsUp size={15} />
           Yes
@@ -55,7 +55,7 @@ export function FeedbackWidget() {
           type="button"
           onClick={() => setFeedback("down")}
           aria-label="No, this article was not helpful"
-          className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.08] px-4 py-2 text-sm font-medium text-foreground-secondary hover:border-red-300 hover:bg-red-50 hover:text-red-500 transition-all duration-200 cursor-pointer"
+          className="inline-flex items-center gap-1.5 rounded-full border border-card-border px-4 py-2 text-sm font-medium text-foreground-secondary hover:border-red-300 hover:bg-red-50 hover:text-red-500 transition-all duration-200 cursor-pointer"
         >
           <ThumbsDown size={15} />
           No

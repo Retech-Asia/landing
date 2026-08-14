@@ -261,7 +261,7 @@ export function FAQClientPage({ categories }: FAQClientPageProps) {
                 placeholder="Search questions..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-black/[0.08] bg-white text-foreground text-base placeholder:text-foreground-muted focus:outline-none focus:border-brand/40 focus:ring-2 focus:ring-brand/10 transition-all shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
+                className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-card-border bg-card-bg text-foreground text-base placeholder:text-foreground-muted focus:outline-none focus:border-brand/40 focus:ring-2 focus:ring-brand/10 transition-all shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
                 aria-label="Search FAQ questions"
               />
               {hasSearch && (
@@ -307,7 +307,7 @@ export function FAQClientPage({ categories }: FAQClientPageProps) {
                   "inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer",
                   activeCategory === "all"
                     ? "bg-brand-dark text-white shadow-[0_2px_8px_rgba(32,133,53,0.2)]"
-                    : "bg-white text-foreground-secondary border border-black/[0.06] hover:border-black/[0.12] hover:text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
+                    : "bg-card-bg text-foreground-secondary border border-card-border hover:border-foreground/10 hover:text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
                 )}
               >
                 <Layers size={14} />
@@ -331,7 +331,7 @@ export function FAQClientPage({ categories }: FAQClientPageProps) {
                       "inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer",
                       isActive
                         ? "bg-brand-dark text-white shadow-[0_2px_8px_rgba(32,133,53,0.2)]"
-                        : "bg-white text-foreground-secondary border border-black/[0.06] hover:border-black/[0.12] hover:text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
+                        : "bg-card-bg text-foreground-secondary border border-card-border hover:border-foreground/10 hover:text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
                     )}
                   >
                     <Icon size={14} />
@@ -406,7 +406,7 @@ export function FAQClientPage({ categories }: FAQClientPageProps) {
                   )}
 
                   {/* Accordion card */}
-                  <div className="rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
+                  <div className="rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
                     <FAQAccordion
                       items={category.items}
                       searchQuery={searchQuery}

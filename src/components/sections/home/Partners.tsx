@@ -37,7 +37,7 @@ function PartnerCard({
       initial={animate ? { opacity: 0, y: 20, scale: 0.96 } : false}
       animate={animate ? { opacity: 1, y: 0, scale: 1 } : undefined}
       transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative flex-shrink-0 w-44 md:w-52 rounded-2xl bg-white border border-black/[0.06] p-5 md:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:scale-[1.02]"
+      className="group relative flex-shrink-0 w-44 md:w-52 rounded-2xl bg-card-bg border border-card-border p-5 md:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:scale-[1.02]"
     >
       <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-black/[0.03] mb-4 transition-transform duration-300 group-hover:scale-110 overflow-hidden">
         <img

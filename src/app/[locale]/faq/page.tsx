@@ -14,8 +14,6 @@ import { buildPageMetadata } from "@/lib/page-metadata";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 
-const PAGE_URL = `${SITE_URL}/faq`;
-
 /* ── Metadata ─────────────────────────────────────────────────── */
 export async function generateMetadata({
   params,
@@ -36,6 +34,7 @@ export default async function FAQPage({
   const loc = locale as Locale;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "pages.faq.chrome" });
+  const PAGE_URL = `${SITE_URL}/${locale}/faq`;
 
   // Flatten categories + items to single-locale shape before passing to
   // client component. JSON-LD also gets flattened items.
@@ -48,7 +47,7 @@ export default async function FAQPage({
       <FAQJsonLd questions={flatFAQs} />
       <BreadcrumbJsonLd
         items={[
-          { name: t("breadcrumb.home"), url: SITE_URL },
+          { name: t("breadcrumb.home"), url: `${SITE_URL}/${locale}` },
           { name: t("breadcrumb.faq"), url: PAGE_URL },
         ]}
       />
@@ -102,7 +101,7 @@ export default async function FAQPage({
                 <Button
                   href="/contact"
                   size="lg"
-                  className="bg-white text-foreground hover:bg-white/90"
+                  className="bg-card-bg text-foreground hover:bg-card-bg"
                 >
                   <Mail size={18} />
                   {t("ctaPrimary")}

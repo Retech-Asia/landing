@@ -201,15 +201,15 @@ export default async function CareersPage({
       <WebPageJsonLd
         title="Careers"
         description="Join Retech Solutions in Ho Chi Minh City. We're always interested in hearing from talented engineers, designers, and project managers, even when we don't have public openings listed."
-        url={`${SITE_URL}/careers`}
+        url={`${SITE_URL}/${locale}/careers`}
       />
       {/* JobPosting structured data intentionally omitted — no active public
           openings right now. Restore by mapping over jobListings with
           <JobPostingJsonLd> when positions reopen. */}
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Careers", url: `${SITE_URL}/careers` },
+          { name: "Home", url: `${SITE_URL}/${locale}` },
+          { name: "Careers", url: `${SITE_URL}/${locale}/careers` },
         ]}
       />
 
@@ -364,7 +364,7 @@ export default async function CareersPage({
                     <div className="flex gap-5 md:gap-6 items-start">
                       {/* Step number + icon */}
                       <div className="shrink-0 relative z-10">
-                        <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
+                        <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
                           <StepIcon size={22} className="text-brand" />
                         </div>
                       </div>

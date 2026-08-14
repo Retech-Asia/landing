@@ -118,7 +118,7 @@ export function ProductShowcase() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
-                  className={`group relative h-[260px] md:h-[420px] rounded-2xl overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.04),0_24px_60px_rgba(0,0,0,0.12)] border border-black/[0.06] ${
+                  className={`group relative h-[260px] md:h-[420px] rounded-2xl overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.04),0_24px_60px_rgba(0,0,0,0.12)] border border-card-border ${
                     index % 2 !== 0 ? "md:order-1" : ""
                   }`}
                 >

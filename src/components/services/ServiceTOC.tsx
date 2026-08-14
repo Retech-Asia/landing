@@ -79,7 +79,7 @@ export function ServiceTOC({ items }: ServiceTOCProps) {
 
   return (
     <nav aria-label={t("onThisPage")} className="w-full">
-      <div className="rounded-xl border border-foreground/10 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
+      <div className="rounded-xl border border-foreground/10 bg-card-bg p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
         <p className="text-xs font-semibold uppercase tracking-wider text-foreground-secondary mb-3 px-2">
           {t("onThisPage")}
         </p>

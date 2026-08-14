@@ -25,7 +25,7 @@ export default function TechnologiesLoading() {
             {Array.from({ length: 12 }).map((_, i) => (
               <div
                 key={i}
-                className="rounded-xl bg-white border border-black/[0.06] p-4 flex flex-col items-center gap-3"
+                className="rounded-xl bg-card-bg border border-card-border p-4 flex flex-col items-center gap-3"
               >
                 <Skeleton className="h-10 w-10 rounded-lg" />
                 <Skeleton className="h-3 w-16 rounded-md" />

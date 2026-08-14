@@ -76,7 +76,7 @@ export function LeadershipTeam() {
               viewport={{ once: true, margin: "-60px" }}
               variants={cardVariants}
               whileHover={{ y: -6, transition: { duration: 0.3, ease: "easeOut" } }}
-              className="group relative rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] hover:border-brand/30 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] transition-all duration-300 overflow-hidden"
+              className="group relative rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] hover:border-brand/30 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] transition-all duration-300 overflow-hidden"
             >
               {/* Top gradient accent bar */}
               <div
@@ -112,7 +112,7 @@ export function LeadershipTeam() {
 
               {/* Hover reveal bio overlay */}
               <motion.div
-                className="absolute inset-0 top-[76px] bg-white/95 backdrop-blur-sm flex flex-col justify-center px-6"
+                className="absolute inset-0 top-[76px] bg-card-bg backdrop-blur-sm flex flex-col justify-center px-6"
                 initial={{ opacity: 0, y: 10 }}
                 whileHover={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
@@ -125,7 +125,7 @@ export function LeadershipTeam() {
 
               {/* Always-visible quick link at bottom */}
               <div className="px-6 pb-4">
-                <div className="pt-3 border-t border-black/[0.04] flex items-center justify-center">
+                <div className="pt-3 border-t border-card-border flex items-center justify-center">
                   <span className="inline-flex items-center gap-1 text-xs text-foreground-muted group-hover:text-brand transition-colors duration-200">
                     <ExternalLink size={12} />
                     <span>View profile</span>

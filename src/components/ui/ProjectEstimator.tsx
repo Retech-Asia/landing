@@ -491,7 +491,7 @@ export function ProjectEstimator() {
       {/* ---------------------------------------------------------------- */}
       {/* Step content card                                                */}
       {/* ---------------------------------------------------------------- */}
-      <div className="relative overflow-hidden rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
+      <div className="relative overflow-hidden rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
         {/* Subtle top gradient accent line */}
         <div
           className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand/20 to-transparent"
@@ -559,7 +559,7 @@ export function ProjectEstimator() {
                         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white",
                         isSelected
                           ? `${option.borderColor} bg-brand/[0.03] shadow-[0_2px_12px_rgba(32,133,53,0.08)]`
-                          : "border-card-border bg-card-bg hover:border-black/[0.12]",
+                          : "border-card-border bg-card-bg hover:border-foreground/10",
                       )}
                     >
                       <div
@@ -668,7 +668,7 @@ export function ProjectEstimator() {
                 className="grid grid-cols-3 gap-3 mb-8"
               >
                 {/* Project Type summary */}
-                <div className="flex flex-col items-center p-3.5 rounded-xl bg-black/[0.02] border border-black/[0.04]">
+                <div className="flex flex-col items-center p-3.5 rounded-xl bg-black/[0.02] border border-card-border">
                   {(() => {
                     const pt = projectTypes.find((p) => p.id === selections.projectType);
                     if (!pt) return null;
@@ -687,7 +687,7 @@ export function ProjectEstimator() {
                 </div>
 
                 {/* Scope summary */}
-                <div className="flex flex-col items-center p-3.5 rounded-xl bg-black/[0.02] border border-black/[0.04]">
+                <div className="flex flex-col items-center p-3.5 rounded-xl bg-black/[0.02] border border-card-border">
                   {(() => {
                     const sc = scopes.find((s) => s.id === selections.scope);
                     if (!sc) return null;
@@ -707,7 +707,7 @@ export function ProjectEstimator() {
                 </div>
 
                 {/* Team size summary */}
-                <div className="flex flex-col items-center p-3.5 rounded-xl bg-black/[0.02] border border-black/[0.04]">
+                <div className="flex flex-col items-center p-3.5 rounded-xl bg-black/[0.02] border border-card-border">
                   {(() => {
                     const ts = teamSizes.find((t) => t.id === selections.teamSize);
                     if (!ts) return null;
@@ -840,7 +840,7 @@ export function ProjectEstimator() {
               ) : (
                 <form
                   onSubmit={handleSubmitLead}
-                  className="mt-6 p-5 sm:p-6 rounded-2xl bg-white border border-black/[0.08] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] space-y-4"
+                  className="mt-6 p-5 sm:p-6 rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] space-y-4"
                   noValidate
                 >
                   {/* Honeypot */}
@@ -873,7 +873,7 @@ export function ProjectEstimator() {
                         autoComplete="name"
                         value={leadInfo.name}
                         onChange={(e) => setLeadInfo({ ...leadInfo, name: e.target.value })}
-                        className="w-full h-11 px-3.5 text-base rounded-lg border border-black/[0.10] bg-white text-foreground placeholder:text-foreground-muted/60 focus:border-brand/40 focus:ring-2 focus:ring-brand/10 focus:outline-none transition-all"
+                        className="w-full h-11 px-3.5 text-base rounded-lg border border-foreground/10 bg-card-bg text-foreground placeholder:text-foreground-muted/60 focus:border-brand/40 focus:ring-2 focus:ring-brand/10 focus:outline-none transition-all"
                         placeholder="Your name"
                       />
                     </label>
@@ -887,7 +887,7 @@ export function ProjectEstimator() {
                         autoComplete="email"
                         value={leadInfo.email}
                         onChange={(e) => setLeadInfo({ ...leadInfo, email: e.target.value })}
-                        className="w-full h-11 px-3.5 text-base rounded-lg border border-black/[0.10] bg-white text-foreground placeholder:text-foreground-muted/60 focus:border-brand/40 focus:ring-2 focus:ring-brand/10 focus:outline-none transition-all"
+                        className="w-full h-11 px-3.5 text-base rounded-lg border border-foreground/10 bg-card-bg text-foreground placeholder:text-foreground-muted/60 focus:border-brand/40 focus:ring-2 focus:ring-brand/10 focus:outline-none transition-all"
                         placeholder="you@company.com"
                       />
                     </label>
@@ -900,7 +900,7 @@ export function ProjectEstimator() {
                         autoComplete="organization"
                         value={leadInfo.company}
                         onChange={(e) => setLeadInfo({ ...leadInfo, company: e.target.value })}
-                        className="w-full h-11 px-3.5 text-base rounded-lg border border-black/[0.10] bg-white text-foreground placeholder:text-foreground-muted/60 focus:border-brand/40 focus:ring-2 focus:ring-brand/10 focus:outline-none transition-all"
+                        className="w-full h-11 px-3.5 text-base rounded-lg border border-foreground/10 bg-card-bg text-foreground placeholder:text-foreground-muted/60 focus:border-brand/40 focus:ring-2 focus:ring-brand/10 focus:outline-none transition-all"
                         placeholder="Company name"
                       />
                     </label>
@@ -913,7 +913,7 @@ export function ProjectEstimator() {
                         autoComplete="tel"
                         value={leadInfo.phone}
                         onChange={(e) => setLeadInfo({ ...leadInfo, phone: e.target.value })}
-                        className="w-full h-11 px-3.5 text-base rounded-lg border border-black/[0.10] bg-white text-foreground placeholder:text-foreground-muted/60 focus:border-brand/40 focus:ring-2 focus:ring-brand/10 focus:outline-none transition-all"
+                        className="w-full h-11 px-3.5 text-base rounded-lg border border-foreground/10 bg-card-bg text-foreground placeholder:text-foreground-muted/60 focus:border-brand/40 focus:ring-2 focus:ring-brand/10 focus:outline-none transition-all"
                         placeholder="+84…"
                       />
                     </label>
@@ -927,7 +927,7 @@ export function ProjectEstimator() {
                       rows={3}
                       value={leadInfo.notes}
                       onChange={(e) => setLeadInfo({ ...leadInfo, notes: e.target.value })}
-                      className="w-full px-3.5 py-2.5 text-base rounded-lg border border-black/[0.10] bg-white text-foreground placeholder:text-foreground-muted/60 focus:border-brand/40 focus:ring-2 focus:ring-brand/10 focus:outline-none transition-all resize-y"
+                      className="w-full px-3.5 py-2.5 text-base rounded-lg border border-foreground/10 bg-card-bg text-foreground placeholder:text-foreground-muted/60 focus:border-brand/40 focus:ring-2 focus:ring-brand/10 focus:outline-none transition-all resize-y"
                       placeholder="Tell us anything specific about your project, timeline, or constraints."
                     />
                   </label>

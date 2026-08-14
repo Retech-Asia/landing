@@ -199,7 +199,7 @@ export function ServicePreview() {
                 <ParallaxDepth depth={cardDepths[i % cardDepths.length]} scrollYProgress={scrollYProgress}>
                   <TiltCard>
                     <Link href={localizeServiceHref(service.href, locale)} className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-2xl focus-visible:ring-offset-2">
-                      <div className="group relative h-full overflow-hidden rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(32,133,53,0.06)]">
+                      <div className="group relative h-full overflow-hidden rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(32,133,53,0.06)]">
                         {/* Animated top accent — brand gradient, draws in on hover */}
                         <span
                           aria-hidden="true"

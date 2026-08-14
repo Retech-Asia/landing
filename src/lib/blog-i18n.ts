@@ -20,6 +20,24 @@ export interface BlogViMeta {
 }
 
 export const blogViMeta: Record<string, BlogViMeta> = {
+  "vietnam-software-developer-rates-2026-complete-pricing-guide": {
+    slug: "chi-phi-lap-trinh-vien-viet-nam-2026-huong-dan-gia",
+    title: "Chi phí Lập trình viên Việt Nam 2026: Hướng dẫn Giá Hoàn chỉnh",
+    excerpt: "Lập trình viên Việt Nam thực sự giá bao nhiêu năm 2026 — mức giá theo năm kinh nghiệm, giá đội chuyên trách hàng tháng, và so sánh với Ấn Độ, Đông Âu. Hướng dẫn lập ngân sách thực tế cho doanh nghiệp đánh giá offshore.",
+    category: "Insight Ngành",
+  },
+  "odoo-vs-sap-business-one-2026-honest-comparison": {
+    slug: "odoo-vs-sap-business-one-2026-so-sanh-thuc-te",
+    title: "Odoo vs SAP Business One 2026: So sánh Thực tế cho Doanh nghiệp Đang lớn",
+    excerpt: "Odoo và SAP Business One nhắm cùng phân khúc trung nhưng khác nhau rõ rệt về chi phí, linh hoạt và thời gian triển khai. Khung so sánh từ đội ngũ triển khai ERP — kèm mức ngân sách thực tế cho từng bên.",
+    category: "Hướng dẫn",
+  },
+  "ai-agents-small-business-workflows-2026-practical-guide": {
+    slug: "ai-agent-doanh-nghiep-nho-2026-huong-dan-thuc-te",
+    title: "AI Agent cho Doanh nghiệp Nhỏ: Quy trình Tự động hóa Đáng đồng tiền 2026",
+    excerpt: "AI agent đã từ demo trở nên đáng tin cho quy trình doanh nghiệp nhỏ — phân loại hỗ trợ, xử lý hóa đơn, sàng lọc khách hàng tiềm năng. Agent làm gì, chi phí bao nhiêu, và bắt đầu từ đâu mà không cần đội data science.",
+    category: "Công nghệ",
+  },
   "nab-innovation-centre-vietnam-global-bank-tech-hub": {
     slug: "nab-innovation-centre-viet-nam-can-cu-cong-nghe-ngan-hang-toan-cau",
     title: "NAB Innovation Centre Việt Nam: Ngân hàng Toàn cầu Đặt cược vào Nhân lực Bản địa",

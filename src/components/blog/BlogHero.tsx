@@ -74,7 +74,7 @@ export function BlogHero({ category, readTime }: BlogHeroProps) {
       initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="relative w-full aspect-[16/7] md:aspect-[16/6] lg:aspect-[2.4/1] rounded-2xl overflow-hidden border border-black/[0.06] mb-10 md:mb-14"
+      className="relative w-full aspect-[16/7] md:aspect-[16/6] lg:aspect-[2.4/1] rounded-2xl overflow-hidden border border-card-border mb-10 md:mb-14"
       aria-hidden="true"
     >
       {/* Layer 1: Base gradient */}
@@ -120,13 +120,13 @@ export function BlogHero({ category, readTime }: BlogHeroProps) {
       <div className="absolute inset-0 pointer-events-none">
         {/* Rotating ring — top left */}
         <motion.div
-          className="absolute top-[15%] left-[10%] w-20 h-20 rounded-full border border-black/[0.08]"
+          className="absolute top-[15%] left-[10%] w-20 h-20 rounded-full border border-card-border"
           animate={prefersReducedMotion ? undefined : { rotate: 360 }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
         />
         {/* Floating square — bottom left */}
         <motion.div
-          className="absolute bottom-[20%] left-[18%] w-12 h-12 rounded-md border border-black/[0.08]"
+          className="absolute bottom-[20%] left-[18%] w-12 h-12 rounded-md border border-card-border"
           animate={
             prefersReducedMotion
               ? undefined
@@ -165,13 +165,13 @@ export function BlogHero({ category, readTime }: BlogHeroProps) {
       {/* Layer 6: Category badge + read time chip — visible meta */}
       <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-center gap-3 z-10">
         <span
-          className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-sm text-xs font-semibold shadow-sm ${theme.iconColor}`}
+          className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-card-bg backdrop-blur-sm text-xs font-semibold shadow-sm ${theme.iconColor}`}
         >
           <Icon size={14} strokeWidth={2.5} />
           {theme.label}
         </span>
         {readTime && (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm text-xs font-medium text-foreground-secondary shadow-sm">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card-bg backdrop-blur-sm text-xs font-medium text-foreground-secondary shadow-sm">
             {readTime}
           </span>
         )}

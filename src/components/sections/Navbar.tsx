@@ -287,7 +287,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-[var(--z-navbar)] transition-[border-color,box-shadow,background-color] duration-300",
         isScrolled
-          ? "bg-background/80 backdrop-blur-md border-b border-black/[0.06] shadow-sm"
+          ? "bg-background/80 backdrop-blur-md border-b border-card-border shadow-sm"
           : "bg-transparent"
       )}
       style={{
@@ -378,7 +378,7 @@ export function Navbar() {
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="absolute top-full left-0 mt-1 w-[520px] p-4 rounded-2xl bg-background/95 backdrop-blur-xl border border-black/[0.06] shadow-[0_8px_40px_rgba(0,0,0,0.08)]"
+                        className="absolute top-full left-0 mt-1 w-[520px] p-4 rounded-2xl bg-background/95 backdrop-blur-xl border border-card-border shadow-[0_8px_40px_rgba(0,0,0,0.08)]"
                       >
                         <div className="grid grid-cols-2 gap-1">
                           {item.children.map((child) => {
@@ -500,7 +500,7 @@ export function Navbar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="lg:hidden fixed top-16 right-0 bottom-0 w-full max-w-sm bg-background/[0.98] backdrop-blur-xl z-[var(--z-dropdown)] overflow-y-auto border-l border-black/[0.06]"
+              className="lg:hidden fixed top-16 right-0 bottom-0 w-full max-w-sm bg-background/[0.98] backdrop-blur-xl z-[var(--z-dropdown)] overflow-y-auto border-l border-card-border"
               onKeyDown={handleMobileKeyDown}
             >
               <div className="px-6 py-6 space-y-1">

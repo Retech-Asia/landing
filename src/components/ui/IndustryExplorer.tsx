@@ -149,10 +149,10 @@ export function IndustryExplorer() {
               variants={cardVariants}
               layout
               className={cn(
-                "relative rounded-2xl bg-white border transition-all duration-300",
+                "relative rounded-2xl bg-card-bg border transition-all duration-300",
                 isExpanded
                   ? "border-brand/20 shadow-[0_2px_12px_rgba(32,133,53,0.08),0_8px_24px_rgba(0,0,0,0.04)] sm:col-span-2 lg:col-span-1"
-                  : "border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
+                  : "border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
               )}
             >
               {/* Gradient overlay on hover */}

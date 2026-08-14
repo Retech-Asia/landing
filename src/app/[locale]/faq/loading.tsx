@@ -23,7 +23,7 @@ export default function FAQLoading() {
         <div className="mx-auto max-w-3xl px-6">
           <div className="space-y-3">
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="rounded-xl bg-white border border-black/[0.06] p-5">
+              <div key={i} className="rounded-xl bg-card-bg border border-card-border p-5">
                 <div className="flex items-center justify-between">
                   <Skeleton className="h-5 w-3/4 rounded-lg" />
                   <Skeleton className="h-5 w-5 rounded" />

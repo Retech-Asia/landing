@@ -36,7 +36,7 @@ export function OurWork() {
               <Link
                 key={project.id}
                 href={localizeCaseStudyHref(`/case-studies/${project.slug}`, locale)}
-                className="group block rounded-2xl bg-white border border-black/[0.06] p-6 md:p-7 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(32,133,53,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
+                className="group block rounded-2xl bg-card-bg border border-card-border p-6 md:p-7 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(32,133,53,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
               >
                 <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-brand/8 border border-brand/15 text-[10px] font-medium tracking-wide uppercase text-brand-dark mb-4">
                   {project.industry}
@@ -48,7 +48,7 @@ export function OurWork() {
                 <p className="text-xs text-foreground-muted mb-4">{project.tagline}</p>
 
                 {metric && (
-                  <div className="mb-4 pb-4 border-b border-black/[0.06]">
+                  <div className="mb-4 pb-4 border-b border-card-border">
                     <div className="text-2xl md:text-3xl font-bold gradient-text-brand leading-none">
                       {metric.value}
                     </div>

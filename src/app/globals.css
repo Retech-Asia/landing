@@ -86,6 +86,10 @@
 
   /* Step pulse */
   --step-pulse-color: rgba(32, 133, 53, 0.25);
+
+  /* Secondary button — frosted white in light mode */
+  --btn-secondary-bg: rgba(255, 255, 255, 0.60);
+  --btn-secondary-hover-bg: rgba(255, 255, 255, 0.85);
 }
 
 /* ── Dark mode tokens (activated via data-theme="dark" on <html>) ── */
@@ -159,6 +163,10 @@
 
   /* Step pulse */
   --step-pulse-color: rgba(62, 201, 95, 0.40);
+
+  /* Secondary button — dark glass in dark mode */
+  --btn-secondary-bg: rgba(255, 255, 255, 0.08);
+  --btn-secondary-hover-bg: rgba(255, 255, 255, 0.14);
 }
 
 /* Smooth theme transition — applied to key elements so the switch feels fluid.
@@ -174,37 +182,24 @@
   color-scheme: dark;
 }
 
-/* Active nav items use `text-brand` (#208535) which passes WCAG AA on light
+/* Brand-colored text — `--brand` (#208535) passes WCAG AA on light
    backgrounds but fails on dark surfaces (4.18:1 < 4.5). In dark mode,
-   brighten to `--brand-bright` (#2EA04E = ~5.8:1 on dark). */
+   brighten ALL brand text to `--brand-bright` (#2EA04E = ~5.8:1 on dark).
+   This global rule replaces the per-callsite `nav-active-text` class
+   (kept for backwards compatibility — it is now redundant). Covers the
+   hover/group-hover variants too, since hover targets are dark surfaces
+   in dark mode just like their resting state. */
+[data-theme="dark"] .text-brand,
+[data-theme="dark"] .hover\:text-brand:hover,
+[data-theme="dark"] .group:hover .group-hover\:text-brand,
 [data-theme="dark"] .nav-active-text {
   color: var(--brand-bright);
 }
 
-/* Pragmatic approach: instead of refactoring 129 individual `bg-white`
-   instances across the codebase, override them globally here. When dark
-   mode is active, all solid-white surfaces become the dark background-subtle
-   token. This also catches `bg-white/80` and `bg-white/90` variants.
-   In light mode these rules are inactive — zero visual change. */
-[data-theme="dark"] .bg-white {
-  background-color: var(--background-subtle) !important;
-}
-[data-theme="dark"] .bg-white\/80 {
-  background-color: rgba(18, 18, 30, 0.92) !important;
-}
-[data-theme="dark"] .bg-white\/90 {
-  background-color: rgba(18, 18, 30, 0.95) !important;
-}
-[data-theme="dark"] .bg-white\/95 {
-  background-color: rgba(18, 18, 30, 0.98) !important;
-}
-/* Borders that use black opacity — flip to white opacity in dark mode */
-[data-theme="dark"] .border-black\/\[0\.06\],
-[data-theme="dark"] .border-black\/\[0\.08\],
-[data-theme="dark"] .border-black\/\[0\.10\],
-[data-theme="dark"] .border-black\/\[0\.12\] {
-  border-color: rgba(255, 255, 255, 0.08) !important;
-}
+/* (Historical note: bg-white / border-black overrides used to live here as
+   !important dark-mode rules. The call sites were migrated to theme tokens
+   — bg-card-bg, border-card-border, border-foreground/N — so the overrides
+   were deleted. Do not reintroduce raw bg-white/border-black in components.) */
 
 /* ── Dark-mode adjustments for premium background system ──
    In dark mode the background is near-black, so the aurora/spotlight glows

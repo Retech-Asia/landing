@@ -164,8 +164,8 @@ export default async function IndustryDetailPage({
       />
       <BreadcrumbJsonLd
         items={[
-          { name: t("breadcrumbJsonLd.home"), url: SITE_URL },
-          { name: t("breadcrumbJsonLd.industries"), url: `${SITE_URL}/industries` },
+          { name: t("breadcrumbJsonLd.home"), url: `${SITE_URL}/${locale}` },
+          { name: t("breadcrumbJsonLd.industries"), url: `${SITE_URL}/${locale}/industries` },
           { name: industry.name, url: pageUrl },
         ]}
       />
@@ -231,7 +231,7 @@ export default async function IndustryDetailPage({
               <div className="flex flex-col sm:flex-row items-start gap-4 mt-8">
                 <Button href="/contact" size="lg">
                   <Mail size={18} />
-                  Get a Free Consultation
+                  Get Free Consultation
                 </Button>
                 <Button href="/industries" variant="secondary" size="lg">
                   <ArrowLeft size={18} />
@@ -317,7 +317,7 @@ export default async function IndustryDetailPage({
                     variant="slideUp"
                     delay={i * 0.1}
                   >
-                    <div className="relative rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] h-full">
+                    <div className="relative rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] h-full">
                       {/* Step number badge */}
                       <div className="flex items-center gap-3 mb-4">
                         <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand/[0.04]">
@@ -371,7 +371,7 @@ export default async function IndustryDetailPage({
                 >
                   <div className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-0 md:gap-0 items-stretch">
                     {/* Challenge (left) */}
-                    <div className="rounded-2xl md:rounded-r-none bg-white border border-black/[0.06] md:border-r-0 p-5 md:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-amber-200 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
+                    <div className="rounded-2xl md:rounded-r-none bg-card-bg border border-card-border md:border-r-0 p-5 md:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-amber-200 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
                       <div className="flex items-start gap-3">
                         <div className="shrink-0 mt-0.5 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-amber-50">
                           <AlertTriangle
@@ -397,7 +397,7 @@ export default async function IndustryDetailPage({
                         className="absolute inset-y-0 left-0 right-0 w-px bg-gradient-to-b from-amber-300 via-brand to-brand"
                         aria-hidden="true"
                       />
-                      <div className="relative z-10 w-8 h-8 rounded-full bg-white border-2 border-brand shadow-sm flex items-center justify-center">
+                      <div className="relative z-10 w-8 h-8 rounded-full bg-card-bg border-2 border-brand shadow-sm flex items-center justify-center">
                         <ChevronRight size={16} className="text-brand" />
                       </div>
                     </div>
@@ -406,7 +406,7 @@ export default async function IndustryDetailPage({
                     <div className="flex md:hidden items-center justify-center py-2">
                       <div className="flex flex-col items-center gap-0">
                         <div className="w-px h-3 bg-gradient-to-b from-amber-300 to-brand" />
-                        <div className="w-7 h-7 rounded-full bg-white border-2 border-brand shadow-sm flex items-center justify-center">
+                        <div className="w-7 h-7 rounded-full bg-card-bg border-2 border-brand shadow-sm flex items-center justify-center">
                           <ChevronRight size={14} className="text-brand rotate-90" />
                         </div>
                         <div className="w-px h-3 bg-brand" />
@@ -414,7 +414,7 @@ export default async function IndustryDetailPage({
                     </div>
 
                     {/* Solution (right) */}
-                    <div className="rounded-2xl md:rounded-l-none bg-white border border-black/[0.06] md:border-l-0 p-5 md:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
+                    <div className="rounded-2xl md:rounded-l-none bg-card-bg border border-card-border md:border-l-0 p-5 md:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
                       <div className="flex items-start gap-3">
                         <div className="shrink-0 mt-0.5 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-brand/10">
                           <CheckCircle2
@@ -455,7 +455,7 @@ export default async function IndustryDetailPage({
               {industry.technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="inline-block px-4 py-2 text-sm font-medium text-foreground-secondary rounded-full border border-black/[0.08] bg-white/60 backdrop-blur-sm transition-all duration-200 hover:border-brand/30 hover:text-brand cursor-default"
+                  className="inline-block px-4 py-2 text-sm font-medium text-foreground-secondary rounded-full border border-card-border bg-white/60 backdrop-blur-sm transition-all duration-200 hover:border-brand/30 hover:text-brand cursor-default"
                 >
                   {tech}
                 </span>
@@ -535,7 +535,7 @@ export default async function IndustryDetailPage({
         <section className="py-20 md:py-28 bg-background-subtle relative overflow-hidden">
           <Container>
             <AnimatedSection variant="slideUp">
-              <div className="max-w-3xl mx-auto rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
+              <div className="max-w-3xl mx-auto rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
                 <div className="flex items-start gap-4">
                   <CheckCircle2
                     size={24}
@@ -589,7 +589,7 @@ export default async function IndustryDetailPage({
                       className="group block h-full"
                     >
                       <Card padding="lg" className="h-full">
-                        <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand/[0.04] group-hover:bg-white/80 transition-colors duration-300">
+                        <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand/[0.04] group-hover:bg-card-bg transition-colors duration-300">
                           <ServiceIcon
                             size={20}
                             className="text-brand"
@@ -640,7 +640,7 @@ export default async function IndustryDetailPage({
                     className="group block h-full"
                   >
                     <Card padding="lg" className="h-full">
-                      <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand/[0.04] group-hover:bg-white/80 transition-colors duration-300">
+                      <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand/[0.04] group-hover:bg-card-bg transition-colors duration-300">
                         <OtherIcon size={20} className={other.color} />
                       </div>
                       <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-brand transition-colors">
@@ -684,10 +684,10 @@ export default async function IndustryDetailPage({
                 <Button
                   href="/contact"
                   size="lg"
-                  className="bg-white text-foreground hover:bg-white/90"
+                  className="bg-card-bg text-foreground hover:bg-card-bg"
                 >
                   <Mail size={18} />
-                  Get a Free Consultation
+                  Get Free Consultation
                 </Button>
                 <Button
                   href="/industries"

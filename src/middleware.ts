@@ -1,5 +1,8 @@
 import createMiddleware from "next-intl/middleware";
+import { NextResponse, type NextRequest } from "next/server";
 import { routing } from "./i18n/routing";
+
+const intlMiddleware = createMiddleware(routing);
 
 /**
  * Locale negotiation middleware. Runs on every navigable request.
@@ -20,8 +23,33 @@ import { routing } from "./i18n/routing";
  * `localeDetection: false` in routing.ts means we never auto-redirect on
  * Accept-Language; the middleware only handles `/` → `/en` and `/en/...` ↔
  * `/vi/...` path resolution.
+ *
+ * next-intl issues its prefix redirects as 307 (temporary) — its API offers
+ * no status override. These redirects are permanent by nature (the `/en` +
+ * `/vi` prefix structure is the canonical URL shape, and legacy backlinks
+ * pointing at unprefixed paths like `/about` should pass full SEO juice).
+ * So we upgrade any redirect next-intl returns to a 308 before sending it.
  */
-export default createMiddleware(routing);
+export default function middleware(request: NextRequest) {
+  const response = intlMiddleware(request);
+
+  if (response.status >= 300 && response.status < 400) {
+    const location = response.headers.get("location");
+    if (location) {
+      const permanent = NextResponse.redirect(
+        new URL(location, request.url),
+        308,
+      );
+      // Preserve headers next-intl set on its response (Set-Cookie for
+      // NEXT_LOCALE, Link alternates) — only the status changes.
+      response.headers.forEach((value, key) => {
+        if (key !== "location") permanent.headers.set(key, value);
+      });
+      return permanent;
+    }
+  }
+  return response;
+}
 
 export const config = {
   // Skip Next internals, API, static files, and known root metadata routes.

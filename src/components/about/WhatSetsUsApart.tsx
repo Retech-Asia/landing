@@ -75,7 +75,7 @@ export function WhatSetsUsApart() {
             const Icon = item.icon;
             return (
               <StaggerItem key={item.title}>
-                <div className="group relative h-full rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] transition-all duration-300 p-6 md:p-8">
+                <div className="group relative h-full rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] transition-all duration-300 p-6 md:p-8">
                   {/* Number badge */}
                   <div className="absolute top-6 right-6 md:top-8 md:right-8">
                     <span className="text-xs font-bold text-foreground-muted/40">

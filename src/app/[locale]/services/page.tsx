@@ -176,12 +176,12 @@ export default async function ServicesPage({
       <WebPageJsonLd
         title="Our Services"
         description="Custom CMS, CRM, ERP, web apps, UI/UX design & dedicated teams. Full-spectrum development services."
-        url={`${SITE_URL}/services`}
+        url={`${SITE_URL}/${locale}/services`}
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Services", url: `${SITE_URL}/services` },
+          { name: "Home", url: `${SITE_URL}/${locale}` },
+          { name: "Services", url: `${SITE_URL}/${locale}/services` },
         ]}
       />
       {/* ItemList structured data for the services overview */}
@@ -198,8 +198,8 @@ export default async function ServicesPage({
             itemListElement: services.map((s, i) => ({
               "@type": "ListItem",
               position: i + 1,
-              name: s.title,
-              url: `${SITE_URL}/services/${s.slug}`,
+              name: s.title[loc],
+              url: `${SITE_URL}/${locale}/services/${s.slug[loc]}`,
             })),
           }).replace(/</g, "\\u003c"),
         }}
@@ -275,7 +275,7 @@ export default async function ServicesPage({
                 return (
                   <StaggerItem key={service.id} className="h-full">
                     <Link href={`/services/${service.slug[loc]}`} className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-2xl focus-visible:ring-offset-2">
-                      <div className="relative h-full rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 md:p-8 transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
+                      <div className="relative h-full rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 md:p-8 transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                         {/* Icon */}
                         <Icon size={28} className={`${iconColor} mb-5`} />
 
@@ -320,12 +320,12 @@ export default async function ServicesPage({
 
           <AnimatedSection variant="slideUp" delay={0.1}>
             {/* -- Desktop Table (md+) ------------------------------------ */}
-            <div className="hidden md:block rounded-2xl border border-black/[0.06] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+            <div className="hidden md:block rounded-2xl border border-card-border bg-card-bg shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full border-collapse text-sm">
                   <thead>
-                    <tr className="border-b border-black/[0.08]">
-                      <th className="sticky left-0 z-10 bg-white px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider text-foreground-secondary whitespace-nowrap">
+                    <tr className="border-b border-card-border">
+                      <th className="sticky left-0 z-10 bg-card-bg px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider text-foreground-secondary whitespace-nowrap">
                         Feature
                       </th>
                       {services.map((service) => {
@@ -385,7 +385,7 @@ export default async function ServicesPage({
                 return (
                   <div
                     key={service.id}
-                    className="rounded-2xl border border-black/[0.06] bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
+                    className="rounded-2xl border border-card-border bg-card-bg p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
                   >
                     <div className="flex items-center gap-2.5 mb-4">
                       <ServiceIcon size={20} className="text-brand" />
@@ -450,7 +450,7 @@ export default async function ServicesPage({
               const StepIcon = step.icon;
               return (
                 <StaggerItem key={step.step}>
-                  <div className="relative rounded-2xl bg-white/80 border border-black/[0.06] backdrop-blur-sm p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
+                  <div className="relative rounded-2xl bg-card-bg border border-card-border backdrop-blur-sm p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
                     <div className="flex items-center gap-3 mb-4">
                       <span className="text-3xl font-bold text-black/[0.06] leading-none">
                         {step.step}
@@ -488,7 +488,7 @@ export default async function ServicesPage({
                 <Button
                   href="/contact"
                   size="lg"
-                  className="bg-white text-foreground hover:bg-white/90"
+                  className="bg-card-bg text-foreground hover:bg-card-bg"
                 >
                   Get Your Free Estimate
                   <ArrowRight size={18} />

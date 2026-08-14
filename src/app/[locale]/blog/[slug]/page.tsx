@@ -341,7 +341,7 @@ export default async function BlogPostPage({
 
             {/* Share buttons */}
             <AnimatedSection variant="slideUp" delay={0.12}>
-              <div className="mt-8 pt-6 border-t border-black/[0.06]">
+              <div className="mt-8 pt-6 border-t border-card-border">
                 <ShareButtons title={post.title} url={pageUrl} />
               </div>
             </AnimatedSection>
@@ -357,7 +357,7 @@ export default async function BlogPostPage({
                 in the post header already communicates authorship. */}
 
             <AnimatedSection variant="slideUp" delay={0.15}>
-              <div className="flex items-center justify-between mt-12 pt-8 border-t border-black/[0.06]">
+              <div className="flex items-center justify-between mt-12 pt-8 border-t border-card-border">
                 {prevPost ? (
                   <Link
                     href={`/blog/${prevPost.slug}`}
@@ -391,7 +391,7 @@ export default async function BlogPostPage({
 
             {relatedPosts.length > 0 && (
               <AnimatedSection variant="slideUp" delay={0.2}>
-                <div className="mt-12 pt-10 border-t border-black/[0.06]">
+                <div className="mt-12 pt-10 border-t border-card-border">
                   <h2 className="text-xl md:text-2xl font-bold text-foreground mb-6">
                     Related Articles
                   </h2>
@@ -400,7 +400,7 @@ export default async function BlogPostPage({
                       <Link
                         key={related.slug}
                         href={`/blog/${related.slug}`}
-                        className="group relative block overflow-hidden rounded-2xl border border-black/[0.06] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
+                        className="group relative block overflow-hidden rounded-2xl border border-card-border transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
                       >
                         {/* Topic-relevant thumbnail */}
                         <div className="relative h-36 overflow-hidden">

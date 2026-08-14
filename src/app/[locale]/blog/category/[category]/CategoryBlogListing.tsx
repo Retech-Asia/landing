@@ -114,7 +114,7 @@ export function CategoryBlogListing({ posts }: CategoryBlogListingProps) {
                     <div className="absolute bottom-3 left-3">
                       <Badge
                         variant="outline"
-                        className="bg-white/90 text-foreground-secondary backdrop-blur-sm"
+                        className="bg-card-bg text-foreground-secondary backdrop-blur-sm"
                       >
                         {post.category}
                       </Badge>
@@ -135,7 +135,7 @@ export function CategoryBlogListing({ posts }: CategoryBlogListingProps) {
                       {post.excerpt}
                     </p>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-black/[0.06]">
+                    <div className="flex items-center justify-between pt-4 border-t border-card-border">
                       <div className="flex items-center gap-4 text-xs text-foreground-muted">
                         <span className="flex items-center gap-1">
                           <Calendar size={13} />
@@ -181,7 +181,7 @@ export function CategoryBlogListing({ posts }: CategoryBlogListingProps) {
         >
           <button
             onClick={loadMore}
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-black/[0.08] text-sm font-medium text-foreground-secondary hover:text-brand hover:border-brand/30 hover:bg-brand/5 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-card-border text-sm font-medium text-foreground-secondary hover:text-brand hover:border-brand/30 hover:bg-brand/5 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
           >
             Load more articles
             <ArrowRight size={14} />

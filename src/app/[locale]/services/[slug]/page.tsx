@@ -324,7 +324,7 @@ export default async function ServiceDetailPage({
 
   const testimonial = getTestimonialBySlug(slug);
 
-  const pageUrl = `${SITE_URL}/services/${service.slug}`;
+  const pageUrl = `${SITE_URL}/${locale}/services/${service.slug}`;
 
   // Build TOC items based on which sections will actually render
   const tocItems: TocItem[] = [
@@ -359,8 +359,8 @@ export default async function ServiceDetailPage({
       <FAQJsonLd questions={service.faq} />
       <BreadcrumbJsonLd
         items={[
-          { name: t("breadcrumb.home"), url: SITE_URL },
-          { name: t("breadcrumb.services"), url: `${SITE_URL}/services` },
+          { name: t("breadcrumb.home"), url: `${SITE_URL}/${locale}` },
+          { name: t("breadcrumb.services"), url: `${SITE_URL}/${locale}/services` },
           { name: service.title, url: pageUrl },
         ]}
       />
@@ -486,7 +486,7 @@ export default async function ServiceDetailPage({
               const colorClass = i % 3 === 0 ? "text-brand" : i % 3 === 1 ? "text-accent-cyan" : "text-accent-violet";
               return (
                 <StaggerItem key={feature.title}>
-                  <div className="rounded-2xl bg-white border border-black/[0.06] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] h-full transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
+                  <div className="rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] h-full transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                     <FeatureIcon size={20} className={`${colorClass} mb-4`} />
                     <h3 className="text-base font-semibold text-foreground mb-2">
                       {feature.title}
@@ -547,7 +547,7 @@ export default async function ServiceDetailPage({
           <Container className="relative">
             <AnimatedSection variant="slideUp">
               <div className="max-w-3xl mx-auto">
-                <div className="relative rounded-2xl bg-white border border-black/[0.06] p-8 md:p-10 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] border-l-4 border-l-brand">
+                <div className="relative rounded-2xl bg-card-bg border border-card-border p-8 md:p-10 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] border-l-4 border-l-brand">
                   <Quote
                     size={48}
                     className="text-brand/15 mb-4"
@@ -595,7 +595,7 @@ export default async function ServiceDetailPage({
             {service.benefits.map((benefit) => {
               return (
                 <StaggerItem key={benefit.title}>
-                  <div className="p-6 rounded-2xl border border-black/[0.06] bg-white/60 backdrop-blur-sm h-full">
+                  <div className="p-6 rounded-2xl border border-card-border bg-white/60 backdrop-blur-sm h-full">
                     <CheckCircle2 size={22} className="text-brand mb-4 shrink-0" />
                     <h3 className="text-base font-semibold text-foreground mb-2">
                       {benefit.title}
@@ -725,7 +725,7 @@ export default async function ServiceDetailPage({
               ].map((model) => (
                 <StaggerItem key={model.key}>
                   <div
-                    className={`relative h-full rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 ${
+                    className={`relative h-full rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 ${
                       model.featured
                         ? "border-t-2 border-t-brand shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03),0_0_24px_rgba(32,133,53,0.08)]"
                         : "border-t-2 border-t-brand/40"
@@ -755,8 +755,8 @@ export default async function ServiceDetailPage({
 
             {/* Feature comparison table */}
             <AnimatedSection variant="slideUp" delay={0.15}>
-              <div className="rounded-2xl border border-black/[0.06] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
-                <div className="px-6 py-4 border-b border-black/[0.06] bg-black/[0.015]">
+              <div className="rounded-2xl border border-card-border bg-card-bg shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+                <div className="px-6 py-4 border-b border-card-border bg-black/[0.015]">
                   <h3 className="text-base font-semibold text-foreground">
                     {t("engagement.compare.title")}
                   </h3>
@@ -764,7 +764,7 @@ export default async function ServiceDetailPage({
                 <div className="overflow-x-auto">
                   <table className="w-full border-collapse text-sm">
                     <thead>
-                      <tr className="border-b border-black/[0.08]">
+                      <tr className="border-b border-card-border">
                         <th className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wider text-foreground-secondary whitespace-nowrap">
                           {t("engagement.compare.featureHeader")}
                         </th>
@@ -804,7 +804,7 @@ export default async function ServiceDetailPage({
                         return (
                         <tr
                           key={row[0]}
-                          className="border-b border-black/[0.04] last:border-b-0"
+                          className="border-b border-card-border last:border-b-0"
                         >
                           <td className="px-5 py-3 font-medium text-foreground whitespace-nowrap text-sm">
                             {labels[row[0]]}
@@ -865,7 +865,7 @@ export default async function ServiceDetailPage({
           </AnimatedSection>
 
           <AnimatedSection variant="slideUp" delay={0.1}>
-            <div className="max-w-3xl mx-auto rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
+            <div className="max-w-3xl mx-auto rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
               <Accordion items={service.faq} />
             </div>
           </AnimatedSection>
@@ -936,7 +936,7 @@ export default async function ServiceDetailPage({
                     href={`/case-studies/${cs.slug}`}
                     className="group block h-full"
                   >
-                    <div className="relative h-full rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
+                    <div className="relative h-full rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                       <span className="inline-block text-xs font-semibold uppercase tracking-wider text-brand bg-brand/10 rounded-full px-3 py-1 mb-4">
                         {cs.industry}
                       </span>
@@ -981,7 +981,7 @@ export default async function ServiceDetailPage({
                     href={`/blog/${post.slug}`}
                     className="group block h-full"
                   >
-                    <div className="relative h-full rounded-2xl bg-white border border-black/[0.06] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
+                    <div className="relative h-full rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                       <span className="inline-block text-xs font-semibold uppercase tracking-wider text-accent-cyan bg-accent-cyan/10 rounded-full px-3 py-1 mb-4">
                         {post.category}
                       </span>
@@ -1032,7 +1032,7 @@ export default async function ServiceDetailPage({
                     href={`/services/${related.slug}`}
                     className="group block h-full"
                   >
-                    <div className="relative h-full rounded-2xl bg-white border border-black/[0.06] overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
+                    <div className="relative h-full rounded-2xl bg-card-bg border border-card-border overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                       {/* Top gradient accent bar matching service color */}
                       <div className={`h-1 bg-gradient-to-r ${related.heroAccent}`} aria-hidden="true" />
                       <div className="p-6 md:p-8">
@@ -1071,7 +1071,7 @@ export default async function ServiceDetailPage({
             <AnimatedSection variant="slideUp">
               <Link
                 href={`/services/${nextService.slug}`}
-                className="group flex flex-col sm:flex-row items-center justify-between gap-6 max-w-4xl mx-auto rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
+                className="group flex flex-col sm:flex-row items-center justify-between gap-6 max-w-4xl mx-auto rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
               >
                 <div className="flex items-center gap-4 text-center sm:text-left">
                   <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-brand/10 shrink-0">
@@ -1120,7 +1120,7 @@ export default async function ServiceDetailPage({
                 <Button
                   href="/contact"
                   size="lg"
-                  className="bg-white text-foreground hover:bg-white/90"
+                  className="bg-card-bg text-foreground hover:bg-card-bg"
                 >
                   <Mail size={18} />
                   {t("finalCta.ctaPrimary")}

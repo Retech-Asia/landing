@@ -195,14 +195,14 @@ export function CustomSelect({
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
         className={cn(
-          "w-full flex items-center justify-between rounded-xl border bg-white px-4 py-3 text-sm",
+          "w-full flex items-center justify-between rounded-xl border bg-card-bg px-4 py-3 text-sm",
           "outline-none transition-all duration-200 text-left cursor-pointer",
           "focus:ring-2 focus:ring-brand/10 focus:shadow-[0_0_0_3px_rgba(32,133,53,0.08)]",
           disabled
-            ? "opacity-50 cursor-not-allowed bg-gray-50 border-black/[0.06]"
+            ? "opacity-50 cursor-not-allowed bg-gray-50 border-card-border"
             : ariaInvalid
               ? "border-red-400 focus:border-red-400 focus:ring-red-400/10"
-              : "border-black/[0.08] hover:border-brand/30 focus:border-brand/40"
+              : "border-card-border hover:border-brand/30 focus:border-brand/40"
         )}
       >
         <span
@@ -231,7 +231,7 @@ export function CustomSelect({
             exit={{ opacity: 0, y: -4, scaleY: 0.96 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
             style={{ transformOrigin: "top" }}
-            className="absolute z-[var(--z-dropdown)] mt-1.5 w-full rounded-xl border border-black/[0.08] bg-white shadow-[0_4px_6px_rgba(0,0,0,0.04),0_10px_24px_rgba(0,0,0,0.08)] overflow-hidden"
+            className="absolute z-[var(--z-dropdown)] mt-1.5 w-full rounded-xl border border-card-border bg-card-bg shadow-[0_4px_6px_rgba(0,0,0,0.04),0_10px_24px_rgba(0,0,0,0.08)] overflow-hidden"
           >
             <div
               id={listboxId}

@@ -96,7 +96,7 @@ export function CareersListing({ jobs, email }: CareersListingProps) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             aria-label="Search job roles"
-            className="w-full pl-9 pr-4 py-2.5 text-base rounded-xl border border-black/[0.08] bg-white placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand/30 transition-shadow"
+            className="w-full pl-9 pr-4 py-2.5 text-base rounded-xl border border-card-border bg-card-bg placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand/30 transition-shadow"
           />
         </div>
 
@@ -118,7 +118,7 @@ export function CareersListing({ jobs, email }: CareersListingProps) {
                     ? dept === "All"
                       ? "bg-brand-dark text-white border-foreground"
                       : `${styles!.pill} border`
-                    : "bg-white text-foreground-secondary border-black/[0.08] hover:border-black/[0.16] hover:text-foreground"
+                    : "bg-card-bg text-foreground-secondary border-card-border hover:border-foreground/20 hover:text-foreground"
                 )}
               >
                 {dept}
@@ -213,7 +213,7 @@ export function CareersListing({ jobs, email }: CareersListingProps) {
                   </div>
 
                   {/* CTA */}
-                  <div className="mt-auto pt-4 border-t border-black/[0.06]">
+                  <div className="mt-auto pt-4 border-t border-card-border">
                     <a
                       href={`mailto:${email}?subject=Application for ${encodeURIComponent(job.title)} | ${job.slug}`}
                       className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-gradient-to-r from-brand to-brand-dark px-5 py-2.5 rounded-full hover:shadow-[0_4px_16px_rgba(32,133,53,0.25)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"

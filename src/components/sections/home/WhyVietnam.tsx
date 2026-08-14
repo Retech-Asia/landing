@@ -29,7 +29,7 @@ const advantages = [
     icon: GraduationCap,
     title: "Talented Workforce",
     description:
-      "Over 50,000 IT graduates annually from top universities with strong STEM foundations and competitive technical skills.",
+      "Over 50,000 IT graduates annually, with strong STEM foundations and competitive technical skills.",
     color: "text-accent-cyan",
     bg: "bg-accent-cyan/10",
   },
@@ -37,7 +37,7 @@ const advantages = [
     icon: Clock,
     title: "Timezone Advantage",
     description:
-      "GMT+7 timezone overlaps with both APAC and European business hours for seamless collaboration.",
+      "GMT+7 timezone overlaps with both APAC and European business hours, keeping daily syncs practical.",
     color: "text-accent-violet",
     bg: "bg-accent-violet/10",
   },
@@ -92,7 +92,7 @@ export function WhyVietnam() {
         {/* Stats bar */}
         <StaggerContainer
           staggerDelay={0.12}
-          className="mb-14 md:mb-18 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6 md:p-8 rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]"
+          className="mb-14 md:mb-18 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6 md:p-8 rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]"
         >
           {stats.map((stat, index) => (
             <StaggerItem key={stat.label}>
@@ -120,7 +120,7 @@ export function WhyVietnam() {
             const Icon = item.icon;
             return (
               <StaggerItem key={item.title}>
-                <div className="card-shimmer h-full rounded-2xl bg-white border border-black/[0.06] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
+                <div className="card-shimmer h-full rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                   <div
                     className={`w-11 h-11 rounded-full ${item.bg} flex items-center justify-center mb-4`}
                   >

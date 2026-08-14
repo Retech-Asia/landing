@@ -38,13 +38,13 @@ export default async function BlogPage({
       <WebPageJsonLd
         title="Blog"
         description="Expert insights on IT outsourcing, software development & AI trends. Practical guides on CMS, CRM, ERP solutions from Vietnam."
-        url={`${SITE_URL}/blog`}
+        url={`${SITE_URL}/${locale}/blog`}
         type="CollectionPage"
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Blog", url: `${SITE_URL}/blog` },
+          { name: "Home", url: `${SITE_URL}/${locale}` },
+          { name: "Blog", url: `${SITE_URL}/${locale}/blog` },
         ]}
       />
 
@@ -74,7 +74,7 @@ export default async function BlogPage({
         </Suspense>
 
         {/* Cross-link to Services and Case Studies */}
-        <AnimatedSection variant="slideUp" delay={0.2} className="mt-16 pt-12 border-t border-black/[0.06]">
+        <AnimatedSection variant="slideUp" delay={0.2} className="mt-16 pt-12 border-t border-card-border">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <h2 className="text-xl md:text-2xl font-bold text-foreground mb-3">

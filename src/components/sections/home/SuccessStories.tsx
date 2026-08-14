@@ -46,7 +46,7 @@ export function SuccessStories() {
               <StaggerItem key={preview.slug}>
                 <Link
                   href={preview.href}
-                  className="group card-shimmer relative block h-full overflow-hidden rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-8 transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(32,133,53,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
+                  className="group card-shimmer relative block h-full overflow-hidden rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-8 transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(32,133,53,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
                 >
                   {/* Animated top accent line — brand gradient, draws in on hover */}
                   <span
@@ -70,7 +70,7 @@ export function SuccessStories() {
 
                   {/* Hero metric — big, bold, gradient */}
                   {hero && (
-                    <div className="mb-5 pb-5 border-b border-black/[0.06]">
+                    <div className="mb-5 pb-5 border-b border-card-border">
                       <div className="text-3xl md:text-4xl font-bold gradient-text-brand leading-none tracking-tight">
                         {hero.value}
                       </div>

@@ -28,8 +28,8 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
             className={cn(
               "rounded-2xl border transition-all duration-300",
               isOpen
-                ? "border-brand/20 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
-                : "border-black/[0.06] bg-white hover:border-black/[0.10] shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
+                ? "border-brand/20 bg-card-bg shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
+                : "border-card-border bg-card-bg hover:border-foreground/10 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
             )}
           >
             <button

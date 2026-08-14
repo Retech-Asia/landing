@@ -155,7 +155,7 @@ export function ServiceQuiz() {
   const progress = step >= 3 ? 100 : Math.round(((step + 1) / 3) * 100);
 
   return (
-    <div className="relative rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+    <div className="relative rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
       {/* Progress bar */}
       <div className="h-1 bg-black/[0.04]">
         <motion.div
@@ -193,7 +193,7 @@ export function ServiceQuiz() {
                     key={opt.label}
                     onClick={() => pick(i)}
                     className={cn(
-                      "group relative rounded-xl border border-black/[0.08] px-4 py-3.5 text-sm font-medium text-foreground-secondary",
+                      "group relative rounded-xl border border-card-border px-4 py-3.5 text-sm font-medium text-foreground-secondary",
                       "hover:border-brand/40 hover:text-foreground hover:bg-brand/[0.04]",
                       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40",
                       "transition-all duration-200 cursor-pointer text-center"
@@ -248,7 +248,7 @@ export function ServiceQuiz() {
                     <Link
                       key={svc.slug}
                       href={`/services/${svc.slug}`}
-                      className="group flex items-center gap-4 rounded-xl border border-black/[0.06] p-4 hover:border-brand/30 hover:bg-brand/[0.02] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50"
+                      className="group flex items-center gap-4 rounded-xl border border-card-border p-4 hover:border-brand/30 hover:bg-brand/[0.02] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50"
                     >
                       <div
                         className={cn(

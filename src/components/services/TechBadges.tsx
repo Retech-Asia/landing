@@ -20,7 +20,7 @@ export function TechBadges({ technologies }: TechBadgesProps) {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.3, delay: i * 0.04, ease: "easeOut" }}
-          className="relative group inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-foreground-secondary rounded-xl border border-black/[0.06] bg-white/80 backdrop-blur-sm transition-all duration-200 hover:border-brand/30 hover:text-brand hover:shadow-[0_0_12px_rgba(32,133,53,0.08)] cursor-default select-none"
+          className="relative group inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-foreground-secondary rounded-xl border border-card-border bg-card-bg backdrop-blur-sm transition-all duration-200 hover:border-brand/30 hover:text-brand hover:shadow-[0_0_12px_rgba(32,133,53,0.08)] cursor-default select-none"
         >
           {/* Small colored dot */}
           <span

@@ -45,7 +45,7 @@ export default function ContactLoading() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-10">
           {/* Form area */}
           <div className="lg:col-span-3">
-            <div className="rounded-2xl bg-white/95 border border-black/[0.06] p-6 md:p-8">
+            <div className="rounded-2xl bg-card-bg border border-card-border p-6 md:p-8">
               <Skeleton className="h-5 w-40 rounded-lg mb-6" />
               <div className="space-y-4">
                 <Skeleton className="h-10 w-full rounded-lg" />
@@ -66,7 +66,7 @@ export default function ContactLoading() {
             <div className="rounded-xl bg-black/[0.03] h-48 skeleton-shimmer" />
             {/* Contact cards */}
             {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="rounded-xl border border-card-border bg-white p-5">
+              <div key={i} className="rounded-xl border border-card-border bg-card-bg p-5">
                 <div className="flex items-start gap-3">
                   <Skeleton className="h-10 w-10 rounded-lg" />
                   <div className="flex-1 space-y-1">

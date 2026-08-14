@@ -297,13 +297,13 @@ export default async function ProcessPage({
       <WebPageJsonLd
         title={chrome.heroTitle}
         description={chrome.heroLead}
-        url={`${SITE_URL}/process`}
+        url={`${SITE_URL}/${locale}/process`}
       />
       <FAQJsonLd questions={faqData} />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Our Process", url: `${SITE_URL}/process` },
+          { name: "Home", url: `/` },
+          { name: "Our Process", url: `${SITE_URL}/${locale}/process` },
         ]}
       />
 
@@ -431,7 +431,7 @@ export default async function ProcessPage({
                     <div
                       className={`ml-14 md:ml-0 rounded-2xl border-l-4 transition-shadow duration-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] ${
                         isEven
-                          ? "border-l-brand bg-white"
+                          ? "border-l-brand bg-card-bg"
                           : "border-l-accent-cyan bg-background-subtle"
                       } p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]`}
                     >
@@ -553,7 +553,7 @@ export default async function ProcessPage({
               const CategoryIcon = category.icon;
               return (
                 <StaggerItem key={category.name}>
-                  <div className="rounded-2xl bg-white border border-black/[0.06] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] h-full">
+                  <div className="rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] h-full">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-brand/10">
                         <CategoryIcon size={20} className="text-brand" />
@@ -566,7 +566,7 @@ export default async function ProcessPage({
                       {category.tools.map((tool) => (
                         <span
                           key={tool}
-                          className="inline-block text-sm font-medium text-foreground-secondary bg-background-subtle px-3 py-1.5 rounded-lg border border-black/[0.04]"
+                          className="inline-block text-sm font-medium text-foreground-secondary bg-background-subtle px-3 py-1.5 rounded-lg border border-card-border"
                         >
                           {tool}
                         </span>
@@ -612,7 +612,7 @@ export default async function ProcessPage({
                 <Button
                   href="/contact"
                   size="lg"
-                  className="bg-white text-foreground hover:bg-white/90"
+                  className="bg-card-bg text-foreground hover:bg-card-bg"
                 >
                   {chrome.ctaPrimary}
                   <ArrowRight size={18} />

@@ -127,7 +127,7 @@ export function LocaleSwitcher({ variant = "navbar" }: { variant?: "navbar" | "m
             transition={{ duration: 0.15 }}
             role="radiogroup"
             aria-label={t("ariaLabel")}
-            className="absolute right-0 top-full mt-1 w-36 p-1 rounded-xl bg-background/95 backdrop-blur-xl border border-black/[0.06] shadow-[0_8px_40px_rgba(0,0,0,0.08)] z-[var(--z-dropdown)]"
+            className="absolute right-0 top-full mt-1 w-36 p-1 rounded-xl bg-background/95 backdrop-blur-xl border border-card-border shadow-[0_8px_40px_rgba(0,0,0,0.08)] z-[var(--z-dropdown)]"
           >
             {routing.locales.map((loc) => (
               <button

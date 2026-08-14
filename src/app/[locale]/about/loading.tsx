@@ -21,7 +21,7 @@ export default function AboutLoading() {
       </section>
 
       {/* Stats bar skeleton */}
-      <section className="border-y border-black/[0.06] bg-white/50">
+      <section className="border-y border-card-border bg-white/50">
         <div className="mx-auto max-w-7xl px-6 py-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {Array.from({ length: 4 }).map((_, i) => (
@@ -68,7 +68,7 @@ export default function AboutLoading() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="rounded-2xl bg-white border border-black/[0.06] p-6 space-y-3">
+              <div key={i} className="rounded-2xl bg-card-bg border border-card-border p-6 space-y-3">
                 <Skeleton className="h-16 w-16 rounded-full mx-auto" />
                 <Skeleton className="h-5 w-32 rounded-lg mx-auto" />
                 <Skeleton className="h-4 w-24 rounded-md mx-auto" />

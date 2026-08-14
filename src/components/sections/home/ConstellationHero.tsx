@@ -312,7 +312,7 @@ export function ConstellationHero() {
           }}
         >
           <div
-            className="bg-white border border-black/[0.08] rounded-lg shadow-[0_8px_24px_rgba(0,0,0,0.10)] px-4 py-3 max-w-[240px]"
+            className="bg-card-bg border border-card-border rounded-lg shadow-[0_8px_24px_rgba(0,0,0,0.10)] px-4 py-3 max-w-[240px]"
             role="tooltip"
           >
             <p className="text-sm font-semibold text-foreground leading-snug">
@@ -337,7 +337,7 @@ export function ConstellationHero() {
           </div>
           {/* Arrow */}
           <div
-            className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-2 h-2 bg-white border-r border-b border-black/[0.08]"
+            className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-2 h-2 bg-card-bg border-r border-b border-card-border"
             style={{ transform: "translate(-50%, 0) rotate(45deg)" }}
           />
         </div>

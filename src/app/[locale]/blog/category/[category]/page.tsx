@@ -82,16 +82,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <WebPageJsonLd
         title={`${category.name} Articles | Retech Solutions Blog`}
         description={category.description}
-        url={`${SITE_URL}/blog/category/${categorySlug}`}
+        url={`${SITE_URL}/${locale}/blog/category/${categorySlug}`}
         type="CollectionPage"
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Blog", url: `${SITE_URL}/blog` },
+          { name: "Home", url: `${SITE_URL}/${locale}` },
+          { name: "Blog", url: `${SITE_URL}/${locale}/blog` },
           {
             name: category.name,
-            url: `${SITE_URL}/blog/category/${categorySlug}`,
+            url: `${SITE_URL}/${locale}/blog/category/${categorySlug}`,
           },
         ]}
       />
@@ -145,7 +145,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           <AnimatedSection
             variant="slideUp"
             delay={0.3}
-            className="mt-12 pt-10 border-t border-black/[0.06]"
+            className="mt-12 pt-10 border-t border-card-border"
           >
             <div className="text-center">
               <h3 className="text-sm font-medium tracking-widest uppercase text-brand mb-4">
@@ -162,7 +162,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                     <Link
                       key={cat.slug}
                       href={`/blog/category/${cat.slug}`}
-                      className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full border border-black/[0.08] text-sm font-medium text-foreground-secondary hover:text-brand hover:border-brand/30 hover:bg-brand/5 transition-all duration-200"
+                      className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full border border-card-border text-sm font-medium text-foreground-secondary hover:text-brand hover:border-brand/30 hover:bg-brand/5 transition-all duration-200"
                     >
                       {cat.name}
                       <ArrowRight size={12} />

@@ -24,7 +24,7 @@ export default function CareersLoading() {
             {Array.from({ length: 4 }).map((_, i) => (
               <div
                 key={i}
-                className="rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 space-y-3"
+                className="rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 space-y-3"
               >
                 <div className="h-6 w-6 skeleton-shimmer rounded-md" aria-hidden="true" />
                 <div className="h-5 w-28 skeleton-shimmer rounded-lg" aria-hidden="true" />

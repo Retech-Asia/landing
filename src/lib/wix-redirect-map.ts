@@ -9,7 +9,7 @@
  * Dynamic / pattern-based redirects (case study slugs) can move here if the
  * list grows.
  *
- * Last reviewed: 2026-07-20
+ * Last reviewed: 2026-08-14
  */
 
 export type WixRedirect = {
@@ -84,6 +84,25 @@ export const WIX_REDIRECTS: WixRedirect[] = [
     destination: "/en/case-studies",
     permanent: true,
     note: "Map to specific case-study slug once confirmed",
+  },
+
+  // ── Common Wix URL shapes (2026-08-14) ──
+  // Not in the sitemap capture, but shapes Wix sites consistently expose
+  // and that crawlers/backlinks may still hold. Unprefixed paths that map
+  // 1:1 (e.g. /about, /services, /contact) are NOT listed here — the
+  // middleware 308-redirects any unprefixed path to /en/<path> already.
+  { source: "/home", destination: "/en", permanent: true, note: "Wix default homepage alias" },
+  {
+    source: "/portfolio",
+    destination: "/en/case-studies",
+    permanent: true,
+    note: "Short portfolio alias",
+  },
+  {
+    source: "/blog/post/:path*",
+    destination: "/en/blog",
+    permanent: true,
+    note: "Wix blog post URL shape — individual posts have no 1:1 mapping, route to listing",
   },
 ];
 

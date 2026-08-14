@@ -14,7 +14,7 @@ export default function BlogLoading() {
         <BlogListSkeleton />
 
         {/* Cross-links section skeleton */}
-        <div className="mt-16 pt-12 border-t border-black/[0.06]">
+        <div className="mt-16 pt-12 border-t border-card-border">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-3">
               <div className="h-6 w-32 skeleton-shimmer rounded-lg" aria-hidden="true" />

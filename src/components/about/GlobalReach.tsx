@@ -60,7 +60,7 @@ export function GlobalReach() {
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {regions.map((region) => (
             <StaggerItem key={region.name}>
-              <div className="group relative h-full rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] transition-all duration-300 p-6 md:p-8 overflow-hidden">
+              <div className="group relative h-full rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] transition-all duration-300 p-6 md:p-8 overflow-hidden">
                 {/* Region icon */}
                 <div
                   className={`w-12 h-12 rounded-xl ${region.accentBg} flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110`}
@@ -102,7 +102,7 @@ export function GlobalReach() {
         {/* Office Location */}
         <AnimatedSection variant="slideUp" delay={0.15}>
           <div className="mt-12 max-w-3xl mx-auto">
-            <div className="rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 md:p-8">
+            <div className="rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 md:p-8">
               <div className="flex flex-col md:flex-row gap-6 md:gap-10">
                 {/* Map pin visual */}
                 <div className="flex items-start gap-4 flex-1">
@@ -124,7 +124,7 @@ export function GlobalReach() {
                 </div>
 
                 {/* Contact details */}
-                <div className="flex flex-col gap-2 md:border-l md:border-black/[0.06] md:pl-8">
+                <div className="flex flex-col gap-2 md:border-l md:border-card-border md:pl-8">
                   <a
                     href={CONTACT.emailHref}
                     className="flex items-center gap-2 text-sm text-foreground-secondary hover:text-brand transition-colors"

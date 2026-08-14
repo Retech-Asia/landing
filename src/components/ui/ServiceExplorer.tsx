@@ -243,7 +243,7 @@ export function ServiceExplorer() {
   const progress = step === 0 ? 33 : 100;
 
   return (
-    <div className="relative rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+    <div className="relative rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
       {/* Progress bar */}
       <div className="h-1 bg-black/[0.04]">
         <motion.div
@@ -286,7 +286,7 @@ export function ServiceExplorer() {
                       whileHover={cardHover}
                       whileTap={{ scale: 0.98 }}
                       className={cn(
-                        "group relative rounded-xl border border-black/[0.08] p-5 text-left",
+                        "group relative rounded-xl border border-card-border p-5 text-left",
                         "hover:bg-brand/[0.03] hover:border-brand/30",
                         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40",
                         "transition-colors duration-200 cursor-pointer"
@@ -386,7 +386,7 @@ export function ServiceExplorer() {
                           )}
                           <Link
                             href={`/services/${svc.slug}`}
-                            className="group flex-1 rounded-xl border border-black/[0.06] p-4 hover:border-brand/25 hover:bg-brand/[0.02] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50"
+                            className="group flex-1 rounded-xl border border-card-border p-4 hover:border-brand/25 hover:bg-brand/[0.02] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50"
                           >
                             <div className="flex items-center gap-2.5 mb-2">
                               <div
@@ -437,7 +437,7 @@ export function ServiceExplorer() {
                         <Link
                           key={svc.slug}
                           href={`/services/${svc.slug}`}
-                          className="group flex items-start gap-3.5 rounded-xl border border-black/[0.06] p-4 hover:border-brand/25 hover:bg-brand/[0.02] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50"
+                          className="group flex items-start gap-3.5 rounded-xl border border-card-border p-4 hover:border-brand/25 hover:bg-brand/[0.02] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50"
                         >
                           <div
                             className={cn(

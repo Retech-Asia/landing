@@ -305,7 +305,7 @@ export function ROICalculator() {
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
           className="mx-auto max-w-5xl"
         >
-          <div className="rounded-2xl border border-black/[0.06] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+          <div className="rounded-2xl border border-card-border bg-card-bg shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
             {/* Controls */}
             <div className="p-6 md:p-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -438,7 +438,7 @@ export function ROICalculator() {
               </div>
 
               {/* Hidden savings breakdown */}
-              <div className="mt-8 pt-6 border-t border-black/[0.06]">
+              <div className="mt-8 pt-6 border-t border-card-border">
                 <div className="flex items-center gap-2 mb-4">
                   <PiggyBank size={16} className="text-brand" />
                   <p className="text-xs font-semibold uppercase tracking-wider text-foreground-muted">
@@ -452,7 +452,7 @@ export function ROICalculator() {
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: 0.3 + i * 0.05 }}
-                      className="group relative p-3.5 rounded-xl bg-white border border-black/[0.04] hover:border-brand/20 transition-colors"
+                      className="group relative p-3.5 rounded-xl bg-card-bg border border-card-border hover:border-brand/20 transition-colors"
                     >
                       <div className="flex items-center justify-between mb-1">
                         <p className="text-xs font-semibold text-foreground">
@@ -477,7 +477,7 @@ export function ROICalculator() {
               </div>
 
               {/* Quick stats row */}
-              <div className="mt-6 pt-6 border-t border-black/[0.06]">
+              <div className="mt-6 pt-6 border-t border-card-border">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
                     {
@@ -505,7 +505,7 @@ export function ROICalculator() {
                     return (
                       <div
                         key={stat.label}
-                        className="text-center p-3 rounded-xl bg-white/80 border border-black/[0.04]"
+                        className="text-center p-3 rounded-xl bg-card-bg border border-card-border"
                       >
                         <StatIcon
                           size={16}
@@ -524,7 +524,7 @@ export function ROICalculator() {
               </div>
 
               {/* CTA */}
-              <div className="mt-6 pt-6 border-t border-black/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="mt-6 pt-6 border-t border-card-border flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p className="text-sm text-foreground-secondary">
                   Ready to realize these savings? Let&apos;s build your dedicated team.
                 </p>

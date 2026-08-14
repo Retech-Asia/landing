@@ -39,7 +39,7 @@ export function Button({
     primary:
       "bg-brand text-white hover:bg-brand-light hover:shadow-[0_4px_20px_rgba(32,133,53,0.25)] hover:shadow-brand/25 active:bg-brand-dark active:scale-[0.97] btn-shimmer",
     secondary:
-      "bg-white/[0.6] backdrop-blur-md text-foreground border border-foreground/[0.12] hover:border-foreground/25 hover:bg-white/[0.85] hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] active:scale-[0.97] shadow-[0_1px_3px_rgba(0,0,0,0.04)]",
+      "bg-[var(--btn-secondary-bg)] backdrop-blur-md text-foreground border border-foreground/[0.12] hover:border-foreground/25 hover:bg-[var(--btn-secondary-hover-bg)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] active:scale-[0.97] shadow-[0_1px_3px_rgba(0,0,0,0.04)]",
     ghost: "text-foreground-secondary hover:text-foreground hover:bg-black/[0.04] active:bg-black/[0.08] active:scale-[0.97]",
   };
 

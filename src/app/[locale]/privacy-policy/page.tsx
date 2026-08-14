@@ -202,8 +202,8 @@ export default async function PrivacyPolicyPage({
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Privacy Policy", url: `${SITE_URL}/privacy-policy` },
+          { name: "Home", url: `${SITE_URL}/${locale}` },
+          { name: "Privacy Policy", url: `${SITE_URL}/${locale}/privacy-policy` },
         ]}
       />
 

@@ -37,7 +37,7 @@ export default function ServicesLoading() {
             {Array.from({ length: 4 }).map((_, i) => (
               <div
                 key={i}
-                className="rounded-2xl bg-white/80 border border-black/[0.06] p-6 space-y-3 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]"
+                className="rounded-2xl bg-card-bg border border-card-border p-6 space-y-3 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]"
               >
                 <div className="flex items-center gap-3">
                   <div className="h-7 w-10 skeleton-shimmer rounded-lg" aria-hidden="true" />

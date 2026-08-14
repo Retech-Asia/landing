@@ -666,7 +666,7 @@ export function ContactForm() {
                   </div>
 
                   {/* File attachment hint */}
-                  <div className="flex items-start gap-2.5 rounded-xl border border-black/[0.05] bg-brand/[0.02] px-4 py-3">
+                  <div className="flex items-start gap-2.5 rounded-xl border border-card-border bg-brand/[0.02] px-4 py-3">
                     <Paperclip
                       size={14}
                       className="text-brand shrink-0 mt-0.5"

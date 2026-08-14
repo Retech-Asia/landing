@@ -105,17 +105,17 @@ export default async function ContactPage({
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
       {/* Structured Data */}
-      <ContactPageLocalBusinessJsonLd />
+      <ContactPageLocalBusinessJsonLd locale={locale} />
       <WebPageJsonLd
         title="Contact Us | Retech Solutions"
         description="Ready to build? Contact Retech Solutions for a free consultation on custom CMS, CRM, ERP & AI software. Response within 24 hours."
-        url={`${SITE_URL}/contact`}
+        url={`${SITE_URL}/${locale}/contact`}
         type="ContactPage"
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Contact", url: `${SITE_URL}/contact` },
+          { name: "Home", url: `${SITE_URL}/${locale}` },
+          { name: "Contact", url: `${SITE_URL}/${locale}/contact` },
         ]}
       />
 
@@ -196,7 +196,7 @@ export default async function ContactPage({
                 aria-hidden="true"
               />
 
-              <Card hover={false} padding="lg" className="relative bg-white/95 backdrop-blur-sm border-black/[0.06]">
+              <Card hover={false} padding="lg" className="relative bg-card-bg backdrop-blur-sm border-card-border">
                 <h2 className="text-lg font-semibold text-foreground mb-6">
                   Send Us a Message
                 </h2>

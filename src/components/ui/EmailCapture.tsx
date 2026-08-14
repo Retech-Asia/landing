@@ -81,7 +81,7 @@ export function EmailCapture({
   const secondaryColor = dark ? "text-white/60" : "text-foreground-secondary";
   const mutedColor = dark ? "text-white/40" : "text-foreground-muted";
   const iconColor = dark ? "text-brand" : "text-brand";
-  const inputBg = dark ? "bg-white/5" : "bg-white";
+  const inputBg = dark ? "bg-white/5" : "bg-card-bg";
   const inputPlaceholder = dark
     ? "placeholder:text-white/30"
     : "placeholder:text-foreground-muted/50";

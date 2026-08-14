@@ -92,13 +92,13 @@ export default async function AboutPage({
       <WebPageJsonLd
         title="About Us"
         description="Vietnam-based software outsourcing company. 5+ years experience, 50+ projects delivered across 6 countries. Full-cycle development from strategy to deployment."
-        url={`${SITE_URL}/about`}
+        url={`${SITE_URL}/${locale}/about`}
         type="AboutPage"
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "About", url: `${SITE_URL}/about` },
+          { name: "Home", url: `${SITE_URL}/${locale}` },
+          { name: "About", url: `${SITE_URL}/${locale}/about` },
         ]}
       />
 
@@ -157,7 +157,7 @@ export default async function AboutPage({
             {/* Mission + Vision Cards */}
             <div className="space-y-6">
               <AnimatedSection variant="slideLeft">
-                <Card hover={false} padding="lg" className="bg-background-subtle border-black/[0.04]">
+                <Card hover={false} padding="lg" className="bg-background-subtle border-card-border">
                   <div className="flex items-center gap-3 mb-4">
                     <Target size={20} className="text-brand" />
                     <h3 className="text-xl font-bold text-foreground">Our Mission</h3>
@@ -191,7 +191,7 @@ export default async function AboutPage({
               </AnimatedSection>
 
               <AnimatedSection variant="slideLeft" delay={0.15}>
-                <Card hover={false} padding="lg" className="bg-background-subtle border-black/[0.04]">
+                <Card hover={false} padding="lg" className="bg-background-subtle border-card-border">
                   <div className="flex items-center gap-3 mb-4">
                     <Eye size={20} className="text-accent-cyan" />
                     <h3 className="text-xl font-bold text-foreground">Our Vision</h3>
@@ -254,7 +254,7 @@ export default async function AboutPage({
           <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             {ABOUT_STATS.map((stat) => (
               <StaggerItem key={stat.label}>
-                <div className="group relative rounded-2xl bg-white/80 border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] transition-all duration-300 p-6 md:p-8 text-center h-full">
+                <div className="group relative rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] transition-all duration-300 p-6 md:p-8 text-center h-full">
                   <p className="text-4xl md:text-5xl font-bold gradient-text-brand mb-3">
                     <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                   </p>

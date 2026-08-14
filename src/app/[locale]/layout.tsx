@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { Instrument_Serif } from "next/font/google";
+import {
+  Instrument_Serif,
+  Be_Vietnam_Pro,
+  Playfair_Display,
+} from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -25,6 +29,18 @@ import { ConsentAwareAnalytics } from "@/components/ui/Analytics";
 
 // Font system — see notes in original layout. Body: General Sans (self-hosted).
 // Display headlines: Instrument Serif (one woff2 via next/font/google).
+//
+// VIETNAMESE: General Sans and Instrument Serif ship latin-only subsets —
+// Vietnamese diacritics (ệ, ơ, ấ, đ…) fall back to system fonts and render
+// with mismatched weights/metrics. For /vi pages we swap in full
+// Vietnamese-capable equivalents that reuse the same CSS variable names,
+// so no component or CSS changes are needed:
+//   body    --font-general-sans     General Sans  →  Be Vietnam Pro
+//   display --font-instrument-serif Instrument Serif → Playfair Display
+// Be Vietnam Pro is purpose-built for Vietnamese diacritics and matches
+// General Sans's neutral grotesque feel; Playfair Display is the closest
+// Vietnamese-capable editorial display serif. Both self-host via next/font
+// at build time (no runtime Google Fonts requests).
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
   subsets: ["latin"],
@@ -32,6 +48,21 @@ const instrumentSerif = Instrument_Serif({
   style: ["normal", "italic"],
   display: "swap",
   adjustFontFallback: true,
+});
+
+const beVietnamPro = Be_Vietnam_Pro({
+  variable: "--font-general-sans",
+  subsets: ["latin", "vietnamese"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const playfairDisplay = Playfair_Display({
+  variable: "--font-instrument-serif",
+  subsets: ["latin", "vietnamese"],
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
 const generalSans = localFont({
@@ -167,11 +198,13 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${generalSans.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`h-full antialiased ${
+        locale === "vi"
+          ? `${beVietnamPro.variable} ${playfairDisplay.variable}`
+          : `${generalSans.variable} ${instrumentSerif.variable}`
+      }`}
     >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://va.vercel-scripts.com" />
         <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
         <meta name="apple-mobile-web-app-title" content="Retech Solutions" />

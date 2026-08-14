@@ -128,7 +128,7 @@ export function BlogListSkeleton() {
 
       {/* Newsletter placeholder */}
       <div className="mt-16 md:mt-20">
-        <div className="rounded-2xl bg-background-subtle/60 border border-black/[0.06] p-8 md:p-12 max-w-xl mx-auto">
+        <div className="rounded-2xl bg-background-subtle/60 border border-card-border p-8 md:p-12 max-w-xl mx-auto">
           <Skeleton className="h-6 w-48 mx-auto mb-3 rounded-lg" />
           <Skeleton className="h-4 w-72 mx-auto mb-6 rounded-md" />
           <div className="flex gap-3 max-w-sm mx-auto">
@@ -143,7 +143,7 @@ export function BlogListSkeleton() {
 
 function BlogCardSkeleton() {
   return (
-    <div className="rounded-2xl border border-black/[0.06] bg-white overflow-hidden">
+    <div className="rounded-2xl border border-card-border bg-card-bg overflow-hidden">
       {/* Gradient image area */}
       <div className="relative h-48 skeleton-shimmer rounded-none" />
       {/* Content */}
@@ -152,7 +152,7 @@ function BlogCardSkeleton() {
         <Skeleton className="h-4 w-full rounded-md" />
         <Skeleton className="h-4 w-5/6 rounded-md" />
         {/* Footer */}
-        <div className="flex items-center justify-between pt-4 mt-2 border-t border-black/[0.06]">
+        <div className="flex items-center justify-between pt-4 mt-2 border-t border-card-border">
           <div className="flex items-center gap-3">
             <Skeleton className="h-3 w-20 rounded-md" />
             <Skeleton className="h-3 w-12 rounded-md" />
@@ -187,7 +187,7 @@ export function ServiceGridSkeleton() {
 
 function ServiceCardSkeleton() {
   return (
-    <div className="rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 md:p-8 space-y-4">
+    <div className="rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 md:p-8 space-y-4">
       {/* Icon */}
       <Skeleton className="h-7 w-7 rounded-lg" />
       {/* Title */}
@@ -222,7 +222,7 @@ export function CaseStudySkeleton() {
             className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
           >
             {/* Screenshot placeholder */}
-            <div className="rounded-2xl border border-black/[0.06] bg-white overflow-hidden p-3">
+            <div className="rounded-2xl border border-card-border bg-card-bg overflow-hidden p-3">
               <div className="flex gap-2">
                 <Skeleton className="h-64 flex-[3] rounded-lg" />
                 <Skeleton className="h-64 flex-[2] rounded-lg" />
@@ -281,7 +281,7 @@ export function CareersSkeleton() {
 
 function JobCardSkeleton() {
   return (
-    <div className="rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 space-y-4">
+    <div className="rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 space-y-4">
       {/* Department badge */}
       <Skeleton className="h-3 w-20 rounded-full" />
       {/* Job title */}
@@ -296,7 +296,7 @@ function JobCardSkeleton() {
         <Skeleton className="h-4 w-28 rounded-md" />
       </div>
       {/* Apply link */}
-      <div className="pt-4 border-t border-black/[0.06]">
+      <div className="pt-4 border-t border-card-border">
         <Skeleton className="h-4 w-24 rounded-md" />
       </div>
     </div>

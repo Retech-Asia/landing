@@ -65,7 +65,7 @@ function Toggle({
     >
       {/* Track knob */}
       <span
-        className={`pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform duration-200 ${
+        className={`pointer-events-none inline-block h-4 w-4 rounded-full bg-card-bg shadow-sm transition-transform duration-200 ${
           checked ? "translate-x-6" : "translate-x-1"
         }`}
       />

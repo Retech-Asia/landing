@@ -9,12 +9,12 @@ import { CustomSelect, type CustomSelectOption } from "@/components/ui/CustomSel
 
 function formInputClasses(hasError: boolean) {
   return cn(
-    "w-full rounded-xl border bg-white px-4 py-3 text-base text-foreground",
+    "w-full rounded-xl border bg-card-bg px-4 py-3 text-base text-foreground",
     "placeholder:text-foreground-muted outline-none transition-all duration-200",
     "focus:ring-2 focus:ring-brand/10 focus:shadow-[0_0_0_3px_rgba(32,133,53,0.08)]",
     hasError
       ? "border-red-400 focus:border-red-400 focus:ring-red-400/10"
-      : "border-black/[0.08] focus:border-brand/40"
+      : "border-card-border focus:border-brand/40"
   );
 }
 

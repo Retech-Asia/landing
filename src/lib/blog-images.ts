@@ -18,13 +18,18 @@
  */
 
 const BLOG_IMAGES: Record<string, string> = {
-  // Vietnam market movers (NAB, NVIDIA, Samsung, FPT/Viettel/VNG, chips) —
-  // mapped to existing stock images until dedicated thumbnails are curated.
-  "nab-innovation-centre-vietnam-global-bank-tech-hub": "/images/stock/blog-fintech.webp",
-  "nvidia-vietnam-expansion-ai-talent-pipeline": "/images/stock/ai-abstract.webp",
-  "samsung-rd-vietnam-engineering-quality-standard": "/images/stock/code-screen.webp",
-  "fpt-viettel-vng-vietnam-tech-champions-global": "/images/stock/team-collaboration.webp",
-  "vietnam-semiconductor-industry-2026-chip-giants-expanding": "/images/stock/blog-circuit.webp",
+  // Vietnam market movers + 2026-08 buying-intent posts — branded covers
+  // generated via SVG→sharp→webp (dark navy + grid + brand glow, matching
+  // the premium background system). Regenerate with the /tmp script pattern
+  // in git history if titles change.
+  "vietnam-software-developer-rates-2026-complete-pricing-guide": "/images/blog/vietnam-software-developer-rates-2026-complete-pricing-guide.webp",
+  "odoo-vs-sap-business-one-2026-honest-comparison": "/images/blog/odoo-vs-sap-business-one-2026-honest-comparison.webp",
+  "ai-agents-small-business-workflows-2026-practical-guide": "/images/blog/ai-agents-small-business-workflows-2026-practical-guide.webp",
+  "nab-innovation-centre-vietnam-global-bank-tech-hub": "/images/blog/nab-innovation-centre-vietnam-global-bank-tech-hub.webp",
+  "nvidia-vietnam-expansion-ai-talent-pipeline": "/images/blog/nvidia-vietnam-expansion-ai-talent-pipeline.webp",
+  "samsung-rd-vietnam-engineering-quality-standard": "/images/blog/samsung-rd-vietnam-engineering-quality-standard.webp",
+  "fpt-viettel-vng-vietnam-tech-champions-global": "/images/blog/fpt-viettel-vng-vietnam-tech-champions-global.webp",
+  "vietnam-semiconductor-industry-2026-chip-giants-expanding": "/images/blog/vietnam-semiconductor-industry-2026-chip-giants-expanding.webp",
 
   // Vietnam / Offshore
   "why-vietnam-top-it-outsourcing-destination-2026": "/images/blog/why-vietnam-top-it-outsourcing-destination-2026.webp",

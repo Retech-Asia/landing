@@ -44,7 +44,7 @@ export function WhyRetech() {
             const Icon = iconMap[item.iconKey];
             return (
               <StaggerItem key={item.title}>
-                <div className="card-shimmer h-full rounded-2xl bg-white border border-black/[0.06] p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
+                <div className="card-shimmer h-full rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                   <Icon size={24} className={`${iconColors[i]} mb-4`} />
                   <h3 className="text-base font-semibold text-foreground mb-2">
                     {item.title}

@@ -115,13 +115,13 @@ function BlogListingGrid({
                 <div className="absolute bottom-0 left-0 right-0 flex items-center gap-3 p-6">
                   <Badge
                     variant="outline"
-                    className="bg-white/90 text-foreground-secondary backdrop-blur-sm"
+                    className="bg-card-bg text-foreground-secondary backdrop-blur-sm"
                   >
                     Featured
                   </Badge>
                   <Badge
                     variant="outline"
-                    className="bg-white/90 text-foreground-secondary backdrop-blur-sm"
+                    className="bg-card-bg text-foreground-secondary backdrop-blur-sm"
                   >
                     {featuredPost.category}
                   </Badge>
@@ -219,7 +219,7 @@ function BlogListingGrid({
                       <div className="absolute bottom-0 left-0 right-0 p-5">
                         <Badge
                           variant="outline"
-                          className="bg-white/90 text-foreground-secondary backdrop-blur-sm"
+                          className="bg-card-bg text-foreground-secondary backdrop-blur-sm"
                         >
                           {meta.category}
                         </Badge>
@@ -240,7 +240,7 @@ function BlogListingGrid({
                         {meta.excerpt}
                       </p>
 
-                      <div className="flex items-center justify-between pt-4 border-t border-black/[0.06]">
+                      <div className="flex items-center justify-between pt-4 border-t border-card-border">
                         <div className="flex items-center gap-4 text-xs text-foreground-muted">
                           <span className="flex items-center gap-1">
                             <Calendar size={13} />
@@ -317,7 +317,7 @@ function BlogListingGrid({
               });
             }}
             disabled={isLoadingMore}
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-black/[0.08] text-sm font-medium text-foreground-secondary hover:text-brand hover:border-brand/30 hover:bg-brand/5 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-wait"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-card-border text-sm font-medium text-foreground-secondary hover:text-brand hover:border-brand/30 hover:bg-brand/5 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-wait"
           >
             {isLoadingMore ? "Loading..." : "Load more articles"}
             <ArrowRight size={14} className={isLoadingMore ? "animate-pulse" : ""} />
@@ -400,7 +400,7 @@ export function BlogListing({ posts }: BlogListingProps) {
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search articles..."
             aria-label="Search blog posts"
-            className="w-full pl-11 pr-10 py-3 rounded-full border border-black/[0.08] bg-white text-base text-foreground placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand/30 transition-all duration-200 shadow-sm"
+            className="w-full pl-11 pr-10 py-3 rounded-full border border-card-border bg-card-bg text-base text-foreground placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand/30 transition-all duration-200 shadow-sm"
           />
           {search && (
             <button
@@ -421,7 +421,7 @@ export function BlogListing({ posts }: BlogListingProps) {
           className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
             !activeCategory
               ? "bg-brand text-white shadow-sm"
-              : "border border-black/[0.08] text-foreground-secondary hover:text-brand hover:border-brand/30 hover:bg-brand/5"
+              : "border border-card-border text-foreground-secondary hover:text-brand hover:border-brand/30 hover:bg-brand/5"
           }`}
         >
           All
@@ -438,7 +438,7 @@ export function BlogListing({ posts }: BlogListingProps) {
               className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
                 isActive
                   ? "bg-brand text-white shadow-sm"
-                  : "border border-black/[0.08] text-foreground-secondary hover:text-brand hover:border-brand/30 hover:bg-brand/5"
+                  : "border border-card-border text-foreground-secondary hover:text-brand hover:border-brand/30 hover:bg-brand/5"
               }`}
             >
               {cat}

@@ -179,8 +179,8 @@ export default async function TermsOfServicePage({
     <>
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Terms of Service", url: `${SITE_URL}/terms-of-service` },
+          { name: "Home", url: `${SITE_URL}/${locale}` },
+          { name: "Terms of Service", url: `${SITE_URL}/${locale}/terms-of-service` },
         ]}
       />
 

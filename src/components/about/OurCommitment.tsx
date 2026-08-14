@@ -72,7 +72,7 @@ export function OurCommitment() {
             const Icon = item.icon;
             return (
               <StaggerItem key={item.title}>
-                <div className="group relative h-full rounded-2xl bg-white border border-black/[0.06] p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
+                <div className="group relative h-full rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                   <div
                     className={`w-10 h-10 rounded-xl ${item.bgColor} flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110`}
                   >

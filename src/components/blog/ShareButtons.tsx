@@ -45,7 +45,7 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Share on X (Twitter)"
-          className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-black/[0.08] text-foreground-secondary hover:text-foreground hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200"
+          className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-card-border text-foreground-secondary hover:text-foreground hover:border-foreground/20 hover:bg-black/[0.03] transition-all duration-200"
         >
           <X size={15} />
         </a>
@@ -54,7 +54,7 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Share on LinkedIn"
-          className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-black/[0.08] text-foreground-secondary hover:text-foreground hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200"
+          className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-card-border text-foreground-secondary hover:text-foreground hover:border-foreground/20 hover:bg-black/[0.03] transition-all duration-200"
         >
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -65,7 +65,7 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
         <button
           onClick={copyLink}
           aria-label={copied ? "Link copied" : "Copy link"}
-          className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-black/[0.08] text-foreground-secondary hover:text-foreground hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200 cursor-pointer"
+          className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-card-border text-foreground-secondary hover:text-foreground hover:border-foreground/20 hover:bg-black/[0.03] transition-all duration-200 cursor-pointer"
         >
           {copied ? (
             <Check size={15} className="text-brand" />

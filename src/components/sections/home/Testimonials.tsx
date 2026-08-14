@@ -45,7 +45,7 @@ const reasons = [
     icon: Users,
     title: "Dedicated Teams",
     description:
-      "Our developers integrate seamlessly with your workflow, tools, and processes as an extension of your team.",
+      "Our developers work directly in your workflow, tools, and processes as an extension of your team.",
     color: "text-accent-violet",
     bg: "bg-accent-violet/10",
   },
@@ -209,7 +209,7 @@ function AnimatedStat({
   const colors = accentColors[accent];
 
   return (
-    <div className="group relative flex flex-col items-center text-center p-6 md:p-8 rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1">
+    <div className="group relative flex flex-col items-center text-center p-6 md:p-8 rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1">
       {/* Icon */}
       <div
         className={`w-12 h-12 rounded-xl ${colors.bg} flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110`}
@@ -253,7 +253,7 @@ function ProjectCard({
   const colors = accentColors[accent];
 
   return (
-    <div className="group relative h-full rounded-2xl bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 md:p-7 transition-all duration-300 hover:border-black/[0.10] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
+    <div className="group relative h-full rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 md:p-7 transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
       {/* Industry badge */}
       <span
         className={`inline-block text-xs font-medium tracking-widest uppercase ${colors.badge} px-2.5 py-1 rounded-full mb-4`}
@@ -415,7 +415,7 @@ export function Testimonials() {
                   ].map((badge) => (
                     <span
                       key={badge}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground-secondary bg-background-subtle rounded-full px-3 py-1.5 border border-black/[0.04]"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground-secondary bg-background-subtle rounded-full px-3 py-1.5 border border-card-border"
                     >
                       <CheckCircle2 size={12} className="text-brand" />
                       {badge}

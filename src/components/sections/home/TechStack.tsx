@@ -89,7 +89,7 @@ export function TechStack() {
                   {group.items.map((item) => (
                     <div
                       key={item.name}
-                      className="group relative flex items-center justify-center w-11 h-11 rounded-xl border border-card-border bg-white p-2.5 transition-all duration-300 hover:border-brand/30 hover:shadow-[0_2px_8px_rgba(32,133,53,0.08)] hover:scale-105"
+                      className="group relative flex items-center justify-center w-11 h-11 rounded-xl border border-card-border bg-card-bg p-2.5 transition-all duration-300 hover:border-brand/30 hover:shadow-[0_2px_8px_rgba(32,133,53,0.08)] hover:scale-105"
                     >
                       <img
                         src={item.src}

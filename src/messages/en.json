@@ -232,7 +232,7 @@
       "services": "Services"
     },
     "hero": {
-      "ctaConsult": "Get a Free Consultation",
+      "ctaConsult": "Get Free Consultation",
       "ctaAllServices": "All Services"
     },
     "features": {
@@ -337,7 +337,7 @@
     "finalCta": {
       "title": "Build Your {service} Solution",
       "body": "Our {service} specialists will review your requirements and return a detailed proposal with architecture recommendations, team allocation, and clear milestones, typically within one business day.",
-      "ctaPrimary": "Get a Free Consultation",
+      "ctaPrimary": "Get Free Consultation",
       "ctaSecondary": "Browse Services"
     },
     "imageAlts": {
