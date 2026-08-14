@@ -257,10 +257,106 @@ const techCategories: TechCategory[] = [
 ];
 
 /* -------------------------------------------------------------------------- */
+/*  Locale strings (EN | VI)                                                  */
+/*  EN data above stays the source of truth; VI overrides live here.          */
+/* -------------------------------------------------------------------------- */
+
+/** Category tab labels that differ in Vietnamese (jargon stays English). */
+const viCategoryLabels: Record<string, string> = {
+  Database: "Cơ sở dữ liệu",
+};
+
+/** Service tag translations (matches service naming used across the site). */
+const viServiceLabels: Record<string, string> = {
+  "Web Development": "Phát triển Web",
+  "CMS Platforms": "Nền tảng CMS",
+  "CRM Systems": "Hệ thống CRM",
+  "ERP Solutions": "Giải pháp ERP",
+  "AI-Powered Solutions": "Giải pháp AI",
+  "Mobile Development": "Phát triển Mobile",
+  "UI/UX Design": "Thiết kế UI/UX",
+  "Dedicated Teams": "Team chuyên trách",
+};
+
+/** Per-technology description translations. Tech jargon stays English. */
+const viDescriptions: Record<string, string> = {
+  React:
+    "Thư viện chủ lực của chúng tôi để xây dựng giao diện động theo hướng component. Chúng tôi dùng React cho single-page applications, progressive web apps và dashboard tương tác.",
+  "Next.js":
+    "Nền tảng cốt lõi cho các ứng dụng web production-grade của chúng tôi. Chúng tôi tận dụng Next.js cho server-side rendering, static generation và API routes để mang lại trải nghiệm nhanh, thân thiện với SEO.",
+  TypeScript:
+    "TypeScript là tiêu chuẩn trong mọi dự án của chúng tôi. Kiểu dữ liệu chặt chẽ giúp phát hiện lỗi sớm, cải thiện khả năng bảo trì và việc refactor codebase lớn an toàn hơn.",
+  "Tailwind CSS":
+    "CSS framework theo hướng utility-first của chúng tôi cho việc phát triển UI nhanh và nhất quán. Tailwind giúp xây dựng giao diện responsive, pixel-perfect mà không cần stylesheet tùy chỉnh cồng kềnh.",
+  "Vue.js":
+    "Chúng tôi sử dụng Vue.js khi dự án hưởng lợi từ đường cong học tập nhẹ và kiến trúc progressive. Phù hợp cho ứng dụng gọn nhẹ, admin panel và áp dụng từng bước.",
+  "Node.js":
+    "Backend runtime chính của chúng tôi để xây dựng API và microservices có khả năng mở rộng, hướng sự kiện. Node.js cho phép phát triển full-stack JavaScript, giảm việc chuyển đổi ngữ cảnh.",
+  Python:
+    "Được dùng cho backend xử lý dữ liệu nặng, machine learning pipelines và script tự động hóa. Python vận hành các tính năng AI và tầng logic nghiệp vụ phức tạp của chúng tôi.",
+  Go: "Lựa chọn của chúng tôi cho backend service hiệu năng cao, đồng thời. Go vượt trội trong việc xây dựng API xử lý lưu lượng lớn và streaming dữ liệu thời gian thực với chi phí tài nguyên tối thiểu.",
+  GraphQL:
+    "Chúng tôi triển khai GraphQL cho các API phục vụ dữ liệu quan hệ phức tạp cho nhiều loại client. GraphQL loại bỏ over-fetching, đơn giản hóa việc tổng hợp dữ liệu và cung cấp schema tự tài liệu hóa.",
+  "React Native":
+    "Framework chính của chúng tôi cho phát triển mobile đa nền tảng. Xây dựng ứng dụng iOS và Android native từ một codebase JavaScript duy nhất với hiệu năng gần native.",
+  Flutter:
+    "Được dùng cho các dự án cần UI tùy biến cao và animation mượt mà trên nhiều nền tảng. Kiến trúc widget của Flutter đảm bảo tính nhất quán thương hiệu pixel-perfect.",
+  PostgreSQL:
+    "Cơ sở dữ liệu quan hệ mặc định của chúng tôi cho các ứng dụng đòi hỏi tính toàn vẹn dữ liệu cao, truy vấn phức tạp và tuân thủ ACID. Phù hợp cho CRM, ERP và hệ thống tài chính.",
+  MongoDB:
+    "Được dùng cho các dự án có mô hình dữ liệu linh hoạt theo tài liệu. MongoDB phát huy thế mạnh trong hệ thống quản lý nội dung, phân tích thời gian thực và schema thay đổi nhanh.",
+  Redis:
+    "In-memory data store của chúng tôi cho caching, quản lý session và tính năng thời gian thực. Redis giảm đáng kể tải cho cơ sở dữ liệu và cải thiện thời gian phản hồi.",
+  AWS:
+    "Amazon Web Services là nhà cung cấp cloud chính của chúng tôi. Chúng tôi tận dụng EC2, Lambda, S3, RDS và CloudFront để xây dựng kiến trúc bền vững, tối ưu chi phí.",
+  Vercel:
+    "Nền tảng ưa thích của chúng tôi cho việc deploy Next.js. Vercel cung cấp hosting tối ưu edge, preview tức thì và tích hợp Git liền mạch để lặp nhanh.",
+  Docker:
+    "Containerization là trung tâm trong quy trình deploy của chúng tôi. Docker đảm bảo môi trường nhất quán từ development, staging đến production.",
+  Kubernetes:
+    "Chúng tôi điều phối workload containerized bằng Kubernetes cho các dự án enterprise đòi hỏi auto-scaling, hạ tầng tự phục hồi và deploy không gián đoạn.",
+  "CI/CD":
+    "Pipeline build, test và deploy tự động bằng GitHub Actions, GitLab CI hoặc Jenkins. Đảm bảo mỗi bản release được kiểm chứng và deploy đáng tin cậy.",
+  OpenAI:
+    "Chúng tôi tích hợp OpenAI API cho xử lý ngôn ngữ tự nhiên, tạo nội dung, chatbot thông minh và các tính năng AI mang lại giá trị kinh doanh thực tế.",
+  TensorFlow:
+    "Được dùng để xây dựng và triển khai machine learning models ở quy mô lớn. TensorFlow vận hành các giải pháp computer vision, NLP và predictive analytics của chúng tôi.",
+  LangChain:
+    "Framework của chúng tôi để xây dựng ứng dụng dựa trên LLM với retrieval-augmented generation, agent workflow và pipeline structured output.",
+};
+
+/** Flow diagram step labels in Vietnamese. */
+const viFlowLabels: Record<string, string> = {
+  Client: "Client",
+  "API Layer": "Tầng API",
+  Services: "Dịch vụ",
+  Data: "Dữ liệu",
+  Deploy: "Triển khai",
+};
+
+/** Resolve chrome strings by locale. */
+function useStrings(locale: string) {
+  const isEn = locale === "en";
+  return {
+    isEn,
+    allTab: isEn ? "All" : "Tất cả",
+    architectureEyebrow: isEn ? "Architecture" : "Kiến trúc",
+    architectureTitle: isEn ? "How Our Stack Connects" : "Cách Tech Stack của chúng tôi kết nối",
+    architectureDescription: isEn
+      ? "A typical production architecture flows from client to cloud, with each layer built on proven technology."
+      : "Một kiến trúc production điển hình đi từ client đến cloud, với mỗi tầng được xây trên công nghệ đã được kiểm chứng.",
+    expertise: isEn ? "Expertise" : "Chuyên môn",
+    emptyState: isEn
+      ? "No technologies found for this category."
+      : "Không tìm thấy công nghệ nào trong danh mục này.",
+  };
+}
+
+/* -------------------------------------------------------------------------- */
 /*  Filter tabs                                                               */
 /* -------------------------------------------------------------------------- */
 
-const ALL_TAB = "All";
+const ALL_TAB = "__all__";
 const tabs = [ALL_TAB, ...techCategories.map((c) => c.label)];
 
 /* -------------------------------------------------------------------------- */
@@ -300,10 +396,17 @@ function ProficiencyDots({ level, color }: { level: number; color: string }) {
 function TechCard({
   tech,
   index,
+  locale,
 }: {
   tech: Technology & { category: string };
   index: number;
+  locale: string;
 }) {
+  const isEn = locale === "en";
+  const category = (!isEn && viCategoryLabels[tech.category]) || tech.category;
+  const description =
+    (!isEn && viDescriptions[tech.name]) || tech.description;
+  const expertiseLabel = isEn ? "Expertise" : "Chuyên môn";
   return (
     <motion.div
       layout
@@ -379,21 +482,21 @@ function TechCard({
               borderWidth: 1,
             }}
           >
-            {tech.category}
+            {category}
           </span>
         </div>
 
         {/* Proficiency */}
         <div className="flex items-center gap-2 mb-3">
           <span className="text-xs text-foreground-muted font-medium">
-            Expertise
+            {expertiseLabel}
           </span>
           <ProficiencyDots level={tech.proficiency} color={tech.color} />
         </div>
 
         {/* Description */}
         <p className="text-sm text-foreground-secondary leading-relaxed mb-5 flex-1">
-          {tech.description}
+          {description}
         </p>
 
         {/* Service tags */}
@@ -403,7 +506,7 @@ function TechCard({
               key={service}
               className="inline-flex items-center rounded-md bg-black/[0.03] px-2.5 py-1 text-xs font-medium text-foreground-secondary"
             >
-              {service}
+              {(!isEn && viServiceLabels[service]) || service}
             </span>
           ))}
         </div>
@@ -424,7 +527,8 @@ const flowSteps = [
   { label: "Deploy", sub: "AWS / Docker / K8s", color: "#FF9900" },
 ];
 
-function StackFlowDiagram() {
+function StackFlowDiagram({ locale }: { locale: string }) {
+  const isEn = locale === "en";
   return (
     <div className="relative w-full overflow-hidden py-4">
       <div className="flex items-center justify-center gap-0 flex-wrap">
@@ -445,7 +549,7 @@ function StackFlowDiagram() {
                   boxShadow: `0 4px 20px ${step.color}30`,
                 }}
               >
-                {step.label}
+                {(!isEn && viFlowLabels[step.label]) || step.label}
               </div>
               <span className="mt-2 text-xs text-foreground-muted text-center max-w-[100px]">
                 {step.sub}
@@ -504,7 +608,8 @@ function StackFlowDiagram() {
 /*  Main TechListing component                                                */
 /* -------------------------------------------------------------------------- */
 
-export function TechListing() {
+export function TechListing({ locale = "en" }: { locale?: string }) {
+  const s = useStrings(locale);
   const [activeTab, setActiveTab] = useState(ALL_TAB);
 
   const filteredTechnologies = useCallback(() => {
@@ -525,16 +630,16 @@ export function TechListing() {
           className="text-center mb-8"
         >
           <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3">
-            Architecture
+            {s.architectureEyebrow}
           </p>
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
-            How Our Stack Connects
+            {s.architectureTitle}
           </h2>
           <p className="mt-3 text-foreground-secondary max-w-xl mx-auto">
-            A typical production architecture flows from client to cloud, with each layer built on proven technology.
+            {s.architectureDescription}
           </p>
         </motion.div>
-        <StackFlowDiagram />
+        <StackFlowDiagram locale={locale} />
       </div>
 
       {/* Filter tabs */}
@@ -542,6 +647,10 @@ export function TechListing() {
         <div className="flex flex-wrap items-center justify-center gap-2">
           {tabs.map((tab) => {
             const isActive = tab === activeTab;
+            const tabLabel =
+              tab === ALL_TAB
+                ? s.allTab
+                : (!s.isEn && viCategoryLabels[tab]) || tab;
             return (
               <button
                 key={tab}
@@ -561,7 +670,7 @@ export function TechListing() {
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
-                <span className="relative z-10">{tab}</span>
+                <span className="relative z-10">{tabLabel}</span>
               </button>
             );
           })}
@@ -575,7 +684,7 @@ export function TechListing() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {filteredTechnologies.map((tech, index) => (
-            <TechCard key={tech.name} tech={tech} index={index} />
+            <TechCard key={tech.name} tech={tech} index={index} locale={locale} />
           ))}
         </motion.div>
       </AnimatePresence>
@@ -587,7 +696,7 @@ export function TechListing() {
           animate={{ opacity: 1 }}
           className="text-center text-foreground-muted py-16"
         >
-          No technologies found for this category.
+          {s.emptyState}
         </motion.p>
       )}
     </section>

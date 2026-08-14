@@ -8,52 +8,75 @@ import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { getBlogImage } from "@/lib/blog-images";
-import type { BlogPost } from "@/lib/blog-data";
 
 const POSTS_PER_PAGE = 6;
 
-const categoryGradients: Record<string, string> = {
-  "Industry Insights": "from-brand/80 to-accent-cyan/80",
-  Guides: "from-accent-cyan/80 to-accent-violet/80",
-  Technology: "from-accent-violet/80 to-brand/80",
-};
-
-interface CategoryBlogListingProps {
-  posts: BlogPost[];
+/** Locale-aware card data — precomputed on the server. */
+export interface CategoryListItem {
+  /** EN slug — used for the thumbnail image lookup. */
+  enSlug: string;
+  /** Localized slug — used for the post link. */
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  date: string;
+  readTime: string;
 }
 
-export function CategoryBlogListing({ posts }: CategoryBlogListingProps) {
+export interface CategoryListingStrings {
+  noPostsTitle: string;
+  noPostsBody: string;
+  browseAll: string;
+  showing: string;
+  of: string;
+  articleSingular: string;
+  articlePlural: string;
+  readMore: string;
+  readMoreAria: string;
+  loadMore: string;
+  dateLocale: string;
+}
+
+interface CategoryBlogListingProps {
+  items: CategoryListItem[];
+  strings: CategoryListingStrings;
+}
+
+export function CategoryBlogListing({
+  items,
+  strings,
+}: CategoryBlogListingProps) {
   const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE);
 
   const visiblePosts = useMemo(
-    () => posts.slice(0, visibleCount),
-    [posts, visibleCount]
+    () => items.slice(0, visibleCount),
+    [items, visibleCount]
   );
 
-  const hasMore = visibleCount < posts.length;
+  const hasMore = visibleCount < items.length;
 
   const loadMore = useCallback(() => {
     setVisibleCount((prev) => prev + POSTS_PER_PAGE);
   }, []);
 
   // Post count
-  const showing = Math.min(visibleCount, posts.length);
+  const showing = Math.min(visibleCount, items.length);
 
-  if (posts.length === 0) {
+  if (items.length === 0) {
     return (
       <div className="text-center py-16">
         <h3 className="text-xl font-semibold text-foreground mb-2">
-          No posts yet
+          {strings.noPostsTitle}
         </h3>
         <p className="text-sm text-foreground-secondary mb-6 max-w-sm mx-auto">
-          There are no articles in this category yet. Check back soon or browse
-          other topics.
+          {strings.noPostsBody}
         </p>
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-sm font-medium text-brand hover:text-brand-dark transition-colors"
         >
-          Browse all articles
+          {strings.browseAll}
           <ArrowRight size={14} />
         </Link>
       </div>
@@ -65,15 +88,15 @@ export function CategoryBlogListing({ posts }: CategoryBlogListingProps) {
       {/* Post count */}
       <div className="mb-6 text-center">
         <p className="text-sm text-foreground-muted">
-          Showing{" "}
+          {strings.showing}{" "}
           <span className="font-medium text-foreground-secondary">
             {showing}
           </span>{" "}
-          of{" "}
+          {strings.of}{" "}
           <span className="font-medium text-foreground-secondary">
-            {posts.length}
+            {items.length}
           </span>{" "}
-          {posts.length === 1 ? "article" : "articles"}
+          {items.length === 1 ? strings.articleSingular : strings.articlePlural}
         </p>
       </div>
 
@@ -104,7 +127,7 @@ export function CategoryBlogListing({ posts }: CategoryBlogListingProps) {
                 >
                   <div className="relative h-48 overflow-hidden">
                     <Image
-                      src={getBlogImage(post.slug)}
+                      src={getBlogImage(post.enSlug)}
                       alt={post.title}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -139,11 +162,14 @@ export function CategoryBlogListing({ posts }: CategoryBlogListingProps) {
                       <div className="flex items-center gap-4 text-xs text-foreground-muted">
                         <span className="flex items-center gap-1">
                           <Calendar size={13} />
-                          {new Date(post.date).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })}
+                          {new Date(post.date).toLocaleDateString(
+                            strings.dateLocale,
+                            {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            }
+                          )}
                         </span>
                         <span className="flex items-center gap-1">
                           <Clock size={13} />
@@ -153,10 +179,10 @@ export function CategoryBlogListing({ posts }: CategoryBlogListingProps) {
 
                       <Link
                         href={`/blog/${post.slug}`}
-                        aria-label={`Read more about ${post.title}`}
+                        aria-label={`${strings.readMoreAria} ${post.title}`}
                         className="text-sm font-medium text-brand hover:text-brand-dark transition-colors inline-flex items-center gap-1"
                       >
-                        Read more
+                        {strings.readMore}
                         <ArrowRight
                           size={14}
                           className="group-hover:translate-x-0.5 transition-transform"
@@ -183,7 +209,7 @@ export function CategoryBlogListing({ posts }: CategoryBlogListingProps) {
             onClick={loadMore}
             className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-card-border text-sm font-medium text-foreground-secondary hover:text-brand hover:border-brand/30 hover:bg-brand/5 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
           >
-            Load more articles
+            {strings.loadMore}
             <ArrowRight size={14} />
           </button>
         </motion.div>

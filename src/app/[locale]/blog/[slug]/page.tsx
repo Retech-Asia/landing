@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
+import { Calendar, Clock, ArrowLeft, ArrowRight, Languages } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
@@ -121,6 +121,39 @@ export default async function BlogPostPage({
   const relatedPosts = getRelatedPosts(slug, 2);
 
   const pageUrl = `${SITE_URL}/${locale}/blog/${meta!.slug}`;
+  const isVi = loc === "vi";
+  const dateLocale = isVi ? "vi-VN" : "en-US";
+  const readTime = (t: string) =>
+    isVi ? t.replace("min read", "phút đọc") : t;
+
+  // VI chrome — post bodies stay EN with a notice until full translation
+  // lands (see blog-i18n.ts).
+  const chrome = isVi
+    ? {
+        home: "Trang chủ",
+        onThisPage: "Trong bài này",
+        updated: "Cập nhật",
+        notice:
+          "Bản dịch đang hoàn thiện — nội dung bài viết hiện chỉ có bằng tiếng Anh.",
+        related: "Bài viết Liên quan",
+        ctaTitle: "Cần đội ngũ phát triển chuyên nghiệp?",
+        ctaBody:
+          "Liên hệ với đội ngũ của chúng tôi để trao đổi dự án tiếp theo của bạn. Chúng tôi xây dựng giải pháp CMS, CRM và ERP theo yêu cầu, phù hợp với doanh nghiệp của bạn.",
+        ctaButton: "Liên hệ",
+        sidebar: "Thanh điều hướng bài viết",
+      }
+    : {
+        home: "Home",
+        onThisPage: "On this page",
+        updated: "Updated",
+        notice: null as string | null,
+        related: "Related Articles",
+        ctaTitle: "Need expert development?",
+        ctaBody:
+          "Get in touch with our team to discuss your next project. We build custom CMS, CRM, and ERP solutions tailored to your business.",
+        ctaButton: "Get in Touch",
+        sidebar: "Article sidebar",
+      };
 
   // Build content with headings interleaved: first heading comes before the second paragraph,
   // subsequent headings appear before their corresponding paragraphs.
@@ -176,7 +209,7 @@ export default async function BlogPostPage({
       <Container className="max-w-6xl">
         <BreadcrumbNav
           items={[
-            { label: "Home", href: "/" },
+            { label: chrome.home, href: "/" },
             { label: "Blog", href: "/blog" },
             { label: meta!.title },
           ]}
@@ -203,7 +236,7 @@ export default async function BlogPostPage({
                     className="flex items-center gap-1.5"
                   >
                     <Calendar size={15} aria-hidden="true" />
-                    {new Date(post.date).toLocaleDateString("en-US", {
+                    {new Date(post.date).toLocaleDateString(dateLocale, {
                       month: "long",
                       day: "numeric",
                       year: "numeric",
@@ -211,9 +244,9 @@ export default async function BlogPostPage({
                   </time>
                   {post.updatedAt && post.updatedAt !== post.date && (
                     <span className="text-xs text-foreground-muted/70">
-                      (Updated{" "}
+                      ({chrome.updated}{" "}
                       <time dateTime={post.updatedAt}>
-                        {new Date(post.updatedAt).toLocaleDateString("en-US", {
+                        {new Date(post.updatedAt).toLocaleDateString(dateLocale, {
                           month: "short",
                           day: "numeric",
                           year: "numeric",
@@ -224,10 +257,19 @@ export default async function BlogPostPage({
                   )}
                   <span className="flex items-center gap-1.5">
                     <Clock size={15} aria-hidden="true" />
-                    {post.readTime}
+                    {readTime(post.readTime)}
                   </span>
                 </div>
               </header>
+              {chrome.notice && (
+                <div
+                  role="note"
+                  className="mb-8 flex items-start gap-2.5 rounded-xl border border-accent-cyan/20 bg-accent-cyan/[0.06] px-4 py-3 text-sm text-foreground-secondary"
+                >
+                  <Languages size={15} className="mt-0.5 shrink-0 text-accent-cyan" aria-hidden="true" />
+                  <span>{chrome.notice}</span>
+                </div>
+              )}
             </div>
 
             {/* Mobile TOC disclosure — same pattern as service detail pages.
@@ -235,7 +277,7 @@ export default async function BlogPostPage({
             {post.headings.length > 0 && (
               <details className="lg:hidden group mb-8 rounded-xl border border-foreground/10 bg-card overflow-hidden">
                 <summary className="flex items-center justify-between cursor-pointer list-none px-4 py-3 text-sm font-medium text-foreground select-none">
-                  <span className="text-xs uppercase tracking-wider text-foreground-secondary">On this page</span>
+                  <span className="text-xs uppercase tracking-wider text-foreground-secondary">{chrome.onThisPage}</span>
                   <svg
                     className="w-4 h-4 text-foreground-secondary transition-transform duration-200 group-open:rotate-180"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"
@@ -360,24 +402,24 @@ export default async function BlogPostPage({
               <div className="flex items-center justify-between mt-12 pt-8 border-t border-card-border">
                 {prevPost ? (
                   <Link
-                    href={`/blog/${prevPost.slug}`}
+                    href={`/blog/${getBlogMeta(prevPost, loc).slug}`}
                     className="group flex items-center gap-2 text-sm font-medium text-foreground-secondary hover:text-brand transition-colors max-w-[45%]"
                   >
                     <ArrowLeft
                       size={16}
                       className="group-hover:-translate-x-0.5 transition-transform shrink-0"
                     />
-                    <span className="line-clamp-2">{prevPost.title}</span>
+                    <span className="line-clamp-2">{getBlogMeta(prevPost, loc).title}</span>
                   </Link>
                 ) : (
                   <div />
                 )}
                 {nextPost ? (
                   <Link
-                    href={`/blog/${nextPost.slug}`}
+                    href={`/blog/${getBlogMeta(nextPost, loc).slug}`}
                     className="group flex items-center gap-2 text-sm font-medium text-foreground-secondary hover:text-brand transition-colors max-w-[45%] text-right"
                   >
-                    <span className="line-clamp-2">{nextPost.title}</span>
+                    <span className="line-clamp-2">{getBlogMeta(nextPost, loc).title}</span>
                     <ArrowRight
                       size={16}
                       className="group-hover:translate-x-0.5 transition-transform shrink-0"
@@ -393,20 +435,20 @@ export default async function BlogPostPage({
               <AnimatedSection variant="slideUp" delay={0.2}>
                 <div className="mt-12 pt-10 border-t border-card-border">
                   <h2 className="text-xl md:text-2xl font-bold text-foreground mb-6">
-                    Related Articles
+                    {chrome.related}
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {relatedPosts.map((related) => (
                       <Link
                         key={related.slug}
-                        href={`/blog/${related.slug}`}
+                        href={`/blog/${getBlogMeta(related, loc).slug}`}
                         className="group relative block overflow-hidden rounded-2xl border border-card-border transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
                       >
                         {/* Topic-relevant thumbnail */}
                         <div className="relative h-36 overflow-hidden">
                           <Image
                             src={getBlogImage(related.slug)}
-                            alt={related.title}
+                            alt={getBlogMeta(related, loc).title}
                             fill
                             sizes="(max-width: 768px) 100vw, 360px"
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -415,21 +457,21 @@ export default async function BlogPostPage({
                           {/* Category tag overlaid on the image */}
                           <div className="absolute top-3 left-3">
                             <Badge variant="brand" className="text-[10px] uppercase tracking-wider">
-                              {related.category}
+                              {getBlogMeta(related, loc).category}
                             </Badge>
                           </div>
                         </div>
                         <div className="p-5">
                           <h3 className="text-base font-bold text-foreground group-hover:text-brand transition-colors mb-2 line-clamp-3">
-                            {related.title}
+                            {getBlogMeta(related, loc).title}
                           </h3>
                           <p className="text-sm text-foreground-secondary line-clamp-2 mb-3">
-                            {related.excerpt}
+                            {getBlogMeta(related, loc).excerpt}
                           </p>
                           <div className="flex items-center gap-3 text-xs text-foreground-muted">
                             <span className="flex items-center gap-1">
                               <Calendar size={12} />
-                              {new Date(related.date).toLocaleDateString("en-US", {
+                              {new Date(related.date).toLocaleDateString(dateLocale, {
                                 month: "short",
                                 day: "numeric",
                                 year: "numeric",
@@ -437,7 +479,7 @@ export default async function BlogPostPage({
                             </span>
                             <span className="flex items-center gap-1">
                               <Clock size={12} />
-                              {related.readTime}
+                              {readTime(related.readTime)}
                             </span>
                           </div>
                         </div>
@@ -451,14 +493,13 @@ export default async function BlogPostPage({
             <AnimatedSection variant="slideUp" delay={0.2}>
               <Card hover={false} padding="lg" className="mt-12 text-center">
                 <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">
-                  Need expert development?
+                  {chrome.ctaTitle}
                 </h2>
                 <p className="text-foreground-secondary mb-5 max-w-lg mx-auto">
-                  Get in touch with our team to discuss your next project. We build
-                  custom CMS, CRM, and ERP solutions tailored to your business.
+                  {chrome.ctaBody}
                 </p>
                 <Button variant="primary" href="/contact" size="md">
-                  Get in Touch
+                  {chrome.ctaButton}
                   <ArrowRight size={16} />
                 </Button>
               </Card>
@@ -467,7 +508,7 @@ export default async function BlogPostPage({
 
           {/* Sidebar — desktop only. aria-label promotes <aside> to a
               complementary landmark so screen readers announce it. */}
-          <aside aria-label="Article sidebar" className="hidden lg:block w-52 shrink-0">
+          <aside aria-label={chrome.sidebar} className="hidden lg:block w-52 shrink-0">
             <div className="sticky top-28 space-y-6 max-h-[calc(100vh-9rem)] overflow-y-auto pr-1 -mr-1">
               {post.headings.length > 0 && (
                 <TableOfContents headings={post.headings} />

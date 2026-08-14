@@ -3,8 +3,23 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Container } from "@/components/ui/Container";
+import { useLocale } from "next-intl";
 
 export function ParallaxDivider() {
+  const locale = useLocale() as "en" | "vi";
+  const headline =
+    locale === "vi" ? (
+      <>
+        Xây dựng tương lai của{" "}
+        <span className="gradient-text">phần mềm từ Việt Nam</span>
+      </>
+    ) : (
+      <>
+        Building the future of{" "}
+        <span className="gradient-text">software from Vietnam</span>
+      </>
+    );
+
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -55,8 +70,7 @@ export function ParallaxDivider() {
           style={{ y: textY }}
         >
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
-            Building the future of{" "}
-            <span className="gradient-text">software from Vietnam</span>
+            {headline}
           </h2>
           <div className="mt-8 flex items-center justify-center gap-3">
             <span className="h-px w-12 bg-gradient-to-r from-transparent to-brand" />

@@ -6,8 +6,25 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { GradientBackground } from "@/components/ui/GradientBackground";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useLocale } from "next-intl";
 
 export function ParallaxHero() {
+  const locale = useLocale() as "en" | "vi";
+  const isEn = locale === "en";
+  const chrome = isEn
+    ? {
+        home: "Home",
+        about: "About",
+        title: "About Retech Solutions",
+        lead: "We provide full-cycle software development services, from business analysis and design through development, testing, and deployment for solutions across web and mobile applications.",
+      }
+    : {
+        home: "Trang chủ",
+        about: "Giới thiệu",
+        title: "Giới thiệu về Retech Solutions",
+        lead: "Chúng tôi cung cấp dịch vụ phát triển phần mềm trọn vòng đời — từ phân tích nghiệp vụ và thiết kế đến phát triển, kiểm thử và triển khai cho các giải pháp trên nền tảng web và di động.",
+      };
+
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -50,15 +67,13 @@ export function ParallaxHero() {
       </div>
 
       <Container className="relative z-10">
-        <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "About" }]} />
+        <BreadcrumbNav items={[{ label: chrome.home, href: "/" }, { label: chrome.about }]} />
         <AnimatedSection>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6 text-balance">
-            About Retech Solutions
+            {chrome.title}
           </h1>
           <p className="text-lg md:text-xl text-foreground-secondary max-w-3xl leading-relaxed">
-            We provide full-cycle software development services, from business
-            analysis and design through development, testing, and deployment for
-            solutions across web and mobile applications.
+            {chrome.lead}
           </p>
         </AnimatedSection>
       </Container>

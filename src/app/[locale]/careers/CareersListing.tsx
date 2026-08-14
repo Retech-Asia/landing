@@ -12,10 +12,11 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { Card } from "@/components/ui/Card";
-import { type JobListing } from "@/lib/careers-data";
+import { type FlatJobListing } from "@/lib/careers-data";
+import type { Locale } from "@/i18n/routing";
 
 /* ------------------------------------------------------------------ */
-/*  Department badge color map                                         */
+/*  Department badge color map (keyed on the invariant EN department)  */
 /* ------------------------------------------------------------------ */
 
 const departmentStyles: Record<
@@ -46,31 +47,68 @@ const fallbackStyle = {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Props                                                              */
+/*  Props + labels                                                     */
 /* ------------------------------------------------------------------ */
 
 interface CareersListingProps {
-  jobs: JobListing[];
+  /** Pre-flattened via getFlatJobs(locale) / flattenJob(job, locale). */
+  jobs: FlatJobListing[];
   email: string;
+  locale: Locale;
+}
+
+function useLabels(locale: Locale) {
+  const isEn = locale === "en";
+  return isEn
+    ? {
+        searchPlaceholder: "Search roles...",
+        searchAria: "Search job roles",
+        all: "All",
+        showing: "Showing",
+        positionSingular: "position",
+        positionPlural: "positions",
+        inWord: "in",
+        applyNow: "Apply Now",
+        emptyTitle: "No open positions right now",
+        emptyBody:
+          "We do not have any roles matching your criteria at the moment, but we are always happy to hear from talented people.",
+        sendResume: "Send Your Resume",
+      }
+    : {
+        searchPlaceholder: "Tìm vị trí...",
+        searchAria: "Tìm kiếm vị trí tuyển dụng",
+        all: "Tất cả",
+        showing: "Hiển thị",
+        positionSingular: "vị trí",
+        positionPlural: "vị trí",
+        inWord: "trong",
+        applyNow: "Ứng tuyển Ngay",
+        emptyTitle: "Hiện chưa có vị trí tuyển dụng",
+        emptyBody:
+          "Hiện tại chúng tôi chưa có vị trí phù hợp với tiêu chí của bạn, nhưng chúng tôi luôn vui lòng được lắng nghe từ những ứng viên tài năng.",
+        sendResume: "Gửi CV của bạn",
+      };
 }
 
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
 
-export function CareersListing({ jobs, email }: CareersListingProps) {
+export function CareersListing({ jobs, email, locale }: CareersListingProps) {
+  const labels = useLabels(locale);
+
   const departments = useMemo(() => {
     const set = new Set(jobs.map((j) => j.department));
-    return ["All", ...Array.from(set)];
-  }, [jobs]);
+    return [labels.all, ...Array.from(set)];
+  }, [jobs, labels.all]);
 
-  const [activeDepartment, setActiveDepartment] = useState("All");
+  const [activeDepartment, setActiveDepartment] = useState(labels.all);
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredJobs = useMemo(() => {
     return jobs.filter((job) => {
       const matchesDepartment =
-        activeDepartment === "All" || job.department === activeDepartment;
+        activeDepartment === labels.all || job.department === activeDepartment;
       const matchesSearch =
         searchQuery.trim() === "" ||
         job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -78,7 +116,7 @@ export function CareersListing({ jobs, email }: CareersListingProps) {
         job.department.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesDepartment && matchesSearch;
     });
-  }, [jobs, activeDepartment, searchQuery]);
+  }, [jobs, activeDepartment, searchQuery, labels.all]);
 
   return (
     <div>
@@ -92,10 +130,10 @@ export function CareersListing({ jobs, email }: CareersListingProps) {
           />
           <input
             type="text"
-            placeholder="Search roles..."
+            placeholder={labels.searchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            aria-label="Search job roles"
+            aria-label={labels.searchAria}
             className="w-full pl-9 pr-4 py-2.5 text-base rounded-xl border border-card-border bg-card-bg placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand/30 transition-shadow"
           />
         </div>
@@ -104,9 +142,10 @@ export function CareersListing({ jobs, email }: CareersListingProps) {
         <div className="flex flex-wrap gap-2">
           {departments.map((dept) => {
             const isActive = activeDepartment === dept;
+            const deptKey = jobs.find((j) => j.department === dept)?.departmentKey;
             const styles =
-              dept !== "All"
-                ? departmentStyles[dept] ?? fallbackStyle
+              deptKey !== undefined
+                ? departmentStyles[deptKey] ?? fallbackStyle
                 : undefined;
             return (
               <button
@@ -115,7 +154,7 @@ export function CareersListing({ jobs, email }: CareersListingProps) {
                 className={cn(
                   "px-4 py-2 text-sm font-medium rounded-full border transition-all duration-200 cursor-pointer",
                   isActive
-                    ? dept === "All"
+                    ? dept === labels.all
                       ? "bg-brand-dark text-white border-foreground"
                       : `${styles!.pill} border`
                     : "bg-card-bg text-foreground-secondary border-card-border hover:border-foreground/20 hover:text-foreground"
@@ -130,15 +169,17 @@ export function CareersListing({ jobs, email }: CareersListingProps) {
 
       {/* Job count */}
       <p className="text-sm text-foreground-muted mb-6">
-        Showing{" "}
+        {labels.showing}{" "}
         <span className="font-medium text-foreground">
           {filteredJobs.length}
         </span>{" "}
-        {filteredJobs.length === 1 ? "position" : "positions"}
-        {activeDepartment !== "All" && (
+        {filteredJobs.length === 1
+          ? labels.positionSingular
+          : labels.positionPlural}
+        {activeDepartment !== labels.all && (
           <span>
             {" "}
-            in{" "}
+            {labels.inWord}{" "}
             <span className="font-medium text-foreground">
               {activeDepartment}
             </span>
@@ -177,7 +218,7 @@ export function CareersListing({ jobs, email }: CareersListingProps) {
                   <span
                     className={cn(
                       "inline-flex self-start px-3 py-1 text-xs font-semibold rounded-full mb-4",
-                      (departmentStyles[job.department] ?? fallbackStyle).badge
+                      (departmentStyles[job.departmentKey] ?? fallbackStyle).badge
                     )}
                   >
                     {job.department}
@@ -218,7 +259,7 @@ export function CareersListing({ jobs, email }: CareersListingProps) {
                       href={`mailto:${email}?subject=Application for ${encodeURIComponent(job.title)} | ${job.slug}`}
                       className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-gradient-to-r from-brand to-brand-dark px-5 py-2.5 rounded-full hover:shadow-[0_4px_16px_rgba(32,133,53,0.25)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
                     >
-                      Apply Now
+                      {labels.applyNow}
                       <ArrowRight size={14} />
                     </a>
                   </div>
@@ -240,18 +281,17 @@ export function CareersListing({ jobs, email }: CareersListingProps) {
               <Mail size={28} className="text-foreground-muted" />
             </div>
             <h3 className="text-xl font-bold text-foreground mb-2">
-              No open positions right now
+              {labels.emptyTitle}
             </h3>
             <p className="text-foreground-secondary mb-8 max-w-md mx-auto">
-              We do not have any roles matching your criteria at the moment, but
-              we are always happy to hear from talented people.
+              {labels.emptyBody}
             </p>
             <a
               href={`mailto:${email}?subject=General Application`}
               className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-gradient-to-r from-brand to-brand-dark px-6 py-3 rounded-full hover:shadow-[0_4px_16px_rgba(32,133,53,0.25)] transition-all duration-200"
             >
               <Mail size={16} />
-              Send Your Resume
+              {labels.sendResume}
             </a>
           </motion.div>
         )}

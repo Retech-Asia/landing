@@ -47,6 +47,96 @@ import {
   BeforeAfterDivider,
 } from "./CaseStudyClientComponents";
 
+// Locale-aware chrome strings. Case study content comes from the
+// bilingual data via getFlatCaseStudy; only page chrome lives here.
+function getChrome(locale: string) {
+  const isEn = locale === "en";
+  return isEn
+    ? {
+        storyTitle: "The Story Behind the Build",
+        storyLead: (title: string) =>
+          `From problem to lasting impact: how we approached ${title} end to end.`,
+        challengeTitle: "The Challenge",
+        solutionTitle: "Our Solution",
+        impactTitle: "The Impact",
+        keyResultsTitle: "Key Results",
+        keyResultsLead: (title: string) =>
+          `Concrete outcomes that made the difference for ${title}.`,
+        projectDetailsTitle: "Project Details",
+        timelineLabel: "Timeline",
+        teamSizeLabel: "Team Size",
+        technologiesLabel: "Technologies",
+        coreTools: (count: number) => `${count} core tools`,
+        whatWeBuilt: "What We Built",
+        projectTimelineTitle: "Project Timeline",
+        projectTimelineLead:
+          "From initial discovery to successful launch: our proven delivery process.",
+        measurableImpact: "Measurable Impact",
+        beforeAfterTitle: "Before & After",
+        beforeAfterLead: (title: string) =>
+          `A clear picture of how ${title} improved after our collaboration.`,
+        outcomesLabel: "Outcomes",
+        keyResultsDelivered: "Key Results Delivered",
+        builtWith: "Built With",
+        relatedServicesTitle: "Services Used in This Project",
+        relatedServicesDescription:
+          "The expertise behind this successful delivery.",
+        learnMore: "Learn More",
+        viewCaseStudy: "View Case Study",
+        readMoreTitle: "Read More",
+        readMoreDescription: "Articles and insights related to this project.",
+        readArticle: "Read Article",
+        viewAllArticles: "View All Articles",
+        ctaTitle: "Want Results Like These?",
+        ctaBody:
+          "Get a free project estimate within 24 hours. Tell us about your vision and we will map out the right solution, team, and timeline.",
+        ctaPrimary: "Get Your Free Estimate",
+        ctaSecondary: "All Case Studies",
+      }
+    : {
+        storyTitle: "Câu chuyện Phía sau Sản phẩm",
+        storyLead: (title: string) =>
+          `Từ vấn đề đến tác động lâu dài: cách chúng tôi tiếp cận ${title} từ đầu đến cuối.`,
+        challengeTitle: "Thách thức",
+        solutionTitle: "Giải pháp",
+        impactTitle: "Tác động",
+        keyResultsTitle: "Kết quả Chính",
+        keyResultsLead: (title: string) =>
+          `Những kết quả cụ thể tạo nên khác biệt cho ${title}.`,
+        projectDetailsTitle: "Thông tin Dự án",
+        timelineLabel: "Thời gian",
+        teamSizeLabel: "Quy mô Đội ngũ",
+        technologiesLabel: "Công nghệ",
+        coreTools: (count: number) => `${count} công cụ chính`,
+        whatWeBuilt: "Chúng tôi đã Xây dựng",
+        projectTimelineTitle: "Lộ trình Dự án",
+        projectTimelineLead:
+          "Từ khám phá ban đầu đến ra mắt thành công: quy trình bàn giao đã được kiểm chứng của chúng tôi.",
+        measurableImpact: "Kết quả Đo lường được",
+        beforeAfterTitle: "Trước & Sau",
+        beforeAfterLead: (title: string) =>
+          `Bức tranh rõ ràng về cách ${title} cải thiện sau khi hợp tác với chúng tôi.`,
+        outcomesLabel: "Kết quả",
+        keyResultsDelivered: "Kết quả đã Đạt được",
+        builtWith: "Xây dựng bằng",
+        relatedServicesTitle: "Dịch vụ trong Dự án này",
+        relatedServicesDescription:
+          "Chuyên môn đứng sau lần bàn giao thành công này.",
+        learnMore: "Tìm hiểu thêm",
+        viewCaseStudy: "Xem Dự án",
+        readMoreTitle: "Đọc thêm",
+        readMoreDescription:
+          "Các bài viết và chia sẻ liên quan đến dự án này.",
+        readArticle: "Đọc Bài viết",
+        viewAllArticles: "Xem Tất cả Bài viết",
+        ctaTitle: "Muốn Có Kết quả Như Vậy?",
+        ctaBody:
+          "Nhận báo giá dự án miễn phí trong vòng 24 giờ. Hãy chia sẻ tầm nhìn của bạn và chúng tôi sẽ đề xuất giải pháp, đội ngũ và lộ trình phù hợp.",
+        ctaPrimary: "Nhận Báo giá Miễn phí",
+        ctaSecondary: "Tất cả Dự án",
+      };
+}
+
 /* ── Case study to services mapping ─────────────────────────── */
 const caseStudyServiceMap: Record<string, string[]> = {
   "mining-analytics-platform": ["web-development", "ui-ux-design", "dedicated-teams"],
@@ -181,6 +271,7 @@ export default async function CaseStudyDetailPage({
   const { slug, locale } = await params;
   const loc = locale as Locale;
   setRequestLocale(locale);
+  const chrome = getChrome(locale);
   const study = getFlatCaseStudy(slug, loc);
 
   if (!study) {
@@ -224,6 +315,7 @@ export default async function CaseStudyDetailPage({
         title={study.title}
         tagline={study.tagline}
         description={study.description}
+        locale={locale}
       />
 
       {/* Project hero image — full-width, single image, no side-by-side */}
@@ -260,10 +352,10 @@ export default async function CaseStudyDetailPage({
           <AnimatedSection>
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                The Story Behind the Build
+                {chrome.storyTitle}
               </h2>
               <p className="mt-3 text-foreground-secondary max-w-2xl mx-auto">
-                From problem to lasting impact: how we approached {study.title} end to end.
+                {chrome.storyLead(study.title)}
               </p>
             </div>
           </AnimatedSection>
@@ -284,7 +376,7 @@ export default async function CaseStudyDetailPage({
                       <AlertTriangle size={20} className="text-amber-600" aria-hidden="true" />
                     </div>
                     <h3 className="text-xl font-bold text-foreground">
-                      The Challenge
+                      {chrome.challengeTitle}
                     </h3>
                   </div>
                   <p className="text-foreground-secondary leading-relaxed">
@@ -322,7 +414,7 @@ export default async function CaseStudyDetailPage({
                       <Layers size={20} className="text-brand" aria-hidden="true" />
                     </div>
                     <h3 className="text-xl font-bold text-foreground">
-                      Our Solution
+                      {chrome.solutionTitle}
                     </h3>
                   </div>
                   <p className="text-foreground-secondary leading-relaxed">
@@ -346,7 +438,7 @@ export default async function CaseStudyDetailPage({
                       <Sparkles size={20} className="text-accent-cyan" aria-hidden="true" />
                     </div>
                     <h3 className="text-xl font-bold text-foreground">
-                      The Impact
+                      {chrome.impactTitle}
                     </h3>
                   </div>
                   <p className="text-foreground-secondary leading-relaxed">
@@ -372,10 +464,10 @@ export default async function CaseStudyDetailPage({
           <AnimatedSection>
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                Key Results
+                {chrome.keyResultsTitle}
               </h2>
               <p className="mt-3 text-foreground-secondary max-w-2xl mx-auto">
-                Concrete outcomes that made the difference for {study.title}.
+                {chrome.keyResultsLead(study.title)}
               </p>
             </div>
           </AnimatedSection>
@@ -403,7 +495,7 @@ export default async function CaseStudyDetailPage({
           <AnimatedSection>
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                Project Details
+                {chrome.projectDetailsTitle}
               </h2>
             </div>
           </AnimatedSection>
@@ -416,7 +508,7 @@ export default async function CaseStudyDetailPage({
                     <Clock size={22} className="text-brand" aria-hidden="true" />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-foreground-muted font-semibold mb-1">
-                    Timeline
+                    {chrome.timelineLabel}
                   </p>
                   <p className="text-lg font-bold text-foreground">
                     {study.timelineDuration}
@@ -430,7 +522,7 @@ export default async function CaseStudyDetailPage({
                     <Users size={22} className="text-accent-violet" aria-hidden="true" />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-foreground-muted font-semibold mb-1">
-                    Team Size
+                    {chrome.teamSizeLabel}
                   </p>
                   <p className="text-lg font-bold text-foreground">
                     {study.teamSize}
@@ -444,10 +536,10 @@ export default async function CaseStudyDetailPage({
                     <Wrench size={22} className="text-accent-cyan" aria-hidden="true" />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-foreground-muted font-semibold mb-1">
-                    Technologies
+                    {chrome.technologiesLabel}
                   </p>
                   <p className="text-lg font-bold text-foreground">
-                    {study.technologies.length} core tools
+                    {chrome.coreTools(study.technologies.length)}
                   </p>
                 </Card>
               </StaggerItem>
@@ -462,7 +554,7 @@ export default async function CaseStudyDetailPage({
           <AnimatedSection>
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                What We Built
+                {chrome.whatWeBuilt}
               </h2>
             </div>
           </AnimatedSection>
@@ -490,10 +582,10 @@ export default async function CaseStudyDetailPage({
           <AnimatedSection>
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                Project Timeline
+                {chrome.projectTimelineTitle}
               </h2>
               <p className="mt-3 text-foreground-secondary max-w-2xl mx-auto">
-                From initial discovery to successful launch: our proven delivery process.
+                {chrome.projectTimelineLead}
               </p>
             </div>
           </AnimatedSection>
@@ -508,7 +600,7 @@ export default async function CaseStudyDetailPage({
           <AnimatedSection>
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                Measurable Impact
+                {chrome.measurableImpact}
               </h2>
             </div>
           </AnimatedSection>
@@ -523,10 +615,10 @@ export default async function CaseStudyDetailPage({
           <AnimatedSection>
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                Before &amp; After
+                {chrome.beforeAfterTitle}
               </h2>
               <p className="mt-3 text-foreground-secondary max-w-2xl mx-auto">
-                A clear picture of how {study.title} improved after our collaboration.
+                {chrome.beforeAfterLead(study.title)}
               </p>
             </div>
           </AnimatedSection>
@@ -552,10 +644,10 @@ export default async function CaseStudyDetailPage({
               <AnimatedSection>
                 <div className="text-center mb-12">
                   <p className="text-xs font-medium uppercase tracking-wider text-brand mb-3">
-                    Outcomes
+                    {chrome.outcomesLabel}
                   </p>
                   <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                    Key Results Delivered
+                    {chrome.keyResultsDelivered}
                   </h2>
                 </div>
               </AnimatedSection>
@@ -584,7 +676,7 @@ export default async function CaseStudyDetailPage({
           <AnimatedSection>
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                Built With
+                {chrome.builtWith}
               </h2>
             </div>
           </AnimatedSection>
@@ -599,8 +691,8 @@ export default async function CaseStudyDetailPage({
           <Container>
             <AnimatedSection variant="slideUp">
               <SectionHeader
-                title="Services Used in This Project"
-                description="The expertise behind this successful delivery."
+                title={chrome.relatedServicesTitle}
+                description={chrome.relatedServicesDescription}
               />
             </AnimatedSection>
 
@@ -610,19 +702,19 @@ export default async function CaseStudyDetailPage({
                 return (
                   <StaggerItem key={service.id}>
                     <Link
-                      href={`/services/${service.slug.en}`}
+                      href={`/services/${service.slug[loc]}`}
                       className="group block h-full"
                     >
                       <div className="relative h-full rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                         <ServiceIcon size={22} className="text-brand mb-4" />
                         <h3 className="text-base font-bold text-foreground mb-1 group-hover:text-brand transition-colors">
-                          {service.title.en}
+                          {service.title[loc]}
                         </h3>
                         <p className="text-sm text-foreground-secondary leading-relaxed mb-4">
-                          {service.description.en}
+                          {service.description[loc]}
                         </p>
                         <div className="flex items-center gap-1.5 text-sm font-medium text-brand group-hover:gap-2.5 transition-all duration-300">
-                          Learn More
+                          {chrome.learnMore}
                           <ArrowRight
                             size={15}
                             className="transition-transform duration-300 group-hover:translate-x-0.5"
@@ -653,7 +745,7 @@ export default async function CaseStudyDetailPage({
               </div>
               <div className="flex justify-center">
                 <Button href={`/case-studies/${relatedStudy.slug}`} size="lg">
-                  View Case Study <ArrowRight size={16} aria-hidden="true" />
+                  {chrome.viewCaseStudy} <ArrowRight size={16} aria-hidden="true" />
                 </Button>
               </div>
             </AnimatedSection>
@@ -667,8 +759,8 @@ export default async function CaseStudyDetailPage({
           <Container>
             <AnimatedSection variant="slideUp">
               <SectionHeader
-                title="Read More"
-                description="Articles and insights related to this project."
+                title={chrome.readMoreTitle}
+                description={chrome.readMoreDescription}
               />
             </AnimatedSection>
 
@@ -690,7 +782,7 @@ export default async function CaseStudyDetailPage({
                         {post.excerpt}
                       </p>
                       <div className="flex items-center gap-1.5 text-sm font-medium text-brand group-hover:gap-2.5 transition-all duration-300">
-                        Read Article
+                        {chrome.readArticle}
                         <ArrowRight
                           size={15}
                           className="transition-transform duration-300 group-hover:translate-x-0.5"
@@ -704,7 +796,7 @@ export default async function CaseStudyDetailPage({
 
             <AnimatedSection variant="slideUp" delay={0.2} className="mt-10 text-center">
               <Button href="/blog" variant="secondary">
-                View All Articles <ArrowRight size={15} />
+                {chrome.viewAllArticles} <ArrowRight size={15} />
               </Button>
             </AnimatedSection>
           </Container>
@@ -720,18 +812,18 @@ export default async function CaseStudyDetailPage({
           <AnimatedSection>
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Want Results Like These?
+                {chrome.ctaTitle}
               </h2>
               <p className="text-lg text-foreground-secondary mb-8">
-                Get a free project estimate within 24 hours. Tell us about your vision and we will map out the right solution, team, and timeline.
+                {chrome.ctaBody}
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Button href="/contact" size="lg">
-                  Get Your Free Estimate
+                  {chrome.ctaPrimary}
                 </Button>
                 <Button href="/case-studies" variant="secondary" size="lg">
                   <ArrowLeft size={16} aria-hidden="true" />
-                  All Case Studies
+                  {chrome.ctaSecondary}
                 </Button>
               </div>
             </div>

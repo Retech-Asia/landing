@@ -242,6 +242,48 @@ export const blogViMeta: Record<string, BlogViMeta> = {
     excerpt: "Hướng dẫn từng bước để xây dựng đội phát triển chuyên trách tại Việt Nam — từ tuyển dụng, onboarding đến quản lý hiệu suất và cultural integration.",
     category: "Insight Ngành",
   },
+  "ai-agent-frameworks-comparison-2026-langchain-langgraph-crewai": {
+    slug: "ai-agent-frameworks-2026-langchain-langgraph-crewai",
+    title: "AI Agent Framework 2026: LangChain vs LangGraph vs CrewAI cho Production",
+    excerpt: "So sánh thực tế LangChain, LangGraph và CrewAI cho AI agent trong production 2026 — quản lý state, điều phối multi-agent, triển khai và framework nào phù hợp use case nào.",
+    category: "Công nghệ",
+  },
+  "model-context-protocol-mcp-production-guide-2026": {
+    slug: "model-context-protocol-mcp-huong-dan-production-2026",
+    title: "Model Context Protocol (MCP) trong Production: Hướng dẫn Thực tế 2026",
+    excerpt: "MCP đi từ launch open-source của Anthropic đến 97 triệu tương tác hàng tháng trong chưa đến hai năm. Những gì đội production cần biết về kiến trúc, bảo mật và triển khai.",
+    category: "Công nghệ",
+  },
+  "llm-pricing-comparison-2026-gpt5-claude-gemini-enterprise-costs": {
+    slug: "gia-llm-2026-so-sanh-chi-phi-gpt5-claude-gemini-doanh-nghiep",
+    title: "Giá LLM 2026: So sánh Chi phí GPT-5, Claude và Gemini cho Doanh nghiệp",
+    excerpt: "Chi phí LLM doanh nghiệp dao động từ 15.000 đến 75.000 USD mỗi tháng. Phân tích thực tế giá GPT-5, Claude Sonnet 5 và Gemini, context window và model nào phù hợp workload nào.",
+    category: "Insight Ngành",
+  },
+  "rag-retrieval-augmented-generation-best-practices-2026": {
+    slug: "rag-best-practices-2026-xay-dung-retrieval-augmented-generation",
+    title: "RAG Best Practices 2026: Xây dựng Retrieval-Augmented Generation cho Production",
+    excerpt: "Pattern thực tế cho hệ thống RAG production: chiến lược chunking, lựa chọn embedding, vector database, reranking và các chỉ số đánh giá phân biệt prototype và hệ thống đáng tin cậy.",
+    category: "Công nghệ",
+  },
+  "ai-code-generation-tools-2026-copilot-claude-code-cursor": {
+    slug: "cong-cu-sinh-code-ai-2026-copilot-claude-code-cursor",
+    title: "Sinh Code bằng AI 2026: GitHub Copilot vs Claude Code vs Cursor",
+    excerpt: "So sánh thực tế ba công cụ code AI hàng đầu — GitHub Copilot, Claude Code và Cursor — về code completion, chỉnh sửa multi-file, giá và cái nào hợp workflow của đội bạn.",
+    category: "Công nghệ",
+  },
+  "pgvector-vector-search-production-patterns-2026": {
+    slug: "pgvector-vector-search-pattern-production",
+    title: "Vector Search với pgvector: Pattern Production và Trade-off",
+    excerpt: "pgvector biến PostgreSQL thành vector database đủ năng lực cho RAG và similarity search. Chúng tôi đã chạy nó trong production trên nền tảng nghiên cứu đầu tư đa nguồn — cái gì hoạt động, cái gì không, và khi nào nên chọn vector DB riêng.",
+    category: "Công nghệ",
+  },
+  "vietnam-timezone-follow-the-sun-engineering-202608": {
+    slug: "mui-gio-viet-nam-utc7-follow-the-sun-engineering",
+    title: "Múi giờ UTC+7 của Việt Nam: Hướng dẫn Thực tế Follow-the-Sun Engineering",
+    excerpt: "Chi phí chiếm trọn cuộc trò chuyện outsourcing, nhưng chồng lệch múi giờ mới quyết định engineering phân tán có trơn tru hay không. Cách thiết kế workflow quanh lịch ICT của Việt Nam.",
+    category: "Insight Ngành",
+  },
   "view-transitions-api-production-guide-202608": {
     slug: "view-transitions-api-huong-dan-thuc-te-202608",
     title: "View Transitions API trong Production: Hướng dẫn Thực tế 2026",

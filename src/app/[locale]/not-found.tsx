@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLocale } from "next-intl";
 import { ArrowLeft, Compass, Briefcase, BookOpen, Mail } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
@@ -8,13 +9,16 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Container } from "@/components/ui/Container";
 
 const popularPages = [
-  { label: "Services", href: "/services", icon: Briefcase, description: "What we do" },
-  { label: "Case Studies", href: "/case-studies", icon: Compass, description: "Our work" },
-  { label: "Blog", href: "/blog", icon: BookOpen, description: "Insights & news" },
-  { label: "Contact", href: "/contact", icon: Mail, description: "Get in touch" },
+  { label: { en: "Services", vi: "Dịch vụ" }, href: "/services", icon: Briefcase, description: { en: "What we do", vi: "Chúng tôi làm gì" } },
+  { label: { en: "Case Studies", vi: "Dự án" }, href: "/case-studies", icon: Compass, description: { en: "Our work", vi: "Dự án của chúng tôi" } },
+  { label: { en: "Blog", vi: "Blog" }, href: "/blog", icon: BookOpen, description: { en: "Insights & news", vi: "Góc nhìn & tin tức" } },
+  { label: { en: "Contact", vi: "Liên hệ" }, href: "/contact", icon: Mail, description: { en: "Get in touch", vi: "Liên hệ ngay" } },
 ];
 
 export default function NotFound() {
+  const locale = useLocale();
+  const isEn = locale === "en";
+  const tr = (l: { en: string; vi: string }) => (isEn ? l.en : l.vi);
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background decorations */}
@@ -45,8 +49,8 @@ export default function NotFound() {
           <AnimatedSection variant="fadeIn" delay={0}>
             <BreadcrumbNav
               items={[
-                { label: "Home", href: "/" },
-                { label: "Page Not Found" },
+                { label: isEn ? "Home" : "Trang chủ", href: "/" },
+                { label: isEn ? "Page Not Found" : "Không tìm thấy trang" },
               ]}
             />
           </AnimatedSection>
@@ -183,14 +187,15 @@ export default function NotFound() {
           {/* Heading & message */}
           <AnimatedSection variant="slideUp" delay={0.3}>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground text-center mb-3">
-              Looks like this page took a vacation
+              {isEn ? "Looks like this page took a vacation" : "Có vẻ như trang này đang nghỉ phép"}
             </h1>
           </AnimatedSection>
 
           <AnimatedSection variant="slideUp" delay={0.4}>
             <p className="text-base md:text-lg text-foreground-secondary leading-relaxed text-center max-w-md mx-auto mb-10">
-              We searched everywhere, but couldn&apos;t find the page you&apos;re looking for.
-              Maybe one of these will help?
+              {isEn
+                ? "We searched everywhere, but couldn't find the page you're looking for. Maybe one of these will help?"
+                : "Chúng tôi đã tìm khắp nơi nhưng không tìm thấy trang bạn đang tìm. Có thể một trong các trang sau sẽ giúp ích cho bạn?"}
             </p>
           </AnimatedSection>
 
@@ -209,10 +214,10 @@ export default function NotFound() {
                       <Icon className="w-5 h-5 text-brand" />
                     </div>
                     <span className="text-sm font-medium text-foreground">
-                      {page.label}
+                      {tr(page.label)}
                     </span>
                     <span className="text-xs text-foreground-muted">
-                      {page.description}
+                      {tr(page.description)}
                     </span>
                   </a>
                 );
@@ -225,7 +230,7 @@ export default function NotFound() {
             <div className="flex justify-center">
               <Button href="/" variant="primary" size="lg">
                 <ArrowLeft className="w-4 h-4" />
-                Back to Home
+                {isEn ? "Back to Home" : "Về Trang chủ"}
               </Button>
             </div>
           </AnimatedSection>

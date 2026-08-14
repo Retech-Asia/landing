@@ -27,73 +27,203 @@ export async function generateMetadata({
   return buildPageMetadata({ locale, path: "/contact", namespace: "pages.contact" });
 }
 
-const whatToExpectItems = [
-  {
-    step: 1,
-    icon: Mail,
-    color: "text-brand",
-    bg: "bg-brand/10",
-    title: "Quick Response",
-    description: "We respond to all inquiries within one business day.",
-  },
-  {
-    step: 2,
-    icon: MessageSquare,
-    color: "text-accent-cyan",
-    bg: "bg-accent-cyan/10",
-    title: "Free Consultation",
-    description:
-      "No commitment required. We'll discuss your project scope, timeline, and the best approach.",
-  },
-  {
-    step: 3,
-    icon: FileText,
-    color: "text-accent-violet",
-    bg: "bg-accent-violet/10",
-    title: "Tailored Proposal",
-    description:
-      "You'll receive a detailed proposal with team composition, technology choices, and transparent pricing.",
-  },
-];
+// Resolve chrome strings by locale — inline EN | VI bundles, same pattern
+// as the process page. JSON-LD strings intentionally stay EN.
+function getChrome(locale: string) {
+  const isEn = locale === "en";
+  return isEn
+    ? {
+        breadcrumbHome: "Home",
+        breadcrumbContact: "Contact",
+        heroEyebrow: "Contact",
+        heroTitle: "Get In Touch",
+        heroLead:
+          "Have a project in mind? We'd love to hear about it. Fill out the form below and our team will get back to you within one business day.",
+        expectTitle: "What to Expect",
+        estimatorLabel: "Estimator",
+        estimatorTitle: "Estimate Your Project",
+        estimatorDescription:
+          "Get a quick ballpark estimate based on your project type, scope, and team size.",
+        sendMessageTitle: "Send Us a Message",
+        contactFormAria: "Contact form",
+        teamAlt: "Retech Solutions team ready to discuss your project",
+        teamCaption: "Let's build something together",
+        infoEmailDesc: "For project inquiries and partnerships",
+        infoResponseLabel: "Email",
+        infoResponseDesc: "Replies within one business day",
+        infoEmailAction: "Email us",
+        addressLabel: "Address",
+        addressDesc: "Vo Thi Sau Ward, Ho Chi Minh City",
+        mapsAction: "Open in Google Maps",
+        quickTitle: "Quick Response Guaranteed",
+        quickBody:
+          "We respond to all inquiries within one business day. Email is the fastest channel — we monitor it throughout the day.",
+        quickButton: "Email Us",
+        connectLabel: "Connect",
+        connectTitle: "Other Ways to Connect",
+        connectDescription:
+          "Prefer a different channel? Reach out however works best for you.",
+        exploreLabel: "Explore",
+        exploreTitle: "Learn More Before You Reach Out",
+        exploreDescription:
+          "Want to understand our capabilities or process before your first consultation?",
+        learnMore: "Learn more",
+      }
+    : {
+        breadcrumbHome: "Trang chủ",
+        breadcrumbContact: "Liên hệ",
+        heroEyebrow: "Liên hệ",
+        heroTitle: "Liên hệ với chúng tôi",
+        heroLead:
+          "Bạn đang có ý tưởng dự án? Chúng tôi rất muốn được lắng nghe. Điền vào biểu mẫu bên dưới và đội ngũ của chúng tôi sẽ phản hồi trong vòng một ngày làm việc.",
+        expectTitle: "Những gì sẽ diễn ra",
+        estimatorLabel: "Dự toán",
+        estimatorTitle: "Dự toán Dự án của Bạn",
+        estimatorDescription:
+          "Nhận mức ước tính nhanh dựa trên loại dự án, phạm vi và quy mô đội ngũ.",
+        sendMessageTitle: "Gửi tin nhắn cho chúng tôi",
+        contactFormAria: "Biểu mẫu liên hệ",
+        teamAlt: "Đội ngũ Retech Solutions sẵn sàng trao đổi về dự án của bạn",
+        teamCaption: "Hãy cùng nhau xây dựng",
+        infoEmailDesc: "Dành cho yêu cầu dự án và hợp tác",
+        infoResponseLabel: "Email",
+        infoResponseDesc: "Phản hồi trong vòng một ngày làm việc",
+        infoEmailAction: "Gửi email",
+        addressLabel: "Địa chỉ",
+        addressDesc: "Phường Võ Thị Sáu, TP. Hồ Chí Minh",
+        mapsAction: "Mở trong Google Maps",
+        quickTitle: "Cam kết Phản hồi Nhanh",
+        quickBody:
+          "Chúng tôi phản hồi mọi yêu cầu trong vòng một ngày làm việc. Email là kênh nhanh nhất — chúng tôi theo dõi thường xuyên trong ngày.",
+        quickButton: "Gửi email",
+        connectLabel: "Kết nối",
+        connectTitle: "Các Kênh Kết nối Khác",
+        connectDescription:
+          "Bạn muốn dùng kênh khác? Hãy liên hệ theo cách thuận tiện nhất cho bạn.",
+        exploreLabel: "Khám phá",
+        exploreTitle: "Tìm hiểu Trước khi Liên hệ",
+        exploreDescription:
+          "Muốn tìm hiểu về năng lực hoặc quy trình của chúng tôi trước buổi tư vấn đầu tiên?",
+        learnMore: "Tìm hiểu thêm",
+      };
+}
 
-const communicationChannels = [
-  {
-    icon: Mail,
-    color: "text-brand",
-    bg: "bg-brand/10",
-    title: "Email Us",
-    detail: CONTACT.email,
-    description: "For project inquiries and partnerships",
-    href: CONTACT.emailHref,
-  },
-  {
-    icon: Clock,
-    color: "text-accent-cyan",
-    bg: "bg-accent-cyan/10",
-    title: "Response Time",
-    detail: "< 1 business day",
-    description: "We reply to every inquiry within one business day",
-    href: CONTACT.emailHref,
-  },
-  {
-    icon: MessageSquare,
-    color: "text-accent-violet",
-    bg: "bg-accent-violet/10",
-    title: "Live Chat",
-    detail: "retech.asia",
-    description: "In-app live chat, fastest response (business hours, GMT+7)",
-    href: "/contact",
-  },
-  {
-    icon: Video,
-    color: "text-brand",
-    bg: "bg-brand/10",
-    title: "Zoom Meeting",
-    detail: "Schedule a video call",
-    description: "Face-to-face consultation anywhere",
-    href: `mailto:${CONTACT.email}?subject=Zoom%20Meeting%20Request`,
-  },
-];
+function getWhatToExpectItems(isEn: boolean) {
+  return [
+    {
+      step: 1,
+      icon: Mail,
+      color: "text-brand",
+      bg: "bg-brand/10",
+      title: isEn ? "Quick Response" : "Phản hồi Nhanh",
+      description: isEn
+        ? "We respond to all inquiries within one business day."
+        : "Chúng tôi phản hồi mọi yêu cầu trong vòng một ngày làm việc.",
+    },
+    {
+      step: 2,
+      icon: MessageSquare,
+      color: "text-accent-cyan",
+      bg: "bg-accent-cyan/10",
+      title: isEn ? "Free Consultation" : "Tư vấn Miễn phí",
+      description: isEn
+        ? "No commitment required. We'll discuss your project scope, timeline, and the best approach."
+        : "Không cần cam kết. Chúng tôi sẽ trao đổi về phạm vi dự án, thời gian và cách tiếp cận phù hợp.",
+    },
+    {
+      step: 3,
+      icon: FileText,
+      color: "text-accent-violet",
+      bg: "bg-accent-violet/10",
+      title: isEn ? "Tailored Proposal" : "Đề xuất Riêng cho Bạn",
+      description: isEn
+        ? "You'll receive a detailed proposal with team composition, technology choices, and transparent pricing."
+        : "Bạn sẽ nhận được đề xuất chi tiết gồm thành phần đội ngũ, lựa chọn công nghệ và giá minh bạch.",
+    },
+  ];
+}
+
+function getCommunicationChannels(isEn: boolean) {
+  return [
+    {
+      icon: Mail,
+      color: "text-brand",
+      bg: "bg-brand/10",
+      title: isEn ? "Email Us" : "Gửi email",
+      detail: CONTACT.email,
+      description: isEn
+        ? "For project inquiries and partnerships"
+        : "Dành cho yêu cầu dự án và hợp tác",
+      href: CONTACT.emailHref,
+    },
+    {
+      icon: Clock,
+      color: "text-accent-cyan",
+      bg: "bg-accent-cyan/10",
+      title: isEn ? "Response Time" : "Thời gian Phản hồi",
+      detail: isEn ? "< 1 business day" : "< 1 ngày làm việc",
+      description: isEn
+        ? "We reply to every inquiry within one business day"
+        : "Chúng tôi phản hồi mọi yêu cầu trong vòng một ngày làm việc",
+      href: CONTACT.emailHref,
+    },
+    {
+      icon: MessageSquare,
+      color: "text-accent-violet",
+      bg: "bg-accent-violet/10",
+      title: isEn ? "Live Chat" : "Trò chuyện Trực tuyến",
+      detail: "retech.asia",
+      description: isEn
+        ? "In-app live chat, fastest response (business hours, GMT+7)"
+        : "Trò chuyện trực tiếp trên website, phản hồi nhanh nhất (giờ hành chính, GMT+7)",
+      href: "/contact",
+    },
+    {
+      icon: Video,
+      color: "text-brand",
+      bg: "bg-brand/10",
+      title: isEn ? "Zoom Meeting" : "Họp qua Zoom",
+      detail: isEn ? "Schedule a video call" : "Đặt lịch gọi video",
+      description: isEn
+        ? "Face-to-face consultation anywhere"
+        : "Tư vấn trực tiếp ở mọi nơi",
+      href: `mailto:${CONTACT.email}?subject=Zoom%20Meeting%20Request`,
+    },
+  ];
+}
+
+function getQuickLinks(isEn: boolean) {
+  return [
+    {
+      href: "/services",
+      label: isEn ? "Our Services" : "Dịch vụ của chúng tôi",
+      desc: isEn
+        ? "CMS, CRM, ERP, web development, UI/UX, and dedicated teams."
+        : "CMS, CRM, ERP, phát triển web, UI/UX và đội ngũ chuyên trách.",
+    },
+    {
+      href: "/process",
+      label: isEn ? "Our Process" : "Quy trình của chúng tôi",
+      desc: isEn
+        ? "How we deliver projects from discovery to deployment."
+        : "Cách chúng tôi thực hiện dự án từ khám phá đến triển khai.",
+    },
+    {
+      href: "/case-studies",
+      label: isEn ? "Case Studies" : "Dự án",
+      desc: isEn
+        ? "Real results from projects we have delivered."
+        : "Kết quả thực tế từ các dự án chúng tôi đã bàn giao.",
+    },
+    {
+      href: "/technologies",
+      label: isEn ? "Technologies" : "Công nghệ",
+      desc: isEn
+        ? "The tools and frameworks we work with."
+        : "Các công cụ và framework chúng tôi sử dụng.",
+    },
+  ];
+}
 
 export default async function ContactPage({
   params,
@@ -102,6 +232,11 @@ export default async function ContactPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const c = getChrome(locale);
+  const isEn = locale === "en";
+  const whatToExpectItems = getWhatToExpectItems(isEn);
+  const communicationChannels = getCommunicationChannels(isEn);
+  const quickLinks = getQuickLinks(isEn);
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
       {/* Structured Data */}
@@ -125,24 +260,24 @@ export default async function ContactPage({
       <Container className="relative z-10">
         <BreadcrumbNav
           items={[
-            { label: "Home", href: "/" },
-            { label: "Contact" },
+            { label: c.breadcrumbHome, href: "/" },
+            { label: c.breadcrumbContact },
           ]}
         />
 
         <div className="page-hero-enter">
-          <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3 text-center">Contact</p>
+          <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3 text-center">{c.heroEyebrow}</p>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground text-balance text-center mx-auto">
-            Get In Touch
+            {c.heroTitle}
           </h1>
           <p className="mt-4 text-lg text-foreground-secondary leading-relaxed max-w-3xl text-center mx-auto">
-            Have a project in mind? We&apos;d love to hear about it. Fill out the form below and our team will get back to you within one business day.
+            {c.heroLead}
           </p>
         </div>
 
         {/* What to Expect */}
         <AnimatedSection variant="slideUp" delay={0.05}>
-          <h2 className="text-base font-semibold text-foreground mb-5">What to Expect</h2>
+          <h2 className="text-base font-semibold text-foreground mb-5">{c.expectTitle}</h2>
         </AnimatedSection>
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 md:mb-14">
           {whatToExpectItems.map(({ step, icon: Icon, color, bg, title, description }) => (
@@ -170,15 +305,15 @@ export default async function ContactPage({
         {/* Project Estimator */}
         <AnimatedSection variant="slideUp" delay={0.1} className="mb-12 md:mb-14">
           <SectionHeader
-            label="Estimator"
-            title="Estimate Your Project"
-            description="Get a quick ballpark estimate based on your project type, scope, and team size."
+            label={c.estimatorLabel}
+            title={c.estimatorTitle}
+            description={c.estimatorDescription}
           />
           <ProjectEstimator />
         </AnimatedSection>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-10">
-          {/* Form — takes 3 of 5 columns */}
+          {/* Form — takes 3 of 5 Columns */}
           <AnimatedSection
             variant="slideRight"
             delay={0.1}
@@ -198,12 +333,12 @@ export default async function ContactPage({
 
               <Card hover={false} padding="lg" className="relative bg-card-bg backdrop-blur-sm border-card-border">
                 <h2 className="text-lg font-semibold text-foreground mb-6">
-                  Send Us a Message
+                  {c.sendMessageTitle}
                 </h2>
                 {/* Accessible container for form/success state transitions */}
                 <div
                   role="region"
-                  aria-label="Contact form"
+                  aria-label={c.contactFormAria}
                   aria-live="polite"
                 >
                   <ContactForm />
@@ -212,7 +347,7 @@ export default async function ContactPage({
             </div>
           </AnimatedSection>
 
-          {/* Info sidebar — takes 2 of 5 columns */}
+          {/* Info sidebar — takes 2 of 5 Columns */}
           <AnimatedSection
             variant="slideLeft"
             delay={0.15}
@@ -222,14 +357,14 @@ export default async function ContactPage({
             <div className="relative h-44 rounded-2xl overflow-hidden">
               <Image
                 src="/images/stock/team-meeting.webp"
-                alt="Retech Solutions team ready to discuss your project"
+                alt={c.teamAlt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover transition-transform duration-700 hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               <p className="absolute bottom-3 left-4 text-sm font-medium text-white">
-                Let&apos;s build something together
+                {c.teamCaption}
               </p>
             </div>
 
@@ -244,29 +379,29 @@ export default async function ContactPage({
                 iconColor="text-brand"
                 label="Email"
                 value={CONTACT.email}
-                description="For project inquiries and partnerships"
+                description={c.infoEmailDesc}
                 action={{ type: "copy" }}
               />
               <ContactInfoCard
                 iconName="phone"
                 iconBg="bg-accent-cyan/10"
                 iconColor="text-accent-cyan"
-                label="Email"
+                label={c.infoResponseLabel}
                 value={CONTACT.email}
-                description="Replies within one business day"
-                action={{ type: "link", href: CONTACT.emailHref, label: "Email us" }}
+                description={c.infoResponseDesc}
+                action={{ type: "link", href: CONTACT.emailHref, label: c.infoEmailAction }}
               />
               <ContactInfoCard
                 iconName="mapPin"
                 iconBg="bg-accent-violet/10"
                 iconColor="text-accent-violet"
-                label="Address"
+                label={c.addressLabel}
                 value={CONTACT.address}
-                description="Vo Thi Sau Ward, Ho Chi Minh City"
+                description={c.addressDesc}
                 action={{
                   type: "map",
                   href: CONTACT.mapUrl,
-                  label: "Open in Google Maps",
+                  label: c.mapsAction,
                 }}
               />
             </div>
@@ -276,11 +411,10 @@ export default async function ContactPage({
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand/10 rounded-full blur-3xl" aria-hidden="true" />
               <div className="relative">
                 <h3 className="text-base font-semibold mb-2">
-                  Quick Response Guaranteed
+                  {c.quickTitle}
                 </h3>
                 <p className="text-sm text-white/60 mb-4">
-                  We respond to all inquiries within one business day. Email
-                  is the fastest channel — we monitor it throughout the day.
+                  {c.quickBody}
                 </p>
                 <Button
                   variant="secondary"
@@ -288,7 +422,7 @@ export default async function ContactPage({
                   size="sm"
                 >
                   <Mail size={14} />
-                  Email Us
+                  {c.quickButton}
                 </Button>
               </div>
             </Card>
@@ -298,9 +432,9 @@ export default async function ContactPage({
         {/* Other Ways to Connect */}
         <AnimatedSection variant="slideUp" delay={0.1} className="mt-16 md:mt-20">
           <SectionHeader
-            label="Connect"
-            title="Other Ways to Connect"
-            description="Prefer a different channel? Reach out however works best for you."
+            label={c.connectLabel}
+            title={c.connectTitle}
+            description={c.connectDescription}
           />
         </AnimatedSection>
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
@@ -333,18 +467,13 @@ export default async function ContactPage({
         {/* Quick Links: Services & Process */}
         <AnimatedSection variant="slideUp" delay={0.1} className="mt-16 md:mt-20">
           <SectionHeader
-            label="Explore"
-            title="Learn More Before You Reach Out"
-            description="Want to understand our capabilities or process before your first consultation?"
+            label={c.exploreLabel}
+            title={c.exploreTitle}
+            description={c.exploreDescription}
           />
         </AnimatedSection>
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { href: "/services", label: "Our Services", desc: "CMS, CRM, ERP, web development, UI/UX, and dedicated teams." },
-            { href: "/process", label: "Our Process", desc: "How we deliver projects from discovery to deployment." },
-            { href: "/case-studies", label: "Case Studies", desc: "Real results from projects we have delivered." },
-            { href: "/technologies", label: "Technologies", desc: "The tools and frameworks we work with." },
-          ].map((link) => (
+          {quickLinks.map((link) => (
             <StaggerItem key={link.href}>
               <Link
                 href={link.href}
@@ -357,7 +486,7 @@ export default async function ContactPage({
                   {link.desc}
                 </p>
                 <span className="inline-flex items-center gap-1 text-xs font-medium text-brand mt-auto">
-                  Learn more <ArrowRight size={12} className="transition-transform duration-300 group-hover:translate-x-0.5" />
+                  {c.learnMore} <ArrowRight size={12} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                 </span>
               </Link>
             </StaggerItem>

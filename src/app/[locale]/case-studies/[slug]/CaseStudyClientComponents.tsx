@@ -22,6 +22,7 @@ interface HeroParallaxSectionProps {
   title: string;
   tagline: string;
   description: string;
+  locale: string;
 }
 
 export function HeroParallaxSection({
@@ -29,7 +30,9 @@ export function HeroParallaxSection({
   title,
   tagline,
   description,
+  locale,
 }: HeroParallaxSectionProps) {
+  const isEn = locale === "en";
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -84,8 +87,8 @@ export function HeroParallaxSection({
           <AnimatedSection>
             <BreadcrumbNav
               items={[
-                { label: "Home", href: "/" },
-                { label: "Case Studies", href: "/case-studies" },
+                { label: isEn ? "Home" : "Trang chủ", href: "/" },
+                { label: isEn ? "Case Studies" : "Dự án", href: "/case-studies" },
                 { label: title },
               ]}
             />

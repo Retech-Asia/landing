@@ -9,7 +9,6 @@ import {
   ArrowRight,
   ArrowLeft,
   Paperclip,
-  LayoutList,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import {
@@ -19,6 +18,7 @@ import {
 } from "@/components/ui/FormField";
 import { cn } from "@/lib/cn";
 import { CONTACT } from "@/lib/constants";
+import { useLocale } from "next-intl";
 
 const SERVICES = [
   "Custom Software Development",
@@ -29,10 +29,136 @@ const SERVICES = [
   "Mobile App Development",
 ];
 
+const SERVICE_VI: Record<string, string> = {
+  "Custom Software Development": "Phát triển Phần mềm Theo yêu cầu",
+  "CMS Development": "Phát triển CMS",
+  "CRM Development": "Phát triển CRM",
+  "ERP Solutions": "Giải pháp ERP",
+  "AI-Powered Solutions": "Giải pháp Tích hợp AI",
+  "Mobile App Development": "Phát triển Ứng dụng Di động",
+};
+
 const MESSAGE_MAX_LENGTH = 2000;
 const MESSAGE_MIN_LENGTH = 20;
 
 const TOTAL_STEPS = 3;
+
+/* ── Inline locale dictionaries (EN | VI) ──────────────────── */
+
+const VALIDATION = {
+  en: {
+    nameRequired: "Name is required.",
+    nameMin: (n: number) => `Name must be at least ${n} characters.`,
+    emailRequired: "Email is required.",
+    emailInvalid: "Please enter a valid email address.",
+    phoneInvalid: "Enter a valid phone number (7-15 digits).",
+    serviceRequired: "Please select a service.",
+    messageRequired: "Message is required.",
+    messageMin: (n: number) => `Message must be at least ${n} characters.`,
+  },
+  vi: {
+    nameRequired: "Vui lòng nhập họ và tên.",
+    nameMin: (n: number) => `Họ và tên phải có ít nhất ${n} ký tự.`,
+    emailRequired: "Vui lòng nhập email.",
+    emailInvalid: "Vui lòng nhập email hợp lệ.",
+    phoneInvalid: "Vui lòng nhập số điện thoại hợp lệ (7-15 chữ số).",
+    serviceRequired: "Vui lòng chọn dịch vụ.",
+    messageRequired: "Vui lòng nhập nội dung.",
+    messageMin: (n: number) => `Nội dung phải có ít nhất ${n} ký tự.`,
+  },
+};
+
+type ValidationStrings = typeof VALIDATION.en;
+
+function validationFor(locale: string): ValidationStrings {
+  return locale === "vi" ? VALIDATION.vi : VALIDATION.en;
+}
+
+const STRINGS = {
+  en: {
+    stepOf: (n: number, t: number) => `Step ${n} of ${t}`,
+    stepLabels: ["Project Type", "Details", "Contact Info"],
+    requiredCompleted: (c: number, t: number) =>
+      `${c} of ${t} required fields completed`,
+    successTitle: "Opening your email client",
+    successBody:
+      "Your email client should open with a pre-filled message. If it didn't open, you can email us directly at",
+    sendAnother: "Send another message",
+    serviceInterest: "Service Interest",
+    selectService: "Select a service",
+    company: "Company",
+    companyPh: "Your company name (optional)",
+    message: "Message",
+    messagePh: "Tell us about your project... (minimum 20 characters)",
+    nameLabel: "Name",
+    namePh: "Your name",
+    email: "Email",
+    phone: "Phone",
+    phonePh: "+84 123 456 789 (optional)",
+    fileHintA: "Need to share reference files or documents?",
+    fileHintB: "Send them via email after submission",
+    fileHintC: "and we'll review everything together.",
+    fileHintShort: "Share files via email after submission",
+    fixBeforeContinuing: "Please fix the highlighted fields before continuing.",
+    fixBeforeSubmitting: "Please fix the highlighted fields before submitting.",
+    back: "Back",
+    nextStep: "Next Step",
+    showAllFields: "Show all fields",
+    stepByStepForm: "Step-by-step form",
+    sending: "Sending…",
+    sendMessage: "Send Message",
+    submitFailed:
+      "Something went wrong sending your message. Please try again or email us directly.",
+    networkError:
+      "Network error. Please check your connection and try again, or email us directly.",
+    serviceLabel: (service: string) => service,
+  },
+  vi: {
+    stepOf: (n: number, t: number) => `Bước ${n}/${t}`,
+    stepLabels: ["Loại Dự án", "Chi tiết", "Thông tin Liên hệ"],
+    requiredCompleted: (c: number, t: number) =>
+      `Đã hoàn thành ${c}/${t} trường bắt buộc`,
+    successTitle: "Đang mở ứng dụng email của bạn",
+    successBody:
+      "Ứng dụng email của bạn sẽ mở với nội dung đã điền sẵn. Nếu không mở, bạn có thể gửi email trực tiếp cho chúng tôi tại",
+    sendAnother: "Gửi tin nhắn khác",
+    serviceInterest: "Dịch vụ Quan tâm",
+    selectService: "Chọn một dịch vụ",
+    company: "Công ty",
+    companyPh: "Tên công ty của bạn (không bắt buộc)",
+    message: "Nội dung",
+    messagePh: "Hãy cho chúng tôi biết về dự án của bạn... (tối thiểu 20 ký tự)",
+    nameLabel: "Họ và tên",
+    namePh: "Tên của bạn",
+    email: "Email",
+    phone: "Số điện thoại",
+    phonePh: "+84 123 456 789 (không bắt buộc)",
+    fileHintA: "Cần chia sẻ tài liệu hoặc tệp tham khảo?",
+    fileHintB: "Hãy gửi qua email sau khi gửi biểu mẫu",
+    fileHintC: "và chúng tôi sẽ cùng xem xét.",
+    fileHintShort: "Chia sẻ tệp qua email sau khi gửi",
+    fixBeforeContinuing:
+      "Vui lòng sửa các trường được đánh dấu trước khi tiếp tục.",
+    fixBeforeSubmitting: "Vui lòng sửa các trường được đánh dấu trước khi gửi.",
+    back: "Quay lại",
+    nextStep: "Bước tiếp theo",
+    showAllFields: "Hiện tất cả các trường",
+    stepByStepForm: "Biểu mẫu từng bước",
+    sending: "Đang gửi...",
+    sendMessage: "Gửi tin nhắn",
+    submitFailed:
+      "Đã xảy ra lỗi khi gửi tin nhắn của bạn. Vui lòng thử lại hoặc gửi email trực tiếp cho chúng tôi.",
+    networkError:
+      "Lỗi kết nối mạng. Vui lòng kiểm tra kết nối và thử lại, hoặc gửi email trực tiếp cho chúng tôi.",
+    serviceLabel: (service: string) => SERVICE_VI[service] ?? service,
+  },
+};
+
+type FormStrings = typeof STRINGS.en;
+
+function stringsFor(locale: string): FormStrings {
+  return locale === "vi" ? STRINGS.vi : STRINGS.en;
+}
 
 interface FormData {
   name: string;
@@ -64,32 +190,32 @@ interface Touched {
 
 function validateField(
   field: keyof FormData,
-  value: string
+  value: string,
+  locale = "en"
 ): string | undefined {
+  const m = validationFor(locale);
   switch (field) {
     case "name":
-      if (!value.trim()) return "Name is required.";
-      if (value.trim().length < 2)
-        return "Name must be at least 2 characters.";
+      if (!value.trim()) return m.nameRequired;
+      if (value.trim().length < 2) return m.nameMin(2);
       return undefined;
     case "email":
-      if (!value.trim()) return "Email is required.";
+      if (!value.trim()) return m.emailRequired;
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
-        return "Please enter a valid email address.";
+        return m.emailInvalid;
       return undefined;
     case "phone":
       if (!value.trim()) return undefined;
       const digits = value.replace(/[\s\-\(\)\+\.]/g, "");
-      if (!/^\d{7,15}$/.test(digits))
-        return "Enter a valid phone number (7-15 digits).";
+      if (!/^\d{7,15}$/.test(digits)) return m.phoneInvalid;
       return undefined;
     case "service":
-      if (!value) return "Please select a service.";
+      if (!value) return m.serviceRequired;
       return undefined;
     case "message":
-      if (!value.trim()) return "Message is required.";
+      if (!value.trim()) return m.messageRequired;
       if (value.trim().length < MESSAGE_MIN_LENGTH)
-        return `Message must be at least ${MESSAGE_MIN_LENGTH} characters.`;
+        return m.messageMin(MESSAGE_MIN_LENGTH);
       return undefined;
     default:
       return undefined;
@@ -98,20 +224,22 @@ function validateField(
 
 function validateFields(
   fields: (keyof FormErrors)[],
-  data: FormData
+  data: FormData,
+  locale = "en"
 ): FormErrors {
   const errors: FormErrors = {};
   for (const f of fields) {
-    const err = validateField(f, data[f]);
+    const err = validateField(f, data[f], locale);
     if (err) errors[f] = err;
   }
   return errors;
 }
 
-function validateAll(data: FormData): FormErrors {
+function validateAll(data: FormData, locale = "en"): FormErrors {
   return validateFields(
     ["name", "email", "phone", "service", "message"],
-    data
+    data,
+    locale
   );
 }
 
@@ -120,15 +248,17 @@ function validateAll(data: FormData): FormErrors {
 function StepProgress({
   currentStep,
   totalSteps,
+  stepLabel,
 }: {
   currentStep: number;
   totalSteps: number;
+  stepLabel: string;
 }) {
   return (
     <div className="mb-6">
       <div className="flex items-center justify-between mb-2">
         <span className="text-xs font-medium text-foreground-secondary">
-          Step {currentStep} of {totalSteps}
+          {stepLabel}
         </span>
         <div className="flex items-center gap-1">
           {Array.from({ length: totalSteps }).map((_, i) => (
@@ -168,21 +298,21 @@ function StepProgress({
 
 /* ── Step labels ────────────────────────────────────────────── */
 
-const STEP_LABELS = [
-  { label: "Project Type", icon: LayoutList },
-  { label: "Details", icon: Paperclip },
-  { label: "Contact Info", icon: Send },
-];
-
-function StepLabels({ currentStep }: { currentStep: number }) {
+function StepLabels({
+  currentStep,
+  labels,
+}: {
+  currentStep: number;
+  labels: string[];
+}) {
   return (
     <div className="flex items-center justify-between mb-6">
-      {STEP_LABELS.map((step, i) => {
+      {labels.map((label, i) => {
         const isActive = i + 1 === currentStep;
         const isCompleted = i + 1 < currentStep;
         return (
           <div
-            key={step.label}
+            key={label}
             className={cn(
               "flex items-center gap-2 transition-colors duration-300",
               isActive
@@ -214,9 +344,9 @@ function StepLabels({ currentStep }: { currentStep: number }) {
                 isActive && "text-foreground"
               )}
             >
-              {step.label}
+              {label}
             </span>
-            {i < STEP_LABELS.length - 1 && (
+            {i < labels.length - 1 && (
               <div
                 className={cn(
                   "hidden sm:block w-8 lg:w-16 h-px mx-1",
@@ -250,7 +380,13 @@ const slideVariants = {
 
 /* ── Success state ──────────────────────────────────────────── */
 
-function SuccessState({ onReset }: { onReset: () => void }) {
+function SuccessState({
+  onReset,
+  t,
+}: {
+  onReset: () => void;
+  t: FormStrings;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -270,11 +406,10 @@ function SuccessState({ onReset }: { onReset: () => void }) {
         />
       </motion.div>
       <h3 className="text-lg font-semibold text-foreground mb-2">
-        Opening your email client
+        {t.successTitle}
       </h3>
       <p className="text-sm text-foreground-secondary mb-4">
-        Your email client should open with a pre-filled message. If it
-        didn&apos;t open, you can email us directly at{" "}
+        {t.successBody}{" "}
         <a
           href={CONTACT.emailHref}
           className="text-brand hover:underline font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-sm"
@@ -287,7 +422,7 @@ function SuccessState({ onReset }: { onReset: () => void }) {
         onClick={onReset}
         className="text-sm font-medium text-brand hover:text-brand-dark transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-sm px-1"
       >
-        Send another message
+        {t.sendAnother}
       </button>
     </motion.div>
   );
@@ -295,7 +430,15 @@ function SuccessState({ onReset }: { onReset: () => void }) {
 
 /* ── Single-page progress indicator (fallback mode) ─────────── */
 
-function FormProgress({ formData }: { formData: FormData }) {
+function FormProgress({
+  formData,
+  locale,
+  t,
+}: {
+  formData: FormData;
+  locale: string;
+  t: FormStrings;
+}) {
   const requiredFields: (keyof FormErrors)[] = [
     "name",
     "email",
@@ -305,7 +448,7 @@ function FormProgress({ formData }: { formData: FormData }) {
   const completed = requiredFields.filter((f) => {
     const val = formData[f];
     if (!val) return false;
-    return !validateField(f, val);
+    return !validateField(f, val, locale);
   }).length;
   const total = requiredFields.length;
   const pct = (completed / total) * 100;
@@ -314,7 +457,7 @@ function FormProgress({ formData }: { formData: FormData }) {
     <div className="mb-6">
       <div className="flex items-center justify-between mb-2">
         <span className="text-xs font-medium text-foreground-secondary">
-          {completed} of {total} required fields completed
+          {t.requiredCompleted(completed, total)}
         </span>
         <span className="text-xs font-medium text-foreground-muted">
           {Math.round(pct)}%
@@ -335,6 +478,8 @@ function FormProgress({ formData }: { formData: FormData }) {
 /* ── Main form ──────────────────────────────────────────────── */
 
 export function ContactForm() {
+  const locale = useLocale();
+  const t = stringsFor(locale);
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -364,7 +509,8 @@ export function ContactForm() {
         if (touched[key]) {
           const err = validateField(
             key as keyof FormData,
-            formData[key as keyof FormData]
+            formData[key as keyof FormData],
+            locale
           );
           if (err) newErrors[key as keyof FormErrors] = err;
         }
@@ -390,7 +536,7 @@ export function ContactForm() {
     }, 300);
 
     return () => clearTimeout(timer);
-  }, [formData, touched]);
+  }, [formData, touched, locale]);
 
   /* Focus first element on step change */
   useEffect(() => {
@@ -433,7 +579,7 @@ export function ContactForm() {
       }
       setTouched(newTouched);
 
-      const stepErrors = validateFields(fieldsToValidate, formData);
+      const stepErrors = validateFields(fieldsToValidate, formData, locale);
       setErrors((prev) => {
         const merged = { ...prev };
         for (const k of fieldsToValidate) {
@@ -448,10 +594,10 @@ export function ContactForm() {
 
       return Object.keys(stepErrors).length === 0;
     },
-    [formData, touched]
+    [formData, touched, locale]
   );
 
-  const goNext = useCallback(() => {
+  const goNext = () => {
     if (!validateStep(currentStep)) {
       setShakeSubmit(true);
       setTimeout(() => setShakeSubmit(false), 600);
@@ -459,12 +605,12 @@ export function ContactForm() {
     }
     setDirection(1);
     setCurrentStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
-  }, [currentStep, validateStep]);
+  };
 
-  const goBack = useCallback(() => {
+  const goBack = () => {
     setDirection(-1);
     setCurrentStep((prev) => Math.max(prev - 1, 1));
-  }, []);
+  };
 
   /* ── Final submit ───────────────────────────────────────── */
 
@@ -489,7 +635,7 @@ export function ContactForm() {
         message: true,
       });
 
-      const validationErrors = validateAll(formData);
+      const validationErrors = validateAll(formData, locale);
       setErrors(validationErrors);
 
       if (Object.keys(validationErrors).length > 0) {
@@ -520,8 +666,7 @@ export function ContactForm() {
       const data = await response.json();
       if (!response.ok || !data.ok) {
         const message =
-          (typeof data.error === "string" && data.error) ||
-          "Something went wrong sending your message. Please try again or email us directly.";
+          (typeof data.error === "string" && data.error) || t.submitFailed;
         setSubmitError(message);
         setShakeSubmit(true);
         setTimeout(() => setShakeSubmit(false), 600);
@@ -529,9 +674,7 @@ export function ContactForm() {
       }
       setSubmitted(true);
     } catch {
-      setSubmitError(
-        "Network error. Please check your connection and try again, or email us directly.",
-      );
+      setSubmitError(t.networkError);
       setShakeSubmit(true);
       setTimeout(() => setShakeSubmit(false), 600);
     } finally {
@@ -556,7 +699,7 @@ export function ContactForm() {
   };
 
   if (submitted) {
-    return <SuccessState onReset={handleReset} />;
+    return <SuccessState onReset={handleReset} t={t} />;
   }
 
   const hasErrors = Object.keys(errors).length > 0;
@@ -578,8 +721,12 @@ export function ContactForm() {
              previous inline style. */
           className="absolute -left-[9999px] h-px w-px opacity-0"
         />
-        <StepLabels currentStep={currentStep} />
-        <StepProgress currentStep={currentStep} totalSteps={TOTAL_STEPS} />
+        <StepLabels currentStep={currentStep} labels={t.stepLabels} />
+        <StepProgress
+          currentStep={currentStep}
+          totalSteps={TOTAL_STEPS}
+          stepLabel={t.stepOf(currentStep, TOTAL_STEPS)}
+        />
 
         <div ref={stepContainerRef} className="relative overflow-hidden">
           <AnimatePresence mode="wait" custom={direction}>
@@ -596,7 +743,7 @@ export function ContactForm() {
               >
                 <div className="space-y-5">
                   <FormFieldSelect
-                    label="Service Interest"
+                    label={t.serviceInterest}
                     name="service"
                     required
                     value={formData.service}
@@ -604,18 +751,21 @@ export function ContactForm() {
                     onBlur={() => handleBlur("service")}
                     error={errors.service}
                     touched={touched.service}
-                    placeholder="Select a service"
+                    placeholder={t.selectService}
                     options={[
-                      { value: "", label: "Select a service" },
-                      ...SERVICES.map((service) => ({ value: service, label: service })),
+                      { value: "", label: t.selectService },
+                      ...SERVICES.map((service) => ({
+                        value: service,
+                        label: t.serviceLabel(service),
+                      })),
                     ]}
                   />
 
                   <FormField
-                    label="Company"
+                    label={t.company}
                     name="company"
                     type="text"
-                    placeholder="Your company name (optional)"
+                    placeholder={t.companyPh}
                     value={formData.company}
                     onChange={(e) => handleChange("company", e.target.value)}
                     onBlur={() => handleBlur("company")}
@@ -639,10 +789,10 @@ export function ContactForm() {
                 <div className="space-y-5">
                   <div>
                     <FormFieldTextarea
-                      label="Message"
+                      label={t.message}
                       name="message"
                       rows={5}
-                      placeholder="Tell us about your project... (minimum 20 characters)"
+                      placeholder={t.messagePh}
                       required
                       maxLength={MESSAGE_MAX_LENGTH}
                       value={formData.message}
@@ -674,11 +824,11 @@ export function ContactForm() {
                       aria-hidden="true"
                     />
                     <p className="text-xs text-foreground-secondary leading-relaxed">
-                      Need to share reference files or documents?{" "}
+                      {t.fileHintA}{" "}
                       <span className="font-medium text-foreground">
-                        Send them via email after submission
+                        {t.fileHintB}
                       </span>{" "}
-                      and we&apos;ll review everything together.
+                      {t.fileHintC}
                     </p>
                   </div>
                 </div>
@@ -699,10 +849,10 @@ export function ContactForm() {
                 <div className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <FormField
-                      label="Name"
+                      label={t.nameLabel}
                       name="name"
                       type="text"
-                      placeholder="Your name"
+                      placeholder={t.namePh}
                       required
                       value={formData.name}
                       onChange={(e) => handleChange("name", e.target.value)}
@@ -712,7 +862,7 @@ export function ContactForm() {
                     />
 
                     <FormField
-                      label="Email"
+                      label={t.email}
                       name="email"
                       type="email"
                       placeholder="you@company.com"
@@ -726,10 +876,10 @@ export function ContactForm() {
                   </div>
 
                   <FormField
-                    label="Phone"
+                    label={t.phone}
                     name="phone"
                     type="tel"
-                    placeholder="+84 123 456 789 (optional)"
+                    placeholder={t.phonePh}
                     value={formData.phone}
                     onChange={(e) => handleChange("phone", e.target.value)}
                     onBlur={() => handleBlur("phone")}
@@ -753,9 +903,7 @@ export function ContactForm() {
               className="flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 mt-4"
             >
               <AlertCircle size={16} className="text-red-500 shrink-0" />
-              <p className="text-xs text-red-600">
-                Please fix the highlighted fields before continuing.
-              </p>
+              <p className="text-xs text-red-600">{t.fixBeforeContinuing}</p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -770,7 +918,7 @@ export function ContactForm() {
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground-secondary hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-lg px-3 py-2 cursor-pointer"
               >
                 <ArrowLeft size={14} strokeWidth={2} />
-                Back
+                {t.back}
               </button>
             )}
           </div>
@@ -781,7 +929,7 @@ export function ContactForm() {
               onClick={() => setWizardMode(false)}
               className="text-xs text-foreground-muted hover:text-foreground-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded px-2 py-1 cursor-pointer"
             >
-              Show all fields
+              {t.showAllFields}
             </button>
 
             {currentStep < TOTAL_STEPS ? (
@@ -794,7 +942,7 @@ export function ContactForm() {
                 transition={{ duration: 0.5 }}
               >
                 <Button variant="primary" size="md" onClick={goNext}>
-                  Next Step
+                  {t.nextStep}
                   <ArrowRight size={14} />
                 </Button>
               </motion.div>
@@ -808,7 +956,7 @@ export function ContactForm() {
                 transition={{ duration: 0.5 }}
               >
                 <Button variant="primary" size="md" type="submit" disabled={submitting}>
-                  {submitting ? "Sending…" : "Send Message"}
+                  {submitting ? t.sending : t.sendMessage}
                   {!submitting && <Send size={14} />}
                 </Button>
               </motion.div>
@@ -842,7 +990,7 @@ export function ContactForm() {
         className="absolute -left-[9999px] h-px w-px opacity-0"
       />
       <div className="flex items-center justify-between mb-2">
-        <FormProgress formData={formData} />
+        <FormProgress formData={formData} locale={locale} t={t} />
         <button
           type="button"
           onClick={() => {
@@ -851,16 +999,16 @@ export function ContactForm() {
           }}
           className="text-xs text-foreground-muted hover:text-foreground-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded px-2 py-1 cursor-pointer"
         >
-          Step-by-step form
+          {t.stepByStepForm}
         </button>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <FormField
-          label="Name"
+          label={t.nameLabel}
           name="name"
           type="text"
-          placeholder="Your name"
+          placeholder={t.namePh}
           required
           value={formData.name}
           onChange={(e) => handleChange("name", e.target.value)}
@@ -870,7 +1018,7 @@ export function ContactForm() {
         />
 
         <FormField
-          label="Email"
+          label={t.email}
           name="email"
           type="email"
           placeholder="you@company.com"
@@ -885,10 +1033,10 @@ export function ContactForm() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <FormField
-          label="Phone"
+          label={t.phone}
           name="phone"
           type="tel"
-          placeholder="+84 123 456 789 (optional)"
+          placeholder={t.phonePh}
           value={formData.phone}
           onChange={(e) => handleChange("phone", e.target.value)}
           onBlur={() => handleBlur("phone")}
@@ -897,10 +1045,10 @@ export function ContactForm() {
         />
 
         <FormField
-          label="Company"
+          label={t.company}
           name="company"
           type="text"
-          placeholder="Your company name (optional)"
+          placeholder={t.companyPh}
           value={formData.company}
           onChange={(e) => handleChange("company", e.target.value)}
           onBlur={() => handleBlur("company")}
@@ -910,7 +1058,7 @@ export function ContactForm() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <FormFieldSelect
-          label="Service Interest"
+          label={t.serviceInterest}
           name="service"
           required
           value={formData.service}
@@ -918,20 +1066,23 @@ export function ContactForm() {
           onBlur={() => handleBlur("service")}
           error={errors.service}
           touched={touched.service}
-          placeholder="Select a service"
+          placeholder={t.selectService}
           options={[
-            { value: "", label: "Select a service" },
-            ...SERVICES.map((service) => ({ value: service, label: service })),
+            { value: "", label: t.selectService },
+            ...SERVICES.map((service) => ({
+              value: service,
+              label: t.serviceLabel(service),
+            })),
           ]}
         />
       </div>
 
       <div>
         <FormFieldTextarea
-          label="Message"
+          label={t.message}
           name="message"
           rows={5}
-          placeholder="Tell us about your project... (minimum 20 characters)"
+          placeholder={t.messagePh}
           required
           maxLength={MESSAGE_MAX_LENGTH}
           value={formData.message}
@@ -950,7 +1101,7 @@ export function ContactForm() {
               aria-hidden="true"
             />
             <p className="text-[11px] text-foreground-muted leading-relaxed">
-              Share files via email after submission
+              {t.fileHintShort}
             </p>
           </div>
           <span
@@ -977,9 +1128,7 @@ export function ContactForm() {
             className="flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-2.5"
           >
             <AlertCircle size={16} className="text-red-500 shrink-0" />
-            <p className="text-xs text-red-600">
-              Please fix the highlighted fields before submitting.
-            </p>
+            <p className="text-xs text-red-600">{t.fixBeforeSubmitting}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -995,7 +1144,7 @@ export function ContactForm() {
         transition={{ duration: 0.5 }}
       >
         <Button variant="primary" size="lg" className="w-full sm:w-auto" disabled={submitting}>
-          {submitting ? "Sending…" : "Send Message"}
+          {submitting ? t.sending : t.sendMessage}
           {!submitting && <Send size={16} />}
         </Button>
       </motion.div>

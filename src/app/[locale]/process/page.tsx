@@ -49,7 +49,7 @@ export async function generateMetadata({
 // toolCategories, faqData) stay English-only — long-form prose that
 // would take a focused translation pass. Chrome is the high-visibility
 // surface that matters for SEO + first impression.
-function useChrome(locale: string) {
+function getChrome(locale: string) {
   const isEn = locale === "en";
   return isEn
     ? {
@@ -290,7 +290,7 @@ export default async function ProcessPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const chrome = useChrome(locale);
+  const chrome = getChrome(locale);
   return (
     <>
       {/* Structured Data */}

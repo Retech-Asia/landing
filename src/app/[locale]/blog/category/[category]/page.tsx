@@ -17,8 +17,28 @@ import {
 } from "@/lib/blog-data";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import { setRequestLocale } from "next-intl/server";
-import { routing } from "@/i18n/routing";
+import { routing, type Locale } from "@/i18n/routing";
+import { getBlogMeta } from "@/lib/blog-i18n";
 import { CategoryBlogListing } from "./CategoryBlogListing";
+
+// VI names/descriptions for the three canonical blog categories.
+const CATEGORY_VI: Record<string, { name: string; description: string }> = {
+  technology: {
+    name: "Công nghệ",
+    description:
+      "Phân tích chuyên sâu về web framework hiện đại, xu hướng AI, kiến trúc cloud và các công cụ định hình phát triển phần mềm năm 2026.",
+  },
+  guides: {
+    name: "Hướng dẫn",
+    description:
+      "Hướng dẫn thực tế từng bước để chọn tech stack phù hợp, xây dựng đội offshore và ra quyết định phần mềm chiến lược.",
+  },
+  "industry-insights": {
+    name: "Insight Ngành",
+    description:
+      "Phân tích thị trường, xu hướng outsourcing và góc nhìn chiến lược về phát triển IT tại Việt Nam và Đông Nam Á.",
+  },
+};
 
 interface CategoryPageProps {
   params: Promise<{ locale: string; category: string }>;
@@ -35,16 +55,21 @@ export async function generateMetadata({
 }: CategoryPageProps): Promise<Metadata> {
   const { category: categorySlug, locale } = await params;
   const category = getCategoryBySlug(categorySlug);
+  const loc = locale as Locale;
+  const vi = loc === "vi" ? CATEGORY_VI[categorySlug] : undefined;
 
   if (!category) {
     return { title: "Category Not Found" };
   }
 
-  const title = `${category.name} Articles | Retech Solutions Blog`;
-  const description = category.description;
+  const catName = vi?.name ?? category.name;
+  const description = vi?.description ?? category.description;
+  const title = vi
+    ? `${catName} — Bài viết | Retech Solutions Blog`
+    : `${catName} Articles | Retech Solutions Blog`;
 
   return {
-    title: `${category.name} Blog`,
+    title: vi ? `${catName} — Blog` : `${category.name} Blog`,
     description,
     alternates: {
       canonical: `${SITE_URL}/${locale}/blog/category/${categorySlug}`,
@@ -67,30 +92,98 @@ export async function generateMetadata({
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category: categorySlug, locale } = await params;
   setRequestLocale(locale);
+  const loc = locale as Locale;
   const category = getCategoryBySlug(categorySlug);
 
   if (!category) {
     notFound();
   }
 
+  const isVi = loc === "vi";
+  const vi = isVi ? CATEGORY_VI[categorySlug] : undefined;
+  const catName = vi?.name ?? category.name;
+  const catDesc = vi?.description ?? category.description;
+  const chrome = isVi
+    ? {
+        home: "Trang chủ",
+        articles: "Bài viết",
+        backToAll: "Quay lại tất cả bài viết",
+        exploreOther: "Khám phá chủ đề khác",
+      }
+    : {
+        home: "Home",
+        articles: "Articles",
+        backToAll: "Back to all articles",
+        exploreOther: "Explore other topics",
+      };
+
   const categoryName = SLUG_TO_CATEGORY[categorySlug];
   const posts = getPostsByCategory(categoryName);
+
+  // Precompute locale-aware card data server-side — keeps the client
+  // listing component free of the blog-data/blog-i18n bundles.
+  const items = posts.map((p) => {
+    const m = getBlogMeta(p, loc);
+    return {
+      enSlug: p.slug,
+      slug: m.slug,
+      title: m.title,
+      excerpt: m.excerpt,
+      category: m.category,
+      date: p.date,
+      readTime: isVi ? p.readTime.replace("min read", "phút đọc") : p.readTime,
+    };
+  });
+
+  const strings = isVi
+    ? {
+        noPostsTitle: "Chưa có bài viết",
+        noPostsBody:
+          "Chưa có bài viết nào trong chủ đề này. Hãy quay lại sau hoặc khám phá các chủ đề khác.",
+        browseAll: "Xem tất cả bài viết",
+        showing: "Đang hiển thị",
+        of: "/",
+        articleSingular: "bài viết",
+        articlePlural: "bài viết",
+        readMore: "Đọc tiếp",
+        readMoreAria: "Đọc tiếp về",
+        loadMore: "Xem thêm bài viết",
+        dateLocale: "vi-VN",
+      }
+    : {
+        noPostsTitle: "No posts yet",
+        noPostsBody:
+          "There are no articles in this category yet. Check back soon or browse other topics.",
+        browseAll: "Browse all articles",
+        showing: "Showing",
+        of: "of",
+        articleSingular: "article",
+        articlePlural: "articles",
+        readMore: "Read more",
+        readMoreAria: "Read more about",
+        loadMore: "Load more articles",
+        dateLocale: "en-US",
+      };
 
   return (
     <>
       {/* Structured Data */}
       <WebPageJsonLd
-        title={`${category.name} Articles | Retech Solutions Blog`}
-        description={category.description}
+        title={
+          isVi
+            ? `${catName} — Bài viết | Retech Solutions Blog`
+            : `${catName} Articles | Retech Solutions Blog`
+        }
+        description={catDesc}
         url={`${SITE_URL}/${locale}/blog/category/${categorySlug}`}
         type="CollectionPage"
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: `${SITE_URL}/${locale}` },
+          { name: chrome.home, url: `${SITE_URL}/${locale}` },
           { name: "Blog", url: `${SITE_URL}/${locale}/blog` },
           {
-            name: category.name,
+            name: catName,
             url: `${SITE_URL}/${locale}/blog/category/${categorySlug}`,
           },
         ]}
@@ -110,22 +203,22 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <Container className="relative">
           <BreadcrumbNav
             items={[
-              { label: "Home", href: "/" },
+              { label: chrome.home, href: "/" },
               { label: "Blog", href: "/blog" },
-              { label: category.name },
+              { label: catName },
             ]}
           />
 
           <AnimatedSection variant="slideUp">
             <SectionHeader
-              label={category.name}
-              title={`${category.name} Articles`}
-              description={category.description}
+              label={catName}
+              title={isVi ? catName : `${catName} ${chrome.articles}`}
+              description={catDesc}
             />
           </AnimatedSection>
 
           <Suspense fallback={<BlogListSkeleton />}>
-            <CategoryBlogListing posts={posts} />
+            <CategoryBlogListing items={items} strings={strings} />
           </Suspense>
 
           {/* Back to all posts */}
@@ -136,7 +229,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 className="inline-flex items-center gap-2 text-sm font-medium text-brand hover:text-brand-dark transition-colors"
               >
                 <ArrowLeft size={14} />
-                Back to all articles
+                {chrome.backToAll}
               </Link>
             </div>
           </AnimatedSection>
@@ -149,14 +242,17 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           >
             <div className="text-center">
               <h3 className="text-sm font-medium tracking-widest uppercase text-brand mb-4">
-                Explore other topics
+                {chrome.exploreOther}
               </h3>
               <div className="flex flex-wrap items-center justify-center gap-3">
                 {[
                   { slug: "technology", name: "Technology" },
                   { slug: "guides", name: "Guides" },
                   { slug: "industry-insights", name: "Industry Insights" },
-                ]
+                ].map((cat) => ({
+                  ...cat,
+                  name: isVi ? CATEGORY_VI[cat.slug].name : cat.name,
+                }))
                   .filter((cat) => cat.slug !== categorySlug)
                   .map((cat) => (
                     <Link

@@ -18,6 +18,39 @@ import { buildPageMetadata } from "@/lib/page-metadata";
 import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 
+// Locale-aware chrome strings. Card content comes from the bilingual
+// case-studies data via flattenCaseStudy; only page chrome lives here.
+function getChrome(locale: string) {
+  const isEn = locale === "en";
+  return isEn
+    ? {
+        breadcrumbHome: "Home",
+        breadcrumbCurrent: "Case Studies",
+        heroTitle: "Case Studies",
+        heroLead:
+          "Real-world products solving real-world problems. Explore how Retech Solutions helps businesses transform their ideas into powerful digital solutions.",
+        readCaseStudy: "Read Case Study",
+        ctaTitle: "Ready to Build Something Great?",
+        ctaBody:
+          "Get a free project estimate within 24 hours. Our team will map out the right approach, timeline, and tech stack for your idea.",
+        ctaPrimary: "Get Your Free Estimate",
+        ctaSecondary: "Explore Services",
+      }
+    : {
+        breadcrumbHome: "Trang chủ",
+        breadcrumbCurrent: "Dự án",
+        heroTitle: "Dự án",
+        heroLead:
+          "Sản phẩm thực tế giải quyết vấn đề thực tế. Khám phá cách Retech Solutions giúp doanh nghiệp biến ý tưởng thành giải pháp số hiệu quả.",
+        readCaseStudy: "Đọc Dự án",
+        ctaTitle: "Sẵn sàng Xây dựng Sản phẩm Mới?",
+        ctaBody:
+          "Nhận báo giá dự án miễn phí trong vòng 24 giờ. Đội ngũ của chúng tôi sẽ đề xuất hướng tiếp cận, lộ trình và tech stack phù hợp với ý tưởng của bạn.",
+        ctaPrimary: "Nhận Báo giá Miễn phí",
+        ctaSecondary: "Khám phá Dịch vụ",
+      };
+}
+
 function CaseStudyImage({
   src,
   alt,
@@ -80,6 +113,7 @@ export default async function CaseStudiesPage({
   const { locale } = await params;
   const loc = locale as Locale;
   setRequestLocale(locale);
+  const chrome = getChrome(locale);
   const studies = caseStudies.map((cs) => flattenCaseStudy(cs, loc));
   return (
     <>
@@ -103,13 +137,13 @@ export default async function CaseStudiesPage({
         <div className="absolute inset-0 grid-pattern pointer-events-none opacity-40" aria-hidden="true" />
         <div className="absolute inset-0 dot-pattern pointer-events-none opacity-20" aria-hidden="true" />
         <Container className="relative z-10">
-          <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Case Studies" }]} />
+          <BreadcrumbNav items={[{ label: chrome.breadcrumbHome, href: "/" }, { label: chrome.breadcrumbCurrent }]} />
           <AnimatedSection>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground text-balance">
-              Case Studies
+              {chrome.heroTitle}
             </h1>
             <p className="mt-4 text-lg md:text-xl text-foreground-secondary max-w-3xl leading-relaxed">
-              Real-world products solving real-world problems. Explore how Retech Solutions helps businesses transform their ideas into powerful digital solutions.
+              {chrome.heroLead}
             </p>
           </AnimatedSection>
         </Container>
@@ -183,7 +217,7 @@ export default async function CaseStudiesPage({
                       href={`/case-studies/${study.slug}`}
                       className="inline-flex items-center gap-2 text-sm font-medium text-brand hover:gap-3 transition-all"
                     >
-                      Read Case Study <ArrowRight size={16} aria-hidden="true" />
+                      {chrome.readCaseStudy} <ArrowRight size={16} aria-hidden="true" />
                     </Link>
                   </div>
                 </div>
@@ -200,17 +234,17 @@ export default async function CaseStudiesPage({
           <AnimatedSection>
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Ready to Build Something Great?
+                {chrome.ctaTitle}
               </h2>
               <p className="text-lg text-foreground-secondary mb-8">
-                Get a free project estimate within 24 hours. Our team will map out the right approach, timeline, and tech stack for your idea.
+                {chrome.ctaBody}
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Button href="/contact" size="lg">
-                  Get Your Free Estimate
+                  {chrome.ctaPrimary}
                 </Button>
                 <Button href="/services" variant="secondary" size="lg">
-                  Explore Services
+                  {chrome.ctaSecondary}
                 </Button>
               </div>
             </div>
