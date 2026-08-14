@@ -18,10 +18,10 @@
  */
 
 const BLOG_IMAGES: Record<string, string> = {
-  // Vietnam market movers + 2026-08 buying-intent posts — branded covers
-  // generated via SVG→sharp→webp (dark navy + grid + brand glow, matching
-  // the premium background system). Regenerate with the /tmp script pattern
-  // in git history if titles change.
+  // Vietnam market movers + 2026-08 buying-intent posts — curated Pexels
+  // photography (chip macro for NVIDIA, night skyline for NAB, server rack
+  // for FPT/Viettel/VNG, USD bills for the rates guide, etc.), converted
+  // to 1200x630 WebP via sharp (fit: cover, attention crop).
   "vietnam-software-developer-rates-2026-complete-pricing-guide": "/images/blog/vietnam-software-developer-rates-2026-complete-pricing-guide.webp",
   "odoo-vs-sap-business-one-2026-honest-comparison": "/images/blog/odoo-vs-sap-business-one-2026-honest-comparison.webp",
   "ai-agents-small-business-workflows-2026-practical-guide": "/images/blog/ai-agents-small-business-workflows-2026-practical-guide.webp",
