@@ -126,6 +126,9 @@ export function generateMetadata({
     const raw = getCaseStudy(study.slug, loc);
     const enUrl = `${SITE_URL}/en/case-studies/${raw?.slug.en ?? study.slug}`;
     const viUrl = `${SITE_URL}/vi/case-studies/${raw?.slug.vi ?? study.slug}`;
+    // OG image routes live under /[locale]/... and are statically generated
+    // per locale — reference the current locale's variant so the URL resolves.
+    const ogImageUrl = `/${locale}/case-studies/${study.slug}/opengraph-image`;
 
     return {
       title: `${study.title} Case Study`,
@@ -151,7 +154,7 @@ export function generateMetadata({
         type: "article",
         images: [
           {
-            url: `/case-studies/${study.slug}/opengraph-image`,
+            url: ogImageUrl,
             width: 1200,
             height: 630,
             alt: `${study.title} Case Study - Retech Solutions`,
@@ -164,7 +167,7 @@ export function generateMetadata({
         description: study.description.length > 155
           ? study.description.slice(0, 152).replace(/\s+\S*$/, "") + "..."
           : study.description,
-        images: [`/case-studies/${study.slug}/opengraph-image`],
+        images: [ogImageUrl],
       },
     };
   });

@@ -159,24 +159,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
   });
 
   const blogPages: MetadataRoute.Sitemap = blogPosts.flatMap((post) => {
-    const viSlug = blogViMeta[post.slug]?.slug ?? post.slug;
     const enUrl = `${SITE_URL}/en/blog/${post.slug}`;
-    const viUrl = `${SITE_URL}/vi/blog/${viSlug}`;
+    const viMeta = blogViMeta[post.slug];
+    const viUrl = viMeta ? `${SITE_URL}/vi/blog/${viMeta.slug}` : null;
+    const lastModified = new Date(post.updatedAt ?? post.date);
+    // VI entry + hreflang only when a VI translation actually renders —
+    // falling back to the EN slug would advertise English content under a
+    // /vi URL (violates the bidirectional-hreflang policy above).
+    const languages = viUrl
+      ? { en: enUrl, vi: viUrl, "x-default": enUrl }
+      : { en: enUrl, "x-default": enUrl };
     return [
       {
         url: enUrl,
-        lastModified: new Date(post.date),
+        lastModified,
         changeFrequency: "monthly" as const,
         priority: 0.6,
-        alternates: { languages: { en: enUrl, vi: viUrl, "x-default": enUrl } },
+        alternates: { languages },
       },
-      {
-        url: viUrl,
-        lastModified: new Date(post.date),
-        changeFrequency: "monthly" as const,
-        priority: 0.6,
-        alternates: { languages: { en: enUrl, vi: viUrl, "x-default": enUrl } },
-      },
+      ...(viUrl
+        ? [
+            {
+              url: viUrl,
+              lastModified,
+              changeFrequency: "monthly" as const,
+              priority: 0.6,
+              alternates: { languages },
+            },
+          ]
+        : []),
     ];
   });
 

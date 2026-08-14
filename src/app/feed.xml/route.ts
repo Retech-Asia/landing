@@ -6,7 +6,7 @@ import { CONTACT, SITE_URL } from "@/lib/constants";
  * Next.js generates these via the opengraph-image route convention.
  */
 function ogImageUrl(slug: string): string {
-  return `${SITE_URL}/blog/${slug}/opengraph-image`;
+  return `${SITE_URL}/en/blog/${slug}/opengraph-image`;
 }
 
 /**
@@ -34,7 +34,7 @@ export async function GET() {
   const items = blogPosts
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .map((post) => {
-      const postUrl = `${SITE_URL}/blog/${post.slug}`;
+      const postUrl = `${SITE_URL}/en/blog/${post.slug}`;
       const imageUrl = ogImageUrl(post.slug);
 
       return `    <item>
@@ -57,7 +57,7 @@ export async function GET() {
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Retech Solutions Blog</title>
-    <link>${SITE_URL}</link>
+    <link>${SITE_URL}/en</link>
     <description>Insights on custom software development, CMS, CRM, ERP solutions, AI-powered digital products, and IT outsourcing from Retech Solutions in Vietnam.</description>
     <language>en</language>
     <copyright>Copyright ${new Date().getFullYear()} Retech Solutions Co., Ltd.</copyright>
@@ -69,7 +69,7 @@ export async function GET() {
     <image>
       <url>${SITE_URL}/images/og-image.png</url>
       <title>Retech Solutions Blog</title>
-      <link>${SITE_URL}</link>
+      <link>${SITE_URL}/en</link>
     </image>
 ${items}
   </channel>

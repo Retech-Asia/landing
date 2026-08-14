@@ -53,6 +53,9 @@ export function generateMetadata({
     const raw = getServiceBySlug(service.slug, loc);
     const enUrl = `${SITE_URL}/en/services/${raw?.slug.en ?? service.slug}`;
     const viUrl = `${SITE_URL}/vi/services/${raw?.slug.vi ?? service.slug}`;
+    // OG image routes live under /[locale]/... and are statically generated
+    // per locale — reference the current locale's variant so the URL resolves.
+    const ogImageUrl = `/${locale}/services/${service.slug}/opengraph-image`;
 
     return {
       title: service.title,
@@ -78,7 +81,7 @@ export function generateMetadata({
         type: "website",
         images: [
           {
-            url: `/services/${service.slug}/opengraph-image`,
+            url: ogImageUrl,
             width: 1200,
             height: 630,
             alt: `${service.title} - Retech Solutions`,
@@ -91,7 +94,7 @@ export function generateMetadata({
         description: service.description.length > 155
           ? service.description.slice(0, 152).replace(/\s+\S*$/, "") + "..."
           : service.description,
-        images: [`/services/${service.slug}/opengraph-image`],
+        images: [ogImageUrl],
       },
     };
   });

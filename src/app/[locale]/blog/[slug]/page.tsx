@@ -45,28 +45,32 @@ export function generateMetadata({
     }
 
     const meta = getBlogMeta(post, loc);
-    const pageUrl = `${SITE_URL}/${locale}/blog/${meta.slug}`;
     const enUrl = `${SITE_URL}/en/blog/${post.slug}`;
-    const viUrl = `${SITE_URL}/vi/blog/${blogViMeta[post.slug]?.slug ?? post.slug}`;
+    const viMeta = blogViMeta[post.slug];
+    const viUrl = viMeta ? `${SITE_URL}/vi/blog/${viMeta.slug}` : null;
+    // Untranslated posts render EN content under /vi on demand — canonicalize
+    // those to the EN URL and declare hreflang only where VI really renders.
+    const pageUrl =
+      loc === "vi" && !viMeta ? enUrl : `${SITE_URL}/${locale}/blog/${meta.slug}`;
+    // OG image routes live under /[locale]/... — use the statically generated
+    // /en variant (always 200; image title text is locale-independent here).
+    const ogImageUrl = `/en/blog/${post.slug}/opengraph-image`;
+    const description = meta.excerpt.length > 155
+      ? meta.excerpt.slice(0, 152).replace(/\s+\S*$/, "") + "..."
+      : meta.excerpt;
 
     return {
       title: `${meta.title} | Blog`,
-      description: meta.excerpt.length > 155
-        ? meta.excerpt.slice(0, 152).replace(/\s+\S*$/, "") + "..."
-        : meta.excerpt,
+      description,
       alternates: {
         canonical: pageUrl,
-        languages: {
-          en: enUrl,
-          vi: viUrl,
-          "x-default": enUrl,
-        },
+        languages: viUrl
+          ? { en: enUrl, vi: viUrl, "x-default": enUrl }
+          : { en: enUrl, "x-default": enUrl },
       },
       openGraph: {
         title: `${meta.title} | ${SITE_NAME} Blog`,
-        description: meta.excerpt.length > 155
-          ? meta.excerpt.slice(0, 152).replace(/\s+\S*$/, "") + "..."
-          : meta.excerpt,
+        description,
         url: pageUrl,
         type: "article",
         publishedTime: post.date,
@@ -75,7 +79,7 @@ export function generateMetadata({
         tags: [meta.category, "IT Outsourcing", "Software Development"],
         images: [
           {
-            url: `/blog/${post.slug}/opengraph-image`,
+            url: ogImageUrl,
             width: 1200,
             height: 630,
             alt: `${post.title} - Retech Solutions Blog`,
@@ -85,10 +89,8 @@ export function generateMetadata({
       twitter: {
         card: "summary_large_image",
         title: `${meta.title} | ${SITE_NAME} Blog`,
-        description: meta.excerpt.length > 155
-          ? meta.excerpt.slice(0, 152).replace(/\s+\S*$/, "") + "..."
-          : meta.excerpt,
-        images: [`/blog/${post.slug}/opengraph-image`],
+        description,
+        images: [ogImageUrl],
       },
     };
   });
@@ -118,7 +120,7 @@ export default async function BlogPostPage({
 
   const relatedPosts = getRelatedPosts(slug, 2);
 
-  const pageUrl = `${SITE_URL}/blog/${post.slug}`;
+  const pageUrl = `${SITE_URL}/${locale}/blog/${meta!.slug}`;
 
   // Build content with headings interleaved: first heading comes before the second paragraph,
   // subsequent headings appear before their corresponding paragraphs.
@@ -162,12 +164,12 @@ export default async function BlogPostPage({
         datePublished={post.date}
         dateModified={post.updatedAt ?? post.date}
         authorName={post.author}
-        imageUrl={`${SITE_URL}/blog/${post.slug}/opengraph-image`}
+        imageUrl={`${SITE_URL}/en/blog/${post.slug}/opengraph-image`}
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: SITE_URL },
-          { name: "Blog", url: `${SITE_URL}/blog` },
+          { name: "Home", url: `${SITE_URL}/${locale}` },
+          { name: "Blog", url: `${SITE_URL}/${locale}/blog` },
           { name: meta!.title, url: pageUrl },
         ]}
       />
