@@ -20,6 +20,36 @@ export interface BlogViMeta {
 }
 
 export const blogViMeta: Record<string, BlogViMeta> = {
+  "nab-innovation-centre-vietnam-global-bank-tech-hub": {
+    slug: "nab-innovation-centre-viet-nam-can-cu-cong-nghe-ngan-hang-toan-cau",
+    title: "NAB Innovation Centre Việt Nam: Ngân hàng Toàn cầu Đặt cược vào Nhân lực Bản địa",
+    excerpt: "Trung tâm công nghệ của National Australia Bank tại TP.HCM đã vượt 2.800 nhân sự từ năm 2019. Tín hiệu từ nước đi của NAB về nguồn kỹ sư Việt Nam — và cách doanh nghiệp vừa và nhỏ khai thác chính nguồn nhân lực đó.",
+    category: "Insight Ngành",
+  },
+  "nvidia-vietnam-expansion-ai-talent-pipeline": {
+    slug: "nvidia-mo-rong-tai-viet-nam-nguon-nhan-luc-ai",
+    title: "NVIDIA Mở rộng tại Việt Nam: Ý nghĩa với Nguồn nhân lực AI của Quốc gia",
+    excerpt: "Từ thương vụ mua lại VinBrain đến trung tâm R&D cùng chính phủ và nhà máy AI 200 triệu USD tại Hà Nội, NVIDIA đã chọn Việt Nam làm cứ điểm AI chiến lược — và điều đó thay đổi thị trường nhân lực thế nào.",
+    category: "Công nghệ",
+  },
+  "samsung-rd-vietnam-engineering-quality-standard": {
+    slug: "samsung-rd-viet-nam-tieu-chuan-chat-luong-ky-thuat",
+    title: "Samsung R&D Việt Nam: Hàng nghìn Kỹ sư Nâng chuẩn Chất lượng Công nghệ",
+    excerpt: "Samsung là nhà đầu tư nước ngoài lớn nhất tại Việt Nam với hơn 22 tỷ USD, và trung tâm R&D 220 triệu USD tại Hà Nội tuyển dụng hàng nghìn kỹ sư Việt. Hai thập kỷ đầu tư của Samsung đã nâng chuẩn mực kỹ thuật của cả hệ sinh thái.",
+    category: "Insight Ngành",
+  },
+  "fpt-viettel-vng-vietnam-tech-champions-global": {
+    slug: "fpt-viettel-vng-cac-ong-lon-cong-nghe-viet-tien-ra-toan-cau",
+    title: "FPT, Viettel, VNG: Các Ông lớn Công nghệ Việt Nam Tiến ra Toàn cầu",
+    excerpt: "Câu chuyện công nghệ Việt Nam từng được kể bởi nhà đầu tư nước ngoài. Giờ đây GPU cloud của FPT, data center siêu lớn của Viettel và Zalo AI của VNG tự khẳng định — với thị trường AI dự báo tăng gấp gần bốn lần.",
+    category: "Insight Ngành",
+  },
+  "vietnam-semiconductor-industry-2026-chip-giants-expanding": {
+    slug: "nganh-ban-dan-viet-nam-2026-cac-ong-lon-chip-mo-rong",
+    title: "Làn sóng Bán dẫn Việt Nam 2026: Vì sao các Ông lớn Chip Đang Mở rộng",
+    excerpt: "Dự án FDI mới tăng 56,6% so với cùng kỳ trong khi Samsung, Amkor, Foxconn rót hàng tỷ USD vào chuỗi cung ứng chip tại Việt Nam. Vì sao doanh nghiệp phần mềm nên theo dõi làn sóng bán dẫn này.",
+    category: "Công nghệ",
+  },
   "why-vietnam-top-it-outsourcing-destination-2026": {
     slug: "vi-sao-viet-nam-diem-den-it-outsourcing-hang-dau-2026",
     title: "Vì sao Việt Nam là Điểm đến IT Outsourcing Hàng đầu 2026",

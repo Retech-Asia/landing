@@ -18,6 +18,14 @@
  */
 
 const BLOG_IMAGES: Record<string, string> = {
+  // Vietnam market movers (NAB, NVIDIA, Samsung, FPT/Viettel/VNG, chips) —
+  // mapped to existing stock images until dedicated thumbnails are curated.
+  "nab-innovation-centre-vietnam-global-bank-tech-hub": "/images/stock/blog-fintech.webp",
+  "nvidia-vietnam-expansion-ai-talent-pipeline": "/images/stock/ai-abstract.webp",
+  "samsung-rd-vietnam-engineering-quality-standard": "/images/stock/code-screen.webp",
+  "fpt-viettel-vng-vietnam-tech-champions-global": "/images/stock/team-collaboration.webp",
+  "vietnam-semiconductor-industry-2026-chip-giants-expanding": "/images/stock/blog-circuit.webp",
+
   // Vietnam / Offshore
   "why-vietnam-top-it-outsourcing-destination-2026": "/images/blog/why-vietnam-top-it-outsourcing-destination-2026.webp",
   "why-vietnam-smart-choice-it-outsourcing-2026": "/images/blog/why-vietnam-smart-choice-it-outsourcing-2026.webp",
