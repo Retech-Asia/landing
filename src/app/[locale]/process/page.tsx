@@ -45,14 +45,15 @@ export async function generateMetadata({
   return buildPageMetadata({ locale, path: "/process", namespace: "pages.process" });
 }
 
-// Resolve chrome strings by locale. Inline data arrays (phases,
-// toolCategories, faqData) stay English-only — long-form prose that
-// would take a focused translation pass. Chrome is the high-visibility
-// surface that matters for SEO + first impression.
+// Resolve chrome strings by locale. Long-form inline data (phases,
+// toolCategories, faqData) uses the {en, vi} shape and is resolved at
+// render via `lang` (below). JSON-LD stays English.
 function getChrome(locale: string) {
   const isEn = locale === "en";
   return isEn
     ? {
+        breadcrumbHome: "Home",
+        breadcrumbProcess: "Our Process",
         heroEyebrow: "Methodology",
         heroTitle: "How We Deliver",
         heroLead: "A proven methodology refined over 50+ successful projects — from discovery to launch and beyond.",
@@ -70,6 +71,8 @@ function getChrome(locale: string) {
         deliverables: "Deliverables",
       }
     : {
+        breadcrumbHome: "Trang chủ",
+        breadcrumbProcess: "Quy trình Phát triển",
         heroEyebrow: "Phương pháp",
         heroTitle: "Cách chúng tôi Bàn giao",
         heroLead: "Phương pháp đã được kiểm chứng qua hơn 50 dự án thành công — từ khám phá đến ra mắt và hơn thế nữa.",
@@ -79,7 +82,7 @@ function getChrome(locale: string) {
         faqEyebrow: "Câu hỏi Thường gặp",
         faqTitle: "Câu hỏi Thường gặp",
         faqDescription: "Các câu hỏi thường gặp về cách chúng tôi làm việc, điều cần kỳ vọng và cách chúng tôi đảm bảo dự án thành công.",
-        ctaTitle: "Sản sàng Bắt đầu Dự án?",
+        ctaTitle: "Sẵn sàng Bắt đầu Dự án?",
         ctaBody: "Quy trình đã được kiểm chứng đảm bảo dự án của bạn được bàn giao đúng hạn, đúng ngân sách và đạt tiêu chuẩn chất lượng cao nhất. Hãy trò chuyện về những gì bạn đang xây dựng.",
         ctaPrimary: "Nhận Báo giá Miễn phí",
         ctaSecondary: "Xem Dự án",
@@ -93,159 +96,234 @@ function getChrome(locale: string) {
 const phases = [
   {
     number: 1,
-    title: "Discovery & Strategy",
-    timeline: "Week 1-2",
+    title: { en: "Discovery & Strategy", vi: "Discovery & Chiến lược" },
+    timeline: { en: "Week 1-2", vi: "Tuần 1-2" },
     icon: Search,
-    description:
-      "Every successful project starts with deep understanding. We conduct stakeholder interviews, map business processes, and analyze your competitive landscape to define a clear project scope. Our team assesses technical feasibility and identifies risks early, ensuring the roadmap is realistic and aligned with your goals. An AI opportunity assessment identifies which workflows benefit from LLM features, RAG search, or agentic automation, and which do not.",
+    description: {
+      en: "Every successful project starts with deep understanding. We conduct stakeholder interviews, map business processes, and analyze your competitive landscape to define a clear project scope. Our team assesses technical feasibility and identifies risks early, ensuring the roadmap is realistic and aligned with your goals. An AI opportunity assessment identifies which workflows benefit from LLM features, RAG search, or agentic automation, and which do not.",
+      vi: "Mọi dự án thành công đều bắt đầu từ sự thấu hiểu sâu sắc. Chúng tôi phỏng vấn các bên liên quan, lập bản đồ quy trình nghiệp vụ và phân tích bối cảnh cạnh tranh để xác định phạm vi dự án rõ ràng. Đội ngũ đánh giá tính khả thi kỹ thuật và nhận diện rủi ro sớm, đảm bảo lộ trình thực tế và phù hợp với mục tiêu của bạn. Đánh giá cơ hội AI xác định quy trình nào hưởng lợi từ tính năng LLM, tìm kiếm RAG hay tự động hóa agentic, và quy trình nào thì không.",
+    },
     activities: [
-      "Stakeholder interviews & workshops",
-      "Requirements gathering & documentation",
-      "Competitive & market analysis",
-      "Technical feasibility assessment",
-      "AI opportunity assessment: identify workflows where RAG, agents, or LLM features add value",
+      {
+        en: "Stakeholder interviews & workshops",
+        vi: "Phỏng vấn & workshop với các bên liên quan",
+      },
+      {
+        en: "Requirements gathering & documentation",
+        vi: "Thu thập & tài liệu hóa yêu cầu",
+      },
+      {
+        en: "Competitive & market analysis",
+        vi: "Phân tích cạnh tranh & thị trường",
+      },
+      {
+        en: "Technical feasibility assessment",
+        vi: "Đánh giá tính khả thi kỹ thuật",
+      },
+      {
+        en: "AI opportunity assessment: identify workflows where RAG, agents, or LLM features add value",
+        vi: "Đánh giá cơ hội AI: xác định các quy trình nơi RAG, agents hay tính năng LLM tạo ra giá trị",
+      },
     ],
     deliverables: [
-      "Project brief",
-      "Technical specification",
-      "Timeline estimate",
+      { en: "Project brief", vi: "Bản tóm tắt dự án" },
+      { en: "Technical specification", vi: "Đặc tả kỹ thuật" },
+      { en: "Timeline estimate", vi: "Ước tính tiến độ" },
     ],
   },
   {
     number: 2,
-    title: "Architecture & Design",
-    timeline: "Week 2-4",
+    title: { en: "Architecture & Design", vi: "Kiến trúc & Thiết kế" },
+    timeline: { en: "Week 2-4", vi: "Tuần 2-4" },
     icon: PenTool,
-    description:
-      "We design systems that scale. Our architects define the technical backbone while our designers craft intuitive interfaces that users love. From database schemas to pixel-perfect mockups, every decision is documented and validated before a single line of code is written. For AI-native features, we design the retrieval architecture, embedding strategy, and evaluation harness alongside the system architecture.",
+    description: {
+      en: "We design systems that scale. Our architects define the technical backbone while our designers craft intuitive interfaces that users love. From database schemas to pixel-perfect mockups, every decision is documented and validated before a single line of code is written. For AI-native features, we design the retrieval architecture, embedding strategy, and evaluation harness alongside the system architecture.",
+      vi: "Chúng tôi thiết kế hệ thống có khả năng mở rộng. Kiến trúc sư xác định khung kỹ thuật trong khi đội thiết kế tạo ra giao diện trực quan mà người dùng yêu thích. Từ schema cơ sở dữ liệu đến mockup hoàn thiện từng pixel, mọi quyết định đều được tài liệu hóa và xác thực trước khi viết dòng code đầu tiên. Với các tính năng AI-native, chúng tôi thiết kế kiến trúc retrieval, chiến lược embedding và bộ đánh giá song song với kiến trúc hệ thống.",
+    },
     activities: [
-      "System architecture design",
-      "Database modeling & design",
-      "UI/UX wireframes & prototyping",
-      "Design system creation",
-      "AI feature architecture: retrieval design, embedding strategy, evaluation harness",
+      { en: "System architecture design", vi: "Thiết kế kiến trúc hệ thống" },
+      {
+        en: "Database modeling & design",
+        vi: "Mô hình hóa & thiết kế cơ sở dữ liệu",
+      },
+      {
+        en: "UI/UX wireframes & prototyping",
+        vi: "Wireframe & prototyping UI/UX",
+      },
+      { en: "Design system creation", vi: "Xây dựng design system" },
+      {
+        en: "AI feature architecture: retrieval design, embedding strategy, evaluation harness",
+        vi: "Kiến trúc tính năng AI: thiết kế retrieval, chiến lược embedding, bộ đánh giá",
+      },
     ],
     deliverables: [
-      "Architecture document",
-      "Wireframes & prototypes",
-      "Design system",
+      { en: "Architecture document", vi: "Tài liệu kiến trúc" },
+      { en: "Wireframes & prototypes", vi: "Wireframe & prototype" },
+      { en: "Design system", vi: "Design system" },
     ],
   },
   {
     number: 3,
-    title: "Development Sprints",
-    timeline: "Week 4-12",
+    title: { en: "Development Sprints", vi: "Sprint Phát triển" },
+    timeline: { en: "Week 4-12", vi: "Tuần 4-12" },
     icon: Code2,
-    description:
-      "Development happens in focused two-week sprints with clear goals and full transparency. Daily standups keep everyone aligned, while sprint reviews give you regular visibility into progress. Continuous integration ensures every change is tested and deployable from day one. AI features follow the same rigor: evaluation suites run in CI to catch regressions in retrieval quality and LLM output.",
+    description: {
+      en: "Development happens in focused two-week sprints with clear goals and full transparency. Daily standups keep everyone aligned, while sprint reviews give you regular visibility into progress. Continuous integration ensures every change is tested and deployable from day one. AI features follow the same rigor: evaluation suites run in CI to catch regressions in retrieval quality and LLM output.",
+      vi: "Quá trình phát triển diễn ra trong các sprint hai tuần tập trung, với mục tiêu rõ ràng và minh bạch hoàn toàn. Daily standup giữ mọi người đồng bộ, trong khi sprint review giúp bạn theo dõi tiến độ thường xuyên. Tích hợp liên tục đảm bảo mọi thay đổi được kiểm thử và sẵn sàng triển khai ngay từ ngày đầu. Tính năng AI tuân theo cùng chuẩn mực: bộ đánh giá chạy trong CI để phát hiện suy giảm chất lượng retrieval và đầu ra LLM.",
+    },
     activities: [
-      "Agile development in 2-week sprints",
-      "Daily standups & progress tracking",
-      "Sprint reviews & retrospectives",
-      "Continuous integration & delivery",
-      "LLM evaluation harness in CI for retrieval and output quality",
+      {
+        en: "Agile development in 2-week sprints",
+        vi: "Phát triển agile theo sprint 2 tuần",
+      },
+      {
+        en: "Daily standups & progress tracking",
+        vi: "Daily standup & theo dõi tiến độ",
+      },
+      {
+        en: "Sprint reviews & retrospectives",
+        vi: "Sprint review & retrospective",
+      },
+      {
+        en: "Continuous integration & delivery",
+        vi: "Tích hợp & triển khai liên tục",
+      },
+      {
+        en: "LLM evaluation harness in CI for retrieval and output quality",
+        vi: "Bộ đánh giá LLM trong CI cho chất lượng retrieval và đầu ra",
+      },
     ],
     deliverables: [
-      "Working software increments",
-      "Sprint reports",
-      "Updated backlog",
+      {
+        en: "Working software increments",
+        vi: "Các bản gia tăng phần mềm hoạt động",
+      },
+      { en: "Sprint reports", vi: "Báo cáo sprint" },
+      { en: "Updated backlog", vi: "Backlog cập nhật" },
     ],
   },
   {
     number: 4,
-    title: "Quality Assurance",
-    timeline: "Ongoing",
+    title: { en: "Quality Assurance", vi: "Đảm bảo Chất lượng" },
+    timeline: { en: "Ongoing", vi: "Liên tục" },
     icon: ShieldCheck,
-    description:
-      "Quality is not an afterthought; it is woven into every phase. Our QA engineers run automated test suites, perform manual exploratory testing, and benchmark performance under load. Security audits and accessibility checks ensure your product meets the highest standards. AI features receive additional scrutiny for prompt injection, data leakage, and hallucination surfaces.",
+    description: {
+      en: "Quality is not an afterthought; it is woven into every phase. Our QA engineers run automated test suites, perform manual exploratory testing, and benchmark performance under load. Security audits and accessibility checks ensure your product meets the highest standards. AI features receive additional scrutiny for prompt injection, data leakage, and hallucination surfaces.",
+      vi: "Chất lượng không phải việc làm thêm sau cùng; nó được đan xen vào mọi giai đoạn. Kỹ sư QA chạy bộ kiểm thử tự động, thực hiện kiểm thử thăm dò thủ công và đo hiệu năng dưới tải. Kiểm toán bảo mật và kiểm tra khả năng tiếp cận đảm bảo sản phẩm đáp ứng các tiêu chuẩn nghiêm ngặt. Tính năng AI được giám sát chặt chẽ thêm về prompt injection, rò rỉ dữ liệu và các bề mặt hallucination.",
+    },
     activities: [
-      "Automated unit & integration testing",
-      "Manual exploratory QA",
-      "Performance & load testing",
-      "Security auditing & accessibility compliance",
-      "AI red-teaming: prompt injection, data leakage, hallucination surface testing",
+      {
+        en: "Automated unit & integration testing",
+        vi: "Kiểm thử unit & tích hợp tự động",
+      },
+      { en: "Manual exploratory QA", vi: "QA thăm dò thủ công" },
+      { en: "Performance & load testing", vi: "Kiểm thử hiệu năng & tải" },
+      {
+        en: "Security auditing & accessibility compliance",
+        vi: "Kiểm toán bảo mật & tuân thủ khả năng tiếp cận",
+      },
+      {
+        en: "AI red-teaming: prompt injection, data leakage, hallucination surface testing",
+        vi: "AI red-teaming: kiểm thử prompt injection, rò rỉ dữ liệu, bề mặt hallucination",
+      },
     ],
     deliverables: [
-      "Test reports",
-      "Bug fixes & resolutions",
-      "QA certification",
+      { en: "Test reports", vi: "Báo cáo kiểm thử" },
+      { en: "Bug fixes & resolutions", vi: "Sửa lỗi & cách xử lý" },
+      { en: "QA certification", vi: "Chứng nhận QA" },
     ],
   },
   {
     number: 5,
-    title: "Deployment & Launch",
-    timeline: "Week 12-14",
+    title: { en: "Deployment & Launch", vi: "Triển khai & Ra mắt" },
+    timeline: { en: "Week 12-14", vi: "Tuần 12-14" },
     icon: Rocket,
-    description:
-      "We launch with confidence using staged rollouts that minimize risk. Monitoring dashboards are set up before go-live so we can respond to any issue in real time. Your team receives hands-on training and comprehensive documentation to ensure a smooth handover.",
+    description: {
+      en: "We launch with confidence using staged rollouts that minimize risk. Monitoring dashboards are set up before go-live so we can respond to any issue in real time. Your team receives hands-on training and comprehensive documentation to ensure a smooth handover.",
+      vi: "Chúng tôi ra mắt tự tin bằng chiến lược staged rollout giúp giảm thiểu rủi ro. Dashboard giám sát được thiết lập trước go-live để chúng tôi có thể phản hồi mọi sự cố trong thời gian thực. Đội của bạn nhận được đào tạo thực hành và tài liệu đầy đủ để đảm bảo bàn giao suôn sẻ.",
+    },
     activities: [
-      "Staged rollout strategy",
-      "Monitoring & alerting setup",
-      "Performance optimization",
-      "Team training & documentation",
-      "LLM cost and latency monitoring dashboards",
+      { en: "Staged rollout strategy", vi: "Chiến lược staged rollout" },
+      { en: "Monitoring & alerting setup", vi: "Thiết lập giám sát & cảnh báo" },
+      { en: "Performance optimization", vi: "Tối ưu hiệu năng" },
+      { en: "Team training & documentation", vi: "Đào tạo đội ngũ & tài liệu" },
+      {
+        en: "LLM cost and latency monitoring dashboards",
+        vi: "Dashboard giám sát chi phí và độ trễ LLM",
+      },
     ],
     deliverables: [
-      "Production deployment",
-      "Monitoring dashboard",
-      "Training materials",
+      { en: "Production deployment", vi: "Triển khai production" },
+      { en: "Monitoring dashboard", vi: "Dashboard giám sát" },
+      { en: "Training materials", vi: "Tài liệu đào tạo" },
     ],
   },
   {
     number: 6,
-    title: "Support & Growth",
-    timeline: "Ongoing",
+    title: { en: "Support & Growth", vi: "Hỗ trợ & Tăng trưởng" },
+    timeline: { en: "Ongoing", vi: "Liên tục" },
     icon: HeadphonesIcon,
-    description:
-      "Launch is just the beginning. We provide ongoing maintenance, build new features, and continuously monitor performance. Our team acts as a strategic partner, helping you adapt to changing market conditions and scale your product as your business grows.",
+    description: {
+      en: "Launch is just the beginning. We provide ongoing maintenance, build new features, and continuously monitor performance. Our team acts as a strategic partner, helping you adapt to changing market conditions and scale your product as your business grows.",
+      vi: "Ra mắt chỉ là khởi đầu. Chúng tôi cung cấp bảo trì liên tục, xây dựng tính năng mới và giám sát hiệu năng thường xuyên. Đội ngũ của chúng tôi đóng vai trò đối tác chiến lược, giúp bạn thích ứng với điều kiện thị trường thay đổi và mở rộng sản phẩm khi doanh nghiệp phát triển.",
+    },
     activities: [
-      "Proactive maintenance & updates",
-      "New feature development",
-      "Performance monitoring & optimization",
-      "Strategic consulting & roadmap planning",
-      "Ongoing evaluation of AI feature quality against production traffic",
+      { en: "Proactive maintenance & updates", vi: "Bảo trì & cập nhật chủ động" },
+      { en: "New feature development", vi: "Phát triển tính năng mới" },
+      {
+        en: "Performance monitoring & optimization",
+        vi: "Giám sát & tối ưu hiệu năng",
+      },
+      {
+        en: "Strategic consulting & roadmap planning",
+        vi: "Tư vấn chiến lược & lập kế hoạch lộ trình",
+      },
+      {
+        en: "Ongoing evaluation of AI feature quality against production traffic",
+        vi: "Đánh giá liên tục chất lượng tính năng AI trên lưu lượng production",
+      },
     ],
     deliverables: [
-      "Monthly reports",
-      "Feature releases",
-      "Uptime SLA",
+      { en: "Monthly reports", vi: "Báo cáo hàng tháng" },
+      { en: "Feature releases", vi: "Các bản phát hành tính năng" },
+      { en: "Uptime SLA", vi: "SLA thời gian hoạt động" },
     ],
   },
 ];
 
 const toolCategories = [
   {
-    name: "Project Management",
+    name: { en: "Project Management", vi: "Quản lý Dự án" },
     icon: FolderKanban,
     tools: ["Jira", "Linear", "Notion"],
   },
   {
-    name: "Communication",
+    name: { en: "Communication", vi: "Giao tiếp" },
     icon: MessageSquare,
     tools: ["Slack", "Zoom", "Google Meet"],
   },
   {
-    name: "Development",
+    name: { en: "Development", vi: "Phát triển" },
     icon: GitBranch,
     tools: ["GitHub", "VS Code", "Cursor"],
   },
   {
-    name: "AI Engineering",
+    name: { en: "AI Engineering", vi: "AI Engineering" },
     icon: Brain,
     tools: ["LangChain", "pgvector", "OpenAI", "Anthropic", "Cursor"],
   },
   {
-    name: "Design",
+    name: { en: "Design", vi: "Thiết kế" },
     icon: Paintbrush,
     tools: ["Figma", "FigJam"],
   },
   {
-    name: "DevOps",
+    name: { en: "DevOps", vi: "DevOps" },
     icon: Box,
     tools: ["Docker", "AWS", "Vercel"],
   },
   {
-    name: "Testing",
+    name: { en: "Testing", vi: "Kiểm thử" },
     icon: TestTube2,
     tools: ["Jest", "Playwright", "Cypress"],
   },
@@ -281,6 +359,35 @@ export const faqData = [
   },
 ];
 
+/* VI FAQ — rendered on /vi; JSON-LD above stays EN. */
+const faqDataVi = [
+  {
+    question: "Một dự án điển hình kéo dài bao lâu từ khởi động đến ra mắt?",
+    answer:
+      "Thời gian phụ thuộc vào phạm vi và độ phức tạp. Một MVP tập trung hoặc ứng dụng đơn nền tảng thường mất 8 đến 14 tuần. Hệ thống doanh nghiệp lớn với nhiều tích hợp có thể mất 4 đến 6 tháng. Trong giai đoạn Discovery, chúng tôi cung cấp ước tính thời gian chi tiết để bạn nắm rõ trước khi phát triển bắt đầu.",
+  },
+  {
+    question: "Tôi cần tham gia bao nhiêu trong suốt dự án?",
+    answer:
+      "Chúng tôi điều chỉnh mức độ tham gia của khách hàng theo sở thích của bạn. Tối thiểu, chúng tôi cần bạn tham gia tích cực trong Discovery để xác thực yêu cầu và tại mỗi sprint review để phản hồi. Một số khách hàng thích check-in hàng tuần, số khác thích xem xét tại các cột mốc chính. Chúng tôi thích ứng nhịp giao tiếp theo cách phù hợp nhất với bạn.",
+  },
+  {
+    question: "Điều gì xảy ra nếu yêu cầu thay đổi giữa dự án?",
+    answer:
+      "Quy trình agile của chúng tôi được thiết kế để thích ứng với thay đổi. Vì chúng tôi làm việc theo sprint hai tuần, các điều chỉnh phạm vi có thể được hấp thụ vào chu kỳ lập kế hoạch sprint tiếp theo. Thay đổi lớn sẽ được đánh giá tác động đến tiến độ và ngân sách, và chúng tôi luôn thảo luận minh bạch về trade-off trước khi tiếp tục. Backlog linh hoạt đảm bảo ưu tiên dịch chuyển mà không làm lệch hướng dự án.",
+  },
+  {
+    question: "Bạn đảm bảo chất lượng code và bảo mật như thế nào?",
+    answer:
+      "Chất lượng được cài cắm ở mọi giai đoạn. Chúng tôi áp dụng code review trên mọi pull request, chạy kiểm thử unit và tích hợp tự động trong CI, và thực hiện QA thăm dò thủ công. Kiểm toán bảo mật gồm quét dependency, kiểm tra tuân thủ OWASP và penetration testing trước ra mắt. Chúng tôi cũng duy trì tài liệu đầy đủ để đội của bạn có thể bảo trì codebase lâu dài sau khi bàn giao.",
+  },
+  {
+    question: "Bạn cung cấp hỗ trợ gì sau khi ra mắt?",
+    answer:
+      "Chúng tôi cung cấp thỏa thuận hỗ trợ sau ra mắt linh hoạt theo nhu cầu của bạn: sửa lỗi, giám sát hiệu suất, phát triển tính năng và tư vấn chiến lược. Hỗ trợ tiêu chuẩn gồm giai đoạn bảo hành sau go-live, và các gói retainer liên tục sẵn có cho cải tiến không ngừng. Nhiều khách hàng chọn giữ chúng tôi làm đối tác công nghệ dài hạn.",
+  },
+];
+
 /* ──────────────────────── Page ──────────────────────── */
 
 export default async function ProcessPage({
@@ -291,6 +398,8 @@ export default async function ProcessPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const chrome = getChrome(locale);
+  const isVi = locale === "vi";
+  const lang = isVi ? "vi" : "en";
   return (
     <>
       {/* Structured Data */}
@@ -314,18 +423,18 @@ export default async function ProcessPage({
           <div className="page-hero-enter">
             <BreadcrumbNav
               items={[
-                { label: "Home", href: "/" },
-                { label: "Our Process" },
+                { label: chrome.breadcrumbHome, href: "/" },
+                { label: chrome.breadcrumbProcess },
               ]}
             />
           </div>
           <div className="page-hero-enter" style={{ animationDelay: "80ms" }}>
-            <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3 text-center">Methodology</p>
+            <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3 text-center">{chrome.heroEyebrow}</p>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground text-balance text-center mx-auto">
-              How We Deliver
+              {chrome.heroTitle}
             </h1>
             <p className="mt-4 text-lg text-foreground-secondary leading-relaxed max-w-3xl text-center mx-auto">
-              A proven methodology refined over 50+ successful projects, from first conversation to long-term growth.
+              {chrome.heroLead}
             </p>
             <div className="mt-4">
               <GearIcon size={44} />
@@ -461,17 +570,17 @@ export default async function ProcessPage({
                         </AnimatedSection>
 
                         <h3 className="text-xl md:text-2xl font-bold text-foreground">
-                          {phase.title}
+                          {phase.title[lang]}
                         </h3>
 
                         <span className="ml-auto text-xs font-medium text-foreground-secondary bg-background-muted px-3 py-1 rounded-full whitespace-nowrap">
-                          {phase.timeline}
+                          {phase.timeline[lang]}
                         </span>
                       </div>
 
                       {/* Description */}
                       <p className="text-foreground-secondary leading-relaxed mt-3 mb-6">
-                        {phase.description}
+                        {phase.description[lang]}
                       </p>
 
                       {/* Activities & Deliverables */}
@@ -483,7 +592,7 @@ export default async function ProcessPage({
                           <ul className="space-y-2">
                             {phase.activities.map((activity) => (
                               <li
-                                key={activity}
+                                key={activity.en}
                                 className="flex items-start gap-2 text-sm text-foreground-secondary"
                               >
                                 <span
@@ -491,7 +600,7 @@ export default async function ProcessPage({
                                     isEven ? "bg-brand" : "bg-accent-cyan"
                                   }`}
                                 />
-                                {activity}
+                                {activity[lang]}
                               </li>
                             ))}
                           </ul>
@@ -503,14 +612,14 @@ export default async function ProcessPage({
                           <ul className="space-y-2">
                             {phase.deliverables.map((deliverable) => (
                               <li
-                                key={deliverable}
+                                key={deliverable.en}
                                 className="flex items-start gap-2 text-sm text-foreground-secondary"
                               >
                                 <CheckCircle2
                                   size={16}
                                   className="text-brand flex-shrink-0 mt-0.5"
                                 />
-                                {deliverable}
+                                {deliverable[lang]}
                               </li>
                             ))}
                           </ul>
@@ -552,14 +661,14 @@ export default async function ProcessPage({
             {toolCategories.map((category) => {
               const CategoryIcon = category.icon;
               return (
-                <StaggerItem key={category.name}>
+                <StaggerItem key={category.name.en}>
                   <div className="rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] h-full">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-brand/10">
                         <CategoryIcon size={20} className="text-brand" />
                       </div>
                       <h3 className="text-base font-semibold text-foreground">
-                        {category.name}
+                        {category.name[lang]}
                       </h3>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -592,7 +701,7 @@ export default async function ProcessPage({
           </AnimatedSection>
 
           <div className="max-w-3xl mx-auto">
-            <FAQAccordion items={faqData} />
+            <FAQAccordion items={isVi ? faqDataVi : faqData} />
           </div>
         </ContainerUI>
       </section>

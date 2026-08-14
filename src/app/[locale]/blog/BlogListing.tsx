@@ -20,6 +20,13 @@ const categoryGradients: Record<string, string> = {
   Technology: "from-accent-violet/80 to-brand/80",
 };
 
+/** VI display names for the category pills (data keys stay EN). */
+const CATEGORY_VI_NAME: Record<string, string> = {
+  Technology: "Công nghệ",
+  Guides: "Hướng dẫn",
+  "Industry Insights": "Insight Ngành",
+};
+
 /** Hook: debounced value with configurable delay. */
 function useDebouncedValue<T>(value: T, delay: number): T {
   const [debounced, setDebounced] = useState(value);
@@ -47,6 +54,32 @@ function BlogListingGrid({
   featuredPost: BlogPost | null;
 }) {
   const locale = useLocale() as "en" | "vi";
+  const isVi = locale === "vi";
+  const s = isVi
+    ? {
+        showing: "Đang hiển thị",
+        of: "/",
+        articleSingular: "bài viết",
+        articlePlural: "bài viết",
+        featured: "Nổi bật",
+        read: "Đọc",
+        readAria: "Đọc",
+        loading: "Đang tải...",
+        loadMore: "Xem thêm bài viết",
+        dateLocale: "vi-VN",
+      }
+    : {
+        showing: "Showing",
+        of: "of",
+        articleSingular: "article",
+        articlePlural: "articles",
+        featured: "Featured",
+        read: "Read",
+        readAria: "Read",
+        loading: "Loading...",
+        loadMore: "Load more articles",
+        dateLocale: "en-US",
+      };
   const [extraPages, setExtraPages] = useState(0);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const visibleCount = POSTS_PER_PAGE + extraPages * POSTS_PER_PAGE;
@@ -68,21 +101,23 @@ function BlogListingGrid({
       {/* Post count */}
       <div className="mb-6 text-center">
         <p className="text-sm text-foreground-muted">
-          Showing{" "}
+          {s.showing}{" "}
           <span className="font-medium text-foreground-secondary">
             {totalShowing}
           </span>{" "}
-          of{" "}
+          {s.of}{" "}
           <span className="font-medium text-foreground-secondary">
             {posts.length + (featuredPost ? 0 : 0)}
           </span>{" "}
-          {posts.length === 1 ? "article" : "articles"}
+          {posts.length === 1 ? s.articleSingular : s.articlePlural}
         </p>
       </div>
 
       {/* Featured / hero post */}
       <AnimatePresence mode="wait">
-        {featuredPost && (
+        {featuredPost && (() => {
+          const fMeta = getBlogMeta(featuredPost, locale);
+          return (
           <motion.div
             key={`featured-${featuredPost.slug}`}
             initial={{ opacity: 0, y: 20 }}
@@ -104,7 +139,7 @@ function BlogListingGrid({
               >
                 <Image
                   src={`${getBlogImage(featuredPost.slug)}`}
-                  alt={featuredPost.title}
+                  alt={fMeta.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 40vw"
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
@@ -117,13 +152,13 @@ function BlogListingGrid({
                     variant="outline"
                     className="bg-card-bg text-foreground-secondary backdrop-blur-sm"
                   >
-                    Featured
+                    {s.featured}
                   </Badge>
                   <Badge
                     variant="outline"
                     className="bg-card-bg text-foreground-secondary backdrop-blur-sm"
                   >
-                    {featuredPost.category}
+                    {fMeta.category}
                   </Badge>
                 </div>
               </div>
@@ -132,7 +167,7 @@ function BlogListingGrid({
                 <div className="flex items-center gap-4 text-xs text-foreground-muted mb-3">
                   <span className="flex items-center gap-1">
                     <Calendar size={13} />
-                    {new Date(featuredPost.date).toLocaleDateString("en-US", {
+                    {new Date(featuredPost.date).toLocaleDateString(s.dateLocale, {
                       month: "long",
                       day: "numeric",
                       year: "numeric",
@@ -140,28 +175,28 @@ function BlogListingGrid({
                   </span>
                   <span className="flex items-center gap-1">
                     <Clock size={13} />
-                    {featuredPost.readTime}
+                    {isVi ? featuredPost.readTime.replace("min read", "phút đọc") : featuredPost.readTime}
                   </span>
                 </div>
 
                 <h3 className="text-xl md:text-2xl font-bold text-foreground leading-snug mb-3 group-hover:text-brand transition-colors">
                   <Link
-                    href={`/blog/${featuredPost.slug}`}
+                    href={`/blog/${fMeta.slug}`}
                     className="hover:underline"
                   >
-                    {featuredPost.title}
+                    {fMeta.title}
                   </Link>
                 </h3>
 
                 <p className="text-sm md:text-base text-foreground-secondary leading-relaxed mb-5 line-clamp-3">
-                  {featuredPost.excerpt}
+                  {fMeta.excerpt}
                 </p>
 
                 <Link
-                  href={`/blog/${featuredPost.slug}`}
+                  href={`/blog/${fMeta.slug}`}
                   className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand-dark transition-colors group/link"
                 >
-                  Read <span className="sr-only">{featuredPost.title}</span>
+                  {s.read} <span className="sr-only">{fMeta.title}</span>
                   <ArrowRight
                     size={14}
                     className="group-hover/link:translate-x-0.5 transition-transform"
@@ -170,7 +205,8 @@ function BlogListingGrid({
               </div>
             </Card>
           </motion.div>
-        )}
+          );
+        })()}
       </AnimatePresence>
 
       {/* Post grid */}
@@ -252,16 +288,16 @@ function BlogListingGrid({
                           </span>
                           <span className="flex items-center gap-1">
                             <Clock size={13} />
-                            {post.readTime}
+                            {isVi ? post.readTime.replace("min read", "phút đọc") : post.readTime}
                           </span>
                         </div>
 
                         <Link
                           href={`/blog/${meta.slug}`}
-                          aria-label={`Read ${meta.title}`}
+                          aria-label={`${s.readAria} ${meta.title}`}
                           className="text-sm font-medium text-brand hover:text-brand-dark transition-colors inline-flex items-center gap-1"
                         >
-                          Read <span className="sr-only">{meta.title}</span>
+                          {s.read} <span className="sr-only">{meta.title}</span>
                           <ArrowRight
                             size={14}
                             className="group-hover:translate-x-0.5 transition-transform"
@@ -288,11 +324,12 @@ function BlogListingGrid({
               <Search size={28} className="text-foreground-muted" />
             </div>
             <h3 className="text-xl font-semibold text-foreground mb-2">
-              No posts found
+              {isVi ? "Không tìm thấy bài viết" : "No posts found"}
             </h3>
             <p className="text-sm text-foreground-secondary mb-6 max-w-sm mx-auto">
-              Try adjusting your search or category filter to find what you are
-              looking for.
+              {isVi
+                ? "Thử điều chỉnh tìm kiếm hoặc bộ lọc chủ đề để tìm nội dung bạn cần."
+                : "Try adjusting your search or category filter to find what you are looking for."}
             </p>
           </motion.div>
         )}
@@ -319,7 +356,7 @@ function BlogListingGrid({
             disabled={isLoadingMore}
             className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-card-border text-sm font-medium text-foreground-secondary hover:text-brand hover:border-brand/30 hover:bg-brand/5 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-wait"
           >
-            {isLoadingMore ? "Loading..." : "Load more articles"}
+            {isLoadingMore ? s.loading : s.loadMore}
             <ArrowRight size={14} className={isLoadingMore ? "animate-pulse" : ""} />
           </button>
         </motion.div>
@@ -340,6 +377,8 @@ interface BlogListingProps {
 }
 
 export function BlogListing({ posts }: BlogListingProps) {
+  const locale = useLocale() as "en" | "vi";
+  const isVi = locale === "vi";
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
@@ -398,8 +437,8 @@ export function BlogListing({ posts }: BlogListingProps) {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search articles..."
-            aria-label="Search blog posts"
+            placeholder={isVi ? "Tìm kiếm bài viết..." : "Search articles..."}
+            aria-label={isVi ? "Tìm kiếm bài viết" : "Search blog posts"}
             className="w-full pl-11 pr-10 py-3 rounded-full border border-card-border bg-card-bg text-base text-foreground placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand/30 transition-all duration-200 shadow-sm"
           />
           {search && (
@@ -424,7 +463,7 @@ export function BlogListing({ posts }: BlogListingProps) {
               : "border border-card-border text-foreground-secondary hover:text-brand hover:border-brand/30 hover:bg-brand/5"
           }`}
         >
-          All
+          {isVi ? "Tất cả" : "All"}
         </Link>
         {categories.map((cat) => {
           const catSlug =
@@ -441,7 +480,7 @@ export function BlogListing({ posts }: BlogListingProps) {
                   : "border border-card-border text-foreground-secondary hover:text-brand hover:border-brand/30 hover:bg-brand/5"
               }`}
             >
-              {cat}
+              {isVi ? (CATEGORY_VI_NAME[cat] ?? cat) : cat}
             </Link>
           );
         })}
@@ -451,8 +490,15 @@ export function BlogListing({ posts }: BlogListingProps) {
       {debouncedSearch.trim() && (
         <div className="mb-4 text-center">
           <p className="text-sm text-foreground-muted">
-            {filtered.length} {filtered.length === 1 ? "result" : "results"}{" "}
-            for &ldquo;
+            {filtered.length}{" "}
+            {filtered.length === 1
+              ? isVi
+                ? "kết quả"
+                : "result"
+              : isVi
+                ? "kết quả"
+                : "results"}{" "}
+            {isVi ? "cho" : "for"} &ldquo;
             <span className="font-medium text-foreground">
               {debouncedSearch.trim()}
             </span>
@@ -476,7 +522,7 @@ export function BlogListing({ posts }: BlogListingProps) {
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-brand text-white text-sm font-medium hover:bg-brand-light transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
           >
             <X size={15} />
-            Clear filters
+            {isVi ? "Xóa bộ lọc" : "Clear filters"}
           </button>
         </div>
       )}

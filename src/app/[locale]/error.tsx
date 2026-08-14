@@ -3,6 +3,7 @@
 import { useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { RotateCcw, Home, Mail, ArrowLeft } from "lucide-react";
+import { useLocale } from "next-intl";
 import { Button } from "@/components/ui/Button";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -16,6 +17,29 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const isVi = useLocale() === "vi";
+  const chrome = isVi
+    ? {
+        home: "Trang chủ",
+        error: "Lỗi",
+        title: "Đã xảy ra lỗi",
+        body: "Một lỗi không mong muốn đã xảy ra. Đừng lo lắng — hãy thử lại hoặc quay về trang chủ.",
+        tryAgain: "Thử lại",
+        goHome: "Về trang chủ",
+        goBack: "Quay lại",
+        report: "Báo cáo lỗi này",
+      }
+    : {
+        home: "Home",
+        error: "Error",
+        title: "Something went wrong",
+        body: "An unexpected error occurred. Don\u2019t worry — try again or head back to the homepage.",
+        tryAgain: "Try Again",
+        goHome: "Go Home",
+        goBack: "Go Back",
+        report: "Report this issue",
+      };
+
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -59,8 +83,8 @@ export default function Error({
           <AnimatedSection variant="fadeIn" delay={0}>
             <BreadcrumbNav
               items={[
-                { label: "Home", href: "/" },
-                { label: "Error" },
+                { label: chrome.home, href: "/" },
+                { label: chrome.error },
               ]}
             />
           </AnimatedSection>
@@ -181,14 +205,13 @@ export default function Error({
           {/* Heading & message */}
           <AnimatedSection variant="slideUp" delay={0.3}>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground text-center mb-3">
-              Something went wrong
+              {chrome.title}
             </h1>
           </AnimatedSection>
 
           <AnimatedSection variant="slideUp" delay={0.4}>
             <p className="text-base md:text-lg text-foreground-secondary leading-relaxed text-center max-w-md mx-auto mb-10">
-              An unexpected error occurred. Don&apos;t worry &mdash; try again or head
-              back to the homepage.
+              {chrome.body}
             </p>
           </AnimatedSection>
 
@@ -197,15 +220,15 @@ export default function Error({
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Button onClick={() => reset()} variant="primary" size="lg">
                 <RotateCcw className="w-4 h-4" />
-                Try Again
+                {chrome.tryAgain}
               </Button>
               <Button href="/" variant="secondary" size="lg">
                 <Home className="w-4 h-4" />
-                Go Home
+                {chrome.goHome}
               </Button>
               <Button onClick={() => { if (typeof window !== "undefined") window.history.back(); }} variant="ghost" size="lg">
                 <ArrowLeft className="w-4 h-4" />
-                Go Back
+                {chrome.goBack}
               </Button>
             </div>
           </AnimatedSection>
@@ -218,7 +241,7 @@ export default function Error({
                 className="inline-flex items-center gap-2 text-sm text-foreground-secondary hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-sm"
               >
                 <Mail className="w-4 h-4" />
-                Report this issue
+                {chrome.report}
               </a>
             </div>
           </AnimatedSection>

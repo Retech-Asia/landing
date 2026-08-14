@@ -24,6 +24,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { useLocale } from "next-intl";
 // CONTACT import removed — no longer needed since mailto was replaced with API POST
 
 // ---------------------------------------------------------------------------
@@ -202,7 +203,7 @@ function formatCurrency(value: number): string {
   return `$${value.toLocaleString()}`;
 }
 
-function getEstimate(scope: Scope, teamSize: TeamSize) {
+function getEstimate(scope: Scope, teamSize: TeamSize, labels: EstimateLabels) {
   const base = basePrices[scope];
   const factor = teamMultipliers[teamSize];
   const min = Math.round(base.min * factor);
@@ -212,12 +213,12 @@ function getEstimate(scope: Scope, teamSize: TeamSize) {
     max,
     label:
       scope === "enterprise" && teamSize === "xl"
-        ? "Enterprise-Scale Project"
+        ? labels.enterpriseScale
         : scope === "enterprise"
-          ? "Enterprise Project"
+          ? labels.enterprise
           : scope === "large" && (teamSize === "large" || teamSize === "xl")
-            ? "Large-Scale Project"
-            : "Project Estimate",
+            ? labels.largeScale
+            : labels.base,
     range: `${formatCurrency(min)} - ${formatCurrency(max)}`,
   };
 }
@@ -268,27 +269,228 @@ const staggerItem = {
 };
 
 // ---------------------------------------------------------------------------
-// Step labels & meta
+// Locale dictionaries (EN | VI)
 // ---------------------------------------------------------------------------
 
-const steps = [
-  { label: "Project Type", shortLabel: "Type" },
-  { label: "Project Scope", shortLabel: "Scope" },
-  { label: "Team Size", shortLabel: "Team" },
-];
+interface EstimateLabels {
+  enterpriseScale: string;
+  enterprise: string;
+  largeScale: string;
+  base: string;
+}
 
-const stepHeadings: Record<number, { title: string; subtitle: string }> = {
-  0: {
-    title: "What type of project?",
-    subtitle: "Select the category that best describes your project.",
+interface EstimatorStrings {
+  steps: { label: string; shortLabel: string }[];
+  stepHeadings: Record<number, { title: string; subtitle: string }>;
+  back: string;
+  resultTitle: string;
+  resultSubtitle: string;
+  disclaimer: string;
+  getDetailedQuote: string;
+  startOver: string;
+  thanksTitle: string;
+  thanksBody: string;
+  estimateAnother: string;
+  leadFormTitle: string;
+  leadFormBodyPrefix: string;
+  nameLabel: string;
+  namePh: string;
+  emailLabel: string;
+  companyLabel: string;
+  companyPh: string;
+  phoneLabel: string;
+  notesLabel: string;
+  notesPh: string;
+  optional: string;
+  sending: string;
+  requestQuote: string;
+  cancel: string;
+  errName: string;
+  errEmail: string;
+  errSubmit: string;
+  errNetwork: string;
+  estimateLabels: EstimateLabels;
+}
+
+const STRINGS: Record<"en" | "vi", EstimatorStrings> = {
+  en: {
+    steps: [
+      { label: "Project Type", shortLabel: "Type" },
+      { label: "Project Scope", shortLabel: "Scope" },
+      { label: "Team Size", shortLabel: "Team" },
+    ],
+    stepHeadings: {
+      0: {
+        title: "What type of project?",
+        subtitle: "Select the category that best describes your project.",
+      },
+      1: {
+        title: "What's the project scope?",
+        subtitle: "How long do you expect the engagement to last?",
+      },
+      2: {
+        title: "Team size needed?",
+        subtitle: "How large a team do you envision for this project?",
+      },
+    },
+    back: "Back",
+    resultTitle: "Your Estimated Budget",
+    resultSubtitle:
+      "Based on your selections, here's a ballpark estimate.",
+    disclaimer:
+      "This is a rough estimate based on typical project parameters using offshore rates. Actual costs may vary depending on specific requirements, complexity, and technology choices.",
+    getDetailedQuote: "Get a Detailed Quote",
+    startOver: "Start Over",
+    thanksTitle: "Thanks, request received",
+    thanksBody:
+      "We'll review your project details and reply within 24 hours with a tailored quote.",
+    estimateAnother: "Estimate another project",
+    leadFormTitle: "Get your detailed quote",
+    leadFormBodyPrefix:
+      "We'll send a tailored proposal within 24 hours. Based on:",
+    nameLabel: "Name",
+    namePh: "Your name",
+    emailLabel: "Email",
+    companyLabel: "Company",
+    companyPh: "Company name",
+    phoneLabel: "Phone",
+    notesLabel: "Project notes",
+    notesPh:
+      "Tell us anything specific about your project, timeline, or constraints.",
+    optional: "(optional)",
+    sending: "Sending…",
+    requestQuote: "Request Quote",
+    cancel: "Cancel",
+    errName: "Please enter your name.",
+    errEmail: "Please enter a valid email address.",
+    errSubmit:
+      "Something went wrong. Please try again or email us directly.",
+    errNetwork: "Network error. Please check your connection and try again.",
+    estimateLabels: {
+      enterpriseScale: "Enterprise-Scale Project",
+      enterprise: "Enterprise Project",
+      largeScale: "Large-Scale Project",
+      base: "Project Estimate",
+    },
   },
-  1: {
-    title: "What's the project scope?",
-    subtitle: "How long do you expect the engagement to last?",
+  vi: {
+    steps: [
+      { label: "Loại Dự án", shortLabel: "Loại" },
+      { label: "Quy mô Dự án", shortLabel: "Quy mô" },
+      { label: "Quy mô Nhóm", shortLabel: "Nhóm" },
+    ],
+    stepHeadings: {
+      0: {
+        title: "Dự án của bạn thuộc loại nào?",
+        subtitle: "Chọn danh mục phù hợp nhất với dự án của bạn.",
+      },
+      1: {
+        title: "Quy mô dự án như thế nào?",
+        subtitle: "Bạn dự kiến thời gian hợp tác kéo dài bao lâu?",
+      },
+      2: {
+        title: "Cần nhóm bao nhiêu người?",
+        subtitle: "Bạn hình dung nhóm phát triển cho dự án này sẽ có bao nhiêu người?",
+      },
+    },
+    back: "Quay lại",
+    resultTitle: "Ngân sách Dự kiến của Bạn",
+    resultSubtitle:
+      "Dựa trên lựa chọn của bạn, đây là mức ước tính tham khảo.",
+    disclaimer:
+      "Đây là mức ước tính sơ bộ dựa trên các tham số điển hình của dự án với mức giá offshore. Chi phí thực tế có thể thay đổi tùy theo yêu cầu cụ thể, độ phức tạp và công nghệ lựa chọn.",
+    getDetailedQuote: "Nhận Báo giá Chi tiết",
+    startOver: "Bắt đầu lại",
+    thanksTitle: "Cảm ơn, đã nhận được yêu cầu",
+    thanksBody:
+      "Chúng tôi sẽ xem xét chi tiết dự án và phản hồi trong vòng 24 giờ với báo giá phù hợp.",
+    estimateAnother: "Ước tính dự án khác",
+    leadFormTitle: "Nhận báo giá chi tiết của bạn",
+    leadFormBodyPrefix:
+      "Chúng tôi sẽ gửi đề xuất phù hợp trong vòng 24 giờ. Dựa trên:",
+    nameLabel: "Họ và tên",
+    namePh: "Tên của bạn",
+    emailLabel: "Email",
+    companyLabel: "Công ty",
+    companyPh: "Tên công ty",
+    phoneLabel: "Số điện thoại",
+    notesLabel: "Ghi chú về dự án",
+    notesPh:
+      "Hãy cho chúng tôi biết bất kỳ điều gì cụ thể về dự án, thời gian, hoặc ràng buộc của bạn.",
+    optional: "(không bắt buộc)",
+    sending: "Đang gửi…",
+    requestQuote: "Gửi Yêu cầu Báo giá",
+    cancel: "Hủy",
+    errName: "Vui lòng nhập họ và tên.",
+    errEmail: "Vui lòng nhập email hợp lệ.",
+    errSubmit:
+      "Đã xảy ra lỗi. Vui lòng thử lại hoặc gửi email trực tiếp cho chúng tôi.",
+    errNetwork:
+      "Lỗi kết nối mạng. Vui lòng kiểm tra kết nối và thử lại.",
+    estimateLabels: {
+      enterpriseScale: "Dự án Quy mô Doanh nghiệp",
+      enterprise: "Dự án Doanh nghiệp",
+      largeScale: "Dự án Quy mô Lớn",
+      base: "Ước tính Dự án",
+    },
   },
-  2: {
-    title: "Team size needed?",
-    subtitle: "How large a team do you envision for this project?",
+};
+
+// VI display labels for step options, keyed by stable EN ids. Underlying
+// option ids (used for logic and submitted values) stay unchanged. Kept as
+// separate maps per step because ids like "medium"/"large" exist in both
+// the scope and team-size option sets.
+interface OptionText {
+  label: string;
+  description: string;
+}
+
+const PROJECT_TYPE_VI: Record<string, OptionText> = {
+  "web-app": {
+    label: "Ứng dụng Web",
+    description: "Nền tảng SaaS, cổng thông tin, ứng dụng web theo yêu cầu",
+  },
+  "mobile-app": {
+    label: "Ứng dụng Di động",
+    description: "iOS, Android, đa nền tảng (React Native / Flutter)",
+  },
+  "cms-crm-erp": {
+    label: "CMS / CRM / ERP",
+    description: "Quản lý nội dung, CRM, hệ thống tự động hóa nghiệp vụ",
+  },
+  "ai-ml": {
+    label: "Giải pháp AI / ML",
+    description: "Machine learning, NLP, computer vision, công cụ tích hợp AI",
+  },
+  other: {
+    label: "Khác",
+    description: "Dự án theo yêu cầu, tư vấn, hoặc những ý tưởng đặc biệt",
+  },
+};
+
+const SCOPE_VI: Record<string, OptionText> = {
+  mvp: { label: "MVP", description: "2 - 4 tuần" },
+  medium: { label: "Trung bình", description: "1 - 3 tháng" },
+  large: { label: "Lớn", description: "3 - 6 tháng" },
+  enterprise: { label: "Doanh nghiệp", description: "6+ tháng" },
+};
+
+const TEAM_SIZE_VI: Record<string, OptionText> = {
+  small: {
+    label: "1 - 2 lập trình viên",
+    description: "Nhóm gọn, tập trung triển khai",
+  },
+  medium: {
+    label: "Nhóm 3 - 5 người",
+    description: "Nhóm cân bằng với nhiều vai trò",
+  },
+  large: {
+    label: "Nhóm 5 - 10 người",
+    description: "Đội hình đầy đủ, đa chuyên môn",
+  },
+  xl: {
+    label: "Nhóm 10+ người",
+    description: "Tổ chức triển khai quy mô lớn",
   },
 };
 
@@ -297,6 +499,18 @@ const stepHeadings: Record<number, { title: string; subtitle: string }> = {
 // ---------------------------------------------------------------------------
 
 export function ProjectEstimator() {
+  const locale = useLocale();
+  const isVi = locale === "vi";
+  const t = STRINGS[isVi ? "vi" : "en"];
+
+  // Localized display text for a step option (falls back to EN if unmapped).
+  // Each step has its own VI map because ids overlap across option sets.
+  const optionText = (option: StepOption, viMap: Record<string, OptionText>): OptionText =>
+    isVi ? viMap[option.id] ?? option : option;
+
+  const viMapForStep = (step: number): Record<string, OptionText> =>
+    step === 0 ? PROJECT_TYPE_VI : step === 1 ? SCOPE_VI : TEAM_SIZE_VI;
+
   const [currentStep, setCurrentStep] = useState(0);
   const [direction, setDirection] = useState(1);
   const [selections, setSelections] = useState<{
@@ -324,11 +538,11 @@ export function ProjectEstimator() {
 
     // Basic validation
     if (!leadInfo.name.trim() || leadInfo.name.trim().length < 2) {
-      setSubmitError("Please enter your name.");
+      setSubmitError(t.errName);
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(leadInfo.email)) {
-      setSubmitError("Please enter a valid email address.");
+      setSubmitError(t.errEmail);
       return;
     }
 
@@ -348,13 +562,16 @@ export function ProjectEstimator() {
           phone: leadInfo.phone.trim() || undefined,
           notes: leadInfo.notes.trim() || undefined,
           projectType: selections.projectType,
-          projectTypeLabel: projectTypes.find((p) => p.id === selections.projectType)?.label,
+          projectTypeLabel: (() => {
+            const pt = projectTypes.find((p) => p.id === selections.projectType);
+            return pt ? optionText(pt, PROJECT_TYPE_VI).label : undefined;
+          })(),
           scope: selections.scope,
-          scopeLabel: scLabel?.label,
-          scopeDescription: scLabel?.description,
+          scopeLabel: scLabel ? optionText(scLabel, SCOPE_VI).label : undefined,
+          scopeDescription: scLabel ? optionText(scLabel, SCOPE_VI).description : undefined,
           teamSize: selections.teamSize,
-          teamSizeLabel: tsLabel?.label,
-          teamSizeDescription: tsLabel?.description,
+          teamSizeLabel: tsLabel ? optionText(tsLabel, TEAM_SIZE_VI).label : undefined,
+          teamSizeDescription: tsLabel ? optionText(tsLabel, TEAM_SIZE_VI).description : undefined,
           estimateLabel: estimate?.label,
           estimateRange: estimate?.range,
         }),
@@ -362,16 +579,13 @@ export function ProjectEstimator() {
       const data = await response.json();
       if (!response.ok || !data.ok) {
         setSubmitError(
-          (typeof data.error === "string" && data.error) ||
-            "Something went wrong. Please try again or email us directly.",
+          (typeof data.error === "string" && data.error) || t.errSubmit,
         );
         return;
       }
       setSubmitted(true);
     } catch {
-      setSubmitError(
-        "Network error. Please check your connection and try again.",
-      );
+      setSubmitError(t.errNetwork);
     } finally {
       setSubmitting(false);
     }
@@ -415,7 +629,7 @@ export function ProjectEstimator() {
 
   const estimate =
     selections.scope && selections.teamSize
-      ? getEstimate(selections.scope, selections.teamSize)
+      ? getEstimate(selections.scope, selections.teamSize, t.estimateLabels)
       : null;
 
   // Lead capture form labels — used by /api/estimate when the user submits.
@@ -429,7 +643,7 @@ export function ProjectEstimator() {
       {/* ---------------------------------------------------------------- */}
       <div className="mb-8">
         <div className="flex items-center justify-center">
-          {steps.map((step, i) => {
+          {t.steps.map((step, i) => {
             const isCompleted = i < currentStep;
             const isActive = i === currentStep;
             const isPending = i > currentStep;
@@ -470,7 +684,7 @@ export function ProjectEstimator() {
                 </div>
 
                 {/* Connector line between circles */}
-                {i < steps.length - 1 && (
+                {i < t.steps.length - 1 && (
                   <div className="relative w-12 sm:w-20 h-0.5 mx-1.5 sm:mx-3 rounded-full bg-black/[0.06] overflow-hidden">
                     <motion.div
                       className="absolute inset-y-0 left-0 bg-gradient-to-r from-brand to-accent-cyan rounded-full"
@@ -520,7 +734,7 @@ export function ProjectEstimator() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
                 >
-                  {stepHeadings[currentStep]?.title}
+                  {t.stepHeadings[currentStep]?.title}
                 </motion.h3>
                 <motion.p
                   className="text-sm text-foreground-secondary"
@@ -528,7 +742,7 @@ export function ProjectEstimator() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.15 }}
                 >
-                  {stepHeadings[currentStep]?.subtitle}
+                  {t.stepHeadings[currentStep]?.subtitle}
                 </motion.p>
               </div>
 
@@ -572,10 +786,10 @@ export function ProjectEstimator() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-foreground mb-0.5">
-                          {option.label}
+                          {optionText(option, viMapForStep(currentStep)).label}
                         </p>
                         <p className="text-xs text-foreground-secondary leading-relaxed">
-                          {option.description}
+                          {optionText(option, viMapForStep(currentStep)).description}
                         </p>
                       </div>
                       <ChevronRight
@@ -617,7 +831,7 @@ export function ProjectEstimator() {
                   className="inline-flex items-center gap-1.5 mt-5 text-sm text-foreground-secondary hover:text-foreground transition-colors cursor-pointer focus-visible:outline-none focus-visible:underline"
                 >
                   <ArrowLeft size={14} />
-                  Back
+                  {t.back}
                 </motion.button>
               )}
             </motion.div>
@@ -648,7 +862,7 @@ export function ProjectEstimator() {
                   transition={{ delay: 0.2 }}
                   className="text-lg font-semibold text-foreground mb-1"
                 >
-                  Your Estimated Budget
+                  {t.resultTitle}
                 </motion.h3>
                 <motion.p
                   initial={{ opacity: 0 }}
@@ -656,7 +870,7 @@ export function ProjectEstimator() {
                   transition={{ delay: 0.25 }}
                   className="text-sm text-foreground-secondary"
                 >
-                  Based on your selections, here&apos;s a ballpark estimate.
+                  {t.resultSubtitle}
                 </motion.p>
               </div>
 
@@ -679,7 +893,7 @@ export function ProjectEstimator() {
                           <Icon size={14} className={pt.color} strokeWidth={1.75} />
                         </div>
                         <p className="text-xs font-semibold text-foreground text-center leading-tight">
-                          {pt.label}
+                          {optionText(pt, PROJECT_TYPE_VI).label}
                         </p>
                       </>
                     );
@@ -698,9 +912,9 @@ export function ProjectEstimator() {
                           <Icon size={14} className={sc.color} strokeWidth={1.75} />
                         </div>
                         <p className="text-xs font-semibold text-foreground text-center leading-tight">
-                          {sc.label}
+                          {optionText(sc, SCOPE_VI).label}
                         </p>
-                        <p className="text-[10px] text-foreground-muted mt-0.5">{sc.description}</p>
+                        <p className="text-[10px] text-foreground-muted mt-0.5">{optionText(sc, SCOPE_VI).description}</p>
                       </>
                     );
                   })()}
@@ -717,9 +931,9 @@ export function ProjectEstimator() {
                           <Users size={14} className={ts.color} strokeWidth={1.75} />
                         </div>
                         <p className="text-xs font-semibold text-foreground text-center leading-tight">
-                          {ts.label}
+                          {optionText(ts, TEAM_SIZE_VI).label}
                         </p>
-                        <p className="text-[10px] text-foreground-muted mt-0.5">{ts.description}</p>
+                        <p className="text-[10px] text-foreground-muted mt-0.5">{optionText(ts, TEAM_SIZE_VI).description}</p>
                       </>
                     );
                   })()}
@@ -758,9 +972,7 @@ export function ProjectEstimator() {
                 transition={{ delay: 0.5 }}
                 className="text-xs text-foreground-muted text-center mb-6 leading-relaxed max-w-md mx-auto"
               >
-                This is a rough estimate based on typical project parameters using offshore rates.
-                Actual costs may vary depending on specific requirements, complexity, and technology
-                choices.
+                {t.disclaimer}
               </motion.p>
 
               {/* CTA buttons */}
@@ -779,7 +991,7 @@ export function ProjectEstimator() {
                   className="group/btn inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium rounded-full bg-gradient-to-r from-brand to-accent-cyan text-white transition-all duration-300 hover:shadow-[0_4px_20px_rgba(32,133,53,0.25)] hover:shadow-brand/25 btn-shimmer active:scale-[0.97]"
                 >
                   <Mail size={16} />
-                  Get a Detailed Quote
+                  {t.getDetailedQuote}
                   <ArrowRight
                     size={14}
                     className="transition-transform duration-200 group-hover/btn:translate-x-0.5"
@@ -791,7 +1003,7 @@ export function ProjectEstimator() {
                   className="inline-flex items-center justify-center gap-1.5 px-5 py-3 text-sm font-medium rounded-full text-foreground-secondary hover:text-foreground hover:bg-black/[0.04] transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                 >
                   <RotateCcw size={14} />
-                  Start Over
+                  {t.startOver}
                 </button>
               </motion.div>
             </motion.div>
@@ -819,11 +1031,10 @@ export function ProjectEstimator() {
                     <Check size={24} strokeWidth={2.5} />
                   </div>
                   <h4 className="text-base font-semibold text-foreground mb-1">
-                    Thanks, request received
+                    {t.thanksTitle}
                   </h4>
                   <p className="text-sm text-foreground-secondary max-w-md mx-auto">
-                    We&apos;ll review your project details and reply within 24
-                    hours with a tailored quote.
+                    {t.thanksBody}
                   </p>
                   <button
                     type="button"
@@ -834,7 +1045,7 @@ export function ProjectEstimator() {
                     }}
                     className="mt-4 text-xs font-medium text-brand hover:text-brand-dark transition-colors cursor-pointer"
                   >
-                    Estimate another project
+                    {t.estimateAnother}
                   </button>
                 </div>
               ) : (
@@ -854,18 +1065,17 @@ export function ProjectEstimator() {
                   />
                   <div>
                     <h4 className="text-base font-semibold text-foreground">
-                      Get your detailed quote
+                      {t.leadFormTitle}
                     </h4>
                     <p className="text-sm text-foreground-muted mt-1">
-                      We&apos;ll send a tailored proposal within 24 hours.
-                      Based on: <span className="font-medium text-foreground-secondary">{estimate?.range}</span>
+                      {t.leadFormBodyPrefix} <span className="font-medium text-foreground-secondary">{estimate?.range}</span>
                     </p>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <label className="block">
                       <span className="block text-xs font-medium text-foreground-secondary mb-1.5">
-                        Name <span className="text-brand">*</span>
+                        {t.nameLabel} <span className="text-brand">*</span>
                       </span>
                       <input
                         type="text"
@@ -874,12 +1084,12 @@ export function ProjectEstimator() {
                         value={leadInfo.name}
                         onChange={(e) => setLeadInfo({ ...leadInfo, name: e.target.value })}
                         className="w-full h-11 px-3.5 text-base rounded-lg border border-foreground/10 bg-card-bg text-foreground placeholder:text-foreground-muted/60 focus:border-brand/40 focus:ring-2 focus:ring-brand/10 focus:outline-none transition-all"
-                        placeholder="Your name"
+                        placeholder={t.namePh}
                       />
                     </label>
                     <label className="block">
                       <span className="block text-xs font-medium text-foreground-secondary mb-1.5">
-                        Email <span className="text-brand">*</span>
+                        {t.emailLabel} <span className="text-brand">*</span>
                       </span>
                       <input
                         type="email"
@@ -893,7 +1103,7 @@ export function ProjectEstimator() {
                     </label>
                     <label className="block">
                       <span className="block text-xs font-medium text-foreground-secondary mb-1.5">
-                        Company <span className="text-foreground-muted">(optional)</span>
+                        {t.companyLabel} <span className="text-foreground-muted">{t.optional}</span>
                       </span>
                       <input
                         type="text"
@@ -901,12 +1111,12 @@ export function ProjectEstimator() {
                         value={leadInfo.company}
                         onChange={(e) => setLeadInfo({ ...leadInfo, company: e.target.value })}
                         className="w-full h-11 px-3.5 text-base rounded-lg border border-foreground/10 bg-card-bg text-foreground placeholder:text-foreground-muted/60 focus:border-brand/40 focus:ring-2 focus:ring-brand/10 focus:outline-none transition-all"
-                        placeholder="Company name"
+                        placeholder={t.companyPh}
                       />
                     </label>
                     <label className="block">
                       <span className="block text-xs font-medium text-foreground-secondary mb-1.5">
-                        Phone <span className="text-foreground-muted">(optional)</span>
+                        {t.phoneLabel} <span className="text-foreground-muted">{t.optional}</span>
                       </span>
                       <input
                         type="tel"
@@ -921,14 +1131,14 @@ export function ProjectEstimator() {
 
                   <label className="block">
                     <span className="block text-xs font-medium text-foreground-secondary mb-1.5">
-                      Project notes <span className="text-foreground-muted">(optional)</span>
+                      {t.notesLabel} <span className="text-foreground-muted">{t.optional}</span>
                     </span>
                     <textarea
                       rows={3}
                       value={leadInfo.notes}
                       onChange={(e) => setLeadInfo({ ...leadInfo, notes: e.target.value })}
                       className="w-full px-3.5 py-2.5 text-base rounded-lg border border-foreground/10 bg-card-bg text-foreground placeholder:text-foreground-muted/60 focus:border-brand/40 focus:ring-2 focus:ring-brand/10 focus:outline-none transition-all resize-y"
-                      placeholder="Tell us anything specific about your project, timeline, or constraints."
+                      placeholder={t.notesPh}
                     />
                   </label>
 
@@ -950,12 +1160,12 @@ export function ProjectEstimator() {
                       {submitting ? (
                         <>
                           <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Sending…
+                          {t.sending}
                         </>
                       ) : (
                         <>
                           <Mail size={14} />
-                          Request Quote
+                          {t.requestQuote}
                         </>
                       )}
                     </button>
@@ -965,7 +1175,7 @@ export function ProjectEstimator() {
                       disabled={submitting}
                       className="inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium rounded-full text-foreground-secondary hover:text-foreground hover:bg-black/[0.04] transition-all disabled:opacity-60 cursor-pointer"
                     >
-                      Cancel
+                      {t.cancel}
                     </button>
                   </div>
                 </form>
