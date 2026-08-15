@@ -20,8 +20,8 @@ import { getBlogImage } from "@/lib/blog-images";
 import { BlogPostingJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import { setRequestLocale } from "next-intl/server";
-import { routing, type Locale } from "@/i18n/routing";
-import { getBlogMeta, getEnSlugByViSlug, blogViMeta } from "@/lib/blog-i18n";
+import { type Locale } from "@/i18n/routing";
+import { getBlogMeta, getEnSlugByViSlug, blogViMeta, getBlogBody } from "@/lib/blog-i18n";
 import { ReadingProgress } from "./ReadingProgress";
 
 export function generateStaticParams() {
@@ -126,6 +126,12 @@ export default async function BlogPostPage({
     notFound();
   }
 
+  // Locale-aware body: full VI translation when available, EN otherwise.
+  // The notice below only renders when the VI body is still missing.
+  const viBody = getBlogBody(post, loc);
+  const postContent = viBody?.content ?? post.content;
+  const postHeadings = viBody?.headings ?? post.headings;
+
   // Nav/related must resolve via the EN slug — on /vi the URL slug is the
   // translated one, and lookups on it silently return nothing.
   const postIndex = blogPosts.findIndex((p) => p.slug === effectiveSlug);
@@ -148,8 +154,9 @@ export default async function BlogPostPage({
         home: "Trang chủ",
         onThisPage: "Trong bài này",
         updated: "Cập nhật",
-        notice:
-          "Bản dịch đang hoàn thiện — nội dung bài viết hiện chỉ có bằng tiếng Anh.",
+        notice: viBody
+          ? null
+          : "Bản dịch đang hoàn thiện — nội dung bài viết hiện chỉ có bằng tiếng Anh.",
         related: "Bài viết Liên quan",
         ctaTitle: "Cần đội ngũ phát triển chuyên nghiệp?",
         ctaBody:
@@ -175,7 +182,7 @@ export default async function BlogPostPage({
   // content[0] = intro, then each heading maps to the paragraph at (heading index + 1).
   const contentElements: React.ReactNode[] = [];
 
-  post.headings.forEach((heading, hIndex) => {
+  postHeadings.forEach((heading, hIndex) => {
     const paragraphIndex = hIndex + 1;
     // Insert the heading before its corresponding paragraph
     contentElements.push(
@@ -188,13 +195,13 @@ export default async function BlogPostPage({
       </h2>
     );
     // Insert the paragraph after the heading (if it exists)
-    if (paragraphIndex < post.content.length) {
+    if (paragraphIndex < postContent.length) {
       contentElements.push(
         <p
           key={`para-${paragraphIndex}`}
           className="text-foreground-secondary leading-relaxed text-base md:text-lg mb-5"
         >
-          {renderContent(post.content[paragraphIndex])}
+          {renderContent(postContent[paragraphIndex])}
         </p>
       );
     }
@@ -289,7 +296,7 @@ export default async function BlogPostPage({
 
             {/* Mobile TOC disclosure — same pattern as service detail pages.
                 Native <details> for zero-JS accessibility. */}
-            {post.headings.length > 0 && (
+            {postHeadings.length > 0 && (
               <details className="lg:hidden group mb-8 rounded-xl border border-foreground/10 bg-card overflow-hidden">
                 <summary className="flex items-center justify-between cursor-pointer list-none px-4 py-3 text-sm font-medium text-foreground select-none">
                   <span className="text-xs uppercase tracking-wider text-foreground-secondary">{chrome.onThisPage}</span>
@@ -301,7 +308,7 @@ export default async function BlogPostPage({
                   </svg>
                 </summary>
                 <ul className="px-4 pb-3 pt-1 space-y-1 border-t border-foreground/[0.06]">
-                  {post.headings.map((h) => (
+                  {postHeadings.map((h) => (
                     <li key={h.id}>
                       <a
                         href={`#${h.id}`}
@@ -334,7 +341,7 @@ export default async function BlogPostPage({
                     subtle brand-tinted left rule. Readers scan the first sentence before
                     committing; making it visually distinct improves engagement. */}
                 <p className="text-foreground leading-relaxed text-xl md:text-2xl font-medium mb-8 pl-5 border-l-2 border-brand/40">
-                  {renderContent(post.content[0])}
+                  {renderContent(postContent[0])}
                 </p>
                 {contentElements.map((el, i) => (
                   <div key={i}>
@@ -342,7 +349,7 @@ export default async function BlogPostPage({
                     {/* Decorative section break between major sections — a small
                         gradient dot centered, gives visual rhythm without
                         adding fake content. */}
-                    {post.headings.length > 4 && i === Math.floor(contentElements.length / 2) - 1 && (
+                    {postHeadings.length > 4 && i === Math.floor(contentElements.length / 2) - 1 && (
                       <div className="flex justify-center my-12" aria-hidden="true">
                         <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand/40" />
                         <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent-cyan/40 mx-2" />
@@ -352,7 +359,7 @@ export default async function BlogPostPage({
                     {/* First inline image — full-bleed on desktop (breaks out of the
                         720px article column to ~1200px for visual variety). On mobile
                         keeps standard card width. */}
-                    {i === 3 && post.headings.length > 4 && (
+                    {i === 3 && postHeadings.length > 4 && (
                       <figure className="my-12 md:my-16 md:w-screen md:max-w-[1200px] md:-ml-[240px] relative h-56 md:h-80 rounded-2xl overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.04),0_24px_60px_rgba(0,0,0,0.10)]">
                         <Image
                           src={
@@ -372,7 +379,7 @@ export default async function BlogPostPage({
                       </figure>
                     )}
                     {/* Second inline image — same full-bleed treatment */}
-                    {i === 7 && post.headings.length > 6 && (
+                    {i === 7 && postHeadings.length > 6 && (
                       <figure className="my-12 md:my-16 md:w-screen md:max-w-[1200px] md:-ml-[240px] relative h-56 md:h-80 rounded-2xl overflow-hidden shadow-[0_4px_6px_rgba(0,0,0,0.04),0_24px_60px_rgba(0,0,0,0.10)]">
                         <Image
                           src={
@@ -525,8 +532,10 @@ export default async function BlogPostPage({
               complementary landmark so screen readers announce it. */}
           <aside aria-label={chrome.sidebar} className="hidden lg:block w-52 shrink-0">
             <div className="sticky top-28 space-y-6 max-h-[calc(100vh-9rem)] overflow-y-auto pr-1 -mr-1">
-              {post.headings.length > 0 && (
-                <TableOfContents headings={post.headings} />
+              {postHeadings.length > 0 && (
+                <TableOfContents
+                  headings={postHeadings.map((h) => ({ ...h, level: 2 }))}
+                />
               )}
               <RelatedServicesSidebar category={post.category} />
             </div>

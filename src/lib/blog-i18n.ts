@@ -3,14 +3,27 @@
  *
  * Maps each EN blog post slug → { viSlug, viTitle, viExcerpt, viCategory }.
  * Used by blog page consumers to render VI metadata without modifying the
- * 1000-line blog-data.ts file. Post bodies remain English — a notice
- * ("Bản dịch đang hoàn thiện") appears on VI blog detail pages until the
- * full body translation lands.
+ * 1000-line blog-data.ts file.
  *
- * Adding a new post: add an entry here alongside the blog-data.ts entry.
+ * Full VI post bodies (content + headings) live in ./blog-vi-content/*.ts and
+ * are merged into `blogViBody` below. Posts without a body entry still render
+ * the EN body with a notice ("Bản dịch đang hoàn thiện") on VI detail pages.
+ *
+ * Adding a new post: add an entry here alongside the blog-data.ts entry (and a
+ * body entry in blog-vi-content once translated).
  */
 import type { BlogPost } from "./blog-data";
 import type { Locale } from "@/i18n/routing";
+
+import { part1 } from "./blog-vi-content/part1";
+import { part2 } from "./blog-vi-content/part2";
+import { part3 } from "./blog-vi-content/part3";
+import { part4 } from "./blog-vi-content/part4";
+import { part5 } from "./blog-vi-content/part5";
+import { part6 } from "./blog-vi-content/part6";
+import { part7 } from "./blog-vi-content/part7";
+import { part8 } from "./blog-vi-content/part8";
+import { part9 } from "./blog-vi-content/part9";
 
 export interface BlogViMeta {
   slug: string;
@@ -291,6 +304,39 @@ export const blogViMeta: Record<string, BlogViMeta> = {
     category: "Công nghệ",
   },
 };
+
+/**
+ * Translated post body — same shape as the EN body minus the invariant fields.
+ * heading ids stay EN (anchors must match TOC links); only text is translated.
+ */
+export interface BlogViBody {
+  content: string[];
+  headings: { id: string; text: string }[];
+}
+
+/**
+ * Full VI post bodies live in src/lib/blog-vi-content/*.ts (chunked to keep
+ * individual files reviewable). Merged here so consumers only import blog-i18n.
+ */
+export const blogViBody: Record<string, BlogViBody> = {
+  ...part1,
+  ...part2,
+  ...part3,
+  ...part4,
+  ...part5,
+  ...part6,
+  ...part7,
+  ...part8,
+  ...part9,
+};
+
+/**
+ * Resolve the post body for a locale. Returns undefined for VI posts whose
+ * body hasn't been translated yet (the page shows a notice in that case).
+ */
+export function getBlogBody(post: BlogPost, locale: Locale): BlogViBody | undefined {
+  return locale === "vi" ? blogViBody[post.slug] : undefined;
+}
 
 /**
  * Resolve blog post metadata for a given locale.
