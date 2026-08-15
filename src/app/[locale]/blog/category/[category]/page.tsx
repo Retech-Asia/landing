@@ -81,6 +81,13 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${SITE_URL}/${locale}/blog/category/${categorySlug}`,
+      // Category slugs are shared across locales — declare reciprocal
+      // hreflang to match the sitemap's alternates for these URLs.
+      languages: {
+        en: `${SITE_URL}/en/blog/category/${categorySlug}`,
+        vi: `${SITE_URL}/vi/blog/category/${categorySlug}`,
+        "x-default": `${SITE_URL}/en/blog/category/${categorySlug}`,
+      },
     },
     openGraph: {
       title,

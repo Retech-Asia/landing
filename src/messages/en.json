@@ -465,11 +465,11 @@
   },
   "pages": {
     "about": {
-      "title": "About Retech Solutions",
+      "title": "About Us",
       "description": "Vietnam-based software outsourcing company delivering custom CMS, CRM, ERP, and AI-powered products to teams worldwide."
     },
     "contact": {
-      "title": "Contact Retech Solutions",
+      "title": "Contact",
       "description": "Get a free consultation. We respond within one business day with architecture recommendations, team allocation, and clear milestones."
     },
     "faq": {
@@ -517,7 +517,7 @@
       "description": "Modern, proven technologies we build with — React, Next.js, Node.js, TypeScript, AWS, and more."
     },
     "careers": {
-      "title": "Careers at Retech Solutions",
+      "title": "Careers",
       "description": "Build the future of software development from Vietnam. Join a team that ships."
     },
     "blog": {

@@ -76,8 +76,14 @@ export function generateMetadata({
     const enUrl = `${SITE_URL}/en/industries/${raw?.slug.en ?? industry.slug}`;
     const viUrl = `${SITE_URL}/vi/industries/${raw?.slug.vi ?? industry.slug}`;
 
+    // Locale-aware title — avoids mixed-language titles like
+    // "Y tế Software Development" on /vi.
+    const pageTitle = loc === "vi"
+      ? `Phát triển Phần mềm ${industry.name}`
+      : `${industry.name} Software Development`;
+
     return {
-      title: `${industry.name} Software Development`,
+      title: pageTitle,
       description: industry.longDescription.length > 155
         ? industry.longDescription.slice(0, 152).replace(/\s+\S*$/, "") + "..."
         : industry.longDescription,
@@ -90,7 +96,7 @@ export function generateMetadata({
         },
       },
       openGraph: {
-        title: `${industry.name} Software Development | Retech Solutions`,
+        title: `${pageTitle} | Retech Solutions`,
         description: industry.longDescription.length > 155
           ? industry.longDescription.slice(0, 152).replace(/\s+\S*$/, "") + "..."
           : industry.longDescription,
@@ -156,19 +162,24 @@ export default async function IndustryDetailPage({
   const relatedCaseStudies = getRelatedCaseStudies(industry, loc);
   const relatedServices = getRelatedServices(industry);
 
+  // Locale-aware JSON-LD label — matches the <title> pattern.
+  const jsonLdLabel = loc === "vi"
+    ? `Phát triển Phần mềm ${industry.name}`
+    : `${industry.name} Software Development`;
+
   return (
     <>
       {/* -- Structured Data ---------------------------------------------- */}
       <WebPageJsonLd
-        title={`${industry.name} Software Development`}
+        title={jsonLdLabel}
         description={industry.longDescription.slice(0, 160)}
         url={pageUrl}
       />
       <ServiceJsonLd
-        name={`${industry.name} Software Development`}
+        name={jsonLdLabel}
         description={industry.longDescription.slice(0, 160)}
         url={pageUrl}
-        serviceType={`${industry.name} Software Development`}
+        serviceType={jsonLdLabel}
       />
       <BreadcrumbJsonLd
         items={[

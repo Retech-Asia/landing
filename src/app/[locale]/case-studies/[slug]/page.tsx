@@ -230,8 +230,17 @@ export function generateMetadata({
     // per locale — reference the current locale's variant so the URL resolves.
     const ogImageUrl = `/${locale}/case-studies/${study.slug}/opengraph-image`;
 
+    // Locale-aware title — VI keeps "Dự án" (matches the VI listing page
+    // "Dự án Thực tế") instead of the English "Case Study" suffix.
+    const pageTitle = loc === "vi"
+      ? `${study.title} | Dự án`
+      : `${study.title} Case Study`;
+    const ogTitle = loc === "vi"
+      ? `${study.title} | Retech Solutions`
+      : `${study.title} Case Study | Retech Solutions`;
+
     return {
-      title: `${study.title} Case Study`,
+      title: pageTitle,
       description: study.description.length > 155
         ? study.description.slice(0, 152).replace(/\s+\S*$/, "") + "..."
         : study.description,
@@ -244,7 +253,7 @@ export function generateMetadata({
         },
       },
       openGraph: {
-        title: `${study.title} Case Study | Retech Solutions`,
+        title: ogTitle,
         description: study.description.length > 155
           ? study.description.slice(0, 152).replace(/\s+\S*$/, "") + "..."
           : study.description,
@@ -263,7 +272,7 @@ export function generateMetadata({
       },
       twitter: {
         card: "summary_large_image",
-        title: `${study.title} Case Study | Retech Solutions`,
+        title: ogTitle,
         description: study.description.length > 155
           ? study.description.slice(0, 152).replace(/\s+\S*$/, "") + "..."
           : study.description,
@@ -306,7 +315,9 @@ export default async function CaseStudyDetailPage({
     <>
       {/* Structured Data */}
       <WebPageJsonLd
-        title={`${study.title} Case Study`}
+        title={
+          loc === "vi" ? `${study.title} | Dự án` : `${study.title} Case Study`
+        }
         description={study.description}
         url={pageUrl}
       />
