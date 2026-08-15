@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/cn";
 
@@ -37,6 +38,7 @@ export function BreadcrumbNav({
   maxItems = 3,
   maxLabelChars = 50,
 }: BreadcrumbNavProps) {
+  const isVi = useLocale() === "vi";
   // Collapse middle items if path is longer than maxItems. Keep first,
   // second (if present), and last. NN/g + Pencil & Paper confirm
   // ellipsis-collapse is the standard convention for long paths.
@@ -58,7 +60,10 @@ export function BreadcrumbNav({
   }
 
   return (
-    <nav aria-label="Breadcrumb" className={cn("mb-6", className)}>
+    <nav
+      aria-label={isVi ? "Điều hướng trang" : "Breadcrumb"}
+      className={cn("mb-6", className)}
+    >
       {/* flex-wrap (not flex-nowrap) so short items can wrap to a 2nd line
           if needed instead of getting force-truncated. The user explicitly
           preferred 2-3 line breaks over nonsensical "Ho... > B..." truncation
@@ -71,7 +76,11 @@ export function BreadcrumbNav({
                 key={`collapsed-${index}`}
                 className="flex items-center gap-1.5 shrink-0"
                 title={node.hiddenLabels}
-                aria-label={`Hidden breadcrumb items: ${node.hiddenLabels}`}
+                aria-label={
+                  isVi
+                    ? `Các mục điều hướng bị ẩn: ${node.hiddenLabels}`
+                    : `Hidden breadcrumb items: ${node.hiddenLabels}`
+                }
               >
                 <ChevronRight size={14} className="text-foreground-muted shrink-0" />
                 <span className="text-foreground-muted select-none px-0.5">…</span>

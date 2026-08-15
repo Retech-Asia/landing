@@ -2,44 +2,69 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
+import { useLocale } from "next-intl";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 interface TeamMember {
   name: string;
-  role: string;
+  role: { en: string; vi: string };
   initials: string;
-  bio: string;
+  bio: { en: string; vi: string };
   gradient: string;
 }
 
 const teamMembers: TeamMember[] = [
   {
     name: "Jay Pham",
-    role: "Founder & CEO",
+    role: {
+      en: "Founder & CEO",
+      vi: "Nhà sáng lập & CEO",
+    },
     initials: "JP",
-    bio: "Over a decade in software development and IT outsourcing across Southeast Asia and Australia. Jay founded Retech Solutions to connect global businesses with Vietnam's strongest engineering talent, combining local cost advantages with international delivery standards.",
+    bio: {
+      en: "Over a decade in software development and IT outsourcing across Southeast Asia and Australia. Jay founded Retech Solutions to connect global businesses with Vietnam's strongest engineering talent, combining local cost advantages with international delivery standards.",
+      vi: "Hơn một thập kỷ kinh nghiệm trong phát triển phần mềm và thuê ngoài công nghệ thông tin tại Đông Nam Á và Úc. Jay sáng lập Retech Solutions để kết nối các doanh nghiệp toàn cầu với đội ngũ kỹ sư tài năng của Việt Nam, kết hợp lợi thế chi phí trong nước cùng tiêu chuẩn bàn giao quốc tế.",
+    },
     gradient: "from-brand via-brand-light to-accent-cyan",
   },
   {
     name: "Minh Tran",
-    role: "CTO",
+    role: {
+      en: "CTO",
+      vi: "CTO",
+    },
     initials: "MT",
-    bio: "Systems architect with deep experience in enterprise platforms, from multi-tenant SaaS to real-time financial systems. Minh defines technical strategy, leads architecture reviews, and ensures every project meets production-grade standards for security and performance.",
+    bio: {
+      en: "Systems architect with deep experience in enterprise platforms, from multi-tenant SaaS to real-time financial systems. Minh defines technical strategy, leads architecture reviews, and ensures every project meets production-grade standards for security and performance.",
+      vi: "Kiến trúc sư hệ thống với nhiều kinh nghiệm về các nền tảng doanh nghiệp, từ SaaS đa khách hàng đến hệ thống tài chính thời gian thực. Minh định hướng chiến lược kỹ thuật, chủ trì các buổi rà soát kiến trúc và đảm bảo mọi dự án đạt tiêu chuẩn sẵn sàng vận hành thực tế về bảo mật và hiệu năng.",
+    },
     gradient: "from-accent-cyan via-brand to-accent-violet",
   },
   {
     name: "Linh Nguyen",
-    role: "Head of Design",
+    role: {
+      en: "Head of Design",
+      vi: "Trưởng bộ phận Thiết kế",
+    },
     initials: "LN",
-    bio: "UX designer focused on research-driven product design for web and mobile applications. Linh leads the design practice at Retech, building scalable design systems and ensuring every interface is grounded in user research, not assumptions.",
+    bio: {
+      en: "UX designer focused on research-driven product design for web and mobile applications. Linh leads the design practice at Retech, building scalable design systems and ensuring every interface is grounded in user research, not assumptions.",
+      vi: "Nhà thiết kế trải nghiệm người dùng tập trung vào thiết kế sản phẩm dựa trên nghiên cứu cho các ứng dụng web và di động. Linh dẫn dắt mảng thiết kế tại Retech, xây dựng hệ thống thiết kế có khả năng mở rộng và bảo đảm mọi giao diện đều dựa trên nghiên cứu người dùng thay vì phỏng đoán.",
+    },
     gradient: "from-accent-violet via-brand to-accent-cyan",
   },
   {
     name: "Tuan Le",
-    role: "VP of Engineering",
+    role: {
+      en: "VP of Engineering",
+      vi: "Phó Chủ tịch Kỹ thuật",
+    },
     initials: "TL",
-    bio: "Engineering leader who has managed distributed teams of 20+ developers across multiple concurrent projects. Tuan oversees delivery operations, mentors senior engineers, and drives the agile processes that keep Retech's projects on schedule.",
+    bio: {
+      en: "Engineering leader who has managed distributed teams of 20+ developers across multiple concurrent projects. Tuan oversees delivery operations, mentors senior engineers, and drives the agile processes that keep Retech's projects on schedule.",
+      vi: "Lãnh đạo kỹ thuật từng quản lý các đội ngũ phân tán hơn 20 kỹ sư qua nhiều dự án song song. Tuan giám sát vận hành bàn giao, đồng hành cùng các kỹ sư cấp cao và thúc đẩy quy trình agile giúp các dự án của Retech luôn đúng tiến độ.",
+    },
     gradient: "from-brand via-accent-violet to-accent-cyan",
   },
 ];
@@ -58,12 +83,19 @@ const cardVariants = {
 };
 
 export function LeadershipTeam() {
+  const locale = useLocale();
+  const isVi = locale === "vi";
+
   return (
     <section className="py-20 md:py-28">
       <Container>
         <SectionHeader
-          title="Leadership Team"
-          description="Meet the experienced leaders driving innovation at Retech Solutions and delivering results for our global clients."
+          title={isVi ? "Đội ngũ lãnh đạo" : "Leadership Team"}
+          description={
+            isVi
+              ? "Gặp gỡ các lãnh đạo giàu kinh nghiệm đang dẫn dắt Retech Solutions và mang lại kết quả cho khách hàng toàn cầu."
+              : "Meet the experienced leaders driving innovation at Retech Solutions and delivering results for our global clients."
+          }
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
@@ -105,7 +137,7 @@ export function LeadershipTeam() {
                     {member.name}
                   </h3>
                   <p className="text-sm font-medium text-brand mb-3">
-                    {member.role}
+                    {isVi ? member.role.vi : member.role.en}
                   </p>
                 </div>
               </div>
@@ -119,7 +151,7 @@ export function LeadershipTeam() {
                 style={{ pointerEvents: "none" }}
               >
                 <p className="text-sm text-foreground-secondary leading-relaxed text-center">
-                  {member.bio}
+                  {isVi ? member.bio.vi : member.bio.en}
                 </p>
               </motion.div>
 
@@ -128,7 +160,7 @@ export function LeadershipTeam() {
                 <div className="pt-3 border-t border-card-border flex items-center justify-center">
                   <span className="inline-flex items-center gap-1 text-xs text-foreground-muted group-hover:text-brand transition-colors duration-200">
                     <ExternalLink size={12} />
-                    <span>View profile</span>
+                    <span>{isVi ? "Xem hồ sơ" : "View profile"}</span>
                   </span>
                 </div>
               </div>

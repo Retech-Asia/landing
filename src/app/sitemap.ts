@@ -31,90 +31,51 @@ const CONTENT_LAST_MODIFIED = new Date(CONTENT_LAST_UPDATED);
  */
 const staticPages = [
   { path: "", priority: 1.0, changeFrequency: "weekly" as const, viReady: true },
-  { path: "/about", priority: 0.8, changeFrequency: "monthly" as const, viReady: false },
+  { path: "/about", priority: 0.8, changeFrequency: "monthly" as const, viReady: true },
   { path: "/services", priority: 0.9, changeFrequency: "monthly" as const, viReady: true },
-  { path: "/process", priority: 0.8, changeFrequency: "monthly" as const, viReady: false },
-  { path: "/technologies", priority: 0.7, changeFrequency: "monthly" as const, viReady: false },
+  { path: "/process", priority: 0.8, changeFrequency: "monthly" as const, viReady: true },
+  { path: "/technologies", priority: 0.7, changeFrequency: "monthly" as const, viReady: true },
   { path: "/industries", priority: 0.7, changeFrequency: "monthly" as const, viReady: true },
   { path: "/case-studies", priority: 0.8, changeFrequency: "monthly" as const, viReady: true },
-  { path: "/blog", priority: 0.8, changeFrequency: "weekly" as const, viReady: false },
-  { path: "/faq", priority: 0.7, changeFrequency: "monthly" as const, viReady: false },
-  { path: "/contact", priority: 0.7, changeFrequency: "monthly" as const, viReady: false },
-  { path: "/careers", priority: 0.7, changeFrequency: "weekly" as const, viReady: false },
-  { path: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" as const, viReady: false },
-  { path: "/terms-of-service", priority: 0.3, changeFrequency: "yearly" as const, viReady: false },
+  { path: "/blog", priority: 0.8, changeFrequency: "weekly" as const, viReady: true },
+  { path: "/faq", priority: 0.7, changeFrequency: "monthly" as const, viReady: true },
+  { path: "/contact", priority: 0.7, changeFrequency: "monthly" as const, viReady: true },
+  { path: "/careers", priority: 0.7, changeFrequency: "weekly" as const, viReady: true },
+  { path: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" as const, viReady: true },
+  { path: "/terms-of-service", priority: 0.3, changeFrequency: "yearly" as const, viReady: true },
 ];
 
-/**
- * Build hreflang alternates block for a route.
- * - Homepage (`path === ""`): include VI because it's translated.
- * - Other routes: VI alternates added only when `viReady` flag is true.
- */
-function buildAlternates(path: string, viReady: boolean) {
-  const enUrl = `${SITE_URL}/en${path === "" ? "" : path}`;
-  const viUrl = `${SITE_URL}/vi${path === "" ? "" : path}`;
-  if (viReady) {
-    return { languages: { en: enUrl, vi: viUrl, "x-default": enUrl } };
-  }
-  return { languages: { en: enUrl, "x-default": enUrl } };
-}
-
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticEntries: MetadataRoute.Sitemap = staticPages.map((page) => ({
-    url: `${SITE_URL}/en${page.path === "" ? "" : page.path}`,
-    lastModified: CONTENT_LAST_MODIFIED,
-    changeFrequency: page.changeFrequency,
-    priority: page.priority,
-    alternates: buildAlternates(page.path, page.viReady),
-  }));
-
-  // Vietnamese homepage entry — paired with the EN entry via hreflang.
-  const viHomepage: MetadataRoute.Sitemap[number] = {
-    url: `${SITE_URL}/vi`,
-    lastModified: CONTENT_LAST_MODIFIED,
-    changeFrequency: "weekly",
-    priority: 1.0,
-    alternates: {
-      languages: {
-        en: `${SITE_URL}/en`,
-        vi: `${SITE_URL}/vi`,
-        "x-default": `${SITE_URL}/en`,
+  // Emit EN + VI <url> entries per static page (each URL needs its own
+  // sitemap entry; alternates cross-link them via hreflang).
+  const staticEntries: MetadataRoute.Sitemap = staticPages.flatMap((page) => {
+    const path = page.path === "" ? "" : page.path;
+    const enUrl = `${SITE_URL}/en${path}`;
+    const viUrl = `${SITE_URL}/vi${path}`;
+    const languages = page.viReady
+      ? { en: enUrl, vi: viUrl, "x-default": enUrl }
+      : { en: enUrl, "x-default": enUrl };
+    return [
+      {
+        url: enUrl,
+        lastModified: CONTENT_LAST_MODIFIED,
+        changeFrequency: page.changeFrequency,
+        priority: page.priority,
+        alternates: { languages },
       },
-    },
-  };
-
-  // Vietnamese services listing — paired with /en/services via hreflang.
-  const viServicesListing: MetadataRoute.Sitemap[number] = {
-    url: `${SITE_URL}/vi/services`,
-    lastModified: CONTENT_LAST_MODIFIED,
-    changeFrequency: "monthly",
-    priority: 0.9,
-    alternates: {
-      languages: {
-        en: `${SITE_URL}/en/services`,
-        vi: `${SITE_URL}/vi/services`,
-        "x-default": `${SITE_URL}/en/services`,
-      },
-    },
-  };
-
-  // Vietnamese industries + case-studies listings — paired via hreflang.
-  const viListings: MetadataRoute.Sitemap = [
-    { path: "/industries", priority: 0.7 },
-    { path: "/case-studies", priority: 0.8 },
-  ].map(({ path, priority }) => ({
-    url: `${SITE_URL}/vi${path}`,
-    lastModified: CONTENT_LAST_MODIFIED,
-    changeFrequency: "monthly" as const,
-    priority,
-    alternates: {
-      languages: {
-        en: `${SITE_URL}/en${path}`,
-        vi: `${SITE_URL}/vi${path}`,
-        "x-default": `${SITE_URL}/en${path}`,
-      },
-    },
-  }));
+      ...(page.viReady
+        ? [
+            {
+              url: viUrl,
+              lastModified: CONTENT_LAST_MODIFIED,
+              changeFrequency: page.changeFrequency,
+              priority: page.priority,
+              alternates: { languages },
+            },
+          ]
+        : []),
+    ];
+  });
 
   const servicePages: MetadataRoute.Sitemap = services.flatMap((service) => {
     const enUrl = `${SITE_URL}/en/services/${service.slug.en}`;
@@ -212,19 +173,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ];
   });
 
-  const blogCategoryPages: MetadataRoute.Sitemap = BLOG_CATEGORIES.map((cat) => ({
-    url: `${SITE_URL}/en/blog/category/${cat.slug}`,
-    lastModified: CONTENT_LAST_MODIFIED,
-    changeFrequency: "weekly" as const,
-    priority: 0.5,
-    alternates: { languages: { en: `${SITE_URL}/en/blog/category/${cat.slug}`, "x-default": `${SITE_URL}/en/blog/category/${cat.slug}` } },
-  }));
+  // Category slugs are shared across locales (EN slugs serve both), so emit
+  // EN + VI entries with bidirectional hreflang.
+  const blogCategoryPages: MetadataRoute.Sitemap = BLOG_CATEGORIES.flatMap((cat) => {
+    const enUrl = `${SITE_URL}/en/blog/category/${cat.slug}`;
+    const viUrl = `${SITE_URL}/vi/blog/category/${cat.slug}`;
+    const languages = { en: enUrl, vi: viUrl, "x-default": enUrl };
+    return [
+      {
+        url: enUrl,
+        lastModified: CONTENT_LAST_MODIFIED,
+        changeFrequency: "weekly" as const,
+        priority: 0.5,
+        alternates: { languages },
+      },
+      {
+        url: viUrl,
+        lastModified: CONTENT_LAST_MODIFIED,
+        changeFrequency: "weekly" as const,
+        priority: 0.5,
+        alternates: { languages },
+      },
+    ];
+  });
 
   return [
     ...staticEntries,
-    viHomepage,
-    viServicesListing,
-    ...viListings,
     ...servicePages,
     ...caseStudyPages,
     ...blogPages,

@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLocale } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 /**
@@ -21,6 +22,7 @@ import { ArrowRight } from "lucide-react";
  *   - Does not render on /contact (the CTA destination — pointless there)
  */
 export function MobileStickyCTA() {
+  const isVi = useLocale() === "vi";
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -63,7 +65,7 @@ export function MobileStickyCTA() {
             href="/contact"
             className="pointer-events-auto flex items-center justify-center gap-2 w-full h-12 rounded-full bg-brand text-white font-medium text-base shadow-[0_4px_20px_rgba(32,133,53,0.35)] hover:bg-brand-light active:scale-[0.98] transition-all"
           >
-            Get Free Consultation
+            {isVi ? "Tư vấn Miễn phí" : "Get Free Consultation"}
             <ArrowRight size={18} strokeWidth={2.5} />
           </Link>
         </motion.div>

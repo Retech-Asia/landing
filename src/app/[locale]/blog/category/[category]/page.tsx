@@ -50,6 +50,11 @@ export function generateStaticParams() {
   );
 }
 
+// All valid locale+category combos are enumerated above — anything else 404s
+// statically. Without this, unknown categories render on demand and notFound()
+// streams after the 200 headers (soft-404, bad for SEO).
+export const dynamicParams = false;
+
 export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
@@ -59,7 +64,10 @@ export async function generateMetadata({
   const vi = loc === "vi" ? CATEGORY_VI[categorySlug] : undefined;
 
   if (!category) {
-    return { title: "Category Not Found" };
+    // Throw here too (not just in the page) — otherwise the metadata
+    // resolves, headers stream with 200, and the page's notFound() body
+    // renders under a 200 status (bad for SEO).
+    notFound();
   }
 
   const catName = vi?.name ?? category.name;

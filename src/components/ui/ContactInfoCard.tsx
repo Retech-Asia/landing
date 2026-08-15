@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useLocale } from "next-intl";
 import { Mail, Phone, MapPin, type LucideIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/cn";
@@ -50,6 +51,7 @@ export function ContactInfoCard({
   className,
 }: ContactInfoCardProps) {
   const Icon = iconMap[iconName] ?? Mail;
+  const isVi = useLocale() === "vi";
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(async () => {
@@ -136,7 +138,9 @@ export function ContactInfoCard({
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-brand">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
-                <span className="text-[10px] font-medium text-brand">Copied</span>
+                <span className="text-[10px] font-medium text-brand">
+                  {isVi ? "Đã sao chép" : "Copied"}
+                </span>
               </motion.div>
             ) : action.type === "copy" ? (
               <motion.button
@@ -146,7 +150,7 @@ export function ContactInfoCard({
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.15 }}
                 className="p-2.5 rounded-md text-foreground-muted hover:text-brand hover:bg-brand/10 transition-all"
-                aria-label="Copy to clipboard"
+                aria-label={isVi ? "Sao chép" : "Copy to clipboard"}
                 type="button"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
@@ -160,7 +164,7 @@ export function ContactInfoCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2.5 rounded-md text-foreground-muted hover:text-brand hover:bg-brand/10 transition-all inline-flex"
-                aria-label={action.label || "Open"}
+                aria-label={action.label || (isVi ? "Mở" : "Open")}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />

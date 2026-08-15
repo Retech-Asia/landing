@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLocale } from "next-intl";
 import { MapPin, Clock, ExternalLink, Navigation } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { CONTACT } from "@/lib/constants";
@@ -8,6 +9,7 @@ import { CONTACT } from "@/lib/constants";
 const GOOGLE_MAPS_URL = CONTACT.mapUrl;
 
 export function LocationMap() {
+  const isVi = useLocale() === "vi";
   const [pinHovered, setPinHovered] = useState(false);
 
   return (
@@ -110,7 +112,11 @@ export function LocationMap() {
             onBlur={() => setPinHovered(false)}
             tabIndex={0}
             role="button"
-            aria-label="Retech Solutions office location"
+            aria-label={
+              isVi
+                ? "Vị trí văn phòng Retech Solutions"
+                : "Retech Solutions office location"
+            }
           >
             <div className="relative">
               {/* Outer pulse ring */}
@@ -166,7 +172,9 @@ export function LocationMap() {
               <MapPin size={16} className="text-brand" strokeWidth={1.75} />
             </div>
             <div className="min-w-0">
-              <h3 className="text-sm font-semibold text-foreground mb-1">Our Office</h3>
+              <h3 className="text-sm font-semibold text-foreground mb-1">
+                {isVi ? "Văn phòng của chúng tôi" : "Our Office"}
+              </h3>
               <p className="text-sm text-foreground-secondary leading-relaxed">{CONTACT.address}</p>
             </div>
           </div>
@@ -177,7 +185,7 @@ export function LocationMap() {
             className="inline-flex items-center gap-2 text-sm font-medium text-brand hover:text-brand-light transition-colors group"
           >
             <Navigation size={14} className="transition-transform group-hover:translate-x-0.5" strokeWidth={1.75} />
-            Get Directions
+            {isVi ? "Chỉ đường" : "Get Directions"}
             <ExternalLink size={12} className="opacity-50 group-hover:opacity-80 transition-opacity" />
           </a>
         </div>
@@ -190,6 +198,7 @@ export function LocationMap() {
 }
 
 function OfficeHoursCard() {
+  const isVi = useLocale() === "vi";
   const [currentTime, setCurrentTime] = useState<string | null>(null);
   const [isBusinessHours, setIsBusinessHours] = useState<boolean>(false);
 
@@ -242,7 +251,9 @@ function OfficeHoursCard() {
         <div className="p-2 rounded-lg bg-brand/10" aria-hidden="true">
           <Clock size={16} className="text-brand" strokeWidth={1.75} />
         </div>
-        <h4 className="text-sm font-semibold text-foreground">Office Hours</h4>
+        <h4 className="text-sm font-semibold text-foreground">
+          {isVi ? "Giờ làm việc" : "Office Hours"}
+        </h4>
         <span className="ml-auto text-[10px] font-mono text-foreground-muted bg-brand/[0.04] px-2 py-0.5 rounded-full">
           ICT (GMT+7)
         </span>
@@ -255,13 +266,15 @@ function OfficeHoursCard() {
           <span className="text-xs text-foreground-secondary">
             {isBusinessHours ? (
               <>
-                We&apos;re currently open &middot;{" "}
-                <span className="font-mono font-medium text-foreground">{currentTime}</span> local time
+                {isVi ? "Hiện đang mở cửa" : "We're currently open"} &middot;{" "}
+                <span className="font-mono font-medium text-foreground">{currentTime}</span>{" "}
+                {isVi ? "giờ địa phương" : "local time"}
               </>
             ) : (
               <>
-                Currently closed &middot;{" "}
-                <span className="font-mono font-medium text-foreground">{currentTime}</span> local time
+                {isVi ? "Hiện đang đóng cửa" : "Currently closed"} &middot;{" "}
+                <span className="font-mono font-medium text-foreground">{currentTime}</span>{" "}
+                {isVi ? "giờ địa phương" : "local time"}
               </>
             )}
           </span>
@@ -270,9 +283,21 @@ function OfficeHoursCard() {
 
       <div className="space-y-2.5">
         {[
-          { day: "Monday - Friday", hours: "9:00 - 18:00", active: true },
-          { day: "Saturday", hours: "9:00 - 12:00", active: true },
-          { day: "Sunday", hours: "Closed", active: false },
+          {
+            day: isVi ? "Thứ Hai - Thứ Sáu" : "Monday - Friday",
+            hours: "9:00 - 18:00",
+            active: true,
+          },
+          {
+            day: isVi ? "Thứ Bảy" : "Saturday",
+            hours: "9:00 - 12:00",
+            active: true,
+          },
+          {
+            day: isVi ? "Chủ Nhật" : "Sunday",
+            hours: isVi ? "Đóng cửa" : "Closed",
+            active: false,
+          },
         ].map(({ day, hours, active }) => (
           <div
             key={day}

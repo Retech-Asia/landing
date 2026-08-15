@@ -18,8 +18,10 @@ import {
   ChevronRight,
   type LucideIcon,
 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 import { cn } from "@/lib/cn";
+import { services } from "@/lib/services-data";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -185,6 +187,133 @@ const PROJECT_TYPES: ProjectType[] = [
 ];
 
 /* ------------------------------------------------------------------ */
+/*  Locale dictionaries (EN | VI)                                      */
+/* ------------------------------------------------------------------ */
+
+// Canonical VI service names/subtitles, reused from services-data (keyed by
+// the invariant EN slug) so widget labels stay in sync with service pages.
+const SERVICE_VI: Record<string, { title: string; subtitle: string }> =
+  Object.fromEntries(
+    services.map((s) => [s.slug.en, { title: s.title.vi, subtitle: s.subtitle.vi }]),
+  );
+
+// EN slug → VI slug, so links keep VI users on /vi/dich-vu/... pages.
+const SLUG_VI: Record<string, string> = Object.fromEntries(
+  services.map((s) => [s.slug.en, s.slug.vi]),
+);
+
+interface SEStrings {
+  step1of2: string;
+  question: string;
+  subheading: string;
+  blueprint: string;
+  approach: string;
+  recommendedServices: string;
+  core: string;
+  viewService: string;
+  startProject: string;
+  startOver: string;
+  backToSelection: string;
+}
+
+const SE_STRINGS: Record<"en" | "vi", SEStrings> = {
+  en: {
+    step1of2: "Step 1 of 2",
+    question: "What are you building?",
+    subheading:
+      "Choose a project type and we'll map out the right services, timeline, and team.",
+    blueprint: "Your Project Blueprint",
+    approach: "Here's our recommended approach for your project.",
+    recommendedServices: "Recommended Services",
+    core: "Core",
+    viewService: "View service",
+    startProject: "Start This Project",
+    startOver: "Start Over",
+    backToSelection: "Back to selection",
+  },
+  vi: {
+    step1of2: "Bước 1 / 2",
+    question: "Bạn đang xây dựng gì?",
+    subheading:
+      "Chọn loại dự án và chúng tôi sẽ gợi ý dịch vụ, thời gian và đội ngũ phù hợp.",
+    blueprint: "Kế hoạch Dự án của Bạn",
+    approach: "Đây là hướng tiếp cận đề xuất cho dự án của bạn.",
+    recommendedServices: "Dịch vụ Đề xuất",
+    core: "Cốt lõi",
+    viewService: "Xem dịch vụ",
+    startProject: "Bắt đầu Dự án Này",
+    startOver: "Bắt đầu lại",
+    backToSelection: "Quay lại chọn dự án",
+  },
+};
+
+// VI labels for project types, keyed by stable ids.
+const PROJECT_TYPE_VI: Record<
+  string,
+  { label: string; description: string; timeline: string; teamSize: string }
+> = {
+  "new-website": {
+    label: "Website Mới",
+    description: "Ra mắt website hoặc nền tảng web hiện đại, responsive",
+    timeline: "4 - 10 tuần",
+    teamSize: "3 - 5 người",
+  },
+  "mobile-app": {
+    label: "Ứng dụng Di động",
+    description: "Xây dựng ứng dụng di động đa nền tảng hoặc native",
+    timeline: "8 - 16 tuần",
+    teamSize: "4 - 6 người",
+  },
+  "business-system": {
+    label: "Hệ thống Nghiệp vụ",
+    description: "ERP, CRM hoặc công cụ nội bộ tùy chỉnh cho vận hành của bạn",
+    timeline: "12 - 24 tuần",
+    teamSize: "5 - 8 người",
+  },
+  "design-refresh": {
+    label: "Làm mới Thiết kế",
+    description: "Hiện đại hóa giao diện và trải nghiệm sản phẩm hiện có",
+    timeline: "3 - 8 tuần",
+    teamSize: "2 - 4 người",
+  },
+  "team-extension": {
+    label: "Mở rộng Đội ngũ",
+    description: "Bổ sung nhân sự offshore cho đội ngũ nội bộ của bạn",
+    timeline: "2 - 4 tuần để onboarding",
+    teamSize: "Linh hoạt (1 - 10+ người)",
+  },
+};
+
+// VI reasons per recommended service, keyed by `${projectId}:${slug}` — the
+// same service carries a different reason per project type.
+const SERVICE_REASON_VI: Record<string, string> = {
+  "new-website:cms-platforms":
+    "Nền tảng cho việc xuất bản nội dung và quy trình biên tập",
+  "new-website:ui-ux-design":
+    "Đảm bảo trải nghiệm người dùng hấp dẫn, tối ưu chuyển đổi",
+  "new-website:web-development":
+    "Kỹ thuật front-end và back-end theo yêu cầu",
+  "mobile-app:web-development":
+    "Ứng dụng di động đa nền tảng với PWA hoặc React Native",
+  "mobile-app:ui-ux-design":
+    "Thiết kế mobile-first với thao tác chạm trực quan",
+  "mobile-app:dedicated-teams":
+    "Năng lực đội ngũ mở rộng cho phát triển mobile liên tục",
+  "business-system:erp-solutions":
+    "Kết nối các phòng ban và tinh gọn vận hành",
+  "business-system:crm-systems":
+    "Quản lý quan hệ khách hàng và pipeline bán hàng",
+  "business-system:web-development":
+    "Dashboard, API và tích hợp hệ thống theo yêu cầu",
+  "design-refresh:ui-ux-design":
+    "Thiết kế lại dựa trên nghiên cứu kèm kiểm thử khả năng sử dụng",
+  "design-refresh:web-development":
+    "Triển khai thiết kế mới với code sạch, hiệu suất cao",
+  "team-extension:dedicated-teams":
+    "Kỹ sư senior đã qua sàng lọc, được quản lý trọn gói",
+};
+
+/* ------------------------------------------------------------------ */
 /*  Animation variants                                                 */
 /* ------------------------------------------------------------------ */
 
@@ -222,6 +351,34 @@ export function ServiceExplorer() {
   const [step, setStep] = useState<0 | 1>(0); // 0 = select project, 1 = summary
   const [selected, setSelected] = useState<ProjectType | null>(null);
   const [direction, setDirection] = useState(1);
+
+  const locale = useLocale();
+  const isVi = locale === "vi";
+  const t = SE_STRINGS[isVi ? "vi" : "en"];
+
+  // Localized display text (falls back to EN data when VI is unmapped).
+  const projectText = (
+    p: ProjectType,
+  ): { label: string; description: string; timeline: string; teamSize: string } =>
+    isVi
+      ? PROJECT_TYPE_VI[p.id] ?? {
+          label: p.label,
+          description: p.description,
+          timeline: p.timeline,
+          teamSize: p.teamSize,
+        }
+      : {
+          label: p.label,
+          description: p.description,
+          timeline: p.timeline,
+          teamSize: p.teamSize,
+        };
+
+  const svcTitle = (slug: string, fallback: string): string =>
+    isVi ? SERVICE_VI[slug]?.title ?? fallback : fallback;
+
+  const svcReason = (projectId: string, slug: string, fallback: string): string =>
+    isVi ? SERVICE_REASON_VI[`${projectId}:${slug}`] ?? fallback : fallback;
 
   const pick = useCallback((project: ProjectType) => {
     setSelected(project);
@@ -267,13 +424,13 @@ export function ServiceExplorer() {
               exit="exit"
             >
               <p className="text-xs font-semibold tracking-widest uppercase text-brand mb-2">
-                Step 1 of 2
+                {t.step1of2}
               </p>
               <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">
-                What are you building?
+                {t.question}
               </h3>
               <p className="text-sm text-foreground-secondary mb-6">
-                Choose a project type and we&apos;ll map out the right services, timeline, and team.
+                {t.subheading}
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -302,10 +459,10 @@ export function ServiceExplorer() {
                         />
                       </div>
                       <p className="text-sm font-semibold text-foreground mb-1">
-                        {project.label}
+                        {projectText(project).label}
                       </p>
                       <p className="text-xs text-foreground-secondary leading-relaxed">
-                        {project.description}
+                        {projectText(project).description}
                       </p>
                     </motion.button>
                   );
@@ -328,14 +485,14 @@ export function ServiceExplorer() {
               <div className="flex items-center gap-2 mb-2">
                 <CheckCircle2 size={20} className="text-brand" />
                 <p className="text-xs font-semibold tracking-widest uppercase text-brand">
-                  Your Project Blueprint
+                  {t.blueprint}
                 </p>
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-foreground mb-1">
-                {selected.label}
+                {projectText(selected).label}
               </h3>
               <p className="text-sm text-foreground-secondary mb-6">
-                Here&apos;s our recommended approach for your project.
+                {t.approach}
               </p>
 
               {/* Timeline & Team badges */}
@@ -343,13 +500,13 @@ export function ServiceExplorer() {
                 <div className="inline-flex items-center gap-2 rounded-lg bg-brand/[0.06] border border-brand/10 px-3.5 py-2">
                   <Clock size={15} className="text-brand" />
                   <span className="text-sm font-medium text-foreground">
-                    {selected.timeline}
+                    {projectText(selected).timeline}
                   </span>
                 </div>
                 <div className="inline-flex items-center gap-2 rounded-lg bg-accent-cyan/[0.06] border border-accent-cyan/10 px-3.5 py-2">
                   <UserCircle2 size={15} className="text-accent-cyan" />
                   <span className="text-sm font-medium text-foreground">
-                    {selected.teamSize}
+                    {projectText(selected).teamSize}
                   </span>
                 </div>
               </div>
@@ -358,7 +515,7 @@ export function ServiceExplorer() {
               <div className="space-y-0">
                 {/* Connector label */}
                 <p className="text-xs font-semibold tracking-widest uppercase text-foreground-muted mb-3">
-                  Recommended Services
+                  {t.recommendedServices}
                 </p>
 
                 {/* Horizontal flow on desktop, vertical on mobile */}
@@ -385,7 +542,7 @@ export function ServiceExplorer() {
                             </div>
                           )}
                           <Link
-                            href={`/services/${svc.slug}`}
+                            href={`/services/${isVi ? SLUG_VI[svc.slug] ?? svc.slug : svc.slug}`}
                             className="group flex-1 rounded-xl border border-card-border p-4 hover:border-brand/25 hover:bg-brand/[0.02] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50"
                           >
                             <div className="flex items-center gap-2.5 mb-2">
@@ -399,20 +556,20 @@ export function ServiceExplorer() {
                               </div>
                               <div className="min-w-0">
                                 <p className="text-sm font-semibold text-foreground group-hover:text-brand transition-colors truncate">
-                                  {svc.title}
+                                  {svcTitle(svc.slug, svc.title)}
                                   {isFirst && (
                                     <span className="ml-1.5 inline-flex items-center rounded-full bg-brand/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-brand">
-                                      Core
+                                      {t.core}
                                     </span>
                                   )}
                                 </p>
                               </div>
                             </div>
                             <p className="text-xs text-foreground-secondary leading-relaxed">
-                              {svc.reason}
+                              {svcReason(selected.id, svc.slug, svc.reason)}
                             </p>
                             <div className="mt-2 flex items-center gap-1 text-[11px] font-medium text-foreground-muted group-hover:text-brand transition-colors">
-                              View service
+                              {t.viewService}
                               <ArrowRight size={10} className="group-hover:translate-x-0.5 transition-transform" />
                             </div>
                           </Link>
@@ -436,7 +593,7 @@ export function ServiceExplorer() {
                       return (
                         <Link
                           key={svc.slug}
-                          href={`/services/${svc.slug}`}
+                          href={`/services/${isVi ? SLUG_VI[svc.slug] ?? svc.slug : svc.slug}`}
                           className="group flex items-start gap-3.5 rounded-xl border border-card-border p-4 hover:border-brand/25 hover:bg-brand/[0.02] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50"
                         >
                           <div
@@ -449,15 +606,15 @@ export function ServiceExplorer() {
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">
-                              {svc.title}
+                              {svcTitle(svc.slug, svc.title)}
                               {isFirst && (
                                 <span className="ml-1.5 inline-flex items-center rounded-full bg-brand/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-brand">
-                                  Core
+                                  {t.core}
                                 </span>
                               )}
                             </p>
                             <p className="text-xs text-foreground-secondary leading-relaxed mt-0.5">
-                              {svc.reason}
+                              {svcReason(selected.id, svc.slug, svc.reason)}
                             </p>
                           </div>
                           <ArrowRight
@@ -482,7 +639,7 @@ export function ServiceExplorer() {
                     "px-6 py-3 text-sm"
                   )}
                 >
-                  Start This Project
+                  {t.startProject}
                   <ArrowRight size={16} />
                 </Link>
                 <button
@@ -490,7 +647,7 @@ export function ServiceExplorer() {
                   className="inline-flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-lg px-3 py-2"
                 >
                   <RotateCcw size={14} />
-                  Start Over
+                  {t.startOver}
                 </button>
               </div>
 
@@ -500,7 +657,7 @@ export function ServiceExplorer() {
                 className="mt-3 inline-flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-lg px-3 py-2"
               >
                 <ArrowLeft size={14} />
-                Back to selection
+                {t.backToSelection}
               </button>
             </motion.div>
           )}

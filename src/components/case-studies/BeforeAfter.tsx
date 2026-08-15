@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "next-intl";
 import {
   StaggerContainer,
   StaggerItem,
@@ -100,6 +101,9 @@ function MetricComparisonCard({
 }: {
   item: FlatBeforeAfterMetric;
 }) {
+  const locale = useLocale();
+  const isVi = locale === "vi";
+
   return (
     <StaggerItem>
       <div
@@ -122,7 +126,7 @@ function MetricComparisonCard({
           {/* Before */}
           <div>
             <p className="text-[11px] uppercase tracking-wider text-red-400/70 font-medium mb-1.5">
-              Before
+              {isVi ? "Trước" : "Before"}
             </p>
             <p className="text-base md:text-lg font-bold text-red-300/80">
               {item.before}
@@ -132,7 +136,7 @@ function MetricComparisonCard({
           {/* After */}
           <div>
             <p className="text-[11px] uppercase tracking-wider text-emerald-400/70 font-medium mb-1.5">
-              After
+              {isVi ? "Sau" : "After"}
             </p>
             <p className="text-base md:text-lg font-bold text-emerald-400">
               {item.after}

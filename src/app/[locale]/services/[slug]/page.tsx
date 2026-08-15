@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ArrowRight, ArrowLeft, Mail, CheckCircle2, Quote } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -34,6 +34,11 @@ export function generateStaticParams() {
   );
 }
 
+// All valid locale+slug combos are enumerated above — anything else 404s
+// statically. Without this, unknown slugs render on demand and notFound()
+// streams after the 200 headers (soft-404, bad for SEO).
+export const dynamicParams = false;
+
 /* ── Metadata ─────────────────────────────────────────────────── */
 export function generateMetadata({
   params,
@@ -44,7 +49,10 @@ export function generateMetadata({
     const loc = locale as Locale;
     const service = getFlatService(slug, loc);
     if (!service) {
-      return { title: "Service Not Found" };
+      // Throw before metadata resolves (not just in the page body) —
+      // otherwise headers stream with 200 and the not-found page renders
+      // under a 200 status.
+      notFound();
     }
 
     const pageUrl = `${SITE_URL}/${locale}/services/${service.slug}`;

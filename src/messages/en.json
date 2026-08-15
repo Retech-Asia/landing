@@ -127,47 +127,125 @@
       "secondary": "See Our Work"
     },
     "whyRetech": {
-      "title": "Why teams pick Retech",
-      "subtitle": "Senior engineers, modern stack, transparent process. The fundamentals that make offshore development actually work.",
-      "learnMore": "Learn more"
+      "label": "Why Retech",
+      "title": "Why Companies Choose Us",
+      "description": "Engineering teams that ship CMS, CRM, ERP, and AI-native products end to end. RAG search, LLM features, and multi-agent orchestration are standard delivery surfaces, not bolt-ons.",
+      "items": {
+        "aiEngineering": {
+          "title": "AI-Integrated Engineering",
+          "description": "RAG, vector search, LLM features, and multi-agent orchestration shipped as standard. AI is part of how we build, not a separate SKU."
+        },
+        "agile": {
+          "title": "Agile Methodologies",
+          "description": "Iterative development with continuous feedback, ensuring rapid delivery and alignment with your business goals."
+        },
+        "aiSolutions": {
+          "title": "AI-Driven Solutions",
+          "description": "Integrated AI capabilities across CMS, CRM, and ERP platforms, from automated content tagging and predictive analytics to intelligent workflow automation."
+        },
+        "productionAi": {
+          "title": "Production AI Expertise",
+          "description": "LangChain, pgvector, OpenAI, and Anthropic in production across 5+ shipped platforms. We have built the RAG pipelines, query routers, and agent systems you are planning."
+        }
+      },
+      "learnMore": "Learn more about Retech Solutions"
     },
     "whyVietnam": {
-      "title": "Why Vietnam",
-      "subtitle": "A deep engineering talent pool, time-zone overlap with APAC and EMEA, and a government actively investing in tech. The math is straightforward.",
+      "label": "Why Vietnam",
+      "title": "A Strategic Outsourcing Destination",
+      "description": "Vietnam IT outsourcing combines deep STEM talent, cost efficiency, and timezone overlap with APAC and EU — making it a competitive offshore software development destination within ASEAN.",
       "advantages": {
+        "cost": {
+          "title": "Cost Effective",
+          "description": "Save 40-60% compared to Western markets without compromising on quality or expertise."
+        },
         "talent": {
-          "title": "Engineering talent pool",
-          "description": "Vietnam graduates 50,000+ IT engineers annually. The talent pool is deep in modern web stacks (React, Node.js, Python) and mobile (React Native, Flutter)."
+          "title": "Talented Workforce",
+          "description": "Over 50,000 IT graduates annually, with strong STEM foundations and competitive technical skills."
         },
         "timezone": {
-          "title": "Time-zone advantage",
-          "description": "GMT+7 overlaps same-day with APAC (Tokyo, Singapore, Sydney) and morning overlap with EMEA (London, Berlin). Follow-the-sun engineering is real here."
+          "title": "Timezone Advantage",
+          "description": "GMT+7 timezone overlaps with both APAC and European business hours, keeping daily syncs practical."
         },
-        "cost": {
-          "title": "Cost-to-quality ratio",
-          "description": "Senior engineering rates 40-60% below US/EU equivalents, without the quality compromise. You pay for output, not overhead."
+        "cultural": {
+          "title": "Cultural Compatibility",
+          "description": "Strong English proficiency and familiarity with Western business practices and communication styles."
         },
         "government": {
-          "title": "Tech-forward policy",
-          "description": "National Digital Transformation program, R&D tax incentives, and aggressive fiber + 5G rollout. The infrastructure supports modern dev work."
+          "title": "Government Support",
+          "description": "Favorable tax policies for IT outsourcing and a rapidly growing tech ecosystem backed by national strategy."
+        },
+        "scalable": {
+          "title": "Scalable Teams",
+          "description": "Quickly scale your development team up or down based on project needs and business demands."
         }
-      }
+      },
+      "stats": {
+        "graduates": "IT Graduates/Year",
+        "savings": "Cost Savings vs. West",
+        "timezone": "Timezone (overlaps EU mornings)",
+        "asean": "ASEAN Neighbor Markets"
+      },
+      "imageAlt": "Ho Chi Minh City: Vietnam's tech and business hub",
+      "imageCaption": "Ho Chi Minh City, home to Vietnam's tech talent"
     },
     "techStack": {
-      "title": "Our technical stack",
-      "subtitle": "Modern, well-supported frameworks. We avoid exotic stacks that lock teams into maintenance debt.",
+      "label": "Tech Stack",
+      "title": "Our Technology Stack",
+      "description": "Modern, proven technologies across the stack. AI engineering runs on LangChain, pgvector, and the OpenAI and Anthropic APIs.",
       "categories": {
         "frontend": "Frontend",
         "backend": "Backend",
-        "mobile": "Mobile",
         "database": "Database",
-        "devops": "DevOps",
+        "cloudDevops": "Cloud & DevOps",
+        "design": "Design",
         "ai": "AI & ML"
       }
     },
     "testimonials": {
-      "title": "Built on trust",
-      "subtitle": "What clients say about working with Retech."
+      "label": "How We Work",
+      "title": "A Collaborative Engineering Partner",
+      "description": "We combine technical excellence with a transparent, collaborative approach to deliver software that drives measurable business results.",
+      "results": {
+        "label": "Client Results",
+        "title": "Numbers That Speak for Themselves",
+        "metrics": {
+          "onTime": "Projects Delivered On Time",
+          "satisfaction": "Client Satisfaction",
+          "responseTime": "Average Response Time",
+          "markets": "Markets Served"
+        }
+      },
+      "process": {
+        "label": "Trusted Process",
+        "title": "Quality Built Into Every Step",
+        "description": "Our proven development process ensures predictable outcomes, transparent communication, and rigorous quality assurance from day one through post-launch support.",
+        "badges": {
+          "agile": "Agile Methodology",
+          "codeReview": "Code Review Gates",
+          "testing": "Automated Testing",
+          "cicd": "CI/CD Pipeline",
+          "monitoring": "Performance Monitoring"
+        },
+        "steps": {
+          "discovery": {
+            "title": "Discovery & Planning",
+            "description": "Requirements analysis, stakeholder alignment, and project roadmap definition."
+          },
+          "design": {
+            "title": "Design & Prototyping",
+            "description": "UX research, wireframing, and interactive prototyping with client validation."
+          },
+          "development": {
+            "title": "Development & Testing",
+            "description": "Agile sprints with continuous code review, automated testing, and QA gates."
+          },
+          "launch": {
+            "title": "Launch & Support",
+            "description": "Staged deployment, performance monitoring, and ongoing maintenance."
+          }
+        }
+      }
     },
     "finalCta": {
       "titleLine1": "Let's Ship Your Product",

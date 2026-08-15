@@ -12,6 +12,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { motion, useInView } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SectionBackground } from "@/components/ui/SectionBackground";
@@ -82,25 +83,25 @@ const reasons = [
 const clientMetrics = [
   {
     value: "94%",
-    label: "Projects Delivered On Time",
+    key: "onTime",
     icon: Clock,
     accent: "brand" as const,
   },
   {
     value: "4.8/5",
-    label: "Client Satisfaction",
+    key: "satisfaction",
     icon: Award,
     accent: "cyan" as const,
   },
   {
     value: "< 24h",
-    label: "Average Response Time",
+    key: "responseTime",
     icon: Headphones,
     accent: "violet" as const,
   },
   {
     value: "6",
-    label: "Markets Served",
+    key: "markets",
     icon: TrendingUp,
     accent: "brand" as const,
   },
@@ -140,23 +141,19 @@ const projectHighlights = [
 const processSteps = [
   {
     step: 1,
-    title: "Discovery & Planning",
-    description: "Requirements analysis, stakeholder alignment, and project roadmap definition.",
+    key: "discovery",
   },
   {
     step: 2,
-    title: "Design & Prototyping",
-    description: "UX research, wireframing, and interactive prototyping with client validation.",
+    key: "design",
   },
   {
     step: 3,
-    title: "Development & Testing",
-    description: "Agile sprints with continuous code review, automated testing, and QA gates.",
+    key: "development",
   },
   {
     step: 4,
-    title: "Launch & Support",
-    description: "Staged deployment, performance monitoring, and ongoing maintenance.",
+    key: "launch",
   },
 ];
 
@@ -345,6 +342,8 @@ function ProcessStep({
    ═══════════════════════════════════════════ */
 
 export function Testimonials() {
+  const t = useTranslations("home.testimonials");
+  const tProcess = useTranslations("home.testimonials.process");
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
       {/* Premium layered background: spotlight + grid fade */}
@@ -354,9 +353,9 @@ export function Testimonials() {
       <Container className="relative z-10">
         {/* ── Section Header ── */}
         <SectionHeader
-          label="How We Work"
-          title="A Collaborative Engineering Partner"
-          description="We combine technical excellence with a transparent, collaborative approach to deliver software that drives measurable business results."
+          label={t("label")}
+          title={t("title")}
+          description={t("description")}
         />
 
         {/* Value Proposition Cards removed — duplicated WhyRetech's
@@ -368,16 +367,22 @@ export function Testimonials() {
         <div className="mt-12 md:mt-16">
           <div className="text-center mb-10 md:mb-12">
             <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3">
-              Client Results
+              {t("results.label")}
             </p>
             <h3 className="text-2xl md:text-3xl font-bold text-foreground">
-              Numbers That Speak for Themselves
+              {t("results.title")}
             </h3>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {clientMetrics.map((metric) => (
-              <AnimatedStat key={metric.label} {...metric} />
+              <AnimatedStat
+                key={metric.key}
+                value={metric.value}
+                label={t(`results.metrics.${metric.key}`)}
+                icon={metric.icon}
+                accent={metric.accent}
+              />
             ))}
           </div>
         </div>
@@ -393,34 +398,28 @@ export function Testimonials() {
               {/* Left: heading */}
               <div>
                 <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3">
-                  Trusted Process
+                  {tProcess("label")}
                 </p>
                 <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-                  Quality Built Into Every Step
+                  {tProcess("title")}
                 </h3>
                 <p className="text-foreground-secondary leading-relaxed mb-6">
-                  Our proven development process ensures predictable
-                  outcomes, transparent communication, and rigorous quality
-                  assurance from day one through post-launch support.
+                  {tProcess("description")}
                 </p>
 
                 {/* Summary badges */}
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    "Agile Methodology",
-                    "Code Review Gates",
-                    "Automated Testing",
-                    "CI/CD Pipeline",
-                    "Performance Monitoring",
-                  ].map((badge) => (
-                    <span
-                      key={badge}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground-secondary bg-background-subtle rounded-full px-3 py-1.5 border border-card-border"
-                    >
-                      <CheckCircle2 size={12} className="text-brand" />
-                      {badge}
-                    </span>
-                  ))}
+                  {(["agile", "codeReview", "testing", "cicd", "monitoring"] as const).map(
+                    (badge) => (
+                      <span
+                        key={badge}
+                        className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground-secondary bg-background-subtle rounded-full px-3 py-1.5 border border-card-border"
+                      >
+                        <CheckCircle2 size={12} className="text-brand" />
+                        {tProcess(`badges.${badge}`)}
+                      </span>
+                    )
+                  )}
                 </div>
               </div>
 
@@ -429,7 +428,9 @@ export function Testimonials() {
                 {processSteps.map((step, i) => (
                   <ProcessStep
                     key={step.step}
-                    {...step}
+                    step={step.step}
+                    title={tProcess(`steps.${step.key}.title`)}
+                    description={tProcess(`steps.${step.key}.description`)}
                     isLast={i === processSteps.length - 1}
                   />
                 ))}

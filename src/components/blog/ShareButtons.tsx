@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { X, Link2, Check } from "lucide-react";
+import { useLocale } from "next-intl";
 
 interface ShareButtonsProps {
   title: string;
@@ -10,6 +11,7 @@ interface ShareButtonsProps {
 
 export function ShareButtons({ title, url }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
+  const isVi = useLocale() === "vi";
 
   const shareText = `${title} by @RetechSolutions`;
 
@@ -37,14 +39,14 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
   return (
     <div className="flex flex-col items-start gap-3">
       <p className="text-xs font-semibold uppercase tracking-wider text-foreground-muted">
-        Share this article
+        {isVi ? "Chia sẻ bài viết" : "Share this article"}
       </p>
       <div className="flex items-center gap-2">
         <a
           href={twitterUrl}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Share on X (Twitter)"
+          aria-label={isVi ? "Chia sẻ trên X (Twitter)" : "Share on X (Twitter)"}
           className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-card-border text-foreground-secondary hover:text-foreground hover:border-foreground/20 hover:bg-black/[0.03] transition-all duration-200"
         >
           <X size={15} />
@@ -53,7 +55,7 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
           href={linkedInUrl}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Share on LinkedIn"
+          aria-label={isVi ? "Chia sẻ trên LinkedIn" : "Share on LinkedIn"}
           className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-card-border text-foreground-secondary hover:text-foreground hover:border-foreground/20 hover:bg-black/[0.03] transition-all duration-200"
         >
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -64,7 +66,15 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
         </a>
         <button
           onClick={copyLink}
-          aria-label={copied ? "Link copied" : "Copy link"}
+          aria-label={
+            copied
+              ? isVi
+                ? "Đã sao chép liên kết"
+                : "Link copied"
+              : isVi
+                ? "Sao chép liên kết"
+                : "Copy link"
+          }
           className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-card-border text-foreground-secondary hover:text-foreground hover:border-foreground/20 hover:bg-black/[0.03] transition-all duration-200 cursor-pointer"
         >
           {copied ? (
@@ -74,7 +84,9 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
           )}
         </button>
         {copied && (
-          <span className="text-xs text-brand font-medium">Copied!</span>
+          <span className="text-xs text-brand font-medium">
+            {isVi ? "Đã sao chép!" : "Copied!"}
+          </span>
         )}
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { useLocale } from "next-intl";
 import { cn } from "@/lib/cn";
 
 /**
@@ -53,6 +54,8 @@ export function WhatsAppButton({
   label,
   iconOnly = false,
 }: WhatsAppButtonProps) {
+  const isVi = useLocale() === "vi";
+
   const base =
     "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
@@ -73,12 +76,19 @@ export function WhatsAppButton({
     inline: "text-[#25D366] hover:text-[#1da851] text-sm",
   };
 
-  const defaultLabels: Record<Variant, string> = {
-    navbar: "WhatsApp",
-    footer: "Chat on WhatsApp",
-    card: "Chat on WhatsApp",
-    inline: "WhatsApp",
-  };
+  const defaultLabels: Record<Variant, string> = isVi
+    ? {
+        navbar: "WhatsApp",
+        footer: "Chat qua WhatsApp",
+        card: "Chat qua WhatsApp",
+        inline: "WhatsApp",
+      }
+    : {
+        navbar: "WhatsApp",
+        footer: "Chat on WhatsApp",
+        card: "Chat on WhatsApp",
+        inline: "WhatsApp",
+      };
 
   const text = label ?? defaultLabels[variant];
 
@@ -87,7 +97,9 @@ export function WhatsAppButton({
       href={WHATSAPP_HREF}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat with us on WhatsApp"
+      aria-label={
+        isVi ? "Chat với chúng tôi qua WhatsApp" : "Chat with us on WhatsApp"
+      }
       className={cn(base, variantClasses[variant], iconOnly && "px-3", className)}
     >
       {WHATSAPP_GLYPH}

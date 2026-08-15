@@ -15,8 +15,10 @@ import {
   CheckCircle2,
   type LucideIcon,
 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 import { cn } from "@/lib/cn";
+import { services } from "@/lib/services-data";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -91,6 +93,88 @@ const SERVICES: ServiceBrief[] = [
 ];
 
 /* ------------------------------------------------------------------ */
+/*  Locale dictionaries (EN | VI)                                      */
+/* ------------------------------------------------------------------ */
+
+// Canonical VI service names/subtitles, reused from services-data (keyed by
+// the invariant EN slug) so quiz results match the service pages exactly.
+const SERVICE_VI: Record<string, { title: string; subtitle: string }> =
+  Object.fromEntries(
+    services.map((s) => [s.slug.en, { title: s.title.vi, subtitle: s.subtitle.vi }]),
+  );
+
+// EN slug → VI slug, so links keep VI users on /vi/dich-vu/... pages.
+const SLUG_VI: Record<string, string> = Object.fromEntries(
+  services.map((s) => [s.slug.en, s.slug.vi]),
+);
+
+interface SQStrings {
+  stepOf: (n: number) => string;
+  back: string;
+  recommendedForYou: string;
+  suggestHeading: string;
+  matchBody: string;
+  topPick: string;
+  startOver: string;
+}
+
+const SQ_STRINGS: Record<"en" | "vi", SQStrings> = {
+  en: {
+    stepOf: (n) => `Step ${n} of 3`,
+    back: "Back",
+    recommendedForYou: "Recommended For You",
+    suggestHeading: "Based on your answers, we suggest:",
+    matchBody: "Here are the services that best match your project needs.",
+    topPick: "Top Pick",
+    startOver: "Start Over",
+  },
+  vi: {
+    stepOf: (n) => `Bước ${n} / 3`,
+    back: "Quay lại",
+    recommendedForYou: "Đề xuất Dành cho Bạn",
+    suggestHeading: "Dựa trên câu trả lời của bạn, chúng tôi gợi ý:",
+    matchBody: "Đây là các dịch vụ phù hợp nhất với nhu cầu dự án của bạn.",
+    topPick: "Gợi ý Hàng đầu",
+    startOver: "Bắt đầu lại",
+  },
+};
+
+// VI question text and option labels, keyed by stable question ids and the
+// invariant EN option labels. Option slugs (recommendation logic) stay EN.
+const QUESTION_VI: Record<string, { question: string; options: Record<string, string> }> = {
+  project: {
+    question: "Điều nào mô tả dự án của bạn tốt nhất?",
+    options: {
+      "Website": "Website",
+      "Internal Tool": "Công cụ Nội bộ",
+      "Mobile App": "Ứng dụng Di động",
+      "Business System": "Hệ thống Nghiệp vụ",
+      "Design Refresh": "Làm mới Thiết kế",
+      "Team Extension": "Mở rộng Đội ngũ",
+    },
+  },
+  goal: {
+    question: "Mục tiêu chính của bạn là gì?",
+    options: {
+      "Attract Customers": "Thu hút Khách hàng",
+      "Streamline Operations": "Tinh gọn Vận hành",
+      "Manage Data": "Quản lý Dữ liệu",
+      "Improve UX": "Cải thiện UX",
+      "Scale Development": "Mở rộng Phát triển",
+    },
+  },
+  timeline: {
+    question: "Thời gian triển khai của bạn?",
+    options: {
+      "ASAP": "Càng sớm càng tốt",
+      "1–3 months": "1–3 tháng",
+      "3–6 months": "3–6 tháng",
+      "6+ months": "6+ tháng",
+    },
+  },
+};
+
+/* ------------------------------------------------------------------ */
 /*  Animation helpers                                                  */
 /* ------------------------------------------------------------------ */
 
@@ -108,6 +192,23 @@ export function ServiceQuiz() {
   const [step, setStep] = useState(0);           // 0,1,2 = questions; 3 = results
   const [answers, setAnswers] = useState<number[]>([]);
   const [direction, setDirection] = useState(1);
+
+  const locale = useLocale();
+  const isVi = locale === "vi";
+  const t = SQ_STRINGS[isVi ? "vi" : "en"];
+
+  // Localized question/option display text (falls back to EN when unmapped).
+  const questionText = (q: QuizQuestion): string =>
+    isVi ? QUESTION_VI[q.id]?.question ?? q.question : q.question;
+
+  const optionText = (q: QuizQuestion, label: string): string =>
+    isVi ? QUESTION_VI[q.id]?.options[label] ?? label : label;
+
+  const svcTitle = (slug: string, fallback: string): string =>
+    isVi ? SERVICE_VI[slug]?.title ?? fallback : fallback;
+
+  const svcSubtitle = (slug: string, fallback: string): string =>
+    isVi ? SERVICE_VI[slug]?.subtitle ?? fallback : fallback;
 
   /* Select an option on the current step */
   const pick = useCallback(
@@ -181,10 +282,10 @@ export function ServiceQuiz() {
             >
               {/* Step indicator */}
               <p className="text-xs font-semibold tracking-widest uppercase text-brand mb-2">
-                Step {step + 1} of 3
+                {t.stepOf(step + 1)}
               </p>
               <h3 className="text-xl md:text-2xl font-bold text-foreground mb-6">
-                {QUESTIONS[step].question}
+                {questionText(QUESTIONS[step])}
               </h3>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -199,7 +300,7 @@ export function ServiceQuiz() {
                       "transition-all duration-200 cursor-pointer text-center"
                     )}
                   >
-                    {opt.label}
+                    {optionText(QUESTIONS[step], opt.label)}
                   </button>
                 ))}
               </div>
@@ -211,7 +312,7 @@ export function ServiceQuiz() {
                   className="mt-5 inline-flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-lg px-3 py-2"
                 >
                   <ArrowLeft size={14} />
-                  Back
+                  {t.back}
                 </button>
               )}
             </motion.div>
@@ -231,14 +332,14 @@ export function ServiceQuiz() {
               <div className="flex items-center gap-2 mb-2">
                 <CheckCircle2 size={20} className="text-brand" />
                 <p className="text-xs font-semibold tracking-widest uppercase text-brand">
-                  Recommended For You
+                  {t.recommendedForYou}
                 </p>
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">
-                Based on your answers, we suggest:
+                {t.suggestHeading}
               </h3>
               <p className="text-sm text-foreground-secondary mb-6">
-                Here are the services that best match your project needs.
+                {t.matchBody}
               </p>
 
               <div className="space-y-3">
@@ -247,7 +348,7 @@ export function ServiceQuiz() {
                   return (
                     <Link
                       key={svc.slug}
-                      href={`/services/${svc.slug}`}
+                      href={`/services/${isVi ? SLUG_VI[svc.slug] ?? svc.slug : svc.slug}`}
                       className="group flex items-center gap-4 rounded-xl border border-card-border p-4 hover:border-brand/30 hover:bg-brand/[0.02] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50"
                     >
                       <div
@@ -264,15 +365,15 @@ export function ServiceQuiz() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">
-                          {svc.title}
+                          {svcTitle(svc.slug, svc.title)}
                           {idx === 0 && (
                             <span className="ml-2 inline-flex items-center rounded-full bg-brand/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand">
-                              Top Pick
+                              {t.topPick}
                             </span>
                           )}
                         </p>
                         <p className="text-xs text-foreground-secondary">
-                          {svc.subtitle}
+                          {svcSubtitle(svc.slug, svc.subtitle)}
                         </p>
                       </div>
                       <ArrowRight
@@ -290,7 +391,7 @@ export function ServiceQuiz() {
                   className="inline-flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-lg px-3 py-2"
                 >
                   <RotateCcw size={14} />
-                  Start Over
+                  {t.startOver}
                 </button>
               </div>
             </motion.div>

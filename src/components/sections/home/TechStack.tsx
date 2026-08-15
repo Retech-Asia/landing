@@ -4,6 +4,7 @@
 // dangerouslyAllowSVG config (security: SVG can carry <script>). Vectors
 // don't need optimization — they're already tiny and resolution-independent.
 // Plain <img> is the Next.js-recommended approach for self-hosted SVGs.
+import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/Container";
 import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -14,7 +15,7 @@ import {
 
 const techGroups = [
   {
-    label: "Frontend",
+    key: "frontend",
     items: [
       { name: "React", alt: "React framework logo", src: "/images/tech/react.svg" },
       { name: "Next.js", alt: "Next.js framework logo", src: "/images/tech/nextdotjs.svg" },
@@ -23,7 +24,7 @@ const techGroups = [
     ],
   },
   {
-    label: "Backend",
+    key: "backend",
     items: [
       { name: "Node.js", alt: "Node.js runtime logo", src: "/images/tech/nodedotjs.svg" },
       { name: "Python", alt: "Python language logo", src: "/images/tech/python.svg" },
@@ -32,7 +33,7 @@ const techGroups = [
     ],
   },
   {
-    label: "Database",
+    key: "database",
     items: [
       { name: "PostgreSQL", alt: "PostgreSQL database logo", src: "/images/tech/postgresql.svg" },
       { name: "MongoDB", alt: "MongoDB database logo", src: "/images/tech/mongodb.svg" },
@@ -40,7 +41,7 @@ const techGroups = [
     ],
   },
   {
-    label: "Cloud & DevOps",
+    key: "cloudDevops",
     items: [
       { name: "Docker", alt: "Docker container platform logo", src: "/images/tech/docker.svg" },
       { name: "Kubernetes", alt: "Kubernetes orchestration logo", src: "/images/tech/kubernetes.svg" },
@@ -49,14 +50,14 @@ const techGroups = [
     ],
   },
   {
-    label: "Design",
+    key: "design",
     items: [
       { name: "Figma", alt: "Figma design tool logo", src: "/images/tech/figma.svg" },
       { name: "Storybook", alt: "Storybook component library logo", src: "/images/tech/storybook.svg" },
     ],
   },
   {
-    label: "AI & ML",
+    key: "ai",
     items: [
       { name: "LangChain", alt: "LangChain framework logo", src: "/images/tech/langchain.svg" },
       { name: "OpenAI", alt: "OpenAI platform logo", src: "/images/tech/openai.svg" },
@@ -68,22 +69,23 @@ const techGroups = [
 ];
 
 export function TechStack() {
+  const t = useTranslations("home.techStack");
   return (
     <section className="py-20 md:py-28 relative overflow-hidden bg-background-subtle">
       <CompositeSectionBackground layers={["dots", "spotlight-cyan"]} />
       <Container className="relative z-10">
         <SectionHeader
-          label="Tech Stack"
-          title="Our Technology Stack"
-          description="Modern, proven technologies across the stack. AI engineering runs on LangChain, pgvector, and the OpenAI and Anthropic APIs."
+          label={t("label")}
+          title={t("title")}
+          description={t("description")}
         />
 
         <StaggerContainer className="space-y-8 max-w-4xl mx-auto">
           {techGroups.map((group) => (
-            <StaggerItem key={group.label}>
+            <StaggerItem key={group.key}>
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
                 <p className="text-xs font-medium tracking-wider uppercase text-foreground-muted sm:w-36 shrink-0">
-                  {group.label}
+                  {t(`categories.${group.key}`)}
                 </p>
                 <div className="flex flex-wrap gap-4">
                   {group.items.map((item) => (

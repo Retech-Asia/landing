@@ -1,6 +1,8 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { useLocale } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import {
   useCallback,
   useEffect,
@@ -15,6 +17,76 @@ import {
   readConsent,
   saveConsent,
 } from "@/lib/cookie-consent";
+
+type CategoryId = "necessary" | "analytics" | "marketing";
+
+const STRINGS_EN = {
+  dialogAria: "Cookie consent",
+  bodyPre:
+    "We use cookies to improve your experience and analyse site traffic. You can choose which categories to allow. Read our",
+  privacyPolicy: "Privacy Policy",
+  bodyPost: "to learn more.",
+  acceptAll: "Accept All",
+  hide: "Hide",
+  preferences: "Preferences",
+  decline: "Decline",
+  rejectAll: "Reject All",
+  savePreferences: "Save Preferences",
+  alwaysActive: "(always active)",
+  cookieAriaPrefix: "",
+  cookieAriaSuffix: "cookies",
+  categories: {
+    necessary: {
+      label: "Necessary",
+      description:
+        "Required for the website to function properly. These cannot be disabled.",
+    },
+    analytics: {
+      label: "Analytics",
+      description:
+        "Help us understand how visitors interact with the site by collecting anonymous traffic data.",
+    },
+    marketing: {
+      label: "Marketing",
+      description:
+        "Used to track visitors across websites to display relevant advertisements.",
+    },
+  } as Record<CategoryId, { label: string; description: string }>,
+};
+
+const STRINGS_VI = {
+  dialogAria: "Đồng ý về cookie",
+  bodyPre:
+    "Chúng tôi sử dụng cookie để cải thiện trải nghiệm của bạn và phân tích lưu lượng truy cập trang web. Bạn có thể chọn những danh mục được phép sử dụng. Đọc",
+  privacyPolicy: "Chính sách Bảo mật",
+  bodyPost: "để tìm hiểu thêm.",
+  acceptAll: "Chấp nhận Tất cả",
+  hide: "Ẩn",
+  preferences: "Tùy chọn",
+  decline: "Từ chối",
+  rejectAll: "Từ chối Tất cả",
+  savePreferences: "Lưu Tùy chọn",
+  alwaysActive: "(luôn bật)",
+  cookieAriaPrefix: "Cookie",
+  cookieAriaSuffix: "",
+  categories: {
+    necessary: {
+      label: "Cần thiết",
+      description:
+        "Bắt buộc để trang web hoạt động bình thường. Không thể tắt các cookie này.",
+    },
+    analytics: {
+      label: "Phân tích",
+      description:
+        "Giúp chúng tôi hiểu cách khách truy cập tương tác với trang web bằng cách thu thập dữ liệu lưu lượng ẩn danh.",
+    },
+    marketing: {
+      label: "Tiếp thị",
+      description:
+        "Dùng để theo dõi khách truy cập giữa các trang web nhằm hiển thị quảng cáo phù hợp.",
+    },
+  } as Record<CategoryId, { label: string; description: string }>,
+};
 
 /**
  * Notify analytics listeners (GA4 Consent Mode, etc.) that the user just
@@ -78,6 +150,9 @@ export function CookieConsent() {
   // checks localStorage after mount and shows the banner if no consent
   // record exists. This also prevents the banner from flashing during
   // the initial page paint.
+  const isVi = useLocale() === "vi";
+  const t = isVi ? STRINGS_VI : STRINGS_EN;
+
   const [visible, setVisible] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);
   const [preferences, setPreferences] = useState<{
@@ -198,7 +273,7 @@ export function CookieConsent() {
         <motion.div
           ref={bannerRef}
           role="dialog"
-          aria-label="Cookie consent"
+          aria-label={t.dialogAria}
           aria-live="polite"
           initial={{ y: "100%", opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -225,15 +300,14 @@ export function CookieConsent() {
               {/* ── Main row ── */}
               <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
                 <p className="text-sm leading-relaxed text-foreground-secondary flex-1">
-                  We use cookies to improve your experience and analyse site
-                  traffic. You can choose which categories to allow. Read our{" "}
-                  <a
+                  {t.bodyPre}{" "}
+                  <Link
                     href="/privacy-policy"
                     className="font-medium text-foreground underline underline-offset-2 transition-colors hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 rounded-sm"
                   >
-                    Privacy Policy
-                  </a>{" "}
-                  to learn more.
+                    {t.privacyPolicy}
+                  </Link>{" "}
+                  {t.bodyPost}
                 </p>
 
                 <div className="flex shrink-0 flex-col gap-2 w-full sm:w-auto sm:flex-row sm:gap-3">
@@ -243,7 +317,7 @@ export function CookieConsent() {
                     onClick={handleAcceptAll}
                     className="w-full sm:w-auto rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 cursor-pointer bg-brand-dark"
                   >
-                    Accept All
+                    {t.acceptAll}
                   </button>
                   {/* Secondary buttons — side by side on mobile, inline on desktop */}
                   <div className="flex gap-2 sm:gap-3">
@@ -251,13 +325,13 @@ export function CookieConsent() {
                       onClick={() => setShowPreferences((p) => !p)}
                       className="flex-1 rounded-xl border border-foreground/15 bg-transparent px-3 py-2.5 text-sm font-medium text-foreground-secondary transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 sm:flex-initial cursor-pointer"
                     >
-                      {showPreferences ? "Hide" : "Preferences"}
+                      {showPreferences ? t.hide : t.preferences}
                     </button>
                     <button
                       onClick={handleDeclineAll}
                       className="flex-1 rounded-xl border border-foreground/15 bg-transparent px-3 py-2.5 text-sm font-medium text-foreground-secondary transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 sm:flex-initial cursor-pointer"
                     >
-                      Decline
+                      {t.decline}
                     </button>
                   </div>
                 </div>
@@ -280,6 +354,7 @@ export function CookieConsent() {
                           cat.id === "necessary"
                             ? true
                             : preferences[cat.id as "analytics" | "marketing"];
+                        const catStr = t.categories[cat.id as CategoryId];
 
                         return (
                           <div
@@ -288,15 +363,15 @@ export function CookieConsent() {
                           >
                             <div className="min-w-0 flex-1">
                               <p className="text-sm font-medium text-foreground">
-                                {cat.label}
+                                {catStr.label}
                                 {cat.required && (
                                   <span className="ml-1.5 text-xs font-normal text-foreground-muted">
-                                    (always active)
+                                    {t.alwaysActive}
                                   </span>
                                 )}
                               </p>
                               <p className="mt-0.5 text-xs leading-relaxed text-foreground-secondary">
-                                {cat.description}
+                                {catStr.description}
                               </p>
                             </div>
                             <Toggle
@@ -310,7 +385,11 @@ export function CookieConsent() {
                                         cat.id as "analytics" | "marketing"
                                       )
                               }
-                              label={`${cat.label} cookies`}
+                              label={
+                                isVi
+                                  ? `${t.cookieAriaPrefix} ${catStr.label}`
+                                  : `${catStr.label} ${t.cookieAriaSuffix}`
+                              }
                             />
                           </div>
                         );
@@ -322,13 +401,13 @@ export function CookieConsent() {
                         onClick={handleDeclineAll}
                         className="rounded-xl border border-foreground/15 bg-transparent px-4 py-2.5 text-sm font-medium text-foreground-secondary transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 cursor-pointer"
                       >
-                        Reject All
+                        {t.rejectAll}
                       </button>
                       <button
                         onClick={handleSavePreferences}
                         className="rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 cursor-pointer bg-brand-dark"
                       >
-                        Save Preferences
+                        {t.savePreferences}
                       </button>
                     </div>
                   </motion.div>

@@ -127,47 +127,125 @@
       "secondary": "Xem Dự án"
     },
     "whyRetech": {
-      "title": "Vì sao chọn Retech",
-      "subtitle": "Kỹ sư cấp cao, công nghệ hiện đại, quy trình minh bạch. Những yếu tố cơ bản để gia công offshore thực sự hiệu quả.",
-      "learnMore": "Tìm hiểu thêm"
+      "label": "Vì sao chọn Retech",
+      "title": "Vì sao doanh nghiệp chọn chúng tôi",
+      "description": "Đội ngũ kỹ sư bàn giao trọn vẹn các sản phẩm CMS, CRM, ERP và nền tảng AI. Tìm kiếm RAG, tính năng LLM và điều phối multi-agent là mặt bằng bàn giao tiêu chuẩn, không phải phần ghép thêm.",
+      "items": {
+        "aiEngineering": {
+          "title": "Kỹ thuật tích hợp AI",
+          "description": "RAG, tìm kiếm vector, tính năng LLM và điều phối multi-agent được bàn giao theo tiêu chuẩn. AI là một phần trong cách chúng tôi xây dựng sản phẩm, không phải một dịch vụ riêng biệt."
+        },
+        "agile": {
+          "title": "Phương pháp Agile",
+          "description": "Phát triển lặp với phản hồi liên tục, đảm bảo tiến độ giao nhanh và bám sát mục tiêu kinh doanh của bạn."
+        },
+        "aiSolutions": {
+          "title": "Giải pháp ứng dụng AI",
+          "description": "Khả năng AI tích hợp trên các nền tảng CMS, CRM và ERP, từ gắn nhãn nội dung tự động và phân tích dự đoán đến tự động hóa quy trình thông minh."
+        },
+        "productionAi": {
+          "title": "Kinh nghiệm AI trong môi trường production",
+          "description": "LangChain, pgvector, OpenAI và Anthropic đã vận hành trên hơn 5 nền tảng được bàn giao. Chúng tôi đã xây dựng những pipeline RAG, query router và hệ thống agent mà bạn đang lên kế hoạch."
+        }
+      },
+      "learnMore": "Tìm hiểu thêm về Retech Solutions"
     },
     "whyVietnam": {
-      "title": "Vì sao chọn Việt Nam",
-      "subtitle": "Nguồn kỹ sư chất lượng, chồng lệch múi giờ với APAC và EMEA, và chính phủ đầu tư mạnh vào công nghệ. Con số rõ ràng.",
+      "label": "Vì sao chọn Việt Nam",
+      "title": "Điểm đến gia công mang tính chiến lược",
+      "description": "Gia công IT tại Việt Nam kết hợp nguồn nhân lực STEM vững mạnh, hiệu quả chi phí và chồng lệch múi giờ với APAC và EU — trở thành điểm đến phát triển phần mềm offshore cạnh tranh trong khối ASEAN.",
       "advantages": {
+        "cost": {
+          "title": "Hiệu quả chi phí",
+          "description": "Tiết kiệm 40-60% so với các thị trường phương Tây mà không phải đánh đổi chất lượng hay chuyên môn."
+        },
         "talent": {
-          "title": "Nguồn kỹ sư",
-          "description": "Việt Nam có hơn 50.000 kỹ sư IT tốt nghiệp mỗi năm. Nguồn lực dồi dào về công nghệ web hiện đại (React, Node.js, Python) và di động (React Native, Flutter)."
+          "title": "Nguồn nhân lực chất lượng",
+          "description": "Hơn 50.000 kỹ sư IT tốt nghiệp mỗi năm, với nền tảng STEM vững chắc và kỹ năng kỹ thuật cạnh tranh."
         },
         "timezone": {
           "title": "Lợi thế múi giờ",
-          "description": "GMT+7 chồng lệch trong ngày với APAC (Tokyo, Singapore, Sydney) và chồng lệch giờ sáng với EMEA (London, Berlin). Mô hình phát triển theo mặt trời hoạt động hiệu quả tại đây."
+          "description": "Múi giờ GMT+7 chồng lệch với giờ làm việc của cả APAC và châu Âu, giúp các buổi đồng bộ hằng ngày thuận tiện."
         },
-        "cost": {
-          "title": "Tỷ lệ chi phí / chất lượng",
-          "description": "Mức giá kỹ sư cấp thấp hơn 40-60% so với Mỹ/Châu Âu tương đương, mà không phải đánh đổi chất lượng. Bạn trả tiền cho kết quả, không phải chi phí vận hành."
+        "cultural": {
+          "title": "Tương thích văn hóa",
+          "description": "Khả năng tiếng Anh tốt và am hiểu cách làm việc, phong cách giao tiếp theo thông lệ phương Tây."
         },
         "government": {
-          "title": "Chính sách hướng tới công nghệ",
-          "description": "Chương trình Chuyển đổi số Quốc gia, ưu đãi thuế R&D, triển khai aggressive cáp quang và 5G. Hạ tầng đáp ứng tốt công việc phát triển hiện đại."
+          "title": "Hỗ trợ từ chính phủ",
+          "description": "Chính sách thuế thuận lợi cho gia công IT và hệ sinh thái công nghệ tăng trưởng nhanh, được hậu thuẫn bởi chiến lược quốc gia."
+        },
+        "scalable": {
+          "title": "Đội ngũ mở rộng linh hoạt",
+          "description": "Mở rộng hoặc thu hẹp đội ngũ phát triển nhanh chóng theo nhu cầu dự án và yêu cầu kinh doanh."
         }
-      }
+      },
+      "stats": {
+        "graduates": "Kỹ sư IT tốt nghiệp/năm",
+        "savings": "Tiết kiệm chi phí so với phương Tây",
+        "timezone": "Múi giờ (chồng lệch giờ sáng EU)",
+        "asean": "Thị trường láng giềng ASEAN"
+      },
+      "imageAlt": "Thành phố Hồ Chí Minh: trung tâm công nghệ và kinh doanh của Việt Nam",
+      "imageCaption": "Thành phố Hồ Chí Minh, nơi hội tụ nguồn nhân lực công nghệ của Việt Nam"
     },
     "techStack": {
+      "label": "Stack công nghệ",
       "title": "Stack công nghệ của chúng tôi",
-      "subtitle": "Các framework hiện đại, được hỗ trợ tốt. Chúng tôi tránh các stack độc lạ dễ đẩy đội vào nợ bảo trì.",
+      "description": "Các công nghệ hiện đại, đã được kiểm chứng trên toàn bộ hệ thống. Kỹ thuật AI vận hành trên LangChain, pgvector và API của OpenAI, Anthropic.",
       "categories": {
         "frontend": "Frontend",
         "backend": "Backend",
-        "mobile": "Mobile",
         "database": "Cơ sở dữ liệu",
-        "devops": "DevOps",
+        "cloudDevops": "Cloud & DevOps",
+        "design": "Thiết kế",
         "ai": "AI & ML"
       }
     },
     "testimonials": {
-      "title": "Xây dựng trên nền tảng tin cậy",
-      "subtitle": "Khách hàng nói gì khi làm việc với Retech."
+      "label": "Cách chúng tôi làm việc",
+      "title": "Đối tác kỹ thuật cùng cộng tác",
+      "description": "Chúng tôi kết hợp năng lực kỹ thuật với phương thức làm việc minh bạch, hợp tác chặt chẽ để bàn giao phần mềm tạo ra kết quả kinh doanh đo lường được.",
+      "results": {
+        "label": "Kết quả với khách hàng",
+        "title": "Những con số tự chứng minh",
+        "metrics": {
+          "onTime": "Dự án bàn giao đúng hạn",
+          "satisfaction": "Mức độ Hài lòng của Khách hàng",
+          "responseTime": "Thời gian phản hồi trung bình",
+          "markets": "Thị trường đã phục vụ"
+        }
+      },
+      "process": {
+        "label": "Quy trình đáng tin cậy",
+        "title": "Chất lượng trong từng bước",
+        "description": "Quy trình phát triển đã kiểm chứng của chúng tôi đảm bảo kết quả dự đoán được, giao tiếp minh bạch và kiểm định chất lượng chặt chẽ từ ngày đầu đến sau khi vận hành.",
+        "badges": {
+          "agile": "Phương pháp Agile",
+          "codeReview": "Cổng duyệt code",
+          "testing": "Kiểm thử tự động",
+          "cicd": "Pipeline CI/CD",
+          "monitoring": "Giám sát hiệu năng"
+        },
+        "steps": {
+          "discovery": {
+            "title": "Khám phá & Lập kế hoạch",
+            "description": "Phân tích yêu cầu, thống nhất với các bên liên quan và xác định lộ trình dự án."
+          },
+          "design": {
+            "title": "Thiết kế & Prototype",
+            "description": "Nghiên cứu UX, wireframe và prototype tương tác có xác nhận từ khách hàng."
+          },
+          "development": {
+            "title": "Phát triển & Kiểm thử",
+            "description": "Sprint Agile với kiểm tra code liên tục, kiểm thử tự động và các cổng QA."
+          },
+          "launch": {
+            "title": "Vận hành & Hỗ trợ",
+            "description": "Triển khai theo giai đoạn, giám sát hiệu năng và bảo trì liên tục."
+          }
+        }
+      }
     },
     "finalCta": {
       "titleLine1": "Hãy Bàn giao Sản phẩm của Bạn",

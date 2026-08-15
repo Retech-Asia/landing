@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback, type KeyboardEvent } from "react";
+import { useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Check } from "lucide-react";
 import { cn } from "@/lib/cn";
@@ -43,7 +44,7 @@ export function CustomSelect({
   value,
   onChange,
   onBlur,
-  placeholder = "Select an option",
+  placeholder,
   disabled = false,
   name,
   id,
@@ -53,6 +54,9 @@ export function CustomSelect({
   className,
 }: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const isVi = useLocale() === "vi";
+  const resolvedPlaceholder =
+    placeholder ?? (isVi ? "Chọn một tùy chọn" : "Select an option");
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
   const optionsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -211,7 +215,7 @@ export function CustomSelect({
             !selectedOption ? "text-foreground-muted" : "text-foreground font-medium"
           )}
         >
-          {selectedOption ? selectedOption.label : placeholder}
+          {selectedOption ? selectedOption.label : resolvedPlaceholder}
         </span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
@@ -236,7 +240,7 @@ export function CustomSelect({
             <div
               id={listboxId}
               role="listbox"
-              aria-label={placeholder}
+              aria-label={resolvedPlaceholder}
               className="max-h-60 overflow-y-auto py-1"
             >
               {options.map((option, index) => {

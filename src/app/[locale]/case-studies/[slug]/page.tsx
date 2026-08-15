@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
 import {
   ArrowRight,
@@ -202,6 +202,11 @@ export function generateStaticParams() {
   );
 }
 
+// All valid locale+slug combos are enumerated above — anything else 404s
+// statically. Without this, unknown slugs render on demand and notFound()
+// streams after the 200 headers (soft-404, bad for SEO).
+export const dynamicParams = false;
+
 export function generateMetadata({
   params,
 }: {
@@ -210,7 +215,12 @@ export function generateMetadata({
   return params.then(({ slug, locale }) => {
     const loc = locale as Locale;
     const study = getFlatCaseStudy(slug, loc);
-    if (!study) return { title: "Case Study Not Found" };
+    if (!study) {
+      // Throw before metadata resolves (not just in the page body) —
+      // otherwise headers stream with 200 and the not-found page renders
+      // under a 200 status.
+      notFound();
+    }
 
     const pageUrl = `${SITE_URL}/${locale}/case-studies/${study.slug}`;
     const raw = getCaseStudy(study.slug, loc);

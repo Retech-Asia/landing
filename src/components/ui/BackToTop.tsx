@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { useLocale } from "next-intl";
 import { ArrowUp } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -9,6 +10,7 @@ const RING_RADIUS = 20;
 const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 
 export function BackToTop() {
+  const isVi = useLocale() === "vi";
   const [visible, setVisible] = useState(false);
   const [scrollPercent, setScrollPercent] = useState(0);
   const ticking = useRef(false);
@@ -47,7 +49,7 @@ export function BackToTop() {
       {visible && (
         <motion.button
           type="button"
-          aria-label="Back to top"
+          aria-label={isVi ? "Quay lên đầu trang" : "Back to top"}
           onClick={scrollToTop}
           initial={{ opacity: 0, scale: 0.8, y: 16 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}

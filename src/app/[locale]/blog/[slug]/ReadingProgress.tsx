@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
+import { useLocale } from "next-intl";
 
 const SCROLL_THRESHOLD = 8;
 
@@ -16,6 +17,7 @@ const SCROLL_THRESHOLD = 8;
  * anchoring it). Reappears on scroll-up along with the navbar.
  */
 export function ReadingProgress() {
+  const isVi = useLocale() === "vi";
   const { scrollY, scrollYProgress } = useScroll();
   const width = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
@@ -55,7 +57,7 @@ export function ReadingProgress() {
           {/* Core gradient bar */}
           <motion.div
             role="progressbar"
-            aria-label="Reading progress"
+            aria-label={isVi ? "Tiến độ đọc" : "Reading progress"}
             aria-valuemin={0}
             aria-valuemax={100}
             className="absolute inset-y-0 left-0 will-change-transform"

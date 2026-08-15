@@ -2,14 +2,22 @@
 
 import { useState } from "react";
 import { ThumbsUp, ThumbsDown } from "lucide-react";
+import { useLocale } from "next-intl";
+import { trackEvent } from "@/lib/analytics";
 
 /**
  * "Was this article helpful?" feedback widget.
- * Displays thumbs-up / thumbs-down buttons. On click, shows a thank-you
- * message. No actual data is submitted -- this is a UI-only widget.
+ * Displays thumbs-up / thumbs-down buttons. On click, records the vote
+ * via the consent-aware analytics pipeline and shows a thank-you message.
  */
 export function FeedbackWidget() {
   const [feedback, setFeedback] = useState<"up" | "down" | null>(null);
+  const isVi = useLocale() === "vi";
+
+  const vote = (value: "up" | "down") => {
+    trackEvent("blog_feedback", { helpful: value });
+    setFeedback(value);
+  };
 
   if (feedback) {
     return (
@@ -30,7 +38,7 @@ export function FeedbackWidget() {
               strokeLinejoin="round"
             />
           </svg>
-          Thanks for your feedback!
+          {isVi ? "Cảm ơn phản hồi của bạn!" : "Thanks for your feedback!"}
         </div>
       </div>
     );
@@ -39,26 +47,26 @@ export function FeedbackWidget() {
   return (
     <div className="mt-10 pt-8 border-t border-card-border">
       <p className="text-sm text-foreground-muted text-center mb-3">
-        Was this article helpful?
+        {isVi ? "Bài viết này có hữu ích không?" : "Was this article helpful?"}
       </p>
       <div className="flex items-center justify-center gap-3">
         <button
           type="button"
-          onClick={() => setFeedback("up")}
-          aria-label="Yes, this article was helpful"
+          onClick={() => vote("up")}
+          aria-label={isVi ? "Có, bài viết này hữu ích" : "Yes, this article was helpful"}
           className="inline-flex items-center gap-1.5 rounded-full border border-card-border px-4 py-2 text-sm font-medium text-foreground-secondary hover:border-brand/30 hover:bg-brand/5 hover:text-brand transition-all duration-200 cursor-pointer"
         >
           <ThumbsUp size={15} />
-          Yes
+          {isVi ? "Có" : "Yes"}
         </button>
         <button
           type="button"
-          onClick={() => setFeedback("down")}
-          aria-label="No, this article was not helpful"
+          onClick={() => vote("down")}
+          aria-label={isVi ? "Không, bài viết này không hữu ích" : "No, this article was not helpful"}
           className="inline-flex items-center gap-1.5 rounded-full border border-card-border px-4 py-2 text-sm font-medium text-foreground-secondary hover:border-red-300 hover:bg-red-50 hover:text-red-500 transition-all duration-200 cursor-pointer"
         >
           <ThumbsDown size={15} />
-          No
+          {isVi ? "Không" : "No"}
         </button>
       </div>
     </div>

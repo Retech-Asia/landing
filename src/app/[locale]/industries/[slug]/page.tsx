@@ -50,6 +50,11 @@ export function generateStaticParams() {
   );
 }
 
+// All valid locale+slug combos are enumerated above — anything else 404s
+// statically. Without this, unknown slugs render on demand and notFound()
+// streams after the 200 headers (soft-404, bad for SEO).
+export const dynamicParams = false;
+
 /* -- Metadata ------------------------------------------------------------ */
 export function generateMetadata({
   params,
@@ -60,7 +65,10 @@ export function generateMetadata({
     const loc = locale as Locale;
     const industry = getFlatIndustry(slug, loc);
     if (!industry) {
-      return { title: "Industry Not Found" };
+      // Throw before metadata resolves (not just in the page body) —
+      // otherwise headers stream with 200 and the not-found page renders
+      // under a 200 status.
+      notFound();
     }
 
     const pageUrl = `${SITE_URL}/${locale}/industries/${industry.slug}`;

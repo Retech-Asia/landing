@@ -1,6 +1,5 @@
 import { Suspense } from "react";
-import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";

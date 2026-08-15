@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "next-intl";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 import type { Heading } from "@/lib/blog-data";
 
@@ -9,6 +10,7 @@ interface TableOfContentsProps {
 }
 
 export function TableOfContents({ headings }: TableOfContentsProps) {
+  const isVi = useLocale() === "vi";
   const [activeId, setActiveId] = useState<string>(
     () => (headings.length > 0 ? headings[0].id : "")
   );
@@ -81,10 +83,10 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   const pct = Math.round(scrollPercent * 100);
 
   return (
-    <nav aria-label="Table of contents" className="w-full">
+    <nav aria-label={isVi ? "Mục lục" : "Table of contents"} className="w-full">
       <div className="flex items-center justify-between mb-4">
         <p className="text-xs font-semibold uppercase tracking-wider text-foreground-muted">
-          On this page
+          {isVi ? "Trong bài này" : "On this page"}
         </p>
         <span className="text-[11px] font-medium text-foreground-muted tabular-nums">
           {pct}%

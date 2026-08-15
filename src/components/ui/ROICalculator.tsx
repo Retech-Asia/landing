@@ -14,6 +14,7 @@ import {
   PiggyBank,
   Globe,
 } from "lucide-react";
+import { useLocale } from "next-intl";
 import { cn } from "@/lib/cn";
 import { CONTACT } from "@/lib/constants";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
@@ -68,6 +69,135 @@ const hiddenCostFactors = [
   { label: "Payroll & Compliance", savings: 0.04, description: "We handle local labor laws, taxes, and compliance." },
   { label: "Training & Development", savings: 0.03, description: "Continuous skills development covered by us." },
 ];
+
+/* -------------------------------------------------------------------------- */
+/*  Locale dictionaries (EN | VI)                                              */
+/* -------------------------------------------------------------------------- */
+
+interface ROIStrings {
+  eyebrow: string;
+  heading: string;
+  subheading: string;
+  teamSizeLabel: string;
+  compareAgainst: string;
+  projectionPeriod: string;
+  estimatedSavingsLabel: (years: number) => string;
+  percentLower: (percent: number, region: string) => string;
+  monthlyCost: string;
+  yearTotal: (years: number) => string;
+  local: string;
+  vietnam: string;
+  hiddenSavingsTitle: string;
+  overhead: (value: string) => string;
+  monthlySavings: string;
+  annualSavings: string;
+  costPerDev: string;
+  savingsRate: string;
+  perMonth: string;
+  ctaBody: string;
+  cta: string;
+  disclaimer: string;
+}
+
+const ROI_STRINGS: Record<"en" | "vi", ROIStrings> = {
+  en: {
+    eyebrow: "ROI Calculator",
+    heading: "Your Outsourcing Savings",
+    subheading:
+      "See how much you can save by building your team in Vietnam. Compare costs against US, EU, and Australian rates with multi-year projections.",
+    teamSizeLabel: "Team Size",
+    compareAgainst: "Compare Against",
+    projectionPeriod: "Projection Period",
+    estimatedSavingsLabel: (years) => `Estimated ${years}-Year Savings`,
+    percentLower: (percent, region) => `${percent}% lower cost than ${region}`,
+    monthlyCost: "Monthly Cost",
+    yearTotal: (years) => `${years}-Year Total`,
+    local: "Local",
+    vietnam: "Vietnam",
+    hiddenSavingsTitle: "Additional Hidden Savings (Monthly)",
+    overhead: (value) => `+${value}/mo in avoided overhead`,
+    monthlySavings: "Monthly Savings",
+    annualSavings: "Annual Savings",
+    costPerDev: "Cost per Dev (Vietnam)",
+    savingsRate: "Savings Rate",
+    perMonth: "/mo",
+    ctaBody: "Ready to realize these savings? Let's build your dedicated team.",
+    cta: "Discuss Your Savings",
+    disclaimer:
+      "Estimates are based on average rates and typical overhead factors. Actual savings depend on project complexity, technology stack, and specific team composition.",
+  },
+  vi: {
+    eyebrow: "Công cụ Tính ROI",
+    heading: "Mức Tiết kiệm khi Outsourcing",
+    subheading:
+      "Xem bạn có thể tiết kiệm bao nhiêu khi xây dựng đội ngũ tại Việt Nam. So sánh chi phí với mức giá US, EU và Úc cùng dự toán nhiều năm.",
+    teamSizeLabel: "Quy mô Nhóm",
+    compareAgainst: "So sánh với",
+    projectionPeriod: "Thời gian Dự toán",
+    estimatedSavingsLabel: (years) => `Tiết kiệm dự kiến sau ${years} năm`,
+    percentLower: (percent, region) => `${percent}% chi phí thấp hơn so với ${region}`,
+    monthlyCost: "Chi phí Hàng tháng",
+    yearTotal: (years) => `Tổng sau ${years} năm`,
+    local: "Nội địa",
+    vietnam: "Việt Nam",
+    hiddenSavingsTitle: "Tiết kiệm Ẩn thêm (Hàng tháng)",
+    overhead: (value) => `+${value}/tháng chi phí vận hành được loại bỏ`,
+    monthlySavings: "Tiết kiệm Hàng tháng",
+    annualSavings: "Tiết kiệm Hàng năm",
+    costPerDev: "Chi phí mỗi Dev (Việt Nam)",
+    savingsRate: "Tỷ lệ Tiết kiệm",
+    perMonth: "/tháng",
+    ctaBody:
+      "Sẵn sàng hiện thực hóa mức tiết kiệm này? Hãy cùng xây dựng đội ngũ chuyên trách của bạn.",
+    cta: "Trao đổi về Mức Tiết kiệm",
+    disclaimer:
+      "Các ước tính dựa trên mức giá trung bình và các yếu tố chi phí điển hình. Mức tiết kiệm thực tế phụ thuộc vào độ phức tạp dự án, công nghệ sử dụng và cấu hình nhóm cụ thể.",
+  },
+};
+
+// VI display labels keyed by stable ids. Underlying config values (used for
+// calculations and mailto logic) stay unchanged.
+const TEAM_SIZE_VI: Record<TeamSize, { label: string; description: string }> = {
+  small: { label: "Nhóm Nhỏ", description: "3 lập trình viên" },
+  medium: { label: "Nhóm Vừa", description: "5 lập trình viên" },
+  large: { label: "Nhóm Lớn", description: "8 lập trình viên" },
+  enterprise: { label: "Doanh nghiệp", description: "15 lập trình viên" },
+};
+
+const REGION_VI: Record<Region, { label: string; short: string }> = {
+  us: { label: "Hoa Kỳ", short: "Hoa Kỳ" },
+  eu: { label: "Tây Âu", short: "Tây Âu" },
+  australia: { label: "Úc", short: "Úc" },
+};
+
+const PROJECTION_LABEL_VI: Record<ProjectionYear, string> = {
+  1: "1 Năm",
+  3: "3 Năm",
+  5: "5 Năm",
+};
+
+const HIDDEN_COST_VI: Record<string, { label: string; description: string }> = {
+  "Recruitment & Onboarding": {
+    label: "Tuyển dụng & Onboarding",
+    description: "Chúng tôi đảm nhận tuyển dụng, sàng lọc và onboarding mà không tính thêm phí.",
+  },
+  "Office & Infrastructure": {
+    label: "Văn phòng & Hạ tầng",
+    description: "Không tốn chi phí mặt bằng, thiết bị hay tiện ích.",
+  },
+  "Benefits & Insurance": {
+    label: "Phúc lợi & Bảo hiểm",
+    description: "Bảo hiểm y tế, hưu trí, phép năm có lương — tất cả đã bao gồm.",
+  },
+  "Payroll & Compliance": {
+    label: "Payroll & Tuân thủ",
+    description: "Chúng tôi xử lý luật lao động địa phương, thuế và các yêu cầu tuân thủ.",
+  },
+  "Training & Development": {
+    label: "Đào tạo & Phát triển",
+    description: "Phát triển kỹ năng liên tục do chúng tôi đảm nhận.",
+  },
+};
 
 /* -------------------------------------------------------------------------- */
 /*  Animated number hook                                                       */
@@ -152,6 +282,9 @@ function SavingsBar({
   vietnamColor: string;
   delay: number;
 }) {
+  const locale = useLocale();
+  const isVi = locale === "vi";
+  const t = ROI_STRINGS[isVi ? "vi" : "en"];
   const maxCost = localCost;
 
   return (
@@ -167,7 +300,7 @@ function SavingsBar({
       {/* Local bar */}
       <div className="flex items-center gap-3">
         <span className="text-xs font-medium text-foreground-muted w-14 shrink-0">
-          Local
+          {t.local}
         </span>
         <div className="flex-1 h-3 rounded-full bg-black/[0.04] overflow-hidden">
           <motion.div
@@ -184,7 +317,7 @@ function SavingsBar({
       {/* Vietnam bar */}
       <div className="flex items-center gap-3">
         <span className="text-xs font-medium text-brand w-14 shrink-0">
-          Vietnam
+          {t.vietnam}
         </span>
         <div className="flex-1 h-3 rounded-full bg-black/[0.04] overflow-hidden">
           <motion.div
@@ -213,6 +346,18 @@ export function ROICalculator() {
   const [region, setRegion] = useState<Region>("us");
   const [projection, setProjection] = useState<ProjectionYear>(3);
   const reducedMotion = usePrefersReducedMotion();
+
+  const locale = useLocale();
+  const isVi = locale === "vi";
+  const t = ROI_STRINGS[isVi ? "vi" : "en"];
+
+  // Localized display text (falls back to EN config when VI is unavailable).
+  const teamText = isVi
+    ? TEAM_SIZE_VI[teamSize]
+    : { label: teamSizeConfig[teamSize].label, description: teamSizeConfig[teamSize].description };
+  const regionText = isVi
+    ? REGION_VI[region]
+    : { label: regionConfig[region].label, short: regionConfig[region].label.split(" ")[0] };
 
   const config = teamSizeConfig[teamSize];
   const regionInfo = regionConfig[region];
@@ -254,24 +399,43 @@ export function ROICalculator() {
 
   const sliderValue = teamSizeConfig[teamSize].devs;
 
-  // Build mailto link
-  const mailtoBody = [
-    `Hi Retech Solutions,`,
-    ``,
-    `I'm interested in exploring outsourcing savings:`,
-    ``,
-    `Team Size: ${config.description}`,
-    `Current Region: ${regionInfo.label}`,
-    `Estimated Annual Savings: ${formatUSDLong(annualSavings)}`,
-    `${projection}-Year Projected Savings: ${formatUSDLong(projectedSavings)}`,
-    ``,
-    `I'd like to discuss this further.`,
-    ``,
-    `Thank you.`,
-  ].join("\n");
+  // Build mailto link (localized)
+  const mailtoBody = isVi
+    ? [
+        `Xin chào Retech Solutions,`,
+        ``,
+        `Tôi muốn tìm hiểu về mức tiết kiệm khi thuê ngoài:`,
+        ``,
+        `Quy mô nhóm: ${teamText.description}`,
+        `Khu vực hiện tại: ${regionText.label}`,
+        `Tiết kiệm hằng năm dự kiến: ${formatUSDLong(annualSavings)}`,
+        `Tổng tiết kiệm dự kiến sau ${projection} năm: ${formatUSDLong(projectedSavings)}`,
+        ``,
+        `Tôi muốn trao đổi thêm về điều này.`,
+        ``,
+        `Xin cảm ơn.`,
+      ].join("\n")
+    : [
+        `Hi Retech Solutions,`,
+        ``,
+        `I'm interested in exploring outsourcing savings:`,
+        ``,
+        `Team Size: ${config.description}`,
+        `Current Region: ${regionInfo.label}`,
+        `Estimated Annual Savings: ${formatUSDLong(annualSavings)}`,
+        `${projection}-Year Projected Savings: ${formatUSDLong(projectedSavings)}`,
+        ``,
+        `I'd like to discuss this further.`,
+        ``,
+        `Thank you.`,
+      ].join("\n");
+
+  const mailtoSubject = isVi
+    ? `Yêu cầu Tư vấn ROI | ${teamText.label} tại Việt Nam`
+    : `ROI Inquiry | ${config.label} Outsourcing to Vietnam`;
 
   const mailtoHref = `${CONTACT.emailHref}?subject=${encodeURIComponent(
-    `ROI Inquiry | ${config.label} Outsourcing to Vietnam`
+    mailtoSubject
   )}&body=${encodeURIComponent(mailtoBody)}`;
 
   return (
@@ -286,14 +450,13 @@ export function ROICalculator() {
           className="mx-auto max-w-3xl text-center mb-12 md:mb-16"
         >
           <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3">
-            ROI Calculator
+            {t.eyebrow}
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
-            Your Outsourcing Savings
+            {t.heading}
           </h2>
           <p className="mt-4 text-lg text-foreground-secondary leading-relaxed">
-            See how much you can save by building your team in Vietnam.
-            Compare costs against US, EU, and Australian rates with multi-year projections.
+            {t.subheading}
           </p>
         </motion.div>
 
@@ -316,7 +479,7 @@ export function ROICalculator() {
                     className="flex items-center gap-2 text-sm font-semibold text-foreground"
                   >
                     <Users size={16} className="text-brand" />
-                    Team Size
+                    {t.teamSizeLabel}
                   </label>
                   <div className="pt-2">
                     <input
@@ -332,7 +495,7 @@ export function ROICalculator() {
                     <div className="flex items-center justify-between mt-2">
                       <span className="text-xs text-foreground-muted">3</span>
                       <span className="text-lg font-bold text-brand tabular-nums">
-                        {config.description}
+                        {teamText.description}
                       </span>
                       <span className="text-xs text-foreground-muted">15</span>
                     </div>
@@ -343,7 +506,7 @@ export function ROICalculator() {
                 <div className="space-y-2">
                   <span className="flex items-center gap-2 text-sm font-semibold text-foreground">
                     <Globe size={16} className="text-brand" />
-                    Compare Against
+                    {t.compareAgainst}
                   </span>
                   <div className="grid grid-cols-3 gap-2 pt-1">
                     {(Object.entries(regionConfig) as [Region, typeof regionConfig[Region]][]).map(
@@ -358,7 +521,7 @@ export function ROICalculator() {
                               : "bg-black/[0.03] text-foreground-secondary hover:bg-black/[0.06]"
                           )}
                         >
-                          {info.label.split(" ")[0]}
+                          {isVi ? REGION_VI[key].short : info.label.split(" ")[0]}
                         </button>
                       )
                     )}
@@ -369,7 +532,7 @@ export function ROICalculator() {
                 <div className="space-y-2">
                   <span className="flex items-center gap-2 text-sm font-semibold text-foreground">
                     <Clock size={16} className="text-brand" />
-                    Projection Period
+                    {t.projectionPeriod}
                   </span>
                   <div className="grid grid-cols-3 gap-2 pt-1">
                     {projectionYears.map((py) => (
@@ -383,7 +546,7 @@ export function ROICalculator() {
                             : "bg-black/[0.03] text-foreground-secondary hover:bg-black/[0.06]"
                         )}
                       >
-                        {py.label}
+                        {isVi ? PROJECTION_LABEL_VI[py.value] : py.label}
                       </button>
                     ))}
                   </div>
@@ -399,7 +562,7 @@ export function ROICalculator() {
               {/* Hero metric: Projected total savings */}
               <div className="text-center mb-8">
                 <p className="text-xs font-semibold uppercase tracking-wider text-foreground-muted mb-2">
-                  Estimated {projection}-Year Savings
+                  {t.estimatedSavingsLabel(projection)}
                 </p>
                 <AnimatePresence mode="wait">
                   <motion.p
@@ -413,14 +576,14 @@ export function ROICalculator() {
                 </AnimatePresence>
                 <p className="text-sm font-medium text-brand mt-2 flex items-center justify-center gap-1.5">
                   <TrendingUp size={14} />
-                  {animatedPercent}% lower cost than {regionInfo.label}
+                  {t.percentLower(animatedPercent, regionText.label)}
                 </p>
               </div>
 
               {/* Comparison bars */}
               <div className="space-y-6 max-w-xl mx-auto">
                 <SavingsBar
-                  label="Monthly Cost"
+                  label={t.monthlyCost}
                   localCost={localMonthly}
                   vietnamCost={vietnamMonthly}
                   localColor="bg-red-200"
@@ -428,7 +591,7 @@ export function ROICalculator() {
                   delay={0.1}
                 />
                 <SavingsBar
-                  label={`${projection}-Year Total`}
+                  label={t.yearTotal(projection)}
                   localCost={projectedLocal}
                   vietnamCost={projectedVietnam}
                   localColor="bg-red-200"
@@ -442,7 +605,7 @@ export function ROICalculator() {
                 <div className="flex items-center gap-2 mb-4">
                   <PiggyBank size={16} className="text-brand" />
                   <p className="text-xs font-semibold uppercase tracking-wider text-foreground-muted">
-                    Additional Hidden Savings (Monthly)
+                    {t.hiddenSavingsTitle}
                   </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -456,14 +619,14 @@ export function ROICalculator() {
                     >
                       <div className="flex items-center justify-between mb-1">
                         <p className="text-xs font-semibold text-foreground">
-                          {factor.label}
+                          {isVi ? HIDDEN_COST_VI[factor.label]?.label ?? factor.label : factor.label}
                         </p>
                         <span className="text-xs font-bold text-brand tabular-nums">
                           ~{formatUSD(Math.round(localMonthly * factor.savings))}
                         </span>
                       </div>
                       <p className="text-[11px] text-foreground-muted leading-relaxed">
-                        {factor.description}
+                        {isVi ? HIDDEN_COST_VI[factor.label]?.description ?? factor.description : factor.description}
                       </p>
                     </motion.div>
                   ))}
@@ -471,7 +634,7 @@ export function ROICalculator() {
                 <div className="mt-4 flex items-center justify-center gap-2 text-sm font-semibold text-brand">
                   <DollarSign size={16} />
                   <span>
-                    +{formatUSDLong(hiddenSavings)}/mo in avoided overhead
+                    {t.overhead(formatUSDLong(hiddenSavings))}
                   </span>
                 </div>
               </div>
@@ -482,22 +645,22 @@ export function ROICalculator() {
                   {[
                     {
                       icon: BarChart3,
-                      label: "Monthly Savings",
+                      label: t.monthlySavings,
                       value: formatUSDLong(totalMonthlySavings),
                     },
                     {
                       icon: TrendingUp,
-                      label: "Annual Savings",
+                      label: t.annualSavings,
                       value: formatUSDLong(annualSavings),
                     },
                     {
                       icon: DollarSign,
-                      label: "Cost per Dev (Vietnam)",
-                      value: `${formatUSDLong(VIETNAM_RATE)}/mo`,
+                      label: t.costPerDev,
+                      value: `${formatUSDLong(VIETNAM_RATE)}${t.perMonth}`,
                     },
                     {
                       icon: CheckCircle2,
-                      label: "Savings Rate",
+                      label: t.savingsRate,
                       value: `${savingsPercent}%`,
                     },
                   ].map((stat) => {
@@ -526,14 +689,14 @@ export function ROICalculator() {
               {/* CTA */}
               <div className="mt-6 pt-6 border-t border-card-border flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p className="text-sm text-foreground-secondary">
-                  Ready to realize these savings? Let&apos;s build your dedicated team.
+                  {t.ctaBody}
                 </p>
                 <a
                   href={mailtoHref}
                   className="group/btn inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium rounded-full bg-brand text-white transition-all duration-300 hover:bg-brand-light hover:shadow-[0_4px_20px_rgba(32,133,53,0.25)] shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
                 >
                   <Mail size={16} />
-                  Discuss Your Savings
+                  {t.cta}
                   <ArrowRight
                     size={14}
                     className="transition-transform duration-200 group-hover/btn:translate-x-0.5"
@@ -545,8 +708,7 @@ export function ROICalculator() {
 
           {/* Disclaimer */}
           <p className="text-xs text-foreground-muted text-center mt-4 max-w-xl mx-auto">
-            Estimates are based on average rates and typical overhead factors. Actual savings depend
-            on project complexity, technology stack, and specific team composition.
+            {t.disclaimer}
           </p>
         </motion.div>
       </div>

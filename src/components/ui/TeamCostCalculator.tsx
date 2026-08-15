@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Users, Clock, TrendingDown, Mail, type LucideIcon } from "lucide-react";
 import { CustomSelect as CustomSelectComponent } from "@/components/ui/CustomSelect";
+import { useLocale } from "next-intl";
 import { CONTACT } from "@/lib/constants";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
@@ -32,6 +33,79 @@ const US_EU_MULTIPLIER = 3; // Vietnam rates are ~60-70% lower (roughly 3x cheap
 
 type Seniority = "junior" | "mid" | "senior" | "lead";
 type Duration = "3" | "6" | "12";
+
+/* ── Locale dictionaries (EN | VI) ───────────────────────────── */
+interface TCCStrings {
+  eyebrow: string;
+  heading: string;
+  subheading: string;
+  teamSize: string;
+  seniority: string;
+  duration: string;
+  devCount: (n: number) => string;
+  monthlyCost: string;
+  perMonth: string;
+  totalFor: (months: number) => string;
+  youSave: string;
+  percentLower: (percent: number) => string;
+  costComparison: string;
+  vietnam: string;
+  ctaBody: string;
+  cta: string;
+  disclaimer: string;
+  mailtoSubject: string;
+  months: (m: number) => string;
+}
+
+const TCC_STRINGS: Record<"en" | "vi", TCCStrings> = {
+  en: {
+    eyebrow: "Cost Calculator",
+    heading: "Estimate Your Team Cost",
+    subheading:
+      "Get an instant estimate for your dedicated development team. See how much you save compared to US/EU rates.",
+    teamSize: "Team Size",
+    seniority: "Seniority Level",
+    duration: "Duration",
+    devCount: (n) => `${n} ${n === 1 ? "dev" : "devs"}`,
+    monthlyCost: "Monthly Cost",
+    perMonth: "/mo",
+    totalFor: (months) => `Total for ${months} months`,
+    youSave: "You Save vs US/EU",
+    percentLower: (percent) => `${percent}% lower cost`,
+    costComparison: "Cost Comparison",
+    vietnam: "Vietnam",
+    ctaBody: "Need a tailored estimate? We'll match the right team to your project scope.",
+    cta: "Get a Custom Quote",
+    disclaimer:
+      "Estimates are based on standard rates and serve as a starting point. Final pricing depends on technology stack, project complexity, and specific requirements.",
+    mailtoSubject: "Dedicated Team Inquiry - Custom Quote",
+    months: (m) => `${m} months`,
+  },
+  vi: {
+    eyebrow: "Công cụ Tính Chi phí",
+    heading: "Ước tính Chi phí Đội ngũ",
+    subheading:
+      "Nhận ước tính tức thì cho đội phát triển chuyên trách của bạn. Xem mức tiết kiệm so với mức giá US/EU.",
+    teamSize: "Quy mô Nhóm",
+    seniority: "Cấp bậc",
+    duration: "Thời gian",
+    devCount: (n) => `${n} lập trình viên`,
+    monthlyCost: "Chi phí Hàng tháng",
+    perMonth: "/tháng",
+    totalFor: (months) => `Tổng cộng cho ${months} tháng`,
+    youSave: "Bạn Tiết kiệm so với US/EU",
+    percentLower: (percent) => `${percent}% chi phí thấp hơn`,
+    costComparison: "So sánh Chi phí",
+    vietnam: "Việt Nam",
+    ctaBody:
+      "Cần một báo giá phù hợp? Chúng tôi sẽ phân bổ đội ngũ tương xứng với quy mô dự án của bạn.",
+    cta: "Nhận Báo giá Tùy chỉnh",
+    disclaimer:
+      "Các ước tính dựa trên mức giá tiêu chuẩn và chỉ mang tính khởi điểm. Giá cuối cùng phụ thuộc vào công nghệ, độ phức tạp dự án và yêu cầu cụ thể.",
+    mailtoSubject: "Yêu cầu Đội ngũ Chuyên trách - Báo giá Tùy chỉnh",
+    months: (m) => `${m} tháng`,
+  },
+};
 
 /* ── Animated number hook ────────────────────────────────────── */
 function useAnimatedNumber(target: number, duration = 500, reducedMotion = false) {
@@ -123,6 +197,10 @@ export function TeamCostCalculator() {
   const [duration, setDuration] = useState<Duration>("6");
   const reducedMotion = usePrefersReducedMotion();
 
+  const locale = useLocale();
+  const isVi = locale === "vi";
+  const t = TCC_STRINGS[isVi ? "vi" : "en"];
+
   const monthlyRate = RATES[seniority];
   const monthlyTotal = monthlyRate * teamSize;
   const totalCost = monthlyTotal * DURATION_MONTHS[duration];
@@ -147,9 +225,9 @@ export function TeamCostCalculator() {
   ];
 
   const durationOptions: { value: Duration; label: string }[] = [
-    { value: "3", label: "3 months" },
-    { value: "6", label: "6 months" },
-    { value: "12", label: "12 months" },
+    { value: "3", label: t.months(3) },
+    { value: "6", label: t.months(6) },
+    { value: "12", label: t.months(12) },
   ];
 
   return (
@@ -164,13 +242,13 @@ export function TeamCostCalculator() {
           className="mx-auto max-w-3xl text-center mb-12 md:mb-16"
         >
           <p className="text-sm font-medium tracking-widest uppercase text-brand mb-3">
-            Cost Calculator
+            {t.eyebrow}
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
-            Estimate Your Team Cost
+            {t.heading}
           </h2>
           <p className="mt-4 text-lg text-foreground-secondary leading-relaxed">
-            Get an instant estimate for your dedicated development team. See how much you save compared to US/EU rates.
+            {t.subheading}
           </p>
         </motion.div>
 
@@ -190,7 +268,7 @@ export function TeamCostCalculator() {
                 <div className="space-y-2 md:col-span-1">
                   <label htmlFor="team-size" className="flex items-center gap-2 text-sm font-semibold text-foreground">
                     <Users size={16} className="text-brand" />
-                    Team Size
+                    {t.teamSize}
                   </label>
                   <div className="pt-2">
                     <input
@@ -206,7 +284,7 @@ export function TeamCostCalculator() {
                     <div className="flex items-center justify-between mt-2">
                       <span className="text-xs text-foreground-muted">1</span>
                       <span className="text-lg font-bold text-brand tabular-nums">
-                        {teamSize} {teamSize === 1 ? "dev" : "devs"}
+                        {t.devCount(teamSize)}
                       </span>
                       <span className="text-xs text-foreground-muted">10</span>
                     </div>
@@ -219,7 +297,7 @@ export function TeamCostCalculator() {
                   onChange={setSeniority}
                   options={seniorityOptions}
                   icon={Users}
-                  label="Seniority Level"
+                  label={t.seniority}
                   id="seniority-level"
                 />
 
@@ -229,7 +307,7 @@ export function TeamCostCalculator() {
                   onChange={setDuration}
                   options={durationOptions}
                   icon={Clock}
-                  label="Duration"
+                  label={t.duration}
                   id="project-duration"
                 />
               </div>
@@ -244,7 +322,7 @@ export function TeamCostCalculator() {
                 {/* Monthly cost */}
                 <div className="text-center sm:text-left">
                   <p className="text-xs font-semibold uppercase tracking-wider text-foreground-muted mb-1">
-                    Monthly Cost
+                    {t.monthlyCost}
                   </p>
                   <AnimatePresence mode="wait">
                     <motion.p
@@ -254,7 +332,7 @@ export function TeamCostCalculator() {
                       className="text-2xl md:text-3xl font-bold text-foreground tabular-nums"
                     >
                       {formatUSD(animatedMonthly)}
-                      <span className="text-sm font-medium text-foreground-muted">/mo</span>
+                      <span className="text-sm font-medium text-foreground-muted">{t.perMonth}</span>
                     </motion.p>
                   </AnimatePresence>
                 </div>
@@ -262,7 +340,7 @@ export function TeamCostCalculator() {
                 {/* Total cost */}
                 <div className="text-center sm:text-left">
                   <p className="text-xs font-semibold uppercase tracking-wider text-foreground-muted mb-1">
-                    Total for {DURATION_MONTHS[duration]} months
+                    {t.totalFor(DURATION_MONTHS[duration])}
                   </p>
                   <AnimatePresence mode="wait">
                     <motion.p
@@ -279,7 +357,7 @@ export function TeamCostCalculator() {
                 {/* Savings — the hero metric */}
                 <div className="text-center sm:text-left">
                   <p className="text-xs font-semibold uppercase tracking-wider text-foreground-muted mb-1">
-                    You Save vs US/EU
+                    {t.youSave}
                   </p>
                   <AnimatePresence mode="wait">
                     <motion.p
@@ -293,7 +371,7 @@ export function TeamCostCalculator() {
                   </AnimatePresence>
                   <p className="text-xs font-semibold text-brand mt-0.5">
                     <TrendingDown size={12} className="inline -mt-0.5 mr-0.5" />
-                    {savingsPercent}% lower cost
+                    {t.percentLower(savingsPercent)}
                   </p>
                 </div>
               </div>
@@ -302,7 +380,7 @@ export function TeamCostCalculator() {
               <div className="mt-6 pt-6 border-t border-card-border">
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-xs font-semibold uppercase tracking-wider text-foreground-muted">
-                    Cost Comparison
+                    {t.costComparison}
                   </span>
                 </div>
                 <div className="space-y-2">
@@ -326,7 +404,7 @@ export function TeamCostCalculator() {
                   {/* Vietnam bar */}
                   <div className="flex items-center gap-3">
                     <span className="text-xs font-medium text-brand w-12 shrink-0">
-                      Vietnam
+                      {t.vietnam}
                     </span>
                     <div className="flex-1 h-3 rounded-full bg-black/[0.04] overflow-hidden">
                       <motion.div
@@ -346,14 +424,14 @@ export function TeamCostCalculator() {
               {/* CTA */}
               <div className="mt-6 pt-6 border-t border-card-border flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p className="text-sm text-foreground-secondary">
-                  Need a tailored estimate? We&apos;ll match the right team to your project scope.
+                  {t.ctaBody}
                 </p>
                 <a
-                  href={`${CONTACT.emailHref}?subject=Dedicated%20Team%20Inquiry%20-%20Custom%20Quote`}
+                  href={`${CONTACT.emailHref}?subject=${encodeURIComponent(t.mailtoSubject)}`}
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium rounded-full bg-brand text-white transition-all duration-300 hover:bg-brand-light hover:shadow-[0_4px_20px_rgba(32,133,53,0.25)] shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
                 >
                   <Mail size={16} />
-                  Get a Custom Quote
+                  {t.cta}
                 </a>
               </div>
             </div>
@@ -361,7 +439,7 @@ export function TeamCostCalculator() {
 
           {/* Small disclaimer */}
           <p className="text-xs text-foreground-muted text-center mt-4 max-w-xl mx-auto">
-            Estimates are based on standard rates and serve as a starting point. Final pricing depends on technology stack, project complexity, and specific requirements.
+            {t.disclaimer}
           </p>
         </motion.div>
       </div>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Calendar, Clock, ArrowLeft, ArrowRight, Languages } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
@@ -26,9 +26,19 @@ import { ReadingProgress } from "./ReadingProgress";
 
 export function generateStaticParams() {
   const enParams = getAllSlugs().map((slug) => ({ locale: "en", slug }));
-  const viParams = Object.values(blogViMeta).map((vi) => ({ locale: "vi", slug: vi.slug }));
-  return [...enParams, ...viParams];
+  const viTranslated = Object.values(blogViMeta).map((vi) => ({ locale: "vi", slug: vi.slug }));
+  // Untranslated posts render EN content under /vi with a notice (the VI
+  // listing links them by EN slug), so those combos must be prerendered too.
+  const viUntranslated = getAllSlugs()
+    .filter((slug) => !blogViMeta[slug])
+    .map((slug) => ({ locale: "vi", slug }));
+  return [...enParams, ...viTranslated, ...viUntranslated];
 }
+
+// All valid locale+slug combos are enumerated above — anything else 404s
+// statically. Without this, unknown slugs render on demand and notFound()
+// streams after the 200 headers (soft-404, bad for SEO).
+export const dynamicParams = false;
 
 export function generateMetadata({
   params,
@@ -41,7 +51,10 @@ export function generateMetadata({
     const effectiveSlug = loc === "vi" ? (getEnSlugByViSlug(slug) ?? slug) : slug;
     const post = getPostBySlug(effectiveSlug);
     if (!post) {
-      return { title: "Post Not Found" };
+      // Throw before metadata resolves (not just in the page body) —
+      // otherwise headers stream with 200 and the not-found page renders
+      // under a 200 status.
+      notFound();
     }
 
     const meta = getBlogMeta(post, loc);
@@ -113,12 +126,14 @@ export default async function BlogPostPage({
     notFound();
   }
 
-  const postIndex = blogPosts.findIndex((p) => p.slug === slug);
+  // Nav/related must resolve via the EN slug — on /vi the URL slug is the
+  // translated one, and lookups on it silently return nothing.
+  const postIndex = blogPosts.findIndex((p) => p.slug === effectiveSlug);
   const prevPost = postIndex > 0 ? blogPosts[postIndex - 1] : null;
   const nextPost =
     postIndex < blogPosts.length - 1 ? blogPosts[postIndex + 1] : null;
 
-  const relatedPosts = getRelatedPosts(slug, 2);
+  const relatedPosts = getRelatedPosts(effectiveSlug, 2);
 
   const pageUrl = `${SITE_URL}/${locale}/blog/${meta!.slug}`;
   const isVi = loc === "vi";
