@@ -1,22 +1,30 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useLocale } from "next-intl";
+import { useReducedMotion } from "framer-motion";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { getLenis } from "@/components/ui/SmoothScrollProvider";
 import type { Heading } from "@/lib/blog-data";
 
 interface TableOfContentsProps {
   headings: Heading[];
 }
 
+// Unified scroll offset: matches `scroll-mt-28` (112px) on heading anchors.
+const SCROLL_OFFSET = 112;
+
 export function TableOfContents({ headings }: TableOfContentsProps) {
   const isVi = useLocale() === "vi";
+  const reducedMotion = useReducedMotion();
   const [activeId, setActiveId] = useState<string>(
     () => (headings.length > 0 ? headings[0].id : "")
   );
-  const observerRef = useRef<IntersectionObserver | null>(null);
+  // Measured geometry of the active row — no index×pitch arithmetic.
+  const [indicator, setIndicator] = useState({ top: 6, height: 18 });
+  const itemRefs = useRef(new Map<string, HTMLLIElement>());
   const clickedRef = useRef<string | null>(null);
-  const listRef = useRef<HTMLUListElement>(null);
+  const clickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Track page scroll percentage for the progress indicator
   const scrollPercent = useScrollProgress();
@@ -24,62 +32,94 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   useEffect(() => {
     if (headings.length === 0) return;
 
-    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      // If user just clicked a link, don't override until scroll settles
-      if (clickedRef.current) {
-        const clickedVisible = entries.find(
-          (e) => e.target.id === clickedRef.current && e.isIntersecting
-        );
-        if (clickedVisible) {
-          clickedRef.current = null;
+    // Active = last heading whose top crossed the band line (computed from
+    // live geometry, not IO batch order).
+    const sectionEls = new Map<string, HTMLElement>();
+    const pickActive = () => {
+      let passedId = headings[0].id;
+      let passedTop = -Infinity;
+      sectionEls.forEach((el, id) => {
+        const top = el.getBoundingClientRect().top;
+        if (top <= SCROLL_OFFSET && top > passedTop) {
+          passedTop = top;
+          passedId = id;
         }
-        return;
-      }
-
-      // Find the topmost visible heading
-      const visibleEntries = entries.filter((e) => e.isIntersecting);
-      if (visibleEntries.length > 0) {
-        setActiveId(visibleEntries[0].target.id);
-      }
+      });
+      return passedId;
     };
 
-    observerRef.current = new IntersectionObserver(handleIntersect, {
-      rootMargin: "-80px 0px -60% 0px",
-      threshold: 0,
-    });
-
-    const observer = observerRef.current;
+    const observer = new IntersectionObserver(
+      () => {
+        if (clickedRef.current) return;
+        setActiveId(pickActive());
+      },
+      {
+        rootMargin: `-${SCROLL_OFFSET}px 0px -60% 0px`,
+        threshold: 0,
+      }
+    );
 
     // Small delay to ensure DOM elements are rendered
     const timeout = setTimeout(() => {
       headings.forEach(({ id }) => {
         const el = document.getElementById(id);
-        if (el) observer.observe(el);
+        if (el) {
+          sectionEls.set(id, el);
+          observer.observe(el);
+        }
       });
     }, 100);
 
     return () => {
       clearTimeout(timeout);
       observer.disconnect();
+      if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
     };
   }, [headings]);
+
+  // Measure the active row (handles wrapped headings, font swap, resize).
+  const measure = () => {
+    const li = itemRefs.current.get(activeId);
+    if (!li) return;
+    setIndicator({ top: li.offsetTop + 6, height: li.offsetHeight - 12 });
+  };
+  useLayoutEffect(measure, [activeId]);
+  useEffect(() => {
+    const t = setTimeout(measure, 600); // re-measure after font swap
+    window.addEventListener("resize", measure);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("resize", measure);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleClick = (id: string) => {
     clickedRef.current = id;
     setActiveId(id);
+    // Release the spy lock after a beat even if the target never crosses
+    // the band (short sections) — previously this could lock permanently.
+    if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
+    clickTimerRef.current = setTimeout(() => {
+      clickedRef.current = null;
+    }, 1200);
 
     const el = document.getElementById(id);
-    if (el) {
-      const offset = 100;
-      const top = el.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: "smooth" });
+    if (!el) return;
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.scrollTo(el, {
+        offset: -SCROLL_OFFSET,
+        duration: reducedMotion ? 0 : 1.1,
+      });
+    } else {
+      const top = el.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET;
+      window.scrollTo({ top, behavior: reducedMotion ? "auto" : "smooth" });
     }
   };
 
   if (headings.length === 0) return null;
 
-  // Compute the animated indicator position based on active heading
-  const activeIndex = headings.findIndex((h) => h.id === activeId);
   const pct = Math.round(scrollPercent * 100);
 
   return (
@@ -93,28 +133,48 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
         </span>
       </div>
 
-      {/* Thin progress track */}
+      {/* Thin progress track — scaleX (GPU) instead of width (layout) */}
       <div className="h-[2px] w-full rounded-full bg-black/[0.06] mb-4 overflow-hidden">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-brand to-accent-cyan transition-[width] duration-150 ease-out"
-          style={{ width: `${pct}%` }}
+          className="h-full w-full rounded-full bg-gradient-to-r from-brand to-accent-cyan"
+          style={{
+            transform: `scaleX(${scrollPercent})`,
+            transformOrigin: "left",
+            transition: reducedMotion
+              ? "none"
+              : "transform 150ms ease-out",
+          }}
         />
       </div>
 
-      <ul ref={listRef} className="space-y-0.5 relative">
-        {/* Animated indicator line */}
-        {activeIndex >= 0 && (
-          <span
-            className="absolute left-0 w-[3px] rounded-full bg-gradient-to-b from-brand to-accent-cyan transition-all duration-300 ease-out"
-            style={{
-              top: `calc(${activeIndex * 33.6}px + 6px)`,
-              height: "18px",
-            }}
-            aria-hidden="true"
-          />
-        )}
+      <ul className="space-y-0.5 relative">
+        {/* Indicator line — transform-only, measured from the active row */}
+        {(() => {
+          const idx = headings.findIndex((h) => h.id === activeId);
+          if (idx < 0) return null;
+          return (
+            <span
+              className="absolute left-0 w-[3px] rounded-full bg-gradient-to-b from-brand to-accent-cyan"
+              style={{
+                top: 0,
+                transform: `translateY(${indicator.top}px)`,
+                height: `${indicator.height}px`,
+                transition: reducedMotion
+                  ? "none"
+                  : "transform 300ms ease-out, height 300ms ease-out",
+              }}
+              aria-hidden="true"
+            />
+          );
+        })()}
         {headings.map((heading) => (
-          <li key={heading.id}>
+          <li
+            key={heading.id}
+            ref={(li) => {
+              if (li) itemRefs.current.set(heading.id, li);
+              else itemRefs.current.delete(heading.id);
+            }}
+          >
             <button
               type="button"
               onClick={() => handleClick(heading.id)}
@@ -122,7 +182,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
                 heading.level === 3 ? "pl-4" : "pl-3"
               } ${
                 activeId === heading.id
-                  ? "text-brand font-medium"
+                  ? "text-brand nav-active-text font-medium"
                   : "text-foreground-secondary hover:text-foreground"
               }`}
               aria-current={activeId === heading.id ? "true" : undefined}

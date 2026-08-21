@@ -19,7 +19,9 @@ const SCROLL_THRESHOLD = 8;
 export function ReadingProgress() {
   const isVi = useLocale() === "vi";
   const { scrollY, scrollYProgress } = useScroll();
-  const width = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  // scaleX (GPU-composited) instead of width — width animates layout on
+  // every scroll frame; scaleX never touches layout.
+  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
@@ -45,9 +47,10 @@ export function ReadingProgress() {
         >
           {/* Glow layer — softer, wider halo behind the bar */}
           <motion.div
-            className="absolute inset-y-0 left-0"
+            className="absolute inset-0"
             style={{
-              width,
+              scaleX,
+              transformOrigin: "left",
               background:
                 "linear-gradient(90deg, color-mix(in srgb, var(--brand) 35%, transparent), color-mix(in srgb, var(--accent-cyan) 35%, transparent))",
               filter: "blur(4px)",
@@ -60,9 +63,10 @@ export function ReadingProgress() {
             aria-label={isVi ? "Tiến độ đọc" : "Reading progress"}
             aria-valuemin={0}
             aria-valuemax={100}
-            className="absolute inset-y-0 left-0 will-change-transform"
+            className="absolute inset-0 will-change-transform"
             style={{
-              width,
+              scaleX,
+              transformOrigin: "left",
               background: "linear-gradient(90deg, var(--brand), var(--accent-cyan))",
             }}
           />
