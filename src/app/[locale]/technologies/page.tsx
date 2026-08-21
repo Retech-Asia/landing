@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { PageHero } from "@/components/ui/PageHero";
 import { GradientBackground } from "@/components/ui/GradientBackground";
+import { CodeToProduct } from "@/components/sections/CodeToProduct";
 import { SITE_URL } from "@/lib/constants";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import { ArrowRight } from "lucide-react";
@@ -34,7 +34,6 @@ function getChrome(locale: string) {
           "We build with modern, proven technologies chosen for reliability, scalability, and developer productivity. Every tool in our stack is selected to solve real problems and deliver lasting value.",
         breadcrumbHome: "Home",
         breadcrumbCurrent: "Technologies",
-        heroImageAlt: "Cloud infrastructure and data center technology",
         ctaTitle: "Have a Project in Mind?",
         ctaBody:
           "We will help you choose the right technology stack for your specific requirements and build it to production quality.",
@@ -44,10 +43,9 @@ function getChrome(locale: string) {
     : {
         heroTitle: "Tech Stack của chúng tôi",
         heroDescription:
-          "Chúng tôi xây dựng sản phẩm với các công nghệ hiện đại, đã được kiểm chứng — được lựa chọn vì độ tin cậy, khả năng mở rộng và năng suất của đội ngũ phát triển. Mỗi công cụ trong Tech Stack đều được chọn để giải quyết vấn đề thực tế và mang lại giá trị lâu dài.",
+          "Chúng tôi xây dựng sản phẩm với các công nghệ hiện đại, đã được kiểm chứng, được lựa chọn vì độ tin cậy, khả năng mở rộng và năng suất của đội ngũ phát triển. Mỗi công cụ trong Tech Stack đều được chọn để giải quyết vấn đề thực tế và mang lại giá trị lâu dài.",
         breadcrumbHome: "Trang chủ",
         breadcrumbCurrent: "Công nghệ",
-        heroImageAlt: "Hạ tầng cloud và công nghệ trung tâm dữ liệu",
         ctaTitle: "Bạn đang ấp ủ một dự án?",
         ctaBody:
           "Chúng tôi sẽ giúp bạn lựa chọn technology stack phù hợp với yêu cầu cụ thể của dự án và xây dựng đạt chất lượng production.",
@@ -93,16 +91,11 @@ export default async function TechnologiesPage({
         </div>
       </PageHero>
 
-      {/* Cloud infrastructure visual strip */}
-      <div className="relative h-[200px] md:h-[280px] overflow-hidden">
-        <Image
-          src="/images/stock/cloud-tech.webp"
-          alt={chrome.heroImageAlt}
-          fill
-          sizes="100vw"
-          className="object-cover transition-transform duration-700 hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+      {/* Code-to-Product scene — editor typing a build, particle deploy
+          stream, live dashboard. The approved 3D treatment for
+          programming-topic surfaces; replaces the old stock cloud photo. */}
+      <div className="relative h-[340px] md:h-[520px] overflow-hidden">
+        <CodeToProduct className="ctp-stage--inset" />
       </div>
 
       {/* Interactive tech listing with filters, flow diagram, and cards */}

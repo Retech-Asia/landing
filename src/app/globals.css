@@ -1520,3 +1520,214 @@ select:focus {
     animation: none !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════ */
+/* Code-to-Product scene — editor card + deploy stream + dashboard.  */
+/* Pure CSS 3D (perspective + counter-tilt via JS). Used in the hero */
+/* and reusable elsewhere. Markup lives in CodeToProduct.tsx.        */
+/* ══════════════════════════════════════════════════════════════════ */
+
+/* Layer note: the stage sits one step above the grid overlay (z-0) so the
+   cards float over the engineering texture; the content column stays at
+   --z-elevated. The layer is applied as a Tailwind z-[var(--z-base)] class
+   on the stage element in CodeToProduct.tsx — a hand-written
+   `z-index: var(--z-base)` declaration here was silently dropped by
+   Turbopack's CSS processor. */
+.ctp-stage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 60%;
+  perspective: 1400px;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+/* Below lg: the scene floats behind centered copy at low opacity */
+@media (max-width: 1023px) {
+  .ctp-stage {
+    width: 100%;
+    opacity: 0.4;
+  }
+}
+
+/* Band variant — the scene IS the content (Technologies page strip),
+   not a background behind copy. Full width, full opacity, scaled down
+   on small screens so both cards stay in frame. */
+.ctp-stage--inset {
+  left: 0;
+  width: 100%;
+}
+@media (max-width: 1023px) {
+  .ctp-stage--inset {
+    opacity: 1;
+    transform: scale(0.62);
+  }
+}
+@media (max-width: 480px) {
+  .ctp-stage--inset {
+    transform: scale(0.52);
+  }
+}
+
+.ctp-glow {
+  position: absolute;
+  top: 12%;
+  right: 10%;
+  width: 70%;
+  height: 60%;
+  background: radial-gradient(ellipse at center, rgba(32, 133, 53, 0.18), transparent 65%);
+  filter: blur(46px);
+}
+[data-theme="dark"] .ctp-glow {
+  background: radial-gradient(ellipse at center, rgba(46, 160, 78, 0.20), transparent 65%);
+}
+
+.ctp-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ctp-scene {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+}
+
+/* Window chrome shared by both cards */
+.ctp-win {
+  position: absolute;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(26, 26, 46, 0.14);
+  box-shadow: 0 40px 80px -36px rgba(10, 20, 14, 0.4);
+}
+[data-theme="dark"] .ctp-win {
+  background: rgba(16, 16, 28, 0.68);
+  border-color: rgba(232, 232, 240, 0.16);
+}
+
+.ctp-winbar {
+  height: 30px;
+  background: rgba(26, 26, 46, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+}
+[data-theme="dark"] .ctp-winbar {
+  background: rgba(232, 232, 240, 0.07);
+}
+
+.ctp-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(26, 26, 46, 0.16);
+  display: block;
+}
+[data-theme="dark"] .ctp-dot {
+  background: rgba(232, 232, 240, 0.2);
+}
+.ctp-dot:first-child {
+  background: var(--brand);
+  opacity: 0.7;
+}
+
+.ctp-wtitle {
+  margin-left: 8px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--foreground-muted);
+}
+
+/* Editor card: upper-left, tilted back */
+.ctp-editor {
+  width: 380px;
+  height: 240px;
+  left: -300px;
+  top: -210px;
+  transform: rotateY(14deg) rotateX(4deg);
+}
+.ctp-code {
+  position: absolute;
+  inset: 30px 0 0 0;
+  background: #14141f;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.75;
+  color: #e8e8f0;
+  white-space: pre;
+  overflow: hidden;
+}
+.ctp-code .k { color: #c792ea; }  /* keyword */
+.ctp-code .s { color: #7ee787; }  /* string, brand-green family */
+.ctp-code .f { color: #79c0ff; }  /* function */
+.ctp-code .c { color: #8b949e; }  /* comment — brightened from #6a737d (low contrast on the dark code bg) */
+.ctp-caret {
+  display: inline-block;
+  width: 7px;
+  height: 14px;
+  vertical-align: -2px;
+  background: var(--brand);
+  animation: ctp-blink 1.1s steps(1) infinite;
+}
+@keyframes ctp-blink {
+  50% { opacity: 0; }
+}
+
+/* Dashboard card: lower-right, tilted toward viewer */
+.ctp-dash {
+  width: 400px;
+  height: 250px;
+  left: -110px;
+  top: 20px;
+  transform: rotateY(-10deg) rotateX(2deg);
+}
+.ctp-dash svg {
+  position: absolute;
+  left: 0;
+  top: 30px;
+  width: 100%;
+  height: calc(100% - 30px);
+  display: block;
+}
+.ctp-ink {
+  stroke: rgba(26, 26, 46, 0.16);
+}
+.ctp-ink-fill {
+  fill: rgba(26, 26, 46, 0.16);
+}
+[data-theme="dark"] .ctp-ink {
+  stroke: rgba(232, 232, 240, 0.2);
+}
+[data-theme="dark"] .ctp-ink-fill {
+  fill: rgba(232, 232, 240, 0.2);
+}
+.ctp-c-brand { color: var(--brand); }
+.ctp-c-cyan { color: var(--accent-cyan); }
+.ctp-c-violet { color: var(--accent-violet); }
+
+.ctp-plabel {
+  position: absolute;
+  right: 12px;
+  top: 38px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--foreground-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctp-caret {
+    animation: none;
+  }
+}
