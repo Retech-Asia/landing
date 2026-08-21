@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero F, Tilt Plane · Retech</title>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --fg: #1A1A2E; --fg-2: #3D3D4E; --fg-muted: #6B6B78;
+    --brand: #208535; --grid: rgba(26,26,46,0.05);
+  }
+  html.dark {
+    --bg: #0A0A14; --fg: #E8E8F0; --fg-2: #B0B0BC; --fg-muted: #7C7C8E;
+    --brand: #2EA04E; --grid: rgba(232,232,240,0.05);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'GeneralSans', ui-sans-serif, system-ui, sans-serif;
+    background: var(--bg); color: var(--fg); min-height: 100vh;
+    transition: background 0.4s ease, color 0.4s ease; overflow-x: clip;
+  }
+  .grid-overlay {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: linear-gradient(180deg, black 0%, transparent 70%);
+    -webkit-mask-image: linear-gradient(180deg, black 0%, transparent 70%);
+  }
+  .theme-toggle {
+    position: fixed; top: 20px; right: 24px; z-index: 50;
+    font-family: 'GeneralSans', sans-serif; font-size: 12px; font-weight: 500;
+    padding: 8px 14px; border-radius: 8px; cursor: pointer;
+    border: 1px solid rgba(128,128,140,0.25); background: transparent; color: var(--fg-2);
+  }
+  .theme-toggle:hover { border-color: var(--brand); color: var(--brand); }
+
+  .hero {
+    position: relative; min-height: 100vh;
+    max-width: 1440px; margin: 0 auto;
+    display: flex; align-items: center; padding: 96px 48px 72px;
+    perspective: 1400px;
+  }
+  .copy { max-width: 620px; position: relative; z-index: 5; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  .enter { animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .d1 { animation-delay: 0.05s } .d2 { animation-delay: 0.15s }
+  .d3 { animation-delay: 0.28s } .d4 { animation-delay: 0.4s } .d5 { animation-delay: 0.52s }
+
+  h1 { font-size: clamp(2.6rem, 5.2vw, 4.6rem); line-height: 1.04; letter-spacing: -0.02em; font-weight: 600; }
+  h1 .accent { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--brand); padding-right: 0.06em; }
+  .subhead { margin-top: 26px; font-size: 1.15rem; line-height: 1.6; color: var(--fg-2); max-width: 460px; }
+  .subhead .rotator { font-weight: 600; color: var(--brand); white-space: nowrap; display: inline-block; }
+  .muted { margin-top: 10px; font-size: 0.9rem; color: var(--fg-muted); max-width: 430px; }
+  .ctas { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; height: 48px; padding: 0 26px; border-radius: 10px;
+    font-size: 0.95rem; font-weight: 600; text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .btn-primary { background: var(--brand); color: #fff; box-shadow: 0 1px 2px rgba(32,133,53,0.4), 0 8px 24px -8px rgba(32,133,53,0.45); }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-secondary { color: var(--fg); border: 1px solid rgba(128,128,140,0.3); }
+  .btn-secondary:hover { transform: translateY(-1px); }
+  .stats { margin-top: 46px; display: flex; gap: 36px; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 2.1rem; font-weight: 700; letter-spacing: -0.02em; }
+  .stat span { font-size: 0.8rem; color: var(--fg-muted); }
+  .stat + .stat { border-left: 1px solid rgba(128,128,140,0.2); padding-left: 36px; }
+
+  /* ── The 3D light plane ── */
+  .stage {
+    position: absolute; top: 0; right: 0; bottom: 0; width: 62%;
+    transform-style: preserve-3d; pointer-events: none; z-index: 1;
+  }
+  @media (max-width: 1023px) { .stage { opacity: 0.5; width: 100%; } }
+
+  .glow {
+    position: absolute; top: 8%; right: 6%; width: 70%; height: 60%;
+    background: radial-gradient(ellipse at center, rgba(32,133,53,0.22), transparent 65%);
+    filter: blur(40px);
+  }
+  html.dark .glow { background: radial-gradient(ellipse at center, rgba(46,160,78,0.20), transparent 65%); }
+
+  .plane-wrap {
+    position: absolute; top: 50%; left: 50%;
+    width: 150%; height: 150%;
+    transform: translate(-50%, -62%) rotateX(58deg) rotateZ(-24deg);
+    animation: floaty 14s ease-in-out infinite;
+  }
+  @keyframes floaty {
+    0%, 100% { transform: translate(-50%, -62%) rotateX(58deg) rotateZ(-24deg); }
+    50%      { transform: translate(-50%, -66%) rotateX(54deg) rotateZ(-21.5deg); }
+  }
+  .plane-wrap canvas {
+    width: 100%; height: 100%; display: block;
+    border-radius: 24px;
+    box-shadow: 0 60px 120px -40px rgba(10, 30, 16, 0.45);
+  }
+  /* reflection below the plane */
+  .plane-reflect {
+    position: absolute; top: 50%; left: 50%;
+    width: 150%; height: 150%;
+    transform: translate(-50%, 34%) rotateX(58deg) rotateZ(-24deg) ;
+    opacity: 0.14; filter: blur(2px) saturate(0.8);
+    mask-image: linear-gradient(0deg, transparent 40%, black 100%);
+    -webkit-mask-image: linear-gradient(0deg, transparent 40%, black 100%);
+    pointer-events: none;
+  }
+  .plane-reflect canvas { width: 100%; height: 100%; border-radius: 24px; }
+
+  .horizon {
+    position: absolute; top: 64%; left: -10%; right: -10%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(32,133,53,0.35), transparent);
+  }
+  .hint {
+    position: fixed; bottom: 18px; right: 24px; z-index: 3;
+    font-family: ui-monospace, Menlo, monospace; font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); opacity: 0.7;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .enter { animation: none; }
+    .plane-wrap { animation: none; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-overlay" aria-hidden="true"></div>
+<button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark'); retint()">Light / Dark</button>
+
+<section class="hero">
+  <div class="copy">
+    <p class="enter d1" style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.18em;color:var(--fg-muted);text-transform:uppercase;margin-bottom:18px">
+      Retech Solutions · HCMC, Vietnam
+    </p>
+    <h1 class="enter d2">Turning Ideas<br>into <span class="accent">Solutions</span></h1>
+    <p class="subhead enter d3">We build <span class="rotator" id="rotator">CMS platforms</span> your business can rely on.</p>
+    <p class="muted enter d3">AI-integrated engineering for web, mobile, and cloud products. Shipped from Vietnam to teams worldwide.</p>
+    <div class="ctas enter d4">
+      <a class="btn btn-primary" href="#contact">Get Free Consultation</a>
+      <a class="btn btn-secondary" href="#services">Explore Services</a>
+    </div>
+    <div class="stats enter d5">
+      <div class="stat"><b>50+</b><span>Projects Delivered</span></div>
+      <div class="stat"><b>30+</b><span>Expert Engineers</span></div>
+      <div class="stat"><b>5+</b><span>Years of Experience</span></div>
+    </div>
+  </div>
+
+  <div class="stage" aria-hidden="true">
+    <div class="glow"></div>
+    <div class="plane-wrap"><canvas id="gl"></canvas></div>
+    <div class="plane-reflect"><canvas id="gl2"></canvas></div>
+    <div class="horizon"></div>
+  </div>
+</section>
+<p class="hint">direction f · tilt plane · flows beneath the fold</p>
+
+<script>
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas = document.getElementById('gl');
+  const canvas2 = document.getElementById('gl2');
+  const gl = canvas.getContext('webgl', { antialias: false, alpha: false });
+  const gl2 = canvas2.getContext('webgl', { antialias: false, alpha: false });
+
+  const VS = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0., 1.); }`;
+  const FS = `
+precision highp float;
+uniform vec2 uRes;
+uniform float uTime;
+uniform float uDark;
+
+float hash(vec2 p){ p = fract(p*vec2(234.34, 435.345)); p += dot(p, p+34.23); return fract(p.x*p.y); }
+float noise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f*f*(3.-2.*f);
+  return mix(mix(hash(i), hash(i+vec2(1,0)), u.x),
+             mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), u.x), u.y);
+}
+float fbm(vec2 p){
+  float v = 0., a = .5;
+  for(int i=0;i<4;i++){ v += a*noise(p); p *= 2.3; a *= .5; }
+  return v;
+}
+vec3 aces(vec3 x){
+  return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14), 0., 1.);
+}
+
+void main(){
+  vec2 uv = gl_FragCoord.xy / uRes;
+  float t = uTime * 0.09;
+
+  // streaks flowing left-to-right across the plane
+  float streak = fbm(vec2(uv.x * 5.0 - t * 1.6, uv.y * 22.0 + fbm(vec2(uv.x*3. - t, 7.)) * 2.5));
+  streak = pow(streak, 2.6);
+
+  vec3 c1 = vec3(0.13, 0.62, 0.27);   // brand
+  vec3 c2 = vec3(0.05, 0.72, 0.85);   // cyan
+  vec3 c3 = vec3(0.52, 0.40, 0.98);   // violet
+
+  float m = fbm(vec2(uv.x * 2.2 - t * 0.5, uv.y * 3.0 + t * 0.2));
+  vec3 light = mix(c1, c2, smoothstep(0.25, 0.75, m));
+  light = mix(light, c3, smoothstep(0.55, 0.95, fbm(vec2(uv.y * 4.0 + t * 0.3, 3.3))) * 0.55);
+
+  vec3 col = uDark > .5 ? vec3(0.030, 0.032, 0.060) : vec3(0.965, 0.968, 0.952);
+  vec3 hue = normalize(light + 0.001);   // full-saturation tint for light theme
+  if (uDark > .5) {
+    col += light * streak * 1.05;
+  } else {
+    // light theme: additive streaks wash out on white, tint toward the hue instead
+    col = mix(col, hue * 0.94, clamp(streak * 1.15, 0.0, 0.78));
+  }
+
+  // fine circuit grid on the plane
+  vec2 g = fract(uv * vec2(18.0, 26.0));
+  float line = 1.0 - smoothstep(0.0, 0.10, min(min(g.x, 1.0-g.x), min(g.y, 1.0-g.y)));
+  if (uDark > .5) {
+    col += light * line * (0.05 + streak * 0.55);
+  } else {
+    col = mix(col, hue * 0.88, line * (0.10 + streak * 0.35));
+  }
+
+  // moving pulse: a bright data packet travelling the surface
+  float px = fract(t * 0.22);
+  float packet = exp(-pow((uv.x - px) * 9.0, 2.0)) * exp(-pow((uv.y - 0.5 + 0.3*sin(t*2.0)) * 3.5, 2.0));
+  col += vec3(0.35, 0.95, 0.55) * packet * (uDark > .5 ? 0.5 : 0.28);
+
+  // vignette edges of the plane
+  float edge = smoothstep(0.0, 0.09, uv.x) * smoothstep(1.0, 0.91, uv.x)
+             * smoothstep(0.0, 0.07, uv.y) * smoothstep(1.0, 0.93, uv.y);
+  col *= mix(0.35, 1.0, edge);
+
+  float gr = hash(gl_FragCoord.xy + uTime);
+  col += (gr - .5) * 0.012;
+
+  col = aces(col * 1.10);
+  gl_FragColor = vec4(col, 1.0);
+}`;
+
+  function makeCtx(g) {
+    function compile(type, src) {
+      const sh = g.createShader(type);
+      g.shaderSource(sh, src); g.compileShader(sh);
+      if (!g.getShaderParameter(sh, g.COMPILE_STATUS)) console.error(g.getShaderInfoLog(sh));
+      return sh;
+    }
+    const prog = g.createProgram();
+    g.attachShader(prog, compile(g.VERTEX_SHADER, VS));
+    g.attachShader(prog, compile(g.FRAGMENT_SHADER, FS));
+    g.linkProgram(prog); g.useProgram(prog);
+    const buf = g.createBuffer();
+    g.bindBuffer(g.ARRAY_BUFFER, buf);
+    g.bufferData(g.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), g.STATIC_DRAW);
+    const loc = g.getAttribLocation(prog, 'p');
+    g.enableVertexAttribArray(loc);
+    g.vertexAttribPointer(loc, 2, g.FLOAT, false, 0, 0);
+    return {
+      uRes: g.getUniformLocation(prog, 'uRes'),
+      uTime: g.getUniformLocation(prog, 'uTime'),
+      uDark: g.getUniformLocation(prog, 'uDark'),
+      draw(t, dark) {
+        g.uniform2f(this.uRes, g.canvas.width, g.canvas.height);
+        g.uniform1f(this.uTime, t);
+        g.uniform1f(this.uDark, dark);
+        g.drawArrays(g.TRIANGLES, 0, 3);
+      }
+    };
+  }
+  const ctxA = makeCtx(gl);
+  const ctxB = makeCtx(gl2);
+
+  function resize() {
+    const dpr = Math.min(devicePixelRatio || 1, 1.5);
+    for (const c of [canvas, canvas2]) {
+      const w = c.clientWidth || 1, h = c.clientHeight || 1;
+      c.width = w * dpr; c.height = h * dpr;
+    }
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl2.viewport(0, 0, canvas2.width, canvas2.height);
+  }
+  addEventListener('resize', resize);
+
+  const isDark = () => document.documentElement.classList.contains('dark') ? 1 : 0;
+  const t0 = performance.now();
+  const start = 12;
+  function frame(now) {
+    const t = reduced ? start : start + (now - t0) / 1000;
+    const d = isDark();
+    ctxA.draw(t, d);
+    ctxB.draw(t, d);
+    if (!reduced) requestAnimationFrame(frame);
+  }
+  window.retint = () => frame(performance.now());
+  resize();
+  requestAnimationFrame(frame);
+
+  // Rotating service word
+  const words = ['CMS platforms', 'CRM systems', 'ERP solutions', 'AI products', 'web apps'];
+  const rot = document.getElementById('rotator');
+  let wi = 0;
+  if (!reduced) setInterval(() => {
+    rot.style.transition = 'opacity .18s ease, transform .18s ease';
+    rot.style.opacity = '0'; rot.style.transform = 'translateY(-6px)';
+    setTimeout(() => {
+      wi = (wi + 1) % words.length; rot.textContent = words[wi];
+      rot.style.transition = 'none'; rot.style.transform = 'translateY(6px)';
+      requestAnimationFrame(() => {
+        rot.style.transition = 'opacity .18s ease, transform .18s ease';
+        rot.style.opacity = '1'; rot.style.transform = 'translateY(0)';
+      });
+    }, 190);
+  }, 2500);
+})();
+</script>
+</body>
+</html>

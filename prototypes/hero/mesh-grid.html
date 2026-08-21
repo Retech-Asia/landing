@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero E, Lit Grid · Retech</title>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --fg: #1A1A2E; --fg-2: #3D3D4E; --fg-muted: #6B6B78;
+    --brand: #208535;
+  }
+  html.dark {
+    --bg: #0A0A14; --fg: #E8E8F0; --fg-2: #B0B0BC; --fg-muted: #7C7C8E;
+    --brand: #2EA04E;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'GeneralSans', ui-sans-serif, system-ui, sans-serif;
+    background: var(--bg); color: var(--fg); min-height: 100vh;
+    transition: background 0.4s ease, color 0.4s ease; overflow-x: clip;
+  }
+  #gl { position: fixed; inset: 0; z-index: 0; display: block; width: 100vw; height: 100vh; }
+  .scrim {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(90deg, var(--bg) 0%, transparent 56%);
+  }
+  @media (max-width: 767px) {
+    .scrim { background: linear-gradient(180deg, var(--bg) 0%, transparent 62%); }
+  }
+  .theme-toggle {
+    position: fixed; top: 20px; right: 24px; z-index: 50;
+    font-family: 'GeneralSans', sans-serif; font-size: 12px; font-weight: 500;
+    padding: 8px 14px; border-radius: 8px; cursor: pointer;
+    border: 1px solid rgba(128,128,140,0.25); background: transparent; color: var(--fg-2);
+  }
+  .theme-toggle:hover { border-color: var(--brand); color: var(--brand); }
+
+  .hero {
+    position: relative; z-index: 2; min-height: 100vh;
+    max-width: 1440px; margin: 0 auto;
+    display: flex; align-items: center; padding: 96px 48px 72px;
+  }
+  .copy { max-width: 640px; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  .enter { animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .d1 { animation-delay: 0.05s } .d2 { animation-delay: 0.15s }
+  .d3 { animation-delay: 0.28s } .d4 { animation-delay: 0.4s } .d5 { animation-delay: 0.52s }
+
+  h1 { font-size: clamp(2.6rem, 5.4vw, 4.9rem); line-height: 1.04; letter-spacing: -0.02em; font-weight: 600; }
+  h1 .accent { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--brand); padding-right: 0.06em; }
+  .subhead { margin-top: 26px; font-size: 1.15rem; line-height: 1.6; color: var(--fg-2); max-width: 480px; }
+  .subhead .rotator { font-weight: 600; color: var(--brand); white-space: nowrap; display: inline-block; }
+  .muted { margin-top: 10px; font-size: 0.9rem; color: var(--fg-muted); max-width: 440px; }
+  .ctas { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; height: 48px; padding: 0 26px; border-radius: 10px;
+    font-size: 0.95rem; font-weight: 600; text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .btn-primary { background: var(--brand); color: #fff; box-shadow: 0 1px 2px rgba(32,133,53,0.4), 0 8px 24px -8px rgba(32,133,53,0.45); }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-secondary { color: var(--fg); border: 1px solid rgba(128,128,140,0.3); }
+  .btn-secondary:hover { transform: translateY(-1px); }
+  .stats { margin-top: 46px; display: flex; gap: 36px; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 2.1rem; font-weight: 700; letter-spacing: -0.02em; }
+  .stat span { font-size: 0.8rem; color: var(--fg-muted); }
+  .stat + .stat { border-left: 1px solid rgba(128,128,140,0.2); padding-left: 36px; }
+  .hint {
+    position: fixed; bottom: 18px; right: 24px; z-index: 3;
+    font-family: ui-monospace, Menlo, monospace; font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); opacity: 0.7;
+  }
+  @media (prefers-reduced-motion: reduce) { .enter { animation: none; } }
+</style>
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="scrim" aria-hidden="true"></div>
+<button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')">Light / Dark</button>
+
+<section class="hero">
+  <div class="copy">
+    <p class="enter d1" style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.18em;color:var(--fg-muted);text-transform:uppercase;margin-bottom:18px">
+      Retech Solutions · HCMC, Vietnam
+    </p>
+    <h1 class="enter d2">Turning Ideas<br>into <span class="accent">Solutions</span></h1>
+    <p class="subhead enter d3">We build <span class="rotator" id="rotator">CMS platforms</span> your business can rely on.</p>
+    <p class="muted enter d3">AI-integrated engineering for web, mobile, and cloud products. Shipped from Vietnam to teams worldwide.</p>
+    <div class="ctas enter d4">
+      <a class="btn btn-primary" href="#contact">Get Free Consultation</a>
+      <a class="btn btn-secondary" href="#services">Explore Services</a>
+    </div>
+    <div class="stats enter d5">
+      <div class="stat"><b>50+</b><span>Projects Delivered</span></div>
+      <div class="stat"><b>30+</b><span>Expert Engineers</span></div>
+      <div class="stat"><b>5+</b><span>Years of Experience</span></div>
+    </div>
+  </div>
+</section>
+<p class="hint">direction e · lit grid · move cursor over the field</p>
+
+<script>
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas = document.getElementById('gl');
+  const gl = canvas.getContext('webgl', { antialias: false, alpha: false });
+
+  const VS = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0., 1.); }`;
+  const FS = `
+precision highp float;
+uniform vec2 uRes;
+uniform float uTime;
+uniform vec2 uMouse;
+uniform float uDark;
+
+float hash(vec2 p){ p = fract(p*vec2(234.34, 435.345)); p += dot(p, p+34.23); return fract(p.x*p.y); }
+float noise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f*f*(3.-2.*f);
+  return mix(mix(hash(i), hash(i+vec2(1,0)), u.x),
+             mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), u.x), u.y);
+}
+float fbm(vec2 p){
+  float v = 0., a = .5;
+  for(int i=0;i<3;i++){ v += a*noise(p); p *= 2.1; a *= .5; }
+  return v;
+}
+vec3 aces(vec3 x){
+  return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14), 0., 1.);
+}
+
+void main(){
+  float aspect = uRes.x / max(uRes.y, 1.);
+  vec2 uv = gl_FragCoord.xy / uRes;                 // 0..1
+  vec2 auv = vec2(uv.x * aspect, uv.y);
+  float t = uTime * 0.06;
+
+  // liquid domain warp
+  vec2 warp = vec2(fbm(auv * 1.6 + t * 0.7), fbm(auv * 1.6 + 13.1 - t * 0.5)) - 0.5;
+  vec2 w = auv + warp * 0.10;
+
+  // drifting color sources (right-biased), gently repelled by cursor
+  vec2 m = vec2(uMouse.x * 0.5 + 0.5, uMouse.y * 0.5 + 0.5) * vec2(aspect, 1.0);
+
+  vec2 p1 = vec2((0.62 + (noise(vec2(t*.6, 1.))-.5)*.18) * aspect, 0.62 + (noise(vec2(2., t*.6))-.5)*.16);
+  vec2 p2 = vec2((0.88 + (noise(vec2(t*.5+7., 3.))-.5)*.14) * aspect, 0.44 + (noise(vec2(4., t*.5+7.))-.5)*.14);
+  vec2 p3 = vec2((0.74 + (noise(vec2(t*.7+13., 5.))-.5)*.16) * aspect, 0.30 + (noise(vec2(6., t*.7+13.))-.5)*.14);
+  vec2 p4 = vec2((1.02 + (noise(vec2(t*.6+21., 8.))-.5)*.10) * aspect, 0.72 + (noise(vec2(9., t*.6+21.))-.5)*.10);
+
+  #define REP(P) { vec2 d = P - m; float dl = length(d); P += normalize(d + 0.001) * exp(-dl*dl*22.0) * 0.05; }
+  REP(p1) REP(p2) REP(p3) REP(p4)
+
+  float r1 = exp(-pow(distance(w, p1) / 0.42, 2.0));
+  float r2 = exp(-pow(distance(w, p2) / 0.38, 2.0));
+  float r3 = exp(-pow(distance(w, p3) / 0.36, 2.0));
+  float r4 = exp(-pow(distance(w, p4) / 0.30, 2.0));
+
+  vec3 c1 = vec3(0.13, 0.62, 0.27);
+  vec3 c2 = vec3(0.04, 0.71, 0.83);
+  vec3 c3 = vec3(0.50, 0.40, 0.98);
+  vec3 c4 = vec3(0.28, 0.85, 0.40);
+
+  float tw = r1 + r2 + r3 + r4 + 0.02;
+  vec3 light = (c1 * r1 + c2 * r2 + c3 * r3 + c4 * r4) / tw;
+  float lum = dot(light, vec3(0.299, 0.587, 0.114));
+
+  // base canvas
+  vec3 col = uDark > .5 ? vec3(0.026, 0.026, 0.055) : vec3(0.976, 0.976, 0.962);
+  vec3 hue = normalize(light + 0.001);   // full-saturation tint for light theme
+  if (uDark > .5) {
+    col = mix(col, light, lum * 0.95);
+  } else {
+    col = mix(col, hue * 0.97, clamp(lum * 0.9, 0.0, 0.85));
+  }
+
+  // the grid: catches the light near sources, fades in the dark
+  float gs = 26.0;                                    // cells per unit height
+  vec2 g = fract(w * gs);
+  vec2 dl = min(g, 1.0 - g);
+  float lineDist = min(dl.x, dl.y);
+  float lineW = 0.045;
+  float line = 1.0 - smoothstep(0.0, lineW, lineDist);
+  // subdivide every 4 cells slightly stronger
+  vec2 g4 = fract(w * gs / 4.0);
+  float line4 = 1.0 - smoothstep(0.0, lineW * 1.3, min(min(g4.x, 1.0-g4.x), min(g4.y, 1.0-g4.y)));
+  float major = clamp(line4 - line, 0.0, 1.0);
+
+  float gridGlow = 0.05 + lum * 2.6;                  // brightness follows the light
+  vec3 gridCol = mix(col, light, 0.75);
+  vec3 gridInk = uDark > .5 ? gridCol * gridGlow : hue * (0.34 + lum * 1.4);
+  col = mix(col, gridInk, line * (uDark > .5 ? min(gridGlow, 1.0) : min(0.26 + lum * 1.3, 0.70)));
+  col += gridInk * major * 0.35;
+
+  // soft vignette left (text zone stays calm)
+  col *= 0.72 + 0.28 * smoothstep(0.0, 0.75, uv.x);
+
+  // grain
+  float gr = hash(gl_FragCoord.xy + uTime);
+  col += (gr - .5) * 0.011;
+
+  col = aces(col * 1.08);
+  gl_FragColor = vec4(col, 1.0);
+}`;
+
+  function compile(type, src) {
+    const sh = gl.createShader(type);
+    gl.shaderSource(sh, src); gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(sh));
+    return sh;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, compile(gl.VERTEX_SHADER, VS));
+  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FS));
+  gl.linkProgram(prog); gl.useProgram(prog);
+
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, 'p');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  const uRes = gl.getUniformLocation(prog, 'uRes');
+  const uTime = gl.getUniformLocation(prog, 'uTime');
+  const uMouse = gl.getUniformLocation(prog, 'uMouse');
+  const uDark = gl.getUniformLocation(prog, 'uDark');
+
+  function resize() {
+    const dpr = Math.min(devicePixelRatio || 1, 1.75);
+    canvas.width = innerWidth * dpr; canvas.height = innerHeight * dpr;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  addEventListener('resize', resize); resize();
+
+  const mouse = { x: 0, y: 0, tx: 0.6, ty: 0.2 };
+  addEventListener('pointermove', e => {
+    mouse.tx = (e.clientX / innerWidth) * 2 - 1;
+    mouse.ty = -((e.clientY / innerHeight) * 2 - 1);
+  });
+
+  const isDark = () => document.documentElement.classList.contains('dark') ? 1 : 0;
+  const t0 = performance.now();
+  const start = 30;
+  function frame(now) {
+    mouse.x += (mouse.tx - mouse.x) * 0.06;
+    mouse.y += (mouse.ty - mouse.y) * 0.06;
+    const t = reduced ? start : start + (now - t0) / 1000;
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+    gl.uniform1f(uTime, t);
+    gl.uniform2f(uMouse, reduced ? 0.2 : mouse.x, reduced ? 0.1 : mouse.y);
+    gl.uniform1f(uDark, isDark());
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    if (!reduced) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // Rotating service word
+  const words = ['CMS platforms', 'CRM systems', 'ERP solutions', 'AI products', 'web apps'];
+  const rot = document.getElementById('rotator');
+  let wi = 0;
+  if (!reduced) setInterval(() => {
+    rot.style.transition = 'opacity .18s ease, transform .18s ease';
+    rot.style.opacity = '0'; rot.style.transform = 'translateY(-6px)';
+    setTimeout(() => {
+      wi = (wi + 1) % words.length; rot.textContent = words[wi];
+      rot.style.transition = 'none'; rot.style.transform = 'translateY(6px)';
+      requestAnimationFrame(() => {
+        rot.style.transition = 'opacity .18s ease, transform .18s ease';
+        rot.style.opacity = '1'; rot.style.transform = 'translateY(0)';
+      });
+    }, 190);
+  }, 2500);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero L, Aurora Grid · Retech</title>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --fg: #1A1A2E; --fg-2: #3D3D4E; --fg-muted: #6B6B78;
+    --brand: #208535; --grid: rgba(26,26,46,0.05);
+  }
+  html.dark {
+    --bg: #0A0A14; --fg: #E8E8F0; --fg-2: #B0B0BC; --fg-muted: #7C7C8E;
+    --brand: #2EA04E; --grid: rgba(232,232,240,0.05);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'GeneralSans', ui-sans-serif, system-ui, sans-serif;
+    background: var(--bg); color: var(--fg); min-height: 100vh;
+    transition: background 0.4s ease, color 0.4s ease; overflow-x: clip;
+  }
+  #gl { position: fixed; inset: 0; z-index: 0; display: block; width: 100vw; height: 100vh; }
+  .scrim {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(90deg, var(--bg) 0%, transparent 58%);
+  }
+  @media (max-width: 767px) {
+    .scrim { background: linear-gradient(180deg, var(--bg) 0%, transparent 62%); }
+  }
+  .theme-toggle {
+    position: fixed; top: 20px; right: 24px; z-index: 50;
+    font-family: 'GeneralSans', sans-serif; font-size: 12px; font-weight: 500;
+    padding: 8px 14px; border-radius: 8px; cursor: pointer;
+    border: 1px solid rgba(128,128,140,0.25); background: transparent; color: var(--fg-2);
+  }
+  .theme-toggle:hover { border-color: var(--brand); color: var(--brand); }
+
+  .hero {
+    position: relative; z-index: 2; min-height: 100vh;
+    max-width: 1440px; margin: 0 auto;
+    display: flex; align-items: center; padding: 96px 48px 72px;
+  }
+  .copy { max-width: 640px; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  .enter { animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .d1 { animation-delay: 0.05s } .d2 { animation-delay: 0.15s }
+  .d3 { animation-delay: 0.28s } .d4 { animation-delay: 0.4s } .d5 { animation-delay: 0.52s }
+
+  h1 { font-size: clamp(2.6rem, 5.4vw, 4.9rem); line-height: 1.04; letter-spacing: -0.02em; font-weight: 600; }
+  h1 .accent { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--brand); padding-right: 0.06em; }
+  .subhead { margin-top: 26px; font-size: 1.15rem; line-height: 1.6; color: var(--fg-2); max-width: 480px; }
+  .subhead .rotator { font-weight: 600; color: var(--brand); white-space: nowrap; display: inline-block; }
+  .muted { margin-top: 10px; font-size: 0.9rem; color: var(--fg-muted); max-width: 440px; }
+  .ctas { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; height: 48px; padding: 0 26px; border-radius: 10px;
+    font-size: 0.95rem; font-weight: 600; text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .btn-primary { background: var(--brand); color: #fff; box-shadow: 0 1px 2px rgba(32,133,53,0.4), 0 8px 24px -8px rgba(32,133,53,0.45); }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-secondary { color: var(--fg); border: 1px solid rgba(128,128,140,0.3); }
+  .btn-secondary:hover { transform: translateY(-1px); }
+  .stats { margin-top: 46px; display: flex; gap: 36px; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 2.1rem; font-weight: 700; letter-spacing: -0.02em; }
+  .stat span { font-size: 0.8rem; color: var(--fg-muted); }
+  .stat + .stat { border-left: 1px solid rgba(128,128,140,0.2); padding-left: 36px; }
+  .hint {
+    position: fixed; bottom: 18px; right: 24px; z-index: 3;
+    font-family: ui-monospace, Menlo, monospace; font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); opacity: 0.7;
+  }
+  @media (prefers-reduced-motion: reduce) { .enter { animation: none; } }
+</style>
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="scrim" aria-hidden="true"></div>
+<button class="theme-toggle" onclick="toggleTheme()">Light / Dark</button>
+
+<section class="hero">
+  <div class="copy">
+    <p class="enter d1" style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.18em;color:var(--fg-muted);text-transform:uppercase;margin-bottom:18px">
+      Retech Solutions · HCMC, Vietnam
+    </p>
+    <h1 class="enter d2">Turning Ideas<br>into <span class="accent">Solutions</span></h1>
+    <p class="subhead enter d3">We build <span class="rotator" id="rotator">CMS platforms</span> your business can rely on.</p>
+    <p class="muted enter d3">AI-integrated engineering for web, mobile, and cloud products. Shipped from Vietnam to teams worldwide.</p>
+    <div class="ctas enter d4">
+      <a class="btn btn-primary" href="#contact">Get Free Consultation</a>
+      <a class="btn btn-secondary" href="#services">Explore Services</a>
+    </div>
+    <div class="stats enter d5">
+      <div class="stat"><b>50+</b><span>Projects Delivered</span></div>
+      <div class="stat"><b>30+</b><span>Expert Engineers</span></div>
+      <div class="stat"><b>5+</b><span>Years of Experience</span></div>
+    </div>
+  </div>
+</section>
+<p class="hint">direction l · aurora grid · move cursor</p>
+
+<script>
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas = document.getElementById('gl');
+  const gl = canvas.getContext('webgl', { antialias: false, alpha: false });
+
+  const VS = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0., 1.); }`;
+  const FS = `
+precision highp float;
+uniform vec2 uRes;
+uniform float uTime;
+uniform vec2 uMouse;
+uniform float uDark;
+
+float hash(vec2 p){ p = fract(p*vec2(234.34, 435.345)); p += dot(p, p+34.23); return fract(p.x*p.y); }
+float noise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f*f*(3.-2.*f);
+  return mix(mix(hash(i), hash(i+vec2(1,0)), u.x),
+             mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), u.x), u.y);
+}
+float fbm(vec2 p){
+  float v = 0., a = .5;
+  for(int i=0;i<3;i++){ v += a*noise(p); p *= 2.1; a *= .5; }
+  return v;
+}
+vec3 aces(vec3 x){
+  return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14), 0., 1.);
+}
+
+// aurora light source drifting on the plane
+vec3 srcLight(vec2 p, vec2 s, vec3 c, float k, float intensity) {
+  float d = length(p - s);
+  return c * exp(-d * d * k) * intensity;
+}
+
+void main(){
+  vec2 uv = (gl_FragCoord.xy - .5*uRes) / uRes.y;
+  vec2 muv = vec2(uMouse.x * 0.5 * uRes.x / uRes.y, uMouse.y * 0.5);
+  float mAct = smoothstep(0.05, 0.55, length(uMouse));
+  float t = uTime * 0.16; // slow but clearly alive idle drift
+
+  // sky and plane share one background
+  vec3 bgTop = uDark > .5 ? vec3(0.020, 0.022, 0.050) : vec3(0.976, 0.976, 0.962);
+  vec3 bgBot = uDark > .5 ? vec3(0.030, 0.028, 0.062) : vec3(0.966, 0.966, 0.950);
+  vec3 col = mix(bgBot, bgTop, smoothstep(-0.2, 0.8, uv.y + 0.30));
+
+  // camera above a plane, tilted view (Tilt Plane treatment), lazy parallax
+  vec3 ro = vec3(0.0, 0.55, 3.4);
+  ro.x += uMouse.x * 0.22;
+  ro.y += uMouse.y * 0.05;
+  vec3 rd = normalize(vec3(uv.x, uv.y - 0.42, -1.0));
+
+  if (rd.y < -0.02) {
+    // ray-plane hit, grid coordinates in world space
+    float tt = -ro.y / rd.y;
+    vec3 hit = ro + rd * tt;
+    vec2 p = hit.xz;
+
+    float scale = 1.15;
+    vec2 gp = p * scale;
+    vec2 g = abs(fract(gp) - 0.5);
+    float lw = 0.03 + tt * 0.012;
+    float line = 1.0 - smoothstep(0.0, lw, min(g.x, g.y));
+    vec2 cellC = fract(gp) - 0.5;
+    float cellGlow = exp(-dot(cellC, cellC) * 7.0);
+    // plane-wide idle life: a slow luminance wave flowing away from the viewer
+    // along the lines, plus a gentle per-cell twinkle
+    float wave = 0.5 + 0.5 * sin(gp.y * 2.2 - t * 2.0 + gp.x * 0.6);
+    float twinkle = 0.85 + 0.30 * sin(t * 1.1 + dot(floor(gp), vec2(2.3, 4.1)));
+
+    // four aurora pools staggered along the depth diagonal (bottom-center green
+    // up to upper-right amber); visible max x shrinks toward the camera, so
+    // nearer sources sit closer to the centerline, farther ones push right.
+    // pools use tight gaussians (k~6) so each keeps its hue instead of merging
+    // into the additive sum-color; a dim wide layer (k~0.6, 22% gain) keeps the
+    // plane continuously lit between pools
+    vec2 s1 = vec2( 0.35 + fbm(vec2(t * 0.38, 2.1)) * 0.20, 2.45 + fbm(vec2(t * 0.30 + 7.7, 5.3)) * 0.30);
+    vec2 s2 = vec2( 0.95 + fbm(vec2(t * 0.32 + 4.4, 9.1)) * 0.20, 1.95 + fbm(vec2(t * 0.34 + 12.3, 1.9)) * 0.28);
+    vec2 s3 = vec2( 0.95 + fbm(vec2(t * 0.30 + 9.9, 14.7)) * 0.15, 1.40 + fbm(vec2(t * 0.36 + 3.1, 8.8)) * 0.20);
+    vec2 s4 = vec2( 1.30 + fbm(vec2(t * 0.34 + 15.2, 6.6)) * 0.15, 0.95 + fbm(vec2(t * 0.28 + 18.8, 12.2)) * 0.20);
+
+    // slow per-pool breathing so the aurora is alive even with no cursor
+    float br1 = 0.82 + 0.34 * sin(t * 0.55);
+    float br2 = 0.82 + 0.34 * sin(t * 0.47 + 2.1);
+    float br3 = 0.82 + 0.34 * sin(t * 0.62 + 4.2);
+    float br4 = 0.82 + 0.34 * sin(t * 0.53 + 1.3);
+    vec3 light =
+      srcLight(p, s1, vec3(0.10, 0.78, 0.32), 5.5, 1.30 * br1) +   // brand green
+      srcLight(p, s2, vec3(0.06, 0.75, 0.86), 6.0, 1.15 * br2) +   // cyan
+      srcLight(p, s3, vec3(0.45, 0.30, 1.00), 4.8, 1.55 * br3) +   // violet
+      srcLight(p, s4, vec3(0.95, 0.62, 0.24), 5.0, 1.40 * br4);    // amber
+    light += 0.22 * (
+      srcLight(p, s1, vec3(0.10, 0.78, 0.32), 0.55, 1.0) +
+      srcLight(p, s2, vec3(0.06, 0.75, 0.86), 0.58, 1.0) +
+      srcLight(p, s3, vec3(0.45, 0.30, 1.00), 0.58, 1.0) +
+      srcLight(p, s4, vec3(0.95, 0.62, 0.24), 0.62, 1.0)
+    );
+
+    // the cursor is a light too, projected onto the plane from the static camera
+    vec3 rdM = normalize(vec3(muv.x, muv.y - 0.42, -1.0));
+    float tm = 0.55 / max(0.02, -rdM.y);
+    vec2 pm = vec2(0.0, 3.4) + rdM.xz * tm;
+    pm += vec2(uMouse.x * 0.22, 0.0);
+    float dm = length(p - pm);
+    vec3 cursorCol = mix(vec3(0.35, 0.90, 0.55), vec3(0.60, 0.55, 1.00), 0.5 + 0.5 * sin(t * 0.5));
+    light += cursorCol * exp(-dm * dm * 0.85) * 1.25 * mAct;
+    // soft ripples radiating from the cursor light
+    light *= 1.0 + 0.16 * sin(dm * 13.0 - uTime * 2.1) * exp(-dm * dm * 0.22) * mAct;
+
+    // calm left for copy, distance fog
+    float xr = smoothstep(-3.4, 0.6, p.x);
+    float breakup = 0.42 + 0.58 * fbm(vec2(p.x * 0.7 - t * 1.5, p.y * 0.7 + 3.7));
+    float env = xr * breakup;
+    float fog = exp(-max(tt - 2.2, 0.0) * 0.30);
+
+    vec3 lineCol = uDark > .5 ? vec3(0.15, 0.17, 0.23) : vec3(0.80, 0.80, 0.85);
+    vec3 plane = lineCol * line * (0.35 + 0.65 * env);
+    vec3 lit = light * env * (0.30 + cellGlow * twinkle * 0.70 + line * (0.55 + 0.35 * wave));
+    if (uDark > .5) {
+      col = mix(col, plane + lit, fog);
+    } else {
+      // light theme: tint toward hue rather than add on near-white
+      float lum = dot(lit, vec3(0.333));
+      vec3 tint = normalize(lit + 0.001);
+      vec3 planeL = mix(plane, tint * 0.92, clamp(lum * 1.1, 0.0, 0.9));
+      col = mix(col, planeL, fog);
+    }
+  } else {
+    // sky: faint aurora wash + stars in dark mode
+    float wash = fbm(vec2(uv.x * 1.4 + t * 0.5, t * 0.4)) * smoothstep(0.0, 0.6, uv.y - 0.42);
+    if (uDark > .5) {
+      col += vec3(0.10, 0.55, 0.35) * wash * 0.10 + vec3(0.30, 0.20, 0.60) * wash * 0.06;
+      float star = smoothstep(0.9965, 1.0, hash(floor(gl_FragCoord.xy / 2.0)));
+      col += vec3(star * 0.35 * (0.5 + 0.5 * sin(uTime * 2.0 + hash(floor(gl_FragCoord.xy)) * 6.28)));
+    } else {
+      col = mix(col, vec3(0.88, 0.92, 0.88), wash * 0.06);
+    }
+  }
+
+  float gr = hash(gl_FragCoord.xy + uTime);
+  col += (gr - .5) * 0.012;
+  col = aces(col * 1.12);
+  gl_FragColor = vec4(col, 1.0);
+}`;
+
+  function compile(type, src) {
+    const sh = gl.createShader(type);
+    gl.shaderSource(sh, src); gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(sh));
+    return sh;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, compile(gl.VERTEX_SHADER, VS));
+  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FS));
+  gl.linkProgram(prog); gl.useProgram(prog);
+
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, 'p');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  const uRes = gl.getUniformLocation(prog, 'uRes');
+  const uTime = gl.getUniformLocation(prog, 'uTime');
+  const uMouse = gl.getUniformLocation(prog, 'uMouse');
+  const uDark = gl.getUniformLocation(prog, 'uDark');
+
+  function resize() {
+    const dpr = Math.min(devicePixelRatio || 1, 1.75);
+    canvas.width = innerWidth * dpr; canvas.height = innerHeight * dpr;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  addEventListener('resize', resize); resize();
+
+  const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+  addEventListener('pointermove', e => {
+    mouse.tx = (e.clientX / innerWidth) * 2 - 1;
+    mouse.ty = -((e.clientY / innerHeight) * 2 - 1);
+  });
+
+  const isDark = () => document.documentElement.classList.contains('dark') ? 1 : 0;
+  window.toggleTheme = () => document.documentElement.classList.toggle('dark');
+
+  const t0 = performance.now();
+  const start = 47;
+  function frame(now) {
+    mouse.x += (mouse.tx - mouse.x) * 0.028; // lazy trail
+    mouse.y += (mouse.ty - mouse.y) * 0.028;
+    const t = reduced ? start : start + (now - t0) / 1000;
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+    gl.uniform1f(uTime, t);
+    gl.uniform2f(uMouse, reduced ? 0 : mouse.x, reduced ? 0 : mouse.y);
+    gl.uniform1f(uDark, isDark());
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    if (!reduced) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  const words = ['CMS platforms', 'CRM systems', 'ERP solutions', 'AI products', 'web apps'];
+  const rot = document.getElementById('rotator');
+  let wi = 0;
+  if (!reduced) setInterval(() => {
+    rot.style.transition = 'opacity .18s ease, transform .18s ease';
+    rot.style.opacity = '0'; rot.style.transform = 'translateY(-6px)';
+    setTimeout(() => {
+      wi = (wi + 1) % words.length; rot.textContent = words[wi];
+      rot.style.transition = 'none'; rot.style.transform = 'translateY(6px)';
+      requestAnimationFrame(() => {
+        rot.style.transition = 'opacity .18s ease, transform .18s ease';
+        rot.style.opacity = '1'; rot.style.transform = 'translateY(0)';
+      });
+    }, 190);
+  }, 2500);
+})();
+</script>
+</body>
+</html>

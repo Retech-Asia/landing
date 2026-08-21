@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Retech Hero · Prototype Rounds &amp; Verdicts</title>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'GeneralSans', sans-serif; background: #FAFAF8; color: #1A1A2E; padding: 64px 32px; }
+  .wrap { max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 1.6rem; letter-spacing: -0.01em; }
+  h2 { font-size: 1.1rem; margin-top: 48px; color: #6B6B78; font-weight: 600; letter-spacing: 0.02em; }
+  p.lead { color: #6B6B78; margin-top: 8px; font-size: 0.95rem; line-height: 1.6; }
+  .cards { margin-top: 24px; display: grid; gap: 20px; }
+  a.card {
+    display: block; text-decoration: none; color: inherit;
+    border: 1px solid rgba(26,26,46,0.12); border-radius: 14px; padding: 24px 26px;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    background: #fff;
+  }
+  a.card:hover { transform: translateY(-2px); border-color: #208535; box-shadow: 0 16px 40px -20px rgba(32,133,53,0.3); }
+  .card .tag { font-family: ui-monospace, Menlo, monospace; font-size: 10px; letter-spacing: 0.16em; color: #208535; text-transform: uppercase; }
+  .card h3 { margin-top: 10px; font-size: 1.25rem; }
+  .card p { margin-top: 6px; color: #3D3D4E; font-size: 0.92rem; line-height: 1.6; }
+  .card .meta { margin-top: 12px; font-size: 0.78rem; color: #6B6B78; }
+  .verdict { margin-top: 12px; font-size: 0.82rem; font-weight: 600; }
+  .v-keep { color: #208535; }
+  .v-out { color: #B4232A; }
+  .final { margin-top: 48px; border: 1px solid rgba(32,133,53,0.35); border-radius: 14px; padding: 26px 28px; background: #fff; }
+  .final .tag { font-family: ui-monospace, Menlo, monospace; font-size: 10px; letter-spacing: 0.16em; color: #208535; text-transform: uppercase; }
+  .final h3 { margin-top: 10px; font-size: 1.25rem; }
+  .final p { margin-top: 8px; color: #3D3D4E; font-size: 0.92rem; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Hero · Prototype Rounds &amp; Verdicts</h1>
+  <p class="lead">Three rounds of hero exploration, August 2026. Outcome: the homepage hero keeps the Stripe-style ambient (LatticeField). The winning 3D scene, Code to Product, ships on programming-topic pages instead.</p>
+
+  <div class="final">
+    <span class="tag">Outcome</span>
+    <h3>Hero: LatticeField · Code to Product: reused site-wide on tech topics</h3>
+    <p>The hero stays capability/brand level: the drifting ambient gradient already live on the site. Code to Product (Round 3, H) was approved as a design and built as the shared component <code>src/components/sections/CodeToProduct.tsx</code>. It now runs on <code>/technologies</code> as a full-width band under the page hero, and can be dropped into any programming-topic surface via <code>&lt;CodeToProduct className="ctp-stage--inset" /&gt;</code>.</p>
+  </div>
+
+  <h2>Round 5</h2>
+  <p class="lead">Aurora Sweep II was called good but the hunt continues. Fusion round: the lit grid and tilt-plane languages rebased onto the aurora palette, plus a third idea. All three are single-file WebGL (fragment shader only), calm left for copy, lazy cursor (lerp 0.028), reduced-motion safe.</p>
+  <div class="cards">
+    <a class="card" href="aurora-grid.html">
+      <span class="tag">Direction L</span>
+      <h3>Aurora Grid</h3>
+      <p>Lit Grid's fine engineering grid catches Aurora Sweep II's drifting bands: cells glow where the light pools, fade in the dark, and the whole lattice breathes with the wash. The cursor drags a soft glow cell-to-cell.</p>
+    </a>
+    <a class="card" href="lit-dunes.html">
+      <span class="tag">Direction M · front-runner</span>
+      <h3>Lit Dunes</h3>
+      <p>Slow sand-dune heightfield in tilted perspective under an aurora wash: green, cyan, violet, pink and amber bands coexist on the terrain, topographic contour lines wrap the dunes, ridges catch a rim light. The cursor is a lamp: it raises a mound under itself and pools colored glow on the surface.</p>
+      <div class="verdict v-keep">Verdict: Jay loves it — the pick. Cursor softened twice on his call; final values: lazy trail lerp 0.010, mound 0.15 wide, lamp 0.50 wide pool, parallax 0.07/0.02. None of the lab layers fold in; the base scene ships as-is.</div>
+    </a>
+    <a class="card" href="lit-dunes-lab.html">
+      <span class="tag">Direction M2 · feature lab</span>
+      <h3>Lit Dunes Lab</h3>
+      <p>The same dune scene with five optional layers on independent toggles: a wandering lamp that raises its own mound and glow, a breathing sun on the horizon, directional dune shading (lit slopes and shadowed slip faces), wind streak lines rippling across the sand, and a meteor crossing the sky every ~14 seconds. Check and uncheck each to feel what it adds.</p>
+      <div class="verdict v-out">Verdict: none of the layers fold in. Jay kept the base scene and asked only for a softer cursor transition, landed in lit-dunes.html. Lab kept as reference.</div>
+    </a>
+    <a class="card" href="lit-dunes-colors.html">
+      <span class="tag">Direction M3 · color lab</span>
+      <h3>Lit Dunes · Color Lab</h3>
+      <p>The final dune scene under five color patterns, each grounded in the company identity: 0 the current aurora as reference, 1 Brand Field (the logo and system palette itself: greens, cyan, violet), 2 Retake Loop (the name Retech = retake, the site's green-to-cyan triple gradient), 3 Mekong Dusk (HCMC at dusk: brand greens under gold and violet sky), 4 Asia Signal (home green to international azure and violet, for retech.asia). Flip them live in both themes.</p>
+      <div class="verdict v-keep">Verdict: push aurora first. Aurora ships in the React port as-is; the four alternates stay parked here for a possible later swap.</div>
+    </a>
+    <a class="card" href="warp-loom.html">
+      <span class="tag">Direction N</span>
+      <h3>Warp Loom</h3>
+      <p>Six woven bands of aurora light on a tilted plane, spanning the full depth from horizon to near field. The cursor is a glass lens: it refracts the bands with chromatic split (red/green/blue fringes) and a faint caustic ring. Bands breathe in depth, shimmer in two counter-scrolling layers, and the whole loom slowly swells and recedes.</p>
+    </a>
+  </div>
+
+  <h2>Round 4</h2>
+  <p class="lead">Lessons applied: 3D is expected, the object must relate to the business, richness over simplicity, capability level rather than literal code. Three bets: H's approved window language at brand level, the delivery story as a globe, and the liked Signal Field concept rebuilt in 3D.</p>
+  <div class="cards">
+    <a class="card" href="capability-deck.html">
+      <span class="tag">Direction I</span>
+      <h3>Capability Deck</h3>
+      <p>One live product core window fed by three floating module chips (CMS, AI copilot, CRM pipeline) on separate depths, with integration streams flowing chip to core. The counter-tilt see-saw from H, raised to brand level: everything we build, one product.</p>
+    </a>
+    <a class="card" href="global-delivery.html">
+      <span class="tag">Direction J</span>
+      <h3>Global Delivery</h3>
+      <p>A crisp wireframe-and-points globe, HCMC marked with a pulsing beacon, delivery arcs with travelling pulses to Singapore, Tokyo, Sydney, London, San Francisco. Floating proof chips (50+ projects, GMT+7 overlap, EN/VI). The outsourcing story as the object itself.</p>
+    </a>
+    <a class="card" href="living-systems.html">
+      <span class="tag">Direction K</span>
+      <h3>Living Systems</h3>
+      <p>Signal Field's ink fibers rebuilt on a 3D-tilted plane beneath the copy, calm on the left, accelerating and converging on the right into a compact live product window. Module tags (cms, crm, ai copilot) ride the stream. The liked concept, given depth and a destination.</p>
+    </a>
+  </div>
+
+  <h2>Round 3</h2>
+  <div class="cards">
+    <a class="card" href="product-stack.html">
+      <span class="tag">Direction G</span>
+      <h3>Product Stack</h3>
+      <p>A slowly orbiting stack of the things we ship: CMS, CRM, AI copilot layers as floating glass slabs over the ambient, with a data pulse climbing the stack.</p>
+      <div class="verdict v-out">Verdict: built and QA'd clean, not chosen.</div>
+    </a>
+    <a class="card" href="code-to-product.html">
+      <span class="tag">Direction H · approved</span>
+      <h3>Code to Product</h3>
+      <p>Two floating windows in CSS perspective: a code editor typing a build script and a live product dashboard, with a particle deploy stream running between them. The cursor see-saws the cards in counter-tilt. Plain DOM first paint (LCP-safe), motion arms on idle.</p>
+      <div class="verdict v-keep">Verdict: approved for programming-topic pages. Live on /technologies.</div>
+    </a>
+  </div>
+
+  <h2>Round 2</h2>
+  <p class="lead">Verdict: all three passed on. Aurora Sweep was too basic and blurry; Lit Grid too simple; Tilt Plane had the right 3D treatment but the circuit-plane object read as unrelated to the business. Aurora Sweep was later reopened and upgraded to II on Jay's call.</p>
+  <div class="cards">
+    <a class="card" href="aurora-sweep.html">
+      <span class="tag">Direction D</span>
+      <h3>Aurora Sweep</h3>
+      <p>The current drifting blobs become angled bands of light with hot core seams, the actual Stripe signature. The whole field leans with your cursor.</p>
+      <div class="verdict v-keep">Reopened 2026-08-21: Jay called it good, asked for more color, more attraction, stronger cursor effect. Upgraded to Aurora Sweep II: seven bands (green, lime, cyan, azure, violet, magenta, amber) with hues that drift over time, a soft colored glow riding the pointer, bands that bow toward the cursor and flare near it, per-band parallax depth, sparkle glints. Awaiting verdict.</div>
+    </a>
+    <a class="card" href="mesh-grid.html">
+      <span class="tag">Direction E</span>
+      <h3>Lit Grid</h3>
+      <p>The current gradient keeps its drifting color sources, but a fine engineering grid now catches the light: cells glow near the sources, fade in the dark, and the field warps like liquid.</p>
+      <div class="verdict v-out">Verdict: passed, "quite so simple".</div>
+    </a>
+    <a class="card" href="tilt-plane.html">
+      <span class="tag">Direction F</span>
+      <h3>Tilt Plane</h3>
+      <p>Real 3D presence: a streak-lit circuit plane receding in perspective beneath the copy, slowly floating, with a reflection and a data pulse travelling across it.</p>
+      <div class="verdict v-out">Verdict: passed, right treatment but wrong object.</div>
+    </a>
+  </div>
+
+  <h2>Round 1</h2>
+  <p class="lead">Verdict: Blueprint and Living Product skipped outright. Signal Field's concept was liked and its preview fixed, but it was not chosen.</p>
+  <div class="cards">
+    <a class="card" href="signal-field.html">
+      <span class="tag">Direction C</span>
+      <h3>Signal Field</h3>
+      <p>A cursor-reactive flow field of brand-ink fibers. Continuous strands in both themes, denser on the right, calm left for copy.</p>
+      <div class="verdict v-out">Verdict: not chosen.</div>
+    </a>
+  </div>
+</div>
+</body>
+</html>

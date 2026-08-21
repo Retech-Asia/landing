@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero I, Capability Deck · Retech</title>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --fg: #1A1A2E; --fg-2: #3D3D4E; --fg-muted: #6B6B78;
+    --brand: #208535; --cyan: #06b6d4; --violet: #8b5cf6;
+    --card-bg: rgba(255,255,255,0.78); --card-line: rgba(26,26,46,0.14);
+    --card-ink: rgba(26,26,46,0.16); --chrome: rgba(26,26,46,0.08);
+    --label: #6B6B78;
+  }
+  html.dark {
+    --bg: #0A0A14; --fg: #E8E8F0; --fg-2: #B0B0BC; --fg-muted: #7C7C8E;
+    --brand: #2EA04E; --cyan: #22d3ee; --violet: #a78bfa;
+    --card-bg: rgba(16,16,28,0.68); --card-line: rgba(232,232,240,0.16);
+    --card-ink: rgba(232,232,240,0.20); --chrome: rgba(232,232,240,0.07);
+    --label: #7C7C8E;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'GeneralSans', ui-sans-serif, system-ui, sans-serif;
+    background: var(--bg); color: var(--fg); min-height: 100vh;
+    transition: background 0.4s ease, color 0.4s ease; overflow-x: clip;
+  }
+  .theme-toggle {
+    position: fixed; top: 20px; right: 24px; z-index: 50;
+    font-family: 'GeneralSans', sans-serif; font-size: 12px; font-weight: 500;
+    padding: 8px 14px; border-radius: 8px; cursor: pointer;
+    border: 1px solid rgba(128,128,140,0.25); background: transparent; color: var(--fg-2);
+  }
+  .theme-toggle:hover { border-color: var(--brand); color: var(--brand); }
+
+  .hero {
+    position: relative; z-index: 2; min-height: 100vh;
+    max-width: 1440px; margin: 0 auto;
+    display: flex; align-items: center; padding: 96px 48px 72px;
+  }
+  .copy { max-width: 620px; position: relative; z-index: 5; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  .enter { animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .d1 { animation-delay: 0.05s } .d2 { animation-delay: 0.15s }
+  .d3 { animation-delay: 0.28s } .d4 { animation-delay: 0.4s } .d5 { animation-delay: 0.52s }
+
+  h1 { font-size: clamp(2.6rem, 5.2vw, 4.6rem); line-height: 1.04; letter-spacing: -0.02em; font-weight: 600; }
+  h1 .accent { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--brand); padding-right: 0.06em; }
+  .subhead { margin-top: 26px; font-size: 1.15rem; line-height: 1.6; color: var(--fg-2); max-width: 460px; }
+  .subhead .rotator { font-weight: 600; color: var(--brand); white-space: nowrap; display: inline-block; }
+  .muted { margin-top: 10px; font-size: 0.9rem; color: var(--fg-muted); max-width: 430px; }
+  .ctas { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; height: 48px; padding: 0 26px; border-radius: 10px;
+    font-size: 0.95rem; font-weight: 600; text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .btn-primary { background: var(--brand); color: #fff; box-shadow: 0 1px 2px rgba(32,133,53,0.4), 0 8px 24px -8px rgba(32,133,53,0.45); }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-secondary { color: var(--fg); border: 1px solid rgba(128,128,140,0.3); }
+  .btn-secondary:hover { transform: translateY(-1px); }
+  .stats { margin-top: 46px; display: flex; gap: 36px; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 2.1rem; font-weight: 700; letter-spacing: -0.02em; }
+  .stat span { font-size: 0.8rem; color: var(--fg-muted); }
+  .stat + .stat { border-left: 1px solid rgba(128,128,140,0.2); padding-left: 36px; }
+
+  /* ── capability deck scene ── */
+  .stage {
+    position: absolute; top: 0; right: 0; bottom: 0; width: 62%;
+    perspective: 1400px; pointer-events: none; z-index: 1;
+    transform-style: preserve-3d;
+  }
+  @media (max-width: 1023px) { .stage { opacity: 0.5; width: 100%; } }
+  #fx { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .glow {
+    position: absolute; top: 14%; right: 8%; width: 72%; height: 58%;
+    background: radial-gradient(ellipse at center, rgba(32,133,53,0.18), transparent 65%);
+    filter: blur(46px);
+  }
+  html.dark .glow { background: radial-gradient(ellipse at center, rgba(46,160,78,0.20), transparent 65%); }
+  /* faint engineering grid, masked to the stage, for depth texture */
+  .gridtex {
+    position: absolute; inset: 0; opacity: 0.5;
+    background-image:
+      linear-gradient(rgba(26,26,46,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,26,46,0.05) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 60% 45%, #000 30%, transparent 75%);
+            mask-image: radial-gradient(ellipse 70% 60% at 60% 45%, #000 30%, transparent 75%);
+  }
+  html.dark .gridtex {
+    background-image:
+      linear-gradient(rgba(232,232,240,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,232,240,0.05) 1px, transparent 1px);
+  }
+
+  .scene { position: absolute; top: 50%; left: 50%; transform-style: preserve-3d; }
+  .win {
+    position: absolute; border-radius: 14px; overflow: hidden;
+    background: var(--card-bg); border: 1px solid var(--card-line);
+    box-shadow: 0 40px 80px -36px rgba(10,20,14,0.4);
+    backdrop-filter: blur(6px);
+  }
+  .winbar {
+    height: 28px; background: var(--chrome);
+    display: flex; align-items: center; gap: 6px; padding: 0 12px;
+  }
+  .winbar i { width: 9px; height: 9px; border-radius: 50%; background: var(--card-ink); display: block; }
+  .winbar i:first-child { background: var(--brand); opacity: 0.7; }
+  .wtitle {
+    margin-left: 8px; font-family: ui-monospace, Menlo, monospace; font-size: 9px;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--label);
+  }
+
+  /* module chips float on their own bob wrapper, JS tilts the outer */
+  .chip { width: 176px; height: 118px; }
+  .chip .body { position: absolute; inset: 28px 0 0 0; padding: 8px 10px; }
+  .chip .foot {
+    position: absolute; left: 10px; bottom: 6px; right: 10px;
+    font-family: ui-monospace, Menlo, monospace; font-size: 9px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted);
+    display: flex; justify-content: space-between;
+  }
+  .c-brand { color: var(--brand); } .c-cyan { color: var(--cyan); } .c-violet { color: var(--violet); }
+  @keyframes bobA { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-7px) } }
+  @keyframes bobB { 0%,100% { transform: translateY(-5px) } 50% { transform: translateY(4px) } }
+  @keyframes bobC { 0%,100% { transform: translateY(3px) } 50% { transform: translateY(-6px) } }
+  .bobA { animation: bobA 5.2s ease-in-out infinite; }
+  .bobB { animation: bobB 6.1s ease-in-out infinite; }
+  .bobC { animation: bobC 4.6s ease-in-out infinite; }
+
+  /* chip placements (base transforms; JS adds cursor tilt).
+     Deeper chips are scaled down: reads as distance without blur. */
+  .m-cms   { left: -388px; top: -238px; transform: translateZ(-70px) rotateY(20deg) rotateX(4deg); }
+  .m-ai    { left: 168px;  top: -252px; transform: translateZ(-95px) rotateY(-18deg) rotateX(5deg) scale(0.92); opacity: 0.95; }
+  .m-crm   { left: -432px; top: 78px;   transform: translateZ(-55px) rotateY(24deg) rotateX(-2deg) scale(0.97); }
+
+  /* core product window */
+  .core { width: 430px; height: 268px; left: -178px; top: -58px; transform: rotateY(-8deg) rotateX(3deg); }
+  .core svg { position: absolute; left: 0; top: 28px; width: 100%; height: calc(100% - 28px); display: block; }
+  .plabel {
+    position: absolute; right: 12px; top: 36px;
+    font-family: ui-monospace, Menlo, monospace; font-size: 9px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--label);
+  }
+  .hint {
+    position: fixed; bottom: 18px; right: 24px; z-index: 3;
+    font-family: ui-monospace, Menlo, monospace; font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); opacity: 0.7;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .enter, .bobA, .bobB, .bobC { animation: none; }
+  }
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')">Light / Dark</button>
+
+<section class="hero">
+  <div class="copy">
+    <p class="enter d1" style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.18em;color:var(--fg-muted);text-transform:uppercase;margin-bottom:18px">
+      Retech Solutions · HCMC, Vietnam
+    </p>
+    <h1 class="enter d2">Turning Ideas<br>into <span class="accent">Solutions</span></h1>
+    <p class="subhead enter d3">We build <span class="rotator" id="rotator">CMS platforms</span> your business can rely on.</p>
+    <p class="muted enter d3">AI-integrated engineering for web, mobile, and cloud products. Shipped from Vietnam to teams worldwide.</p>
+    <div class="ctas enter d4">
+      <a class="btn btn-primary" href="#contact">Get Free Consultation</a>
+      <a class="btn btn-secondary" href="#services">Explore Services</a>
+    </div>
+    <div class="stats enter d5">
+      <div class="stat"><b>50+</b><span>Projects Delivered</span></div>
+      <div class="stat"><b>30+</b><span>Expert Engineers</span></div>
+      <div class="stat"><b>5+</b><span>Years of Experience</span></div>
+    </div>
+  </div>
+
+  <div class="stage" aria-hidden="true">
+    <div class="gridtex"></div>
+    <div class="glow"></div>
+    <canvas id="fx"></canvas>
+    <div class="scene" id="scene">
+
+      <!-- module chip: CMS -->
+      <div class="win chip m-cms" id="chip-cms">
+        <div class="bobA" style="position:absolute;inset:0">
+          <div class="winbar"><i></i><i></i><i></i><span class="wtitle">cms · content</span></div>
+          <div class="body">
+            <svg viewBox="0 0 156 78" fill="none">
+              <rect x="6"  y="8"  width="42" height="30" rx="6" stroke="var(--card-ink)" stroke-width="1.5"/>
+              <rect x="14" y="16" width="18" height="5" rx="2.5" fill="var(--card-ink)"/>
+              <rect x="14" y="25" width="26" height="4" rx="2" fill="var(--card-ink)" opacity="0.6"/>
+              <rect x="56" y="8"  width="42" height="30" rx="6" stroke="var(--card-ink)" stroke-width="1.5"/>
+              <rect x="64" y="16" width="18" height="5" rx="2.5" fill="var(--card-ink)"/>
+              <rect x="64" y="25" width="26" height="4" rx="2" fill="var(--card-ink)" opacity="0.6"/>
+              <rect x="106" y="8" width="42" height="30" rx="6" class="c-brand" stroke="currentColor" stroke-dasharray="4 3"/>
+              <rect x="114" y="16" width="18" height="5" rx="2.5" class="c-brand" fill="currentColor" opacity="0.55"/>
+              <rect x="24" y="50" width="30" height="20" rx="6" stroke="var(--card-ink)" stroke-width="1.5"/>
+              <rect x="62" y="50" width="30" height="20" rx="6" stroke="var(--card-ink)" stroke-width="1.5"/>
+              <rect x="100" y="50" width="30" height="20" rx="6" class="c-brand" stroke="currentColor" stroke-dasharray="4 3"/>
+            </svg>
+          </div>
+          <div class="foot"><span>pages 248</span><span class="c-brand">publishing</span></div>
+        </div>
+      </div>
+
+      <!-- module chip: AI copilot -->
+      <div class="win chip m-ai" id="chip-ai">
+        <div class="bobB" style="position:absolute;inset:0">
+          <div class="winbar"><i></i><i></i><i></i><span class="wtitle">ai · copilot</span></div>
+          <div class="body">
+            <svg viewBox="0 0 156 78" fill="none">
+              <circle cx="78" cy="38" r="6" class="c-violet" fill="currentColor"/>
+              <circle cx="78" cy="38" r="11" class="c-violet" fill="currentColor" opacity="0.2">
+                <animate attributeName="r" values="8;18" dur="2.8s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.4;0" dur="2.8s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="34" cy="22" r="4.5" class="c-cyan" fill="currentColor" opacity="0.85"/>
+              <circle cx="122" cy="24" r="4.5" class="c-brand" fill="currentColor" opacity="0.85"/>
+              <circle cx="28" cy="58" r="4.5" class="c-brand" fill="currentColor" opacity="0.85"/>
+              <circle cx="126" cy="58" r="4.5" class="c-cyan" fill="currentColor" opacity="0.85"/>
+              <path d="M78 38 L34 22 M78 38 L122 24 M78 38 L28 58 M78 38 L126 58 M34 22 L28 58 M122 24 L126 58" stroke="var(--card-ink)" stroke-width="1.4"/>
+            </svg>
+          </div>
+          <div class="foot"><span>tasks 1.2k/day</span><span class="c-violet">learning</span></div>
+        </div>
+      </div>
+
+      <!-- module chip: CRM -->
+      <div class="win chip m-crm" id="chip-crm">
+        <div class="bobC" style="position:absolute;inset:0">
+          <div class="winbar"><i></i><i></i><i></i><span class="wtitle">crm · pipeline</span></div>
+          <div class="body">
+            <svg viewBox="0 0 156 78" fill="none">
+              <rect x="8"  y="26" width="26" height="26" rx="7" class="c-brand" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="48" y="26" width="26" height="26" rx="7" class="c-brand" stroke="currentColor" stroke-width="1.5" opacity="0.75"/>
+              <rect x="88" y="26" width="26" height="26" rx="7" stroke="var(--card-ink)" stroke-width="1.5"/>
+              <rect x="128" y="26" width="20" height="26" rx="7" stroke="var(--card-ink)" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <path d="M34 39 H48 M74 39 H88 M114 39 H128" stroke="var(--card-ink)" stroke-width="1.4"/>
+              <circle cx="21" cy="39" r="3" class="c-brand" fill="currentColor"/>
+              <circle cx="61" cy="39" r="3" class="c-brand" fill="currentColor" opacity="0.7"/>
+            </svg>
+          </div>
+          <div class="foot"><span>deals 36</span><span class="c-cyan">closing</span></div>
+        </div>
+      </div>
+
+      <!-- core: the product every module feeds -->
+      <div class="win core" id="core">
+        <div class="winbar"><i></i><i></i><i></i><span class="wtitle">your product · live</span></div>
+        <svg viewBox="0 0 430 240" fill="none" preserveAspectRatio="none">
+          <rect x="18" y="16" width="118" height="36" rx="10" stroke="var(--card-ink)" stroke-width="1.5"/>
+          <rect x="30" y="26" width="52" height="7" rx="3.5" fill="var(--card-ink)"/>
+          <text x="30" y="46" font-family="ui-monospace,Menlo,monospace" font-size="13" class="c-brand" fill="currentColor">99.9%</text>
+          <rect x="152" y="16" width="118" height="36" rx="10" stroke="var(--card-ink)" stroke-width="1.5"/>
+          <rect x="164" y="26" width="52" height="7" rx="3.5" fill="var(--card-ink)"/>
+          <text x="164" y="46" font-family="ui-monospace,Menlo,monospace" font-size="13" class="c-cyan" fill="currentColor">12k</text>
+          <rect x="286" y="16" width="118" height="36" rx="10" stroke="var(--card-ink)" stroke-width="1.5"/>
+          <rect x="298" y="26" width="52" height="7" rx="3.5" fill="var(--card-ink)"/>
+          <text x="298" y="46" font-family="ui-monospace,Menlo,monospace" font-size="13" class="c-violet" fill="currentColor">+38%</text>
+
+          <!-- module status rows -->
+          <rect x="18" y="68" width="230" height="152" rx="12" stroke="var(--card-ink)" stroke-width="1.5"/>
+          <g font-family="ui-monospace,Menlo,monospace" font-size="10">
+            <circle cx="40" cy="92" r="3.5" class="c-brand" fill="currentColor"/>
+            <text x="54" y="96" fill="var(--label)" letter-spacing="1">CMS · CONTENT</text>
+            <rect x="54" y="104" width="150" height="5" rx="2.5" fill="var(--card-ink)" opacity="0.5"/>
+            <rect x="54" y="104" width="150" height="5" rx="2.5" class="c-brand" fill="currentColor" opacity="0.7"/>
+            <circle cx="40" cy="130" r="3.5" class="c-cyan" fill="currentColor"/>
+            <text x="54" y="134" fill="var(--label)" letter-spacing="1">CRM · PIPELINE</text>
+            <rect x="54" y="142" width="150" height="5" rx="2.5" fill="var(--card-ink)" opacity="0.5"/>
+            <rect x="54" y="142" width="118" height="5" rx="2.5" class="c-cyan" fill="currentColor" opacity="0.7"/>
+            <circle cx="40" cy="168" r="3.5" class="c-violet" fill="currentColor"/>
+            <text x="54" y="172" fill="var(--label)" letter-spacing="1">AI · COPILOT</text>
+            <rect x="54" y="180" width="150" height="5" rx="2.5" fill="var(--card-ink)" opacity="0.5"/>
+            <rect x="54" y="180" width="86" height="5" rx="2.5" class="c-violet" fill="currentColor" opacity="0.7"/>
+            <circle cx="40" cy="206" r="3.5" class="c-brand" fill="currentColor" opacity="0.6"/>
+            <text x="54" y="210" fill="var(--label)" letter-spacing="1">ERP · OPS</text>
+            <rect x="54" y="214" width="150" height="5" rx="2.5" fill="var(--card-ink)" opacity="0.5"/>
+            <rect x="54" y="214" width="44" height="5" rx="2.5" class="c-brand" fill="currentColor" opacity="0.4"/>
+          </g>
+
+          <!-- growth chart -->
+          <rect x="264" y="68" width="140" height="152" rx="12" stroke="var(--card-ink)" stroke-width="1.5"/>
+          <g class="c-brand">
+            <rect x="282" y="168" width="14" height="36" rx="4" fill="currentColor" opacity="0.85"/>
+            <rect x="304" y="156" width="14" height="48" rx="4" fill="currentColor" opacity="0.85"/>
+            <rect x="326" y="172" width="14" height="32" rx="4" fill="currentColor" opacity="0.85"/>
+            <rect x="348" y="136" width="14" height="68" rx="4" fill="currentColor" opacity="0.85"/>
+            <rect x="370" y="120" width="14" height="84" rx="4" fill="currentColor" opacity="0.85"/>
+          </g>
+          <path d="M289 152 L311 140 L333 158 L355 118 L377 100" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" class="c-cyan" opacity="0.8" stroke="currentColor"/>
+        </svg>
+        <span class="plabel">everything, one product</span>
+      </div>
+    </div>
+  </div>
+</section>
+<p class="hint">direction i · capability deck · move your cursor</p>
+
+<script>
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isDark = () => document.documentElement.classList.contains('dark');
+
+  // integration streams: packets flow from each module chip into the core
+  const canvas = document.getElementById('fx');
+  const ctx = canvas.getContext('2d');
+  const stage = document.querySelector('.stage');
+  const scene = document.getElementById('scene');
+  let W, H, sources = [], target = { x: 0, y: 0 };
+  const COLORS = [
+    ['rgba(32,133,53,', 'rgba(74,222,128,'],  // cms brand
+    ['rgba(139,92,246,', 'rgba(167,139,250,'], // ai violet
+    ['rgba(6,182,212,',  'rgba(34,211,238,'],  // crm cyan
+  ];
+  function resize() {
+    const dpr = Math.min(devicePixelRatio || 1, 1.75);
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const c = canvas.getBoundingClientRect();
+    // anchors measured from base placement, before JS tilt
+    const ids = ['chip-cms', 'chip-ai', 'chip-crm'];
+    sources = ids.map(id => {
+      const r = document.getElementById(id).getBoundingClientRect();
+      return { x: r.left - c.left + r.width * 0.72, y: r.top - c.top + r.height * 0.78 };
+    });
+    const cr = document.getElementById('core').getBoundingClientRect();
+    target = { x: cr.left - c.left + cr.width * 0.18, y: cr.top - c.top + cr.height * 0.5 };
+  }
+  addEventListener('resize', resize);
+
+  const parts = [];
+  function spawn(si) {
+    const s = sources[si];
+    const dx = target.x - s.x, dy = target.y - s.y;
+    const dist = Math.hypot(dx, dy) || 1;
+    return {
+      si, x: s.x + (Math.random() - 0.5) * 26, y: s.y + (Math.random() - 0.5) * 20,
+      vx: dx / dist * (2.2 + Math.random() * 1.2), vy: dy / dist * (2.2 + Math.random() * 1.2),
+      dist, travelled: 0,
+      w: 1.2 + Math.random() * 1.4, o: 0.55 + Math.random() * 0.45,
+    };
+  }
+  function seedParts() {
+    parts.length = 0;
+    for (let i = 0; i < 56; i++) {
+      const p = spawn(i % 3);
+      const t = Math.random();
+      p.x += (target.x - p.x) * t; p.y += (target.y - p.y) * t;
+      p.travelled = t * p.dist; // keep fade in sync with position, or the static reduced-motion frame draws all packets at alpha 0
+      parts.push(p);
+    }
+  }
+  function drawFX() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = isDark() ? 'lighter' : 'source-over';
+    ctx.lineCap = 'round';
+    for (const p of parts) {
+      const px = p.x, py = p.y;
+      p.x += p.vx; p.y += p.vy; p.travelled += Math.hypot(p.vx, p.vy);
+      if (p.travelled > p.dist + 24) Object.assign(p, spawn(p.si));
+      const t = Math.max(0, Math.min(1, p.travelled / p.dist));
+      const fade = Math.min(1, t * 5) * Math.min(1, (1 - t) * 5 + 0.3);
+      const a = p.o * fade * (isDark() ? 0.95 : 0.75);
+      const col = COLORS[p.si][isDark() ? 1 : 0];
+      ctx.strokeStyle = col + a + ')';
+      ctx.lineWidth = p.w;
+      ctx.beginPath();
+      ctx.moveTo(px - p.vx * 4, py - p.vy * 4);
+      ctx.lineTo(px, py);
+      ctx.stroke();
+    }
+  }
+
+  // cursor see-saw: chips lean with the pointer, core leans against it
+  const core = document.getElementById('core');
+  const chips = [
+    { el: document.querySelector('.m-cms'),  y: 20,  x: 4,  z: -70, s: 1    },
+    { el: document.querySelector('.m-ai'),   y: -18, x: 5,  z: -95, s: 0.92 },
+    { el: document.querySelector('.m-crm'),  y: 24,  x: -2, z: -55, s: 0.97 },
+  ];
+  let mx = 0, my = 0, cmx = 0, cmy = 0;
+  addEventListener('pointermove', e => {
+    mx = (e.clientX / innerWidth) * 2 - 1;
+    my = (e.clientY / innerHeight) * 2 - 1;
+  });
+  function apply() {
+    cmx += (mx - cmx) * 0.06; cmy += (my - cmy) * 0.06;
+    for (const c of chips) {
+      c.el.style.transform =
+        `translateZ(${c.z}px) rotateY(${c.y + cmx * 8}deg) rotateX(${c.x - cmy * 5}deg) scale(${c.s})`;
+    }
+    core.style.transform = `rotateY(${-8 - cmx * 7}deg) rotateX(${3 + cmy * 4}deg)`;
+  }
+
+  resize(); seedParts();
+  if (reduced) {
+    drawFX();
+  } else {
+    (function loop() { apply(); drawFX(); requestAnimationFrame(loop); })();
+  }
+
+  // Rotating service word
+  const words = ['CMS platforms', 'CRM systems', 'ERP solutions', 'AI products', 'web apps'];
+  const rot = document.getElementById('rotator');
+  let wi = 0;
+  if (!reduced) setInterval(() => {
+    rot.style.transition = 'opacity .18s ease, transform .18s ease';
+    rot.style.opacity = '0'; rot.style.transform = 'translateY(-6px)';
+    setTimeout(() => {
+      wi = (wi + 1) % words.length; rot.textContent = words[wi];
+      rot.style.transition = 'none'; rot.style.transform = 'translateY(6px)';
+      requestAnimationFrame(() => {
+        rot.style.transition = 'opacity .18s ease, transform .18s ease';
+        rot.style.opacity = '1'; rot.style.transform = 'translateY(0)';
+      });
+    }, 190);
+  }, 2500);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero K, Living Systems · Retech</title>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --fg: #1A1A2E; --fg-2: #3D3D4E; --fg-muted: #6B6B78;
+    --brand: #208535; --cyan: #06b6d4; --violet: #8b5cf6;
+    --card-bg: rgba(255,255,255,0.78); --card-line: rgba(26,26,46,0.14);
+    --card-ink: rgba(26,26,46,0.16); --chrome: rgba(26,26,46,0.08);
+    --label: #6B6B78;
+  }
+  html.dark {
+    --bg: #0A0A14; --fg: #E8E8F0; --fg-2: #B0B0BC; --fg-muted: #7C7C8E;
+    --brand: #2EA04E; --cyan: #22d3ee; --violet: #a78bfa;
+    --card-bg: rgba(16,16,28,0.68); --card-line: rgba(232,232,240,0.16);
+    --card-ink: rgba(232,232,240,0.20); --chrome: rgba(232,232,240,0.07);
+    --label: #7C7C8E;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'GeneralSans', ui-sans-serif, system-ui, sans-serif;
+    background: var(--bg); color: var(--fg); min-height: 100vh;
+    transition: background 0.4s ease, color 0.4s ease; overflow-x: clip;
+  }
+  .theme-toggle {
+    position: fixed; top: 20px; right: 24px; z-index: 50;
+    font-family: 'GeneralSans', sans-serif; font-size: 12px; font-weight: 500;
+    padding: 8px 14px; border-radius: 8px; cursor: pointer;
+    border: 1px solid rgba(128,128,140,0.25); background: transparent; color: var(--fg-2);
+  }
+  .theme-toggle:hover { border-color: var(--brand); color: var(--brand); }
+
+  .hero {
+    position: relative; z-index: 2; min-height: 100vh;
+    max-width: 1440px; margin: 0 auto;
+    display: flex; align-items: center; padding: 96px 48px 72px;
+  }
+  .copy { max-width: 620px; position: relative; z-index: 5; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  .enter { animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .d1 { animation-delay: 0.05s } .d2 { animation-delay: 0.15s }
+  .d3 { animation-delay: 0.28s } .d4 { animation-delay: 0.4s } .d5 { animation-delay: 0.52s }
+
+  h1 { font-size: clamp(2.6rem, 5.2vw, 4.6rem); line-height: 1.04; letter-spacing: -0.02em; font-weight: 600; }
+  h1 .accent { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--brand); padding-right: 0.06em; }
+  .subhead { margin-top: 26px; font-size: 1.15rem; line-height: 1.6; color: var(--fg-2); max-width: 460px; }
+  .subhead .rotator { font-weight: 600; color: var(--brand); white-space: nowrap; display: inline-block; }
+  .muted { margin-top: 10px; font-size: 0.9rem; color: var(--fg-muted); max-width: 430px; }
+  .ctas { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; height: 48px; padding: 0 26px; border-radius: 10px;
+    font-size: 0.95rem; font-weight: 600; text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .btn-primary { background: var(--brand); color: #fff; box-shadow: 0 1px 2px rgba(32,133,53,0.4), 0 8px 24px -8px rgba(32,133,53,0.45); }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-secondary { color: var(--fg); border: 1px solid rgba(128,128,140,0.3); }
+  .btn-secondary:hover { transform: translateY(-1px); }
+  .stats { margin-top: 46px; display: flex; gap: 36px; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 2.1rem; font-weight: 700; letter-spacing: -0.02em; }
+  .stat span { font-size: 0.8rem; color: var(--fg-muted); }
+  .stat + .stat { border-left: 1px solid rgba(128,128,140,0.2); padding-left: 36px; }
+
+  /* ── living systems scene: fiber floor + product window ── */
+  .stage {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    perspective: 1300px; overflow: hidden;
+  }
+  .floor {
+    position: absolute; left: -8%; right: -8%; bottom: -16%; height: 92%;
+    transform: rotateX(64deg); transform-origin: 50% 0%;
+    /* calm left for copy, dense right toward the product */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 14%, #000 34%);
+            mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 14%, #000 34%);
+  }
+  #fibers { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .glow {
+    position: absolute; top: 22%; right: 6%; width: 46%; height: 46%;
+    background: radial-gradient(ellipse at center, rgba(32,133,53,0.16), transparent 65%);
+    filter: blur(42px);
+  }
+  html.dark .glow { background: radial-gradient(ellipse at center, rgba(46,160,78,0.20), transparent 65%); }
+
+  .scene {
+    position: absolute; top: 50%; left: 50%;
+    perspective: 1200px; transform-style: preserve-3d;
+  }
+  .win {
+    position: absolute; border-radius: 16px; overflow: hidden;
+    background: var(--card-bg); border: 1px solid var(--card-line);
+    box-shadow: 0 40px 80px -36px rgba(10,20,14,0.4);
+    backdrop-filter: blur(6px);
+  }
+  .winbar {
+    height: 30px; background: var(--chrome);
+    display: flex; align-items: center; gap: 6px; padding: 0 12px;
+  }
+  .winbar i { width: 9px; height: 9px; border-radius: 50%; background: var(--card-ink); display: block; }
+  .winbar i:first-child { background: var(--brand); opacity: 0.7; }
+  .wtitle {
+    margin-left: 8px; font-family: ui-monospace, Menlo, monospace; font-size: 9px;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--label);
+  }
+  .product { width: 300px; height: 196px; left: -120px; top: -30px; transform: rotateY(-12deg) rotateX(3deg); }
+  .product svg { position: absolute; left: 0; top: 30px; width: 100%; height: calc(100% - 30px); display: block; }
+  .c-brand { color: var(--brand); } .c-cyan { color: var(--cyan); } .c-violet { color: var(--violet); }
+  .plabel {
+    position: absolute; right: 12px; top: 38px;
+    font-family: ui-monospace, Menlo, monospace; font-size: 9px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--label);
+  }
+  /* module tags riding the stream under the product */
+  .tag {
+    position: absolute; padding: 6px 12px; border-radius: 999px;
+    background: var(--card-bg); border: 1px solid var(--card-line);
+    font-family: ui-monospace, Menlo, monospace; font-size: 9px;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-2);
+    backdrop-filter: blur(4px);
+  }
+  .t1 { left: -400px; top: 108px; transform: rotateY(26deg); }
+  .t2 { left: -468px; top: 52px;  transform: rotateY(30deg) translateZ(-30px); }
+  .t3 { left: -372px; top: 170px; transform: rotateY(24deg) translateZ(-20px); }
+  .hint {
+    position: fixed; bottom: 18px; right: 24px; z-index: 3;
+    font-family: ui-monospace, Menlo, monospace; font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); opacity: 0.7;
+  }
+  @media (max-width: 1023px) { .stage { opacity: 0.5; } }
+  @media (prefers-reduced-motion: reduce) {
+    .enter { animation: none; }
+  }
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')">Light / Dark</button>
+
+<section class="hero">
+  <div class="copy">
+    <p class="enter d1" style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.18em;color:var(--fg-muted);text-transform:uppercase;margin-bottom:18px">
+      Retech Solutions · HCMC, Vietnam
+    </p>
+    <h1 class="enter d2">Turning Ideas<br>into <span class="accent">Solutions</span></h1>
+    <p class="subhead enter d3">We build <span class="rotator" id="rotator">CMS platforms</span> your business can rely on.</p>
+    <p class="muted enter d3">AI-integrated engineering for web, mobile, and cloud products. Shipped from Vietnam to teams worldwide.</p>
+    <div class="ctas enter d4">
+      <a class="btn btn-primary" href="#contact">Get Free Consultation</a>
+      <a class="btn btn-secondary" href="#services">Explore Services</a>
+    </div>
+    <div class="stats enter d5">
+      <div class="stat"><b>50+</b><span>Projects Delivered</span></div>
+      <div class="stat"><b>30+</b><span>Expert Engineers</span></div>
+      <div class="stat"><b>5+</b><span>Years of Experience</span></div>
+    </div>
+  </div>
+
+  <div class="stage" aria-hidden="true">
+    <div class="glow"></div>
+    <div class="floor" id="floor"><canvas id="fibers"></canvas></div>
+    <div class="scene">
+      <div class="tag t1">cms</div>
+      <div class="tag t2">crm</div>
+      <div class="tag t3">ai copilot</div>
+
+      <div class="win product" id="product">
+        <div class="winbar"><i></i><i></i><i></i><span class="wtitle">your product · live</span></div>
+        <svg viewBox="0 0 300 166" fill="none" preserveAspectRatio="none">
+          <rect x="16" y="14" width="124" height="30" rx="9" stroke="var(--card-ink)" stroke-width="1.5"/>
+          <rect x="27" y="22" width="50" height="6" rx="3" fill="var(--card-ink)"/>
+          <text x="27" y="38" font-family="ui-monospace,Menlo,monospace" font-size="11.5" class="c-brand" fill="currentColor">99.9%</text>
+          <rect x="152" y="14" width="124" height="30" rx="9" stroke="var(--card-ink)" stroke-width="1.5"/>
+          <rect x="163" y="22" width="50" height="6" rx="3" fill="var(--card-ink)"/>
+          <text x="163" y="38" font-family="ui-monospace,Menlo,monospace" font-size="11.5" class="c-cyan" fill="currentColor">12k users</text>
+
+          <rect x="16" y="56" width="124" height="94" rx="11" stroke="var(--card-ink)" stroke-width="1.5"/>
+          <g class="c-brand">
+            <rect x="32" y="118" width="12" height="20" rx="3" fill="currentColor" opacity="0.85"/>
+            <rect x="50" y="108" width="12" height="30" rx="3" fill="currentColor" opacity="0.85"/>
+            <rect x="68" y="124" width="12" height="14" rx="3" fill="currentColor" opacity="0.85"/>
+            <rect x="86" y="100" width="12" height="38" rx="3" fill="currentColor" opacity="0.85"/>
+            <rect x="104" y="92" width="12" height="46" rx="3" fill="currentColor" opacity="0.85"/>
+          </g>
+
+          <rect x="152" y="56" width="124" height="94" rx="11" stroke="var(--card-ink)" stroke-width="1.5"/>
+          <circle cx="214" cy="103" r="26" stroke="var(--card-ink)" stroke-width="1.4"/>
+          <circle cx="214" cy="103" r="15" stroke="var(--card-ink)" stroke-width="1.1"/>
+          <circle cx="214" cy="103" r="4" class="c-brand" fill="currentColor"/>
+          <circle cx="214" cy="103" r="9" class="c-brand" fill="currentColor" opacity="0.25">
+            <animate attributeName="r" values="6;20" dur="2.4s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.45;0" dur="2.4s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="198" cy="90" r="2.6" class="c-cyan" fill="currentColor" opacity="0.8"/>
+          <circle cx="230" cy="117" r="2.6" class="c-violet" fill="currentColor" opacity="0.8"/>
+        </svg>
+        <span class="plabel">shipping now</span>
+      </div>
+    </div>
+  </div>
+</section>
+<p class="hint">direction k · living systems · move your cursor</p>
+
+<script>
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isDark = () => document.documentElement.classList.contains('dark');
+  const canvas = document.getElementById('fibers');
+  const ctx = canvas.getContext('2d');
+  const floor = document.getElementById('floor');
+  const product = document.getElementById('product');
+  let W, H, absorbX = 0;
+
+  function resize() {
+    const dpr = Math.min(devicePixelRatio || 1, 1.75);
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // where the stream is absorbed by the product window
+    const c = canvas.getBoundingClientRect();
+    const p = product.getBoundingClientRect();
+    absorbX = p.left + p.height * 0.1 - c.left; // rough: window left edge (rotated)
+  }
+  addEventListener('resize', resize);
+
+  // ink fibers flowing right, converging into the product
+  const fibers = [];
+  function spawn(f) {
+    return {
+      x: f ? Math.random() * W : -30 - Math.random() * 140,
+      y0: Math.random() * H,
+      sp: 1.1 + Math.random() * 1.7,
+      ph: Math.random() * Math.PI * 2,
+      amp: 0.7 + Math.random() * 1.7,
+      w: 1.2 + Math.random() * 1.6,
+      o: 0.5 + Math.random() * 0.5,
+      len: 140 + Math.random() * 200,
+      green: Math.random() < 0.3,
+    };
+  }
+
+  let t0 = performance.now();
+  function draw(now) {
+    const t = (now - t0) / 1000;
+    const dark = isDark();
+    const ink = dark ? 'rgba(178,186,210,' : 'rgba(40,48,72,';
+    const green = dark ? 'rgba(74,222,128,' : 'rgba(32,133,53,';
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineCap = 'round';
+    ctx.globalCompositeOperation = dark ? 'lighter' : 'source-over';
+    const limit = Math.min(W * 0.98, absorbX);
+    // convergence grows past 0.3W; y is a pure function of x so strands draw as long polylines
+    const cvg = (x) => Math.max(0, (x / W - 0.3)) * 1.6;
+    const yAt = (f, x) => {
+      const pull = Math.min(1, cvg(x) * 0.3);
+      const base = f.y0 + (H * 0.38 - f.y0) * pull;
+      return base + Math.sin(x * 0.01 + f.ph + t * 0.9) * f.amp * (1 - Math.min(1, cvg(x) * 0.55));
+    };
+    for (const f of fibers) {
+      f.x += f.sp * (1 + cvg(f.x) * 0.9);
+      if (f.x - f.len > limit) Object.assign(f, spawn(false));
+      const head = Math.min(f.x, limit);
+      const tail = Math.max(f.x - f.len, -10);
+      if (head - tail < 12) continue;
+      // calm left, denser right; fade at vertical edges
+      const wx = Math.max(0, Math.min(1, (f.x / W - 0.12) / 0.38));
+      const yh = yAt(f, head);
+      const wy = Math.min(1, Math.min(yh, H - yh) / 50);
+      const absorb = Math.max(0, 1 - (limit - head) / 90);
+      const a = f.o * wx * wy * (1 - absorb * 0.85) * (dark ? 0.9 : 0.95);
+      if (a < 0.02) continue;
+      const col = f.green ? green : ink;
+      const N = 10;
+      ctx.lineWidth = f.w;
+      for (let k = 0; k < N; k++) {
+        const sa = a * Math.pow((k + 1) / N, 1.6); // tail fades into the calm zone
+        ctx.strokeStyle = col + sa + ')';
+        const x0 = tail + (head - tail) * k / N;
+        const x1 = tail + (head - tail) * (k + 1) / N;
+        ctx.beginPath();
+        ctx.moveTo(x0, yAt(f, x0));
+        ctx.lineTo(x1, yAt(f, x1));
+        ctx.stroke();
+      }
+    }
+  }
+
+  // cursor: the floor breathes with the pointer, product counter-tilts
+  let mx = 0, my = 0, cmx = 0, cmy = 0;
+  addEventListener('pointermove', e => {
+    mx = (e.clientX / innerWidth) * 2 - 1;
+    my = (e.clientY / innerHeight) * 2 - 1;
+  });
+
+  resize();
+  for (let i = 0; i < 170; i++) fibers.push(spawn(true));
+  if (reduced) {
+    draw(t0);
+  } else {
+    (function loop(now) {
+      cmx += (mx - cmx) * 0.05; cmy += (my - cmy) * 0.05;
+      floor.style.transform = `rotateX(${64 + cmy * 2.5}deg) rotateZ(${cmx * 1.2}deg)`;
+      product.style.transform = `rotateY(${-12 - cmx * 7}deg) rotateX(${3 + cmy * 4}deg)`;
+      draw(now);
+      requestAnimationFrame(loop);
+    })(t0);
+  }
+
+  // Rotating service word
+  const words = ['CMS platforms', 'CRM systems', 'ERP solutions', 'AI products', 'web apps'];
+  const rot = document.getElementById('rotator');
+  let wi = 0;
+  if (!reduced) setInterval(() => {
+    rot.style.transition = 'opacity .18s ease, transform .18s ease';
+    rot.style.opacity = '0'; rot.style.transform = 'translateY(-6px)';
+    setTimeout(() => {
+      wi = (wi + 1) % words.length; rot.textContent = words[wi];
+      rot.style.transition = 'none'; rot.style.transform = 'translateY(6px)';
+      requestAnimationFrame(() => {
+        rot.style.transition = 'opacity .18s ease, transform .18s ease';
+        rot.style.opacity = '1'; rot.style.transform = 'translateY(0)';
+      });
+    }, 190);
+  }, 2500);
+})();
+</script>
+</body>
+</html>

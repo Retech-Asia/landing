@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero J, Global Delivery · Retech</title>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --fg: #1A1A2E; --fg-2: #3D3D4E; --fg-muted: #6B6B78;
+    --brand: #208535; --cyan: #06b6d4; --violet: #8b5cf6;
+    --card-bg: rgba(255,255,255,0.78); --card-line: rgba(26,26,46,0.14);
+    --card-ink: rgba(26,26,46,0.16);
+    --label: #6B6B78;
+  }
+  html.dark {
+    --bg: #0A0A14; --fg: #E8E8F0; --fg-2: #B0B0BC; --fg-muted: #7C7C8E;
+    --brand: #2EA04E; --cyan: #22d3ee; --violet: #a78bfa;
+    --card-bg: rgba(16,16,28,0.68); --card-line: rgba(232,232,240,0.16);
+    --card-ink: rgba(232,232,240,0.20);
+    --label: #7C7C8E;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'GeneralSans', ui-sans-serif, system-ui, sans-serif;
+    background: var(--bg); color: var(--fg); min-height: 100vh;
+    transition: background 0.4s ease, color 0.4s ease; overflow-x: clip;
+  }
+  .theme-toggle {
+    position: fixed; top: 20px; right: 24px; z-index: 50;
+    font-family: 'GeneralSans', sans-serif; font-size: 12px; font-weight: 500;
+    padding: 8px 14px; border-radius: 8px; cursor: pointer;
+    border: 1px solid rgba(128,128,140,0.25); background: transparent; color: var(--fg-2);
+  }
+  .theme-toggle:hover { border-color: var(--brand); color: var(--brand); }
+
+  .hero {
+    position: relative; z-index: 2; min-height: 100vh;
+    max-width: 1440px; margin: 0 auto;
+    display: flex; align-items: center; padding: 96px 48px 72px;
+  }
+  .copy { max-width: 620px; position: relative; z-index: 5; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  .enter { animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .d1 { animation-delay: 0.05s } .d2 { animation-delay: 0.15s }
+  .d3 { animation-delay: 0.28s } .d4 { animation-delay: 0.4s } .d5 { animation-delay: 0.52s }
+
+  h1 { font-size: clamp(2.6rem, 5.2vw, 4.6rem); line-height: 1.04; letter-spacing: -0.02em; font-weight: 600; }
+  h1 .accent { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--brand); padding-right: 0.06em; }
+  .subhead { margin-top: 26px; font-size: 1.15rem; line-height: 1.6; color: var(--fg-2); max-width: 460px; }
+  .subhead .rotator { font-weight: 600; color: var(--brand); white-space: nowrap; display: inline-block; }
+  .muted { margin-top: 10px; font-size: 0.9rem; color: var(--fg-muted); max-width: 430px; }
+  .ctas { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; height: 48px; padding: 0 26px; border-radius: 10px;
+    font-size: 0.95rem; font-weight: 600; text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .btn-primary { background: var(--brand); color: #fff; box-shadow: 0 1px 2px rgba(32,133,53,0.4), 0 8px 24px -8px rgba(32,133,53,0.45); }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-secondary { color: var(--fg); border: 1px solid rgba(128,128,140,0.3); }
+  .btn-secondary:hover { transform: translateY(-1px); }
+  .stats { margin-top: 46px; display: flex; gap: 36px; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 2.1rem; font-weight: 700; letter-spacing: -0.02em; }
+  .stat span { font-size: 0.8rem; color: var(--fg-muted); }
+  .stat + .stat { border-left: 1px solid rgba(128,128,140,0.2); padding-left: 36px; }
+
+  /* ── globe scene ── */
+  .stage {
+    position: absolute; top: 0; right: 0; bottom: 0; width: 58%;
+    pointer-events: none; z-index: 1;
+  }
+  @media (max-width: 1023px) { .stage { opacity: 0.45; width: 100%; } }
+  #globe { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .glow {
+    position: absolute; top: 16%; right: 10%; width: 74%; height: 62%;
+    background: radial-gradient(ellipse at center, rgba(32,133,53,0.16), transparent 65%);
+    filter: blur(46px);
+  }
+  html.dark .glow { background: radial-gradient(ellipse at center, rgba(46,160,78,0.20), transparent 65%); }
+
+  .scene { position: absolute; top: 50%; left: 50%; perspective: 1200px; transform-style: preserve-3d; }
+  .chip {
+    position: absolute; border-radius: 12px; overflow: hidden;
+    background: var(--card-bg); border: 1px solid var(--card-line);
+    box-shadow: 0 30px 60px -30px rgba(10,20,14,0.38);
+    backdrop-filter: blur(6px); padding: 12px 16px 10px; min-width: 172px;
+  }
+  .chip b {
+    display: block; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+  }
+  .chip span {
+    display: block; margin-top: 2px;
+    font-family: ui-monospace, Menlo, monospace; font-size: 8.5px;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--label);
+  }
+  .chip .dotrow { display: flex; gap: 4px; margin-top: 8px; }
+  .chip .dotrow i { width: 5px; height: 5px; border-radius: 50%; background: var(--card-ink); }
+  .c1 { left: -420px; top: -218px; transform: rotateY(18deg) rotateX(4deg); }
+  .c2 { left: 236px;  top: -120px; transform: translateZ(-40px) rotateY(-18deg) rotateX(3deg); }
+  .c3 { left: -444px; top: 132px;  transform: translateZ(-30px) rotateY(22deg) rotateX(-2deg); }
+  @keyframes bobA { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+  @keyframes bobB { 0%,100% { transform: translateY(-4px) } 50% { transform: translateY(5px) } }
+  .bobA { animation: bobA 5.4s ease-in-out infinite; }
+  .bobB { animation: bobB 6.2s ease-in-out infinite; }
+  .hint {
+    position: fixed; bottom: 18px; right: 24px; z-index: 3;
+    font-family: ui-monospace, Menlo, monospace; font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); opacity: 0.7;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .enter, .bobA, .bobB { animation: none; }
+  }
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')">Light / Dark</button>
+
+<section class="hero">
+  <div class="copy">
+    <p class="enter d1" style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.18em;color:var(--fg-muted);text-transform:uppercase;margin-bottom:18px">
+      Retech Solutions · HCMC, Vietnam
+    </p>
+    <h1 class="enter d2">Turning Ideas<br>into <span class="accent">Solutions</span></h1>
+    <p class="subhead enter d3">We build <span class="rotator" id="rotator">CMS platforms</span> your business can rely on.</p>
+    <p class="muted enter d3">AI-integrated engineering for web, mobile, and cloud products. Shipped from Vietnam to teams worldwide.</p>
+    <div class="ctas enter d4">
+      <a class="btn btn-primary" href="#contact">Get Free Consultation</a>
+      <a class="btn btn-secondary" href="#services">Explore Services</a>
+    </div>
+    <div class="stats enter d5">
+      <div class="stat"><b>50+</b><span>Projects Delivered</span></div>
+      <div class="stat"><b>30+</b><span>Expert Engineers</span></div>
+      <div class="stat"><b>5+</b><span>Years of Experience</span></div>
+    </div>
+  </div>
+
+  <div class="stage" aria-hidden="true">
+    <div class="glow"></div>
+    <canvas id="globe"></canvas>
+    <div class="scene">
+      <div class="chip c1" id="ch1"><div class="bobA" style="position:relative">
+        <b>50+</b><span>projects worldwide</span>
+        <div class="dotrow"><i></i><i></i><i></i><i></i><i></i></div>
+      </div></div>
+      <div class="chip c2" id="ch2"><div class="bobB" style="position:relative">
+        <b>GMT+7</b><span>EU / US overlap</span>
+        <div class="dotrow"><i></i><i></i><i></i><i></i></div>
+      </div></div>
+      <div class="chip c3" id="ch3"><div class="bobA" style="position:relative;animation-delay:-2s">
+        <b>EN · VI</b><span>bilingual teams</span>
+        <div class="dotrow"><i></i><i></i><i></i><i></i><i></i></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+<p class="hint">direction j · global delivery · move your cursor</p>
+
+<script>
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isDark = () => document.documentElement.classList.contains('dark');
+  const canvas = document.getElementById('globe');
+  const ctx = canvas.getContext('2d');
+  const stage = document.querySelector('.stage');
+
+  // city anchors: [lat, lon, label]
+  const HUB = [10.82, 106.63]; // Ho Chi Minh City
+  const CITY = [
+    [1.35, 103.82],   // Singapore
+    [35.68, 139.69],  // Tokyo
+    [-33.87, 151.21], // Sydney
+    [51.51, -0.13],   // London
+    [37.77, -122.42], // San Francisco
+  ];
+  const CITY_NAMES = ['SG', 'TYO', 'SYD', 'LDN', 'SF'];
+
+  const D2R = Math.PI / 180;
+  function ll2v(lat, lon) {
+    const la = lat * D2R, lo = lon * D2R;
+    return { x: Math.cos(la) * Math.cos(lo), y: Math.sin(la), z: Math.cos(la) * Math.sin(lo) };
+  }
+  // rotate yaw around Y, then tilt around X; return projected + depth
+  let yaw = -1.9, tilt = -0.32;
+  function proj(v, R, cx, cy) {
+    const cy_ = Math.cos(yaw), sy_ = Math.sin(yaw);
+    const x1 = v.x * cy_ + v.z * sy_;
+    const z1 = -v.x * sy_ + v.z * cy_;
+    const ct = Math.cos(tilt), st = Math.sin(tilt);
+    const y2 = v.y * ct - z1 * st;
+    const z2 = v.y * st + z1 * ct;
+    return { X: cx + x1 * R, Y: cy - y2 * R, d: z2 };
+  }
+  // arc point lifted above the sphere: slerp then scale radius by a hump
+  function arcPoint(a, b, t) {
+    let dot = Math.max(-1, Math.min(1, a.x * b.x + a.y * b.y + a.z * b.z));
+    const ang = Math.acos(dot);
+    if (ang < 1e-4) return { ...a };
+    const s1 = Math.sin((1 - t) * ang) / Math.sin(ang);
+    const s2 = Math.sin(t * ang) / Math.sin(ang);
+    const lift = 1 + 0.24 * Math.sin(Math.PI * t);
+    return {
+      x: (a.x * s1 + b.x * s2) * lift,
+      y: (a.y * s1 + b.y * s2) * lift,
+      z: (a.z * s1 + b.z * s2) * lift,
+    };
+  }
+
+  let W, H, R, CX, CY;
+  function resize() {
+    const dpr = Math.min(devicePixelRatio || 1, 1.75);
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    R = Math.min(W, H) * 0.335;
+    CX = W * 0.54; CY = H * 0.52;
+  }
+  addEventListener('resize', resize);
+
+  const hubV = ll2v(HUB[0], HUB[1]);
+  const cityV = CITY.map(c => ll2v(c[0], c[1]));
+
+  // fibonacci point cloud for surface texture
+  const cloud = [];
+  const N = 620;
+  for (let i = 0; i < N; i++) {
+    const y = 1 - (i / (N - 1)) * 2;
+    const r = Math.sqrt(1 - y * y);
+    const th = i * 2.399963;
+    cloud.push({ x: Math.cos(th) * r, y, z: Math.sin(th) * r });
+  }
+
+  let t0 = performance.now();
+  function draw(now) {
+    const dark = isDark();
+    const inkLine = dark ? 'rgba(232,232,240,' : 'rgba(26,26,46,';
+    const brand = dark ? 'rgba(74,222,128,' : 'rgba(32,133,53,';
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = dark ? 'lighter' : 'source-over';
+
+    // halo
+    const halo = ctx.createRadialGradient(CX, CY, R * 0.94, CX, CY, R * 1.22);
+    halo.addColorStop(0, brand + (dark ? '0.10)' : '0.07)'));
+    halo.addColorStop(1, brand + '0)');
+    ctx.fillStyle = halo;
+    ctx.beginPath(); ctx.arc(CX, CY, R * 1.22, 0, 7); ctx.fill();
+
+    // sphere outline
+    ctx.strokeStyle = inkLine + (dark ? '0.22)' : '0.18)');
+    ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.arc(CX, CY, R, 0, 7); ctx.stroke();
+
+    // latitude rings
+    for (let la = -60; la <= 60; la += 30) {
+      if (la === 0) continue;
+      ctx.beginPath();
+      let pen = false;
+      for (let lo = 0; lo <= 360; lo += 4) {
+        const p = proj(ll2v(la, lo), R, CX, CY);
+        if (p.d < -0.02) { pen = false; continue; }
+        if (!pen) { ctx.moveTo(p.X, p.Y); pen = true; } else ctx.lineTo(p.X, p.Y);
+      }
+      ctx.strokeStyle = inkLine + (dark ? '0.12)' : '0.10)');
+      ctx.stroke();
+    }
+    // longitude rings
+    for (let lo = 0; lo < 180; lo += 30) {
+      ctx.beginPath();
+      let pen = false;
+      for (let la = -90; la <= 90; la += 4) {
+        const p = proj(ll2v(la, lo), R, CX, CY);
+        if (p.d < -0.02) { pen = false; continue; }
+        if (!pen) { ctx.moveTo(p.X, p.Y); pen = true; } else ctx.lineTo(p.X, p.Y);
+      }
+      ctx.strokeStyle = inkLine + (dark ? '0.12)' : '0.10)');
+      ctx.stroke();
+    }
+
+    // surface point cloud: crisp dots, brand-tinted near the front
+    for (const v of cloud) {
+      const p = proj(v, R, CX, CY);
+      if (p.d <= 0.02) continue;
+      const front = Math.min(1, p.d * 1.6);
+      const a = front * (dark ? 0.34 : 0.26);
+      ctx.fillStyle = inkLine + a + ')';
+      ctx.fillRect(p.X, p.Y, 1.3, 1.3);
+    }
+
+    // delivery arcs + travelling pulses
+    const t = (now - t0) / 1000;
+    ctx.lineWidth = 1.5;
+    for (let i = 0; i < cityV.length; i++) {
+      const pts = [];
+      for (let k = 0; k <= 36; k++) pts.push(arcPoint(hubV, cityV[i], k / 36));
+      ctx.beginPath();
+      let pen = false;
+      for (const v of pts) {
+        const p = proj(v, R, CX, CY);
+        if (p.d < -0.05) { pen = false; continue; }
+        if (!pen) { ctx.moveTo(p.X, p.Y); pen = true; } else ctx.lineTo(p.X, p.Y);
+      }
+      ctx.strokeStyle = brand + (dark ? '0.5)' : '0.42)');
+      ctx.stroke();
+
+      // pulse dot riding the arc
+      const pt = arcPoint(hubV, cityV[i], (t * 0.16 + i * 0.21) % 1);
+      const pp = proj(pt, R, CX, CY);
+      if (pp.d > -0.02) {
+        ctx.fillStyle = brand + (dark ? '0.95)' : '0.85)');
+        ctx.beginPath(); ctx.arc(pp.X, pp.Y, 2.2, 0, 7); ctx.fill();
+        ctx.fillStyle = brand + '0.25)';
+        ctx.beginPath(); ctx.arc(pp.X, pp.Y, 5.5, 0, 7); ctx.fill();
+      }
+
+      // city marker + label
+      const cp = proj(cityV[i], R, CX, CY);
+      if (cp.d > 0.05) {
+        const a = Math.min(1, cp.d * 2.2);
+        ctx.fillStyle = inkLine + (0.75 * a) + ')';
+        ctx.beginPath(); ctx.arc(cp.X, cp.Y, 2, 0, 7); ctx.fill();
+        ctx.font = '600 8.5px ui-monospace, Menlo, monospace';
+        ctx.fillStyle = inkLine + (0.55 * a) + ')';
+        ctx.fillText(CITY_NAMES[i], cp.X + 6, cp.Y + 3);
+      }
+    }
+
+    // HCMC hub beacon
+    const hp = proj(hubV, R, CX, CY);
+    if (hp.d > -0.05) {
+      const pulse = reduced ? 0.45 : (0.5 + 0.5 * Math.sin(t * 2.2));
+      ctx.fillStyle = brand + '0.22)';
+      ctx.beginPath(); ctx.arc(hp.X, hp.Y, 9 + pulse * 7, 0, 7); ctx.fill();
+      ctx.fillStyle = brand + '0.5)';
+      ctx.beginPath(); ctx.arc(hp.X, hp.Y, 5.5, 0, 7); ctx.fill();
+      ctx.fillStyle = dark ? '#D9FFC2' : '#E8FBEA';
+      ctx.strokeStyle = brand + '0.9)';
+      ctx.beginPath(); ctx.arc(hp.X, hp.Y, 3, 0, 7); ctx.fill(); ctx.stroke();
+      ctx.font = '700 9px ui-monospace, Menlo, monospace';
+      ctx.fillStyle = brand + (dark ? '0.95)' : '0.85)');
+      ctx.fillText('HCMC', hp.X + 9, hp.Y + 3);
+    }
+  }
+
+  // cursor: globe leans toward the pointer, chips counter-tilt
+  const ch1 = document.getElementById('ch1');
+  const ch2 = document.getElementById('ch2');
+  const ch3 = document.getElementById('ch3');
+  let mx = 0, my = 0, cmx = 0, cmy = 0, baseYaw = -1.9;
+  addEventListener('pointermove', e => {
+    mx = (e.clientX / innerWidth) * 2 - 1;
+    my = (e.clientY / innerHeight) * 2 - 1;
+  });
+
+  resize();
+  if (reduced) {
+    draw(t0);
+  } else {
+    (function loop(now) {
+      yaw = baseYaw + now / 1000 * 0.05;
+      cmx += (mx - cmx) * 0.05; cmy += (my - cmy) * 0.05;
+      tilt = -0.32 + cmy * 0.1;
+      ch1.style.transform = `rotateY(${18 + cmx * 8}deg) rotateX(${4 - cmy * 5}deg)`;
+      ch2.style.transform = `translateZ(-40px) rotateY(${-18 - cmx * 8}deg) rotateX(${3 + cmy * 5}deg)`;
+      ch3.style.transform = `translateZ(-30px) rotateY(${22 + cmx * 8}deg) rotateX(${-2 - cmy * 5}deg)`;
+      draw(now);
+      requestAnimationFrame(loop);
+    })(t0);
+  }
+
+  // Rotating service word
+  const words = ['CMS platforms', 'CRM systems', 'ERP solutions', 'AI products', 'web apps'];
+  const rot = document.getElementById('rotator');
+  let wi = 0;
+  if (!reduced) setInterval(() => {
+    rot.style.transition = 'opacity .18s ease, transform .18s ease';
+    rot.style.opacity = '0'; rot.style.transform = 'translateY(-6px)';
+    setTimeout(() => {
+      wi = (wi + 1) % words.length; rot.textContent = words[wi];
+      rot.style.transition = 'none'; rot.style.transform = 'translateY(6px)';
+      requestAnimationFrame(() => {
+        rot.style.transition = 'opacity .18s ease, transform .18s ease';
+        rot.style.opacity = '1'; rot.style.transform = 'translateY(0)';
+      });
+    }, 190);
+  }, 2500);
+})();
+</script>
+</body>
+</html>
