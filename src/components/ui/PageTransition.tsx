@@ -61,6 +61,16 @@ export function PageTransition({ children }: PageTransitionProps) {
   const navigateStartRef = useRef(0);
   const [isNavigating, setIsNavigating] = useState(false);
 
+  // Hydration safety: useReducedMotion() reads matchMedia on the client but
+  // is null during SSR. Branching on it during the first client render would
+  // mismatch the server HTML for reduced-motion users (motion.div wrapper
+  // present server-side, absent client-side). Gate the branch on mount.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
   useEffect(() => {
     // Skip on first render — no transition needed for the initial page load
     if (prevPathname.current === pathname) return;
@@ -94,8 +104,11 @@ export function PageTransition({ children }: PageTransitionProps) {
     return () => clearTimeout(timer);
   }, [pathname, prefersReduced]);
 
-  /* When the user prefers reduced motion we skip all animations entirely */
-  if (prefersReduced) {
+  /* When the user prefers reduced motion we skip all animations entirely.
+     Only after mount (see hydration note above); initial={false} means the
+     motion wrapper is inert on first paint, so nothing visibly animates
+     before this branch takes over. */
+  if (mounted && prefersReduced) {
     return <>{children}</>;
   }
 

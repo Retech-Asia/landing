@@ -382,7 +382,10 @@ export default async function ServiceDetailPage({
         <GridPattern className="opacity-50" />
         <div className="absolute inset-0 dot-pattern pointer-events-none opacity-30" aria-hidden="true" />
         <Container className="relative">
-          <AnimatedSection variant="slideUp">
+          {/* LCP-safe entrance: CSS keyframe (page-hero-enter), not a
+              Framer Motion initial={{opacity:0}} wrapper — hero text must
+              be visible on first paint before JS hydrates. */}
+          <div className="page-hero-enter">
             <BreadcrumbNav
               items={[
                 { label: t("breadcrumb.home"), href: "/" },
@@ -390,7 +393,7 @@ export default async function ServiceDetailPage({
                 { label: service.title },
               ]}
             />
-          </AnimatedSection>
+          </div>
 
           <div className="max-w-3xl relative">
             {/* Mobile TOC disclosure — appears only on <lg screens where
@@ -433,27 +436,27 @@ export default async function ServiceDetailPage({
                 the fold where they aid scannability. The previous
                 lucide-in-glow-card read as a generic AI-template element. */}
 
-            <AnimatedSection variant="slideUp" delay={0.06}>
+            <div className="page-hero-enter" style={{ animationDelay: "0.08s" }}>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-3">
                 {service.title}
               </h1>
-            </AnimatedSection>
+            </div>
 
-            <AnimatedSection variant="slideUp" delay={0.18}>
+            <div className="page-hero-enter" style={{ animationDelay: "0.16s" }}>
               <p className="text-lg font-medium text-foreground-muted mb-4">
                 {service.subtitle}
               </p>
               {/* Gradient divider matching service accent */}
               <div className={`h-1 w-24 rounded-full bg-gradient-to-r ${service.heroAccent} mb-0`} />
-            </AnimatedSection>
+            </div>
 
-            <AnimatedSection variant="slideUp" delay={0.24}>
+            <div className="page-hero-enter" style={{ animationDelay: "0.24s" }}>
               <p className="text-lg text-foreground-secondary leading-relaxed max-w-2xl">
                 {service.longDescription}
               </p>
-            </AnimatedSection>
+            </div>
 
-            <AnimatedSection variant="slideUp" delay={0.30}>
+            <div className="page-hero-enter" style={{ animationDelay: "0.32s" }}>
               <div className="flex flex-col sm:flex-row items-start gap-4 mt-8">
                 <Button href="/contact" size="lg">
                   <Mail size={18} />
@@ -464,7 +467,7 @@ export default async function ServiceDetailPage({
                   {t("hero.ctaAllServices")}
                 </Button>
               </div>
-            </AnimatedSection>
+            </div>
           </div>
         </Container>
       </section>

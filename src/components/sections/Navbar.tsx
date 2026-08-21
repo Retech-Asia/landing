@@ -394,7 +394,7 @@ export function Navbar() {
                                   <Icon size={18} aria-hidden="true" />
                                 </div>
                                 <div>
-                                  <p className="text-sm font-medium text-foreground group-hover:text-brand transition-colors">
+                                  <p className="text-sm font-medium text-foreground group-hover:text-brand nav-active-text transition-colors">
                                     {tServices(child.labelKey)}
                                   </p>
                                   <p className="text-xs text-foreground-muted leading-relaxed mt-0.5">
@@ -454,7 +454,7 @@ export function Navbar() {
             aria-expanded={isMobileOpen}
             aria-controls="mobile-menu"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className="lg:hidden relative z-50 p-3 text-foreground-secondary hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2 rounded-lg"
+            className="lg:hidden relative z-[var(--z-dropdown)] p-3 text-foreground-secondary hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2 rounded-lg"
           >
             {/* Simple icon swap — no AnimatePresence (was causing zero-size button) */}
             {isMobileOpen ? (
