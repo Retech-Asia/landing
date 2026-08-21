@@ -204,7 +204,7 @@ export const services: ServiceData[] = [
         title: { en: "Discovery and Platform Selection", vi: "Khám phá và Lựa chọn Nền tảng" },
         description: {
           en: "We assess your content needs, editorial workflows, and technical requirements to recommend the right CMS, whether headless, monolithic, or hybrid.",
-          vi: "Chúng tôi đánh giá nhu cầu nội dung, quy trình biên tập và yêu cầu kỹ thuật để đề xuất CMS phù hợp — headless, monolithic hay hybrid.",
+          vi: "Chúng tôi đánh giá nhu cầu nội dung, quy trình biên tập và yêu cầu kỹ thuật để đề xuất CMS phù hợp: headless, monolithic hay hybrid.",
         },
       },
       {

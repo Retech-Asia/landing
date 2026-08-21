@@ -57,7 +57,7 @@ function getChrome(locale: string) {
         mapsAction: "Open in Google Maps",
         quickTitle: "Quick Response Guaranteed",
         quickBody:
-          "We respond to all inquiries within one business day. Email is the fastest channel — we monitor it throughout the day.",
+          "We respond to all inquiries within one business day. Email is the fastest channel, we monitor it throughout the day.",
         quickButton: "Email Us",
         connectLabel: "Connect",
         connectTitle: "Other Ways to Connect",
@@ -94,7 +94,7 @@ function getChrome(locale: string) {
         mapsAction: "Mở trong Google Maps",
         quickTitle: "Cam kết Phản hồi Nhanh",
         quickBody:
-          "Chúng tôi phản hồi mọi yêu cầu trong vòng một ngày làm việc. Email là kênh nhanh nhất — chúng tôi theo dõi thường xuyên trong ngày.",
+          "Chúng tôi phản hồi mọi yêu cầu trong vòng một ngày làm việc. Email là kênh nhanh nhất, chúng tôi theo dõi thường xuyên trong ngày.",
         quickButton: "Gửi email",
         connectLabel: "Kết nối",
         connectTitle: "Các Kênh Kết nối Khác",

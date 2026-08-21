@@ -249,7 +249,7 @@ export const jobListings: JobListingData[] = [
     experience: { en: "2-4 years", vi: "2-4 năm" },
     description: {
       en: "Create intuitive, visually compelling user interfaces and experiences for web and mobile applications. You will own the design process from research and wireframing through to high-fidelity prototypes.",
-      vi: "Tạo ra các giao diện và trải nghiệm người dùng trực quan, hấp dẫn về thị giác cho ứng dụng web và mobile. Bạn sẽ phụ trách toàn bộ quy trình thiết kế — từ nghiên cứu, wireframe đến prototype độ chính xác cao.",
+      vi: "Tạo ra các giao diện và trải nghiệm người dùng trực quan, hấp dẫn về thị giác cho ứng dụng web và mobile. Bạn sẽ phụ trách toàn bộ quy trình thiết kế, từ nghiên cứu, wireframe đến prototype độ chính xác cao.",
     },
     requirements: [
       {

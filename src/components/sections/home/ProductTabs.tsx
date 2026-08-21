@@ -219,7 +219,7 @@ function AIAnalysisPreview() {
         <div className="text-[11px] bg-brand/[0.06] border border-brand/15 rounded-lg px-3 py-2">
           <strong className="text-brand">Claude:</strong> Vitamin D borderline
           low (28 ng/mL, ref 30-100). Suggest 2000 IU D3 daily with K2. Mg
-          within range but low-normal — consider 200mg glycinate at night.{" "}
+          within range but low-normal, consider 200mg glycinate at night.{" "}
           <span className="text-foreground-muted">Flagged for MD review.</span>
         </div>
         <div className="flex items-center justify-between text-[10px] text-foreground-muted pt-1">

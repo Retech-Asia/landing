@@ -74,7 +74,7 @@ function CaseStudyImage({
       >
         <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-violet-500/10 rounded-lg" />
         <div className="relative text-foreground-muted/40 text-sm font-medium tracking-wide uppercase">
-          {alt.split(" — ")[0]}
+          {alt.split(" \u2014 ")[0]}
         </div>
       </div>
     );

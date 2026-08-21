@@ -54,7 +54,7 @@ export interface EmailResult {
 export async function sendEmail(payload: EmailPayload): Promise<EmailResult> {
   if (!resend) {
     console.warn(
-      "[email] RESEND_API_KEY not set — logging submission instead of sending.",
+      "[email] RESEND_API_KEY not set \u2014 logging submission instead of sending.",
     );
     console.info("[email] Would send:", {
       from: fromAddress,

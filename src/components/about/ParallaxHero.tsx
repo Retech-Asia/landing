@@ -22,7 +22,7 @@ export function ParallaxHero() {
         home: "Trang chủ",
         about: "Giới thiệu",
         title: "Giới thiệu về Retech Solutions",
-        lead: "Chúng tôi cung cấp dịch vụ phát triển phần mềm trọn vòng đời — từ phân tích nghiệp vụ và thiết kế đến phát triển, kiểm thử và triển khai cho các giải pháp trên nền tảng web và di động.",
+        lead: "Chúng tôi cung cấp dịch vụ phát triển phần mềm trọn vòng đời, từ phân tích nghiệp vụ và thiết kế đến phát triển, kiểm thử và triển khai cho các giải pháp trên nền tảng web và di động.",
       };
 
   const sectionRef = useRef<HTMLElement>(null);

@@ -73,11 +73,11 @@ export async function generateMetadata({
   const catName = vi?.name ?? category.name;
   const description = vi?.description ?? category.description;
   const title = vi
-    ? `${catName} — Bài viết | Retech Solutions Blog`
+    ? `${catName}: Bài viết | Retech Solutions Blog`
     : `${catName} Articles | Retech Solutions Blog`;
 
   return {
-    title: vi ? `${catName} — Blog` : `${category.name} Blog`,
+    title: vi ? `${catName} Blog` : `${category.name} Blog`,
     description,
     alternates: {
       canonical: `${SITE_URL}/${locale}/blog/category/${categorySlug}`,
@@ -186,7 +186,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <WebPageJsonLd
         title={
           isVi
-            ? `${catName} — Bài viết | Retech Solutions Blog`
+            ? `${catName}: Bài viết | Retech Solutions Blog`
             : `${catName} Articles | Retech Solutions Blog`
         }
         description={catDesc}

@@ -36,31 +36,31 @@ export const blogViMeta: Record<string, BlogViMeta> = {
   "vietnam-software-developer-rates-2026-complete-pricing-guide": {
     slug: "chi-phi-lap-trinh-vien-viet-nam-2026-huong-dan-gia",
     title: "Chi phí Lập trình viên Việt Nam 2026: Hướng dẫn Giá Hoàn chỉnh",
-    excerpt: "Lập trình viên Việt Nam thực sự giá bao nhiêu năm 2026 — mức giá theo năm kinh nghiệm, giá đội chuyên trách hàng tháng, và so sánh với Ấn Độ, Đông Âu. Hướng dẫn lập ngân sách thực tế cho doanh nghiệp đánh giá offshore.",
+    excerpt: "Lập trình viên Việt Nam thực sự giá bao nhiêu năm 2026, mức giá theo năm kinh nghiệm, giá đội chuyên trách hàng tháng, và so sánh với Ấn Độ, Đông Âu. Hướng dẫn lập ngân sách thực tế cho doanh nghiệp đánh giá offshore.",
     category: "Insight Ngành",
   },
   "odoo-vs-sap-business-one-2026-honest-comparison": {
     slug: "odoo-vs-sap-business-one-2026-so-sanh-thuc-te",
     title: "Odoo vs SAP Business One 2026: So sánh Thực tế cho Doanh nghiệp Đang lớn",
-    excerpt: "Odoo và SAP Business One nhắm cùng phân khúc trung nhưng khác nhau rõ rệt về chi phí, linh hoạt và thời gian triển khai. Khung so sánh từ đội ngũ triển khai ERP — kèm mức ngân sách thực tế cho từng bên.",
+    excerpt: "Odoo và SAP Business One nhắm cùng phân khúc trung nhưng khác nhau rõ rệt về chi phí, linh hoạt và thời gian triển khai. Khung so sánh từ đội ngũ triển khai ERP, kèm mức ngân sách thực tế cho từng bên.",
     category: "Hướng dẫn",
   },
   "ai-agents-small-business-workflows-2026-practical-guide": {
     slug: "ai-agent-doanh-nghiep-nho-2026-huong-dan-thuc-te",
     title: "AI Agent cho Doanh nghiệp Nhỏ: Quy trình Tự động hóa Đáng đồng tiền 2026",
-    excerpt: "AI agent đã từ demo trở nên đáng tin cho quy trình doanh nghiệp nhỏ — phân loại hỗ trợ, xử lý hóa đơn, sàng lọc khách hàng tiềm năng. Agent làm gì, chi phí bao nhiêu, và bắt đầu từ đâu mà không cần đội data science.",
+    excerpt: "AI agent đã từ demo trở nên đáng tin cho quy trình doanh nghiệp nhỏ, phân loại hỗ trợ, xử lý hóa đơn, sàng lọc khách hàng tiềm năng. Agent làm gì, chi phí bao nhiêu, và bắt đầu từ đâu mà không cần đội data science.",
     category: "Công nghệ",
   },
   "nab-innovation-centre-vietnam-global-bank-tech-hub": {
     slug: "nab-innovation-centre-viet-nam-can-cu-cong-nghe-ngan-hang-toan-cau",
     title: "NAB Innovation Centre Việt Nam: Ngân hàng Toàn cầu Đặt cược vào Nhân lực Bản địa",
-    excerpt: "Trung tâm công nghệ của National Australia Bank tại TP.HCM đã vượt 2.800 nhân sự từ năm 2019. Tín hiệu từ nước đi của NAB về nguồn kỹ sư Việt Nam — và cách doanh nghiệp vừa và nhỏ khai thác chính nguồn nhân lực đó.",
+    excerpt: "Trung tâm công nghệ của National Australia Bank tại TP.HCM đã vượt 2.800 nhân sự từ năm 2019. Tín hiệu từ nước đi của NAB về nguồn kỹ sư Việt Nam, và cách doanh nghiệp vừa và nhỏ khai thác chính nguồn nhân lực đó.",
     category: "Insight Ngành",
   },
   "nvidia-vietnam-expansion-ai-talent-pipeline": {
     slug: "nvidia-mo-rong-tai-viet-nam-nguon-nhan-luc-ai",
     title: "NVIDIA Mở rộng tại Việt Nam: Ý nghĩa với Nguồn nhân lực AI của Quốc gia",
-    excerpt: "Từ thương vụ mua lại VinBrain đến trung tâm R&D cùng chính phủ và nhà máy AI 200 triệu USD tại Hà Nội, NVIDIA đã chọn Việt Nam làm cứ điểm AI chiến lược — và điều đó thay đổi thị trường nhân lực thế nào.",
+    excerpt: "Từ thương vụ mua lại VinBrain đến trung tâm R&D cùng chính phủ và nhà máy AI 200 triệu USD tại Hà Nội, NVIDIA đã chọn Việt Nam làm cứ điểm AI chiến lược, và điều đó thay đổi thị trường nhân lực thế nào.",
     category: "Công nghệ",
   },
   "samsung-rd-vietnam-engineering-quality-standard": {
@@ -72,7 +72,7 @@ export const blogViMeta: Record<string, BlogViMeta> = {
   "fpt-viettel-vng-vietnam-tech-champions-global": {
     slug: "fpt-viettel-vng-cac-ong-lon-cong-nghe-viet-tien-ra-toan-cau",
     title: "FPT, Viettel, VNG: Các Ông lớn Công nghệ Việt Nam Tiến ra Toàn cầu",
-    excerpt: "Câu chuyện công nghệ Việt Nam từng được kể bởi nhà đầu tư nước ngoài. Giờ đây GPU cloud của FPT, data center siêu lớn của Viettel và Zalo AI của VNG tự khẳng định — với thị trường AI dự báo tăng gấp gần bốn lần.",
+    excerpt: "Câu chuyện công nghệ Việt Nam từng được kể bởi nhà đầu tư nước ngoài. Giờ đây GPU cloud của FPT, data center siêu lớn của Viettel và Zalo AI của VNG tự khẳng định, với thị trường AI dự báo tăng gấp gần bốn lần.",
     category: "Insight Ngành",
   },
   "vietnam-semiconductor-industry-2026-chip-giants-expanding": {
@@ -114,7 +114,7 @@ export const blogViMeta: Record<string, BlogViMeta> = {
   "building-offshore-development-team-practical-guide": {
     slug: "xay-dung-doi-phat-trien-offshore-huong-dan-thuc-te",
     title: "Xây dựng Đội Phát triển Offshore: Hướng dẫn Thực tế cho CTO",
-    excerpt: "Hướng dẫn từng bước để xây dựng đội phát triển offshore thành công — từ tuyển dụng, onboarding đến quản lý hiệu suất và giao tiếp xuyên múi giờ.",
+    excerpt: "Hướng dẫn từng bước để xây dựng đội phát triển offshore thành công, từ tuyển dụng, onboarding đến quản lý hiệu suất và giao tiếp xuyên múi giờ.",
     category: "Insight Ngành",
   },
   "nextjs-16-server-components-performance-guide": {
@@ -138,7 +138,7 @@ export const blogViMeta: Record<string, BlogViMeta> = {
   "evaluate-offshore-software-development-partner-checklist": {
     slug: "danh-gia-doi-tac-offshore-software-development-checklist",
     title: "Cách Đánh giá Đối tác Offshore Software Development: Checklist",
-    excerpt: "Checklist toàn diện để đánh giá đối tác phát triển phần mềm offshore — từ năng lực kỹ thuật, quy trình đến bảo mật, communication và cultural fit.",
+    excerpt: "Checklist toàn diện để đánh giá đối tác phát triển phần mềm offshore, từ năng lực kỹ thuật, quy trình đến bảo mật, communication và cultural fit.",
     category: "Hướng dẫn",
   },
   "rise-of-headless-cms-separating-content-from-presentation": {
@@ -180,7 +180,7 @@ export const blogViMeta: Record<string, BlogViMeta> = {
   "building-accessible-websites-practical-guide-2026": {
     slug: "xay-dung-website-tiep-can-duoc-huong-dan-thuc-te-2026",
     title: "Xây dựng Website Tiếp cận được: Hướng dẫn Thực tế 2026",
-    excerpt: "Khả năng tiếp cận không chỉ là tuân thủ — đó là trải nghiệm người dùng tốt hơn cho tất cả. Hướng dẫn thực tế WCAG 2.1 AA cho developer và designer.",
+    excerpt: "Khả năng tiếp cận không chỉ là tuân thủ, đó là trải nghiệm người dùng tốt hơn cho tất cả. Hướng dẫn thực tế WCAG 2.1 AA cho developer và designer.",
     category: "Hướng dẫn",
   },
   "state-of-react-server-components-2026": {
@@ -192,13 +192,13 @@ export const blogViMeta: Record<string, BlogViMeta> = {
   "why-vietnam-smart-choice-it-outsourcing-2026": {
     slug: "vi-sao-viet-nam-lua-chon-thong-minh-it-outsourcing-2026",
     title: "Vì sao Việt Nam là Lựa chọn Thông minh cho IT Outsourcing 2026",
-    excerpt: "Talent deep, chi phí cạnh tranh, chồng lệch múi giờ với APAC và EMEA — Việt Nam có tất cả. Đánh giá chi tiết vì sao Việt Nam vượt trội cho outsourcing.",
+    excerpt: "Talent deep, chi phí cạnh tranh, chồng lệch múi giờ với APAC và EMEA. Việt Nam có tất cả. Đánh giá chi tiết vì sao Việt Nam vượt trội cho outsourcing.",
     category: "Insight Ngành",
   },
   "how-choose-right-tech-stack-next-project": {
     slug: "chon-tech-stack-phu-hop-du-an-tiep-theo",
     title: "Cách Chọn Tech Stack Phù hợp cho Dự án Tiếp theo",
-    excerpt: "Hướng dẫn từng bước để chọn đúng tech stack — đánh giá yêu cầu dự án, rủi ro nhóm kỹ năng, chi phí dài hạn và trade-off maintainability.",
+    excerpt: "Hướng dẫn từng bước để chọn đúng tech stack, đánh giá yêu cầu dự án, rủi ro nhóm kỹ năng, chi phí dài hạn và trade-off maintainability.",
     category: "Hướng dẫn",
   },
   "from-legacy-to-cloud-native-practical-migration-guide": {
@@ -216,7 +216,7 @@ export const blogViMeta: Record<string, BlogViMeta> = {
   "role-of-ai-in-modern-business-software": {
     slug: "vai-tro-cua-ai-trong-phan-mem-doanh-nghiep-hien-dai",
     title: "Vai trò của AI trong Phần mềm Doanh nghiệp Hiện đại: Vượt ngoài Hype",
-    excerpt: "AI không còn là buzzword. Tìm hiểu các use case AI thực tế, đo lường được đang thúc đẩy ROI trong phần mềm doanh nghiệp — từ tự động hóa đến phân tích dự đoán.",
+    excerpt: "AI không còn là buzzword. Tìm hiểu các use case AI thực tế, đo lường được đang thúc đẩy ROI trong phần mềm doanh nghiệp, từ tự động hóa đến phân tích dự đoán.",
     category: "Công nghệ",
   },
   "building-scalable-web-applications-technical-deep-dive": {
@@ -240,7 +240,7 @@ export const blogViMeta: Record<string, BlogViMeta> = {
   "offshore-software-development-complete-guide-2026": {
     slug: "offshore-software-development-huong-dan-toan-dien-2026",
     title: "Offshore Software Development: Hướng dẫn Toàn diện 2026",
-    excerpt: "Mọi thứ bạn cần biết về offshore development trong 2026 — từ lựa chọn điểm đến, mô hình giá đến quản lý đội từ xa và đảm bảo chất lượng.",
+    excerpt: "Mọi thứ bạn cần biết về offshore development trong 2026, từ lựa chọn điểm đến, mô hình giá đến quản lý đội từ xa và đảm bảo chất lượng.",
     category: "Hướng dẫn",
   },
   "crm-vs-erp-understanding-differences-choosing-right-system": {
@@ -252,13 +252,13 @@ export const blogViMeta: Record<string, BlogViMeta> = {
   "how-build-dedicated-development-team-vietnam": {
     slug: "cach-xay-dung-doi-phat-trien-chuyen-trach-tai-viet-nam",
     title: "Cách Xây dựng Đội Phát triển Chuyên trách tại Việt Nam",
-    excerpt: "Hướng dẫn từng bước để xây dựng đội phát triển chuyên trách tại Việt Nam — từ tuyển dụng, onboarding đến quản lý hiệu suất và cultural integration.",
+    excerpt: "Hướng dẫn từng bước để xây dựng đội phát triển chuyên trách tại Việt Nam, từ tuyển dụng, onboarding đến quản lý hiệu suất và cultural integration.",
     category: "Insight Ngành",
   },
   "ai-agent-frameworks-comparison-2026-langchain-langgraph-crewai": {
     slug: "ai-agent-frameworks-2026-langchain-langgraph-crewai",
     title: "AI Agent Framework 2026: LangChain vs LangGraph vs CrewAI cho Production",
-    excerpt: "So sánh thực tế LangChain, LangGraph và CrewAI cho AI agent trong production 2026 — quản lý state, điều phối multi-agent, triển khai và framework nào phù hợp use case nào.",
+    excerpt: "So sánh thực tế LangChain, LangGraph và CrewAI cho AI agent trong production 2026, quản lý state, điều phối multi-agent, triển khai và framework nào phù hợp use case nào.",
     category: "Công nghệ",
   },
   "model-context-protocol-mcp-production-guide-2026": {
@@ -282,13 +282,13 @@ export const blogViMeta: Record<string, BlogViMeta> = {
   "ai-code-generation-tools-2026-copilot-claude-code-cursor": {
     slug: "cong-cu-sinh-code-ai-2026-copilot-claude-code-cursor",
     title: "Sinh Code bằng AI 2026: GitHub Copilot vs Claude Code vs Cursor",
-    excerpt: "So sánh thực tế ba công cụ code AI hàng đầu — GitHub Copilot, Claude Code và Cursor — về code completion, chỉnh sửa multi-file, giá và cái nào hợp workflow của đội bạn.",
+    excerpt: "So sánh thực tế ba công cụ code AI hàng đầu: GitHub Copilot, Claude Code và Cursor, về code completion, chỉnh sửa multi-file, giá và cái nào hợp workflow của đội bạn.",
     category: "Công nghệ",
   },
   "pgvector-vector-search-production-patterns-2026": {
     slug: "pgvector-vector-search-pattern-production",
     title: "Vector Search với pgvector: Pattern Production và Trade-off",
-    excerpt: "pgvector biến PostgreSQL thành vector database đủ năng lực cho RAG và similarity search. Chúng tôi đã chạy nó trong production trên nền tảng nghiên cứu đầu tư đa nguồn — cái gì hoạt động, cái gì không, và khi nào nên chọn vector DB riêng.",
+    excerpt: "pgvector biến PostgreSQL thành vector database đủ năng lực cho RAG và similarity search. Chúng tôi đã chạy nó trong production trên nền tảng nghiên cứu đầu tư đa nguồn, cái gì hoạt động, cái gì không, và khi nào nên chọn vector DB riêng.",
     category: "Công nghệ",
   },
   "vietnam-timezone-follow-the-sun-engineering-202608": {
@@ -306,7 +306,7 @@ export const blogViMeta: Record<string, BlogViMeta> = {
 };
 
 /**
- * Translated post body — same shape as the EN body minus the invariant fields.
+ * Translated post body, same shape as the EN body minus the invariant fields.
  * heading ids stay EN (anchors must match TOC links); only text is translated.
  */
 export interface BlogViBody {

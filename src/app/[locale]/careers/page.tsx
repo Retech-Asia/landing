@@ -92,11 +92,11 @@ function getChrome(locale: string) {
         benefitsLabel: "Quyền lợi & Đặc quyền",
         benefitsTitle: "Những gì bạn nhận được",
         benefitsDescription:
-          "Chúng tôi không dừng lại ở những điều cơ bản — thành viên trong đội ngũ luôn được hỗ trợ, thử thách và ghi nhận xứng đáng.",
+          "Chúng tôi không dừng lại ở những điều cơ bản: thành viên trong đội ngũ luôn được hỗ trợ, thử thách và ghi nhận xứng đáng.",
         hiringLabel: "Quy trình Tuyển dụng",
         hiringTitle: "Cách chúng tôi Tuyển dụng",
         hiringDescription:
-          "Quy trình của chúng tôi kỹ lưỡng nhưng tôn trọng thời gian của bạn. Không câu hỏi hóc búa, không vòng phỏng vấn kéo dài — chỉ những cuộc trò chuyện thực sự để xem hai bên có phù hợp hay không.",
+          "Quy trình của chúng tôi kỹ lưỡng nhưng tôn trọng thời gian của bạn. Không câu hỏi hóc búa, không vòng phỏng vấn kéo dài: chỉ những cuộc trò chuyện thực sự để xem hai bên có phù hợp hay không.",
         stepLabel: "Bước",
         ctaTitle: "Chưa thấy vị trí phù hợp?",
         ctaBody:
@@ -254,7 +254,7 @@ const hiringSteps = [
     title: { en: "Technical Assessment", vi: "Bài đánh giá Kỹ thuật" } as L,
     description: {
       en: "A practical take-home or live coding exercise relevant to the role. We evaluate problem-solving ability, code quality, and communication, not trick questions.",
-      vi: "Bài tập thực hành tại nhà hoặc live coding phù hợp với vị trí. Chúng tôi đánh giá khả năng giải quyết vấn đề, chất lượng code và khả năng giao tiếp — không phải những câu hỏi hóc búa.",
+      vi: "Bài tập thực hành tại nhà hoặc live coding phù hợp với vị trí. Chúng tôi đánh giá khả năng giải quyết vấn đề, chất lượng code và khả năng giao tiếp, không phải những câu hỏi hóc búa.",
     },
     timeline: { en: "2-3 hours", vi: "2-3 giờ" } as L,
   },

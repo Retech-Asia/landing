@@ -156,7 +156,7 @@ export default async function BlogPostPage({
         updated: "Cập nhật",
         notice: viBody
           ? null
-          : "Bản dịch đang hoàn thiện — nội dung bài viết hiện chỉ có bằng tiếng Anh.",
+          : "Bản dịch đang hoàn thiện: nội dung bài viết hiện chỉ có bằng tiếng Anh.",
         related: "Bài viết Liên quan",
         ctaTitle: "Cần đội ngũ phát triển chuyên nghiệp?",
         ctaBody:

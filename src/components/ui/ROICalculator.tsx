@@ -187,7 +187,7 @@ const HIDDEN_COST_VI: Record<string, { label: string; description: string }> = {
   },
   "Benefits & Insurance": {
     label: "Phúc lợi & Bảo hiểm",
-    description: "Bảo hiểm y tế, hưu trí, phép năm có lương — tất cả đã bao gồm.",
+    description: "Bảo hiểm y tế, hưu trí, phép năm có lương, tất cả đã bao gồm.",
   },
   "Payroll & Compliance": {
     label: "Payroll & Tuân thủ",

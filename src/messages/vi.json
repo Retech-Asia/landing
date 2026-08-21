@@ -85,7 +85,7 @@
   },
   "home": {
     "hero": {
-      "seoH1": "Retech Solutions — Phát triển Phần mềm & Gia công IT tại Việt Nam",
+      "seoH1": "Retech Solutions | Phát triển Phần mềm & Gia công IT tại Việt Nam",
       "taglinePre": "Biến Ý tưởng",
       "taglineInto": "thành",
       "taglineAccent": "Giải pháp",
@@ -153,7 +153,7 @@
     "whyVietnam": {
       "label": "Vì sao chọn Việt Nam",
       "title": "Điểm đến gia công mang tính chiến lược",
-      "description": "Gia công IT tại Việt Nam kết hợp nguồn nhân lực STEM vững mạnh, hiệu quả chi phí và chồng lệch múi giờ với APAC và EU — trở thành điểm đến phát triển phần mềm offshore cạnh tranh trong khối ASEAN.",
+      "description": "Gia công IT tại Việt Nam kết hợp nguồn nhân lực STEM vững mạnh, hiệu quả chi phí và chồng lệch múi giờ với APAC và EU, trở thành điểm đến phát triển phần mềm offshore cạnh tranh trong khối ASEAN.",
       "advantages": {
         "cost": {
           "title": "Hiệu quả chi phí",
@@ -323,7 +323,7 @@
     },
     "benefits": {
       "title": "Vì sao chọn {service} của chúng tôi",
-      "description": "Những lợi thế khi hợp tác với đội ngũ tại Việt Nam của chúng tôi cho {service} — và điều làm nên sự khác biệt so với các lần gia công thông thường."
+      "description": "Những lợi thế khi hợp tác với đội ngũ tại Việt Nam của chúng tôi cho {service}, và điều làm nên sự khác biệt so với các lần gia công thông thường."
     },
     "process": {
       "title": "Cách chúng tôi làm việc",
@@ -493,11 +493,11 @@
     },
     "process": {
       "title": "Quy trình Phát triển",
-      "description": "Phương pháp đã được kiểm chứng qua 50+ dự án thành công — khám phá, thiết kế, xây dựng, triển khai.",
+      "description": "Phương pháp đã được kiểm chứng qua 50+ dự án thành công: khám phá, thiết kế, xây dựng, triển khai.",
       "chrome": {
         "heroEyebrow": "Phương pháp",
         "heroTitle": "Cách chúng tôi Bàn giao",
-        "heroLead": "Phương pháp đã được kiểm chứng qua hơn 50 dự án thành công — từ khám phá đến ra mắt và hơn thế nữa.",
+        "heroLead": "Phương pháp đã được kiểm chứng qua hơn 50 dự án thành công, từ khám phá đến ra mắt và hơn thế nữa.",
         "toolsEyebrow": "Công cụ",
         "toolsTitle": "Công cụ chúng tôi sử dụng",
         "toolsDescription": "Chúng tôi tận dụng công cụ đã được kiểm chứng ở mọi giai đoạn vòng đời phát triển để đảm bảo chất lượng, tốc độ và minh bạch.",
@@ -514,7 +514,7 @@
     },
     "technologies": {
       "title": "Stack Công nghệ",
-      "description": "Công nghệ hiện đại, đã được chứng minh — React, Next.js, Node.js, TypeScript, AWS và hơn thế nữa."
+      "description": "Công nghệ hiện đại, đã được chứng minh: React, Next.js, Node.js, TypeScript, AWS và hơn thế nữa."
     },
     "careers": {
       "title": "Tuyển dụng",
@@ -530,7 +530,7 @@
     },
     "caseStudies": {
       "title": "Dự án Thực tế",
-      "description": "Hệ thống sản xuất thực tế đã bàn giao bởi Retech Solutions — phân tích mining, quản lý tài sản, nền tảng AI."
+      "description": "Hệ thống sản xuất thực tế đã bàn giao bởi Retech Solutions: phân tích mining, quản lý tài sản, nền tảng AI."
     },
     "privacy": {
       "title": "Chính sách Bảo mật",

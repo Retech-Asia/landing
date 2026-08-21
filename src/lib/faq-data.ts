@@ -9,7 +9,7 @@
  *
  * Bilingual: every user-facing string carries {en, vi}. The `slug` is
  * invariant (same EN slug used for both locales' URLs) since FAQ
- * categories aren't high-value SEO keywords — translating them would
+ * categories aren't high-value SEO keywords, translating them would
  * add complexity without meaningful upside.
  */
 
@@ -94,7 +94,7 @@ export const faqCategories: FAQCategory[] = [
         question: { en: "What makes Retech different from other outsourcing companies?", vi: "Điều gì làm Retech khác với công ty gia công khác?" },
         answer: {
           en: "Three things set us apart: (1) Full-cycle ownership -- we handle everything from business analysis through deployment and support, not just coding. (2) Transparent communication -- you get direct access to your project team, weekly progress reports, and real-time task tracking via Jira or Linear. (3) Quality-first culture -- our engineers are pre-vetted through rigorous technical assessments, and we maintain a 98% client satisfaction rate.",
-          vi: "Ba điều làm nên sự khác biệt: (1) Sở hữu toàn vòng đời — chúng tôi xử lý mọi thứ từ phân tích nghiệp vụ đến triển khai và hỗ trợ, không chỉ code. (2) Giao tiếp minh bạch — bạn có truy cập trực tiếp đội dự án, báo cáo tiến độ hàng tuần và theo dõi nhiệm vụ thời gian thực qua Jira hoặc Linear. (3) Văn hóa chất lượng lên đầu — kỹ sư của chúng tôi được sàng lọc qua đánh giá kỹ thuật khắt khe và chúng tôi duy trì tỷ lệ hài lòng khách hàng 98%.",
+          vi: "Ba điều làm nên sự khác biệt: (1) Sở hữu toàn vòng đời, chúng tôi xử lý mọi thứ từ phân tích nghiệp vụ đến triển khai và hỗ trợ, không chỉ code. (2) Giao tiếp minh bạch, bạn có truy cập trực tiếp đội dự án, báo cáo tiến độ hàng tuần và theo dõi nhiệm vụ thời gian thực qua Jira hoặc Linear. (3) Văn hóa chất lượng lên đầu, kỹ sư của chúng tôi được sàng lọc qua đánh giá kỹ thuật khắt khe và chúng tôi duy trì tỷ lệ hài lòng khách hàng 98%.",
         },
       },
     ],
@@ -142,7 +142,7 @@ export const faqCategories: FAQCategory[] = [
         question: { en: "What does your UI/UX design process look like?", vi: "Quy trình thiết kế UI/UX của các bạn như thế nào?" },
         answer: {
           en: "Our design process follows five phases: (1) Discovery and user research -- interviews, surveys, competitive analysis. (2) Information architecture and wireframing. (3) Visual design and high-fidelity prototyping in Figma. (4) Usability testing with real users. (5) Design system creation and developer handoff with reusable components and documented tokens.",
-          vi: "Quy trình thiết kế của chúng tôi theo 5 giai đoạn: (1) Khám phá và nghiên cứu người dùng — phỏng vấn, khảo sát, phân tích cạnh tranh. (2) Kiến trúc thông tin và wireframing. (3) Thiết kế thị giác và prototyping high-fidelity trong Figma. (4) Kiểm thử khả năng sử dụng với người dùng thực. (5) Tạo design system và bàn giao developer với component tái sử dụng và token được tài liệu hóa.",
+          vi: "Quy trình thiết kế của chúng tôi theo 5 giai đoạn: (1) Khám phá và nghiên cứu người dùng, phỏng vấn, khảo sát, phân tích cạnh tranh. (2) Kiến trúc thông tin và wireframing. (3) Thiết kế thị giác và prototyping high-fidelity trong Figma. (4) Kiểm thử khả năng sử dụng với người dùng thực. (5) Tạo design system và bàn giao developer với component tái sử dụng và token được tài liệu hóa.",
         },
       },
       {
@@ -169,14 +169,14 @@ export const faqCategories: FAQCategory[] = [
         question: { en: "What is your typical project lifecycle?", vi: "Vòng đời dự án điển hình của các bạn là gì?" },
         answer: {
           en: "Every project follows a structured lifecycle: (1) Discovery -- requirements gathering, stakeholder interviews, and technical scoping. (2) Design -- wireframes, prototypes, and visual design. (3) Development -- agile sprints with regular demos. (4) Testing -- automated tests, cross-browser checks, performance audits, and security scans. (5) Deployment -- CI/CD setup, production launch, and monitoring. (6) Support -- post-launch maintenance and iterative improvements.",
-          vi: "Mỗi dự án theo vòng đời có cấu trúc: (1) Khám phá — thu thập yêu cầu, phỏng vấn stakeholder và phạm vi kỹ thuật. (2) Thiết kế — wireframe, prototype và thiết kế thị giác. (3) Phát triển — sprint agile với demo định kỳ. (4) Kiểm thử — test tự động, kiểm tra cross-browser, audit hiệu suất và quét bảo mật. (5) Triển khai — thiết lập CI/CD, ra mắt production và giám sát. (6) Hỗ trợ — bảo trì sau ra mắt và cải thiện lặp lại.",
+          vi: "Mỗi dự án theo vòng đời có cấu trúc: (1) Khám phá, thu thập yêu cầu, phỏng vấn stakeholder và phạm vi kỹ thuật. (2) Thiết kế, wireframe, prototype và thiết kế thị giác. (3) Phát triển, sprint agile với demo định kỳ. (4) Kiểm thử, test tự động, kiểm tra cross-browser, audit hiệu suất và quét bảo mật. (5) Triển khai, thiết lập CI/CD, ra mắt production và giám sát. (6) Hỗ trợ, bảo trì sau ra mắt và cải thiện lặp lại.",
         },
       },
       {
         question: { en: "What methodology do you follow?", vi: "Các bạn áp dụng phương pháp nào?" },
         answer: {
           en: "We use agile methodologies, primarily Scrum with 2-week sprints. Each sprint includes planning, daily standups, development, and a sprint review with demo. We also support Kanban for maintenance and support engagements. The methodology is adapted to your preferences -- some clients prefer more structured waterfall approaches for fixed-scope projects, and we accommodate that too.",
-          vi: "Chúng tôi áp dụng phương pháp agile, chủ yếu Scrum với sprint 2 tuần. Mỗi sprint bao gồm lập kế hoạch, standup hàng ngày, phát triển và sprint review với demo. Chúng tôi cũng hỗ trợ Kanban cho hợp tác bảo trì và hỗ trợ. Phương pháp được điều chỉnh theo sở thích của bạn — một số khách hàng thích cách tiếp cận waterfall có cấu trúc hơn cho dự án fixed-scope và chúng tôi cũng đáp ứng.",
+          vi: "Chúng tôi áp dụng phương pháp agile, chủ yếu Scrum với sprint 2 tuần. Mỗi sprint bao gồm lập kế hoạch, standup hàng ngày, phát triển và sprint review với demo. Chúng tôi cũng hỗ trợ Kanban cho hợp tác bảo trì và hỗ trợ. Phương pháp được điều chỉnh theo sở thích của bạn, một số khách hàng thích cách tiếp cận waterfall có cấu trúc hơn cho dự án fixed-scope và chúng tôi cũng đáp ứng.",
         },
       },
       {
@@ -190,7 +190,7 @@ export const faqCategories: FAQCategory[] = [
         question: { en: "How do you handle communication during a project?", vi: "Các bạn xử lý giao tiếp trong dự án như thế nào?" },
         answer: {
           en: "We use agile methodologies with regular sprint planning, daily standups, and retrospectives. Communication happens through your preferred channels -- Slack, Microsoft Teams, or Zoom. You receive weekly progress reports and have direct access to the project manager and development team. We also use tools like Jira, Linear, or Notion for transparent task tracking so you always know the status of your project.",
-          vi: "Chúng tôi áp dụng phương pháp agile với lập kế hoạch sprint định kỳ, standup hàng ngày và retrospective. Giao tiếp diễn ra qua kênh bạn ưu tiên — Slack, Microsoft Teams hoặc Zoom. Bạn nhận báo cáo tiến độ hàng tuần và có quyền truy cập trực tiếp project manager và đội phát triển. Chúng tôi cũng sử dụng công cụ như Jira, Linear hoặc Notion cho theo dõi nhiệm vụ minh bạch để bạn luôn biết trạng thái dự án.",
+          vi: "Chúng tôi áp dụng phương pháp agile với lập kế hoạch sprint định kỳ, standup hàng ngày và retrospective. Giao tiếp diễn ra qua kênh bạn ưu tiên: Slack, Microsoft Teams hoặc Zoom. Bạn nhận báo cáo tiến độ hàng tuần và có quyền truy cập trực tiếp project manager và đội phát triển. Chúng tôi cũng sử dụng công cụ như Jira, Linear hoặc Notion cho theo dõi nhiệm vụ minh bạch để bạn luôn biết trạng thái dự án.",
         },
       },
       {
@@ -224,7 +224,7 @@ export const faqCategories: FAQCategory[] = [
         question: { en: "What pricing models do you offer?", vi: "Các bạn cung cấp mô hình giá nào?" },
         answer: {
           en: "We offer three flexible pricing models: (1) Fixed Price -- ideal for projects with well-defined scope and requirements, giving you cost certainty upfront. (2) Time and Materials -- best for evolving projects where flexibility is needed, billed hourly based on actual work. (3) Dedicated Team -- a monthly retainer for ongoing collaboration with a dedicated team. We recommend the best model based on your project scope and business objectives during our initial consultation.",
-          vi: "Chúng tôi cung cấp ba mô hình giá linh hoạt: (1) Giá cố định — phù hợp cho dự án có phạm vi và yêu cầu xác định rõ, mang lại sự chắc chắn về chi phí từ đầu. (2) Thời gian & Vật tư — phù hợp nhất cho dự án đang tiến hóa cần sự linh hoạt, tính phí theo giờ dựa trên công việc thực. (3) Đội Chuyên trách — phí cố định hàng tháng cho hợp tác liên tục với đội chuyên trách. Chúng tôi đề xuất mô hình phù hợp nhất dựa trên phạm vi dự án và mục tiêu kinh doanh trong buổi tư vấn ban đầu.",
+          vi: "Chúng tôi cung cấp ba mô hình giá linh hoạt: (1) Giá cố định, phù hợp cho dự án có phạm vi và yêu cầu xác định rõ, mang lại sự chắc chắn về chi phí từ đầu. (2) Thời gian & Vật tư, phù hợp nhất cho dự án đang tiến hóa cần sự linh hoạt, tính phí theo giờ dựa trên công việc thực. (3) Đội Chuyên trách, phí cố định hàng tháng cho hợp tác liên tục với đội chuyên trách. Chúng tôi đề xuất mô hình phù hợp nhất dựa trên phạm vi dự án và mục tiêu kinh doanh trong buổi tư vấn ban đầu.",
         },
       },
       {
@@ -259,7 +259,7 @@ export const faqCategories: FAQCategory[] = [
         question: { en: "Do you require upfront payment?", vi: "Các bạn có yêu cầu thanh toán trước không?" },
         answer: {
           en: "Typically, fixed-price projects are structured with milestone-based payments -- for example, 30% upfront, 30% at midpoint, and 40% on delivery. Dedicated team engagements are billed monthly in advance. We are flexible with payment structures and can accommodate terms that work for your organization, including net-30 invoicing for established accounts.",
-          vi: "Thường thì dự án fixed-price được cấu trúc với thanh toán theo milestone — ví dụ 30% trước, 30% giữa chừng và 40% khi bàn giao. Hợp tác đội chuyên trách được thanh toán hàng tháng trước. Chúng tôi linh hoạt với cấu trúc thanh toán và có thể đáp ứng điều khoản phù hợp với tổ chức, bao gồm invoicing net-30 cho tài khoản đã thiết lập.",
+          vi: "Thường thì dự án fixed-price được cấu trúc với thanh toán theo milestone, ví dụ 30% trước, 30% giữa chừng và 40% khi bàn giao. Hợp tác đội chuyên trách được thanh toán hàng tháng trước. Chúng tôi linh hoạt với cấu trúc thanh toán và có thể đáp ứng điều khoản phù hợp với tổ chức, bao gồm invoicing net-30 cho tài khoản đã thiết lập.",
         },
       },
     ],

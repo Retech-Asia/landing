@@ -85,7 +85,7 @@
   },
   "home": {
     "hero": {
-      "seoH1": "Retech Solutions — Vietnam Software Development & IT Outsourcing",
+      "seoH1": "Retech Solutions | Vietnam Software Development & IT Outsourcing",
       "taglinePre": "Turning Ideas",
       "taglineInto": "into",
       "taglineAccent": "Solutions",
@@ -153,7 +153,7 @@
     "whyVietnam": {
       "label": "Why Vietnam",
       "title": "A Strategic Outsourcing Destination",
-      "description": "Vietnam IT outsourcing combines deep STEM talent, cost efficiency, and timezone overlap with APAC and EU — making it a competitive offshore software development destination within ASEAN.",
+      "description": "Vietnam IT outsourcing combines deep STEM talent, cost efficiency, and timezone overlap with APAC and EU, making it a competitive offshore software development destination within ASEAN.",
       "advantages": {
         "cost": {
           "title": "Cost Effective",
@@ -323,7 +323,7 @@
     },
     "benefits": {
       "title": "Why Choose Our {service}",
-      "description": "The advantages of partnering with our Vietnam-based team for {service} — and what sets our delivery apart from typical outsourcing engagements."
+      "description": "The advantages of partnering with our Vietnam-based team for {service}, and what sets our delivery apart from typical outsourcing engagements."
     },
     "process": {
       "title": "How We Work",
@@ -493,11 +493,11 @@
     },
     "process": {
       "title": "Development Process",
-      "description": "Our proven methodology refined over 50+ successful projects — discovery, design, build, deploy.",
+      "description": "Our proven methodology refined over 50+ successful projects: discovery, design, build, deploy.",
       "chrome": {
         "heroEyebrow": "Methodology",
         "heroTitle": "How We Deliver",
-        "heroLead": "A proven methodology refined over 50+ successful projects — from discovery to launch and beyond.",
+        "heroLead": "A proven methodology refined over 50+ successful projects, from discovery to launch and beyond.",
         "toolsEyebrow": "Tooling",
         "toolsTitle": "Tools We Use",
         "toolsDescription": "We leverage established tools across every stage of the development lifecycle to ensure quality, speed, and transparency.",
@@ -514,7 +514,7 @@
     },
     "technologies": {
       "title": "Technology Stack",
-      "description": "Modern, proven technologies we build with — React, Next.js, Node.js, TypeScript, AWS, and more."
+      "description": "Modern, proven technologies we build with: React, Next.js, Node.js, TypeScript, AWS, and more."
     },
     "careers": {
       "title": "Careers",
@@ -530,7 +530,7 @@
     },
     "caseStudies": {
       "title": "Case Studies",
-      "description": "Real production systems shipped by Retech Solutions — mining analytics, asset management, AI platforms."
+      "description": "Real production systems shipped by Retech Solutions: mining analytics, asset management, AI platforms."
     },
     "privacy": {
       "title": "Privacy Policy",

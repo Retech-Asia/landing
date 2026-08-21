@@ -102,7 +102,7 @@ export const WIX_REDIRECTS: WixRedirect[] = [
     source: "/blog/post/:path*",
     destination: "/en/blog",
     permanent: true,
-    note: "Wix blog post URL shape — individual posts have no 1:1 mapping, route to listing",
+    note: "Wix blog post URL shape: individual posts have no 1:1 mapping, route to listing",
   },
 ];
 
