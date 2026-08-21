@@ -67,7 +67,7 @@ export async function POST(request: Request) {
   // ---- Compose + send email ----
   const subject = `New inquiry from ${escapeHtml(name)}${
     company ? ` (${escapeHtml(company)})` : ""
-  }${service ? ` — ${escapeHtml(service)}` : ""}`;
+  }${service ? `: ${escapeHtml(service)}` : ""}`;
 
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 560px; margin: 0 auto; color: #0a0a0a;">

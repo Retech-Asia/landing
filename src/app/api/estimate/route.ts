@@ -87,7 +87,7 @@ export async function POST(request: Request) {
 
   // ---- Compose + send email ----
   const subject = `Detailed quote request from ${escapeHtml(name)}${
-    projectTypeLabel ? ` — ${escapeHtml(projectTypeLabel)}` : ""
+    projectTypeLabel ? `: ${escapeHtml(projectTypeLabel)}` : ""
   }`;
 
   const html = `
