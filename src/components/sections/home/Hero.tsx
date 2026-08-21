@@ -8,22 +8,16 @@ import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { Container } from "@/components/ui/Container";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { Link } from "@/i18n/navigation";
-// Hero ambient gradient (LatticeField is the historical component name;
-// the implementation is now a fragment-shader gradient plane — see
-// LatticeField.tsx for the recipe). Four drifting brand color sources,
-// right-biased on desktop, full-coverage on mobile. Idle-deferred so it
-// never blocks LCP.
-import { LatticeField } from "@/components/sections/home/LatticeField";
+// Hero ambient shader — Lit Dunes: dune heightfield under an aurora wash,
+// cursor is a lazy lamp. Approved as the hero scene 2026-08-21 (prototype:
+// prototypes/hero/lit-dunes.html, aurora palette). The Code-to-Product 3D
+// scene was prototyped for this hero too, but Jay scoped it to
+// programming-topic areas; it lives in CodeToProduct.tsx.
+import { LitDunes } from "@/components/sections/home/LitDunes";
 import { STATS } from "@/lib/constants";
 
 /* ------------------------------------------------------------------ */
-/*  Hero — Stripe-style minimal. Pure typography, no decorative 3D.   */
-/*                                                                    */
-/*  Previously: 4 layers of background decoration (grid pattern, 3    */
-/*  radial glow blobs, animated radial overlay, Three.js orbs).       */
-/*  Now: just a subtle grid pattern. Stripe / Vercel / Linear win by  */
-/*  restraint. The visual showcase moves to a dedicated section       */
-/*  below the hero (ProductShowcase + SuccessStories).                */
+/*  Hero — copy left, ambient shader right.                           */
 /* ------------------------------------------------------------------ */
 
 export function Hero() {
@@ -63,15 +57,11 @@ export function Hero() {
       className="relative min-h-screen flex items-center overflow-hidden pt-16"
     >
       {/* Background layers (bottom to top):
-          1. LatticeField shader (four drifting brand-colored light sources)
-          2. Grid pattern overlay (blend-mode: overlay) — engineering texture
-             on top of the gradient, Stripe/Linear-style. Both layers are
-             masked so the headline area stays readable. */}
-      <LatticeField />
-      <div
-        className="absolute inset-0 grid-pattern hero-grid-overlay pointer-events-none z-0"
-        aria-hidden="true"
-      />
+          1. Lit Dunes shader — full-bleed dune terrain under an aurora wash
+             (idle-armed, never blocks first paint)
+          2. Text scrim — responsive gradient that keeps the headline
+             readable over the terrain */}
+      <LitDunes />
 
       {/* Text scrim — responsive gradient that keeps the headline readable
           over the shader. Desktop: left-to-right (dark behind the text
@@ -79,13 +69,13 @@ export function Hero() {
           Mobile: top-to-bottom (dark over the headline area, fading to
           transparent below). */}
       <div
-        className="absolute inset-0 z-[1] pointer-events-none hero-text-scrim"
+        className="absolute inset-0 z-[var(--z-base)] pointer-events-none hero-text-scrim"
         aria-hidden="true"
       />
 
       {/* Bottom fade to background — soft transition into StatsBar */}
       <div
-        className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-[1] pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-[var(--z-base)] pointer-events-none"
         aria-hidden="true"
       />
 
@@ -130,7 +120,7 @@ export function Hero() {
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={rotatingIndex}
-                      initial={{ opacity: 0, y: 6 }}
+                      initial={false}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -6 }}
                       transition={{ duration: 0.25, ease: "easeOut" }}
