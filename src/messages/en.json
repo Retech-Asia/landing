@@ -111,7 +111,7 @@
         "Logistics",
         "Education",
         "Real Estate",
-        "SaaS",
+        "Technology",
         "Manufacturing"
       ]
     },
@@ -124,7 +124,8 @@
     },
     "ourWork": {
       "title": "Proof of work",
-      "subtitle": "Real projects with measurable outcomes. The kind of work we'd rather show than tell.",
+      "subtitle": "Real projects, measurable outcomes",
+      "tagline": "The kind of work we'd rather show than tell.",
       "viewAll": "View all case studies",
       "readMore": "Read case study"
     },

@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/home/Hero";
-import { SectionDivider } from "@/components/ui/SectionDivider";
 import { WebPageJsonLd, FAQJsonLd } from "@/components/seo/JsonLd";
 import { SectionFallback, CompactSectionFallback } from "@/components/ui/Skeleton";
 import { OurWork } from "@/components/sections/home/OurWork";
@@ -75,42 +74,30 @@ export default async function HomePage({
       {/* 1. Hero */}
       <Hero />
 
-      {/* 2. TrustedBy — industries band (static pills, compact) */}
+      {/* 2. TrustedBy — industries band (linked chips to /industries) */}
       <TrustedBy />
-
-      <SectionDivider />
 
       {/* 3. ServicePreview — what we do (bento: 2 featured + 4 standard) */}
       <ServicePreview />
 
-      <SectionDivider />
-
       {/* 4. OurWork — results-forward case tiles (image + before/after
-          outcome + supporting results, per case-studies-data) */}
+          outcome + supporting results, per case-studies-data).
+          Same bg-background-subtle canvas as ServicePreview: one
+          continuous band, no divider between them. */}
       <OurWork />
-
-      <SectionDivider />
 
       {/* 5. MidPageCTA */}
       <MidPageCTA />
-
-      <SectionDivider />
 
       {/* 6. WhyRetech — differentiators + the Vietnam story in one split
           section (merged from the former WhyRetech + WhyVietnam) */}
       <WhyRetech />
 
-      <SectionDivider />
-
       {/* 7. TechStack — compact logo cloud, links to /technologies */}
       <TechStack />
 
-      <SectionDivider variant="subtle" />
-
       {/* 8. ClientResults — metrics strip before the final CTA */}
       <ClientResults />
-
-      <SectionDivider variant="subtle" />
 
       {/* 9. HomeCTA — final conversion */}
       <HomeCTA />

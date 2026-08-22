@@ -111,7 +111,7 @@
         "Logistics",
         "Giáo dục",
         "Bất động sản",
-        "SaaS",
+        "Công nghệ",
         "Sản xuất"
       ]
     },
@@ -124,7 +124,8 @@
     },
     "ourWork": {
       "title": "Kết quả thực tế",
-      "subtitle": "Các dự án thực tế với kết quả đo lường được. Chúng tôi thích minh bạch bằng con số hơn là lời hứa.",
+      "subtitle": "Dự án thực tế, kết quả đo lường được",
+      "tagline": "Chúng tôi thích minh bạch bằng con số hơn là lời hứa.",
       "viewAll": "Xem tất cả dự án",
       "readMore": "Xem case study"
     },
