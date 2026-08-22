@@ -53,7 +53,7 @@ From the read-only SEO review (full report in chat, 2026-08-20):
 ## Wave 4: polish backlog
 - Mobile nav "moment" for the hero
 - Case-study pages: same TOC treatment if headings grow
-- `middleware` → `proxy` file convention (Next.js 16 deprecation warning)
+- ~~`middleware` → `proxy` file convention~~ DONE (2026-08-22): src/proxy.ts, function `proxy`, redirect parity verified locally + on production (308 /→/en, unprefixed→/en/…, /vi direct, matcher exclusions intact, NEXT_LOCALE cookie preserved)
 - QA cadence: tsc + build + 375/768/1440 + 0 console errors + keyboard nav + reduced motion (per ui-ux-guidelines "done" checklist)
 
 ## Ground rules (from memory + docs, enforced)
