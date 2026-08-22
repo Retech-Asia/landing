@@ -5,7 +5,7 @@ export const SITE_NAME = "Retech Solutions";
 // content is meaningfully revised. Static pages, services, industries,
 // and case studies rarely change — use this stable timestamp instead of
 // `new Date()` so crawlers see a consistent lastmod signal across builds.
-export const CONTENT_LAST_UPDATED = "2026-07-28";
+export const CONTENT_LAST_UPDATED = "2026-08-21";
 
 export const CONTACT = {
   phone: "(+84) 769 294 225",

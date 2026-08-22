@@ -1,4 +1,5 @@
 import { blogPosts } from "@/lib/blog-data";
+import { blogViMeta } from "@/lib/blog-i18n";
 import { CONTACT, SITE_URL } from "@/lib/constants";
 
 /**
@@ -36,6 +37,12 @@ export async function GET() {
     .map((post) => {
       const postUrl = `${SITE_URL}/en/blog/${post.slug}`;
       const imageUrl = ogImageUrl(post.slug);
+      // VI alternate only when a real translation renders (same policy as
+      // the sitemap: never advertise EN content under a /vi URL).
+      const viMeta = blogViMeta[post.slug];
+      const viAlternate = viMeta
+        ? `\n      <atom:link rel="alternate" hreflang="vi" href="${SITE_URL}/vi/blog/${viMeta.slug}" />`
+        : "";
 
       return `    <item>
       <title><![CDATA[${post.title}]]></title>
@@ -46,7 +53,7 @@ export async function GET() {
       <category>${post.category}</category>
       <pubDate>${new Date(post.date).toUTCString()}</pubDate>
       <guid isPermaLink="true">${postUrl}</guid>
-      <enclosure url="${imageUrl}" length="0" type="image/png" />
+      <enclosure url="${imageUrl}" length="0" type="image/png" />${viAlternate}
     </item>`;
     })
     .join("\n");

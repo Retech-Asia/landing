@@ -1,7 +1,7 @@
 # Website Overhaul Roadmap
 
 **Owner:** Jay Pham · **Driver:** agent swarm (PM / UI-UX / 3D-Motion / Frontend / Marketing / SEO / QA)
-**Status:** 2026-08-21: **Lit Dunes SHIPPED to the homepage hero — raw-WebGL port live, AURORA palette (Jay: "let's push aurora first"), LatticeField + the three.js/r3f stack deleted.** Component: `src/components/sections/home/LitDunes.tsx` (zero libraries, idle-armed mount, reduced-motion static t=47, theme via data-theme MutationObserver). QA clean: tsc, production build, both themes, mobile 375, reduced-motion static frame (0.2% diff = hero's rotating word, shader byte-identical), 0 console errors; idle 4-13%, cursor 8-24%. Cursor stays softened (lerp 0.010, mound 0.15, lamp 0.50, parallax 0.07/0.02 — do not raise). The M3 color lab's four identity-grounded alternates stay parked in lit-dunes-colors.html for a possible later swap. Round 5 L/N, Round 4 I/J/K, Aurora Sweep II moot for hero. Wave 1 + scene placement + hero port done, awaiting commit go-ahead.
+**Status:** 2026-08-22: **Wave 3 SEO quick wins closed** (A4 feed VI alternates, B3 webp re-encodes, A1 lastmod bump; A2/B1/B2 verified already shipped; B1 carried a real VI-404 bug, fixed). Wave 1 + Wave 2 (hero: Lit Dunes) shipped 2026-08-21 — raw-WebGL port live, AURORA palette (Jay: "let's push aurora first"), LatticeField + the three.js/r3f stack deleted. Component: `src/components/sections/home/LitDunes.tsx` (zero libraries, idle-armed mount, reduced-motion static t=47, theme via data-theme MutationObserver). QA clean: tsc, production build, both themes, mobile 375, reduced-motion static frame (0.2% diff = hero's rotating word, shader byte-identical), 0 console errors; idle 4-13%, cursor 8-24%. Cursor stays softened (lerp 0.010, mound 0.15, lamp 0.50, parallax 0.07/0.02 — do not raise). The M3 color lab's four identity-grounded alternates stay parked in lit-dunes-colors.html for a possible later swap. Wave 4 = next.
 
 ## Wave 1: DONE (2026-08-20)
 
@@ -39,15 +39,15 @@ Outcome after 3 rounds (A Blueprint, B Living Product, C Signal Field, D Aurora 
 
 First resolved as no port (Code to Product placed on /technologies instead: full-width band, LCP-safe plain-DOM first paint, idle-armed motion, dark/light + mobile + reduced-motion QA'd clean). Then Round 5's Lit Dunes won Jay's eye, and after the M2/M3 verdicts (base scene as-is, aurora palette) it shipped to the homepage hero as `src/components/sections/home/LitDunes.tsx` — raw WebGL, one fullscreen triangle + one fragment shader, zero libraries. LatticeField.tsx + lattice-geometry.ts deleted (the old hero background pulled three.js + r3f + postprocessing for the same job); the grid-pattern hero overlay and lattice-mask CSS went with it (designed for the old flat gradient, not the dunes). LCP-safe idle mount, reduced-motion static t=47, theme via data-theme MutationObserver. QA: tsc, production build, both themes, mobile 375, reduced-motion static frame, 0 console errors.
 
-## Wave 3: SEO quick wins (all additive, none destructive)
+## Wave 3: SEO quick wins — DONE (2026-08-22)
 
 From the read-only SEO review (full report in chat, 2026-08-20):
-- **A1** sitemap per-entity `lastmod` (currently one global date)
-- **A2** BreadcrumbJsonLd on services/case-studies/industries/[slug] + category pages (only ~5 pages have it)
-- **A4** feed.xml: per-item VI alternates
-- **B1** RelatedPosts block on service pages (topical clusters, e.g. "custom CMS development Vietnam")
-- **B2** Blog authors → Person schema (E-E-A-T) if real authors exist
-- **B3** Re-encode >250KB webps (cs-ai-dashboard.webp is 430KB)
+- **A1** sitemap per-entity `lastmod` — resolved: blog was already per-entity (`updatedAt ?? date`); services/case-studies/industries have no per-entity dates in their data (fabricating them = no), so the global stamp is correct for them. `CONTENT_LAST_UPDATED` bumped 2026-07-28 → 2026-08-21 per its own revision policy.
+- **A2** BreadcrumbJsonLd on detail + category pages — was already shipped (found live in JsonLd.tsx + detail pages)
+- **A4** feed.xml: per-item VI alternates — shipped, same policy as the sitemap (VI alternate only when a real translation renders)
+- **B1** RelatedPosts on service pages — was already shipped; this pass fixed a real i18n bug found in it: VI service + case-study related-post cards linked EN slugs under /vi, which hard-404 for translated posts (blog generateStaticParams only enumerates VI slugs, dynamicParams=false). Now locale-aware via `getBlogMeta(post, loc)` on both templates.
+- **B2** Blog authors → Person schema — resolved as no-change: all posts are authored "Retech Solutions" (org), and BlogPostingJsonLd already links author to `#organization` via `@id` — correct E-E-A-T shape for an org author; fake Person personas would violate the no-hallucination rule.
+- **B3** Re-encode >250KB webps — shipped: cs-ai-dashboard.webp 430K→233K (q46 m6), cs-ai-hero.webp 321K→143K (q72), blog-enterprise.webp 262K→119K (q72). Dimensions unchanged, visual QA passed. Note: cs-ai-dashboard + blog-enterprise are currently unreferenced — candidates for deletion (Jay's call).
 - Parked: VI category slugs (needs 301 plan), review schema (policy risk), speakable
 
 ## Wave 4: polish backlog
