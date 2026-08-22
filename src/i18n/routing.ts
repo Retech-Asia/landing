@@ -4,7 +4,7 @@ import { defineRouting } from "next-intl/routing";
  * Locale routing for retech.asia.
  *
  * Pattern: `/en/...` + `/vi/...` (localePrefix: "always"). Root `/` is 308'd
- * to `/en` by the middleware. Existing backlinks pointing at `/about` etc.
+ * to `/en` by the proxy. Existing backlinks pointing at `/about` etc.
  * are handled by `INTERNAL_REDIRECTS` in `next.config.ts`, which we've updated
  * to point at `/en/...` directly (single hop).
  *

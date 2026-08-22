@@ -90,7 +90,7 @@ export const WIX_REDIRECTS: WixRedirect[] = [
   // Not in the sitemap capture, but shapes Wix sites consistently expose
   // and that crawlers/backlinks may still hold. Unprefixed paths that map
   // 1:1 (e.g. /about, /services, /contact) are NOT listed here — the
-  // middleware 308-redirects any unprefixed path to /en/<path> already.
+  // proxy 308-redirects any unprefixed path to /en/<path> already.
   { source: "/home", destination: "/en", permanent: true, note: "Wix default homepage alias" },
   {
     source: "/portfolio",

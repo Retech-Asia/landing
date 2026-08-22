@@ -5,7 +5,8 @@ import { routing } from "./i18n/routing";
 const intlMiddleware = createMiddleware(routing);
 
 /**
- * Locale negotiation middleware. Runs on every navigable request.
+ * Locale negotiation proxy (Next.js 16 `proxy` file convention, the
+ * successor of `middleware.ts`). Runs on every navigable request.
  *
  * Matcher excludes:
  *  - Next internals (`/_next`, `/_vercel`)
@@ -15,13 +16,13 @@ const intlMiddleware = createMiddleware(routing);
  *    `opengraph-image` for the root)
  *  - File-convention icon routes. Next serves `apple-icon.tsx` /
  *    `icon.svg` at their literal paths (`/apple-icon`, `/icon.svg`) —
- *    matched WITHOUT extension so the middleware doesn't 307 them to
+ *    matched WITHOUT extension so the proxy doesn't 307 them to
  *    `/en/apple-icon` (which 404s, since the route files live outside
  *    `[locale]`).
  *  - Public assets (`/images`, `/fonts`)
  *
  * `localeDetection: false` in routing.ts means we never auto-redirect on
- * Accept-Language; the middleware only handles `/` → `/en` and `/en/...` ↔
+ * Accept-Language; the proxy only handles `/` → `/en` and `/en/...` ↔
  * `/vi/...` path resolution.
  *
  * next-intl issues its prefix redirects as 307 (temporary) — its API offers
@@ -30,7 +31,7 @@ const intlMiddleware = createMiddleware(routing);
  * pointing at unprefixed paths like `/about` should pass full SEO juice).
  * So we upgrade any redirect next-intl returns to a 308 before sending it.
  */
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   const response = intlMiddleware(request);
 
   if (response.status >= 300 && response.status < 400) {
