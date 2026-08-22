@@ -21,6 +21,7 @@ import { TechBadges } from "@/components/services/TechBadges";
 import { services, getServiceBySlug, getFlatService, flattenService, type FlatService } from "@/lib/services-data";
 import { caseStudies, flattenCaseStudy } from "@/lib/case-studies-data";
 import { blogPosts } from "@/lib/blog-data";
+import { getBlogMeta } from "@/lib/blog-i18n";
 import { getTestimonialBySlug } from "@/lib/testimonials-data";
 import { SITE_URL } from "@/lib/constants";
 import { cn } from "@/lib/cn";
@@ -986,21 +987,25 @@ export default async function ServiceDetailPage({
             </AnimatedSection>
 
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {relatedBlogPosts.map((post) => (
+              {relatedBlogPosts.map((post) => {
+                // Locale-aware link + copy — raw post.slug/post.title would
+                // 404 on /vi for translated posts (their VI URLs use VI slugs).
+                const meta = getBlogMeta(post, loc);
+                return (
                 <StaggerItem key={post.slug}>
                   <Link
-                    href={`/blog/${post.slug}`}
+                    href={`/blog/${meta.slug}`}
                     className="group block h-full"
                   >
                     <div className="relative h-full rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                       <span className="inline-block text-xs font-semibold uppercase tracking-wider text-accent-cyan bg-accent-cyan/10 rounded-full px-3 py-1 mb-4">
-                        {post.category}
+                        {meta.category}
                       </span>
                       <h3 className="text-base font-bold text-foreground mb-2 group-hover:text-brand transition-colors line-clamp-3">
-                        {post.title}
+                        {meta.title}
                       </h3>
                       <p className="text-sm text-foreground-secondary leading-relaxed mb-4 line-clamp-3">
-                        {post.excerpt}
+                        {meta.excerpt}
                       </p>
                       <div className="flex items-center gap-1.5 text-sm font-medium text-brand group-hover:gap-2.5 transition-all duration-300">
                         {t("related.articles.readLink")}
@@ -1012,7 +1017,8 @@ export default async function ServiceDetailPage({
                     </div>
                   </Link>
                 </StaggerItem>
-              ))}
+                );
+              })}
             </StaggerContainer>
 
             <AnimatedSection variant="slideUp" delay={0.2} className="mt-10 text-center">
