@@ -3,76 +3,39 @@
 // Plain <img> used for tech logos (all SVGs). next/image blocks SVG without
 // dangerouslyAllowSVG config (security: SVG can carry <script>). Vectors
 // don't need optimization — they're already tiny and resolution-independent.
-// Plain <img> is the Next.js-recommended approach for self-hosted SVGs.
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import {
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/ui/AnimatedSection";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
 
-const techGroups = [
-  {
-    key: "frontend",
-    items: [
-      { name: "React", alt: "React framework logo", src: "/images/tech/react.svg" },
-      { name: "Next.js", alt: "Next.js framework logo", src: "/images/tech/nextdotjs.svg" },
-      { name: "TypeScript", alt: "TypeScript language logo", src: "/images/tech/typescript.svg" },
-      { name: "Tailwind CSS", alt: "Tailwind CSS framework logo", src: "/images/tech/tailwindcss.svg" },
-    ],
-  },
-  {
-    key: "backend",
-    items: [
-      { name: "Node.js", alt: "Node.js runtime logo", src: "/images/tech/nodedotjs.svg" },
-      { name: "Python", alt: "Python language logo", src: "/images/tech/python.svg" },
-      { name: "Go", alt: "Go language logo", src: "/images/tech/go.svg" },
-      { name: "GraphQL", alt: "GraphQL query language logo", src: "/images/tech/graphql.svg" },
-    ],
-  },
-  {
-    key: "database",
-    items: [
-      { name: "PostgreSQL", alt: "PostgreSQL database logo", src: "/images/tech/postgresql.svg" },
-      { name: "MongoDB", alt: "MongoDB database logo", src: "/images/tech/mongodb.svg" },
-      { name: "Redis", alt: "Redis database logo", src: "/images/tech/redis.svg" },
-    ],
-  },
-  {
-    key: "cloudDevops",
-    items: [
-      { name: "Docker", alt: "Docker container platform logo", src: "/images/tech/docker.svg" },
-      { name: "Kubernetes", alt: "Kubernetes orchestration logo", src: "/images/tech/kubernetes.svg" },
-      { name: "AWS", alt: "Amazon Web Services cloud logo", src: "/images/tech/amazonaws.svg" },
-      { name: "Vercel", alt: "Vercel deployment platform logo", src: "/images/tech/vercel.svg" },
-    ],
-  },
-  {
-    key: "design",
-    items: [
-      { name: "Figma", alt: "Figma design tool logo", src: "/images/tech/figma.svg" },
-      { name: "Storybook", alt: "Storybook component library logo", src: "/images/tech/storybook.svg" },
-    ],
-  },
-  {
-    key: "ai",
-    items: [
-      { name: "LangChain", alt: "LangChain framework logo", src: "/images/tech/langchain.svg" },
-      { name: "OpenAI", alt: "OpenAI platform logo", src: "/images/tech/openai.svg" },
-      { name: "Anthropic", alt: "Anthropic Claude platform logo", src: "/images/tech/anthropic.svg" },
-      { name: "pgvector", alt: "pgvector PostgreSQL extension logo", src: "/images/tech/postgresql.svg" },
-      { name: "Hugging Face", alt: "Hugging Face ML platform logo", src: "/images/tech/huggingface.svg" },
-    ],
-  },
+/**
+ * Compact logo cloud. The old category-row layout duplicated /technologies
+ * (which has the full filterable listing); the homepage only needs the
+ * credibility signal. Grayscale at rest, brand colors on hover.
+ */
+const logos = [
+  { name: "React", src: "/images/tech/react.svg" },
+  { name: "Next.js", src: "/images/tech/nextdotjs.svg" },
+  { name: "TypeScript", src: "/images/tech/typescript.svg" },
+  { name: "Node.js", src: "/images/tech/nodedotjs.svg" },
+  { name: "Python", src: "/images/tech/python.svg" },
+  { name: "Go", src: "/images/tech/go.svg" },
+  { name: "PostgreSQL", src: "/images/tech/postgresql.svg" },
+  { name: "MongoDB", src: "/images/tech/mongodb.svg" },
+  { name: "Docker", src: "/images/tech/docker.svg" },
+  { name: "Kubernetes", src: "/images/tech/kubernetes.svg" },
+  { name: "AWS", src: "/images/tech/amazonaws.svg" },
+  { name: "Vercel", src: "/images/tech/vercel.svg" },
+  { name: "OpenAI", src: "/images/tech/openai.svg" },
+  { name: "LangChain", src: "/images/tech/langchain.svg" },
 ];
 
 export function TechStack() {
   const t = useTranslations("home.techStack");
   return (
-    <section className="py-20 md:py-28 relative overflow-hidden bg-background-subtle">
-      <CompositeSectionBackground layers={["dots", "spotlight-cyan"]} />
+    <section className="py-14 bg-background-subtle relative overflow-hidden">
       <Container className="relative z-10">
         <SectionHeader
           label={t("label")}
@@ -80,39 +43,37 @@ export function TechStack() {
           description={t("description")}
         />
 
-        <StaggerContainer className="space-y-8 max-w-4xl mx-auto">
-          {techGroups.map((group) => (
-            <StaggerItem key={group.key}>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
-                <p className="text-xs font-medium tracking-wider uppercase text-foreground-muted sm:w-36 shrink-0">
-                  {t(`categories.${group.key}`)}
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  {group.items.map((item) => (
-                    <div
-                      key={item.name}
-                      className="group relative flex items-center justify-center w-11 h-11 rounded-xl border border-card-border bg-card-bg p-2.5 transition-all duration-300 hover:border-brand/30 hover:shadow-[0_2px_8px_rgba(32,133,53,0.08)] hover:scale-105"
-                    >
-                      <img
-                        src={item.src}
-                        alt={item.alt}
-                        width={24}
-                        height={24}
-                        className="w-full h-full object-contain"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      {/* Tech name tooltip */}
-                      <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-brand-dark px-2 py-0.5 text-[10px] font-medium text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 pointer-events-none">
-                        {item.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+        <AnimatedSection className="mt-10">
+          <ul className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            {logos.map((logo) => (
+              <li
+                key={logo.name}
+                className="flex items-center justify-center w-12 h-12 rounded-xl border border-card-border bg-card-bg p-2.5 opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 hover:border-brand/30 hover:scale-105"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={logo.src}
+                  alt={`${logo.name} logo`}
+                  width={28}
+                  height={28}
+                  className="w-full h-full object-contain"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </li>
+            ))}
+          </ul>
+        </AnimatedSection>
+
+        <AnimatedSection className="mt-8 text-center">
+          <Link
+            href="/technologies"
+            className="inline-flex items-center gap-2 rounded-full border border-card-border bg-card-bg px-5 py-2.5 text-sm font-medium text-foreground transition-all duration-300 hover:border-brand/30 hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
+          >
+            {t("explore")}
+            <ArrowRight size={14} aria-hidden="true" />
+          </Link>
+        </AnimatedSection>
       </Container>
     </section>
   );

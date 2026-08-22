@@ -23,17 +23,13 @@ const WhyRetech = dynamic(
   () => import("@/components/sections/home/WhyRetech").then((m) => m.WhyRetech),
   { loading: () => <SectionFallback /> },
 );
-const WhyVietnam = dynamic(
-  () => import("@/components/sections/home/WhyVietnam").then((m) => m.WhyVietnam),
-  { loading: () => <SectionFallback /> },
-);
 const TechStack = dynamic(
   () => import("@/components/sections/home/TechStack").then((m) => m.TechStack),
-  { loading: () => <SectionFallback /> },
+  { loading: () => <CompactSectionFallback /> },
 );
-const Testimonials = dynamic(
-  () => import("@/components/sections/home/Testimonials").then((m) => m.Testimonials),
-  { loading: () => <SectionFallback /> },
+const ClientResults = dynamic(
+  () => import("@/components/sections/home/ClientResults").then((m) => m.ClientResults),
+  { loading: () => <CompactSectionFallback /> },
 );
 const HomeCTA = dynamic(
   () => import("@/components/sections/home/HomeCTA").then((m) => m.HomeCTA),
@@ -79,18 +75,18 @@ export default async function HomePage({
       {/* 1. Hero */}
       <Hero />
 
-      {/* 2. TrustedBy — social proof */}
+      {/* 2. TrustedBy — industries band (static pills, compact) */}
       <TrustedBy />
 
       <SectionDivider />
 
-      {/* 3. ServicePreview — what we do */}
+      {/* 3. ServicePreview — what we do (bento: 2 featured + 4 standard) */}
       <ServicePreview />
 
       <SectionDivider />
 
-      {/* 4. OurWork — unified proof-of-work (replaces ProductShowcase +
-          ProductTabs + SuccessStories). 5 case study cards, metric-led. */}
+      {/* 4. OurWork — results-forward case tiles (image + before/after
+          outcome + supporting results, per case-studies-data) */}
       <OurWork />
 
       <SectionDivider />
@@ -100,27 +96,23 @@ export default async function HomePage({
 
       <SectionDivider />
 
-      {/* 6. WhyRetech — differentiators */}
+      {/* 6. WhyRetech — differentiators + the Vietnam story in one split
+          section (merged from the former WhyRetech + WhyVietnam) */}
       <WhyRetech />
 
       <SectionDivider />
 
-      {/* 7. WhyVietnam — competitive advantage */}
-      <WhyVietnam />
-
-      <SectionDivider />
-
-      {/* 8. TechStack — technical credibility */}
+      {/* 7. TechStack — compact logo cloud, links to /technologies */}
       <TechStack />
 
       <SectionDivider variant="subtle" />
 
-      {/* 9. Testimonials — client metrics + trusted process */}
-      <Testimonials />
+      {/* 8. ClientResults — metrics strip before the final CTA */}
+      <ClientResults />
 
       <SectionDivider variant="subtle" />
 
-      {/* 10. HomeCTA — final conversion */}
+      {/* 9. HomeCTA — final conversion */}
       <HomeCTA />
     </>
   );

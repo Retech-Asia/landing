@@ -104,7 +104,16 @@
     },
     "trustedBy": {
       "title": "Phục vụ ngành nghề toàn cầu",
-      "industries": ["Y tế", "Tài chính", "Thương mại điện tử", "Logistics", "Giáo dục", "Bất động sản", "SaaS", "Sản xuất"]
+      "industries": [
+        "Y tế",
+        "Tài chính",
+        "Thương mại điện tử",
+        "Logistics",
+        "Giáo dục",
+        "Bất động sản",
+        "SaaS",
+        "Sản xuất"
+      ]
     },
     "servicesPreview": {
       "label": "Dịch vụ",
@@ -116,8 +125,8 @@
     "ourWork": {
       "title": "Kết quả thực tế",
       "subtitle": "Các dự án thực tế với kết quả đo lường được. Chúng tôi thích minh bạch bằng con số hơn là lời hứa.",
-      "caseStudyLabel": "Dự án",
-      "viewAll": "Xem tất cả dự án"
+      "viewAll": "Xem tất cả dự án",
+      "readMore": "Xem case study"
     },
     "midCta": {
       "eyebrow": "Tư vấn Miễn phí",
@@ -193,59 +202,7 @@
       "label": "Stack công nghệ",
       "title": "Stack công nghệ của chúng tôi",
       "description": "Các công nghệ hiện đại, đã được kiểm chứng trên toàn bộ hệ thống. Kỹ thuật AI vận hành trên LangChain, pgvector và API của OpenAI, Anthropic.",
-      "categories": {
-        "frontend": "Frontend",
-        "backend": "Backend",
-        "database": "Cơ sở dữ liệu",
-        "cloudDevops": "Cloud & DevOps",
-        "design": "Thiết kế",
-        "ai": "AI & ML"
-      }
-    },
-    "testimonials": {
-      "label": "Cách chúng tôi làm việc",
-      "title": "Đối tác kỹ thuật cùng cộng tác",
-      "description": "Chúng tôi kết hợp năng lực kỹ thuật với phương thức làm việc minh bạch, hợp tác chặt chẽ để bàn giao phần mềm tạo ra kết quả kinh doanh đo lường được.",
-      "results": {
-        "label": "Kết quả với khách hàng",
-        "title": "Những con số tự chứng minh",
-        "metrics": {
-          "onTime": "Dự án bàn giao đúng hạn",
-          "satisfaction": "Mức độ Hài lòng của Khách hàng",
-          "responseTime": "Thời gian phản hồi trung bình",
-          "markets": "Thị trường đã phục vụ"
-        }
-      },
-      "process": {
-        "label": "Quy trình đáng tin cậy",
-        "title": "Chất lượng trong từng bước",
-        "description": "Quy trình phát triển đã kiểm chứng của chúng tôi đảm bảo kết quả dự đoán được, giao tiếp minh bạch và kiểm định chất lượng chặt chẽ từ ngày đầu đến sau khi vận hành.",
-        "badges": {
-          "agile": "Phương pháp Agile",
-          "codeReview": "Cổng duyệt code",
-          "testing": "Kiểm thử tự động",
-          "cicd": "Pipeline CI/CD",
-          "monitoring": "Giám sát hiệu năng"
-        },
-        "steps": {
-          "discovery": {
-            "title": "Khám phá & Lập kế hoạch",
-            "description": "Phân tích yêu cầu, thống nhất với các bên liên quan và xác định lộ trình dự án."
-          },
-          "design": {
-            "title": "Thiết kế & Prototype",
-            "description": "Nghiên cứu UX, wireframe và prototype tương tác có xác nhận từ khách hàng."
-          },
-          "development": {
-            "title": "Phát triển & Kiểm thử",
-            "description": "Sprint Agile với kiểm tra code liên tục, kiểm thử tự động và các cổng QA."
-          },
-          "launch": {
-            "title": "Vận hành & Hỗ trợ",
-            "description": "Triển khai theo giai đoạn, giám sát hiệu năng và bảo trì liên tục."
-          }
-        }
-      }
+      "explore": "Khám phá tech stack"
     },
     "finalCta": {
       "titleLine1": "Hãy Bàn giao Sản phẩm của Bạn",
@@ -282,6 +239,18 @@
         "q5": {
           "q": "Mô hình giá của bạn là gì?",
           "a": "Chúng tôi cung cấp ba mô hình giá linh hoạt: (1) Giá cố định, phù hợp cho các dự án có phạm vi và yêu cầu được xác định rõ, mang lại sự chắc chắn về chi phí từ đầu. (2) Thời gian & Vật tư, phù hợp nhất cho các dự án đang tiến hóa cần sự linh hoạt, tính phí theo giờ dựa trên công việc thực tế. (3) Đội ngũ Chuyên trách, phí cố định hàng tháng cho hợp tác liên tục với một đội chuyên trách. Chúng tôi đề xuất mô hình phù hợp dựa trên phạm vi dự án và mục tiêu kinh doanh của bạn trong buổi tư vấn ban đầu."
+        }
+      }
+    },
+    "clientResults": {
+      "results": {
+        "label": "Kết quả với khách hàng",
+        "title": "Những con số tự chứng minh",
+        "metrics": {
+          "onTime": "Dự án bàn giao đúng hạn",
+          "satisfaction": "Mức độ Hài lòng của Khách hàng",
+          "responseTime": "Thời gian phản hồi trung bình",
+          "markets": "Thị trường đã phục vụ"
         }
       }
     }
@@ -476,7 +445,10 @@
       "title": "Câu hỏi Thường gặp",
       "description": "Các câu hỏi thường gặp về dịch vụ phát triển phần mềm, quy trình, mô hình giá và lựa chọn hợp tác.",
       "chrome": {
-        "breadcrumb": { "home": "Trang chủ", "faq": "Câu hỏi Thường gặp" },
+        "breadcrumb": {
+          "home": "Trang chủ",
+          "faq": "Câu hỏi Thường gặp"
+        },
         "title": "Câu hỏi Thường gặp",
         "description": "Câu trả lời cho các câu hỏi thường gặp về dịch vụ phát triển phần mềm, CMS, CRM, ERP và đội chuyên trách.",
         "headline": "Câu hỏi Thường gặp",

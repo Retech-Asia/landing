@@ -104,7 +104,16 @@
     },
     "trustedBy": {
       "title": "Serving industries worldwide",
-      "industries": ["Healthcare", "Finance", "E-commerce", "Logistics", "Education", "Real Estate", "SaaS", "Manufacturing"]
+      "industries": [
+        "Healthcare",
+        "Finance",
+        "E-commerce",
+        "Logistics",
+        "Education",
+        "Real Estate",
+        "SaaS",
+        "Manufacturing"
+      ]
     },
     "servicesPreview": {
       "label": "Our Services",
@@ -116,8 +125,8 @@
     "ourWork": {
       "title": "Proof of work",
       "subtitle": "Real projects with measurable outcomes. The kind of work we'd rather show than tell.",
-      "caseStudyLabel": "Case study",
-      "viewAll": "View all case studies"
+      "viewAll": "View all case studies",
+      "readMore": "Read case study"
     },
     "midCta": {
       "eyebrow": "Free Consultation",
@@ -193,59 +202,7 @@
       "label": "Tech Stack",
       "title": "Our Technology Stack",
       "description": "Modern, proven technologies across the stack. AI engineering runs on LangChain, pgvector, and the OpenAI and Anthropic APIs.",
-      "categories": {
-        "frontend": "Frontend",
-        "backend": "Backend",
-        "database": "Database",
-        "cloudDevops": "Cloud & DevOps",
-        "design": "Design",
-        "ai": "AI & ML"
-      }
-    },
-    "testimonials": {
-      "label": "How We Work",
-      "title": "A Collaborative Engineering Partner",
-      "description": "We combine technical excellence with a transparent, collaborative approach to deliver software that drives measurable business results.",
-      "results": {
-        "label": "Client Results",
-        "title": "Numbers That Speak for Themselves",
-        "metrics": {
-          "onTime": "Projects Delivered On Time",
-          "satisfaction": "Client Satisfaction",
-          "responseTime": "Average Response Time",
-          "markets": "Markets Served"
-        }
-      },
-      "process": {
-        "label": "Trusted Process",
-        "title": "Quality Built Into Every Step",
-        "description": "Our proven development process ensures predictable outcomes, transparent communication, and rigorous quality assurance from day one through post-launch support.",
-        "badges": {
-          "agile": "Agile Methodology",
-          "codeReview": "Code Review Gates",
-          "testing": "Automated Testing",
-          "cicd": "CI/CD Pipeline",
-          "monitoring": "Performance Monitoring"
-        },
-        "steps": {
-          "discovery": {
-            "title": "Discovery & Planning",
-            "description": "Requirements analysis, stakeholder alignment, and project roadmap definition."
-          },
-          "design": {
-            "title": "Design & Prototyping",
-            "description": "UX research, wireframing, and interactive prototyping with client validation."
-          },
-          "development": {
-            "title": "Development & Testing",
-            "description": "Agile sprints with continuous code review, automated testing, and QA gates."
-          },
-          "launch": {
-            "title": "Launch & Support",
-            "description": "Staged deployment, performance monitoring, and ongoing maintenance."
-          }
-        }
-      }
+      "explore": "Explore our tech stack"
     },
     "finalCta": {
       "titleLine1": "Let's Ship Your Product",
@@ -282,6 +239,18 @@
         "q5": {
           "q": "What are your pricing models?",
           "a": "We offer three flexible pricing models: (1) Fixed Price, ideal for projects with well-defined scope and requirements, giving you cost certainty upfront. (2) Time & Materials, best for evolving projects where flexibility is needed, billed hourly based on actual work. (3) Dedicated Team, a monthly retainer for ongoing collaboration with a dedicated team. We recommend the best model based on your project scope and business objectives during our initial consultation."
+        }
+      }
+    },
+    "clientResults": {
+      "results": {
+        "label": "Client Results",
+        "title": "Numbers That Speak for Themselves",
+        "metrics": {
+          "onTime": "Projects Delivered On Time",
+          "satisfaction": "Client Satisfaction",
+          "responseTime": "Average Response Time",
+          "markets": "Markets Served"
         }
       }
     }
@@ -476,7 +445,10 @@
       "title": "FAQ",
       "description": "Common questions about our software development services, process, pricing models, and engagement options.",
       "chrome": {
-        "breadcrumb": { "home": "Home", "faq": "FAQ" },
+        "breadcrumb": {
+          "home": "Home",
+          "faq": "FAQ"
+        },
         "title": "FAQ",
         "description": "Common questions about software development services, CMS, CRM, ERP & dedicated teams answered.",
         "headline": "Frequently Asked Questions",
