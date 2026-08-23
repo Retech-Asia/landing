@@ -116,6 +116,11 @@ void main(){
     wash = mix(wash, vec3(0.545, 0.361, 0.965), smoothstep(0.68, 0.92, m));
     wash = mix(wash, vec3(0.060, 0.380, 0.160), smoothstep(0.90, 1.0, m));
 
+    // Light mode only: the tint branch below normalizes the wash, which
+    // lifts violet more than dark mode shows it. Pull the upper ramp back
+    // toward brand green so light reads green-led like dark (Jay, 2026-08-23)
+    if (uDark < .5) wash = mix(wash, vec3(0.125, 0.522, 0.208), smoothstep(0.60, 0.88, m) * 0.45);
+
     // rim light: ridges facing the wash catch a bright edge
     float rim = pow(clamp(1.0 - slope * 1.4, 0.0, 1.0), 3.0) * 0.55
               + pow(clamp(hx * 1.2, 0.0, 1.0), 2.0) * 0.30;
