@@ -14,10 +14,14 @@ import { Link } from "@/i18n/navigation";
 // scene was prototyped for this hero too, but Jay scoped it to
 // programming-topic areas; it lives in CodeToProduct.tsx.
 import { LitDunes } from "@/components/sections/home/LitDunes";
+import { TrustedBy } from "@/components/sections/home/TrustedBy";
 import { STATS } from "@/lib/constants";
 
 /* ------------------------------------------------------------------ */
-/*  Hero — copy left, ambient shader right.                           */
+/*  Hero — copy left, ambient shader right, industries strip on the   */
+/*  dune canvas at the bottom. Fits one viewport (100svh) on          */
+/*  laptop screens; grows past it on short/mobile viewports rather    */
+/*  than clipping (min-h, never fixed height).                        */
 /* ------------------------------------------------------------------ */
 
 export function Hero() {
@@ -54,10 +58,10 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center overflow-hidden pt-16"
+      className="relative min-h-svh flex flex-col overflow-hidden pt-16"
     >
       {/* Background layers (bottom to top):
-          1. Lit Dunes shader — full-bleed dune terrain under an aurora wash
+          1. Lit Dunes shader — full-bleed dune terrain under a brand wash
              (idle-armed, never blocks first paint)
           2. Text scrim — responsive gradient that keeps the headline
              readable over the terrain */}
@@ -73,9 +77,11 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      {/* Bottom fade to background — soft transition into StatsBar */}
+      {/* Bottom fade — ghosts the dunes out into the next section's
+          background-subtle canvas and gives the industries strip a
+          legible bed without a hard edge */}
       <div
-        className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-[var(--z-base)] pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-b from-transparent via-background-subtle/0 to-background-subtle/95 z-[var(--z-base)] pointer-events-none"
         aria-hidden="true"
       />
 
@@ -84,9 +90,9 @@ export function Hero() {
       {/* ------------------------------------------------------------------ */}
       <motion.div
         style={mounted ? { opacity: contentOpacity, y: contentY } : undefined}
-        className="relative z-10 w-full"
+        className="relative z-10 w-full flex-1 flex items-center"
       >
-        <Container className="py-20 md:py-28">
+        <Container className="py-10 md:py-12">
           <div className="hero-content-enter max-w-4xl text-center md:text-left mx-auto">
             {/* SEO H1 — visually hidden. The visible tagline below is the
                 brand voice; this h1 gives crawlers an unambiguous primary
@@ -113,7 +119,7 @@ export function Hero() {
             </p>
 
             {/* Dynamic subtitle with rotating service type. */}
-            <div className="mb-10 max-w-2xl">
+            <div className="mb-8 max-w-2xl">
               <p className="text-lg md:text-xl text-foreground-secondary leading-relaxed mb-2">
                 {t("subheadLead")}{" "}
                 <span className="inline-block font-semibold align-baseline">
@@ -138,7 +144,7 @@ export function Hero() {
             </div>
 
             {/* CTAs — primary brand dominates, secondary is visibly subordinate. */}
-            <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center md:justify-start gap-3 sm:gap-4 mb-14">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center md:justify-start gap-3 sm:gap-4 mb-10">
               <Magnetic strength={6}>
                 <Button
                   href="/contact"
@@ -160,24 +166,26 @@ export function Hero() {
               </Magnetic>
             </div>
 
-            {/* Stats — premium strip with dividers, big number + label rhythm */}
-            <div className="flex flex-wrap items-end justify-center md:justify-start gap-x-6 gap-y-6 sm:gap-x-10">
+            {/* Stats — compact strip with dividers, big number + label
+                rhythm. Sized so the whole hero (copy + CTAs + stats +
+                industries strip) fits one laptop viewport. */}
+            <div className="flex flex-wrap items-end justify-center md:justify-start gap-x-6 gap-y-5 sm:gap-x-8">
               {STATS.map((stat, i) => (
                 <div key={stat.label.en} className="flex items-end">
                   {i > 0 && (
                     <span
-                      className="hidden sm:block h-12 w-px bg-gradient-to-b from-transparent via-foreground/15 to-transparent self-center mr-6 sm:mr-10"
+                      className="hidden sm:block h-10 w-px bg-gradient-to-b from-transparent via-foreground/15 to-transparent self-center mr-5 sm:mr-8"
                       aria-hidden="true"
                     />
                   )}
                   <div>
-                    <div className="text-4xl md:text-5xl font-bold gradient-text-brand leading-none tracking-tight">
+                    <div className="text-3xl md:text-4xl font-bold gradient-text-brand leading-none tracking-tight">
                       <AnimatedCounter
                         target={stat.value}
                         suffix={stat.suffix}
                       />
                     </div>
-                    <p className="text-sm text-foreground-muted mt-2 tracking-wide">
+                    <p className="text-xs md:text-sm text-foreground-muted mt-1.5 tracking-wide">
                       {stat.label[locale as "en" | "vi"]}
                     </p>
                   </div>
@@ -187,6 +195,10 @@ export function Hero() {
           </div>
         </Container>
       </motion.div>
+
+      {/* Industries strip — translucent chips sitting on the dune canvas,
+          so the hero hands off to real navigation instead of a flat band */}
+      <TrustedBy />
     </section>
   );
 }

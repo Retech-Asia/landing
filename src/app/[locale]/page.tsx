@@ -6,10 +6,6 @@ import { OurWork } from "@/components/sections/home/OurWork";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 
 // Below-fold sections: lazy-loaded to reduce initial JS bundle
-const TrustedBy = dynamic(
-  () => import("@/components/sections/home/TrustedBy").then((m) => m.TrustedBy),
-  { loading: () => <SectionFallback /> },
-);
 const ServicePreview = dynamic(
   () => import("@/components/sections/home/ServicePreview").then((m) => m.ServicePreview),
   { loading: () => <SectionFallback /> },
@@ -71,35 +67,34 @@ export default async function HomePage({
       />
       <FAQJsonLd questions={homeFAQItems} />
 
-      {/* 1. Hero */}
+      {/* 1. Hero — full-viewport composition: copy + CTAs + stats +
+          industries strip on the dune canvas (TrustedBy renders inside
+          the Hero section now, not as a standalone band) */}
       <Hero />
 
-      {/* 2. TrustedBy — industries band (linked chips to /industries) */}
-      <TrustedBy />
-
-      {/* 3. ServicePreview — what we do (bento: 2 featured + 4 standard) */}
+      {/* 2. ServicePreview — what we do (bento: 2 featured + 4 standard) */}
       <ServicePreview />
 
-      {/* 4. OurWork — results-forward case tiles (image + before/after
+      {/* 3. OurWork — results-forward case tiles (image + before/after
           outcome + supporting results, per case-studies-data).
           Same bg-background-subtle canvas as ServicePreview: one
           continuous band, no divider between them. */}
       <OurWork />
 
-      {/* 5. MidPageCTA */}
+      {/* 4. MidPageCTA */}
       <MidPageCTA />
 
-      {/* 6. WhyRetech — differentiators + the Vietnam story in one split
+      {/* 5. WhyRetech — differentiators + the Vietnam story in one split
           section (merged from the former WhyRetech + WhyVietnam) */}
       <WhyRetech />
 
-      {/* 7. TechStack — compact logo cloud, links to /technologies */}
+      {/* 6. TechStack — compact logo cloud, links to /technologies */}
       <TechStack />
 
-      {/* 8. ClientResults — metrics strip before the final CTA */}
+      {/* 7. ClientResults — metrics strip before the final CTA */}
       <ClientResults />
 
-      {/* 9. HomeCTA — final conversion */}
+      {/* 8. HomeCTA — final conversion */}
       <HomeCTA />
     </>
   );

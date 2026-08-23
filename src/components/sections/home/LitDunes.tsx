@@ -4,11 +4,15 @@
  * Lit Dunes hero background — the approved hero scene (2026-08-21).
  *
  * Raw-WebGL port of prototypes/hero/lit-dunes.html: a slow dune heightfield
- * in tilted perspective under a five-hue aurora wash (green, cyan, violet,
- * pink, amber), topographic contour lines, rim light, and an aurora curtain
- * over the horizon (with stars in dark mode). The cursor is a lamp: it
- * raises a wide gentle mound and pools glow on the surface, trailing lazily
- * (lerp 0.010 per frame — softened twice on Jay's call; do not raise it).
+ * in tilted perspective under a five-stop brand wash (deep green, brand
+ * green #208535, mark green #30AB47, cyan #06b6d4, violet #8b5cf6 — the
+ * "Brand Field" palette from prototypes/hero/lit-dunes-colors.html, swapped
+ * in 2026-08-23 on Jay's call for a primary-color first impression; the
+ * pink/amber aurora stops were the off-brand part), topographic contour
+ * lines, rim light, and a green-to-cyan curtain over the horizon (with
+ * stars in dark mode). The cursor is a lamp: it raises a wide gentle mound
+ * and pools glow on the surface, trailing lazily (lerp 0.010 per frame —
+ * softened twice on Jay's call; do not raise it).
  *
  * Deliberately NOT three.js: one fullscreen triangle + one fragment shader,
  * so the hero background costs zero libraries (the previous ambient pulled
@@ -100,16 +104,17 @@ void main(){
     float k = abs(fract(h * 9.0 + 0.5) - 0.5);
     float contour = 1.0 - smoothstep(0.02, 0.09 + slope * 0.05, k);
 
-    // aurora wash: hue ramps along the depth diagonal so green/cyan/violet/pink
-    // bands coexist on the terrain; fbm breaks the band edges so it reads
-    // woven, not striped
-    float m = fract((p.x * 0.20 + p.y * 0.34) - t * 0.03
+    // brand wash ("Brand Field", lit-dunes-colors.html palette 1): three
+    // Retech greens own the first half of the ramp, cyan and violet follow;
+    // fbm breaks the band edges so it reads woven, not striped. PHASE biases
+    // the ramp so the near terrain reads green on first paint.
+    float m = fract(0.16 + (p.x * 0.20 + p.y * 0.34) - t * 0.03
              + 0.30 * fbm(vec2(p.x * 0.5 - t * 0.55, p.y * 0.35 + 3.1)));
-    vec3 wash = mix(vec3(0.10, 0.78, 0.32), vec3(0.06, 0.75, 0.86), smoothstep(0.0, 0.25, m));
-    wash = mix(wash, vec3(0.45, 0.30, 1.00), smoothstep(0.22, 0.48, m));
-    wash = mix(wash, vec3(0.92, 0.30, 0.62), smoothstep(0.45, 0.70, m));
-    wash = mix(wash, vec3(0.95, 0.62, 0.24), smoothstep(0.68, 0.92, m));
-    wash = mix(wash, vec3(0.10, 0.78, 0.32), smoothstep(0.90, 1.0, m));
+    vec3 wash = mix(vec3(0.060, 0.380, 0.160), vec3(0.125, 0.522, 0.208), smoothstep(0.0, 0.25, m));
+    wash = mix(wash, vec3(0.188, 0.671, 0.278), smoothstep(0.22, 0.48, m));
+    wash = mix(wash, vec3(0.024, 0.714, 0.831), smoothstep(0.45, 0.70, m));
+    wash = mix(wash, vec3(0.545, 0.361, 0.965), smoothstep(0.68, 0.92, m));
+    wash = mix(wash, vec3(0.060, 0.380, 0.160), smoothstep(0.90, 1.0, m));
 
     // rim light: ridges facing the wash catch a bright edge
     float rim = pow(clamp(1.0 - slope * 1.4, 0.0, 1.0), 3.0) * 0.55
@@ -117,7 +122,7 @@ void main(){
 
     // cursor lamp glow pooling on the surface: wide and soft, not a hot spot
     float dm = length(p - pm);
-    vec3 lampCol = mix(vec3(0.35, 0.90, 0.55), vec3(0.60, 0.55, 1.00), 0.5 + 0.5 * sin(t * 0.5));
+    vec3 lampCol = mix(vec3(0.20, 0.80, 0.40), vec3(0.024, 0.714, 0.831), 0.5 + 0.5 * sin(t * 0.5));
     vec3 lamp = lampCol * exp(-dm * dm * 0.32) * 0.50 * mAct;
 
     float xr = smoothstep(-3.4, 0.6, p.x);
@@ -139,7 +144,7 @@ void main(){
     // sky: aurora curtains hanging over the horizon
     float curtain = fbm(vec2(uv.x * 1.6 + t * 0.4, t * 0.3));
     float band = exp(-pow((uv.y - 0.34 - (curtain - 0.5) * 0.12) * 5.0, 2.0));
-    vec3 cCol = mix(vec3(0.10, 0.78, 0.32), vec3(0.52, 0.38, 0.98), curtain);
+    vec3 cCol = mix(vec3(0.10, 0.60, 0.30), vec3(0.024, 0.714, 0.831), curtain);
     if (uDark > .5) {
       col += cCol * band * 0.16 * smoothstep(0.9, 0.2, uv.x + 0.5);
       float star = smoothstep(0.9965, 1.0, hash(floor(gl_FragCoord.xy / 2.0)));
