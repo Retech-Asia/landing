@@ -70,7 +70,7 @@ export function TrustedBy() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.35, ease: "easeOut" }}
-      className="relative z-10 pb-5 md:pb-7"
+      className="relative z-10 pb-4"
     >
       <p className="text-center text-[11px] font-medium tracking-[0.18em] uppercase text-foreground-muted mb-3.5">
         {t("title")}
