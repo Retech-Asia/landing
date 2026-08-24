@@ -92,7 +92,7 @@ export function Hero() {
         style={mounted ? { opacity: contentOpacity, y: contentY } : undefined}
         className="relative z-10 w-full flex-1 flex items-center"
       >
-        <Container className="py-20 md:py-28">
+        <Container className="py-8 md:py-10">
           <div className="hero-content-enter max-w-4xl text-center md:text-left mx-auto">
             {/* SEO H1 — visually hidden. The visible tagline below is the
                 brand voice; this h1 gives crawlers an unambiguous primary
@@ -144,7 +144,7 @@ export function Hero() {
             </div>
 
             {/* CTAs — primary brand dominates, secondary is visibly subordinate. */}
-            <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center md:justify-start gap-3 sm:gap-4 mb-14">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center md:justify-start gap-3 sm:gap-4 mb-10">
               <Magnetic strength={6}>
                 <Button
                   href="/contact"
@@ -169,8 +169,10 @@ export function Hero() {
             {/* Stats — original rhythm restored (2026-08-24): the viewport-fit
                 round compacted these and the whole block started reading as a
                 small centered card instead of the original editorial column.
-                Original sizes/spacing still fit one 900px laptop viewport
-                above the industries strip. */}
+                Sizes/inner rhythm are the original; the Container's vertical
+                padding was re-tuned (py-8/10, not the original py-20/28)
+                because the hero now also carries the industries strip and
+                must still fit one 900px laptop viewport. */}
             <div className="flex flex-wrap items-end justify-center md:justify-start gap-x-6 gap-y-6 sm:gap-x-10">
               {STATS.map((stat, i) => (
                 <div key={stat.label.en} className="flex items-end">
