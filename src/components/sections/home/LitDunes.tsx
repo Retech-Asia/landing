@@ -130,15 +130,18 @@ void main(){
     vec3 lampCol = mix(vec3(0.20, 0.80, 0.40), vec3(0.024, 0.714, 0.831), 0.5 + 0.5 * sin(t * 0.5));
     vec3 lamp = lampCol * exp(-dm * dm * 0.32) * 0.50 * mAct;
 
-    float xr = smoothstep(-3.4, 0.6, p.x);
+    // Full-width terrain: no horizontal fade — the wash, contours and rim
+    // run edge-to-edge (Jay, 2026-08-24: "fully display in horizontal").
+    // Readability behind the copy column is the scrim's job, not the
+    // shader's (the old smoothstep(-3.4, 0.6, p.x) left the left ~20% flat).
     float fog = exp(-max(tt - 2.4, 0.0) * 0.30);
 
     vec3 base = uDark > .5 ? vec3(0.045, 0.048, 0.085) : vec3(0.90, 0.905, 0.90);
     vec3 terrain = base;
-    vec3 lit = (wash * (0.38 + rim) + lamp) * xr;
+    vec3 lit = wash * (0.38 + rim) + lamp;
     if (uDark > .5) {
       terrain += lit;
-      terrain += wash * contour * 0.85 * xr + lamp * contour * 1.2 * mAct;
+      terrain += wash * contour * 0.85 + lamp * contour * 1.2 * mAct;
     } else {
       float lum = dot(lit + wash * contour * 0.8, vec3(0.333));
       vec3 tint = normalize(lit + wash * contour + 0.001);

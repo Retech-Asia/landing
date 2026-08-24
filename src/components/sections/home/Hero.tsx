@@ -92,7 +92,7 @@ export function Hero() {
         style={mounted ? { opacity: contentOpacity, y: contentY } : undefined}
         className="relative z-10 w-full flex-1 flex items-center"
       >
-        <Container className="py-10 md:py-12">
+        <Container className="py-20 md:py-28">
           <div className="hero-content-enter max-w-4xl text-center md:text-left mx-auto">
             {/* SEO H1 — visually hidden. The visible tagline below is the
                 brand voice; this h1 gives crawlers an unambiguous primary
@@ -119,7 +119,7 @@ export function Hero() {
             </p>
 
             {/* Dynamic subtitle with rotating service type. */}
-            <div className="mb-8 max-w-2xl">
+            <div className="mb-10 max-w-2xl">
               <p className="text-lg md:text-xl text-foreground-secondary leading-relaxed mb-2">
                 {t("subheadLead")}{" "}
                 <span className="inline-block font-semibold align-baseline">
@@ -144,7 +144,7 @@ export function Hero() {
             </div>
 
             {/* CTAs — primary brand dominates, secondary is visibly subordinate. */}
-            <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center md:justify-start gap-3 sm:gap-4 mb-10">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center md:justify-start gap-3 sm:gap-4 mb-14">
               <Magnetic strength={6}>
                 <Button
                   href="/contact"
@@ -166,26 +166,28 @@ export function Hero() {
               </Magnetic>
             </div>
 
-            {/* Stats — compact strip with dividers, big number + label
-                rhythm. Sized so the whole hero (copy + CTAs + stats +
-                industries strip) fits one laptop viewport. */}
-            <div className="flex flex-wrap items-end justify-center md:justify-start gap-x-6 gap-y-5 sm:gap-x-8">
+            {/* Stats — original rhythm restored (2026-08-24): the viewport-fit
+                round compacted these and the whole block started reading as a
+                small centered card instead of the original editorial column.
+                Original sizes/spacing still fit one 900px laptop viewport
+                above the industries strip. */}
+            <div className="flex flex-wrap items-end justify-center md:justify-start gap-x-6 gap-y-6 sm:gap-x-10">
               {STATS.map((stat, i) => (
                 <div key={stat.label.en} className="flex items-end">
                   {i > 0 && (
                     <span
-                      className="hidden sm:block h-10 w-px bg-gradient-to-b from-transparent via-foreground/15 to-transparent self-center mr-5 sm:mr-8"
+                      className="hidden sm:block h-12 w-px bg-gradient-to-b from-transparent via-foreground/15 to-transparent self-center mr-6 sm:mr-10"
                       aria-hidden="true"
                     />
                   )}
                   <div>
-                    <div className="text-3xl md:text-4xl font-bold gradient-text-brand leading-none tracking-tight">
+                    <div className="text-4xl md:text-5xl font-bold gradient-text-brand leading-none tracking-tight">
                       <AnimatedCounter
                         target={stat.value}
                         suffix={stat.suffix}
                       />
                     </div>
-                    <p className="text-xs md:text-sm text-foreground-muted mt-1.5 tracking-wide">
+                    <p className="text-sm text-foreground-muted mt-2 tracking-wide">
                       {stat.label[locale as "en" | "vi"]}
                     </p>
                   </div>
