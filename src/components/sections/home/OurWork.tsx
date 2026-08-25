@@ -67,9 +67,6 @@ export function OurWork() {
                       className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-                    <span className="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-sm text-[10px] font-medium tracking-wide uppercase text-white">
-                      {project.industry}
-                    </span>
                   </div>
 
                   <div className="flex flex-col flex-1 p-6">

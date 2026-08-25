@@ -50,11 +50,17 @@ const instrumentSerif = Instrument_Serif({
   adjustFontFallback: true,
 });
 
+// preload:false on the two VI fonts — next/font emits preload links for
+// every family instantiated in this module, so without this the EN pages
+// preloaded 12 Vietnamese-only woff2 files (~70KB) onto the critical path
+// (perf audit 2026-08-25). VI pages discover them via CSS instead; they
+// stay self-hosted with swap.
 const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-general-sans",
   subsets: ["latin", "vietnamese"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
+  preload: false,
 });
 
 const playfairDisplay = Playfair_Display({
@@ -63,6 +69,7 @@ const playfairDisplay = Playfair_Display({
   weight: "400",
   style: ["normal", "italic"],
   display: "swap",
+  preload: false,
 });
 
 const generalSans = localFont({

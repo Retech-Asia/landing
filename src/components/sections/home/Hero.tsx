@@ -92,8 +92,14 @@ export function Hero() {
         style={mounted ? { opacity: contentOpacity, y: contentY } : undefined}
         className="relative z-10 w-full flex-1 flex items-center"
       >
-        <Container className="py-8 md:py-10">
-          <div className="hero-content-enter max-w-4xl text-center md:text-left mx-auto">
+        {/* w-full: this Container is a flex item (vertical centering) and
+            would otherwise shrink to content width and self-center, which
+            pulled the whole text column to viewport center */}
+        <Container className="w-full py-8 md:py-10">
+          {/* Flush-left on desktop like the original hero (pre-mobile-centering
+              pass added mx-auto, which also viewport-centered the desktop
+              column). mx-auto stays for mobile where the text is centered. */}
+          <div className="hero-content-enter max-w-4xl text-center md:text-left mx-auto md:mx-0">
             {/* SEO H1 — visually hidden. The visible tagline below is the
                 brand voice; this h1 gives crawlers an unambiguous primary
                 heading that pairs the company name with Vietnam positioning
@@ -118,11 +124,21 @@ export function Hero() {
               <span className="font-display italic text-brand">{t("taglineAccent")}</span>
             </p>
 
-            {/* Dynamic subtitle with rotating service type. */}
+            {/* Dynamic subtitle with rotating service type. The rotating
+                slot carries an invisible ghost of the LOCALE'S LONGEST
+                phrase: it fixes the slot width at first paint so word
+                swaps never re-wrap the paragraph. Without it, a longer
+                phrase rotating in ~7s re-wrapped this block to two lines
+                and refreshed LCP to ~7.4s on mobile (perf audit
+                2026-08-25). Ghost text (visibility:hidden) is not an LCP
+                candidate and stays out of the a11y tree. */}
             <div className="mb-10 max-w-2xl">
               <p className="text-lg md:text-xl text-foreground-secondary leading-relaxed mb-2">
                 {t("subheadLead")}{" "}
-                <span className="inline-block font-semibold align-baseline">
+                <span className="relative inline-block font-semibold align-baseline whitespace-nowrap">
+                  <span aria-hidden="true" className="invisible">
+                    {rotatingServices.reduce((a, b) => (b.length > a.length ? b : a), "")}
+                  </span>
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={rotatingIndex}
@@ -130,7 +146,7 @@ export function Hero() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -6 }}
                       transition={{ duration: 0.25, ease: "easeOut" }}
-                      className="inline-block gradient-text-brand whitespace-nowrap"
+                      className="absolute inset-x-0 top-0 inline-block gradient-text-brand whitespace-nowrap"
                     >
                       {rotatingServices[rotatingIndex]}
                     </motion.span>

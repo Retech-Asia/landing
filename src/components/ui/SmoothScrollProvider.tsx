@@ -4,7 +4,9 @@ import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 
 const LENIS_OPTIONS = {
-  duration: 1.2,
+  // 0.9s (was 1.2s): long durations read as "rigid/laggy" to wheel users —
+  // user scroll feedback 2026-08-25. Still smooth, noticeably more responsive.
+  duration: 0.9,
   easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   smoothWheel: true,
   touchMultiplier: 1.5,

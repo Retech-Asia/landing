@@ -552,6 +552,24 @@ p, li {
   animation-play-state: paused;
 }
 
+/* Also pause while a chip inside has keyboard focus, so a moving link
+   stays put while tabbing to it (hero industries strip). */
+.marquee-hover-pause:focus-within .marquee-container,
+.marquee-hover-pause:focus-within .marquee-container-reverse,
+.marquee-hover-pause:focus-within .marquee-container-slow {
+  animation-play-state: paused;
+}
+
+/* Reduced motion: freeze marquees entirely (components also render a
+   static fallback, this is the belt-and-braces CSS guard). */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-container,
+  .marquee-container-reverse,
+  .marquee-container-slow {
+    animation: none;
+  }
+}
+
 /* Mesh gradient animations — consolidated via CSS custom properties.
    Each variant overrides --mesh-* values for unique movement. */
 @keyframes mesh-drift {
@@ -812,13 +830,16 @@ p, li {
    The container holds the eyebrow, h1, subhead, CTAs, and stats — they
    all render visible on SSR, and this animation just adds a subtle
    0.5s fade+rise polish after first paint. */
+/* Hero entrance — translate-only on purpose (perf audit 2026-08-25):
+   opacity-from-0 keyframes keep text from registering as an LCP
+   candidate until a later repaint, which pushed LCP to ~7s under
+   simulated slow networks. Paints under transform still count for LCP
+   at first paint, so the rise stays but the fade is gone. */
 @keyframes hero-content-rise {
   from {
-    opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(10px);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
   }
 }
