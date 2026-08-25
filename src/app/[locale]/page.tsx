@@ -2,10 +2,13 @@ import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/home/Hero";
 import { WebPageJsonLd, FAQJsonLd } from "@/components/seo/JsonLd";
 import { SectionFallback, CompactSectionFallback } from "@/components/ui/Skeleton";
-import { OurWork } from "@/components/sections/home/OurWork";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 
 // Below-fold sections: lazy-loaded to reduce initial JS bundle
+const OurWork = dynamic(
+  () => import("@/components/sections/home/OurWork").then((m) => m.OurWork),
+  { loading: () => <SectionFallback /> },
+);
 const ServicePreview = dynamic(
   () => import("@/components/sections/home/ServicePreview").then((m) => m.ServicePreview),
   { loading: () => <SectionFallback /> },
