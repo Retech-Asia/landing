@@ -10,6 +10,18 @@ function ogImageUrl(slug: string): string {
   return `${SITE_URL}/en/blog/${slug}/opengraph-image`;
 }
 
+/** Render a post's optional comparison table as simple HTML for the feed. */
+function tableToHtml(
+  table: NonNullable<(typeof blogPosts)[number]["table"]>
+): string {
+  const head = table.columns.map((c) => `<th>${c}</th>`).join("");
+  const body = table.rows
+    .map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join("")}</tr>`)
+    .join("");
+  const caption = table.caption ? `<p><em>${table.caption}</em></p>` : "";
+  return `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>${caption}`;
+}
+
 /**
  * Estimate the word count of a post from its content array,
  * then return a short plain-text summary for the content:encoded body.
@@ -26,6 +38,9 @@ function contentToHtml(post: (typeof blogPosts)[number]): string {
     parts.push(`<h2>${heading.text}</h2>`);
     if (paraIndex < post.content.length) {
       parts.push(`<p>${post.content[paraIndex]}</p>`);
+    }
+    if (post.table && post.table.afterParagraph === paraIndex) {
+      parts.push(tableToHtml(post.table));
     }
   });
   return parts.join("\n      ");

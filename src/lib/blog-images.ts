@@ -18,6 +18,10 @@
  */
 
 const BLOG_IMAGES: Record<string, string> = {
+  // 2026-09 AI model wave synthesized post — data center aisle (Pexels
+  // #4508751), converted via sharp (fit: cover, attention crop).
+  "ai-model-wave-2026-astra-fable-gemini-glm-acquisitions": "/images/blog/ai-model-wave-2026-astra-fable-gemini-glm-acquisitions.webp",
+
   // Vietnam market movers + 2026-08 buying-intent posts — curated Pexels
   // photography (chip macro for NVIDIA, night skyline for NAB, server rack
   // for FPT/Viettel/VNG, USD bills for the rates guide, etc.), converted
