@@ -245,7 +245,7 @@ export default async function ContactPage({
           duplicated the business entity (RT-03 F9). */}
       <WebPageJsonLd
         title="Contact Us | Retech Solutions"
-        description="Ready to build? Contact Retech Solutions for a free consultation on custom CMS, CRM, ERP & AI software. Response within 24 hours."
+        description="Ready to build? Contact Retech Solutions for a free consultation on custom CMS, CRM, ERP & AI software."
         url={`${SITE_URL}/${locale}/contact`}
         type="ContactPage"
       />

@@ -30,7 +30,7 @@
  */
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 
 /* ── Ribbon mesh ── */
@@ -120,28 +120,29 @@ function FlowingRibbon() {
 
 /* ── Cursor parallax ── */
 
-const cursorPos = { x: 0, y: 0 };
-
 function CursorParallaxGroup({ children }: { children: React.ReactNode }) {
   const groupRef = useRef<THREE.Group>(null);
+  // Pointer target lives in a ref (not module scope) so the react-compiler
+  // lint rule passes and multiple canvas instances stay independent.
+  const cursorPos = useRef({ x: 0, y: 0 });
 
-  useMemo(() => {
-    if (typeof window === "undefined") return;
+  useEffect(() => {
     const handler = (e: PointerEvent) => {
-      cursorPos.x = (e.clientX / window.innerWidth) * 2 - 1;
-      cursorPos.y = (e.clientY / window.innerHeight) * 2 - 1;
+      cursorPos.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      cursorPos.current.y = (e.clientY / window.innerHeight) * 2 - 1;
     };
     window.addEventListener("pointermove", handler, { passive: true });
     return () => window.removeEventListener("pointermove", handler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
     const lerp = 1 - Math.pow(0.001, delta);
     groupRef.current.rotation.y +=
-      (cursorPos.x * 0.15 - groupRef.current.rotation.y) * lerp;
+      (cursorPos.current.x * 0.15 - groupRef.current.rotation.y) * lerp;
     groupRef.current.rotation.x +=
-      (-cursorPos.y * 0.1 - groupRef.current.rotation.x) * lerp;
+      (-cursorPos.current.y * 0.1 - groupRef.current.rotation.x) * lerp;
   });
 
   return <group ref={groupRef}>{children}</group>;

@@ -5,6 +5,11 @@ Statuses: **in-use licensed** (provenance recorded) · **in-use unverified**
 capture) · **orphan** (no source reference; deletion is an owner decision).
 Nothing is deleted or replaced without an owner call.
 
+Checkpoint 3 companions (2026-10-22): per-candidate replacement proposal in
+`docs/imagery-replacement-proposal.md`; per-study authentic-capture audit in
+`docs/authentic-imagery-inventory.md`. This register remains the inventory
+of record.
+
 ## Rules
 
 - No stock image is presented as a product capture. Case-study slots carry the
@@ -37,7 +42,8 @@ the per-slug blog set; only `blog-business.webp` remains live as fallback),
 files in the dashboard slot), `cs-wellness-{hero,dashboard,mobile}.webp`
 (3 — belonged to no study; mining now uses `analytics-dashboard.webp`),
 `mobile-dev.webp`, `server-infrastructure.webp`, `team-collaboration.webp`,
-`vietnam-cityscape.webp` (4).
+`vietnam-cityscape.webp` (4), `ux-design.webp` (1 — checkpoint 3 correction:
+no source file references it).
 
 ## Wave 3D curation plan (owner-gated)
 

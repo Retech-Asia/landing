@@ -72,8 +72,8 @@ export const faqCategories: FAQCategory[] = [
       {
         question: { en: "How large is your team?", vi: "Đội ngũ của các bạn đông bao nhiêu?" },
         answer: {
-          en: "Our team consists of 30+ experienced engineers, designers, and project managers. We have delivered more than 50 projects across 6 countries over 5+ years. The team is structured to scale up or down based on project demands, ensuring we always have the right expertise available for your engagement.",
-          vi: "Đội ngũ của chúng tôi gồm 30+ kỹ sư, designer và project manager giàu kinh nghiệm. Chúng tôi đã bàn giao hơn 50 dự án tại 6 quốc gia trong hơn 5 năm. Đội được cấu trúc để mở rộng hoặc thu hẹp theo nhu cầu dự án, đảm bảo luôn có chuyên môn phù hợp cho lần hợp tác của bạn.",
+          en: "Our team covers software engineers, designers, and project managers. The team is structured to scale up or down based on project demands, ensuring we always have the right expertise available for your engagement.",
+          vi: "Đội ngũ của chúng tôi gồm kỹ sư phần mềm, designer và project manager. Đội được cấu trúc để mở rộng hoặc thu hẹp theo nhu cầu dự án, đảm bảo luôn có chuyên môn phù hợp cho lần hợp tác của bạn.",
         },
       },
       {
@@ -93,8 +93,8 @@ export const faqCategories: FAQCategory[] = [
       {
         question: { en: "What makes Retech different from other outsourcing companies?", vi: "Điều gì làm Retech khác với công ty gia công khác?" },
         answer: {
-          en: "Three things set us apart: (1) Full-cycle ownership -- we handle everything from business analysis through deployment and support, not just coding. (2) Transparent communication -- you get direct access to your project team, weekly progress reports, and real-time task tracking via Jira or Linear. (3) Quality-first culture -- our engineers are pre-vetted through rigorous technical assessments, and we maintain a 98% client satisfaction rate.",
-          vi: "Ba điều làm nên sự khác biệt: (1) Sở hữu toàn vòng đời, chúng tôi xử lý mọi thứ từ phân tích nghiệp vụ đến triển khai và hỗ trợ, không chỉ code. (2) Giao tiếp minh bạch, bạn có truy cập trực tiếp đội dự án, báo cáo tiến độ hàng tuần và theo dõi nhiệm vụ thời gian thực qua Jira hoặc Linear. (3) Văn hóa chất lượng lên đầu, kỹ sư của chúng tôi được sàng lọc qua đánh giá kỹ thuật khắt khe và chúng tôi duy trì tỷ lệ hài lòng khách hàng 98%.",
+          en: "Three things set us apart: (1) Full-cycle ownership -- we handle everything from business analysis through deployment and support, not just coding. (2) Transparent communication -- you get direct access to your project team, weekly progress reports, and real-time task tracking via Jira or Linear. (3) Quality-first culture -- our engineers are pre-vetted through rigorous technical assessments, and every release passes senior review and automated testing.",
+          vi: "Ba điều làm nên sự khác biệt: (1) Sở hữu toàn vòng đời, chúng tôi xử lý mọi thứ từ phân tích nghiệp vụ đến triển khai và hỗ trợ, không chỉ code. (2) Giao tiếp minh bạch, bạn có truy cập trực tiếp đội dự án, báo cáo tiến độ hàng tuần và theo dõi nhiệm vụ thời gian thực qua Jira hoặc Linear. (3) Văn hóa chất lượng lên đầu, kỹ sư của chúng tôi được sàng lọc qua đánh giá kỹ thuật khắt khe và mỗi lần phát hành đều qua soát xét của kỹ sư cấp cao và bộ kiểm thử tự động.",
         },
       },
     ],
@@ -340,8 +340,8 @@ export const faqCategories: FAQCategory[] = [
       {
         question: { en: "What are your SLA response times?", vi: "Thời gian phản hồi SLA của các bạn là bao lâu?" },
         answer: {
-          en: "Our standard SLA includes a 24-hour average response time for support requests. Critical issues (production outages, security vulnerabilities) are addressed within 4 hours. We tailor SLA terms based on your business needs, and higher-tier support agreements are available for mission-critical applications that require faster response and resolution times.",
-          vi: "SLA tiêu chuẩn bao gồm thời gian phản hồi trung bình 24 giờ cho yêu cầu hỗ trợ. Vấn đề nghiêm trọng (outage production, lỗ hổng bảo mật) được xử lý trong 4 giờ. Chúng tôi điều chỉnh điều khoản SLA dựa trên nhu cầu kinh doanh và thỏa thuận hỗ trợ cấp cao hơn có sẵn cho ứng dụng mission-critical cần thời gian phản hồi và giải quyết nhanh hơn.",
+          en: "Support terms, including response-time commitments for standard and critical issues, are defined in each project's SLA and tailored to your business needs. Higher-tier support agreements are available for mission-critical applications that require faster response and resolution times.",
+          vi: "Điều khoản hỗ trợ, bao gồm cam kết thời gian phản hồi cho vấn đề thường và nghiêm trọng, được xác định trong SLA của từng dự án và điều chỉnh theo nhu cầu kinh doanh của bạn. Thỏa thuận hỗ trợ cấp cao hơn có sẵn cho ứng dụng mission-critical cần thời gian phản hồi và giải quyết nhanh hơn.",
         },
       },
       {

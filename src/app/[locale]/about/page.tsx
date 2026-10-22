@@ -10,9 +10,8 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/ui/AnimatedSection";
-import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { GradientBackground } from "@/components/ui/GradientBackground";
-import { ABOUT_STATS, SITE_URL } from "@/lib/constants";
+import { SITE_URL } from "@/lib/constants";
 import { buildPageMetadata } from "@/lib/page-metadata";
 import { setRequestLocale } from "next-intl/server";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
@@ -45,8 +44,8 @@ const milestones: { year: string; title: LocaleText; description: LocaleText }[]
       vi: "Thành lập tại Thành phố Hồ Chí Minh",
     },
     description: {
-      en: "Jay Pham founded Retech Solutions with a small team of 5 engineers, focused on custom web and mobile application development for local and regional clients.",
-      vi: "Jay Pham sáng lập Retech Solutions với đội ngũ 5 kỹ sư, tập trung vào phát triển ứng dụng web và di động tùy chỉnh cho khách hàng trong nước và khu vực.",
+      en: "Jay Pham founded Retech Solutions with a small founding team, focused on custom web and mobile application development for local and regional clients.",
+      vi: "Jay Pham sáng lập Retech Solutions với một đội ngũ sáng lập nhỏ, tập trung vào phát triển ứng dụng web và di động tùy chỉnh cho khách hàng trong nước và khu vực.",
     },
   },
   {
@@ -63,8 +62,8 @@ const milestones: { year: string; title: LocaleText; description: LocaleText }[]
   {
     year: "2022",
     title: {
-      en: "Expanded to 15+ Engineers",
-      vi: "Mở rộng lên hơn 15 kỹ sư",
+      en: "Dedicated Teams for International Clients",
+      vi: "Đội ngũ chuyên trách cho khách hàng quốc tế",
     },
     description: {
       en: "Grew the engineering team and launched dedicated team services for international clients, expanding our delivery capacity across multiple time zones.",
@@ -96,23 +95,70 @@ const milestones: { year: string; title: LocaleText; description: LocaleText }[]
   {
     year: "2025",
     title: {
-      en: "Serving Clients in 6 Countries",
-      vi: "Phục vụ khách hàng tại 6 quốc gia",
+      en: "Serving Clients Internationally",
+      vi: "Phục vụ khách hàng quốc tế",
     },
     description: {
-      en: "Expanded our client base across Asia Pacific, North America, and Europe, reaching businesses in Vietnam, Singapore, Japan, the US, the UK, and Germany.",
-      vi: "Mở rộng tệp khách hàng khắp châu Á – Thái Bình Dương, Bắc Mỹ và châu Âu, tiếp cận doanh nghiệp tại Việt Nam, Singapore, Nhật Bản, Mỹ, Anh và Đức.",
+      en: "Expanded our client base across Asia Pacific, North America, and Europe.",
+      vi: "Mở rộng tệp khách hàng khắp châu Á Thái Bình Dương, Bắc Mỹ và châu Âu.",
     },
   },
   {
     year: "2026",
     title: {
-      en: "50+ Projects Delivered",
-      vi: "Hơn 50 dự án đã bàn giao",
+      en: "Scaling Product Delivery",
+      vi: "Mở rộng quy mô bàn giao",
     },
     description: {
-      en: "Reached a milestone of 50+ successful projects across 8 industries, with a growing team of 30+ expert engineers.",
-      vi: "Đạt cột mốc hơn 50 dự án thành công trên 8 ngành nghề, với đội ngũ hơn 30 kỹ sư chuyên môn cao không ngừng tăng trưởng.",
+      en: "Full-cycle product delivery across industries including mining, finance, and asset management, with an engineering team that keeps growing.",
+      vi: "Bàn giao sản phẩm trọn vòng đời trong các ngành gồm khai khoáng, tài chính và quản lý tài sản, với đội ngũ kỹ sư không ngừng phát triển.",
+    },
+  },
+];
+
+// Owner checkpoint 3 (2026-10-22): the numeric stats strip (ABOUT_STATS)
+// is replaced by a qualitative capability presentation — evidence-backed
+// descriptions of the practice, no unverified counts. Copy is Jay-gated
+// like all public claims.
+const capabilities: { title: LocaleText; description: LocaleText }[] = [
+  {
+    title: {
+      en: "Full-cycle delivery",
+      vi: "Bàn giao trọn vòng đời",
+    },
+    description: {
+      en: "Business analysis, UI/UX design, engineering, QA, deployment, and support, carried by one team from first call to release.",
+      vi: "Phân tích nghiệp vụ, thiết kế UI/UX, kỹ thuật, QA, triển khai và hỗ trợ, do một đội ngũ đảm nhiệm từ cuộc gọi đầu tiên đến khi ra mắt.",
+    },
+  },
+  {
+    title: {
+      en: "Custom business systems",
+      vi: "Hệ thống doanh nghiệp tùy chỉnh",
+    },
+    description: {
+      en: "CRMs, CMS, and ERP platforms shaped around your workflow, with integrations to the tools you already run.",
+      vi: "Nền tảng CRM, CMS và ERP được thiết kế theo quy trình của bạn, tích hợp với các công cụ bạn đang sử dụng.",
+    },
+  },
+  {
+    title: {
+      en: "Applied AI",
+      vi: "AI ứng dụng",
+    },
+    description: {
+      en: "RAG, vector search, and LLM features built into products where they add real value, not as a separate SKU.",
+      vi: "RAG, vector search và tính năng LLM được đưa vào sản phẩm ở những nơi tạo ra giá trị thực tế, không phải một gói dịch vụ rời rạc.",
+    },
+  },
+  {
+    title: {
+      en: "Long-term partnership",
+      vi: "Hợp tác lâu dài",
+    },
+    description: {
+      en: "Dedicated teams and ongoing support that continue after launch, so the system keeps serving the business as it changes.",
+      vi: "Đội ngũ chuyên trách và hỗ trợ liên tục sau khi ra mắt, để hệ thống luôn phục vụ doanh nghiệp khi nó thay đổi.",
     },
   },
 ];
@@ -130,7 +176,7 @@ function getChrome(locale: string) {
         missionP2:
           "Our team of engineers, designers, and project managers works closely with clients to turn business problems into shipped software. We specialize in custom CMS, CRM, and ERP platforms, and we ship AI-native products that use RAG, multi-agent orchestration, and LLM features where they actually add value.",
         missionP3:
-          "With over five years of experience and more than 50 projects delivered, we have proven that great software can come from anywhere, and that the right partnership can transform ideas into successful products.",
+          "Great software can come from anywhere, and the right partnership can transform ideas into successful products. That belief has carried us from a small founding team to full-cycle product delivery for clients across multiple time zones.",
         missionCardTitle: "Our Mission",
         missionCardBody:
           "To give businesses worldwide access to well-built, cost-effective software from experienced engineers. We believe access to strong engineering should not be limited by geography.",
@@ -143,11 +189,10 @@ function getChrome(locale: string) {
         visionB1: "Growing our global footprint to 10+ countries by 2028",
         visionB2: "Investing in AI and automation capabilities for smarter delivery",
         visionB3: "Building Vietnam's next generation of engineering leaders",
-        numbersLabel: "By the Numbers",
-        numbersTitle: "Retech by the Numbers",
-        numbersDescription:
-          "The impact we have made across industries and geographies, one project at a time.",
-        statLabels: {} as Record<string, string>,
+        capabilityLabel: "What we do",
+        capabilityTitle: "The Practice Behind Every Engagement",
+        capabilityDescription:
+          "What working with Retech actually involves: full-cycle delivery, custom business systems, applied AI, and long-term support.",
         officeAlt: "Retech Solutions modern office workspace",
         teamAlt: "Retech Solutions team collaborating in the office",
         journeyTitle: "Our Journey",
@@ -167,7 +212,7 @@ function getChrome(locale: string) {
         missionP2:
           "Đội ngũ kỹ sư, nhà thiết kế và quản lý dự án của chúng tôi làm việc sát sao cùng khách hàng để biến các vấn đề kinh doanh thành phần mềm hoàn chỉnh. Chúng tôi chuyên về các nền tảng CMS, CRM và ERP tùy chỉnh, đồng thời phát triển các sản phẩm AI-native ứng dụng RAG, điều phối multi-agent và các tính năng LLM ở những nơi thực sự tạo ra giá trị.",
         missionP3:
-          "Với hơn năm năm kinh nghiệm và hơn 50 dự án đã bàn giao, chúng tôi đã chứng minh rằng phần mềm chất lượng có thể đến từ bất kỳ đâu, và một sự hợp tác đúng cách có thể biến ý tưởng thành sản phẩm thành công.",
+          "Phần mềm chất lượng có thể đến từ bất kỳ đâu, và sự hợp tác đúng cách có thể biến ý tưởng thành sản phẩm thành công. Niềm tin đó đã đưa chúng tôi từ một đội ngũ sáng lập nhỏ đến bàn giao sản phẩm trọn vòng đời cho khách hàng ở nhiều múi giờ.",
         missionCardTitle: "Sứ mệnh của chúng tôi",
         missionCardBody:
           "Mang đến cho doanh nghiệp toàn cầu phần mềm chắc chắn, tiết kiệm chi phí từ đội ngũ kỹ sư giàu kinh nghiệm. Chúng tôi tin rằng khả năng tiếp cận kỹ thuật tốt không nên bị giới hạn bởi địa lý.",
@@ -180,17 +225,10 @@ function getChrome(locale: string) {
         visionB1: "Mở rộng phạm vi hoạt động toàn cầu lên hơn 10 quốc gia vào năm 2028",
         visionB2: "Đầu tư vào năng lực AI và tự động hóa để bàn giao thông minh hơn",
         visionB3: "Xây dựng thế hệ kỹ sư kế tiếp của Việt Nam",
-        numbersLabel: "Các con số",
-        numbersTitle: "Retech qua các con số",
-        numbersDescription:
-          "Những dấu ấn chúng tôi để lại trên nhiều ngành nghề và thị trường, từng dự án một.",
-        statLabels: {
-          "Projects Delivered": "Dự án đã bàn giao",
-          "Expert Engineers": "Kỹ sư chuyên môn cao",
-          "Countries Served": "Quốc gia phục vụ",
-          "Years of Excellence": "Năm kinh nghiệm",
-          "Average Response Time": "Thời gian phản hồi trung bình",
-        } as Record<string, string>,
+        capabilityLabel: "Chúng tôi làm gì",
+        capabilityTitle: "Nền tảng đằng sau Mỗi Dự án",
+        capabilityDescription:
+          "Làm việc với Retech thực chất gồm những gì: bàn giao trọn vòng đời, hệ thống doanh nghiệp tùy chỉnh, AI ứng dụng và hỗ trợ lâu dài.",
         officeAlt: "Văn phòng hiện đại của Retech Solutions",
         teamAlt: "Đội ngũ Retech Solutions cùng làm việc tại văn phòng",
         journeyTitle: "Hành trình của chúng tôi",
@@ -223,7 +261,7 @@ export default async function AboutPage({
       {/* Structured Data */}
       <WebPageJsonLd
         title="About Us"
-        description="Vietnam-based software outsourcing company. 5+ years experience, 50+ projects delivered across 6 countries. Full-cycle development from strategy to deployment."
+        description="Vietnam-based software outsourcing company. Full-cycle product development from strategy to deployment, with custom CRM and business systems at the core."
         url={`${SITE_URL}/${locale}/about`}
         type="AboutPage"
       />
@@ -346,7 +384,7 @@ export default async function AboutPage({
       {/* Parallax Visual Divider */}
       <ParallaxDivider />
 
-      {/* By the Numbers */}
+      {/* Capability presentation (replaces the numeric stats strip) */}
       <section className="py-20 md:py-28 bg-background-subtle relative overflow-hidden">
         <div className="absolute inset-0 grid-pattern pointer-events-none opacity-30" aria-hidden="true" />
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
@@ -357,21 +395,21 @@ export default async function AboutPage({
         <Container className="relative z-10">
           <AnimatedSection>
             <SectionHeader
-              label={chrome.numbersLabel}
-              title={chrome.numbersTitle}
-              description={chrome.numbersDescription}
+              label={chrome.capabilityLabel}
+              title={chrome.capabilityTitle}
+              description={chrome.capabilityDescription}
             />
           </AnimatedSection>
 
-          <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-            {ABOUT_STATS.map((stat) => (
-              <StaggerItem key={stat.label}>
-                <div className="group relative rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] transition-all duration-300 p-6 md:p-8 text-center h-full">
-                  <p className="text-4xl md:text-5xl font-bold gradient-text-brand mb-3">
-                    <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                  </p>
-                  <p className="text-sm md:text-base text-foreground-muted font-medium">
-                    {chrome.statLabels[stat.label] ?? stat.label}
+          <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {capabilities.map((cap) => (
+              <StaggerItem key={cap.title.en}>
+                <div className="group relative rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] transition-all duration-300 p-6 md:p-8 h-full">
+                  <h3 className="font-display-title text-lg md:text-xl text-foreground">
+                    {pick(cap.title)}
+                  </h3>
+                  <p className="mt-3 text-sm md:text-base leading-relaxed text-foreground-muted">
+                    {pick(cap.description)}
                   </p>
                 </div>
               </StaggerItem>

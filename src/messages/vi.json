@@ -80,7 +80,7 @@
       "backToTop": "Về đầu trang",
       "rightsReserved": "Mọi quyền được bảo lưu.",
       "companyTagline": "Phát triển phần mềm theo yêu cầu, giải pháp CMS/CRM/ERP và sản phẩm số tích hợp AI từ Việt Nam.",
-      "projectsDelivered": "50+ dự án đã bàn giao tại 6 quốc gia",
+      "projectsDelivered": "Phục vụ doanh nghiệp trong khai khoáng, tài chính và quản lý tài sản",
       "chatWhatsApp": "Trò chuyện trên WhatsApp",
       "vietnam": "Việt Nam"
     },
@@ -114,19 +114,19 @@
       ]
     },
     "finalCta": {
-      "titleLine1": "Hãy Bàn giao Sản phẩm của Bạn",
-      "titleLine2": "Đúng Hạn, Đúng Ngân sách",
-      "body": "Nhận kế hoạch dự án chi tiết và báo giá trong vòng 24 giờ. Từ cuộc gọi đầu tiên đến triển khai sản xuất, chúng tôi đã thực hiện hơn 50 lần.",
+      "titleLine1": "Hãy Xây dựng Sản phẩm của Bạn",
+      "titleLine2": "Từ Cuộc gọi Đầu tiên đến Ra mắt",
+      "body": "Hãy kể chúng tôi nghe điều bạn cần xây dựng. Bạn nhận được kế hoạch dự án với báo giá chi tiết bằng văn bản, và quy trình bàn giao có thể kiểm chứng từ sprint đầu tiên.",
       "cta": "Nhận Báo giá Miễn phí",
       "secondary": "Xem Dự án",
       "trust": {
         "freeConsult": "Tư vấn miễn phí",
-        "estimate24h": "Báo giá trong 24 giờ",
+        "estimate24h": "Báo giá chi tiết bằng văn bản",
         "noCommit": "Không ràng buộc"
       }
     },
     "proof": {
-      "line": "Hơn 50 dự án bàn giao cho doanh nghiệp trong khai thác mỏ, tài chính và quản lý tài sản.",
+      "line": "Sản phẩm tiêu biểu cho doanh nghiệp trong khai khoáng, tài chính và quản lý tài sản.",
       "link": "Xem dự án tiêu biểu"
     },
     "capabilities": {
@@ -475,11 +475,11 @@
     },
     "process": {
       "title": "Quy trình Phát triển",
-      "description": "Phương pháp đã được kiểm chứng qua 50+ dự án thành công: khám phá, thiết kế, xây dựng, triển khai.",
+      "description": "Phương pháp bàn giao của chúng tôi: khám phá, thiết kế, xây dựng, triển khai.",
       "chrome": {
         "heroEyebrow": "Phương pháp",
         "heroTitle": "Cách chúng tôi Bàn giao",
-        "heroLead": "Phương pháp đã được kiểm chứng qua hơn 50 dự án thành công, từ khám phá đến ra mắt và hơn thế nữa.",
+        "heroLead": "Phương pháp bàn giao của chúng tôi, từ khám phá đến ra mắt và hơn thế nữa.",
         "toolsEyebrow": "Công cụ",
         "toolsTitle": "Công cụ chúng tôi sử dụng",
         "toolsDescription": "Chúng tôi tận dụng công cụ đã được kiểm chứng ở mọi giai đoạn vòng đời phát triển để đảm bảo chất lượng, tốc độ và minh bạch.",

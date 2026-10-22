@@ -49,8 +49,8 @@ const values: ValueItem[] = [
     icon: Shield,
     title: { en: "Quality", vi: "Chất lượng" },
     description: {
-      en: "We do not ship code that has not been reviewed by at least two senior engineers and validated by automated test suites. Our QA process caught 0.3% defect rates across 50+ projects, because one bug in production is one too many for the clients who trust us with their business systems.",
-      vi: "Chúng tôi không bàn giao code chưa được ít nhất hai kỹ sư cấp cao rà soát và kiểm chứng bằng bộ kiểm thử tự động. Quy trình QA của chúng tôi duy trì tỷ lệ lỗi 0,3% trên hơn 50 dự án, bởi một lỗi trong môi trường sản xuất là một lỗi quá nhiều đối với khách hàng tin tưởng giao hệ thống kinh doanh của họ cho chúng tôi.",
+      en: "We do not ship code that has not been reviewed by at least two senior engineers and validated by automated test suites. One bug in production is one too many for the clients who trust us with their business systems.",
+      vi: "Chúng tôi không bàn giao code chưa được ít nhất hai kỹ sư cấp cao rà soát và kiểm chứng bằng bộ kiểm thử tự động. Một lỗi trong môi trường sản xuất là một lỗi quá nhiều đối với khách hàng tin tưởng giao hệ thống kinh doanh của họ cho chúng tôi.",
     },
     color: "text-accent-cyan",
     bgColor: "bg-accent-cyan/10",

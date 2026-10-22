@@ -1,18 +1,17 @@
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { LitDunes } from "@/components/sections/home/LitDunes";
 import { TrustedBy } from "@/components/sections/home/TrustedBy";
-import { STATS } from "@/lib/constants";
 
 /* ------------------------------------------------------------------ */
 /*  Hero — the approved Lit Dunes composition (owner directive        */
 /*  2026-10-22: restore the scene as the central visual identity;     */
 /*  removing it for a Lighthouse score was ruled the wrong            */
 /*  trade-off). Static SSR server component: the dunes are a          */
-/*  client island that idle-arms AFTER first paint, so the H1/CTA/    */
-/*  stats copy still renders with zero client JS on the LCP path.     */
+/*  client island that idle-arms AFTER first paint, so the H1/CTA     */
+/*  copy still renders with zero client JS on the LCP path.           */
 /*                                                                    */
 /*  Restored from 8e10775 (last approved composition): full-bleed     */
 /*  terrain, text scrim, bottom fade, industries chips on the         */
@@ -20,10 +19,15 @@ import { STATS } from "@/lib/constants";
 /*  The former eyebrow line ("Retech Solutions. Custom software       */
 /*  from Ho Chi Minh City.") is removed per the owner copy            */
 /*  directive of the same day.                                        */
+/*                                                                    */
+/*  Owner checkpoint 3 (2026-10-22): the 50+/30+/5+ stat strip is     */
+/*  removed — unverified numbers stop displaying. A proposed          */
+/*  evidence-backed capability line (EN+VI) awaits the Jay gate;      */
+/*  the hero stands on H1 + standfirst + CTAs + industries until      */
+/*  then. Rotating headlines and animated counters stay retired.      */
 /* ------------------------------------------------------------------ */
 export function Hero() {
   const t = useTranslations("home.hero");
-  const locale = useLocale() as "en" | "vi";
 
   return (
     <section
@@ -74,22 +78,6 @@ export function Hero() {
               <Button href="/services" variant="ghost" size="lg" className="w-full sm:w-auto">
                 {t("ctaSecondary")}
               </Button>
-            </div>
-
-            {/* Canonical stats (lib/constants STATS) as a static SSR grid —
-                no counters, no hydration dependency. */}
-            <div className="mt-14 grid max-w-xl grid-cols-3 gap-6 border-t border-rule pt-8 sm:gap-10">
-              {STATS.map((stat) => (
-                <div key={stat.label.en}>
-                  <p className="font-display-title text-4xl leading-none text-foreground md:text-5xl">
-                    {stat.value}
-                    {stat.suffix}
-                  </p>
-                  <p className="mt-2 text-sm tracking-wide text-foreground-muted">
-                    {stat.label[locale]}
-                  </p>
-                </div>
-              ))}
             </div>
           </div>
         </Container>

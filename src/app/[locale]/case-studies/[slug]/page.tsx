@@ -86,7 +86,7 @@ function getChrome(locale: string) {
         viewAllArticles: "View All Articles",
         ctaTitle: "Want Results Like These?",
         ctaBody:
-          "Get a free project estimate within 24 hours. Tell us about your vision and we will map out the right solution, team, and timeline.",
+          "Get a free project estimate. Tell us about your vision and we will map out the right solution, team, and timeline.",
         ctaPrimary: "Get Your Free Estimate",
         ctaSecondary: "All Case Studies",
       }
@@ -126,7 +126,7 @@ function getChrome(locale: string) {
         viewAllArticles: "Xem Tất cả Bài viết",
         ctaTitle: "Muốn Có Kết quả Như Vậy?",
         ctaBody:
-          "Nhận báo giá dự án miễn phí trong vòng 24 giờ. Hãy chia sẻ tầm nhìn của bạn và chúng tôi sẽ đề xuất giải pháp, đội ngũ và lộ trình phù hợp.",
+          "Nhận báo giá dự án miễn phí. Hãy chia sẻ tầm nhìn của bạn và chúng tôi sẽ đề xuất giải pháp, đội ngũ và lộ trình phù hợp.",
         ctaPrimary: "Nhận Báo giá Miễn phí",
         ctaSecondary: "Tất cả Dự án",
       };

@@ -18,28 +18,10 @@ export const CONTACT = {
   businessName: "RETECH SOLUTIONS CO., LTD.",
 } as const;
 
-/**
- * Locale-aware labels — `{en, vi}` so consumers can pick by active locale
- * via `useLocale()` without a message-catalog round-trip. Numeric values
- * stay language-invariant; only the label needs translation.
- */
-export const STATS = [
-  { value: 50, suffix: "+", label: { en: "Projects Delivered", vi: "Dự án Đã bàn giao" } },
-  { value: 30, suffix: "+", label: { en: "Expert Engineers", vi: "Kỹ sư Chuyên môn" } },
-  { value: 5, suffix: "+", label: { en: "Years of Experience", vi: "Năm Kinh nghiệm" } },
-] as const;
-
-/* Owner directive 2026-10-22: unverified satisfaction metrics stay out of
-   promotional UI (evidence register: no measurement basis). STATS_BAR (dead,
-   carried "98% Client Satisfaction") was deleted outright; ABOUT_STATS below
-   omits the satisfaction entry. */
-export const ABOUT_STATS = [
-  { value: 50, suffix: "+", label: "Projects Delivered", icon: "rocket" },
-  { value: 30, suffix: "+", label: "Expert Engineers", icon: "users" },
-  { value: 6, suffix: "", label: "Countries Served", icon: "globe" },
-  { value: 5, suffix: "+", label: "Years of Excellence", icon: "calendar" },
-  { value: 24, suffix: "h", label: "Average Response Time", icon: "clock" },
-] as const;
+/* Owner checkpoint 3 (2026-10-22): the STATS and ABOUT_STATS numeric
+   strips are deleted — unverified counts (50+/30+/5+, 6 countries, 24h)
+   stop displaying everywhere pending a factual basis. The about page now
+   renders a qualitative capability grid instead. */
 
 export const HIGHLIGHTS = [
   {

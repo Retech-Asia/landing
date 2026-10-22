@@ -80,7 +80,7 @@
       "backToTop": "Back to top",
       "rightsReserved": "All rights reserved.",
       "companyTagline": "Custom software development, CMS/CRM/ERP solutions, and AI-powered digital products from Vietnam.",
-      "projectsDelivered": "50+ projects delivered across 6 countries",
+      "projectsDelivered": "Serving operators in mining, finance, and asset management",
       "chatWhatsApp": "Chat on WhatsApp",
       "vietnam": "Vietnam"
     },
@@ -114,19 +114,19 @@
       ]
     },
     "finalCta": {
-      "titleLine1": "Let's Ship Your Product",
-      "titleLine2": "On Time, On Budget",
-      "body": "Get a detailed project plan and estimate within 24 hours. From first call to production deployment, we have done it 50+ times.",
+      "titleLine1": "Let's Build Your Product",
+      "titleLine2": "From First Call to Release",
+      "body": "Tell us what you need to build. You get a scoped project plan with a detailed written estimate, and a delivery process you can inspect from the first sprint.",
       "cta": "Get Your Free Estimate",
       "secondary": "View Our Work",
       "trust": {
         "freeConsult": "Free consultation",
-        "estimate24h": "Estimate within 24 hours",
+        "estimate24h": "Detailed written estimate",
         "noCommit": "No commitment required"
       }
     },
     "proof": {
-      "line": "50+ projects delivered for operators in mining, finance, and asset management.",
+      "line": "Selected work for operators in mining, finance, and asset management.",
       "link": "See selected work"
     },
     "capabilities": {
@@ -475,11 +475,11 @@
     },
     "process": {
       "title": "Development Process",
-      "description": "Our proven methodology refined over 50+ successful projects: discovery, design, build, deploy.",
+      "description": "Our delivery methodology: discovery, design, build, deploy.",
       "chrome": {
         "heroEyebrow": "Methodology",
         "heroTitle": "How We Deliver",
-        "heroLead": "A proven methodology refined over 50+ successful projects, from discovery to launch and beyond.",
+        "heroLead": "Our delivery methodology, from discovery to launch and beyond.",
         "toolsEyebrow": "Tooling",
         "toolsTitle": "Tools We Use",
         "toolsDescription": "We leverage established tools across every stage of the development lifecycle to ensure quality, speed, and transparency.",

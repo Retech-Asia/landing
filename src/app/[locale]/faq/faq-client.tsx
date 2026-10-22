@@ -2,8 +2,8 @@
 
 import { useState, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Search,
+import { Link } from "@/i18n/navigation";
+import {  Search,
   ChevronDown,
   HelpCircle,
   Layers,
@@ -362,12 +362,12 @@ export function FAQClientPage({ categories }: FAQClientPageProps) {
               <p className="text-sm text-foreground-secondary max-w-md mx-auto">
                 Try adjusting your search terms or browse all categories.
                 If you still can&apos;t find what you need, feel free to{" "}
-                <a
+                <Link
                   href="/contact"
                   className="text-brand hover:underline font-medium"
                 >
                   contact our team
-                </a>
+                </Link>
                 .
               </p>
               <button

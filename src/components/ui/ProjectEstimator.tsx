@@ -343,11 +343,11 @@ const STRINGS: Record<"en" | "vi", EstimatorStrings> = {
     startOver: "Start Over",
     thanksTitle: "Thanks, request received",
     thanksBody:
-      "We'll review your project details and reply within 24 hours with a tailored quote.",
+      "We'll review your project details and follow up with a tailored quote.",
     estimateAnother: "Estimate another project",
     leadFormTitle: "Get your detailed quote",
     leadFormBodyPrefix:
-      "We'll send a tailored proposal within 24 hours. Based on:",
+      "We'll send a tailored proposal based on:",
     nameLabel: "Name",
     namePh: "Your name",
     emailLabel: "Email",
@@ -403,11 +403,11 @@ const STRINGS: Record<"en" | "vi", EstimatorStrings> = {
     startOver: "Bắt đầu lại",
     thanksTitle: "Cảm ơn, đã nhận được yêu cầu",
     thanksBody:
-      "Chúng tôi sẽ xem xét chi tiết dự án và phản hồi trong vòng 24 giờ với báo giá phù hợp.",
+      "Chúng tôi sẽ xem xét chi tiết dự án và phản hồi với báo giá phù hợp.",
     estimateAnother: "Ước tính dự án khác",
     leadFormTitle: "Nhận báo giá chi tiết của bạn",
     leadFormBodyPrefix:
-      "Chúng tôi sẽ gửi đề xuất phù hợp trong vòng 24 giờ. Dựa trên:",
+      "Chúng tôi sẽ gửi đề xuất phù hợp dựa trên:",
     nameLabel: "Họ và tên",
     namePh: "Tên của bạn",
     emailLabel: "Email",

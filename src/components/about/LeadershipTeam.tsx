@@ -62,8 +62,8 @@ const teamMembers: TeamMember[] = [
     },
     initials: "TL",
     bio: {
-      en: "Engineering leader who has managed distributed teams of 20+ developers across multiple concurrent projects. Tuan oversees delivery operations, mentors senior engineers, and drives the agile processes that keep Retech's projects on schedule.",
-      vi: "Lãnh đạo kỹ thuật từng quản lý các đội ngũ phân tán hơn 20 kỹ sư qua nhiều dự án song song. Tuan giám sát vận hành bàn giao, đồng hành cùng các kỹ sư cấp cao và thúc đẩy quy trình agile giúp các dự án của Retech luôn đúng tiến độ.",
+      en: "Engineering leader who has managed distributed teams across multiple concurrent projects. Tuan oversees delivery operations, mentors senior engineers, and drives the agile processes that keep Retech's projects on schedule.",
+      vi: "Lãnh đạo kỹ thuật từng quản lý các đội ngũ phân tán qua nhiều dự án song song. Tuan giám sát vận hành bàn giao, đồng hành cùng các kỹ sư cấp cao và thúc đẩy quy trình agile giúp các dự án của Retech luôn đúng tiến độ.",
     },
     gradient: "from-brand via-accent-violet to-accent-cyan",
   },

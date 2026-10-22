@@ -189,7 +189,8 @@ export default async function Image() {
           </div>
         </div>
 
-        {/* Bottom: stat strip + URL */}
+        {/* Bottom: capability line + URL (numeric stat strip removed:
+            unverified counts, incl. a 98% satisfaction figure) */}
         <div
           style={{
             display: "flex",
@@ -201,17 +202,33 @@ export default async function Image() {
           <div
             style={{
               display: "flex",
-              alignItems: "center",
-              gap: 36,
+              flexDirection: "column",
             }}
           >
-            <Stat value="50+" label="Projects" />
-            <Divider />
-            <Stat value="30+" label="Engineers" />
-            <Divider />
-            <Stat value="5+" label="Years" />
-            <Divider />
-            <Stat value="98%" label="Satisfaction" />
+            <div
+              style={{
+                fontSize: 18,
+                fontWeight: 600,
+                color: "#ffffff",
+                letterSpacing: "-0.01em",
+                display: "flex",
+              }}
+            >
+              Full-Cycle Delivery
+            </div>
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 500,
+                color: "rgba(255,255,255,0.5)",
+                letterSpacing: "0.04em",
+                textTransform: "uppercase",
+                marginTop: 4,
+                display: "flex",
+              }}
+            >
+              Business analysis to production release
+            </div>
           </div>
 
           <div
@@ -251,54 +268,5 @@ export default async function Image() {
       </div>
     ),
     { ...size }
-  );
-}
-
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <div
-        style={{
-          fontSize: 32,
-          fontWeight: 700,
-          color: "#ffffff",
-          letterSpacing: "-0.03em",
-          display: "flex",
-        }}
-      >
-        {value}
-      </div>
-      <div
-        style={{
-          fontSize: 13,
-          fontWeight: 500,
-          color: "rgba(255,255,255,0.5)",
-          letterSpacing: "0.04em",
-          textTransform: "uppercase",
-          marginTop: 4,
-          display: "flex",
-        }}
-      >
-        {label}
-      </div>
-    </div>
-  );
-}
-
-function Divider() {
-  return (
-    <div
-      style={{
-        width: 1,
-        height: 36,
-        backgroundColor: "rgba(255,255,255,0.12)",
-        display: "flex",
-      }}
-    />
   );
 }
