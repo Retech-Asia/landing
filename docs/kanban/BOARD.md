@@ -17,6 +17,9 @@ stats removed site-wide; preview-only deployment authorized and verified safe (b
 pushes = Preview env, production = main only). Branch `preview/checkpoint3` pushed;
 preview blocked by Vercel SSO protection (see `docs/release-readiness-2026-10-22.md`
 section 4 for unblock options). RT-14 gate runs on the preview once access exists.
+**RELEASED 2026-10-22:** owner authorized pushing main (`9cf43da..cd0998c`); Vercel
+Production deployment succeeded; new copy verified live on /en and /vi, old stat lines
+gone, VI slugs 200. RT-14 measurement re-targeted at live production.
 
 One file per ticket (`RT-##-*.md`) with Context, AC, Files, Progress log.
 Rule: update BOTH the ticket file and this board row in the same edit.
