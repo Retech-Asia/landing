@@ -13,12 +13,11 @@ existing copy is pending classification, not presumed false. Owner = Vu Pham.
 | Phone +84 769 294 225 (tel links) | `constants.ts` | owner | Is this the intended sales line? |
 | WhatsApp +84 90 642 6802 (wa.me link) | `Footer.tsx:95` | owner | Different number from phone — intentional channel or stale? |
 | Email retechasia@gmail.com (public contact everywhere) | `constants.ts` | owner | Confirm before any move to hello@retech.asia; receiving config unverified |
-| Stats: 50+ projects, 30+ engineers, 5+ years | `constants.ts` STATS (hero) | owner | Cite record or downgrade wording |
-| 98% client satisfaction | `constants.ts` STATS_BAR/ABOUT_STATS | owner | Measurement basis? Recommend removal without basis |
-| 6 countries served | `constants.ts` ABOUT_STATS | owner | List the markets |
-| 24h average response time | `constants.ts` ABOUT_STATS | owner | Basis, or remove |
-| "5+ shipped AI platforms", "LangChain/pgvector/OpenAI/Anthropic in production" | `constants.ts` HIGHLIGHTS | owner | Confirm per-platform; else scope down |
-| "multi-agent orchestration shipped as standard" | `constants.ts` HIGHLIGHTS | remove/rewrite | Marketing absolute; replace with scoped capability wording |
+| Stats: 50+ projects, 30+ engineers, 5+ years | was `constants.ts` STATS + hero strip, ABOUT_STATS, about milestones, FAQ, CultureValues, LeadershipTeam | REMOVE DONE 2026-10-22 (checkpoint 3) | Owner ruled: unverified numbers stop displaying. Hero strip + both stat constants deleted; about numeric grid replaced by capability cards; FAQ/about/bio de-numbered |
+| 98% client satisfaction | was STATS_BAR, FAQ answer, OG image | REMOVE DONE 2026-10-22 | Last two hiding spots (FAQ, OG image) removed; must not return |
+| 6 countries served | was ABOUT_STATS + about milestone + FAQ + footer | REMOVE DONE 2026-10-22 | Footer line rewritten to industries; milestone de-numbered; markets list still wanted from owner for future use |
+| 24h average response time | was ABOUT_STATS + HomeCTA/process/services/contact/estimator copy + FAQ SLA answer | REMOVE DONE 2026-10-22 | Response-time commitments now deferred to per-project SLA wording |
+| "5+ shipped AI platforms", "LangChain/pgvector/OpenAI/Anthropic in production", "multi-agent orchestration shipped as standard" | was `constants.ts` HIGHLIGHTS | REMOVE DONE 2026-10-22 | HIGHLIGHTS had no consumers (dead constant); deleted with its flagged copy |
 
 ## Case studies (5: mining, asset-mgmt, investment-intel, fintech-card, ai-saas)
 

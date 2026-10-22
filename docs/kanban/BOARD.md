@@ -12,6 +12,11 @@ metrics in promotional UI; green brand palette enforced (no #1A1A2E-class surfac
 each gated by RT-17 reconciliation + owner-visible evidence.
 **DEPLOY FREEZE: no production push until the next owner checkpoint** (overrides the
 ship-on-green standing rule for this corrections round; RT-08 lands as a local commit).
+**Checkpoint 3 (2026-10-22, second corrections round):** HomeCTA light decided; hero
+stats removed site-wide; preview-only deployment authorized and verified safe (branch
+pushes = Preview env, production = main only). Branch `preview/checkpoint3` pushed;
+preview blocked by Vercel SSO protection (see `docs/release-readiness-2026-10-22.md`
+section 4 for unblock options). RT-14 gate runs on the preview once access exists.
 
 One file per ticket (`RT-##-*.md`) with Context, AC, Files, Progress log.
 Rule: update BOTH the ticket file and this board row in the same edit.
@@ -32,7 +37,7 @@ Rule: update BOTH the ticket file and this board row in the same edit.
 | RT-11 | P1 | Contact flow + consent-aware instrumentation | RT-01, RT-06 | blocked |
 | RT-12 | P1 | Site-wide SEO/locale/rendering regression pass | RT-03, RT-07-11 | blocked |
 | RT-13 | P1 | Responsive/a11y/performance validation | RT-07-12 | blocked |
-| RT-14 | P1 | Vercel preview + release package | RT-13 | blocked |
+| RT-14 | P1 | Vercel preview + release package | RT-13 | Preview branch `preview/checkpoint3` deployed (36db777, Preview env verified, production untouched). BLOCKED: Vercel SSO deployment protection blocks external measurement; owner to unblock (bypass secret or public preview). Local production-build measurements recorded in `docs/release-readiness-2026-10-22.md` |
 | RT-15 | P2 | Identity reconciliation (owner-executed) | RT-02 | owner items open |
 | RT-16 | P2 | Editorial queue + measurement baseline | RT-01, RT-04 | blocked |
 | RT-17 | P0 | Owner corrections: reconciliation audit (hero/copy/metrics/palette/process/images) | — | DONE 2026-10-22 (`docs/rt17-reconciliation-2026-10-22.md`) |

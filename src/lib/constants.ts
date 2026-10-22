@@ -21,27 +21,6 @@ export const CONTACT = {
 /* Owner checkpoint 3 (2026-10-22): the STATS and ABOUT_STATS numeric
    strips are deleted — unverified counts (50+/30+/5+, 6 countries, 24h)
    stop displaying everywhere pending a factual basis. The about page now
-   renders a qualitative capability grid instead. */
-
-export const HIGHLIGHTS = [
-  {
-    iconKey: "brain",
-    title: "AI-Integrated Engineering",
-    description: "RAG, vector search, LLM features, and multi-agent orchestration shipped as standard. AI is part of how we build, not a separate SKU.",
-  },
-  {
-    iconKey: "zap",
-    title: "Agile Methodologies",
-    description: "Iterative development with continuous feedback, ensuring rapid delivery and alignment with your business goals.",
-  },
-  {
-    iconKey: "brain",
-    title: "AI-Driven Solutions",
-    description: "Integrated AI capabilities across CMS, CRM, and ERP platforms, from automated content tagging and predictive analytics to intelligent workflow automation.",
-  },
-  {
-    iconKey: "code",
-    title: "Production AI Expertise",
-    description: "LangChain, pgvector, OpenAI, and Anthropic in production across 5+ shipped platforms. We have built the RAG pipelines, query routers, and agent systems you are planning.",
-  },
-] as const;
+   renders a qualitative capability grid instead. HIGHLIGHTS (unused,
+   carried the flagged "shipped as standard" and "5+ shipped platforms"
+   copy) is deleted in the same round; recoverable from git history. */
