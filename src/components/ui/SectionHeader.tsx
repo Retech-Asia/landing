@@ -27,7 +27,7 @@ export function SectionHeader({
   if (number) {
     return (
       <div className={cn("grid grid-cols-1 md:grid-cols-[180px_1fr] gap-4 md:gap-10 mb-12 md:mb-16", className)}>
-        <p className="font-display text-brand text-base pt-2" aria-hidden="true">
+        <p className="font-display text-foreground text-base pt-2" aria-hidden="true">
           <span className="font-semibold">{number}</span>
           {label ? <span className="text-foreground-muted"> {label}</span> : null}
         </p>

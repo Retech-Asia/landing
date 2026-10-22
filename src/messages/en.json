@@ -85,22 +85,13 @@
   },
   "home": {
     "hero": {
-      "seoH1": "Retech Solutions | Vietnam Software Development & IT Outsourcing",
-      "taglinePre": "Turning Ideas",
-      "taglineInto": "into",
-      "taglineAccent": "Solutions",
-      "subheadLead": "We build",
-      "subheadTrail": "your business can rely on.",
-      "mutedLine": "AI-integrated engineering for web, mobile, and cloud products. Shipped from Vietnam to teams worldwide.",
+      "eyebrow": "Retech Solutions. Custom software from Ho Chi Minh City.",
+      "h1Pre": "Turning Ideas",
+      "h1Into": "into",
+      "h1Accent": "Solutions",
+      "standfirst": "Full-cycle software development: business analysis, design, and deployment, with custom CRM and business systems at the core. Shipped from Vietnam to teams worldwide.",
       "ctaPrimary": "Get Free Consultation",
-      "ctaSecondary": "Explore Services",
-      "rotatingServices": [
-        "CMS platforms",
-        "CRM systems",
-        "ERP solutions",
-        "AI products",
-        "web apps"
-      ]
+      "ctaSecondary": "Explore Services"
     },
     "trustedBy": {
       "title": "Serving industries worldwide",
@@ -115,96 +106,6 @@
         "Manufacturing"
       ]
     },
-    "servicesPreview": {
-      "label": "Our Services",
-      "title": "What We Build",
-      "subtitle": "Custom software with AI built in: RAG search, LLM features, and intelligent automation shipped inside every CMS, CRM, and ERP we deliver.",
-      "learnMore": "Learn more",
-      "exploreAll": "Explore all services"
-    },
-    "ourWork": {
-      "title": "Proof of work",
-      "subtitle": "Real projects, measurable outcomes",
-      "tagline": "The kind of work we'd rather show than tell.",
-      "viewAll": "View all case studies",
-      "readMore": "Read case study"
-    },
-    "midCta": {
-      "eyebrow": "Free Consultation",
-      "title": "Not Sure Where AI Fits?",
-      "body": "Book a free 30-minute consultation with our technical lead. We will map out the right approach, tech stack, AI opportunity surface, and timeline. No strings attached.",
-      "cta": "Get Free Consultation",
-      "secondary": "See Our Work"
-    },
-    "whyRetech": {
-      "label": "Why Retech",
-      "title": "Why Companies Choose Us",
-      "description": "Engineering teams that ship CMS, CRM, ERP, and AI-native products end to end. RAG search, LLM features, and multi-agent orchestration are standard delivery surfaces, not bolt-ons.",
-      "items": {
-        "aiEngineering": {
-          "title": "AI-Integrated Engineering",
-          "description": "RAG, vector search, LLM features, and multi-agent orchestration shipped as standard. AI is part of how we build, not a separate SKU."
-        },
-        "agile": {
-          "title": "Agile Methodologies",
-          "description": "Iterative development with continuous feedback, ensuring rapid delivery and alignment with your business goals."
-        },
-        "aiSolutions": {
-          "title": "AI-Driven Solutions",
-          "description": "Integrated AI capabilities across CMS, CRM, and ERP platforms, from automated content tagging and predictive analytics to intelligent workflow automation."
-        },
-        "productionAi": {
-          "title": "Production AI Expertise",
-          "description": "LangChain, pgvector, OpenAI, and Anthropic in production across 5+ shipped platforms. We have built the RAG pipelines, query routers, and agent systems you are planning."
-        }
-      },
-      "learnMore": "Learn more about Retech Solutions"
-    },
-    "whyVietnam": {
-      "label": "Why Vietnam",
-      "title": "A Strategic Outsourcing Destination",
-      "description": "Vietnam IT outsourcing combines deep STEM talent, cost efficiency, and timezone overlap with APAC and EU, making it a competitive offshore software development destination within ASEAN.",
-      "advantages": {
-        "cost": {
-          "title": "Cost Effective",
-          "description": "Save 40-60% compared to Western markets without compromising on quality or expertise."
-        },
-        "talent": {
-          "title": "Talented Workforce",
-          "description": "Over 50,000 IT graduates annually, with strong STEM foundations and competitive technical skills."
-        },
-        "timezone": {
-          "title": "Timezone Advantage",
-          "description": "GMT+7 timezone overlaps with both APAC and European business hours, keeping daily syncs practical."
-        },
-        "cultural": {
-          "title": "Cultural Compatibility",
-          "description": "Strong English proficiency and familiarity with Western business practices and communication styles."
-        },
-        "government": {
-          "title": "Government Support",
-          "description": "Favorable tax policies for IT outsourcing and a rapidly growing tech ecosystem backed by national strategy."
-        },
-        "scalable": {
-          "title": "Scalable Teams",
-          "description": "Quickly scale your development team up or down based on project needs and business demands."
-        }
-      },
-      "stats": {
-        "graduates": "IT Graduates/Year",
-        "savings": "Cost Savings vs. West",
-        "timezone": "Timezone (overlaps EU mornings)",
-        "asean": "ASEAN Neighbor Markets"
-      },
-      "imageAlt": "Ho Chi Minh City: Vietnam's tech and business hub",
-      "imageCaption": "Ho Chi Minh City, home to Vietnam's tech talent"
-    },
-    "techStack": {
-      "label": "Tech Stack",
-      "title": "Our Technology Stack",
-      "description": "Modern, proven technologies across the stack. AI engineering runs on LangChain, pgvector, and the OpenAI and Anthropic APIs.",
-      "explore": "Explore our tech stack"
-    },
     "finalCta": {
       "titleLine1": "Let's Ship Your Product",
       "titleLine2": "On Time, On Budget",
@@ -217,43 +118,144 @@
         "noCommit": "No commitment required"
       }
     },
-    "faq": {
-      "title": "Frequently asked questions",
-      "subtitle": "The questions we hear most often from founders and engineering leaders evaluating Retech.",
-      "items": {
-        "q1": {
-          "q": "What services does Retech Solutions offer?",
-          "a": "We offer full-cycle software development services including custom web and mobile applications, CMS platforms (WordPress, Strapi, Webflow), CRM solutions (Salesforce, HubSpot integrations), ERP systems, AI-powered products, and dedicated development team services. Our expertise spans the entire lifecycle from business analysis and UI/UX design through development, testing, and deployment."
-        },
-        "q2": {
-          "q": "How does the dedicated team model work?",
-          "a": "Our dedicated team model provides you with a fully integrated extension of your in-house team. We assemble developers, designers, and project managers based on your tech stack and project requirements. The team works exclusively on your project, follows your processes, and reports directly to you. You retain full control over priorities and sprint planning while we handle recruitment, infrastructure, and HR."
-        },
-        "q3": {
-          "q": "What technologies do you specialize in?",
-          "a": "We work with a modern tech stack including React, Next.js, Vue.js, Node.js, Python, and TypeScript on the frontend and backend. For mobile, we use React Native and Flutter. Our CMS expertise covers WordPress, Strapi, and headless CMS architectures. We also have strong experience with cloud platforms (AWS, GCP, Azure), and we integrate AI/ML capabilities using frameworks like TensorFlow and OpenAI APIs."
-        },
-        "q4": {
-          "q": "How do you handle communication and project management?",
-          "a": "We use agile methodologies with regular sprint planning, daily standups, and retrospectives. Communication happens through your preferred channels: Slack, Microsoft Teams, or Zoom. You receive weekly progress reports and have direct access to the project manager and development team. We also use tools like Jira, Linear, or Notion for transparent task tracking, so you always know the status of your project."
-        },
-        "q5": {
-          "q": "What are your pricing models?",
-          "a": "We offer three flexible pricing models: (1) Fixed Price, ideal for projects with well-defined scope and requirements, giving you cost certainty upfront. (2) Time & Materials, best for evolving projects where flexibility is needed, billed hourly based on actual work. (3) Dedicated Team, a monthly retainer for ongoing collaboration with a dedicated team. We recommend the best model based on your project scope and business objectives during our initial consultation."
-        }
-      }
+    "proof": {
+      "line": "50+ projects delivered for operators in mining, finance, and asset management.",
+      "link": "See selected work"
     },
-    "clientResults": {
-      "results": {
-        "label": "Client Results",
-        "title": "Numbers That Speak for Themselves",
-        "metrics": {
-          "onTime": "Projects Delivered On Time",
-          "satisfaction": "Client Satisfaction",
-          "responseTime": "Average Response Time",
-          "markets": "Markets Served"
+    "capabilities": {
+      "label": "Capabilities",
+      "h2": "Custom CRM and business systems come first, because that is where most operations break.",
+      "lede": "Around that core: web, mobile, and desktop engineering, applied AI, and IT consulting.",
+      "featured": {
+        "title": "Custom CRM and business systems",
+        "what": "CRMs and internal systems shaped around your workflow: roles and permissions, pipelines, integrations with the tools you already run, and migration from spreadsheets or legacy software.",
+        "fits": "Fits operators whose off-the-shelf CRM forces their process into someone else's template.",
+        "scope": [
+          {
+            "label": "Workflow fit",
+            "text": "Modeled on how your team actually operates."
+          },
+          {
+            "label": "Roles and permissions",
+            "text": "Admin, staff, and client views."
+          },
+          {
+            "label": "Integrations",
+            "text": "Email, payments, telephony, your data."
+          },
+          {
+            "label": "Migration",
+            "text": "From spreadsheets or a legacy system."
+          }
+        ]
+      },
+      "rows": [
+        {
+          "title": "Web applications",
+          "what": "Customer-facing portals and internal platforms built on Next.js with typed APIs.",
+          "fits": "Fits teams that need a dependable web product their customers use daily."
+        },
+        {
+          "title": "Mobile apps",
+          "what": "iOS and Android applications from a shared codebase, from booking flows to field tools.",
+          "fits": "Fits products where the customer is on a phone, not at a desk."
+        },
+        {
+          "title": "Desktop applications",
+          "what": "Desktop software for Windows and macOS when the work needs more than a browser tab.",
+          "fits": "Fits operations with local hardware, large files, or offline work."
+        },
+        {
+          "title": "Applied AI",
+          "what": "AI features added where the use case justifies them: document intelligence, assistants, analysis pipelines.",
+          "fits": "Fits teams with real data and a measurable task, not a demo."
+        },
+        {
+          "title": "IT consulting",
+          "what": "Architecture reviews, technical due diligence, and roadmap planning before you commit to a build.",
+          "fits": "Fits leaders who need an independent read before spending."
         }
-      }
+      ]
+    },
+    "work": {
+      "label": "Selected work",
+      "h2": "Five systems, five operators, one standard of delivery.",
+      "lede": "Each case study names the problem, our scope and responsibility, the solution, and the outcome.",
+      "viewAll": "Browse all case studies"
+    },
+    "delivery": {
+      "label": "Delivery and quality",
+      "h2": "A delivery process you can inspect at every step.",
+      "lede": "No fixed-duration promises. The phases are fixed; the clock depends on scope.",
+      "seesLabel": "You see:",
+      "steps": [
+        {
+          "title": "Discovery",
+          "what": "We map your workflow, roles, systems, and constraints with the people who use them.",
+          "sees": "a written scope and architecture proposal."
+        },
+        {
+          "title": "UX and architecture",
+          "what": "Screens, data models, and integration plans are agreed before implementation starts.",
+          "sees": "clickable flows and a technical design."
+        },
+        {
+          "title": "Incremental delivery",
+          "what": "The system ships in reviewed increments you can open and test, not a single reveal.",
+          "sees": "a working build each cycle."
+        },
+        {
+          "title": "Acceptance",
+          "what": "Each phase closes against agreed acceptance criteria with your team testing hands-on.",
+          "sees": "a signed acceptance per phase."
+        },
+        {
+          "title": "Launch",
+          "what": "Staged rollout with data migration, monitoring, and your team trained on the real system.",
+          "sees": "production live, with runbooks."
+        },
+        {
+          "title": "Handover",
+          "what": "Documentation, access, and source code are yours. Ongoing engineering is optional, not a lock-in.",
+          "sees": "a complete handover package."
+        }
+      ]
+    },
+    "ai": {
+      "label": "Our approach to AI",
+      "h2": "Two separate questions: how we build, and what goes in your product.",
+      "blocks": [
+        {
+          "title": "How we build with AI",
+          "body": "Our engineers use AI tooling to accelerate implementation. Every line that ships is reviewed and owned by an engineer whose name is on the delivery.",
+          "note": "AI assists the build. It does not replace accountability."
+        },
+        {
+          "title": "AI inside your product",
+          "body": "We add AI features when the use case justifies them: the task is measurable, your data is ready, and the operating cost is understood before anyone writes a prompt.",
+          "note": "No AI for its own sake. Some products are better without it."
+        }
+      ]
+    },
+    "engagement": {
+      "label": "Engagement and cost",
+      "h2": "Three ways to work with us. Costs quoted per scope, never guessed.",
+      "rows": [
+        {
+          "title": "Discovery",
+          "body": "A scoped engagement that maps requirements, architecture, and a delivery plan before you commit to a build."
+        },
+        {
+          "title": "Scoped project",
+          "body": "A fixed-scope build with defined phases, acceptance criteria, and a delivery timeline you can hold us to."
+        },
+        {
+          "title": "Ongoing engineering",
+          "body": "A dedicated team shipping increments against a prioritized backlog, month after month."
+        }
+      ],
+      "driversTitle": "What drives cost",
+      "drivers": "Scope, the number of platforms, integrations with existing systems, roles and permissions complexity, and third-party costs (infrastructure, licenses, model APIs). We quote against these factors after discovery, so the number reflects your system rather than a rate card."
     }
   },
   "homepage": {

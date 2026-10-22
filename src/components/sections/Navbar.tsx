@@ -214,6 +214,13 @@ export function Navbar() {
   useEffect(() => {
     if (isMobileOpen) {
       document.documentElement.dataset.scrollLocked = "true";
+      // Move focus into the dialog when it opens (RT-07 a11y fix).
+      // Keyboard users land inside the menu instead of staying on the
+      // toggle behind the modal; Escape still returns focus to the toggle.
+      // Deferred one frame: AnimatePresence mounts the panel a beat after
+      // the state commit, so the ref is null at effect time.
+      const raf = requestAnimationFrame(() => mobileMenuRef.current?.focus());
+      return () => cancelAnimationFrame(raf);
     } else {
       delete document.documentElement.dataset.scrollLocked;
     }
@@ -496,6 +503,7 @@ export function Navbar() {
               role="dialog"
               aria-modal="true"
               aria-label="Mobile navigation menu"
+              tabIndex={-1}
               variants={mobilePanelVariants}
               initial="hidden"
               animate="visible"

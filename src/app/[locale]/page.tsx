@@ -1,33 +1,31 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/home/Hero";
+import { ProofStrip } from "@/components/sections/home/ProofStrip";
 import { WebPageJsonLd } from "@/components/seo/JsonLd";
 import { SectionFallback, CompactSectionFallback } from "@/components/ui/Skeleton";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 
-// Below-fold sections: lazy-loaded to reduce initial JS bundle
-const OurWork = dynamic(
-  () => import("@/components/sections/home/OurWork").then((m) => m.OurWork),
-  { loading: () => <SectionFallback /> },
-);
+// Below-fold sections: lazy-loaded to reduce initial JS bundle.
+// All are static server components in the Direction B design (RT-08).
 const ServicePreview = dynamic(
   () => import("@/components/sections/home/ServicePreview").then((m) => m.ServicePreview),
   { loading: () => <SectionFallback /> },
 );
-const MidPageCTA = dynamic(
-  () => import("@/components/sections/home/MidPageCTA").then((m) => m.MidPageCTA),
-  { loading: () => <CompactSectionFallback /> },
-);
-const WhyRetech = dynamic(
-  () => import("@/components/sections/home/WhyRetech").then((m) => m.WhyRetech),
+const OurWork = dynamic(
+  () => import("@/components/sections/home/OurWork").then((m) => m.OurWork),
   { loading: () => <SectionFallback /> },
 );
-const TechStack = dynamic(
-  () => import("@/components/sections/home/TechStack").then((m) => m.TechStack),
+const DeliverySection = dynamic(
+  () => import("@/components/sections/home/DeliverySection").then((m) => m.DeliverySection),
+  { loading: () => <SectionFallback /> },
+);
+const AiApproach = dynamic(
+  () => import("@/components/sections/home/AiApproach").then((m) => m.AiApproach),
   { loading: () => <CompactSectionFallback /> },
 );
-const ClientResults = dynamic(
-  () => import("@/components/sections/home/ClientResults").then((m) => m.ClientResults),
-  { loading: () => <CompactSectionFallback /> },
+const Engagement = dynamic(
+  () => import("@/components/sections/home/Engagement").then((m) => m.Engagement),
+  { loading: () => <SectionFallback /> },
 );
 const HomeCTA = dynamic(
   () => import("@/components/sections/home/HomeCTA").then((m) => m.HomeCTA),
@@ -43,6 +41,13 @@ const HomeCTA = dynamic(
 // - HomeFAQ (competitors put FAQ at /faq, not homepage)
 // - Team collaboration photo (filler, no competitor does this)
 // - ScrollReveal wrappers (double animation)
+//
+// Retired from the homepage in the RT-04/B editorial redesign
+// (2026-10-22): WhyRetech, TechStack, ClientResults, MidPageCTA. Their
+// component files and message namespaces are deleted in the same round
+// (recoverable from git history). The Direction B sections
+// (capabilities, selected work, delivery, AI approach, engagement) and
+// the dark ink closing band replace them.
 //
 // FAQ schema also removed (2026-10-22): schema-only FAQ answers with no
 // visible FAQ section misrepresent the page. Homepage FAQ placement is an
@@ -66,34 +71,37 @@ export default async function HomePage({
         url="https://www.retech.asia"
       />
 
-      {/* 1. Hero — full-viewport composition: copy + CTAs + stats +
+      {/* 1. Hero - full-viewport composition: copy + CTAs + stats +
           industries strip on the dune canvas (TrustedBy renders inside
           the Hero section now, not as a standalone band) */}
       <Hero />
 
-      {/* 2. ServicePreview — what we do (bento: 2 featured + 4 standard) */}
+      {/* 2. ProofStrip - one-line proof band under the hero; links to
+          the selected-work anchor (#work on OurWork). Small enough to
+          load statically with the page shell. */}
+      <ProofStrip />
+
+      {/* 3. ServicePreview - capabilities: featured CRM block + ruled
+          index of five capabilities (RT-08 section 01) */}
       <ServicePreview />
 
-      {/* 3. OurWork — results-forward case tiles (image + before/after
-          outcome + supporting results, per case-studies-data).
-          Same bg-background-subtle canvas as ServicePreview: one
-          continuous band, no divider between them. */}
+      {/* 4. OurWork - selected work: the five case studies as a ruled
+          editorial index (RT-08 section 02); carries the #work anchor */}
       <OurWork />
 
-      {/* 4. MidPageCTA */}
-      <MidPageCTA />
+      {/* 5. DeliverySection - six-phase delivery checklist with the
+          artifact each phase produces (RT-08 section 03) */}
+      <DeliverySection />
 
-      {/* 5. WhyRetech — differentiators + the Vietnam story in one split
-          section (merged from the former WhyRetech + WhyVietnam) */}
-      <WhyRetech />
+      {/* 6. AiApproach - two lettered blocks: building with AI vs AI in
+          the product (RT-08 section 04) */}
+      <AiApproach />
 
-      {/* 6. TechStack — compact logo cloud, links to /technologies */}
-      <TechStack />
+      {/* 7. Engagement - three engagement shapes + cost drivers
+          (RT-08 section 05) */}
+      <Engagement />
 
-      {/* 7. ClientResults — metrics strip before the final CTA */}
-      <ClientResults />
-
-      {/* 8. HomeCTA — final conversion */}
+      {/* 8. HomeCTA - closing contact band on dark ink (RT-08) */}
       <HomeCTA />
     </>
   );

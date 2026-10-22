@@ -85,22 +85,13 @@
   },
   "home": {
     "hero": {
-      "seoH1": "Retech Solutions | Phát triển Phần mềm & Gia công IT tại Việt Nam",
-      "taglinePre": "Biến Ý tưởng",
-      "taglineInto": "thành",
-      "taglineAccent": "Giải pháp",
-      "subheadLead": "Chúng tôi xây dựng",
-      "subheadTrail": "mà doanh nghiệp của bạn có thể tin tưởng.",
-      "mutedLine": "Kỹ thuật tích hợp AI cho sản phẩm web, di động và cloud. Bàn giao từ Việt Nam đến các đội ngũ trên toàn cầu.",
+      "eyebrow": "Retech Solutions. Phần mềm tùy chỉnh từ TP. Hồ Chí Minh.",
+      "h1Pre": "Biến Ý tưởng",
+      "h1Into": "thành",
+      "h1Accent": "Giải pháp",
+      "standfirst": "Phát triển phần mềm toàn trình: phân tích nghiệp vụ, thiết kế và triển khai, với CRM và hệ thống quản lý doanh nghiệp tùy chỉnh làm cốt lõi. Bàn giao từ Việt Nam đến các đội ngũ trên toàn cầu.",
       "ctaPrimary": "Tư vấn Miễn phí",
-      "ctaSecondary": "Xem Dịch vụ",
-      "rotatingServices": [
-        "nền tảng CMS",
-        "hệ thống CRM",
-        "giải pháp ERP",
-        "sản phẩm AI",
-        "ứng dụng web"
-      ]
+      "ctaSecondary": "Xem Dịch vụ"
     },
     "trustedBy": {
       "title": "Phục vụ ngành nghề toàn cầu",
@@ -115,96 +106,6 @@
         "Sản xuất"
       ]
     },
-    "servicesPreview": {
-      "label": "Dịch vụ",
-      "title": "Chúng tôi Xây dựng Gì",
-      "subtitle": "Phần mềm theo yêu cầu với AI tích hợp sẵn: RAG search, tính năng LLM và tự động hóa thông minh trong từng CMS, CRM, ERP chúng tôi bàn giao.",
-      "learnMore": "Tìm hiểu thêm",
-      "exploreAll": "Xem tất cả dịch vụ"
-    },
-    "ourWork": {
-      "title": "Kết quả thực tế",
-      "subtitle": "Dự án thực tế, kết quả đo lường được",
-      "tagline": "Chúng tôi thích minh bạch bằng con số hơn là lời hứa.",
-      "viewAll": "Xem tất cả dự án",
-      "readMore": "Xem case study"
-    },
-    "midCta": {
-      "eyebrow": "Tư vấn Miễn phí",
-      "title": "Chưa rõ nơi AI phát huy hiệu lực?",
-      "body": "Đặt tư vấn miễn phí 30 phút với trưởng nhóm kỹ thuật. Chúng tôi sẽ phác đồ hướng tiếp cận, tech stack, phạm vi cơ hội AI và timeline phù hợp. Không ràng buộc.",
-      "cta": "Tư vấn Miễn phí",
-      "secondary": "Xem Dự án"
-    },
-    "whyRetech": {
-      "label": "Vì sao chọn Retech",
-      "title": "Vì sao doanh nghiệp chọn chúng tôi",
-      "description": "Đội ngũ kỹ sư bàn giao trọn vẹn các sản phẩm CMS, CRM, ERP và nền tảng AI. Tìm kiếm RAG, tính năng LLM và điều phối multi-agent là mặt bằng bàn giao tiêu chuẩn, không phải phần ghép thêm.",
-      "items": {
-        "aiEngineering": {
-          "title": "Kỹ thuật tích hợp AI",
-          "description": "RAG, tìm kiếm vector, tính năng LLM và điều phối multi-agent được bàn giao theo tiêu chuẩn. AI là một phần trong cách chúng tôi xây dựng sản phẩm, không phải một dịch vụ riêng biệt."
-        },
-        "agile": {
-          "title": "Phương pháp Agile",
-          "description": "Phát triển lặp với phản hồi liên tục, đảm bảo tiến độ giao nhanh và bám sát mục tiêu kinh doanh của bạn."
-        },
-        "aiSolutions": {
-          "title": "Giải pháp ứng dụng AI",
-          "description": "Khả năng AI tích hợp trên các nền tảng CMS, CRM và ERP, từ gắn nhãn nội dung tự động và phân tích dự đoán đến tự động hóa quy trình thông minh."
-        },
-        "productionAi": {
-          "title": "Kinh nghiệm AI trong môi trường production",
-          "description": "LangChain, pgvector, OpenAI và Anthropic đã vận hành trên hơn 5 nền tảng được bàn giao. Chúng tôi đã xây dựng những pipeline RAG, query router và hệ thống agent mà bạn đang lên kế hoạch."
-        }
-      },
-      "learnMore": "Tìm hiểu thêm về Retech Solutions"
-    },
-    "whyVietnam": {
-      "label": "Vì sao chọn Việt Nam",
-      "title": "Điểm đến gia công mang tính chiến lược",
-      "description": "Gia công IT tại Việt Nam kết hợp nguồn nhân lực STEM vững mạnh, hiệu quả chi phí và chồng lệch múi giờ với APAC và EU, trở thành điểm đến phát triển phần mềm offshore cạnh tranh trong khối ASEAN.",
-      "advantages": {
-        "cost": {
-          "title": "Hiệu quả chi phí",
-          "description": "Tiết kiệm 40-60% so với các thị trường phương Tây mà không phải đánh đổi chất lượng hay chuyên môn."
-        },
-        "talent": {
-          "title": "Nguồn nhân lực chất lượng",
-          "description": "Hơn 50.000 kỹ sư IT tốt nghiệp mỗi năm, với nền tảng STEM vững chắc và kỹ năng kỹ thuật cạnh tranh."
-        },
-        "timezone": {
-          "title": "Lợi thế múi giờ",
-          "description": "Múi giờ GMT+7 chồng lệch với giờ làm việc của cả APAC và châu Âu, giúp các buổi đồng bộ hằng ngày thuận tiện."
-        },
-        "cultural": {
-          "title": "Tương thích văn hóa",
-          "description": "Khả năng tiếng Anh tốt và am hiểu cách làm việc, phong cách giao tiếp theo thông lệ phương Tây."
-        },
-        "government": {
-          "title": "Hỗ trợ từ chính phủ",
-          "description": "Chính sách thuế thuận lợi cho gia công IT và hệ sinh thái công nghệ tăng trưởng nhanh, được hậu thuẫn bởi chiến lược quốc gia."
-        },
-        "scalable": {
-          "title": "Đội ngũ mở rộng linh hoạt",
-          "description": "Mở rộng hoặc thu hẹp đội ngũ phát triển nhanh chóng theo nhu cầu dự án và yêu cầu kinh doanh."
-        }
-      },
-      "stats": {
-        "graduates": "Kỹ sư IT tốt nghiệp/năm",
-        "savings": "Tiết kiệm chi phí so với phương Tây",
-        "timezone": "Múi giờ (chồng lệch giờ sáng EU)",
-        "asean": "Thị trường láng giềng ASEAN"
-      },
-      "imageAlt": "Thành phố Hồ Chí Minh: trung tâm công nghệ và kinh doanh của Việt Nam",
-      "imageCaption": "Thành phố Hồ Chí Minh, nơi hội tụ nguồn nhân lực công nghệ của Việt Nam"
-    },
-    "techStack": {
-      "label": "Stack công nghệ",
-      "title": "Stack công nghệ của chúng tôi",
-      "description": "Các công nghệ hiện đại, đã được kiểm chứng trên toàn bộ hệ thống. Kỹ thuật AI vận hành trên LangChain, pgvector và API của OpenAI, Anthropic.",
-      "explore": "Khám phá tech stack"
-    },
     "finalCta": {
       "titleLine1": "Hãy Bàn giao Sản phẩm của Bạn",
       "titleLine2": "Đúng Hạn, Đúng Ngân sách",
@@ -217,43 +118,144 @@
         "noCommit": "Không ràng buộc"
       }
     },
-    "faq": {
-      "title": "Câu hỏi thường gặp",
-      "subtitle": "Những câu hỏi chúng tôi nhận được nhiều nhất từ các founder và lãnh đạo kỹ thuật khi đánh giá Retech.",
-      "items": {
-        "q1": {
-          "q": "Retech Solutions cung cấp những dịch vụ gì?",
-          "a": "Chúng tôi cung cấp dịch vụ phát triển phần mềm toàn vòng đời, bao gồm ứng dụng web và di động theo yêu cầu, nền tảng CMS (WordPress, Strapi, Webflow), giải pháp CRM (tích hợp Salesforce, HubSpot), hệ thống ERP, sản phẩm tích hợp AI và dịch vụ đội ngũ phát triển chuyên trách. Chuyên môn của chúng tôi trải dài từ phân tích nghiệp vụ và thiết kế UI/UX đến phát triển, kiểm thử và triển khai."
-        },
-        "q2": {
-          "q": "Mô hình đội ngũ chuyên trách hoạt động như thế nào?",
-          "a": "Mô hình đội ngũ chuyên trách cung cấp cho bạn một phần mở rộng hoàn toàn tích hợp của đội nội bộ. Chúng tôi tổ chức đội gồm các lập trình viên, nhà thiết kế và quản lý dự án dựa trên tech stack và yêu cầu dự án của bạn. Đội làm việc độc quyền cho dự án của bạn, tuân theo quy trình của bạn và báo cáo trực tiếp cho bạn. Bạn giữ toàn quyền kiểm soát ưu tiên và lập kế hoạch sprint, trong khi chúng tôi đảm nhiệm tuyển dụng, hạ tầng và nhân sự."
-        },
-        "q3": {
-          "q": "Bạn chuyên về những công nghệ gì?",
-          "a": "Chúng tôi làm việc với tech stack hiện đại bao gồm React, Next.js, Vue.js, Node.js, Python và TypeScript ở frontend và backend. Về mobile, chúng tôi sử dụng React Native và Flutter. Chuyên môn CMS của chúng tôi bao gồm WordPress, Strapi và kiến trúc headless CMS. Chúng tôi cũng có kinh nghiệm mạnh với các nền tảng cloud (AWS, GCP, Azure) và tích hợp khả năng AI/ML sử dụng các framework như TensorFlow và OpenAI APIs."
-        },
-        "q4": {
-          "q": "Bạn xử lý giao tiếp và quản lý dự án như thế nào?",
-          "a": "Chúng tôi sử dụng phương pháp agile với lập kế hoạch sprint định kỳ, standup hàng ngày và retrospective. Giao tiếp diễn ra qua kênh bạn ưu tiên: Slack, Microsoft Teams hoặc Zoom. Bạn nhận được báo cáo tiến độ hàng tuần và có quyền truy cập trực tiếp đến quản lý dự án và đội phát triển. Chúng tôi cũng sử dụng các công cụ như Jira, Linear hoặc Notion để theo dõi nhiệm vụ minh bạch, để bạn luôn biết trạng thái dự án."
-        },
-        "q5": {
-          "q": "Mô hình giá của bạn là gì?",
-          "a": "Chúng tôi cung cấp ba mô hình giá linh hoạt: (1) Giá cố định, phù hợp cho các dự án có phạm vi và yêu cầu được xác định rõ, mang lại sự chắc chắn về chi phí từ đầu. (2) Thời gian & Vật tư, phù hợp nhất cho các dự án đang tiến hóa cần sự linh hoạt, tính phí theo giờ dựa trên công việc thực tế. (3) Đội ngũ Chuyên trách, phí cố định hàng tháng cho hợp tác liên tục với một đội chuyên trách. Chúng tôi đề xuất mô hình phù hợp dựa trên phạm vi dự án và mục tiêu kinh doanh của bạn trong buổi tư vấn ban đầu."
-        }
-      }
+    "proof": {
+      "line": "Hơn 50 dự án bàn giao cho doanh nghiệp trong khai thác mỏ, tài chính và quản lý tài sản.",
+      "link": "Xem dự án tiêu biểu"
     },
-    "clientResults": {
-      "results": {
-        "label": "Kết quả với khách hàng",
-        "title": "Những con số tự chứng minh",
-        "metrics": {
-          "onTime": "Dự án bàn giao đúng hạn",
-          "satisfaction": "Mức độ Hài lòng của Khách hàng",
-          "responseTime": "Thời gian phản hồi trung bình",
-          "markets": "Thị trường đã phục vụ"
+    "capabilities": {
+      "label": "Năng lực",
+      "h2": "Chúng tôi đặt CRM và hệ thống quản lý doanh nghiệp tùy chỉnh lên trước, vì đó là nơi quy trình vận hành dễ gặp nghẽn nhất.",
+      "lede": "Xoay quanh lõi đó: kỹ thuật web, mobile, desktop, AI ứng dụng và tư vấn IT.",
+      "featured": {
+        "title": "CRM và hệ thống quản lý doanh nghiệp tùy chỉnh",
+        "what": "CRM và hệ thống nội bộ được thiết kế theo đúng quy trình của bạn: phân quyền vai trò, pipeline, tích hợp với các công cụ đang dùng và di chuyển dữ liệu từ bảng tính hoặc phần mềm cũ.",
+        "fits": "Phù hợp với doanh nghiệp mà phần mềm CRM đóng gói sẵn buộc phải vận hành theo khuôn mẫu của người khác.",
+        "scope": [
+          {
+            "label": "Phù hợp quy trình",
+            "text": "Thiết kế theo cách đội ngũ của bạn thực sự vận hành."
+          },
+          {
+            "label": "Phân quyền",
+            "text": "Góc nhìn quản trị, nhân viên và khách hàng."
+          },
+          {
+            "label": "Tích hợp",
+            "text": "Email, thanh toán, tổng đài, dữ liệu của bạn."
+          },
+          {
+            "label": "Di chuyển dữ liệu",
+            "text": "Từ bảng tính hoặc hệ thống cũ."
+          }
+        ]
+      },
+      "rows": [
+        {
+          "title": "Ứng dụng web",
+          "what": "Cổng thông tin dành cho khách hàng và nền tảng nội bộ xây trên Next.js với API chặt chẽ.",
+          "fits": "Phù hợp đội ngũ cần sản phẩm web đáng tin cậy mà khách hàng dùng hằng ngày."
+        },
+        {
+          "title": "Ứng dụng mobile",
+          "what": "Ứng dụng iOS và Android từ một mã nguồn chung, từ luồng đặt lịch đến công cụ ngoài hiện trường.",
+          "fits": "Phù hợp sản phẩm có khách hàng trên điện thoại thay vì bàn làm việc."
+        },
+        {
+          "title": "Ứng dụng desktop",
+          "what": "Phần mềm desktop cho Windows và macOS khi công việc cần nhiều hơn một tab trình duyệt.",
+          "fits": "Phù hợp vận hành có phần cứng local, tệp lớn hoặc cần làm việc offline."
+        },
+        {
+          "title": "AI ứng dụng",
+          "what": "Tính năng AI chỉ được thêm khi use case thực sự cần: trí tuệ tài liệu, trợ lý ảo, pipeline phân tích.",
+          "fits": "Phù hợp đội ngũ có dữ liệu thực và bài toán đo lường được, không phải demo."
+        },
+        {
+          "title": "Tư vấn IT",
+          "what": "Rà soát kiến trúc, thẩm định kỹ thuật và lập lộ trình trước khi bạn cam kết xây dựng.",
+          "fits": "Phù hợp nhà lãnh đạo cần góc nhìn độc lập trước khi chi tiêu."
         }
-      }
+      ]
+    },
+    "work": {
+      "label": "Dự án tiêu biểu",
+      "h2": "Năm hệ thống, năm doanh nghiệp, một chuẩn bàn giao.",
+      "lede": "Mỗi case study nêu rõ bài toán, phạm vi và trách nhiệm của chúng tôi, giải pháp và kết quả.",
+      "viewAll": "Xem tất cả dự án"
+    },
+    "delivery": {
+      "label": "Triển khai và chất lượng",
+      "h2": "Quy trình triển khai mà bạn có thể kiểm tra ở từng bước.",
+      "lede": "Không hứa hẹn thời gian cố định. Giai đoạn thì rõ ràng; thời gian phụ thuộc phạm vi.",
+      "seesLabel": "Bạn nhận được:",
+      "steps": [
+        {
+          "title": "Khám phá",
+          "what": "Chúng tôi tìm hiểu quy trình, vai trò, hệ thống và ràng buộc của bạn cùng với những người sử dụng chúng hằng ngày.",
+          "sees": "đề xuất phạm vi và kiến trúc bằng văn bản."
+        },
+        {
+          "title": "UX và kiến trúc",
+          "what": "Màn hình, mô hình dữ liệu và kế hoạch tích hợp được chốt trước khi bắt đầu triển khai.",
+          "sees": "luồng thao tác thử được và thiết kế kỹ thuật."
+        },
+        {
+          "title": "Bàn giao từng phần",
+          "what": "Hệ thống được bàn giao theo từng phần đã review, bạn có thể mở ra và kiểm thử, không dồn vào một lần bàn giao duy nhất.",
+          "sees": "bản build chạy được sau mỗi chu kỳ."
+        },
+        {
+          "title": "Nghiệm thu",
+          "what": "Từng giai đoạn khép lại theo tiêu chí nghiệm thu đã thống nhất, với đội ngũ của bạn trực tiếp kiểm thử.",
+          "sees": "biên bản nghiệm thu cho từng giai đoạn."
+        },
+        {
+          "title": "Ra mắt",
+          "what": "Triển khai theo từng bước với di chuyển dữ liệu, giám sát và đào tạo đội ngũ của bạn trên hệ thống thực tế.",
+          "sees": "hệ thống chạy production kèm runbooks."
+        },
+        {
+          "title": "Bàn giao",
+          "what": "Tài liệu, quyền truy cập và mã nguồn thuộc về bạn. Dịch vụ engineering dài hạn là tuỳ chọn, không ràng buộc.",
+          "sees": "trọn bộ hồ sơ bàn giao."
+        }
+      ]
+    },
+    "ai": {
+      "label": "Cách chúng tôi tiếp cận AI",
+      "h2": "Hai câu hỏi tách biệt: chúng tôi xây sản phẩm như thế nào, và AI nào nên nằm trong sản phẩm của bạn.",
+      "blocks": [
+        {
+          "title": "Chúng tôi xây với AI như thế nào",
+          "body": "Kỹ sư của chúng tôi dùng công cụ AI để tăng tốc triển khai. Mọi dòng code được bàn giao đều do kỹ sư review và chịu trách nhiệm.",
+          "note": "AI hỗ trợ việc xây dựng, không thay thế trách nhiệm."
+        },
+        {
+          "title": "AI trong sản phẩm của bạn",
+          "body": "Chúng tôi chỉ thêm tính năng AI khi use case xứng đáng: bài toán đo lường được, dữ liệu đã sẵn sàng và chi phí vận hành được tính kỹ trước khi viết prompt đầu tiên.",
+          "note": "Không thêm AI cho có. Một số sản phẩm tốt hơn nếu không có nó."
+        }
+      ]
+    },
+    "engagement": {
+      "label": "Hình thức hợp tác và chi phí",
+      "h2": "Ba hình thức hợp tác. Báo giá theo phạm vi, không phỏng đoán.",
+      "rows": [
+        {
+          "title": "Khảo sát",
+          "body": "Giai đoạn xác định phạm vi: chốt yêu cầu, kiến trúc và kế hoạch triển khai trước khi bạn cam kết xây dựng."
+        },
+        {
+          "title": "Dự án theo phạm vi",
+          "body": "Xây dựng với phạm vi cố định, các giai đoạn và tiêu chí nghiệm thu rõ ràng, tiến độ có thể kiểm soát."
+        },
+        {
+          "title": "Engineering dài hạn",
+          "body": "Đội ngũ chuyên trách bàn giao từng phần theo backlog ưu tiên, tháng này qua tháng khác."
+        }
+      ],
+      "driversTitle": "Yếu tố chi phối chi phí",
+      "drivers": "Phạm vi, số nền tảng, tích hợp với hệ thống hiện có, độ phức tạp phân quyền và chi phí bên thứ ba (hạ tầng, license, model API). Chúng tôi báo giá dựa trên các yếu tố này sau giai đoạn khám phá, để con số phản ánh đúng hệ thống của bạn thay vì bảng giá chung."
     }
   },
   "homepage": {

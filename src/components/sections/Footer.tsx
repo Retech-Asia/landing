@@ -122,7 +122,7 @@ export function Footer() {
               {/* Quick Links */}
               <StaggerItem>
                 <nav aria-label={tFooter("quickLinks")}>
-                  <h4 className="text-sm font-semibold text-white mb-4">{tFooter("quickLinks")}</h4>
+                  <h3 className="text-sm font-semibold text-white mb-4">{tFooter("quickLinks")}</h3>
                   <ul className="space-y-2.5">
                     {footerQuickLinks.map((link) => (
                       <li key={link.href + link.labelKey}>
@@ -141,7 +141,7 @@ export function Footer() {
               {/* Services */}
               <StaggerItem>
                 <nav aria-label={tFooter("servicesHeader")}>
-                  <h4 className="text-sm font-semibold text-white mb-4">{tFooter("servicesHeader")}</h4>
+                  <h3 className="text-sm font-semibold text-white mb-4">{tFooter("servicesHeader")}</h3>
                   <ul className="space-y-2.5">
                     {services.map((service) => (
                       <li key={service.id}>
@@ -160,7 +160,7 @@ export function Footer() {
               {/* Resources */}
               <StaggerItem className="col-span-2 sm:col-span-1">
                 <nav aria-label={tFooter("resources")}>
-                  <h4 className="text-sm font-semibold text-white mb-4">{tFooter("resources")}</h4>
+                  <h3 className="text-sm font-semibold text-white mb-4">{tFooter("resources")}</h3>
                   <ul className="space-y-2.5">
                     {footerResourceLinks.map((link) => (
                       <li key={link.href + link.labelKey}>

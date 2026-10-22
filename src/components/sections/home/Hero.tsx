@@ -1,223 +1,76 @@
-"use client";
+import { useLocale, useTranslations } from "next-intl";
 
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/Button";
-import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { Container } from "@/components/ui/Container";
-import { Magnetic } from "@/components/ui/Magnetic";
-import { Link } from "@/i18n/navigation";
-// Hero ambient shader — Lit Dunes: dune heightfield under an aurora wash,
-// cursor is a lazy lamp. Approved as the hero scene 2026-08-21 (prototype:
-// prototypes/hero/lit-dunes.html, aurora palette). The Code-to-Product 3D
-// scene was prototyped for this hero too, but Jay scoped it to
-// programming-topic areas; it lives in CodeToProduct.tsx.
-import { LitDunes } from "@/components/sections/home/LitDunes";
 import { TrustedBy } from "@/components/sections/home/TrustedBy";
 import { STATS } from "@/lib/constants";
 
 /* ------------------------------------------------------------------ */
-/*  Hero — copy left, ambient shader right, industries strip on the   */
-/*  dune canvas at the bottom. Fits one viewport (100svh) on          */
-/*  laptop screens; grows past it on short/mobile viewports rather    */
-/*  than clipping (min-h, never fixed height).                        */
+/*  Hero — editorial enterprise (Direction B, RT-07). Static SSR      */
+/*  server component: no framer-motion, no WebGL, no client JS on     */
+/*  the LCP path. The visible H1 is Option A ("Turning Ideas into     */
+/*  Solutions", owner checkpoint 2026-10-22); the former sr-only      */
+/*  seoH1 is retired and its keyword content lives in the metadata    */
+/*  + standfirst. Lit Dunes is parked per checkpoint 3 (preserved     */
+/*  in LitDunes.tsx, not rendered here).                              */
 /* ------------------------------------------------------------------ */
-
 export function Hero() {
   const t = useTranslations("home.hero");
-  const locale = useLocale();
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  // Hero content: fades and lifts as user scrolls into the next section
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 0.55], [0, -60]);
-
-  // Prevent hydration mismatch: only render scroll-driven styles after mount
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    const raf = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
-  // Rotating service type — cycles through what we build.
-  // Pulled from message catalog so it renders in the active locale.
-  const rotatingServices = t.raw("rotatingServices") as string[];
-  const [rotatingIndex, setRotatingIndex] = useState(0);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setRotatingIndex((prev) => (prev + 1) % rotatingServices.length);
-    }, 2500);
-    return () => clearTimeout(timer);
-  }, [rotatingIndex, rotatingServices.length]);
+  const locale = useLocale() as "en" | "vi";
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative min-h-svh flex flex-col overflow-hidden pt-16"
-    >
-      {/* Background layers (bottom to top):
-          1. Lit Dunes shader — full-bleed dune terrain under a brand wash
-             (idle-armed, never blocks first paint)
-          2. Text scrim — responsive gradient that keeps the headline
-             readable over the terrain */}
-      <LitDunes />
+    <section className="border-b border-rule" aria-label="Introduction">
+      <Container className="pt-16 pb-12 md:pt-24 md:pb-16">
+        <div className="hero-content-enter max-w-4xl">
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-foreground-muted">
+            {t("eyebrow")}
+          </p>
 
-      {/* Text scrim — responsive gradient that keeps the headline readable
-          over the shader. Desktop: left-to-right (dark behind the text
-          column, transparent where the shader peaks on the right).
-          Mobile: top-to-bottom (dark over the headline area, fading to
-          transparent below). */}
-      <div
-        className="absolute inset-0 z-[var(--z-base)] pointer-events-none hero-text-scrim"
-        aria-hidden="true"
-      />
+          {/* Visible, accessible H1 (Option A). Serif 600 per the RT-06
+              type system; the accent carries the brand green in serif
+              italic. LCP element: SSR-visible text, no entrance gate. */}
+          <h1 className="font-display-title mt-6 mb-6 text-balance text-[2.75rem] leading-[1.05] tracking-[-0.015em] text-foreground sm:text-6xl md:text-7xl lg:text-[5.25rem]">
+            {t("h1Pre")}
+            <br />
+            {t("h1Into")}{" "}
+            <em className="font-display italic text-brand">{t("h1Accent")}</em>
+          </h1>
 
-      {/* Bottom fade — ghosts the dunes out into the next section's
-          background-subtle canvas and gives the industries strip a
-          legible bed without a hard edge */}
-      <div
-        className="absolute inset-0 bg-gradient-to-b from-transparent via-background-subtle/0 to-background-subtle/95 z-[var(--z-base)] pointer-events-none"
-        aria-hidden="true"
-      />
+          <p className="max-w-2xl text-lg leading-relaxed text-foreground-secondary md:text-xl">
+            {t("standfirst")}
+          </p>
 
-      {/* ------------------------------------------------------------------ */}
-      {/*  Hero content                                                       */}
-      {/* ------------------------------------------------------------------ */}
-      <motion.div
-        style={mounted ? { opacity: contentOpacity, y: contentY } : undefined}
-        className="relative z-10 w-full flex-1 flex items-center"
-      >
-        {/* w-full: this Container is a flex item (vertical centering) and
-            would otherwise shrink to content width and self-center, which
-            pulled the whole text column to viewport center */}
-        <Container className="w-full py-8 md:py-10">
-          {/* Flush-left on desktop like the original hero (pre-mobile-centering
-              pass added mx-auto, which also viewport-centered the desktop
-              column). mx-auto stays for mobile where the text is centered. */}
-          <div className="hero-content-enter max-w-4xl text-center md:text-left mx-auto md:mx-0">
-            {/* SEO H1 — visually hidden. The visible tagline below is the
-                brand voice; this h1 gives crawlers an unambiguous primary
-                heading that pairs the company name with Vietnam positioning
-                and core service keywords. Tagline is aria-hidden so screen
-                readers get one clean H1 rather than two competing headings. */}
-            <h1 className="sr-only">
-              {t("seoH1")}
-            </h1>
-
-            {/* Visible tagline — LCP-critical: CSS-only entrance, no JS gate.
-                Instrument Serif italic on "Solutions" carries the emphasis
-                without gradient text (gradient was a critical AI tell).
-                Rendered as a <p> with aria-hidden so it does not compete with
-                the SEO H1 above; visual styling is unchanged. */}
-            <p
-              aria-hidden="true"
-              className="text-[2.75rem] leading-[1.05] sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold tracking-[-0.02em] text-foreground mb-6 text-balance"
-            >
-              {t("taglinePre")}
-              <br />
-              {t("taglineInto")}{" "}
-              <span className="font-display italic text-brand">{t("taglineAccent")}</span>
-            </p>
-
-            {/* Dynamic subtitle with rotating service type. The rotating
-                slot carries an invisible ghost of the LOCALE'S LONGEST
-                phrase: it fixes the slot width at first paint so word
-                swaps never re-wrap the paragraph. Without it, a longer
-                phrase rotating in ~7s re-wrapped this block to two lines
-                and refreshed LCP to ~7.4s on mobile (perf audit
-                2026-08-25). Ghost text (visibility:hidden) is not an LCP
-                candidate and stays out of the a11y tree. */}
-            <div className="mb-10 max-w-2xl">
-              <p className="text-lg md:text-xl text-foreground-secondary leading-relaxed mb-2">
-                {t("subheadLead")}{" "}
-                <span className="relative inline-block font-semibold align-baseline whitespace-nowrap">
-                  <span aria-hidden="true" className="invisible">
-                    {rotatingServices.reduce((a, b) => (b.length > a.length ? b : a), "")}
-                  </span>
-                  <AnimatePresence mode="wait">
-                    <motion.span
-                      key={rotatingIndex}
-                      initial={false}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -6 }}
-                      transition={{ duration: 0.25, ease: "easeOut" }}
-                      className="absolute inset-x-0 top-0 inline-block gradient-text-brand whitespace-nowrap"
-                    >
-                      {rotatingServices[rotatingIndex]}
-                    </motion.span>
-                  </AnimatePresence>
-                </span>
-                {" "}{t("subheadTrail")}
-              </p>
-              <p className="text-sm md:text-base text-foreground-muted">
-                {t("mutedLine")}
-              </p>
-            </div>
-
-            {/* CTAs — primary brand dominates, secondary is visibly subordinate. */}
-            <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center md:justify-start gap-3 sm:gap-4 mb-10">
-              <Magnetic strength={6}>
-                <Button
-                  href="/contact"
-                  size="lg"
-                  className="font-semibold w-full sm:w-auto"
-                >
-                  {t("ctaPrimary")}
-                </Button>
-              </Magnetic>
-              <Magnetic strength={4}>
-                <Button
-                  href="/services"
-                  variant="secondary"
-                  size="md"
-                  className="w-full sm:w-auto"
-                >
-                  {t("ctaSecondary")}
-                </Button>
-              </Magnetic>
-            </div>
-
-            {/* Stats — original rhythm restored (2026-08-24): the viewport-fit
-                round compacted these and the whole block started reading as a
-                small centered card instead of the original editorial column.
-                Sizes/inner rhythm are the original; the Container's vertical
-                padding was re-tuned (py-8/10, not the original py-20/28)
-                because the hero now also carries the industries strip and
-                must still fit one 900px laptop viewport. */}
-            <div className="flex flex-wrap items-end justify-center md:justify-start gap-x-6 gap-y-6 sm:gap-x-10">
-              {STATS.map((stat, i) => (
-                <div key={stat.label.en} className="flex items-end">
-                  {i > 0 && (
-                    <span
-                      className="hidden sm:block h-12 w-px bg-gradient-to-b from-transparent via-foreground/15 to-transparent self-center mr-6 sm:mr-10"
-                      aria-hidden="true"
-                    />
-                  )}
-                  <div>
-                    <div className="text-4xl md:text-5xl font-bold gradient-text-brand leading-none tracking-tight">
-                      <AnimatedCounter
-                        target={stat.value}
-                        suffix={stat.suffix}
-                      />
-                    </div>
-                    <p className="text-sm text-foreground-muted mt-2 tracking-wide">
-                      {stat.label[locale as "en" | "vi"]}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
+            {/* Brand-green primary stays the hero CTA (checkpoint 1: keep
+                the green brand identity); ink buttons carry section CTAs. */}
+            <Button href="/contact" size="lg" className="font-semibold w-full sm:w-auto">
+              {t("ctaPrimary")}
+            </Button>
+            <Button href="/services" variant="ghost" size="lg" className="w-full sm:w-auto">
+              {t("ctaSecondary")}
+            </Button>
           </div>
-        </Container>
-      </motion.div>
 
-      {/* Industries strip — translucent chips sitting on the dune canvas,
-          so the hero hands off to real navigation instead of a flat band */}
+          {/* Canonical stats (lib/constants STATS) as a static SSR grid —
+              no counters, no hydration dependency. */}
+          <div className="mt-14 grid max-w-xl grid-cols-3 gap-6 border-t border-rule pt-8 sm:gap-10">
+            {STATS.map((stat) => (
+              <div key={stat.label.en}>
+                <p className="font-display-title text-4xl leading-none text-foreground md:text-5xl">
+                  {stat.value}
+                  {stat.suffix}
+                </p>
+                <p className="mt-2 text-sm tracking-wide text-foreground-muted">
+                  {stat.label[locale]}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Container>
+
+      {/* Industries strip — real navigation (each chip links its
+          /industries page); now sits on the flat editorial canvas. */}
       <TrustedBy />
     </section>
   );

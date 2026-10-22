@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/cn";
 import { type ReactNode } from "react";
 
@@ -80,9 +80,5 @@ export function IndexRowList({
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <div className={cn("border-t border-rule", className)} role="list">
-      {children}
-    </div>
-  );
+  return <div className={cn("border-t border-rule", className)}>{children}</div>;
 }
