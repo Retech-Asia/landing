@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import {
   ArrowRight,
   ArrowLeft,
@@ -516,20 +516,16 @@ export default async function IndustryDetailPage({
                       <p className="text-sm text-foreground-secondary leading-relaxed mb-4">
                         {cs.tagline}
                       </p>
-                      {/* Key metrics */}
-                      <div className="grid grid-cols-2 gap-3 mt-auto">
-                        {cs.results.slice(0, 4).map((r, i) => (
-                          <div
-                            key={i}
-                            className="text-center p-2 rounded-lg bg-brand/[0.02]"
+                      {/* Verified technologies (vanity stat grid removed with
+                          the owner corrections directive 2026-10-22). */}
+                      <div className="flex flex-wrap gap-2 mt-auto">
+                        {cs.technologies.slice(0, 4).map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-2.5 py-1 rounded-full bg-brand/[0.04] border border-card-border text-xs font-medium text-foreground-secondary"
                           >
-                            <p className="text-lg font-bold text-brand">
-                              {r.value}
-                            </p>
-                            <p className="text-xs text-foreground-secondary">
-                              {r.metric}
-                            </p>
-                          </div>
+                            {tech}
+                          </span>
                         ))}
                       </div>
                       <div className="flex items-center gap-1.5 text-sm font-medium text-brand mt-5 group-hover:gap-2.5 transition-all duration-300">
@@ -604,7 +600,7 @@ export default async function IndustryDetailPage({
                 return (
                   <StaggerItem key={service.id}>
                     <Link
-                      href={`/services/${service.slug.en}`}
+                      href={`/services/${service.slug[loc]}`}
                       className="group block h-full"
                     >
                       <Card padding="lg" className="h-full">
@@ -615,13 +611,13 @@ export default async function IndustryDetailPage({
                           />
                         </div>
                         <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-brand transition-colors">
-                          {service.title.en}
+                          {service.title[loc]}
                         </h3>
                         <p className="text-sm text-foreground-secondary leading-relaxed mb-4">
-                          {service.subtitle.en}
+                          {service.subtitle[loc]}
                         </p>
                         <div className="flex items-center gap-1.5 text-sm font-medium text-brand group-hover:gap-2.5 transition-all duration-300">
-                          Learn More
+                          {t("learnMore")}
                           <ArrowRight
                             size={15}
                             className="transition-transform duration-300 group-hover:translate-x-0.5"
@@ -669,7 +665,7 @@ export default async function IndustryDetailPage({
                         {other.description}
                       </p>
                       <div className="flex items-center gap-1.5 text-sm font-medium text-brand group-hover:gap-2.5 transition-all duration-300">
-                        Learn More
+                        {t("learnMore")}
                         <ArrowRight
                           size={15}
                           className="transition-transform duration-300 group-hover:translate-x-0.5"

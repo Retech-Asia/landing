@@ -12,6 +12,7 @@ import {
   Clock,
   Users,
   Wrench,
+  Globe,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -38,14 +39,11 @@ import {
 import { SITE_URL } from "@/lib/constants";
 import { setRequestLocale } from "next-intl/server";
 import { routing, type Locale } from "@/i18n/routing";
-import { AnimatedMetrics } from "@/components/case-studies/AnimatedMetrics";
-import { BeforeAfter } from "@/components/case-studies/BeforeAfter";
 import { ProjectTimeline } from "@/components/case-studies/ProjectTimeline";
 import {
   HeroParallaxSection,
   TechPillsStagger,
   TestimonialCard,
-  BeforeAfterDivider,
 } from "./CaseStudyClientComponents";
 
 // Locale-aware chrome strings. Case study content comes from the
@@ -67,15 +65,13 @@ function getChrome(locale: string) {
         timelineLabel: "Timeline",
         teamSizeLabel: "Team Size",
         technologiesLabel: "Technologies",
+        clientCountryLabel: "Client Market",
         coreTools: (count: number) => `${count} core tools`,
         whatWeBuilt: "What We Built",
         projectTimelineTitle: "Project Timeline",
         projectTimelineLead:
           "From initial discovery to successful launch: our proven delivery process.",
-        measurableImpact: "Measurable Impact",
-        beforeAfterTitle: "Before & After",
-        beforeAfterLead: (title: string) =>
-          `A clear picture of how ${title} improved after our collaboration.`,
+        illustrativeNote: "Illustrative visualization",
         outcomesLabel: "Outcomes",
         keyResultsDelivered: "Key Results Delivered",
         builtWith: "Built With",
@@ -108,15 +104,13 @@ function getChrome(locale: string) {
         timelineLabel: "Thời gian",
         teamSizeLabel: "Quy mô Đội ngũ",
         technologiesLabel: "Công nghệ",
+        clientCountryLabel: "Thị trường Khách hàng",
         coreTools: (count: number) => `${count} công cụ chính`,
         whatWeBuilt: "Chúng tôi đã Xây dựng",
         projectTimelineTitle: "Lộ trình Dự án",
         projectTimelineLead:
           "Từ khám phá ban đầu đến ra mắt thành công: quy trình bàn giao đã được kiểm chứng của chúng tôi.",
-        measurableImpact: "Kết quả Đo lường được",
-        beforeAfterTitle: "Trước & Sau",
-        beforeAfterLead: (title: string) =>
-          `Bức tranh rõ ràng về cách ${title} cải thiện sau khi hợp tác với chúng tôi.`,
+        illustrativeNote: "Hình ảnh minh họa",
         outcomesLabel: "Kết quả",
         keyResultsDelivered: "Kết quả đã Đạt được",
         builtWith: "Xây dựng bằng",
@@ -362,6 +356,12 @@ export default async function CaseStudyDetailPage({
                 <p className="text-sm md:text-base text-foreground-secondary max-w-2xl">
                   {study.tagline}
                 </p>
+                {/* Imagery is licensed/stock illustration until an approved
+                    product capture exists (owner directive: never present
+                    stock as the product UI). */}
+                <p className="mt-2 text-xs text-foreground-muted">
+                  {chrome.illustrativeNote}
+                </p>
               </div>
             </Container>
           </div>
@@ -565,6 +565,24 @@ export default async function CaseStudyDetailPage({
                   </p>
                 </Card>
               </StaggerItem>
+
+              {/* Client market — rendered only once the owner confirms the
+                  market per study (values are Jay-gated in the data file). */}
+              {study.clientCountry && (
+                <StaggerItem>
+                  <Card hover={false} padding="lg" className="h-full text-center">
+                    <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-brand/10 mx-auto mb-4">
+                      <Globe size={22} className="text-brand" aria-hidden="true" />
+                    </div>
+                    <p className="text-[11px] uppercase tracking-wider text-foreground-muted font-semibold mb-1">
+                      {chrome.clientCountryLabel}
+                    </p>
+                    <p className="text-lg font-bold text-foreground">
+                      {study.clientCountry}
+                    </p>
+                  </Card>
+                </StaggerItem>
+              )}
             </StaggerContainer>
           </div>
         </Container>
@@ -616,39 +634,10 @@ export default async function CaseStudyDetailPage({
         </Container>
       </section>
 
-      {/* Results */}
-      <section className="py-20 md:py-28 bg-background-subtle">
-        <Container>
-          <AnimatedSection>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                {chrome.measurableImpact}
-              </h2>
-            </div>
-          </AnimatedSection>
-
-          <AnimatedMetrics results={study.results} />
-        </Container>
-      </section>
-
-      {/* Before / After */}
-      <section className="py-20 md:py-28">
-        <Container>
-          <AnimatedSection>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                {chrome.beforeAfterTitle}
-              </h2>
-              <p className="mt-3 text-foreground-secondary max-w-2xl mx-auto">
-                {chrome.beforeAfterLead(study.title)}
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <BeforeAfter data={study.beforeAfter} />
-          <BeforeAfterDivider />
-        </Container>
-      </section>
+      {/* Vanity metric sections (AnimatedMetrics stat row + Before/After
+          comparison table) were removed per the owner corrections directive
+          2026-10-22: no numbers without a business record behind them. The
+          qualitative Key Results and Outcomes sections carry the proof. */}
 
       {/* Testimonial — only render when a real quote exists. Otherwise fall
           through to the Key Outcomes block below so the page still has a

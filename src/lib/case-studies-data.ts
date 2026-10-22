@@ -14,13 +14,17 @@ export interface TimelinePhase {
   description: L;
 }
 
-export interface BeforeAfterMetric {
-  metric: L;
-  before: L;
-  after: L;
-  improvement: L;
-}
-
+/**
+ * Owner directive 2026-10-22 (checkpoint 2 §2): vanity metrics are out of the
+ * promotional presentation. `results` (stat rows) and `beforeAfter`
+ * (comparison tables) carried numbers with no business record behind them and
+ * are removed from the model entirely. keyResults stay as qualitative,
+ * capability-level statements that trace to what was built.
+ *
+ * `clientCountry` is part of the owner's required narrative arc
+ * (challenge → solution → impact → verified tech → client country). Values are
+ * Jay-gated: leave undefined until the owner confirms the market per study.
+ */
 export interface CaseStudy {
   /** Invariant id (= EN slug). */
   id: string;
@@ -34,11 +38,10 @@ export interface CaseStudy {
   impact: L;
   features: L[];
   keyResults: L[];
-  results: { metric: L; value: L; numericValue?: number; suffix?: string }[];
-  beforeAfter: BeforeAfterMetric[];
   timeline: TimelinePhase[];
   timelineDuration: L;
   teamSize: L;
+  clientCountry?: L;
   testimonial: Testimonial;
   technologies: string[];
   images: {
@@ -98,33 +101,21 @@ export const caseStudies: CaseStudy[] = [
     ],
     keyResults: [
       {
-        en: "Consolidated 4 external data sources into a single dashboard",
-        vi: "Hợp nhất 4 nguồn dữ liệu ngoài thành một dashboard duy nhất",
+        en: "Four external data sources consolidated into a single dashboard",
+        vi: "Bốn nguồn dữ liệu ngoài hợp nhất vào một dashboard duy nhất",
       },
       {
-        en: "Manual input audit trail eliminated spreadsheet reconciliation",
-        vi: "Audit trail đầu vào thủ công loại bỏ đối soát spreadsheet",
+        en: "Manual adjustments logged in a database audit trail instead of spreadsheets",
+        vi: "Điều chỉnh thủ công được ghi vào audit trail trong database thay vì spreadsheet",
       },
       {
-        en: "Per-worker analytics exposed across both mining pools",
-        vi: "Analytics per-worker hiển thị trên cả hai pool mining",
+        en: "Per-worker analytics available across both mining pools",
+        vi: "Analytics per-worker khả dụng trên cả hai pool mining",
       },
       {
-        en: "Super-admin role gate prevents accidental production data edits",
-        vi: "Gate role super-admin ngăn chỉnh sửa dữ liệu production vô tình",
+        en: "Super-admin role gate protects production data from accidental edits",
+        vi: "Gate role super-admin bảo vệ dữ liệu production khỏi chỉnh sửa vô tình",
       },
-    ],
-    results: [
-      { metric: { en: "Data Sources Unified", vi: "Nguồn Dữ liệu Hợp nhất" }, value: { en: "4 pools + market", vi: "4 pool + thị trường" }, numericValue: 4, suffix: "+" },
-      { metric: { en: "Worker Visibility", vi: "Tầm nhìn Worker" }, value: { en: "Cross-pool", vi: "Cross-pool" }, suffix: "" },
-      { metric: { en: "Audit Coverage", vi: "Phạm vi Audit" }, value: { en: "100%", vi: "100%" }, numericValue: 100, suffix: "%" },
-      { metric: { en: "Manual Reconciliation", vi: "Đối soát Thủ công" }, value: { en: "Eliminated", vi: "Loại bỏ" }, suffix: "" },
-    ],
-    beforeAfter: [
-      { metric: { en: "Dashboard Switching", vi: "Chuyển Dashboard" }, before: { en: "4 tools", vi: "4 công cụ" }, after: { en: "1 unified view", vi: "1 góc nhìn thống nhất" }, improvement: { en: "75% less switching", vi: "Giảm 75% thao tác chuyển" } },
-      { metric: { en: "Audit Trail", vi: "Audit Trail" }, before: { en: "Spreadsheets", vi: "Spreadsheet" }, after: { en: "Database-logged", vi: "Log database" }, improvement: { en: "100% tracked", vi: "100% theo dõi" } },
-      { metric: { en: "Market Data Freshness", vi: "Độ mới Dữ liệu Thị trường" }, before: { en: "Manual refresh", vi: "Refresh thủ công" }, after: { en: "Cached + TTL-refreshed", vi: "Cache + TTL-refresh" }, improvement: { en: "Always current", vi: "Luôn cập nhật" } },
-      { metric: { en: "Manual Entry Errors", vi: "Lỗi Nhập Thủ công" }, before: { en: "No history", vi: "Không lịch sử" }, after: { en: "Draft/publish + audit", vi: "Draft/publish + audit" }, improvement: { en: "Recoverable", vi: "Có thể khôi phục" } },
     ],
     timeline: [
       { phase: { en: "Phase 1", vi: "Giai đoạn 1" }, title: { en: "Discovery", vi: "Khám phá" }, description: { en: "Operator interviews, pool API capability mapping (F2Pool, ViaBTC, CoinGecko, Mempool), and audit workflow shadowing.", vi: "Phỏng vấn operator, ánh xạ khả năng pool API (F2Pool, ViaBTC, CoinGecko, Mempool) và shadowing quy trình audit." } },
@@ -141,9 +132,12 @@ export const caseStudies: CaseStudy[] = [
       company: { en: "", vi: "" },
     },
     technologies: ["Next.js", "TypeScript", "NestJS", "PostgreSQL", "Prisma", "Redis"],
+    // Illustrative visualization, not a product capture (owner directive:
+    // real screenshots only where approved; never present stock as the
+    // product). The earlier cs-wellness-* files belonged to no study.
     images: {
-      dashboard: { src: "/images/stock/cs-wellness-hero.webp", width: 1200, height: 800 },
-      mobile: { src: "/images/stock/cs-wellness-mobile.webp", width: 600, height: 800 },
+      dashboard: { src: "/images/stock/analytics-dashboard.webp", width: 1200, height: 800 },
+      mobile: { src: "/images/stock/analytics-dashboard.webp", width: 1200, height: 800 },
     },
   },
   {
@@ -165,8 +159,8 @@ export const caseStudies: CaseStudy[] = [
       vi: "Retech Solutions xây dựng kiến trúc multi-portal trên NestJS + PostgreSQL + Prisma với backend dùng chung phục vụ admin, customer và introducer qua giao diện tùy chỉnh. Chúng tôi triển khai theo dõi danh mục và cổ tức, quản lý tài liệu với read-tracking và email notification, module introducer chuyên trách và import-export CSV/XLSX cho thao tác hàng loạt. Dịch vụ quản lý file FastAPI riêng xử lý upload tài liệu lớn với rate limiting.",
     },
     impact: {
-      en: "The unified platform eliminated manual spreadsheet-driven workflows and replaced them with automated, auditable processes that scale with the business. Administrators gained portfolio visibility across all customer accounts, investors received transparent performance reporting, and introducers could manage their referred clients without manual follow-ups. The 60% improvement in operational efficiency freed the team to focus on strategic growth rather than data reconciliation.",
-      vi: "Nền tảng thống nhất loại bỏ quy trình spreadsheet thủ công và thay bằng quy trình tự động, auditable mở rộng cùng doanh nghiệp. Admin có tầm nhìn danh mục trên mọi tài khoản customer, nhà đầu tư nhận báo cáo hiệu suất minh bạch và introducer có thể quản lý client được giới thiệu mà không cần follow-up thủ công. Cải thiện 60% hiệu suất vận hành giải phóng đội ngũ tập trung vào tăng trưởng chiến lược thay vì đối soát dữ liệu.",
+      en: "The unified platform replaced spreadsheet-driven workflows with automated, auditable processes that scale with the business. Administrators have portfolio visibility across all customer accounts, investors receive transparent performance reporting, and introducers manage their referred clients without manual follow-ups. With reconciliation handled by the system, the team can focus on strategic growth instead of data housekeeping.",
+      vi: "Nền tảng thống nhất thay thế quy trình spreadsheet bằng quy trình tự động, auditable mở rộng cùng doanh nghiệp. Admin có tầm nhìn danh mục trên mọi tài khoản customer, nhà đầu tư nhận báo cáo hiệu suất minh bạch và introducer quản lý client được giới thiệu mà không cần follow-up thủ công. Khi đối soát do hệ thống xử lý, đội ngũ có thể tập trung vào tăng trưởng chiến lược thay vì công việc dọn dữ liệu.",
     },
     features: [
       {
@@ -195,22 +189,10 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
     keyResults: [
-      { en: "60% improvement in overall operational efficiency", vi: "Cải thiện 60% hiệu suất vận hành tổng thể" },
-      { en: "Report generation time reduced from 45 minutes to under 3 minutes", vi: "Thời gian sinh báo cáo giảm từ 45 phút xuống dưới 3 phút" },
-      { en: "99.7% data accuracy across all three portals", vi: "99.7% độ chính xác dữ liệu trên cả ba cổng" },
-      { en: "Client onboarding accelerated 4x with automated workflows", vi: "Onboarding khách hàng tăng tốc 4x với quy trình tự động" },
-    ],
-    results: [
-      { metric: { en: "Operational Efficiency", vi: "Hiệu suất Vận hành" }, value: { en: "60% improvement", vi: "60% cải thiện" }, numericValue: 60, suffix: "% improvement" },
-      { metric: { en: "Reporting Time", vi: "Thời gian Báo cáo" }, value: { en: "85% faster", vi: "85% nhanh hơn" }, numericValue: 85, suffix: "% faster" },
-      { metric: { en: "Data Accuracy", vi: "Độ chính xác Dữ liệu" }, value: { en: "99.7%", vi: "99.7%" }, numericValue: 997, suffix: "%" },
-      { metric: { en: "Client Onboarding", vi: "Onboarding Khách hàng" }, value: { en: "4x faster", vi: "4x nhanh hơn" }, numericValue: 4, suffix: "x faster" },
-    ],
-    beforeAfter: [
-      { metric: { en: "Data Processing", vi: "Xử lý Dữ liệu" }, before: { en: "45 min/report", vi: "45 phút/báo cáo" }, after: { en: "3 min/report", vi: "3 phút/báo cáo" }, improvement: { en: "15x faster", vi: "Nhanh hơn 15x" } },
-      { metric: { en: "Dashboard Load", vi: "Tải Dashboard" }, before: { en: "8.5s", vi: "8.5s" }, after: { en: "1.4s", vi: "1.4s" }, improvement: { en: "6x faster", vi: "Nhanh hơn 6x" } },
-      { metric: { en: "User Adoption", vi: "Áp dụng Người dùng" }, before: { en: "35%", vi: "35%" }, after: { en: "89%", vi: "89%" }, improvement: { en: "+154%", vi: "+154%" } },
-      { metric: { en: "Error Rate", vi: "Tỷ lệ Lỗi" }, before: { en: "12%", vi: "12%" }, after: { en: "0.5%", vi: "0.5%" }, improvement: { en: "24x fewer errors", vi: "Ít lỗi hơn 24x" } },
+      { en: "Administrators, investors, and introducers work in one platform instead of disconnected systems", vi: "Admin, nhà đầu tư và introducer làm việc trên một nền tảng thay vì các hệ thống rời rạc" },
+      { en: "Portfolio and dividend tracking unified across every customer account", vi: "Theo dõi danh mục và cổ tức hợp nhất trên mọi tài khoản customer" },
+      { en: "Document workflows carry read-tracking and email notifications end to end", vi: "Quy trình tài liệu có read-tracking và email notification xuyên suốt" },
+      { en: "Bulk data operations run through CSV/XLSX import-export", vi: "Thao tác dữ liệu hàng loạt chạy qua import-export CSV/XLSX" },
     ],
     timeline: [
       { phase: { en: "Phase 1", vi: "Giai đoạn 1" }, title: { en: "Discovery", vi: "Khám phá" }, description: { en: "Stakeholder interviews, workflow mapping across admin, investor, and introducer roles, and regulatory requirements analysis.", vi: "Phỏng vấn stakeholder, ánh xạ quy trình trên vai trò admin, nhà đầu tư và introducer, phân tích yêu cầu pháp lý." } },
@@ -246,8 +228,8 @@ export const caseStudies: CaseStudy[] = [
       vi: "Chúng tôi xây dựng pipeline ingestion multi-source xử lý PDF, trang web, podcast và bài đăng xã hội thành embedding có cấu trúc. Smart query router phân loại từng câu hỏi và route tới đường truy xuất tối ưu. Virtual investor panel của các persona AI-mô phỏng tranh luận luận điểm đầu tư thời gian thực, cung cấp cho analyst nhiều góc nhìn tức thì.",
     },
     impact: {
-      en: "The platform transformed a days-long research process into seconds. Analysts can now query a knowledge base of thousands of financial documents, get instant comparative analysis, and watch AI agents debate investment theses from multiple perspectives.",
-      vi: "Nền tảng chuyển quy trình nghiên cứu nhiều ngày thành vài giây. Analyst hiện có thể truy vấn cơ sở tri thức hàng nghìn tài liệu tài chính, nhận phân tích so sánh tức thì và xem AI agents tranh luận luận điểm đầu tư từ nhiều góc nhìn.",
+      en: "Analysts query the knowledge base directly instead of reading document by document, and comparative analysis across sources is a search away rather than a desk-week of manual review. The virtual investor panel surfaces multiple perspectives on a thesis in a single session, and macro dashboards keep commodity pricing and anomaly signals in the same workspace as the research.",
+      vi: "Analyst truy vấn trực tiếp cơ sở tri thức thay vì đọc từng tài liệu, và phân tích so sánh giữa các nguồn chỉ còn là một lần tìm kiếm thay vì hàng ngày đọc thủ công. Virtual investor panel mang nhiều góc nhìn về một luận điểm trong một phiên làm việc, và dashboard macro đặt giá commodity cùng tín hiệu bất thường thống kê ngay trong không gian làm việc nghiên cứu.",
     },
     features: [
       { en: "Multi-source ingestion: SEC filings, earnings calls, newsletters, podcasts, social media", vi: "Ingestion multi-source: hồ sơ SEC, earnings call, newsletter, podcast, mạng xã hội" },
@@ -258,22 +240,10 @@ export const caseStudies: CaseStudy[] = [
       { en: "Framework extraction from investment books and PDFs", vi: "Trích xuất framework từ sách đầu tư và PDF" },
     ],
     keyResults: [
-      { en: "8 configurable LLM purposes across the platform", vi: "8 mục đích LLM có thể cấu hình trên nền tảng" },
-      { en: "Multi-source ingestion from 5+ content types", vi: "Ingestion multi-source từ 5+ loại nội dung" },
-      { en: "Real-time streaming responses for analyst queries", vi: "Phản hồi streaming thời gian thực cho truy vấn analyst" },
-      { en: "Institutional-grade investment debate simulation", vi: "Mô phỏng tranh luận đầu tư cấp tổ chức" },
-    ],
-    results: [
-      { metric: { en: "Content Sources", vi: "Nguồn Nội dung" }, value: { en: "5+", vi: "5+" }, numericValue: 5, suffix: "+" },
-      { metric: { en: "Embedding Dimensions", vi: "Chiều Embedding" }, value: { en: "3072", vi: "3072" }, numericValue: 3072 },
-      { metric: { en: "LLM Purposes", vi: "Mục đích LLM" }, value: { en: "8", vi: "8" }, numericValue: 8 },
-      { metric: { en: "DB Migrations", vi: "Migration DB" }, value: { en: "47", vi: "47" }, numericValue: 47 },
-    ],
-    beforeAfter: [
-      { metric: { en: "Research Time", vi: "Thời gian Nghiên cứu" }, before: { en: "2-3 days", vi: "2-3 ngày" }, after: { en: "< 30 seconds", vi: "< 30 giây" }, improvement: { en: "99% faster", vi: "99% nhanh hơn" } },
-      { metric: { en: "Document Coverage", vi: "Phạm vi Tài liệu" }, before: { en: "Manual sampling", vi: "Sampling thủ công" }, after: { en: "Full corpus search", vi: "Search toàn corpus" }, improvement: { en: "100% coverage", vi: "100% phạm vi" } },
-      { metric: { en: "Analysis Perspectives", vi: "Góc nhìn Phân tích" }, before: { en: "Single analyst", vi: "Một analyst" }, after: { en: "4 AI panelists", vi: "4 panelist AI" }, improvement: { en: "4x viewpoints", vi: "4x góc nhìn" } },
-      { metric: { en: "Data Sources", vi: "Nguồn Dữ liệu" }, before: { en: "1-2 sources", vi: "1-2 nguồn" }, after: { en: "5+ integrated", vi: "5+ tích hợp" }, improvement: { en: "5x breadth", vi: "5x độ phủ" } },
+      { en: "Eight configurable LLM purposes across the platform", vi: "Tám mục đích LLM có thể cấu hình trên nền tảng" },
+      { en: "One ingestion path for filings, transcripts, newsletters, podcasts, and social posts", vi: "Một đường ingestion cho hồ sơ, transcript, newsletter, podcast và bài đăng xã hội" },
+      { en: "Streaming responses for analyst queries", vi: "Phản hồi streaming cho truy vấn analyst" },
+      { en: "Multi-agent investor panel that debates a thesis from several personas", vi: "Investor panel multi-agent tranh luận luận điểm từ nhiều persona" },
     ],
     timeline: [
       { phase: { en: "Discovery", vi: "Khám phá" }, title: { en: "Architecture & Data Modeling", vi: "Kiến trúc & Mô hình Dữ liệu" }, description: { en: "Designed the ingestion pipeline, vector storage schema, and LLM purpose configuration system.", vi: "Thiết kế pipeline ingestion, schema vector storage và hệ thống cấu hình mục đích LLM." } },
@@ -309,8 +279,8 @@ export const caseStudies: CaseStudy[] = [
       vi: "Chúng tôi xây dựng frontend Next.js powered bởi headless CMS với component trang tái sử dụng. Đội marketing có thể compose trang từ block dựng sẵn, preview thay đổi thời gian thực và publish tức thì. Hệ thống blog hỗ trợ nội dung SEO-optimized với sinh sitemap tự động.",
     },
     impact: {
-      en: "Content updates that previously required a developer now take minutes. The marketing team ships campaigns independently, blog posts publish on schedule, and the app download funnel converts at a higher rate thanks to optimized CTAs.",
-      vi: "Cập nhật nội dung trước đây yêu cầu developer nay mất vài phút. Đội marketing tung chiến dịch độc lập, bài blog publish đúng lịch và funnel tải app chuyển đổi ở tỷ lệ cao hơn nhờ CTA tối ưu.",
+      en: "Content updates that previously required a developer now ship directly from the marketing team. Campaign pages, blog posts, and app download funnels are composed and published in the CMS, and engineering stays focused on the product instead of content tickets.",
+      vi: "Cập nhật nội dung trước đây yêu cầu developer nay đội marketing tự xuất bản trực tiếp. Trang chiến dịch, bài blog và funnel tải app đều được dựng và publish trong CMS, và engineering tập trung vào sản phẩm thay vì ticket nội dung.",
     },
     features: [
       { en: "Headless CMS with reusable page components for non-technical editors", vi: "Headless CMS với component trang tái sử dụng cho editor không chuyên kỹ thuật" },
@@ -321,22 +291,10 @@ export const caseStudies: CaseStudy[] = [
       { en: "ISR with 60-second revalidation for instant content updates", vi: "ISR với revalidation 60 giây cho cập nhật nội dung tức thì" },
     ],
     keyResults: [
-      { en: "Reusable page components give editors full layout control", vi: "Component trang tái sử dụng cho editor toàn quyền kiểm soát layout" },
-      { en: "Content updates in minutes (was weeks)", vi: "Cập nhật nội dung trong vài phút (trước là vài tuần)" },
-      { en: "App download conversion improved significantly", vi: "Chuyển đổi tải app cải thiện đáng kể" },
-      { en: "Marketing team operates independently of engineering", vi: "Đội marketing vận hành độc lập với engineering" },
-    ],
-    results: [
-      { metric: { en: "Page Components", vi: "Component Trang" }, value: { en: "15+", vi: "15+" }, numericValue: 15, suffix: "+" },
-      { metric: { en: "Content Speed", vi: "Tốc độ Nội dung" }, value: { en: "10x", vi: "10x" }, numericValue: 10, suffix: "x" },
-      { metric: { en: "Page Variants", vi: "Biến thể Trang" }, value: { en: "5+", vi: "5+" }, numericValue: 5, suffix: "+" },
-      { metric: { en: "Blog Posts", vi: "Bài Blog" }, value: { en: "30+", vi: "30+" }, numericValue: 30, suffix: "+" },
-    ],
-    beforeAfter: [
-      { metric: { en: "Content Updates", vi: "Cập nhật Nội dung" }, before: { en: "1-2 weeks", vi: "1-2 tuần" }, after: { en: "< 5 minutes", vi: "< 5 phút" }, improvement: { en: "99% faster", vi: "99% nhanh hơn" } },
-      { metric: { en: "Developer Dependency", vi: "Phụ thuộc Developer" }, before: { en: "Every change", vi: "Mọi thay đổi" }, after: { en: "Zero", vi: "Không" }, improvement: { en: "100% independent", vi: "100% độc lập" } },
-      { metric: { en: "Page Variants", vi: "Biến thể Trang" }, before: { en: "1 static", vi: "1 tĩnh" }, after: { en: "5+ testable", vi: "5+ testable" }, improvement: { en: "5x flexibility", vi: "5x linh hoạt" } },
-      { metric: { en: "Blog System", vi: "Hệ thống Blog" }, before: { en: "None", vi: "Không có" }, after: { en: "Full CMS blog", vi: "Blog CMS đầy đủ" }, improvement: { en: "New capability", vi: "Năng lực mới" } },
+      { en: "Editors compose and publish pages from reusable blocks without engineering involvement", vi: "Editor dựng và publish trang từ block tái sử dụng mà không cần engineering" },
+      { en: "Real-time preview and draft mode separate editing from publishing", vi: "Preview thời gian thực và draft mode tách biên tập khỏi xuất bản" },
+      { en: "Blog publishing with SEO-optimized content and automatic sitemap generation", vi: "Xuất bản blog với nội dung tối ưu SEO và sinh sitemap tự động" },
+      { en: "App download funnels run as composable page blocks", vi: "Funnel tải app chạy như block trang có thể dựng linh hoạt" },
     ],
     timeline: [
       { phase: { en: "Discovery", vi: "Khám phá" }, title: { en: "CMS Architecture", vi: "Kiến trúc CMS" }, description: { en: "Designed the headless CMS schema, slice types, and content modeling strategy.", vi: "Thiết kế schema headless CMS, loại slice và chiến lược content modeling." } },
@@ -372,8 +330,8 @@ export const caseStudies: CaseStudy[] = [
       vi: "Chúng tôi xây dựng một ứng dụng Next.js duy nhất với lớp xác thực dùng chung, hệ thống credit và lịch sử hội thoại. Mỗi analyzer (xét nghiệm máu, dinh dưỡng thực phẩm, chat chung) là module tự chứa dùng chung hạ tầng thanh toán Stripe và quản lý người dùng. Hệ thống credit gate mỗi yêu cầu phân tích.",
     },
     impact: {
-      en: "The platform launched with 3 AI analyzers on day one, each powered by different LLM models for optimal accuracy. The credit system handles payments automatically, and the admin dashboard lets the team manage users and credits without touching code.",
-      vi: "Nền tảng ra mắt với 3 analyzer AI từ ngày đầu, mỗi analyzer powered bởi mô hình LLM khác nhau cho độ chính xác tối ưu. Hệ thống credit xử lý thanh toán tự động và dashboard admin cho phép đội quản lý người dùng và credit mà không động đến code.",
+      en: "The platform launched with three AI analyzers on day one, each paired with the model suited to its task. The credit system handles payments automatically, and the admin dashboard lets the team manage users and credits without touching code.",
+      vi: "Nền tảng ra mắt với ba analyzer AI từ ngày đầu, mỗi analyzer ghép với mô hình phù hợp với nhiệm vụ của nó. Hệ thống credit xử lý thanh toán tự động và dashboard admin cho phép đội quản lý người dùng và credit mà không động đến code.",
     },
     features: [
       { en: "Blood test AI analyzer with PDF upload and conversational breakdown", vi: "Analyzer AI xét nghiệm máu với upload PDF và breakdown hội thoại" },
@@ -384,22 +342,10 @@ export const caseStudies: CaseStudy[] = [
       { en: "Admin dashboard for user and credit management", vi: "Dashboard admin cho quản lý người dùng và credit" },
     ],
     keyResults: [
-      { en: "3 AI analyzers launched in a single unified platform", vi: "3 analyzer AI ra mắt trên một nền tảng thống nhất" },
+      { en: "Three AI analyzers launched in one unified platform", vi: "Ba analyzer AI ra mắt trên một nền tảng thống nhất" },
       { en: "Credit-based monetization with automated Stripe billing", vi: "Kiếm tiền dựa trên credit với billing Stripe tự động" },
-      { en: "Multiple LLM models optimized per analyzer type", vi: "Nhiều mô hình LLM tối ưu theo loại analyzer" },
-      { en: "Admin dashboard for zero-code user management", vi: "Dashboard admin cho quản lý người dùng zero-code" },
-    ],
-    results: [
-      { metric: { en: "AI Analyzers", vi: "Analyzer AI" }, value: { en: "3", vi: "3" }, numericValue: 3 },
-      { metric: { en: "LLM Models", vi: "Mô hình LLM" }, value: { en: "4+", vi: "4+" }, numericValue: 4, suffix: "+" },
-      { metric: { en: "Auth Methods", vi: "Phương thức Auth" }, value: { en: "OTP", vi: "OTP" } },
-      { metric: { en: "Payment System", vi: "Hệ thống Thanh toán" }, value: { en: "Stripe", vi: "Stripe" } },
-    ],
-    beforeAfter: [
-      { metric: { en: "Product Launch", vi: "Ra mắt Sản phẩm" }, before: { en: "Separate apps", vi: "App riêng biệt" }, after: { en: "Unified platform", vi: "Nền tảng thống nhất" }, improvement: { en: "1 codebase", vi: "1 codebase" } },
-      { metric: { en: "Monetization", vi: "Kiếm tiền" }, before: { en: "None", vi: "Không" }, after: { en: "Credit system", vi: "Hệ thống credit" }, improvement: { en: "Automated billing", vi: "Billing tự động" } },
-      { metric: { en: "User Auth", vi: "Auth Người dùng" }, before: { en: "Manual", vi: "Thủ công" }, after: { en: "OTP + Supabase", vi: "OTP + Supabase" }, improvement: { en: "Secure & scalable", vi: "An toàn & khả mở" } },
-      { metric: { en: "Admin Control", vi: "Kiểm soát Admin" }, before: { en: "Code changes", vi: "Thay đổi code" }, after: { en: "Dashboard UI", vi: "Dashboard UI" }, improvement: { en: "Zero-code", vi: "Zero-code" } },
+      { en: "Conversation history shared across every analyzer", vi: "Lịch sử hội thoại dùng chung trên mọi analyzer" },
+      { en: "Admin dashboard for user and credit management without code changes", vi: "Dashboard admin quản lý người dùng và credit không cần đổi code" },
     ],
     timeline: [
       { phase: { en: "Discovery", vi: "Khám phá" }, title: { en: "Product Architecture", vi: "Kiến trúc Sản phẩm" }, description: { en: "Designed the multi-analyzer architecture, credit system, and authentication flow.", vi: "Thiết kế kiến trúc multi-analyzer, hệ thống credit và flow xác thực." } },
@@ -447,11 +393,10 @@ export interface FlatCaseStudy {
   impact: string;
   features: string[];
   keyResults: string[];
-  results: { metric: string; value: string; numericValue?: number; suffix?: string }[];
-  beforeAfter: { metric: string; before: string; after: string; improvement: string }[];
   timeline: { phase: string; title: string; description: string }[];
   timelineDuration: string;
   teamSize: string;
+  clientCountry?: string;
   testimonial: { quote: string; author: string; role: string; company: string };
   technologies: string[];
   images: CaseStudy["images"];
@@ -470,18 +415,6 @@ export function flattenCaseStudy(cs: CaseStudy, locale: Locale): FlatCaseStudy {
     impact: cs.impact[locale],
     features: cs.features.map((f) => f[locale]),
     keyResults: cs.keyResults.map((k) => k[locale]),
-    results: cs.results.map((r) => ({
-      metric: r.metric[locale],
-      value: r.value[locale],
-      numericValue: r.numericValue,
-      suffix: r.suffix,
-    })),
-    beforeAfter: cs.beforeAfter.map((b) => ({
-      metric: b.metric[locale],
-      before: b.before[locale],
-      after: b.after[locale],
-      improvement: b.improvement[locale],
-    })),
     timeline: cs.timeline.map((t) => ({
       phase: t.phase[locale],
       title: t.title[locale],
@@ -489,6 +422,7 @@ export function flattenCaseStudy(cs: CaseStudy, locale: Locale): FlatCaseStudy {
     })),
     timelineDuration: cs.timelineDuration[locale],
     teamSize: cs.teamSize[locale],
+    clientCountry: cs.clientCountry?.[locale],
     testimonial: {
       quote: cs.testimonial.quote[locale],
       author: cs.testimonial.author[locale],

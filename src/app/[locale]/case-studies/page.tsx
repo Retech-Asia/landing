@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
@@ -196,20 +196,17 @@ export default async function CaseStudiesPage({
                       {study.description}
                     </p>
 
-                    {/* Quick results */}
-                    <div className="grid grid-cols-2 gap-3 mb-6">
-                      {study.results.slice(0, 4).map((result) => (
-                        <div
-                          key={result.metric}
-                          className="p-3 rounded-xl bg-background-subtle"
+                    {/* Verified technologies (owner arc: verified tech over
+                        vanity metrics; the former stat grid carried numbers
+                        with no record behind it). */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {study.technologies.slice(0, 5).map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 rounded-full bg-background-subtle border border-card-border text-xs font-medium text-foreground-secondary"
                         >
-                          <p className="text-base sm:text-lg font-bold text-foreground">
-                            {result.value}
-                          </p>
-                          <p className="text-xs text-foreground-muted">
-                            {result.metric}
-                          </p>
-                        </div>
+                          {tech}
+                        </span>
                       ))}
                     </div>
 

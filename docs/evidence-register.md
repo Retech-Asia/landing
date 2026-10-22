@@ -25,9 +25,12 @@ existing copy is pending classification, not presumed false. Owner = Vu Pham.
 | Item | Location | Status | Treatment |
 | --- | --- | --- | --- |
 | Narrative facts (stacks, integrations, outcomes) | `src/lib/case-studies-data.ts` | owner | Owner attests each describes real RETECH work |
-| Before/after metrics ("75% less switching", "100% tracked", "always current") | `case-studies-data.ts` beforeAfter blocks | owner | Keep only with stated basis; else qualitative |
-| Testimonials | all 5 are empty strings | verified (empty) | Keep empty; fix schema emission (F3) |
-| Imagery `cs-*.webp` in `public/images/stock/` | 5 hero/dashboard/mobile sets | owner | Provenance + approval; label as illustrative unless real captures |
+| Stat rows (`results`) + before/after tables (`beforeAfter`) | were `case-studies-data.ts` | REMOVE/rewrite | DONE 2026-10-22 (RT-19): model fields + sections + AnimatedMetrics/BeforeAfter components deleted; numbers had no record |
+| keyResults | `case-studies-data.ts` | rewrite DONE 2026-10-22 | Qualitative capability statements only (no %, x-multipliers, accuracy claims) |
+| impact prose numbers ("60% improvement", "optimal accuracy") | `case-studies-data.ts` | rewrite DONE 2026-10-22 | Qualitative rewrites EN+VI |
+| Client country per study (owner arc) | `clientCountry?` field, rendered when set | owner | Jay supplies market per study; render-gated until then |
+| Testimonials | all 5 are empty strings | verified (empty) | Keep empty; review schema already suppressed (F3) |
+| Imagery `cs-*.webp` in `public/images/stock/` | hero images + detail pages | owner / illustrative | "Illustrative visualization" caption shipped on detail hero; mining study's mismatched cs-wellness-* replaced with analytics-dashboard.webp; Wave 3D owns licensed replacements |
 | Named third parties (F2Pool, ViaBTC, CoinGecko, Stripe…) | case-study text | owner | Confirm these describe real integrations |
 
 ## Testimonials / reviews / ratings
