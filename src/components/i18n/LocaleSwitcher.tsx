@@ -8,6 +8,7 @@ import { useTransition } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { cn } from "@/lib/cn";
 import { routing, type Locale } from "@/i18n/routing";
+import { localizedPathname } from "@/lib/localized-path";
 
 const LOCALE_LABEL: Record<Locale, string> = {
   en: "EN",
@@ -26,9 +27,9 @@ const LOCALE_LABEL: Record<Locale, string> = {
  *    a custom dropdown would need careful combobox semantics for the same UX.
  *
  * Switching locale uses `useRouter().replace(pathname, { locale })` from
- * `@/i18n/navigation`, which preserves the path and only swaps the locale
- * segment. Slugs stay English until service/industry/case-study data files
- * get VI slugs in later phases.
+ * `@/i18n/navigation`. Collections with per-locale slugs (case studies,
+ * services, industries) are translated via `localizedPathname` so the
+ * switcher lands on the target-locale detail page instead of a 404.
  *
  * `useTransition` keeps the current page interactive during the swap (the
  * underlying navigation is server-driven for SSG'd routes).
@@ -65,8 +66,10 @@ export function LocaleSwitcher({ variant = "navbar" }: { variant?: "navbar" | "m
       if (next === locale) return;
       startTransition(() => {
         // `replace` keeps history clean — Back button doesn't pile up
-        // locale switches. `locale` option swaps the segment; pathname stays.
-        router.replace(pathname, { locale: next });
+        // locale switches. `locale` option swaps the segment;
+        // localizedPathname rewrites per-locale slugs (case studies,
+        // services, industries) so the target route exists.
+        router.replace(localizedPathname(pathname, locale, next), { locale: next });
       });
     },
     [locale, pathname, router]

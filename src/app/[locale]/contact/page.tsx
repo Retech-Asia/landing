@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Clock, Mail, MessageSquare, FileText, Video, Hash, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import Image from "next/image";

@@ -1,9 +1,9 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 /**
  * Parse markdown-style inline links [text](url) in a string and return
  * an array of React nodes (strings and <Link> elements).
- * Internal links (starting with /) use next/link; external links open in a new tab.
+ * Internal links (starting with /) use the locale-aware Link; external links open in a new tab.
  */
 export function renderContent(text: string): React.ReactNode[] {
   const parts: React.ReactNode[] = [];
