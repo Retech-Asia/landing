@@ -4,11 +4,15 @@ Tone of voice, source of truth, naming conventions, and banned patterns for site
 
 ## Source of truth
 
-**The current Wix site is the canonical source for company copy until the Wix subscription expires.**
+**This Next.js repository is the canonical source for company copy.** It is delivered
+via Vercel to https://www.retech.asia (Vercel is connected to `Retech-Asia/retech-landing`).
 
-URL: https://www.retech.asia
+Historical note: before the 2026-08-23 overhaul, the Wix site was the canonical source
+(copy was captured from Wix on 2026-07-21 during migration). Wix is retired as a
+reference; do not fetch it for baselines.
 
-When editing copy, fetch the equivalent page from Wix via Playwright (Wix blocks `curl`/`fetch`) and use that as the baseline. Do not invent copy that isn't on the source site. If something is missing or ambiguous, ask Jay — don't fill gaps with hallucinated content.
+Do not invent copy. If something is missing or ambiguous, ask Jay — don't fill gaps
+with hallucinated content.
 
 ## Tone of voice
 
@@ -39,7 +43,7 @@ Primary CTA:  Get Free Consultation
 Secondary:   Explore Services
 ```
 
-This is sourced from Wix (captured 2026-07-21). Don't change without Jay's input.
+This is canonical hero copy (originally captured from Wix, 2026-07-21). Don't change without Jay's input. RT-04/RT-05 may change the H1 semantics (visible vs sr-only) but the wording itself stays Jay-gated.
 
 ## Banned phrases (superlatives + marketing fluff)
 
@@ -58,16 +62,21 @@ Apply this filter to every user-facing string. **Blog posts are exempt** — the
 
 ## Case study naming
 
-Client brand names are NEVER used. Each case study is renamed to a generic project-purpose descriptor:
+Client brand names are NEVER used. Each case study carries a generic project-purpose
+descriptor. The five verified case studies (single source:
+`src/lib/case-studies-data.ts`) are:
 
-| Was (client brand) | Now (descriptive) | Slug |
-|---|---|---|
-| Signsbeat | Wellness Platform | `/case-studies/wellness-platform` |
-| Dune Asset Management | Asset Management Platform | `/case-studies/asset-management-platform` |
+| Study (EN title) | Industry | Slug (EN) | Slug (VI) |
+|---|---|---|---|
+| Mining Analytics Platform | Blockchain & Crypto | `mining-analytics-platform` | `phan-tich-mining` |
+| Asset Management Platform | Finance | `asset-management-platform` | `quan-ly-tai-san` |
+| Investment Intelligence Platform | Financial Research | `investment-intelligence-platform` | `tri-tue-dau-tu` |
+| Fintech Card Marketing Platform | Consumer Fintech | `fintech-card-marketing` | `marketing-the-fintech` |
+| AI Analysis SaaS Platform | AI / SaaS | `ai-analysis-saas` | `ai-analysis-saas` |
 
-Image filenames follow the new naming: `wellness-dashboard.png`, `asset-mgmt-dashboard.png`. No `signsbeat-*` or `dune-*` filenames in `public/images/`.
-
-Old slugs (`/case-studies/signsbeat`, `/case-studies/dune-asset-management`) have permanent 308 redirects in `src/lib/wix-redirect-map.ts`. Don't delete those redirects — they protect any stale inbound links.
+This table is the baseline (ruling 2026-10-22). Do not rename existing studies;
+earlier docs referencing "Wellness Platform" (`/case-studies/wellness-platform`) or
+a Signsbeat/Dune slug pair are stale — those slugs do not exist in the data model.
 
 ## Stat consistency
 
@@ -121,6 +130,10 @@ The `<noscript>` fallback in `layout.tsx` pulls from `CONTACT`. Anywhere else th
 - **Oxford comma**: yes (CMS, CRM, and ERP systems).
 - **Sentence case** for headings, NOT Title Case For Every Word.
 - **Em dashes** (`—`) with no surrounding spaces for parenthetical breaks: `full-cycle development — from design to deployment`.
+- Governance note (ruling 2026-10-22): this document governs public site copy
+  punctuation until a consolidated ruling. `docs/overhaul-roadmap.md` bans em dashes
+  more broadly; until resolved, follow THIS rule for site copy and avoid em dashes
+  in non-copy docs.
 - No double spaces after periods.
 
 ## Blog post conventions
@@ -151,7 +164,7 @@ For purely decorative images (backgrounds, gradients), use `alt=""` (empty) so s
 
 ## What to do when you don't know the answer
 
-- Check the Wix source first
+- Check this repo first (it is the source of truth)
 - Check `src/lib/constants.ts` for stats
 - Ask Jay — don't guess
 - Save the answer to memory so the question doesn't recur

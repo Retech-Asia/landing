@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RT-05 Direction A · Product-led, brand-preserving · Retech</title>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --bg-subtle: #F5F5F0; --bg-muted: #EDEDEA;
+    --fg: #1A1A2E; --fg-2: #3D3D4E; --fg-muted: #6B6B78;
+    --brand: #208535; --line: rgba(26,26,46,0.10); --grid: rgba(26,26,46,0.05);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'GeneralSans', ui-sans-serif, system-ui, sans-serif;
+    background: var(--bg); color: var(--fg); overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+  @media (max-width: 767px) { .wrap { padding: 0 20px; } }
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 4px;
+  }
+  .skip { position: absolute; left: -9999px; top: 12px; z-index: 200; background: var(--brand); color: #fff; padding: 10px 16px; border-radius: 8px; }
+  .skip:focus { left: 12px; }
+
+  /* ---------- header ---------- */
+  header.site {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,250,248,0.86); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; height: 64px; gap: 32px; }
+  .wordmark { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--fg); text-decoration: none; }
+  .wordmark span { color: var(--brand); }
+  .nav-links { display: flex; gap: 26px; margin-left: auto; }
+  .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--fg-2); text-decoration: none; }
+  .nav-links a:hover { color: var(--brand); }
+  .nav-cta { margin-left: 8px; }
+  @media (max-width: 767px) { .nav-links { display: none; } .nav-cta { margin-left: auto; } }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; height: 48px; padding: 0 26px; border-radius: 10px;
+    font-size: 0.95rem; font-weight: 600; text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .btn-primary { background: var(--brand); color: #fff; box-shadow: 0 1px 2px rgba(32,133,53,0.4), 0 8px 24px -8px rgba(32,133,53,0.45); }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-secondary { color: var(--fg); border: 1px solid rgba(128,128,140,0.3); }
+  .btn-secondary:hover { transform: translateY(-1px); }
+  .btn-sm { height: 40px; padding: 0 18px; font-size: 0.85rem; }
+
+  /* ---------- hero (LitDunes) ---------- */
+  #gl { position: absolute; inset: 0; z-index: 0; display: block; width: 100%; height: 100%; }
+  .hero-scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(90deg, var(--bg) 0%, transparent 58%); }
+  @media (max-width: 767px) { .hero-scrim { background: linear-gradient(180deg, var(--bg) 0%, transparent 62%); } }
+  .hero {
+    position: relative; z-index: 2; min-height: calc(100vh - 64px); max-height: 900px;
+    display: flex; align-items: center; overflow: hidden;
+  }
+  .hero .copy { max-width: 640px; position: relative; z-index: 2; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  .enter { animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .d1 { animation-delay: 0.05s } .d2 { animation-delay: 0.15s }
+  .d3 { animation-delay: 0.28s } .d4 { animation-delay: 0.4s } .d5 { animation-delay: 0.52s }
+  .eyebrow {
+    font-family: ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: 0.18em;
+    color: var(--fg-muted); text-transform: uppercase; margin-bottom: 18px;
+  }
+  h1 { font-size: clamp(2.6rem, 5.4vw, 4.6rem); line-height: 1.04; letter-spacing: -0.02em; font-weight: 600; }
+  h1 .accent { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; color: var(--brand); padding-right: 0.06em; }
+  .subhead { margin-top: 24px; font-size: 1.12rem; line-height: 1.6; color: var(--fg-2); max-width: 520px; }
+  .subhead .rotator { font-weight: 600; color: var(--brand); white-space: nowrap; display: inline-block; }
+  .ctas { margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .stats { margin-top: 44px; display: flex; gap: 36px; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
+  .stat span { font-size: 0.8rem; color: var(--fg-muted); }
+  .stat + .stat { border-left: 1px solid rgba(128,128,140,0.2); padding-left: 36px; }
+
+  /* ---------- sections ---------- */
+  section { position: relative; }
+  .band { padding: 88px 0; }
+  .band-subtle { background: var(--bg-subtle); }
+  .kicker {
+    font-family: ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--brand); margin-bottom: 14px;
+  }
+  h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.15; letter-spacing: -0.02em; font-weight: 600; max-width: 640px; }
+  .lede { margin-top: 14px; font-size: 1.05rem; line-height: 1.6; color: var(--fg-2); max-width: 560px; }
+
+  /* proof strip */
+  .proof {
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    background: var(--bg-subtle); padding: 22px 0;
+  }
+  .proof .row { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
+  .proof p { font-size: 0.98rem; color: var(--fg-2); }
+  .proof b { color: var(--fg); }
+  .proof a { color: var(--brand); font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .proof a:hover { text-decoration: underline; }
+
+  /* capabilities */
+  .featured-cap {
+    margin-top: 40px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 0;
+    border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #fff;
+  }
+  .featured-cap .text { padding: 40px; }
+  .featured-cap .panel { background: var(--bg-subtle); border-left: 1px solid var(--line); padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+  .featured-cap h3 { font-size: 1.4rem; font-weight: 600; letter-spacing: -0.01em; }
+  .featured-cap .what { margin-top: 14px; font-size: 0.98rem; line-height: 1.6; color: var(--fg-2); }
+  .featured-cap .fits { margin-top: 12px; font-size: 0.9rem; line-height: 1.55; color: var(--fg-muted); }
+  .panel-tag { font-family: ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); }
+  .panel ul { list-style: none; margin-top: 16px; }
+  .panel li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 0.92rem; color: var(--fg-2); }
+  .panel li:last-child { border-bottom: 0; }
+  .panel li b { color: var(--fg); font-weight: 600; }
+  .cap-grid { margin-top: 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .cap {
+    border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: #fff;
+    transition: border-color 0.15s ease;
+  }
+  .cap:hover { border-color: var(--brand); }
+  .cap h4 { font-size: 1rem; font-weight: 600; }
+  .cap .what { margin-top: 10px; font-size: 0.88rem; line-height: 1.55; color: var(--fg-2); }
+  .cap .fits { margin-top: 8px; font-size: 0.82rem; line-height: 1.5; color: var(--fg-muted); }
+  @media (max-width: 1023px) { .cap-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 767px) {
+    .featured-cap { grid-template-columns: 1fr; }
+    .featured-cap .panel { border-left: 0; border-top: 1px solid var(--line); }
+    .cap-grid { grid-template-columns: 1fr; }
+  }
+
+  /* selected work */
+  .work-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .work {
+    display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px;
+    background: #fff; padding: 26px; text-decoration: none; color: inherit;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .work:hover { border-color: var(--brand); transform: translateY(-2px); }
+  .work .ind { font-family: ui-monospace, Menlo, monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); }
+  .work h4 { margin-top: 14px; font-size: 1.05rem; font-weight: 600; line-height: 1.3; }
+  .work .tag { margin-top: 8px; font-size: 0.88rem; line-height: 1.5; color: var(--fg-2); }
+  .work .go { margin-top: auto; padding-top: 18px; font-size: 0.85rem; font-weight: 600; color: var(--brand); }
+  @media (max-width: 1023px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 767px) { .work-grid { grid-template-columns: 1fr; } }
+
+  /* delivery */
+  .steps { margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .step { border-top: 2px solid var(--fg); padding-top: 18px; }
+  .step .n { font-family: ui-monospace, Menlo, monospace; font-size: 11px; color: var(--brand); letter-spacing: 0.12em; }
+  .step h4 { margin-top: 8px; font-size: 1rem; font-weight: 600; }
+  .step .what { margin-top: 8px; font-size: 0.88rem; line-height: 1.55; color: var(--fg-2); }
+  .step .sees { margin-top: 8px; font-size: 0.82rem; line-height: 1.5; color: var(--fg-muted); }
+  @media (max-width: 1023px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 767px) { .steps { grid-template-columns: 1fr; } }
+
+  /* AI */
+  .ai-grid { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .ai {
+    border: 1px solid var(--line); border-radius: 16px; padding: 34px; background: #fff;
+  }
+  .ai h3 { font-size: 1.2rem; font-weight: 600; }
+  .ai p { margin-top: 12px; font-size: 0.95rem; line-height: 1.6; color: var(--fg-2); }
+  .ai .note { margin-top: 14px; font-size: 0.85rem; line-height: 1.55; color: var(--fg-muted); }
+  @media (max-width: 767px) { .ai-grid { grid-template-columns: 1fr; } }
+
+  /* engagement */
+  .eng-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .eng { border: 1px solid var(--line); border-radius: 12px; padding: 28px; background: #fff; }
+  .eng h4 { font-size: 1.05rem; font-weight: 600; }
+  .eng p { margin-top: 10px; font-size: 0.9rem; line-height: 1.55; color: var(--fg-2); }
+  .drivers { margin-top: 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-subtle); padding: 26px 28px; }
+  .drivers h4 { font-size: 0.95rem; font-weight: 600; }
+  .drivers p { margin-top: 8px; font-size: 0.9rem; line-height: 1.6; color: var(--fg-2); }
+  @media (max-width: 1023px) { .eng-grid { grid-template-columns: 1fr; } }
+
+  /* FAQ */
+  .faq-list { margin-top: 36px; max-width: 760px; }
+  .faq { border-bottom: 1px solid var(--line); }
+  .faq summary {
+    list-style: none; cursor: pointer; padding: 20px 0; display: flex; justify-content: space-between;
+    align-items: center; gap: 20px; font-size: 1.02rem; font-weight: 600;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-weight: 400; font-size: 1.3rem; color: var(--brand); line-height: 1; }
+  .faq[open] summary::after { content: "−"; }
+  .faq .a { padding: 0 0 22px; font-size: 0.95rem; line-height: 1.65; color: var(--fg-2); max-width: 640px; }
+
+  /* closing */
+  .closing { background: var(--fg); color: #fff; }
+  .closing .kicker { color: #7CC98F; }
+  .closing h2 { color: #fff; max-width: 640px; }
+  .closing p.contact { margin-top: 16px; font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,0.75); }
+  .closing p.contact a { color: #fff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.35); }
+  .closing .ctas { margin-top: 30px; }
+  .closing .btn-secondary { color: #fff; border-color: rgba(255,255,255,0.35); }
+
+  footer.site { border-top: 1px solid var(--line); padding: 36px 0; background: var(--bg); }
+  footer.site .row { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  footer.site p { font-size: 0.82rem; color: var(--fg-muted); }
+  footer.site a { color: var(--fg-2); text-decoration: none; }
+  footer.site a:hover { color: var(--brand); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .enter { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="wordmark" href="#">Retech<span>.</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-primary btn-sm nav-cta" href="#contact">Get Free Consultation</a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- 1 · HERO -->
+<section class="hero" aria-label="Introduction">
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="copy">
+      <p class="eyebrow enter d1">Retech Solutions · Software development · Ho Chi Minh City</p>
+      <h1 class="enter d2">Turning Ideas<br>into <span class="accent">Solutions</span></h1>
+      <p class="subhead enter d3">We build <span class="rotator" id="rotator">CRM systems</span> your business can rely on.</p>
+      <div class="ctas enter d4">
+        <a class="btn btn-primary" href="#contact">Get Free Consultation</a>
+        <a class="btn btn-secondary" href="#services">Explore Services</a>
+      </div>
+      <div class="stats enter d5">
+        <div class="stat"><b>50+</b><span>Projects Delivered</span></div>
+        <div class="stat"><b>30+</b><span>Expert Engineers</span></div>
+        <div class="stat"><b>5+</b><span>Years of Experience</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · EARLY PROOF -->
+<div class="proof" id="proof">
+  <div class="wrap row">
+    <p><b>50+ projects</b> delivered for operators in mining, finance, and asset management.</p>
+    <a href="#work">See selected work</a>
+  </div>
+</div>
+
+<!-- 3 · CAPABILITIES -->
+<section class="band" id="services">
+  <div class="wrap">
+    <p class="kicker">Capabilities</p>
+    <h2>Custom CRM and business systems come first, because that is where most operations break.</h2>
+    <p class="lede">Around that core: web, mobile, and desktop engineering, applied AI, and IT consulting.</p>
+
+    <div class="featured-cap">
+      <div class="text">
+        <h3>Custom CRM and business systems</h3>
+        <p class="what">CRMs and internal systems shaped around your workflow: roles and permissions, pipelines, integrations with the tools you already run, and migration from spreadsheets or legacy software.</p>
+        <p class="fits">Fits operators whose off-the-shelf CRM forces their process into someone else's template.</p>
+      </div>
+      <div class="panel">
+        <p class="panel-tag">Typical scope</p>
+        <ul>
+          <li><b>Workflow fit</b> — modeled on how your team actually operates</li>
+          <li><b>Roles and permissions</b> — admin, staff, and client views</li>
+          <li><b>Integrations</b> — email, payments, telephony, your data</li>
+          <li><b>Migration</b> — from spreadsheets or a legacy system</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cap-grid">
+      <div class="cap">
+        <h4>Web applications</h4>
+        <p class="what">Customer-facing portals and internal platforms built on Next.js with typed APIs.</p>
+        <p class="fits">Fits teams that need a dependable web product their customers use daily.</p>
+      </div>
+      <div class="cap">
+        <h4>Mobile apps</h4>
+        <p class="what">iOS and Android applications from a shared codebase, from booking flows to field tools.</p>
+        <p class="fits">Fits products where the customer is on a phone, not at a desk.</p>
+      </div>
+      <div class="cap">
+        <h4>Desktop applications</h4>
+        <p class="what">Desktop software for Windows and macOS when the work needs more than a browser tab.</p>
+        <p class="fits">Fits operations with local hardware, large files, or offline work.</p>
+      </div>
+      <div class="cap">
+        <h4>Applied AI</h4>
+        <p class="what">AI features added where the use case justifies them: document intelligence, assistants, analysis pipelines.</p>
+        <p class="fits">Fits teams with real data and a measurable task, not a demo.</p>
+      </div>
+      <div class="cap">
+        <h4>IT consulting</h4>
+        <p class="what">Architecture reviews, technical due diligence, and roadmap planning before you commit to a build.</p>
+        <p class="fits">Fits leaders who need an independent read before spending.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · SELECTED WORK -->
+<section class="band band-subtle" id="work">
+  <div class="wrap">
+    <p class="kicker">Selected work</p>
+    <h2>Five systems, five operators, one standard of delivery.</h2>
+    <p class="lede">Each case study names the problem, our scope and responsibility, the solution, and the outcome.</p>
+
+    <div class="work-grid">
+      <a class="work" href="#work">
+        <p class="ind">Blockchain &amp; Crypto</p>
+        <h4>Mining Analytics Platform</h4>
+        <p class="tag">BTC mining operations dashboard unifying hashrate, market pricing, and accounting.</p>
+        <p class="go">Read the case study →</p>
+      </a>
+      <a class="work" href="#work">
+        <p class="ind">Finance</p>
+        <h4>Asset Management Platform</h4>
+        <p class="tag">Investment management system with role-based portals for admins, investors, and introducers.</p>
+        <p class="go">Read the case study →</p>
+      </a>
+      <a class="work" href="#work">
+        <p class="ind">Financial Research</p>
+        <h4>Investment Intelligence Platform</h4>
+        <p class="tag">AI-powered investment research with retrieval, dashboards, and analyst tooling.</p>
+        <p class="go">Read the case study →</p>
+      </a>
+      <a class="work" href="#work">
+        <p class="ind">Consumer Fintech</p>
+        <h4>Fintech Card Marketing Platform</h4>
+        <p class="tag">Headless CMS marketing platform with content slices, funnels, and app download flows.</p>
+        <p class="go">Read the case study →</p>
+      </a>
+      <a class="work" href="#work">
+        <p class="ind">AI / SaaS</p>
+        <h4>AI Analysis SaaS Platform</h4>
+        <p class="tag">Multi-tool AI analysis platform with a shared credit system and rapid analyzer additions.</p>
+        <p class="go">Read the case study →</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · DELIVERY AND QUALITY -->
+<section class="band" id="process">
+  <div class="wrap">
+    <p class="kicker">Delivery and quality</p>
+    <h2>A delivery process you can inspect at every step.</h2>
+    <p class="lede">No fixed-duration promises. The phases are fixed; the clock depends on scope.</p>
+
+    <div class="steps">
+      <div class="step">
+        <p class="n">01</p>
+        <h4>Discovery</h4>
+        <p class="what">We map your workflow, roles, systems, and constraints with the people who use them.</p>
+        <p class="sees">You see: a written scope and architecture proposal.</p>
+      </div>
+      <div class="step">
+        <p class="n">02</p>
+        <h4>UX and architecture</h4>
+        <p class="what">Screens, data models, and integration plans are agreed before implementation starts.</p>
+        <p class="sees">You see: clickable flows and a technical design.</p>
+      </div>
+      <div class="step">
+        <p class="n">03</p>
+        <h4>Incremental delivery</h4>
+        <p class="what">The system ships in reviewed increments you can open and test, not a single reveal.</p>
+        <p class="sees">You see: a working build each cycle.</p>
+      </div>
+      <div class="step">
+        <p class="n">04</p>
+        <h4>Acceptance</h4>
+        <p class="what">Each phase closes against agreed acceptance criteria with your team testing hands-on.</p>
+        <p class="sees">You see: a signed acceptance per phase.</p>
+      </div>
+      <div class="step">
+        <p class="n">05</p>
+        <h4>Launch</h4>
+        <p class="what">Staged rollout with data migration, monitoring, and your team trained on the real system.</p>
+        <p class="sees">You see: production live, with runbooks.</p>
+      </div>
+      <div class="step">
+        <p class="n">06</p>
+        <h4>Handover</h4>
+        <p class="what">Documentation, access, and source code are yours. Ongoing engineering is optional, not a lock-in.</p>
+        <p class="sees">You see: a complete handover package.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · PRACTICAL AI APPROACH -->
+<section class="band band-subtle" id="ai">
+  <div class="wrap">
+    <p class="kicker">Our approach to AI</p>
+    <h2>Two separate questions: how we build, and what goes in your product.</h2>
+
+    <div class="ai-grid">
+      <div class="ai">
+        <h3>How we build with AI</h3>
+        <p>Our engineers use AI tooling to accelerate implementation. Every line that ships is reviewed and owned by an engineer whose name is on the delivery.</p>
+        <p class="note">AI assists the build. It does not replace accountability.</p>
+      </div>
+      <div class="ai">
+        <h3>AI inside your product</h3>
+        <p>We add AI features when the use case justifies them: the task is measurable, your data is ready, and the operating cost is understood before anyone writes a prompt.</p>
+        <p class="note">No AI for its own sake. Some products are better without it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · ENGAGEMENT AND COST -->
+<section class="band" id="engagement">
+  <div class="wrap">
+    <p class="kicker">Engagement and cost</p>
+    <h2>Three ways to work with us. Costs quoted per scope, never guessed.</h2>
+
+    <div class="eng-grid">
+      <div class="eng">
+        <h4>Discovery</h4>
+        <p>A scoped engagement that maps requirements, architecture, and a delivery plan before you commit to a build.</p>
+      </div>
+      <div class="eng">
+        <h4>Scoped project</h4>
+        <p>A fixed-scope build with defined phases, acceptance criteria, and a delivery timeline you can hold us to.</p>
+      </div>
+      <div class="eng">
+        <h4>Ongoing engineering</h4>
+        <p>A dedicated team shipping increments against a prioritized backlog, month after month.</p>
+      </div>
+    </div>
+
+    <div class="drivers">
+      <h4>What drives cost</h4>
+      <p>Scope, the number of platforms, integrations with existing systems, roles and permissions complexity, and third-party costs (infrastructure, licenses, model APIs). We quote against these factors after discovery, so the number reflects your system rather than a rate card.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · FAQ (visible) -->
+<section class="band band-subtle" id="faq">
+  <div class="wrap">
+    <p class="kicker">Questions</p>
+    <h2>Asked before every engagement.</h2>
+
+    <div class="faq-list">
+      <details class="faq">
+        <summary>What drives the cost of a project?</summary>
+        <p class="a">Scope first: how many workflows, platforms, and integrations the system needs. Roles and permissions complexity and third-party costs (infrastructure, licenses, model APIs) come next. We quote after discovery, against your actual requirements.</p>
+      </details>
+      <details class="faq">
+        <summary>Can you migrate our current system?</summary>
+        <p class="a">Yes. Migration from spreadsheets or legacy software is a standard part of our CRM and business-system work. Data is mapped and rehearsed before cutover, and the legacy system stays available until the new one passes acceptance.</p>
+      </details>
+      <details class="faq">
+        <summary>How do we communicate during the project?</summary>
+        <p class="a">A named point of contact, a written status per delivery cycle, and review sessions where you test increments hands-on. Average response time under 24 hours.</p>
+      </details>
+      <details class="faq">
+        <summary>What happens after launch?</summary>
+        <p class="a">Handover with documentation, access, and source code. Ongoing engineering is available as a separate engagement, and the system is built so another team could take it over.</p>
+      </details>
+      <details class="faq">
+        <summary>When does AI make sense in a product?</summary>
+        <p class="a">When the task is measurable, the data exists and is usable, and the operating cost is acceptable. Document intelligence, classification, and retrieval are common fits. We will tell you when a rules-based solution is the better answer.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · CLOSING CONTACT -->
+<section class="band closing" id="contact">
+  <div class="wrap">
+    <p class="kicker">Start a conversation</p>
+    <h2>Tell us what you are operating. We will tell you what it takes.</h2>
+    <p class="contact">Free consultation, direct with an engineer. Phone <a href="tel:+84769294225">(+84) 769 294 225</a> · Email <a href="mailto:retechasia@gmail.com">retechasia@gmail.com</a></p>
+    <div class="ctas">
+      <a class="btn btn-primary" href="#contact">Get Free Consultation</a>
+      <a class="btn btn-secondary" href="#services">Explore Services</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap row">
+    <p>Retech Solutions Co., Ltd. · Ho Chi Minh City, Vietnam</p>
+    <p><a href="#services">Services</a> · <a href="#work">Work</a> · <a href="#process">Process</a> · <a href="#contact">Contact</a></p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas = document.getElementById('gl');
+  const gl = canvas.getContext('webgl', { antialias: false, alpha: false });
+  if (!gl) { canvas.remove(); }
+
+  const VS = `attribute vec2 p; void main(){ gl_Position = vec4(p, 0., 1.); }`;
+  const FS = `
+precision highp float;
+uniform vec2 uRes;
+uniform float uTime;
+uniform vec2 uMouse;
+uniform float uDark;
+
+float hash(vec2 p){ p = fract(p*vec2(234.34, 435.345)); p += dot(p, p+34.23); return fract(p.x*p.y); }
+float noise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f*f*(3.-2.*f);
+  return mix(mix(hash(i), hash(i+vec2(1,0)), u.x),
+             mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), u.x), u.y);
+}
+float fbm(vec2 p){
+  float v = 0., a = .5;
+  for(int i=0;i<3;i++){ v += a*noise(p); p *= 2.1; a *= .5; }
+  return v;
+}
+vec3 aces(vec3 x){
+  return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14), 0., 1.);
+}
+
+float dune(vec2 p, vec2 pm, float mAct, float t) {
+  float h = fbm(p * 0.45 + vec2(t * 0.22, t * 0.14));
+  h += 0.5 * fbm(p * 1.1 - vec2(t * 0.16, t * 0.10));
+  float dm = length(p - pm);
+  h += 0.15 * exp(-dm * dm * 0.24) * mAct;
+  return h;
+}
+
+void main(){
+  vec2 uv = (gl_FragCoord.xy - .5*uRes) / uRes.y;
+  vec2 muv = vec2(uMouse.x * 0.5 * uRes.x / uRes.y, uMouse.y * 0.5);
+  float mAct = smoothstep(0.05, 0.55, length(uMouse));
+  float t = uTime * 0.10;
+
+  vec3 bgTop = vec3(0.976, 0.976, 0.962);
+  vec3 bgBot = vec3(0.966, 0.966, 0.950);
+  vec3 col = mix(bgBot, bgTop, smoothstep(-0.2, 0.8, uv.y + 0.30));
+
+  vec3 ro = vec3(0.0, 0.38, 3.2);
+  ro.x += uMouse.x * 0.07;
+  ro.y += uMouse.y * 0.02;
+  vec3 rd = normalize(vec3(uv.x, uv.y - 0.30, -1.0));
+
+  vec3 rdM = normalize(vec3(muv.x, muv.y - 0.30, -1.0));
+  float tm = 0.38 / max(0.02, -rdM.y);
+  vec2 pm = vec2(0.0, 3.2) + rdM.xz * tm;
+  pm.x += uMouse.x * 0.07;
+
+  if (rd.y < -0.02) {
+    float tt = -ro.y / rd.y;
+    vec3 hit = ro + rd * tt;
+    vec2 p = hit.xz;
+
+    float h  = dune(p, pm, mAct, t);
+    float hx = dune(p + vec2(0.16, 0.0), pm, mAct, t) - dune(p - vec2(0.16, 0.0), pm, mAct, t);
+    float hy = dune(p + vec2(0.0, 0.16), pm, mAct, t) - dune(p - vec2(0.0, 0.16), pm, mAct, t);
+    float slope = length(vec2(hx, hy));
+
+    float k = abs(fract(h * 9.0 + 0.5) - 0.5);
+    float contour = 1.0 - smoothstep(0.02, 0.09 + slope * 0.05, k);
+
+    float m = fract((p.x * 0.20 + p.y * 0.34) - t * 0.03
+             + 0.30 * fbm(vec2(p.x * 0.5 - t * 0.55, p.y * 0.35 + 3.1)));
+    vec3 wash = mix(vec3(0.10, 0.78, 0.32), vec3(0.06, 0.75, 0.86), smoothstep(0.0, 0.25, m));
+    wash = mix(wash, vec3(0.45, 0.30, 1.00), smoothstep(0.22, 0.48, m));
+    wash = mix(wash, vec3(0.92, 0.30, 0.62), smoothstep(0.45, 0.70, m));
+    wash = mix(wash, vec3(0.95, 0.62, 0.24), smoothstep(0.68, 0.92, m));
+    wash = mix(wash, vec3(0.10, 0.78, 0.32), smoothstep(0.90, 1.0, m));
+
+    float rim = pow(clamp(1.0 - slope * 1.4, 0.0, 1.0), 3.0) * 0.55
+              + pow(clamp(hx * 1.2, 0.0, 1.0), 2.0) * 0.30;
+
+    float dm = length(p - pm);
+    vec3 lampCol = mix(vec3(0.35, 0.90, 0.55), vec3(0.60, 0.55, 1.00), 0.5 + 0.5 * sin(t * 0.5));
+    vec3 lamp = lampCol * exp(-dm * dm * 0.32) * 0.50 * mAct;
+
+    float xr = smoothstep(-3.4, 0.6, p.x);
+    float fog = exp(-max(tt - 2.4, 0.0) * 0.30);
+
+    vec3 base = vec3(0.90, 0.905, 0.90);
+    vec3 terrain = base;
+    vec3 lit = (wash * (0.38 + rim) + lamp) * xr;
+    float lum = dot(lit + wash * contour * 0.8, vec3(0.333));
+    vec3 tint = normalize(lit + wash * contour + 0.001);
+    terrain = mix(terrain, tint * 0.92, clamp(lum * 1.15, 0.0, 0.9));
+    col = mix(col, terrain, fog);
+  } else {
+    float curtain = fbm(vec2(uv.x * 1.6 + t * 0.4, t * 0.3));
+    float band = exp(-pow((uv.y - 0.34 - (curtain - 0.5) * 0.12) * 5.0, 2.0));
+    vec3 cCol = mix(vec3(0.10, 0.78, 0.32), vec3(0.52, 0.38, 0.98), curtain);
+    col = mix(col, cCol * 0.95 + 0.03, band * 0.10);
+  }
+
+  float gr = hash(gl_FragCoord.xy + uTime);
+  col += (gr - .5) * 0.012;
+  col = aces(col * 1.12);
+  gl_FragColor = vec4(col, 1.0);
+}`;
+
+  if (gl) {
+    function compile(type, src) {
+      const sh = gl.createShader(type);
+      gl.shaderSource(sh, src); gl.compileShader(sh);
+      if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(sh));
+      return sh;
+    }
+    const prog = gl.createProgram();
+    gl.attachShader(prog, compile(gl.VERTEX_SHADER, VS));
+    gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FS));
+    gl.linkProgram(prog); gl.useProgram(prog);
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'p');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+    const uRes = gl.getUniformLocation(prog, 'uRes');
+    const uTime = gl.getUniformLocation(prog, 'uTime');
+    const uMouse = gl.getUniformLocation(prog, 'uMouse');
+
+    function resize() {
+      const dpr = Math.min(devicePixelRatio || 1, 1.5);
+      canvas.width = innerWidth * dpr; canvas.height = innerHeight * dpr;
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+    addEventListener('resize', resize); resize();
+
+    const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+    addEventListener('pointermove', e => {
+      mouse.tx = (e.clientX / innerWidth) * 2 - 1;
+      mouse.ty = -((e.clientY / innerHeight) * 2 - 1);
+    });
+
+    // render only while the hero is on screen
+    let visible = true;
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0.02 })
+      .observe(document.querySelector('.hero'));
+
+    const t0 = performance.now();
+    const start = 47;
+    let raf = 0;
+    function frame(now) {
+      raf = 0;
+      if (!visible) return;
+      mouse.x += (mouse.tx - mouse.x) * 0.010;
+      mouse.y += (mouse.ty - mouse.y) * 0.010;
+      const t = reduced ? start : start + (now - t0) / 1000;
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+      gl.uniform1f(uTime, t);
+      gl.uniform2f(uMouse, reduced ? 0 : mouse.x, reduced ? 0 : mouse.y);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      if (!reduced) raf = requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+    // resume when the hero scrolls back in
+    document.addEventListener('scroll', () => {
+      if (visible && !raf && !reduced) raf = requestAnimationFrame(frame);
+    }, { passive: true });
+  }
+
+  const words = ['CRM systems', 'CMS platforms', 'ERP solutions', 'web apps', 'mobile apps'];
+  const rot = document.getElementById('rotator');
+  let wi = 0;
+  if (!reduced && rot) setInterval(() => {
+    rot.style.transition = 'opacity .18s ease, transform .18s ease';
+    rot.style.opacity = '0'; rot.style.transform = 'translateY(-6px)';
+    setTimeout(() => {
+      wi = (wi + 1) % words.length; rot.textContent = words[wi];
+      rot.style.transition = 'none'; rot.style.transform = 'translateY(6px)';
+      requestAnimationFrame(() => {
+        rot.style.transition = 'opacity .18s ease, transform .18s ease';
+        rot.style.opacity = '1'; rot.style.transform = 'translateY(0)';
+      });
+    }, 190);
+  }, 2500);
+})();
+</script>
+</body>
+</html>

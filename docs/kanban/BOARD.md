@@ -15,7 +15,7 @@ Rule: update BOTH the ticket file and this board row in the same edit.
 | RT-02 | P0 | Claims + asset evidence register | RT-00 | DONE as register; owner confirmations OPEN |
 | RT-03 | P0 | Reproduced crawl/schema/tracking fixes | RT-01 | DONE 2026-10-22 (10/10 probe PASS; F9/F10 resolved as consistency fixes) |
 | RT-04 | P1 | Buyer positioning + homepage copy + service IA | RT-01, RT-02 | Copy plan drafted (`docs/rt04-positioning-copy-plan.md`); hero options await Jay |
-| RT-05 | P1 | Two design directions + recommendation | RT-04 | GATED on owner checkpoint |
+| RT-05 | P1 | Two design directions + recommendation | RT-04 | Prototypes + 7-axis comparison done (`docs/rt05-design-comparison.md`: B system, hero wording decoupled); STOPPED for owner checkpoint |
 | RT-06 | P1 | Shared nav/typography/component system | RT-05 | blocked |
 | RT-07 | P1 | Homepage implementation | RT-02, RT-04, RT-06 | blocked |
 | RT-08 | P1 | Service hub + CRM depth + new service pages | RT-04, RT-06 | blocked |
