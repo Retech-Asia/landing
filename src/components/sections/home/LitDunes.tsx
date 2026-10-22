@@ -320,11 +320,14 @@ export function LitDunes() {
     };
   }, [armed, reduced]);
 
-  if (!armed) return null;
-
   return (
     <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-      <canvas ref={canvasRef} className="block w-full h-full" />
+      {/* Static brand-wash fallback (owner directive 2026-10-22): an
+          attractive bed before the idle-armed mount and wherever WebGL is
+          unavailable (getContext null / context lost). The opaque canvas
+          paints over it once the shader is live. */}
+      <div className="absolute inset-0 lit-dunes-fallback" />
+      <canvas ref={canvasRef} className="relative block w-full h-full" />
     </div>
   );
 }

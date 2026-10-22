@@ -35,8 +35,8 @@ Rule: update BOTH the ticket file and this board row in the same edit.
 | RT-14 | P1 | Vercel preview + release package | RT-13 | blocked |
 | RT-15 | P2 | Identity reconciliation (owner-executed) | RT-02 | owner items open |
 | RT-16 | P2 | Editorial queue + measurement baseline | RT-01, RT-04 | blocked |
-| RT-17 | P0 | Owner corrections: reconciliation audit (hero/copy/metrics/palette/process/images) | — | in progress |
-| RT-18 | P0 | Wave 1 brand recovery: LitDunes hero + palette + worst generic copy | RT-17 | blocked |
+| RT-17 | P0 | Owner corrections: reconciliation audit (hero/copy/metrics/palette/process/images) | — | DONE 2026-10-22 (`docs/rt17-reconciliation-2026-10-22.md`) |
+| RT-18 | P0 | Wave 1 brand recovery: LitDunes hero + palette + worst generic copy | RT-17 | DONE locally 2026-10-22 (dunes restored, probes 26/26, a11y 100; perf-with-dunes 81/5.16s reported). HELD for owner checkpoint |
 | RT-19 | P0 | Wave 2: project presentation + /process rebuild | RT-18 | blocked |
 | RT-20 | P1 | Wave 3: imagery overhaul + site-wide consistency | RT-19 | blocked |
 

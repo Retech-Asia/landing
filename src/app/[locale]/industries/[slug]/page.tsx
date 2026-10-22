@@ -465,7 +465,7 @@ export default async function IndustryDetailPage({
           <AnimatedSection variant="slideUp">
             <SectionHeader
               title={t("technologies.title")}
-              description={`The tools and frameworks we leverage to deliver robust, scalable solutions for the ${industry.name.toLowerCase()} industry.`}
+              description={`The stacks we build on for ${industry.name.toLowerCase()} projects, chosen project by project.`}
             />
           </AnimatedSection>
 

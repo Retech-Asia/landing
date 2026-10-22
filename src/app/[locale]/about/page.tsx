@@ -111,8 +111,8 @@ const milestones: { year: string; title: LocaleText; description: LocaleText }[]
       vi: "Hơn 50 dự án đã bàn giao",
     },
     description: {
-      en: "Reached a milestone of 50+ successful projects across 8 industries, with a 98% client satisfaction rate and a growing team of 30+ expert engineers.",
-      vi: "Đạt cột mốc hơn 50 dự án thành công trên 8 ngành nghề, với tỷ lệ hài lòng của khách hàng 98% và đội ngũ hơn 30 kỹ sư chuyên môn cao không ngừng tăng trưởng.",
+      en: "Reached a milestone of 50+ successful projects across 8 industries, with a growing team of 30+ expert engineers.",
+      vi: "Đạt cột mốc hơn 50 dự án thành công trên 8 ngành nghề, với đội ngũ hơn 30 kỹ sư chuyên môn cao không ngừng tăng trưởng.",
     },
   },
 ];
@@ -188,7 +188,6 @@ function getChrome(locale: string) {
           "Projects Delivered": "Dự án đã bàn giao",
           "Expert Engineers": "Kỹ sư chuyên môn cao",
           "Countries Served": "Quốc gia phục vụ",
-          "Client Satisfaction Rate": "Tỷ lệ hài lòng của khách hàng",
           "Years of Excellence": "Năm kinh nghiệm",
           "Average Response Time": "Thời gian phản hồi trung bình",
         } as Record<string, string>,

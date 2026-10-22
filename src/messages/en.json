@@ -93,7 +93,6 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Retech Solutions. Custom software from Ho Chi Minh City.",
       "h1Pre": "Turning Ideas",
       "h1Into": "into",
       "h1Accent": "Solutions",
@@ -359,7 +358,7 @@
     },
     "technologies": {
       "title": "Technologies We Use",
-      "description": "The tools and frameworks we leverage to deliver robust, scalable solutions."
+      "description": "The stacks we build on, chosen project by project."
     },
     "faq": {
       "title": "Frequently Asked Questions",

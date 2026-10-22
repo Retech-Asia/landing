@@ -93,7 +93,6 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Retech Solutions. Phần mềm tùy chỉnh từ TP. Hồ Chí Minh.",
       "h1Pre": "Biến Ý tưởng",
       "h1Into": "thành",
       "h1Accent": "Giải pháp",
@@ -359,7 +358,7 @@
     },
     "technologies": {
       "title": "Công nghệ chúng tôi sử dụng",
-      "description": "Các công cụ và framework chúng tôi sử dụng để bàn giao giải pháp mạnh mẽ, khả mở."
+      "description": "Các nền tảng chúng tôi dùng để xây dựng, chọn theo từng dự án."
     },
     "faq": {
       "title": "Câu hỏi Thường gặp",

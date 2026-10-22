@@ -823,7 +823,22 @@ p, li {
 }
 
 /* Hero shader composition helper.
-   .hero-text-scrim — darkens the text region of the hero so the headline
+   .lit-dunes-fallback — static brand-wash bed shown before the Lit Dunes
+     shader mounts (idle-armed) and wherever WebGL is unavailable. Light
+     mode: soft green wash with a faint cyan horizon; dark mode: deep
+     green-black. The opaque shader canvas paints over it when live. */
+.lit-dunes-fallback {
+  background:
+    radial-gradient(120% 60% at 85% 100%, rgba(6, 182, 212, 0.10), transparent 60%),
+    linear-gradient(165deg, #f2f6f0 0%, #e4efe2 45%, #d3e6d8 78%, #c2dccc 100%);
+}
+[data-theme="dark"] .lit-dunes-fallback {
+  background:
+    radial-gradient(120% 60% at 85% 100%, rgba(6, 182, 212, 0.14), transparent 60%),
+    linear-gradient(165deg, #081209 0%, #0a1c0e 50%, #0c2413 80%, #0e2a16 100%);
+}
+
+/* .hero-text-scrim — darkens the text region of the hero so the headline
      stays readable over the Lit Dunes terrain.
      Desktop: left-to-right gradient (text column dark, dunes bright).
      Mobile:  center-out radial scrim focused behind the headline + CTAs. */
