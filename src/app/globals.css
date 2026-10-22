@@ -90,6 +90,11 @@
   /* Secondary button — frosted white in light mode */
   --btn-secondary-bg: rgba(255, 255, 255, 0.60);
   --btn-secondary-hover-bg: rgba(255, 255, 255, 0.85);
+
+  /* Editorial rules (Direction B) — hairlines for the ruled-section language
+     (numbered section heads, index rows). Soft variant for row separators. */
+  --rule: rgba(26, 26, 46, 0.14);
+  --rule-soft: rgba(26, 26, 46, 0.08);
 }
 
 /* ── Dark mode tokens (activated via data-theme="dark" on <html>) ── */
@@ -167,6 +172,10 @@
   /* Secondary button — dark glass in dark mode */
   --btn-secondary-bg: rgba(255, 255, 255, 0.08);
   --btn-secondary-hover-bg: rgba(255, 255, 255, 0.14);
+
+  /* Editorial rules — light hairlines on dark surfaces */
+  --rule: rgba(232, 232, 240, 0.18);
+  --rule-soft: rgba(232, 232, 240, 0.10);
 }
 
 /* Smooth theme transition — applied to key elements so the switch feels fluid.
@@ -240,8 +249,10 @@
   --color-accent-violet: var(--accent-violet);
   --color-card-bg: var(--card-bg);
   --color-card-border: var(--card-border);
-  --font-sans: var(--font-general-sans), "General Sans", system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-instrument-serif), "Times New Roman", serif;
+  --color-rule: var(--rule);
+  --color-rule-soft: var(--rule-soft);
+  --font-sans: var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-source-serif), "Source Serif 4", Georgia, serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
 
@@ -270,7 +281,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-general-sans), "General Sans", system-ui, sans-serif;
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
   /* No overflow-x on body. Even `overflow-x: clip` breaks `position: fixed`
      on older iOS Safari (<16.4) — it treats clip like hidden and establishes
      a scroll container, which makes the navbar scroll away instead of
@@ -294,32 +305,41 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
-/* h1 = Instrument Serif (elegant editorial display). Single-weight face
-   (400 only), so force normal weight regardless of any font-bold utility
-   applied to h1 — synthetic bold on a single-weight serif looks worse
-   than the natural letterforms. Letter-spacing tightened for display
-   optical alignment. */
+/* h1 + h2 = Source Serif 4 (editorial display, Direction B baseline).
+   Weight 600 for authority without overly traditional consultancy styling;
+   h3-h6 stay on Inter for the structured UI register. */
 h1 {
-  font-family: var(--font-instrument-serif), "Times New Roman", serif;
+  font-family: var(--font-source-serif), "Source Serif 4", Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+h2 {
+  font-family: var(--font-source-serif), "Source Serif 4", Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+/* h3-h6 stay on Inter — structured UI labels / sidebar headers / card titles
+   where the sans family reads better at small sizes. */
+h3, h4, h5, h6 {
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
+}
+
+/* Utility for opt-in serif on selected editorial elements (quote blocks,
+   row titles, pull-quotes) outside the h1/h2 defaults. */
+.font-display {
+  font-family: var(--font-source-serif), "Source Serif 4", Georgia, serif;
   font-weight: 400;
   letter-spacing: -0.015em;
-  /* Slightly larger than the explicit text-Nxl utilities apply, because
-     serifs read smaller than grotesks at the same px size. Bumping by
-     ~8-10% optical. Implemented via font-size: larger on the H1 itself,
-     components can still override with explicit text-* classes. */
 }
 
-/* h2-h6 stay on General Sans — structured UI labels / sidebar headers
-   where the sans family reads better at small sizes. */
-h2, h3, h4, h5, h6 {
-  font-family: var(--font-general-sans), "General Sans", system-ui, sans-serif;
-}
-
-/* Utility for opt-in serif on selected h2 hero subsections / quote blocks.
-   Use sparingly — Instrument Serif is loud at display sizes. */
-.font-display {
-  font-family: var(--font-instrument-serif), "Times New Roman", serif;
-  font-weight: 400;
+/* Semibold serif for editorial row/card titles (Direction B index rows).
+   Separate class instead of .font-display + font-semibold — the weight would
+   depend on Tailwind class order in the generated sheet. */
+.font-display-title {
+  font-family: var(--font-source-serif), "Source Serif 4", Georgia, serif;
+  font-weight: 600;
   letter-spacing: -0.015em;
 }
 
@@ -1305,7 +1325,7 @@ select:focus {
   margin-right: 0.08em;
   margin-top: 0.1em;
   color: var(--brand);
-  font-family: var(--font-general-sans), "General Sans", system-ui, sans-serif;
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
 }
 
 /* Blockquote / pull-quote — used in long-form posts */

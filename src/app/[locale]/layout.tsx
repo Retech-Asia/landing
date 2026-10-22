@@ -1,10 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
-import {
-  Instrument_Serif,
-  Be_Vietnam_Pro,
-  Playfair_Display,
-} from "next/font/google";
+import { Inter, Source_Serif_4 } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -27,60 +22,65 @@ import { routing, type Locale } from "@/i18n/routing";
 import "../globals.css";
 import { ConsentAwareAnalytics } from "@/components/ui/Analytics";
 
-// Font system — see notes in original layout. Body: General Sans (self-hosted).
-// Display headlines: Instrument Serif (one woff2 via next/font/google).
+// Font system (RT-06, Direction B baseline). Body/UI: Inter. Editorial display
+// (h1/h2 + .font-display): Source Serif 4. Both faces ship `vietnamese`
+// subsets, so the SAME families serve EN and VI (the old per-locale family
+// swap GeneralSans→Be Vietnam Pro / Instrument Serif→Playfair Display, which
+// existed because those faces were latin-only, is retired). next/font
+// self-hosts both at build time (no runtime Google Fonts requests).
 //
-// VIETNAMESE: General Sans and Instrument Serif ship latin-only subsets —
-// Vietnamese diacritics (ệ, ơ, ấ, đ…) fall back to system fonts and render
-// with mismatched weights/metrics. For /vi pages we swap in full
-// Vietnamese-capable equivalents that reuse the same CSS variable names,
-// so no component or CSS changes are needed:
-//   body    --font-general-sans     General Sans  →  Be Vietnam Pro
-//   display --font-instrument-serif Instrument Serif → Playfair Display
-// Be Vietnam Pro is purpose-built for Vietnamese diacritics and matches
-// General Sans's neutral grotesque feel; Playfair Display is the closest
-// Vietnamese-capable editorial display serif. Both self-host via next/font
-// at build time (no runtime Google Fonts requests).
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
+// Preload law (perf audit 2026-10-22, RT-06 gate): next/font emits preload
+// links for every file of every family instantiated here. With
+// ["latin","vietnamese"] on one shared instantiation, EN pages preloaded both
+// subsets (~189KB / 6 woff2 on the LCP path, Lighthouse LCP 5.5s). So the
+// 2026-08-25 locale-split pattern returns, now split by SUBSET instead of by
+// family: EN pages get latin-only instantiations; VI pages get
+// latin+vietnamese. All four instantiations run preload:false and fonts are
+// discovered via CSS unicode-range (downloaded only for glyphs rendered).
+// Why no preloads: with two instantiations per family (EN + VI) the same
+// variable name makes next/font emit SEPARATE file copies per instance — the
+// preload hrefs hashed to files the CSS never referenced, so EN downloaded
+// every face twice (preloaded copy unused + CSS-discovered copy) while the
+// font-swap repaint landed late. Discovery-only is the measured-fast path:
+// VI (always discovery-only) hit Lighthouse mobile LCP 2.2s / perf 92 with
+// the identical hero (2026-10-22). Same CSS variable names in both branches —
+// no component or CSS changes needed.
+const interEn = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
+  preload: false,
   adjustFontFallback: true,
 });
 
-// preload:false on the two VI fonts — next/font emits preload links for
-// every family instantiated in this module, so without this the EN pages
-// preloaded 12 Vietnamese-only woff2 files (~70KB) onto the critical path
-// (perf audit 2026-08-25). VI pages discover them via CSS instead; they
-// stay self-hosted with swap.
-const beVietnamPro = Be_Vietnam_Pro({
-  variable: "--font-general-sans",
+const sourceSerifEn = Source_Serif_4({
+  variable: "--font-source-serif",
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
+  preload: false,
+  adjustFontFallback: true,
+});
+
+const interVi = Inter({
+  variable: "--font-inter",
   subsets: ["latin", "vietnamese"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
   preload: false,
+  adjustFontFallback: true,
 });
 
-const playfairDisplay = Playfair_Display({
-  variable: "--font-instrument-serif",
+const sourceSerifVi = Source_Serif_4({
+  variable: "--font-source-serif",
   subsets: ["latin", "vietnamese"],
-  weight: "400",
+  weight: ["400", "600"],
   style: ["normal", "italic"],
   display: "swap",
   preload: false,
-});
-
-const generalSans = localFont({
-  src: [
-    { path: "../../../public/fonts/general-sans-400.woff2", weight: "400", style: "normal" },
-    { path: "../../../public/fonts/general-sans-500.woff2", weight: "500", style: "normal" },
-    { path: "../../../public/fonts/general-sans-600.woff2", weight: "600", style: "normal" },
-    { path: "../../../public/fonts/general-sans-700.woff2", weight: "700", style: "normal" },
-  ],
-  variable: "--font-general-sans",
-  display: "swap",
+  adjustFontFallback: true,
 });
 
 const SITE_URL = SITE_URL_CONST;
@@ -207,8 +207,8 @@ export default async function LocaleLayout({
       lang={locale}
       className={`h-full antialiased ${
         locale === "vi"
-          ? `${beVietnamPro.variable} ${playfairDisplay.variable}`
-          : `${generalSans.variable} ${instrumentSerif.variable}`
+          ? `${interVi.variable} ${sourceSerifVi.variable}`
+          : `${interEn.variable} ${sourceSerifEn.variable}`
       }`}
     >
       <head>

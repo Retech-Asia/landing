@@ -16,7 +16,7 @@ Rule: update BOTH the ticket file and this board row in the same edit.
 | RT-03 | P0 | Reproduced crawl/schema/tracking fixes | RT-01 | DONE 2026-10-22 (10/10 probe PASS; F9/F10 resolved as consistency fixes) |
 | RT-04 | P1 | Buyer positioning + homepage copy + service IA | RT-01, RT-02 | Copy plan drafted (`docs/rt04-positioning-copy-plan.md`); hero options await Jay |
 | RT-05 | P1 | Two design directions + recommendation | RT-04 | Prototypes + 7-axis comparison done (`docs/rt05-design-comparison.md`: B system, hero wording decoupled); STOPPED for owner checkpoint |
-| RT-06 | P1 | Shared nav/typography/component system | RT-05 | blocked |
+| RT-06 | P1 | Shared nav/typography/component system | RT-05 | DONE locally (Inter + Source Serif 4, ink button, IndexRow, editorial chrome; Lighthouse mobile EN 95 / VI 92, LCP 1.9/2.2s — font double-download root cause fixed). LOCAL COMMIT ONLY; awaiting owner checkpoint before push/deploy |
 | RT-07 | P1 | Homepage implementation | RT-02, RT-04, RT-06 | blocked |
 | RT-08 | P1 | Service hub + CRM depth + new service pages | RT-04, RT-06 | blocked |
 | RT-09 | P1 | Case-study proof + template upgrades | RT-02, RT-06 | blocked |

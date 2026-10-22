@@ -7,7 +7,7 @@ import { Link } from "@/i18n/navigation";
 
 interface ButtonProps {
   children: ReactNode;
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "ink";
   size?: "sm" | "md" | "lg";
   href?: string;
   type?: "button" | "submit" | "reset";
@@ -27,7 +27,7 @@ export function Button({
   disabled = false,
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background select-none disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none";
+    "inline-flex items-center justify-center font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background select-none disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none";
 
   const sizeStyles = {
     sm: "px-4 py-2 text-sm gap-1.5",
@@ -37,10 +37,13 @@ export function Button({
 
   const variantStyles = {
     primary:
-      "bg-brand text-white hover:bg-brand-light hover:shadow-[0_4px_20px_rgba(32,133,53,0.25)] hover:shadow-brand/25 active:bg-brand-dark active:scale-[0.97] btn-shimmer",
+      "rounded-full bg-brand text-white hover:bg-brand-light hover:shadow-[0_4px_20px_rgba(32,133,53,0.25)] hover:shadow-brand/25 active:bg-brand-dark active:scale-[0.97] btn-shimmer",
     secondary:
-      "bg-[var(--btn-secondary-bg)] backdrop-blur-md text-foreground border border-foreground/[0.12] hover:border-foreground/25 hover:bg-[var(--btn-secondary-hover-bg)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] active:scale-[0.97] shadow-[0_1px_3px_rgba(0,0,0,0.04)]",
-    ghost: "text-foreground-secondary hover:text-foreground hover:bg-black/[0.04] active:bg-black/[0.08] active:scale-[0.97]",
+      "rounded-full bg-[var(--btn-secondary-bg)] backdrop-blur-md text-foreground border border-foreground/[0.12] hover:border-foreground/25 hover:bg-[var(--btn-secondary-hover-bg)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] active:scale-[0.97] shadow-[0_1px_3px_rgba(0,0,0,0.04)]",
+    ghost: "rounded-full text-foreground-secondary hover:text-foreground hover:bg-black/[0.04] active:bg-black/[0.08] active:scale-[0.97]",
+    // Direction B editorial CTA: ink block, squared, tracked uppercase, +brand-green
+    // hover. Used by RT-07+ pages; existing variants are untouched for live pages.
+    ink: "rounded-none bg-foreground text-background uppercase tracking-[0.08em] font-semibold hover:bg-brand hover:text-white active:scale-[0.98] border border-foreground hover:border-brand",
   };
 
   const classes = cn(
