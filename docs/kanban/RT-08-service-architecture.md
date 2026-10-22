@@ -57,3 +57,25 @@ quizzes/comparisons/calculators consumers, `sitemap.ts`.
     LCP-path file is in the RT-08 diff, so no regression is attributable to
     this round). Service-page perf lift remains open for RT-12/RT-13; owner
     corrections directive now deprioritizes Lighthouse vs brand identity.
+
+## RT-08b addendum — integrity checks (2026-10-22, local build)
+
+Scope: owner checkpoint directive (CRM dilution, EN/VI parity, canonical +
+sitemap, keyboard + mobile functional checks). Executed curl-level per the
+2026-10-22 probe-quota law; one bounded browser check for interactions only.
+
+- CRM dilution: PASS — CRM copy across services-data is service-positioned
+  ("extend Salesforce/HubSpot or build bespoke"), zero product claims
+  ("our CRM", trials, signups); blog mentions are generic category uses.
+- Canonical/sitemap/EN-VI parity: PASS 60/60 (`.tmp-audit/rt19/integrity.log`)
+  — stratified 60 of sitemap's 171 URLs (homes, process/about/contact/blog,
+  listing pages, all 5 case studies + 10 services + 9 industries × EN/VI):
+  every URL 200, self-canonical exact, hreflang en+vi pairs present,
+  cross-locale alternates slug-correct and themselves in the sitemap.
+- Keyboard: PASS — 12/12 tab stops land on visible elements on /en (cookie
+  consent controls correctly first).
+- Mobile: PASS — 375px hamburger opens (15 links), /vi/process navigation
+  lands, console clean.
+- Side effect: this sweep's prefetch 404s exposed the locale-navigation bug
+  class fixed in RT-19's second commit (7ada0d7) — see
+  `docs/kanban/RT-19-wave2-case-studies-process.md` progress log.
