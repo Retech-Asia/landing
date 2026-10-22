@@ -133,13 +133,13 @@ function getChrome(locale: string) {
           "With over five years of experience and more than 50 projects delivered, we have proven that great software can come from anywhere, and that the right partnership can transform ideas into successful products.",
         missionCardTitle: "Our Mission",
         missionCardBody:
-          "To empower businesses worldwide with high-quality, cost-effective software solutions built by exceptional talent. We believe that access to great engineering should not be limited by geography.",
+          "To give businesses worldwide access to well-built, cost-effective software from experienced engineers. We believe access to strong engineering should not be limited by geography.",
         missionB1: "Delivering enterprise-grade software at competitive rates",
         missionB2: "Cultivating long-term partnerships, not one-off transactions",
         missionB3: "Driving innovation through AI and modern technologies",
         visionCardTitle: "Our Vision",
         visionCardBody:
-          "To become the go-to software development partner in Southeast Asia, recognized for delivering exceptional quality, fostering innovation, and creating lasting impact for businesses worldwide.",
+          "To be a long-term software development partner in Southeast Asia, delivering dependable quality, practical innovation, and lasting value for businesses worldwide.",
         visionB1: "Growing our global footprint to 10+ countries by 2028",
         visionB2: "Investing in AI and automation capabilities for smarter delivery",
         visionB3: "Building Vietnam's next generation of engineering leaders",
@@ -170,13 +170,13 @@ function getChrome(locale: string) {
           "Với hơn năm năm kinh nghiệm và hơn 50 dự án đã bàn giao, chúng tôi đã chứng minh rằng phần mềm chất lượng có thể đến từ bất kỳ đâu, và một sự hợp tác đúng cách có thể biến ý tưởng thành sản phẩm thành công.",
         missionCardTitle: "Sứ mệnh của chúng tôi",
         missionCardBody:
-          "Trao quyền cho doanh nghiệp toàn cầu với các giải pháp phần mềm chất lượng cao, tiết kiệm chi phí, được xây dựng bởi đội ngũ tài năng. Chúng tôi tin rằng khả năng tiếp cận kỹ thuật tốt không nên bị giới hạn bởi địa lý.",
+          "Mang đến cho doanh nghiệp toàn cầu phần mềm chắc chắn, tiết kiệm chi phí từ đội ngũ kỹ sư giàu kinh nghiệm. Chúng tôi tin rằng khả năng tiếp cận kỹ thuật tốt không nên bị giới hạn bởi địa lý.",
         missionB1: "Bàn giao phần mềm cấp doanh nghiệp với chi phí cạnh tranh",
         missionB2: "Xây dựng quan hệ hợp tác lâu dài, không phải giao dịch một lần",
         missionB3: "Thúc đẩy đổi mới thông qua AI và công nghệ hiện đại",
         visionCardTitle: "Tầm nhìn của chúng tôi",
         visionCardBody:
-          "Trở thành đối tác phát triển phần mềm đáng tìm đến tại Đông Nam Á, được ghi nhận nhờ chất lượng bàn giao cao, tinh thần đổi mới và giá trị bền vững cho doanh nghiệp toàn cầu.",
+          "Trở thành đối tác phát triển phần mềm đồng hành lâu dài tại Đông Nam Á, bàn giao chất lượng đáng tin cậy, đổi mới thực dụng và giá trị bền vững cho doanh nghiệp toàn cầu.",
         visionB1: "Mở rộng phạm vi hoạt động toàn cầu lên hơn 10 quốc gia vào năm 2028",
         visionB2: "Đầu tư vào năng lực AI và tự động hóa để bàn giao thông minh hơn",
         visionB3: "Xây dựng thế hệ kỹ sư kế tiếp của Việt Nam",

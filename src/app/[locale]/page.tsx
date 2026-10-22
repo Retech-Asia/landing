@@ -101,7 +101,8 @@ export default async function HomePage({
           (RT-08 section 05) */}
       <Engagement />
 
-      {/* 8. HomeCTA - closing contact band on dark ink (RT-08) */}
+      {/* 8. HomeCTA - closing contact band (light default per owner surface
+          preference; variant="dark" is the one-prop alternative) */}
       <HomeCTA />
     </>
   );

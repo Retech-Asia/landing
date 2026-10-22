@@ -30,7 +30,7 @@ existing copy is pending classification, not presumed false. Owner = Vu Pham.
 | impact prose numbers ("60% improvement", "optimal accuracy") | `case-studies-data.ts` | rewrite DONE 2026-10-22 | Qualitative rewrites EN+VI |
 | Client country per study (owner arc) | `clientCountry?` field, rendered when set | owner | Jay supplies market per study; render-gated until then |
 | Testimonials | all 5 are empty strings | verified (empty) | Keep empty; review schema already suppressed (F3) |
-| Imagery `cs-*.webp` in `public/images/stock/` | hero images + detail pages | owner / illustrative | "Illustrative visualization" caption shipped on detail hero; mining study's mismatched cs-wellness-* replaced with analytics-dashboard.webp; Wave 3D owns licensed replacements |
+| Imagery `cs-*.webp` in `public/images/stock/` | hero images + detail pages | owner / illustrative | "Illustrative visualization" caption shipped on detail hero; mining study's mismatched cs-wellness-* replaced with analytics-dashboard.webp; full inventory + licensed curation plan in `docs/imagery-asset-register.md` (Wave 3D replacements Jay-gated) |
 | Named third parties (F2Pool, ViaBTC, CoinGecko, Stripe…) | case-study text | owner | Confirm these describe real integrations |
 
 ## Testimonials / reviews / ratings
