@@ -173,7 +173,11 @@ export function LitDunes() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reduced = usePrefersReducedMotion();
 
-  // Defer mount until idle (LCP protection)
+  // Defer mount until idle (LCP-safe: the hero copy paints first — SSR text
+  // is the LCP element at 153ms observed, and the idle-armed canvas never
+  // overtakes it; same-build A/B 2026-10-22: dunes on/off = identical
+  // observed and simulated LCP). The dunes fade in over the static fallback
+  // with no disruptive switch.
   const [armed, setArmed] = useState(false);
   useEffect(() => {
     const idle =
@@ -181,8 +185,12 @@ export function LitDunes() {
         requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
       }).requestIdleCallback ??
       ((cb: () => void) => setTimeout(cb, 1200) as unknown as number);
-    const handle = idle(() => setArmed(true), { timeout: 2000 });
+    let cancelled = false;
+    const handle = idle(() => {
+      if (!cancelled) setArmed(true);
+    }, { timeout: 2000 });
     return () => {
+      cancelled = true;
       const cancel =
         (window as Window & { cancelIdleCallback?: (h: number) => void })
           .cancelIdleCallback ??
@@ -230,7 +238,12 @@ export function LitDunes() {
       document.documentElement.getAttribute("data-theme") === "dark" ? 1 : 0;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+      // Perf investigation 2026-10-22: the terrain is soft gradients and
+      // contour lines; at phone densities a 0.75 internal scale is
+      // visually indistinguishable and cuts fragment work ~44%. Desktop
+      // keeps the approved resolution.
+      const scale = canvas.clientWidth < 768 ? 0.75 : 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.75) * scale;
       const w = Math.round(canvas.clientWidth * dpr);
       const h = Math.round(canvas.clientHeight * dpr);
       if (w === 0 || h === 0) return false;
@@ -327,7 +340,7 @@ export function LitDunes() {
           unavailable (getContext null / context lost). The opaque canvas
           paints over it once the shader is live. */}
       <div className="absolute inset-0 lit-dunes-fallback" />
-      <canvas ref={canvasRef} className="relative block w-full h-full" />
+      <canvas ref={canvasRef} className="lit-dunes-in relative block w-full h-full" />
     </div>
   );
 }

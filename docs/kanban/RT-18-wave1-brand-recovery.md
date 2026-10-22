@@ -46,6 +46,22 @@ unverified satisfaction metrics. Reconciliation map: `docs/rt17-reconciliation-2
   the restore is 0.8s faster than the old dunes era due to the RT-06 font fix.
   No further tuning applied — identity first, per directive.
 
+## RT-18b addendum: LCP investigation (checkpoint 2 §1, 2026-10-22)
+
+Same-build A/B (`nowgl-run{1,2}` vs `final-run{1,2,3}`) exonerates the dunes:
+sim LCP 5.305-5.309s WebGL-off vs 5.30s on; observed LCP 170-176ms off vs 153ms
+on. LCP element = SSR hero standfirst P (browser-trace final candidate +153ms;
+FCP 58ms); the canvas never becomes a candidate. Real-GPU (Metal) run 5.2s rules
+out SwiftShader. Live production (old design, same LCP element) models 3.7-6.4s
+on the identical rig with observed 1,370ms. The 5.3s figure is lantern's mobile
+network model of the 184KiB document on the localhost h1 path — no hero-side
+lever moves it (≤2.5s impractical without document restructure; see
+`docs/rt18b-lcp-investigation-2026-10-22.md`; release gate = Vercel preview
+measurement at RT-14). Kept: fallback layer + 0.6s fade-in (reduced-motion
+disables), mobile 0.75 internal scale. Removed: fonts-ready arming gate
+(no measured benefit, premise disproven). Probes 26/26 re-run on final build;
+`final-home-en-{375,1440}.png` confirm visual parity.
+
 ## Status
 DONE locally 2026-10-22. **Held for owner checkpoint (deploy freeze).** Evidence
 pack: `.tmp-audit/rt18/`. Hero copy (H1/standfirst wording), hero stats (50+/30+/5+
