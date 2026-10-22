@@ -13,7 +13,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return buildPageMetadata({ locale, path: "/privacy-policy", namespace: "pages.privacy" });
+  return buildPageMetadata({ locale, path: "/privacy-policy", namespace: "pages.privacy", viReady: true });
 }
 
 type L = { en: string; vi: string };

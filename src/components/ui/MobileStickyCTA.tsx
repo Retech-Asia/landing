@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
@@ -23,12 +23,18 @@ import { ArrowRight } from "lucide-react";
  */
 export function MobileStickyCTA() {
   const isVi = useLocale() === "vi";
+  // Locale-stripped pathname (next-intl) — "/en/contact" reads as "/contact",
+  // so the contact-page guard works on both direct loads and client-side
+  // navigation. Re-evaluated per route change (RT-03 F4).
+  const pathname = usePathname();
+  const isContactPage = pathname.startsWith("/contact");
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     // Skip on the contact page itself — pointless to show a "Get Consultation"
-    // button when the user is already there.
-    if (window.location.pathname.startsWith("/contact")) return;
+    // button when the user is already there. Render is gated on isContactPage
+    // below, so no state write is needed for that case.
+    if (isContactPage) return;
 
     function update() {
       const scrolledPastHero = window.scrollY > window.innerHeight * 0.4;
@@ -49,11 +55,11 @@ export function MobileStickyCTA() {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, []);
+  }, [isContactPage]);
 
   return (
     <AnimatePresence>
-      {visible && (
+      {visible && !isContactPage && (
         <motion.div
           initial={{ y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

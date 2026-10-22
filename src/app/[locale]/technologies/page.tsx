@@ -19,7 +19,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return buildPageMetadata({ locale, path: "/technologies", namespace: "pages.technologies" });
+  return buildPageMetadata({ locale, path: "/technologies", namespace: "pages.technologies", viReady: true });
 }
 
 // Resolve chrome strings by locale. Inline tech data (descriptions,

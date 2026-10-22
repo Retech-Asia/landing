@@ -13,7 +13,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return buildPageMetadata({ locale, path: "/terms-of-service", namespace: "pages.terms" });
+  return buildPageMetadata({ locale, path: "/terms-of-service", namespace: "pages.terms", viReady: true });
 }
 
 type L = { en: string; vi: string };

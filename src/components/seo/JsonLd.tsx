@@ -16,6 +16,7 @@
  */
 
 import { CONTACT, SITE_URL as SITE_URL_CONST, SITE_NAME as SITE_DISPLAY_NAME } from "@/lib/constants";
+import { services } from "@/lib/services-data";
 
 const SITE_URL = SITE_URL_CONST;
 // Display name (what users/Google should show in SERPs) — "Retech Solutions".
@@ -26,6 +27,16 @@ const LEGAL_NAME = CONTACT.businessName;
 const SITE_DESCRIPTION =
   "Retech Solutions is a Vietnam-based software development company offering custom CMS, CRM, ERP solutions, and AI-powered services.";
 const LOGO_URL = `${SITE_URL}/images/logo.svg`;
+
+/** Optional per-service catalog descriptions (only where wording is approved). */
+const CATALOG_DESCRIPTIONS: Record<string, string> = {
+  "cms-platforms":
+    "Custom websites leveraging powerful CMS solutions, enabling businesses to manage and publish content efficiently across multiple platforms.",
+  "crm-systems":
+    "Tailored websites integrated with CRM systems, designed to enhance customer engagement and streamline client relationship workflows.",
+  "erp-solutions":
+    "Integrated web solutions based on ERP systems, connecting departments, optimizing operations, and providing real-time data access.",
+};
 
 /** Sanitize JSON-LD to prevent XSS via HTML injection in strings */
 function sanitizeJsonLd(data: Record<string, unknown>): string {
@@ -208,7 +219,7 @@ function getWebSiteSchema(locale: "en" | "vi" = "en") {
  *
  * @see https://developers.google.com/search/docs/appearance/structured-data/local-business
  */
-function getLocalBusinessSchema() {
+function getLocalBusinessSchema(locale: "en" | "vi") {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -224,6 +235,7 @@ function getLocalBusinessSchema() {
       addressCountry: "VN",
       addressLocality: "Ho Chi Minh City",
       streetAddress: "288K8 Nam Ky Khoi Nghia, Vo Thi Sau Ward",
+      postalCode: "700000",
     },
     geo: {
       "@type": "GeoCoordinates",
@@ -249,26 +261,14 @@ function getLocalBusinessSchema() {
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "IT Services",
-      itemListElement: [
-        {
-          "@type": "OfferCatalog",
-          name: "CMS Platforms",
-          description:
-            "Custom websites leveraging powerful CMS solutions, enabling businesses to manage and publish content efficiently across multiple platforms.",
-        },
-        {
-          "@type": "OfferCatalog",
-          name: "CRM Systems",
-          description:
-            "Tailored websites integrated with CRM systems, designed to enhance customer engagement and streamline client relationship workflows.",
-        },
-        {
-          "@type": "OfferCatalog",
-          name: "ERP Solutions",
-          description:
-            "Integrated web solutions based on ERP systems, connecting departments, optimizing operations, and providing real-time data access.",
-        },
-      ],
+      // Data-driven: localized slugs so VI pages don't advertise EN-slug
+      // URLs that hard-404 (VI service slugs differ, e.g. he-thong-crm).
+      itemListElement: services.map((s) => ({
+        "@type": "OfferCatalog",
+        name: s.title.en,
+        url: `${SITE_URL}/${locale}/services/${s.slug[locale]}`,
+        ...(CATALOG_DESCRIPTIONS[s.id] ? { description: CATALOG_DESCRIPTIONS[s.id] } : {}),
+      })),
     },
     serviceType: [
       "Custom Software Development",
@@ -298,7 +298,7 @@ export function SiteJsonLd({ locale = "en" }: { locale?: "en" | "vi" }) {
   const schemas = [
     getOrganizationSchema(),
     getWebSiteSchema(locale),
-    getLocalBusinessSchema(),
+    getLocalBusinessSchema(locale),
   ];
 
   return (
@@ -495,113 +495,12 @@ export function WebPageJsonLd({
 }
 
 /**
- * LocalBusiness schema specifically for the Contact page.
- * Includes expanded contact and location information.
- */
-export function ContactPageLocalBusinessJsonLd({
-  locale = "en",
-}: {
-  locale?: string;
-}) {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "@id": `${SITE_URL}/${locale}/contact/#localbusiness`,
-    name: SITE_NAME,
-    alternateName: ["Retech", "RETECH SOLUTIONS CO., LTD."],
-    url: `${SITE_URL}/${locale}/contact`,
-    logo: LOGO_URL,
-    image: LOGO_URL,
-    description:
-      "Get in touch with Retech Solutions to discuss your next software development project. We build custom CMS, CRM, ERP, and AI-powered solutions.",
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "VN",
-      addressLocality: "Ho Chi Minh City",
-      streetAddress: "288K8 Nam Ky Khoi Nghia, Vo Thi Sau Ward",
-      postalCode: "700000",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 10.790034,
-      longitude: 106.685207,
-    },
-    email: CONTACT.email,
-    priceRange: "$$",
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-        ],
-        opens: "09:00",
-        closes: "18:00",
-      },
-    ],
-    parentOrganization: {
-      "@id": `${SITE_URL}/#organization`,
-    },
-    serviceType: [
-      "Custom Software Development",
-      "CMS Platforms",
-      "CRM Systems",
-      "ERP Solutions",
-      "Web Application Development",
-      "UI/UX Design",
-      "Dedicated Development Teams",
-    ],
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "IT Services",
-      itemListElement: [
-        {
-          "@type": "OfferCatalog",
-          name: "CMS Platforms",
-          url: `${SITE_URL}/${locale}/services/cms-platforms`,
-        },
-        {
-          "@type": "OfferCatalog",
-          name: "CRM Systems",
-          url: `${SITE_URL}/${locale}/services/crm-systems`,
-        },
-        {
-          "@type": "OfferCatalog",
-          name: "ERP Solutions",
-          url: `${SITE_URL}/${locale}/services/erp-solutions`,
-        },
-        {
-          "@type": "OfferCatalog",
-          name: "Web Development",
-          url: `${SITE_URL}/${locale}/services/web-development`,
-        },
-        {
-          "@type": "OfferCatalog",
-          name: "UI/UX Design",
-          url: `${SITE_URL}/${locale}/services/ui-ux-design`,
-        },
-        {
-          "@type": "OfferCatalog",
-          name: "Dedicated Teams",
-          url: `${SITE_URL}/${locale}/services/dedicated-teams`,
-        },
-      ],
-    },
-  };
-
-  return <JsonLdScript data={schema} />;
-}
-
-/**
- * Article schema with embedded Review - for case study detail pages.
- * Combines an Article schema (for rich article snippets) with a Review
- * schema (for testimonial star ratings in search results).
+ * Article schema with optional embedded Review - for case study detail pages.
+ * The review block renders only when an approved testimonial exists, and it
+ * never carries a numeric rating (no verified rating records in the data
+ * model; stars must not be invented from quotations).
  *
  * @see https://developers.google.com/search/docs/appearance/structured-data/article
- * @see https://developers.google.com/search/docs/appearance/structured-data/review-snippet
  */
 export function CaseStudyJsonLd({
   study,
@@ -649,7 +548,14 @@ export function CaseStudyJsonLd({
       "@type": "WebPage",
       "@id": url,
     },
-    review: {
+  };
+
+  // Review schema only when an approved testimonial actually exists.
+  // No reviewRating is emitted: the data model has no approved numeric
+  // rating records, and stars must never be invented from a quotation.
+  // Add a rating here only when a verified record backs the number.
+  if (study.testimonial.quote && study.testimonial.author) {
+    schema.review = {
       "@type": "Review",
       reviewBody: study.testimonial.quote,
       author: {
@@ -661,13 +567,8 @@ export function CaseStudyJsonLd({
           name: study.testimonial.company,
         },
       },
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5",
-      },
-    },
-  };
+    };
+  }
 
   if (imageUrl) {
     schema.image = {

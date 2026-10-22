@@ -42,7 +42,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return buildPageMetadata({ locale, path: "/process", namespace: "pages.process" });
+  return buildPageMetadata({ locale, path: "/process", namespace: "pages.process", viReady: true });
 }
 
 // Resolve chrome strings by locale. Long-form inline data (phases,

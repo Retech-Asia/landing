@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/Button";
 import { ContactForm } from "./ContactForm";
 import { CONTACT, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { ProjectEstimator } from "@/components/ui/ProjectEstimator";
-import { ContactPageLocalBusinessJsonLd, BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import { LocationMap } from "@/components/ui/LocationMap";
 import { ContactInfoCard } from "@/components/ui/ContactInfoCard";
 import { buildPageMetadata } from "@/lib/page-metadata";
@@ -24,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return buildPageMetadata({ locale, path: "/contact", namespace: "pages.contact" });
+  return buildPageMetadata({ locale, path: "/contact", namespace: "pages.contact", viReady: true });
 }
 
 // Resolve chrome strings by locale — inline EN | VI bundles, same pattern
@@ -239,8 +239,10 @@ export default async function ContactPage({
   const quickLinks = getQuickLinks(isEn);
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-      {/* Structured Data */}
-      <ContactPageLocalBusinessJsonLd locale={locale} />
+      {/* Structured Data — the site-wide ProfessionalService (#localbusiness)
+          in the layout already carries the full business entity; this page adds
+          only the page-level ContactPage node. A second ProfessionalService here
+          duplicated the business entity (RT-03 F9). */}
       <WebPageJsonLd
         title="Contact Us | Retech Solutions"
         description="Ready to build? Contact Retech Solutions for a free consultation on custom CMS, CRM, ERP & AI software. Response within 24 hours."

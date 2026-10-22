@@ -22,7 +22,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return buildPageMetadata({ locale, path: "/blog", namespace: "pages.blog" });
+  return buildPageMetadata({ locale, path: "/blog", namespace: "pages.blog", viReady: true });
 }
 
 export default async function BlogPage({

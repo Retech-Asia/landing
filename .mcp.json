@@ -29,11 +29,6 @@
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
       "description": "Structured reasoning for architecture decisions and UX flows"
-    },
-    "threejs-devtools": {
-      "command": "npx",
-      "args": ["-y", "threejs-devtools-mcp"],
-      "description": "Three.js scene inspection, material/shader/light editing for 3D animation"
     }
   }
 }

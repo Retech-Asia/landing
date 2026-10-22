@@ -43,7 +43,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return buildPageMetadata({ locale, path: "/careers", namespace: "pages.careers" });
+  return buildPageMetadata({ locale, path: "/careers", namespace: "pages.careers", viReady: true });
 }
 
 // Resolve chrome strings by locale — same inline EN | VI bundle pattern

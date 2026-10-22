@@ -31,7 +31,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  return buildPageMetadata({ locale, path: "/about", namespace: "pages.about" });
+  return buildPageMetadata({ locale, path: "/about", namespace: "pages.about", viReady: true });
 }
 
 // Locale-aware inline text — picked by `locale` at render time.

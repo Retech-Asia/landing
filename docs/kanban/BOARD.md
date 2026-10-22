@@ -13,7 +13,7 @@ Rule: update BOTH the ticket file and this board row in the same edit.
 | RT-00 | P0 | Workspace/remote validation | — | DONE (board note) |
 | RT-01 | P0 | Baseline audit (routes/SEO/UX/perf) | RT-00 | DONE (baseline doc + local captures) |
 | RT-02 | P0 | Claims + asset evidence register | RT-00 | DONE as register; owner confirmations OPEN |
-| RT-03 | P0 | Reproduced crawl/schema/tracking fixes | RT-01 | READY |
+| RT-03 | P0 | Reproduced crawl/schema/tracking fixes | RT-01 | DONE 2026-10-22 (10/10 probe PASS; F9/F10 resolved as consistency fixes) |
 | RT-04 | P1 | Buyer positioning + homepage copy + service IA | RT-01, RT-02 | READY (copy only; design = RT-05) |
 | RT-05 | P1 | Two design directions + recommendation | RT-04 | GATED on owner checkpoint |
 | RT-06 | P1 | Shared nav/typography/component system | RT-05 | blocked |
@@ -30,8 +30,14 @@ Rule: update BOTH the ticket file and this board row in the same edit.
 
 ## Notes
 
+- **Deployment mapping (confirmed 2026-10-22):** Vercel is connected to
+  `Retech-Asia/retech-landing`; `Retech-Asia/landing` has no Vercel integration.
+  The local remote pushes to BOTH URLs → every `git push origin main` deploys
+  production. Treat pushes as releases.
 - Build law: while working unpublished routes, use `npx next build` (NOT `npm run build`,
   whose postbuild pings IndexNow).
 - Standing repo ground rules (`docs/overhaul-roadmap.md`): owner's eye is final on visual
   calls; no superlatives; no dead buttons; no em dashes in content; LCP = SSR-visible hero.
-- Local QA evidence stays in gitignored `.tmp-audit/` — never committed.
+- Lab perf baseline recorded (baseline doc): home mobile perf 49 / LCP 6.0s / TBT 2,000ms —
+  RT-05/RT-07 directions must beat it. Local QA evidence stays in gitignored
+  `.tmp-audit/` — never committed.

@@ -1,28 +1,40 @@
 "use client";
 
 import {
-  hasAnalyticsConsent,
   trackEvent,
   trackOutboundClick,
   trackTimeOnPage,
 } from "@/lib/analytics";
+import { locales } from "@/i18n/routing";
 import { useEffect, useRef } from "react";
+
+/**
+ * Matches contact CTA hrefs in any locale variant: "/contact", "/en/contact",
+ * "/vi/contact". Rendered hrefs are locale-prefixed (next-intl Link), so an
+ * exact "/contact" comparison never matched (RT-03 F5).
+ */
+const CONTACT_HREF_RE = new RegExp(`^/(?:(${locales.join("|")})/)?contact/?$`);
 
 /**
  * Tracks user engagement metrics:
  * - Time on page (reports at 30s, 60s, 120s, 300s intervals)
- * - CTA button clicks (links/buttons targeting "/contact")
+ * - CTA clicks (links targeting the contact page in any locale)
  * - Outbound link clicks
  *
- * Only runs in production and when analytics consent has been granted.
+ * Runs in production only. Consent is enforced at send time (every track*
+ * call re-checks analytics consent before POSTing), so listeners stay bound
+ * and clicks that happen AFTER the visitor accepts cookies are still
+ * measured; sends stop when consent is absent or revoked.
  */
 export function EngagementTracker() {
   const timeReportedRef = useRef(new Set<number>());
 
   useEffect(() => {
-    // Only run in production with analytics consent.
+    // Only run in production. Consent is NOT checked here on purpose:
+    // the effect runs once at mount, and gating it on a cookie decision
+    // that usually happens later would permanently disable tracking for
+    // visitors who accept after load.
     if (process.env.NODE_ENV !== "production") return;
-    if (!hasAnalyticsConsent()) return;
 
     // ---- Time-on-page tracking ----
     const timeMilestones = [30, 60, 120, 300]; // seconds
@@ -50,13 +62,16 @@ export function EngagementTracker() {
       ) as HTMLElement | null;
       if (!target) return;
 
-      // CTA click tracking: buttons or links targeting "/contact".
-      const isCTA =
+      // CTA click tracking: any anchor whose href is the contact page in
+      // the active locale (covers direct anchor clicks, buttons nested in
+      // anchors, and icon children via closest()).
+      const anchor =
         target.tagName === "A"
-          ? (target as HTMLAnchorElement).getAttribute("href") === "/contact"
-          : target.tagName === "BUTTON"
-            ? target.closest('a[href="/contact"]') !== null
-            : false;
+          ? (target as HTMLAnchorElement)
+          : target.closest("a");
+      const isCTA = anchor
+        ? CONTACT_HREF_RE.test(anchor.getAttribute("href") ?? "")
+        : false;
 
       if (isCTA) {
         trackEvent("cta_click", {

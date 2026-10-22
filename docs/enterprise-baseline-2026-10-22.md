@@ -15,13 +15,13 @@ The discarded Codex draft was not used as source; each finding was re-derived he
 | F1 | `robots.txt` disallows `/_next/` for every UA incl. Googlebot → CSS/JS and `/_next/image` optimized images are uncrawlable | `src/app/robots.ts:12` + live `curl /robots.txt` | P0 |
 | F2 | Homepage emits FAQPage schema with 5 Q&As; no visible FAQ section exists (HomeFAQ removed deliberately, comment preserved) | `src/app/[locale]/page.tsx:47-71` (comment line 43); live `ldTypes` includes FAQPage, `faqDomCount=0` | P0 |
 | F3 | Every case study ships a Review schema with `ratingValue: "5"` while ALL 5 case-study testimonials are empty strings (blank author/body/role/company) | `src/components/seo/JsonLd.tsx:652-669` (no empty guard); `src/lib/case-studies-data.ts:138,223,286,349,412` | P0 |
-| F4 | MobileStickyCTA renders ON the contact page: guard `pathname.startsWith("/contact")` never matches `/en/contact` or `/vi/contact` | `src/components/ui/MobileStickyCTA.tsx:31`; live probe: fixed "Get Free Consultation" present on both locale contact pages at 375px, 60% scroll | P0 |
+| F4 | MobileStickyCTA renders ON the contact page: guard `pathname.startsWith("/contact")` never matches `/en/contact` or `/vi/contact` | `src/components/ui/MobileStickyCTA.tsx:31`; local-build probe: fixed "Get Free Consultation" present on both locale contact pages at 375px, 60% scroll | P0 |
 | F5 | EngagementTracker CTA-click detection compares `href === "/contact"` but real DOM hrefs are locale-prefixed (`/en/contact`) → CTA clicks never tracked | `src/components/ui/EngagementTracker.tsx:53-58`; live hrefs from F4 probe | P0 |
 | F6 | Visible H1 is `sr-only` (`seoH1`); visible tagline "Turning Ideas into Solutions" is `aria-hidden` — heading exists for crawlers/SR only | `src/components/sections/home/Hero.tsx:108-125` | P1 (design decision, Phase B) |
 | F7 | Only 6 services (cms-platforms, crm-systems, erp-solutions, web-development, ui-ux-design, dedicated-teams); no mobile / desktop / applied-AI / IT-consulting destinations | `src/lib/services-data.ts` ids at lines 80/288/489/697/898/1099 | P1 (Phase C) |
 | F8 | All case-study imagery lives in `public/images/stock/` (`cs-*-hero/dashboard/mobile.webp`); no separate provenance record | directory listing; `case-studies-data.ts` image srcs | P1 (register + owner) |
-| F9 | Duplicate `ProfessionalService` JSON-LD on both contact pages | live `ldTypes` = `ProfessionalService,ProfessionalService,ContactPage` (both locales) | P2 |
-| F10 | Sitemap declares VI alternates for ALL static pages (`viReady: true`) but `/en/about` and `/en/contact` heads emit no `vi` hreflang — sitemap and page head disagree about VI readiness | `src/app/sitemap.ts:32-46` vs live head hreflang `[en, x-default]` | P1 (verify which is true) |
+| F9 | Duplicate `ProfessionalService` JSON-LD on both contact pages (site-wide `#localbusiness` + per-page `/{locale}/contact/#localbusiness` — same real business, two entities; the page-level one carried the richer properties) | local-build `ldTypes` = `ProfessionalService,ProfessionalService,ContactPage` (both locales) | Consistency fix (RT-03, resolved) |
+| F10 | Sitemap declares VI alternates for ALL static pages (`viReady: true`) but 9 static-page heads emitted no `vi` hreflang. Inspection 2026-10-22: every `/vi/*` static page renders genuine Vietnamese (hundreds of VI glyphs + translated titles) — the sitemap was right, the per-page `viReady:false` flags were stale | `src/app/sitemap.ts:32-46`, `src/lib/page-metadata.ts` (default false), `vi-inspect.js` output | Consistency fix (RT-03, resolved: flags flipped) |
 | F11 | Phone vs WhatsApp numbers differ: `CONTACT.phone` +84 769 294 225 vs footer WhatsApp `wa.me/84906426802` | `src/lib/constants.ts:10-19`; `src/components/sections/Footer.tsx:95` | Owner fact (do not unify blindly) |
 | F12 | `SoftwareProductJsonLd` (price "0", USD) is DEAD CODE — defined, never called; the zero-price Product schema does not actually emit | `JsonLd.tsx:689-710`; zero call sites | P2 (delete or leave; not a live defect) |
 
@@ -37,6 +37,25 @@ The discarded Codex draft was not used as source; each finding was re-derived he
 
 ## What was NOT established
 
-- No Lighthouse/lab metric run in this pass (RT-13); no field CWV data.
+- Field CWV data (no analytics/Search Console access); lab numbers below are local-build measurements, not production telemetry.
 - No claim verification against company records (RT-02 owner items).
 - No live production probes (production unchanged; local build only).
+
+## Deployment mapping (confirmed 2026-10-22)
+
+Vercel is connected to **`Retech-Asia/retech-landing`** (Vercel GitHub App commit
+status "Deployment has completed" on `fddb7c5`, target
+`vercel.com/retechsolutions/retech-landing/...`). `Retech-Asia/landing` has no
+Vercel integration. The local remote pushes to BOTH URLs, so **every push deploys
+production** — treat `git push origin main` on this repo as a release action.
+
+## Lab performance baseline (2026-10-22, local production build, Lighthouse)
+
+| Page | Perf | A11y | BP | SEO | LCP | TBT | CLS |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Home mobile (Moto G-class) | 49 | 99 | 100 | 92 | 6.0s | 2,000ms | 0 |
+| CRM detail mobile | 80 | 98 | 100 | 92 | 5.4s | 0ms | 0 |
+| Home desktop | 98 | 99 | 100 | 92 | 1.1s | 0ms | 0 |
+
+Home mobile LCP/TBT is the number any RT-05/RT-07 design direction must improve.
+Raw JSON: `.tmp-audit/enterprise-baseline/lh-*.json` (local-only).

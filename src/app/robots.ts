@@ -8,36 +8,43 @@ export default function robots(): MetadataRoute.Robots {
       // Bing Webmaster Tools + CoPilot/ChatGPT search indexing.
       {
         userAgent: "bingbot",
-        allow: "/",
+        allow: ["/", "/_next/static/", "/_next/image"],
         disallow: ["/api/", "/_next/", "/_vercel"],
       },
       {
         userAgent: "BingPreview",
-        allow: "/",
+        allow: ["/", "/_next/static/", "/_next/image"],
         disallow: ["/api/", "/_next/", "/_vercel"],
       },
-      // Open AI crawlers (ChatGPT search, etc.) — explicitly welcomed,
-      // but still disallowed from internal/api/static-asset paths so they
-      // don't waste crawl budget on non-content routes.
+      // OpenAI crawlers (ChatGPT search, etc.) — explicitly welcomed.
+      // OAI-SearchBot is the search crawler (was previously covered only by
+      // the wildcard rule); GPTBot is the training crawler and its existing
+      // access policy is preserved. Rendering assets under /_next/static and
+      // /_next/image must stay crawlable or pages can't render for crawlers.
+      {
+        userAgent: "OAI-SearchBot",
+        allow: ["/", "/_next/static/", "/_next/image"],
+        disallow: ["/api/", "/_next/", "/_vercel"],
+      },
       {
         userAgent: "GPTBot",
-        allow: "/",
+        allow: ["/", "/_next/static/", "/_next/image"],
         disallow: ["/api/", "/_next/", "/_vercel"],
       },
       {
         userAgent: "ChatGPT-User",
-        allow: "/",
+        allow: ["/", "/_next/static/", "/_next/image"],
         disallow: ["/api/", "/_next/", "/_vercel"],
       },
       {
         userAgent: "CCBot",
-        allow: "/",
+        allow: ["/", "/_next/static/", "/_next/image"],
         disallow: ["/api/", "/_next/", "/_vercel"],
       },
-      // Default — everything else.
+      // Default — everything else (incl. Googlebot).
       {
         userAgent: "*",
-        allow: "/",
+        allow: ["/", "/_next/static/", "/_next/image"],
         disallow: ["/api/", "/_next/", "/_vercel"],
       },
     ],

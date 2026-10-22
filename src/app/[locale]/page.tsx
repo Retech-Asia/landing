@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/home/Hero";
-import { WebPageJsonLd, FAQJsonLd } from "@/components/seo/JsonLd";
+import { WebPageJsonLd } from "@/components/seo/JsonLd";
 import { SectionFallback, CompactSectionFallback } from "@/components/ui/Skeleton";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 
@@ -43,8 +43,11 @@ const HomeCTA = dynamic(
 // - HomeFAQ (competitors put FAQ at /faq, not homepage)
 // - Team collaboration photo (filler, no competitor does this)
 // - ScrollReveal wrappers (double animation)
-
-const faqKeys = ["q1", "q2", "q3", "q4", "q5"] as const;
+//
+// FAQ schema also removed (2026-10-22): schema-only FAQ answers with no
+// visible FAQ section misrepresent the page. Homepage FAQ placement is an
+// RT-04/RT-05 design decision; if a visible FAQ returns, its schema returns
+// with it, reusing the answers actually displayed.
 
 export default async function HomePage({
   params,
@@ -53,13 +56,7 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const tHome = await getTranslations({ locale, namespace: "home.faq" });
   const tJsonLd = await getTranslations({ locale, namespace: "homepage.jsonLd" });
-
-  const homeFAQItems = faqKeys.map((k) => ({
-    question: tHome(`items.${k}.q`),
-    answer: tHome(`items.${k}.a`),
-  }));
 
   return (
     <>
@@ -68,7 +65,6 @@ export default async function HomePage({
         description={tJsonLd("webPageDescription")}
         url="https://www.retech.asia"
       />
-      <FAQJsonLd questions={homeFAQItems} />
 
       {/* 1. Hero — full-viewport composition: copy + CTAs + stats +
           industries strip on the dune canvas (TrustedBy renders inside
