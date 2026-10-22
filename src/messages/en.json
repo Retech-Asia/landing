@@ -50,7 +50,15 @@
       "uiux": "UI/UX Design",
       "uiuxDesc": "Product design for AI-native interfaces, including copilot UX and conversational flows",
       "teams": "Dedicated Teams",
-      "teamsDesc": "Embedded engineers experienced in shipping RAG, agents, and LLM integrations"
+      "teamsDesc": "Embedded engineers experienced in shipping RAG, agents, and LLM integrations",
+      "mobile": "Mobile App Development",
+      "mobileDesc": "iOS and Android apps from a shared codebase, from booking flows to field tools",
+      "desktop": "Desktop App Development",
+      "desktopDesc": "Windows and macOS software for work that outgrows the browser tab",
+      "ai": "AI Development",
+      "aiDesc": "RAG, assistants, and document intelligence where the use case justifies them",
+      "consulting": "IT Consulting",
+      "consultingDesc": "Architecture reviews, due diligence, and roadmaps before you commit"
     },
     "footer": {
       "home": "Home",

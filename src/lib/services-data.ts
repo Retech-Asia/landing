@@ -11,6 +11,17 @@ import {
   BarChart,
   Workflow,
   Headphones,
+  Monitor,
+  Brain,
+  Compass,
+  Layers,
+  WifiOff,
+  Bell,
+  Rocket,
+  HardDrive,
+  RefreshCw,
+  FileText,
+  Bot,
   type LucideIcon,
 } from "lucide-react";
 import type { Locale } from "@/i18n/routing";
@@ -1301,6 +1312,724 @@ export const services: ServiceData[] = [
       { week: { en: "Week 2-3", vi: "Tuần 2-3" }, phase: { en: "Onboarding", vi: "Onboarding" }, description: { en: "Team setup, environment provisioning, and process alignment.", vi: "Thiết lập đội, cấp phát môi trường và căn chỉnh quy trình." } },
       { week: { en: "Week 3-4", vi: "Tuần 3-4" }, phase: { en: "Integration", vi: "Tích hợp" }, description: { en: "Workflow adoption, first sprints, and communication rhythm setup.", vi: "Áp dụng workflow, sprint đầu tiên và thiết lập nhịp giao tiếp." } },
       { week: { en: "Week 4+", vi: "Tuần 4+" }, phase: { en: "Ongoing", vi: "Liên tục" }, description: { en: "Continuous delivery, performance reviews, and team scaling as needed.", vi: "Bàn giao liên tục, đánh giá hiệu suất và mở rộng đội theo nhu cầu." } },
+    ],
+  },
+  {
+    id: "mobile-app-development",
+    slug: { en: "mobile-app-development", vi: "ung-dung-mobile" },
+    title: { en: "Mobile App Development", vi: "Phát triển Ứng dụng Mobile" },
+    subtitle: {
+      en: "iOS and Android Applications from a Shared Codebase",
+      vi: "Ứng dụng iOS và Android từ Một Codebase Chung",
+    },
+    description: {
+      en: "We build iOS and Android applications from a shared React Native or Flutter codebase, with native modules where the hardware demands them. From booking flows to field tools, every app ships with offline-capable data layers, push notifications, deep links, and App Store and Google Play submission handled end to end: for products where the customer is on a phone, not at a desk.",
+      vi: "Chúng tôi xây dựng ứng dụng iOS và Android từ một codebase React Native hoặc Flutter chung, với native module nơi phần cứng đòi hỏi. Từ luồng đặt chỗ đến công cụ ngoài hiện trường, mỗi ứng dụng đều có lớp dữ liệu hoạt động offline, push notification, deep link và việc submit App Store cùng Google Play được xử lý trọn gói: cho các sản phẩm mà khách hàng ở trên điện thoại, không phải trước bàn làm việc.",
+    },
+    longDescription: {
+      en: "Mobile apps live on details: startup time, offline behavior, and how the app feels in one hand. We build with React Native and Flutter as the cross-platform base, so one team ships both iOS and Android, and we add native modules when a feature needs device capability the frameworks do not cover. Data layers are designed offline first and sync when the network returns, push notifications and deep links are wired from the first build, and App Store and Google Play submission is handled end to end. The result is one codebase to maintain and one team from design to release.",
+      vi: "Ứng dụng mobile sống nhờ chi tiết: thời gian khởi động, hành vi offline và cảm giác cầm trên một tay. Chúng tôi xây dựng với React Native và Flutter làm nền tảng cross-platform, để một đội bàn giao cả iOS và Android, và bổ sung native module khi tính năng cần khả năng phần cứng mà framework không bao phủ. Lớp dữ liệu được thiết kế offline first và đồng bộ khi mạng trở lại, push notification cùng deep link được nối từ build đầu tiên, và việc submit App Store cùng Google Play được xử lý trọn gói. Kết quả là một codebase để bảo trì và một đội từ thiết kế đến ra mắt.",
+    },
+    icon: Smartphone,
+    gradient: "from-brand/10 to-accent-cyan/10",
+    heroAccent: "from-brand to-accent-cyan",
+    heroColor: "brand",
+    features: [
+      {
+        icon: Smartphone,
+        title: { en: "Cross-Platform Builds", vi: "Build Cross-platform" },
+        description: {
+          en: "One React Native or Flutter codebase, shipped to both the App Store and Google Play.",
+          vi: "Một codebase React Native hoặc Flutter, triển khai lên cả App Store và Google Play.",
+        },
+      },
+      {
+        icon: Layers,
+        title: { en: "Native Capability Where Needed", vi: "Native Capability ở nơi Cần" },
+        description: {
+          en: "Native modules where the hardware demands it: camera, sensors, and platform-specific features.",
+          vi: "Native module nơi phần cứng đòi hỏi: camera, cảm biến và tính năng đặc thù nền tảng.",
+        },
+      },
+      {
+        icon: WifiOff,
+        title: { en: "Offline-First Data", vi: "Dữ liệu Offline First" },
+        description: {
+          en: "Local data layers that keep the app working without a connection and sync when the network returns.",
+          vi: "Lớp dữ liệu cục bộ giữ ứng dụng hoạt động khi mất kết nối và đồng bộ khi mạng trở lại.",
+        },
+      },
+      {
+        icon: Bell,
+        title: { en: "Push and Deep Linking", vi: "Push và Deep Linking" },
+        description: {
+          en: "Notifications and deep links wired from the first build, so campaigns and shared links land in the right screen.",
+          vi: "Notification và deep link được nối từ build đầu tiên, để chiến dịch và link chia sẻ mở đúng màn hình.",
+        },
+      },
+      {
+        icon: Rocket,
+        title: { en: "Store Submission and Release Management", vi: "Submit Store và Quản lý Phát hành" },
+        description: {
+          en: "App Store and Google Play submission, review responses, and staged rollouts handled end to end.",
+          vi: "Submit App Store và Google Play, trả lời review và rollout theo giai đoạn được xử lý trọn gói.",
+        },
+      },
+      {
+        icon: BarChart3,
+        title: { en: "Analytics and Crash Reporting", vi: "Analytics và Crash Reporting" },
+        description: {
+          en: "Usage analytics and crash reporting wired from day one, so the first release is already measurable.",
+          vi: "Analytics sử dụng và crash reporting được nối từ ngày đầu, để bản phát hành đầu tiên đã đo lường được.",
+        },
+      },
+    ],
+    benefits: [
+      {
+        title: { en: "Built for Mobile-First Customers", vi: "Dành cho Khách hàng Mobile-first" },
+        description: {
+          en: "For products where the customer is on a phone, not at a desk: booking flows, field tools, and service requests that work in line, in transit, and on site.",
+          vi: "Cho các sản phẩm mà khách hàng ở trên điện thoại, không phải trước bàn làm việc: luồng đặt chỗ, công cụ hiện trường và yêu cầu dịch vụ hoạt động khi xếp hàng, khi di chuyển và tại công trường.",
+        },
+      },
+      {
+        title: { en: "One Codebase, Both Stores", vi: "Một Codebase, Cả hai Store" },
+        description: {
+          en: "A shared React Native or Flutter base cuts the cost of the second platform without giving up native capability where it matters.",
+          vi: "Nền chung React Native hoặc Flutter cắt giảm chi phí nền tảng thứ hai mà không từ bỏ native capability ở nơi cần thiết.",
+        },
+      },
+      {
+        title: { en: "Store Compliance Handled", vi: "Tuân thủ Store được Xử lý" },
+        description: {
+          en: "Submission requirements, review guidelines, and release management for both stores stay with one team from first build to public release.",
+          vi: "Yêu cầu submit, hướng dẫn review và quản lý phát hành cho cả hai store thuộc về một đội từ build đầu tiên đến phát hành công khai.",
+        },
+      },
+      {
+        title: { en: "One Team from Design to Release", vi: "Một Đội từ Thiết kế đến Ra mắt" },
+        description: {
+          en: "Design, build, store submission, and post-launch monitoring stay inside one team, so nothing is lost between vendors.",
+          vi: "Thiết kế, xây dựng, submit store và giám sát sau ra mắt nằm trong một đội, nên không có khoảng trống giữa các bên.",
+        },
+      },
+    ],
+    technologies: ["React Native", "Flutter", "TypeScript", "iOS", "Android", "Node.js", "PostgreSQL", "REST APIs"],
+    processSteps: [
+      {
+        step: 1,
+        title: { en: "Discovery and Device Context", vi: "Khám phá và Ngữ cảnh Thiết bị" },
+        description: {
+          en: "We map the workflows the app must support, the devices and OS versions in play, and the backend systems it will talk to.",
+          vi: "Chúng tôi ánh xạ quy trình ứng dụng cần hỗ trợ, thiết bị và phiên bản OS liên quan, cùng các hệ thống backend ứng dụng sẽ kết nối.",
+        },
+      },
+      {
+        step: 2,
+        title: { en: "Mobile-First UX Flows", vi: "UX Flow Mobile First" },
+        description: {
+          en: "Screens are designed for thumbs and interruptions first: short flows, clear states, and offline behavior drawn before code.",
+          vi: "Màn hình được thiết kế cho thao tác một tay và gián đoạn trước: flow ngắn, trạng thái rõ ràng và hành vi offline được vẽ trước khi code.",
+        },
+      },
+      {
+        step: 3,
+        title: { en: "Incremental Builds on Real Devices", vi: "Build Tăng dần trên Thiết bị Thật" },
+        description: {
+          en: "Development runs in cycles, each ending with a build you install on real devices, not screenshots.",
+          vi: "Phát triển chạy theo chu kỳ, mỗi chu kỳ kết thúc bằng một build cài lên thiết bị thật, không phải ảnh chụp màn hình.",
+        },
+      },
+      {
+        step: 4,
+        title: { en: "Store Review and Acceptance", vi: "Review Store và Nghiệm thu" },
+        description: {
+          en: "We prepare store listings, run internal and external testing tracks, and complete acceptance against the agreed criteria.",
+          vi: "Chúng tôi chuẩn bị listing store, chạy kênh kiểm thử nội bộ và bên ngoài, hoàn tất nghiệm thu theo tiêu chí đã thống nhất.",
+        },
+      },
+      {
+        step: 5,
+        title: { en: "Launch with Monitoring", vi: "Ra mắt kèm Monitoring" },
+        description: {
+          en: "Release goes out with crash reporting and analytics live from day one, so the first week of real usage is visible.",
+          vi: "Bản phát hành ra mắt với crash reporting và analytics hoạt động từ ngày đầu, để tuần đầu sử dụng thực tế được nhìn thấy.",
+        },
+      },
+      {
+        step: 6,
+        title: { en: "Handover", vi: "Bàn giao" },
+        description: {
+          en: "Documentation, source access, and a maintenance path are handed over, or the same team stays on under a support agreement.",
+          vi: "Tài liệu, quyền truy cập mã nguồn và lộ trình bảo trì được bàn giao, hoặc cùng đội tiếp tục theo thỏa thuận hỗ trợ.",
+        },
+      },
+    ],
+    faq: [
+      {
+        question: { en: "Native or cross-platform: which do you build?", vi: "Native hay cross-platform: các bạn xây dựng loại nào?" },
+        answer: {
+          en: "We default to a shared codebase with React Native or Flutter, which covers most product work on both platforms. When a feature genuinely needs native capability, camera pipelines, background tasks, or platform-specific hardware, we write that part natively and bridge it into the shared app. We do not sell native-only builds when cross-platform is the better economics.",
+          vi: "Chúng tôi mặc định dùng codebase chung với React Native hoặc Flutter, bao phủ phần lớn công việc sản phẩm trên cả hai nền tảng. Khi một tính năng thực sự cần native capability, camera, background task hoặc phần cứng đặc thù nền tảng, chúng tôi viết phần đó native và nối vào ứng dụng chung. Chúng tôi không bán build native-only khi cross-platform là phương án kinh tế hơn.",
+        },
+      },
+      {
+        question: { en: "Does the app work offline?", vi: "Ứng dụng có hoạt động offline không?" },
+        answer: {
+          en: "Yes, where the workflow needs it. Data layers are designed offline first: the app reads and writes locally, queues changes, and syncs when the network returns. During discovery we mark which screens must survive a dead zone and acceptance covers them.",
+          vi: "Có, ở những nơi quy trình cần. Lớp dữ liệu được thiết kế offline first: ứng dụng đọc ghi cục bộ, xếp hàng thay đổi và đồng bộ khi mạng trở lại. Trong giai đoạn khám phá, chúng tôi đánh dấu màn hình nào phải sống sót khi mất mạng và nghiệm thu bao phủ chúng.",
+        },
+      },
+      {
+        question: { en: "Who handles App Store and Google Play submission?", vi: "Ai xử lý việc submit App Store và Google Play?" },
+        answer: {
+          en: "We do, end to end: developer accounts, store listings, screenshots, review responses, and staged releases. Your team keeps ownership of the accounts, so the stores stay yours after the project ends.",
+          vi: "Chúng tôi, trọn gói: tài khoản developer, listing store, ảnh chụp màn hình, trả lời review và phát hành theo giai đoạn. Đội của bạn giữ quyền sở hữu tài khoản, để store vẫn thuộc về bạn sau khi dự án kết thúc.",
+        },
+      },
+      {
+        question: { en: "What drives the cost of a mobile app?", vi: "Yếu tố nào quyết định chi phí ứng dụng mobile?" },
+        answer: {
+          en: "The main drivers are the platforms in scope, the device features the app must touch (camera, sensors, background work), the depth of backend integration, and how much must work offline. Discovery fixes these before an estimate is made.",
+          vi: "Các yếu tố chính là số nền tảng trong phạm vi, tính năng thiết bị ứng dụng phải chạm tới (camera, cảm biến, background work), độ sâu tích hợp backend và mức độ phải hoạt động offline. Giai đoạn khám phá chốt các yếu tố này trước khi đưa ra ước tính.",
+        },
+      },
+      {
+        question: { en: "What happens after launch?", vi: "Điều gì xảy ra sau khi ra mắt?" },
+        answer: {
+          en: "Crash reporting and analytics are live from day one, so the first real usage is visible. After that, a support agreement covers OS updates, store requirement changes, and fixes, or your team takes over with the documentation and source we hand over.",
+          vi: "Crash reporting và analytics hoạt động từ ngày đầu, nên lần sử dụng thực tế đầu tiên được nhìn thấy. Sau đó, thỏa thuận hỗ trợ bao gồm cập nhật OS, thay đổi yêu cầu store và sửa lỗi, hoặc đội của bạn tiếp nhận với tài liệu và mã nguồn chúng tôi bàn giao.",
+        },
+      },
+    ],
+    timeline: [
+      { week: { en: "Week 1-2", vi: "Tuần 1-2" }, phase: { en: "Discovery", vi: "Khám phá" }, description: { en: "Workflow mapping, device and OS context, and backend integration scope.", vi: "Ánh xạ quy trình, ngữ cảnh thiết bị và OS cùng phạm vi tích hợp backend." } },
+      { week: { en: "Week 2-4", vi: "Tuần 2-4" }, phase: { en: "Design", vi: "Thiết kế" }, description: { en: "Mobile-first UX flows, offline behavior, and clickable prototypes.", vi: "UX flow mobile first, hành vi offline và prototype tương tác." } },
+      { week: { en: "Week 4-10", vi: "Tuần 4-10" }, phase: { en: "Development", vi: "Phát triển" }, description: { en: "Incremental builds on real devices each cycle, with backend integration.", vi: "Build tăng dần trên thiết bị thật mỗi chu kỳ, cùng tích hợp backend." } },
+      { week: { en: "Week 10-12", vi: "Tuần 10-12" }, phase: { en: "Store Review", vi: "Review Store" }, description: { en: "Acceptance testing, store listings, and submission to both stores.", vi: "Kiểm thử nghiệm thu, listing store và submit lên cả hai store." } },
+      { week: { en: "Week 12+", vi: "Tuần 12+" }, phase: { en: "Launch", vi: "Ra mắt" }, description: { en: "Staged rollout, monitoring, and handover or support agreement.", vi: "Rollout theo giai đoạn, monitoring và bàn giao hoặc thỏa thuận hỗ trợ." } },
+    ],
+  },
+  {
+    id: "desktop-app-development",
+    slug: { en: "desktop-app-development", vi: "ung-dung-desktop" },
+    title: { en: "Desktop App Development", vi: "Phát triển Ứng dụng Desktop" },
+    subtitle: {
+      en: "Windows and macOS Applications",
+      vi: "Ứng dụng Windows và macOS",
+    },
+    description: {
+      en: "Desktop software for operations with local hardware, large files, or offline work: packaging web-grade stacks like TypeScript, Node.js, and React into products that run where the browser tab runs out. We integrate the peripherals your workflow depends on and keep the app usable when the network is not.",
+      vi: "Phần mềm desktop cho vận hành cần phần cứng cục bộ, file lớn hoặc làm việc offline: đóng gói stack cấp web như TypeScript, Node.js và React thành sản phẩm chạy nơi tab trình duyệt không đủ. Chúng tôi tích hợp thiết bị ngoại vi mà quy trình của bạn phụ thuộc và giữ ứng dụng dùng được khi mạng không có.",
+    },
+    longDescription: {
+      en: "Some work does not fit a browser tab: scanning hardware, files measured in gigabytes, workshops and field sites without reliable connectivity. We build desktop products for that work by packaging web-grade stacks (TypeScript, Node.js, React) into installable applications, integrating local hardware and peripherals, and designing for offline-first operation. Where it makes sense, the desktop app shares code with your web product, so one team can maintain both. Distribution and updates run through a signed auto-update channel, so fixes reach every workstation without IT walking desk to desk.",
+      vi: "Một số công việc không vừa một tab trình duyệt: phần cứng quét, file dung lượng lớn, xưởng và hiện trường không có kết nối ổn định. Chúng tôi xây dựng sản phẩm desktop cho các công việc đó bằng cách đóng gói stack cấp web (TypeScript, Node.js, React) thành ứng dụng cài đặt, tích hợp phần cứng và thiết bị ngoại vi cục bộ, và thiết kế cho vận hành offline first. Khi hợp lý, ứng dụng desktop dùng chung code với sản phẩm web của bạn, để một đội có thể bảo trì cả hai. Phân phối và cập nhật chạy qua kênh auto-update được ký số, để bản sửa đến mọi workstation mà IT không phải đi từng bàn.",
+    },
+    icon: Monitor,
+    gradient: "from-accent-cyan/10 to-accent-violet/10",
+    heroAccent: "from-accent-cyan to-accent-violet",
+    heroColor: "accent-cyan",
+    features: [
+      {
+        icon: Monitor,
+        title: { en: "Local Hardware and Peripherals", vi: "Phần cứng và Thiết bị Ngoại vi Cục bộ" },
+        description: {
+          en: "Integration with scanners, printers, and other devices your operation runs on, talked to directly from the app.",
+          vi: "Tích hợp máy quét, máy in và các thiết bị khác mà vận hành của bạn dựa vào, kết nối trực tiếp từ ứng dụng.",
+        },
+      },
+      {
+        icon: WifiOff,
+        title: { en: "Offline-First Operation", vi: "Vận hành Offline First" },
+        description: {
+          en: "The app keeps working when the network drops and reconciles data when it returns.",
+          vi: "Ứng dụng tiếp tục hoạt động khi mạng đứt và đối soát dữ liệu khi mạng trở lại.",
+        },
+      },
+      {
+        icon: HardDrive,
+        title: { en: "Large-File Performance", vi: "Hiệu suất File Lớn" },
+        description: {
+          en: "Local processing for files too large or too sensitive to push through a browser round trip.",
+          vi: "Xử lý cục bộ cho file quá lớn hoặc quá nhạy cảm để đẩy qua một vòng trình duyệt.",
+        },
+      },
+      {
+        icon: RefreshCw,
+        title: { en: "Auto-Update Distribution", vi: "Phân phối Auto-Update" },
+        description: {
+          en: "Signed updates delivered to every workstation through a managed channel, with rollback available.",
+          vi: "Bản cập nhật được ký số phân phối đến mọi workstation qua kênh được quản lý, có rollback khi cần.",
+        },
+      },
+      {
+        icon: Workflow,
+        title: { en: "Shared Codebase with Web", vi: "Codebase Chung với Web" },
+        description: {
+          en: "Where it makes sense, the desktop app shares code with your web product, so one team maintains both.",
+          vi: "Khi hợp lý, ứng dụng desktop dùng chung code với sản phẩm web của bạn, để một đội bảo trì cả hai.",
+        },
+      },
+    ],
+    benefits: [
+      {
+        title: { en: "Fits Hardware-Bound Work", vi: "Phù hợp Công việc Gắn Phần cứng" },
+        description: {
+          en: "Operations with scanners, printers, or other local devices get an app that talks to them directly instead of through workarounds.",
+          vi: "Vận hành với máy quét, máy in hoặc thiết bị cục bộ khác có ứng dụng kết nối trực tiếp thay vì qua các cách vòng.",
+        },
+      },
+      {
+        title: { en: "Works Without the Network", vi: "Hoạt động Không cần Mạng" },
+        description: {
+          en: "Offline-first design keeps the shift running through outages and syncs the record when connectivity returns.",
+          vi: "Thiết kế offline first giữ ca làm việc tiếp diễn khi mất kết nối và đồng bộ dữ liệu khi mạng trở lại.",
+        },
+      },
+      {
+        title: { en: "Web-Grade Stack, Desktop Delivery", vi: "Stack cấp Web, Bàn giao Desktop" },
+        description: {
+          en: "The same TypeScript and React tooling as your web product means one hiring profile and one code quality bar.",
+          vi: "Cùng bộ công cụ TypeScript và React với sản phẩm web của bạn nghĩa là một chuẩn tuyển dụng và một chuẩn chất lượng code.",
+        },
+      },
+      {
+        title: { en: "Updates Without Desk Visits", vi: "Cập nhật Không cần Đến từng Bàn" },
+        description: {
+          en: "Auto-update distribution keeps every workstation current without manual installs.",
+          vi: "Phân phối auto-update giữ mọi workstation luôn ở bản mới mà không cần cài thủ công.",
+        },
+      },
+    ],
+    technologies: ["TypeScript", "Node.js", "React", "PostgreSQL", "REST APIs", "Docker"],
+    processSteps: [
+      {
+        step: 1,
+        title: { en: "Discovery and Hardware Audit", vi: "Khám phá và Kiểm kê Phần cứng" },
+        description: {
+          en: "We inventory the machines, peripherals, and network conditions the app must handle, alongside the workflows it serves.",
+          vi: "Chúng tôi kiểm kê máy móc, thiết bị ngoại vi và điều kiện mạng ứng dụng phải xử lý, cùng các quy trình ứng dụng phục vụ.",
+        },
+      },
+      {
+        step: 2,
+        title: { en: "Architecture and UX", vi: "Kiến trúc và UX" },
+        description: {
+          en: "The app shell, data layer, and offline strategy are designed, with acceptance criteria for offline behavior written up front.",
+          vi: "App shell, lớp dữ liệu và chiến lược offline được thiết kế, với tiêu chí nghiệm thu cho hành vi offline được viết từ đầu.",
+        },
+      },
+      {
+        step: 3,
+        title: { en: "Incremental Builds on Target Machines", vi: "Build Tăng dần trên Máy Đích" },
+        description: {
+          en: "Each cycle ends with a build installed on the actual hardware it must run on, not a clean laptop.",
+          vi: "Mỗi chu kỳ kết thúc bằng một build cài lên chính phần cứng ứng dụng phải chạy trên đó, không phải laptop sạch.",
+        },
+      },
+      {
+        step: 4,
+        title: { en: "Acceptance and Packaging", vi: "Nghiệm thu và Đóng gói" },
+        description: {
+          en: "Offline acceptance criteria are verified, installers and the auto-update channel are configured, and sign-off testing runs with your team.",
+          vi: "Tiêu chí nghiệm thu offline được xác minh, installer và kênh auto-update được cấu hình, kiểm thử sign-off chạy cùng đội của bạn.",
+        },
+      },
+      {
+        step: 5,
+        title: { en: "Deployment and Handover", vi: "Triển khai và Bàn giao" },
+        description: {
+          en: "Rollout to workstations is staged, monitoring and update telemetry are confirmed, and documentation plus a maintenance path are handed over.",
+          vi: "Rollout tới workstation được thực hiện theo giai đoạn, monitoring và telemetry cập nhật được xác nhận, cùng tài liệu và lộ trình bảo trì được bàn giao.",
+        },
+      },
+    ],
+    faq: [
+      {
+        question: { en: "Which desktop frameworks do you use?", vi: "Các bạn sử dụng framework desktop nào?" },
+        answer: {
+          en: "We build desktop products on web-grade stacks: TypeScript, Node.js, and React packaged into installable applications with an auto-update channel. That keeps desktop work on the same tooling and quality bar as the web products we ship.",
+          vi: "Chúng tôi xây dựng sản phẩm desktop trên stack cấp web: TypeScript, Node.js và React được đóng gói thành ứng dụng cài đặt với kênh auto-update. Điều này giữ công việc desktop trên cùng bộ công cụ và chuẩn chất lượng với các sản phẩm web chúng tôi bàn giao.",
+        },
+      },
+      {
+        question: { en: "How do updates reach user machines?", vi: "Bản cập nhật đến máy người dùng như thế nào?" },
+        answer: {
+          en: "Through a signed auto-update channel: the app checks for releases, downloads, and applies updates without manual installs. We can stage rollouts so a pilot group confirms a release before it reaches every workstation.",
+          vi: "Qua kênh auto-update được ký số: ứng dụng kiểm tra bản phát hành, tải xuống và áp dụng cập nhật không cần cài thủ công. Chúng tôi có thể rollout theo giai đoạn để một nhóm pilot xác nhận bản phát hành trước khi tới mọi workstation.",
+        },
+      },
+      {
+        question: { en: "Can you migrate us off a legacy desktop application?", vi: "Các bạn có thể di chuyển chúng tôi khỏi ứng dụng desktop legacy không?" },
+        answer: {
+          en: "Yes. We start with an audit of the current application, its data formats, and the hardware it drives, then plan the migration in stages so the operation keeps running while the replacement is built.",
+          vi: "Có. Chúng tôi bắt đầu với audit ứng dụng hiện tại, định dạng dữ liệu và phần cứng nó điều khiển, sau đó lập kế hoạch di chuyển theo giai đoạn để vận hành tiếp diễn trong khi phiên bản thay thế được xây dựng.",
+        },
+      },
+      {
+        question: { en: "What drives the cost of a desktop app?", vi: "Yếu tố nào quyết định chi phí ứng dụng desktop?" },
+        answer: {
+          en: "The same forces as any product: the number of platforms, the hardware integration surface, offline complexity, and how much is shared with your web product. The discovery phase fixes the scope before an estimate is made.",
+          vi: "Cùng các yếu tố như mọi sản phẩm: số nền tảng, diện tích tích hợp phần cứng, độ phức tạp offline và mức dùng chung với sản phẩm web của bạn. Giai đoạn khám phá chốt phạm vi trước khi đưa ra ước tính.",
+        },
+      },
+      {
+        question: { en: "Do you support the app after release?", vi: "Các bạn có hỗ trợ ứng dụng sau phát hành không?" },
+        answer: {
+          en: "Yes, under a support agreement that covers fixes, updates for new OS versions, and hardware changes. Update telemetry shows which machines are behind before users report it.",
+          vi: "Có, theo thỏa thuận hỗ trợ bao gồm sửa lỗi, cập nhật cho phiên bản OS mới và thay đổi phần cứng. Telemetry cập nhật cho thấy máy nào chưa lên bản mới trước khi người dùng báo.",
+        },
+      },
+    ],
+    timeline: [
+      { week: { en: "Week 1-2", vi: "Tuần 1-2" }, phase: { en: "Discovery", vi: "Khám phá" }, description: { en: "Hardware audit, workflow mapping, and offline acceptance criteria.", vi: "Kiểm kê phần cứng, ánh xạ quy trình và tiêu chí nghiệm thu offline." } },
+      { week: { en: "Week 2-4", vi: "Tuần 2-4" }, phase: { en: "Design", vi: "Thiết kế" }, description: { en: "App shell architecture, data layer, and offline strategy.", vi: "Kiến trúc app shell, lớp dữ liệu và chiến lược offline." } },
+      { week: { en: "Week 4-10", vi: "Tuần 4-10" }, phase: { en: "Development", vi: "Phát triển" }, description: { en: "Incremental builds on target machines, hardware integration, and shared code with web where sensible.", vi: "Build tăng dần trên máy đích, tích hợp phần cứng và dùng chung code với web khi hợp lý." } },
+      { week: { en: "Week 10-12", vi: "Tuần 10-12" }, phase: { en: "Packaging", vi: "Đóng gói" }, description: { en: "Installers, auto-update channel, and offline acceptance sign-off.", vi: "Installer, kênh auto-update và ký nghiệm thu offline." } },
+      { week: { en: "Week 12+", vi: "Tuần 12+" }, phase: { en: "Rollout", vi: "Rollout" }, description: { en: "Staged deployment to workstations, monitoring, and handover.", vi: "Triển khai theo giai đoạn tới workstation, monitoring và bàn giao." } },
+    ],
+  },
+  {
+    id: "ai-development",
+    slug: { en: "ai-development", vi: "phat-trien-ai" },
+    title: { en: "AI Development", vi: "Phát triển AI" },
+    subtitle: {
+      en: "AI Features Where the Use Case Justifies Them",
+      vi: "Tính năng AI ở nơi Trường hợp Sử dụng Xứng đáng",
+    },
+    description: {
+      en: "We add AI to products when the task is measurable, the data is ready, and the operating cost is understood: document intelligence, retrieval and search, assistants, and analysis pipelines built with LangChain, pgvector, and the OpenAI and Anthropic APIs. Engineers use AI tooling in our own work too, and every shipped line is reviewed and owned by an engineer.",
+      vi: "Chúng tôi bổ sung AI vào sản phẩm khi tác vụ đo lường được, dữ liệu sẵn sàng và chi phí vận hành được hiểu rõ: document intelligence, retrieval và tìm kiếm, assistant và pipeline phân tích được xây dựng với LangChain, pgvector cùng API OpenAI và Anthropic. Kỹ sư của chúng tôi cũng dùng công cụ AI trong công việc của mình, và mọi dòng code phát hành đều được kỹ sư review và chịu trách nhiệm.",
+    },
+    longDescription: {
+      en: "Two questions decide how we work with AI. First, how we build: our engineers use AI tooling day to day, and every line that ships is reviewed and owned by an engineer, so speed never replaces accountability. Second, AI inside your product: we add it only when the task is measurable, the data is ready, and the operating cost per request is understood. Under those conditions we deliver RAG pipelines and vector search on pgvector, document intelligence, classification, retrieval, assistants, and multi-agent systems, built with LangChain and the OpenAI and Anthropic APIs. When a rules-based solution is the better answer, we say so.",
+      vi: "Hai câu hỏi quyết định cách chúng tôi làm việc với AI. Thứ nhất, cách chúng tôi xây dựng: kỹ sư của chúng tôi dùng công cụ AI hằng ngày, và mọi dòng code phát hành đều được kỹ sư review và chịu trách nhiệm, để tốc độ không bao giờ thay thế trách nhiệm. Thứ hai, AI bên trong sản phẩm của bạn: chúng tôi chỉ bổ sung khi tác vụ đo lường được, dữ liệu sẵn sàng và chi phí vận hành mỗi request được hiểu rõ. Trong những điều kiện đó, chúng tôi bàn giao RAG pipeline và vector search trên pgvector, document intelligence, classification, retrieval, assistant và hệ thống multi-agent, được xây dựng với LangChain cùng API OpenAI và Anthropic. Khi giải pháp dựa trên luật là câu trả lời tốt hơn, chúng tôi nói rõ.",
+    },
+    icon: Brain,
+    gradient: "from-accent-violet/10 to-brand/10",
+    heroAccent: "from-accent-violet to-brand",
+    heroColor: "accent-violet",
+    features: [
+      {
+        icon: FileText,
+        title: { en: "Document Intelligence", vi: "Document Intelligence" },
+        description: {
+          en: "Extraction, classification, and structured output from contracts, invoices, and forms.",
+          vi: "Trích xuất, phân loại và đầu ra có cấu trúc từ hợp đồng, hóa đơn và biểu mẫu.",
+        },
+      },
+      {
+        icon: Search,
+        title: { en: "Retrieval and Search", vi: "Retrieval và Tìm kiếm" },
+        description: {
+          en: "RAG pipelines with vector search on pgvector, so answers cite the source documents.",
+          vi: "RAG pipeline với vector search trên pgvector, để câu trả lời trích dẫn tài liệu nguồn.",
+        },
+      },
+      {
+        icon: Bot,
+        title: { en: "Assistants and Copilots", vi: "Assistant và Copilot" },
+        description: {
+          en: "In-product assistants scoped to your data and workflows, with human review where the stakes require it.",
+          vi: "Assistant trong sản phẩm scoped theo dữ liệu và quy trình của bạn, có human review ở nơi rủi ro đòi hỏi.",
+        },
+      },
+      {
+        icon: Workflow,
+        title: { en: "Analysis Pipelines", vi: "Pipeline Phân tích" },
+        description: {
+          en: "Multi-agent and LLM pipelines that process queues of documents, tickets, or records into structured results.",
+          vi: "Pipeline multi-agent và LLM xử lý hàng chờ tài liệu, ticket hoặc bản ghi thành kết quả có cấu trúc.",
+        },
+      },
+      {
+        icon: BarChart3,
+        title: { en: "Evaluation and Cost Controls", vi: "Đánh giá và Kiểm soát Chi phí" },
+        description: {
+          en: "Eval sets, quality gates, and per-request cost tracking, so quality and spend stay visible in production.",
+          vi: "Bộ eval, quality gate và theo dõi chi phí mỗi request, để chất lượng và chi tiêu luôn thấy được trong production.",
+        },
+      },
+    ],
+    benefits: [
+      {
+        title: { en: "Measurable Tasks First", vi: "Ưu tiên Tác vụ Đo lường được" },
+        description: {
+          en: "We start where accuracy can be graded against a test set, so the feature is judged on results, not demos.",
+          vi: "Chúng tôi bắt đầu ở nơi độ chính xác chấm được theo bộ test, để tính năng được đánh giá bằng kết quả, không phải demo.",
+        },
+      },
+      {
+        title: { en: "Reviewed and Owned by Engineers", vi: "Được Kỹ sư Review và Chịu trách nhiệm" },
+        description: {
+          en: "AI tooling accelerates the build; accountability for what ships stays with named engineers.",
+          vi: "Công cụ AI tăng tốc quá trình xây dựng; trách nhiệm với sản phẩm phát hành thuộc về kỹ sư cụ thể.",
+        },
+      },
+      {
+        title: { en: "Operating Cost Understood Up Front", vi: "Chi phí Vận hành được Hiể rõ từ Đầu" },
+        description: {
+          en: "Per-request cost is estimated before build and tracked after launch, so the feature stays affordable at real volume.",
+          vi: "Chi phí mỗi request được ước tính trước khi xây và theo dõi sau ra mắt, để tính năng vẫn hợp lý ở sản lượng thực.",
+        },
+      },
+      {
+        title: { en: "Honest Fit Assessment", vi: "Đánh giá Phù hợp Thẳng thắn" },
+        description: {
+          en: "When rules-based logic or a plain database query is the better answer, we recommend that instead.",
+          vi: "Khi logic dựa trên luật hoặc một truy vấn cơ sở dữ liệu thường là câu trả lời tốt hơn, chúng tôi đề xuất điều đó.",
+        },
+      },
+    ],
+    technologies: ["LangChain", "pgvector", "OpenAI", "Anthropic", "Python", "TypeScript", "Node.js", "PostgreSQL"],
+    processSteps: [
+      {
+        step: 1,
+        title: { en: "Use-Case Validation", vi: "Xác thực Trường hợp Sử dụng" },
+        description: {
+          en: "We define the task, the measurable outcome, and the data it depends on. If the use case does not clear that bar, we say so before any build starts.",
+          vi: "Chúng tôi định nghĩa tác vụ, kết quả đo lường được và dữ liệu phụ thuộc. Nếu trường hợp sử dụng không đạt chuẩn đó, chúng tôi nói rõ trước khi bất kỳ việc xây dựng nào bắt đầu.",
+        },
+      },
+      {
+        step: 2,
+        title: { en: "Data Readiness Review", vi: "Rà soát Sẵn sàng Dữ liệu" },
+        description: {
+          en: "Sources are inventoried, access and quality are checked, and the retrieval layer (PostgreSQL with pgvector) is planned.",
+          vi: "Nguồn dữ liệu được kiểm kê, quyền truy cập và chất lượng được rà soát, và lớp retrieval (PostgreSQL với pgvector) được lên kế hoạch.",
+        },
+      },
+      {
+        step: 3,
+        title: { en: "Prototype and Eval Harness", vi: "Prototype và Bộ Eval" },
+        description: {
+          en: "A working prototype is built against a small evaluation set, so quality is graded before the system grows.",
+          vi: "Một prototype chạy được được xây dựng theo bộ eval nhỏ, để chất lượng được chấm điểm trước khi hệ thống mở rộng.",
+        },
+      },
+      {
+        step: 4,
+        title: { en: "Production Build", vi: "Xây dựng Production" },
+        description: {
+          en: "The pipeline is hardened: prompts and retrieval versioned, cost tracking wired, and human review placed where the stakes require it.",
+          vi: "Pipeline được gia cố: prompt và retrieval được version, theo dõi chi phí được nối và human review đặt ở nơi rủi ro đòi hỏi.",
+        },
+      },
+      {
+        step: 5,
+        title: { en: "Monitoring and Handover", vi: "Monitoring và Bàn giao" },
+        description: {
+          en: "Evals run continuously in production, drift and spend are reported, and prompts and pipelines are handed over as owned assets.",
+          vi: "Eval chạy liên tục trong production, drift và chi tiêu được báo cáo, cùng prompt và pipeline được bàn giao như tài sản thuộc sở hữu của bạn.",
+        },
+      },
+    ],
+    faq: [
+      {
+        question: { en: "When does AI make sense in a product?", vi: "Khi nào AI hợp lý trong một sản phẩm?" },
+        answer: {
+          en: "When three things hold: the task is measurable, the data it needs is ready, and the operating cost per request is understood and acceptable. We will also tell you when a rules-based solution is the better answer, and we often do.",
+          vi: "Khi ba điều đạt được: tác vụ đo lường được, dữ liệu cần thiết sẵn sàng và chi phí vận hành mỗi request được hiểu rõ và chấp nhận được. Chúng tôi cũng sẽ nói khi giải pháp dựa trên luật là câu trả lời tốt hơn, và chúng tôi thường làm vậy.",
+        },
+      },
+      {
+        question: { en: "How do you build with AI internally?", vi: "Các bạn xây dựng bằng AI nội bộ như thế nào?" },
+        answer: {
+          en: "Our engineers use AI tooling day to day to move faster. Every line that ships is reviewed and owned by an engineer, so the accountability on the codebase does not change.",
+          vi: "Kỹ sư của chúng tôi dùng công cụ AI hằng ngày để đi nhanh hơn. Mọi dòng code phát hành đều được kỹ sư review và chịu trách nhiệm, nên trách nhiệm với codebase không thay đổi.",
+        },
+      },
+      {
+        question: { en: "Is our data ready for AI features?", vi: "Dữ liệu của chúng tôi đã sẵn sàng cho tính năng AI chưa?" },
+        answer: {
+          en: "We check before we promise: whether the sources exist, access is granted, and quality is good enough to grade results against. If the data is not ready, preparing it becomes the first phase of the project.",
+          vi: "Chúng tôi kiểm tra trước khi hứa: nguồn có tồn tại, quyền truy cập được cấp và chất lượng đủ tốt để chấm điểm kết quả. Nếu dữ liệu chưa sẵn sàng, việc chuẩn bị dữ liệu trở thành giai đoạn đầu của dự án.",
+        },
+      },
+      {
+        question: { en: "What does it cost to run AI features in production?", vi: "Chi phí vận hành tính năng AI trong production là bao nhiêu?" },
+        answer: {
+          en: "LLM features carry a per-request operating cost on top of hosting. We estimate it during discovery, wire cost tracking into the build, and report spend alongside quality after launch.",
+          vi: "Tính năng LLM mang chi phí vận hành mỗi request ngoài chi phí hosting. Chúng tôi ước tính trong giai đoạn khám phá, nối theo dõi chi phí vào bản build và báo cáo chi tiêu cùng chất lượng sau ra mắt.",
+        },
+      },
+      {
+        question: { en: "Who owns the prompts, pipelines, and eval sets?", vi: "Ai sở hữu prompt, pipeline và bộ eval?" },
+        answer: {
+          en: "You do. Prompts, retrieval code, pipelines, and eval sets are versioned in your repository and documented, so another team can take them over.",
+          vi: "Bạn sở hữu. Prompt, code retrieval, pipeline và bộ eval được version trong repository của bạn và có tài liệu, để đội khác có thể tiếp nhận.",
+        },
+      },
+    ],
+    timeline: [
+      { week: { en: "Week 1-2", vi: "Tuần 1-2" }, phase: { en: "Validation", vi: "Xác thực" }, description: { en: "Use-case definition, measurability check, data readiness review, and go or no-go.", vi: "Định nghĩa tác vụ, kiểm tra khả năng đo lường, rà soát sẵn sàng dữ liệu và quyết định làm hay dừng." } },
+      { week: { en: "Week 2-4", vi: "Tuần 2-4" }, phase: { en: "Prototype", vi: "Prototype" }, description: { en: "Working prototype graded against a small eval set, with a first per-request cost estimate.", vi: "Prototype chạy được chấm điểm theo bộ eval nhỏ, với ước tính chi phí mỗi request đầu tiên." } },
+      { week: { en: "Week 4-10", vi: "Tuần 4-10" }, phase: { en: "Build", vi: "Xây dựng" }, description: { en: "Retrieval layer, production pipeline, cost tracking, and human review points.", vi: "Lớp retrieval, pipeline production, theo dõi chi phí và các điểm human review." } },
+      { week: { en: "Week 10-12", vi: "Tuần 10-12" }, phase: { en: "Harden and Hand Over", vi: "Gia cố và Bàn giao" }, description: { en: "Full eval runs, production rollout with monitoring, and ownership of prompts and pipelines.", vi: "Chạy đầy đủ bộ eval, rollout production kèm monitoring và bàn giao quyền sở hữu prompt cùng pipeline." } },
+    ],
+  },
+  {
+    id: "it-consulting",
+    slug: { en: "it-consulting", vi: "tu-van-it" },
+    title: { en: "IT Consulting", vi: "Tư vấn IT" },
+    subtitle: {
+      en: "Independent Reviews and Roadmaps",
+      vi: "Đánh giá và Lộ trình Độc lập",
+    },
+    description: {
+      en: "Independent architecture reviews, technical due diligence, and roadmap planning before you commit to a build. We deliver a written assessment, an architecture proposal, and a delivery roadmap you can act on, and the review is useful whether or not Retech builds the result.",
+      vi: "Đánh giá kiến trúc độc lập, technical due diligence và lập kế hoạch lộ trình trước khi bạn cam kết một bản build. Chúng tôi bàn giao bản đánh giá bằng văn bản, đề xuất kiến trúc và lộ trình triển khai có thể hành động ngay, và bản đánh giá hữu ích dù Retech có xây dựng kết quả hay không.",
+    },
+    longDescription: {
+      en: "Big commitments deserve an independent read first. We review the architecture, the codebase, and the team and vendor setup around them, then put the findings in writing: an assessment of what holds and what does not, an architecture proposal for the path forward, and a delivery roadmap with sequence and effort. The engagement ends with the documents, and the recommendations are not steered toward a build contract. If you take the roadmap to another team, it is written to survive that.",
+      vi: "Các cam kết lớn cần một góc nhìn độc lập trước tiên. Chúng tôi đánh giá kiến trúc, codebase và cách tổ chức đội ngũ cùng vendor xung quanh, sau đó đưa kết luận thành văn bản: bản đánh giá điều gì vững và điều gì không, đề xuất kiến trúc cho hướng đi tiếp theo, và lộ trình triển khai với trình tự cùng khối lượng. Cuộc hợp tác kết thúc bằng các tài liệu, và đề xuất không bị kéo theo hướng có hợp đồng xây dựng. Nếu bạn mang lộ trình tới đội khác, nó được viết để dùng được trong trường hợp đó.",
+    },
+    icon: Compass,
+    gradient: "from-brand/10 to-accent-violet/10",
+    heroAccent: "from-brand to-accent-violet",
+    heroColor: "brand",
+    features: [
+      {
+        icon: Layout,
+        title: { en: "Architecture Review", vi: "Đánh giá Kiến trúc" },
+        description: {
+          en: "A structured read of your system: boundaries, data flows, failure modes, and the trade-offs already baked in.",
+          vi: "Một góc nhìn có cấu trúc về hệ thống của bạn: ranh giới, luồng dữ liệu, chế độ lỗi và các đánh đổi đã ăn vào thiết kế.",
+        },
+      },
+      {
+        icon: ShieldCheck,
+        title: { en: "Technical Due Diligence", vi: "Technical Due Diligence" },
+        description: {
+          en: "Codebase, infrastructure, and process reviewed before an acquisition, investment, or platform commitment.",
+          vi: "Codebase, hạ tầng và quy trình được rà soát trước khi mua bán, đầu tư hoặc cam kết nền tảng.",
+        },
+      },
+      {
+        icon: Compass,
+        title: { en: "Roadmap Planning", vi: "Lập Kế hoạch Lộ trình" },
+        description: {
+          en: "A sequenced delivery roadmap that separates what must come first from what can wait.",
+          vi: "Lộ trình triển khai có trình tự, tách điều gì phải đi trước khỏi điều gì có thể chờ.",
+        },
+      },
+      {
+        icon: Users,
+        title: { en: "Team and Vendor Assessment", vi: "Đánh giá Đội ngũ và Vendor" },
+        description: {
+          en: "An outside read on in-house capability and vendor delivery, with options for the structure you actually need.",
+          vi: "Góc nhìn bên ngoài về năng lực nội bộ và cách vendor bàn giao, với các phương án cho cơ cấu bạn thực sự cần.",
+        },
+      },
+    ],
+    benefits: [
+      {
+        title: { en: "Decisions Before Spend", vi: "Quyết định Trước khi Chi tiêu" },
+        description: {
+          en: "The review happens before the build contract, so the expensive decisions are made on evidence, not momentum.",
+          vi: "Đánh giá diễn ra trước hợp đồng xây dựng, để các quyết định tốn kém dựa trên bằng chứng, không phải đà vận hành.",
+        },
+      },
+      {
+        title: { en: "Findings in Writing", vi: "Kết luận Bằng Văn bản" },
+        description: {
+          en: "The assessment, architecture proposal, and roadmap are delivered as documents your board, bank, or acquirer can read.",
+          vi: "Bản đánh giá, đề xuất kiến trúc và lộ trình được bàn giao thành tài liệu cho hội đồng, ngân hàng hoặc bên mua của bạn đọc được.",
+        },
+      },
+      {
+        title: { en: "Independent by Design", vi: "Độc lập ngay từ Thiết kế" },
+        description: {
+          en: "Recommendations are the same whether or not Retech builds the result, and we say when no build is needed.",
+          vi: "Đề xuất giữ nguyên dù Retech có xây dựng kết quả hay không, và chúng tôi nói rõ khi không cần xây dựng gì.",
+        },
+      },
+      {
+        title: { en: "A Roadmap Any Team Can Run", vi: "Lộ trình Mọi Đội đều Chạy được" },
+        description: {
+          en: "The delivery roadmap is written so your in-house team or a third party can execute it without us in the room.",
+          vi: "Lộ trình triển khai được viết để đội nội bộ hoặc bên thứ ba có thể thực hiện mà không cần chúng tôi ngồi cạnh.",
+        },
+      },
+    ],
+    technologies: ["TypeScript", "Node.js", "PostgreSQL", "AWS", "Docker"],
+    processSteps: [
+      {
+        step: 1,
+        title: { en: "Context and Access", vi: "Ngữ cảnh và Quyền truy cập" },
+        description: {
+          en: "We interview stakeholders, get read access to the codebase and infrastructure, and agree the questions the review must answer.",
+          vi: "Chúng tôi phỏng vấn stakeholder, xin quyền đọc codebase và hạ tầng, và thống nhất những câu hỏi mà bản đánh giá phải trả lời.",
+        },
+      },
+      {
+        step: 2,
+        title: { en: "Assessment", vi: "Đánh giá" },
+        description: {
+          en: "Architecture, code, data, security posture, and delivery process are reviewed against the questions agreed up front.",
+          vi: "Kiến trúc, code, dữ liệu, tư thế bảo mật và quy trình bàn giao được đánh giá theo các câu hỏi đã thống nhất từ đầu.",
+        },
+      },
+      {
+        step: 3,
+        title: { en: "Written Deliverables", vi: "Tài liệu Bàn giao" },
+        description: {
+          en: "Findings become a written assessment, an architecture proposal, and a sequenced delivery roadmap.",
+          vi: "Kết luận trở thành bản đánh giá bằng văn bản, đề xuất kiến trúc và lộ trình triển khai có trình tự.",
+        },
+      },
+      {
+        step: 4,
+        title: { en: "Readout and Handover", vi: "Trình bày và Bàn giao" },
+        description: {
+          en: "We walk your team through the findings, answer follow-ups, and hand over documents written to stand on their own.",
+          vi: "Chúng tôi trình bày kết luận với đội của bạn, trả lời các câu hỏi tiếp theo và bàn giao tài liệu được viết để tự đứng được khi không có chúng tôi giải thích.",
+        },
+      },
+    ],
+    faq: [
+      {
+        question: { en: "When should we bring in consultants?", vi: "Khi nào chúng tôi nên thuê tư vấn?" },
+        answer: {
+          en: "Before the commitment: a re-platform, a large hire plan, an acquisition, or a build whose scope nobody has independently checked. After the contract is signed is the expensive time to get a second opinion.",
+          vi: "Trước cam kết: re-platform, kế hoạch tuyển dụng lớn, giao dịch mua bán hoặc một bản build mà chưa ai kiểm tra phạm vi độc lập. Sau khi ký hợp đồng mới xin ý kiến thứ hai là lúc tốn kém.",
+        },
+      },
+      {
+        question: { en: "What does a review actually deliver?", vi: "Một bản đánh giá thực sự bàn giao những gì?" },
+        answer: {
+          en: "Three documents: a written assessment of what holds and what does not, an architecture proposal for the path forward, and a delivery roadmap with sequence and effort. Everything is written and specific, not a deck of directions.",
+          vi: "Ba tài liệu: bản đánh giá bằng văn bản về điều gì vững và điều gì không, đề xuất kiến trúc cho hướng đi, và lộ trình triển khai với trình tự cùng khối lượng. Mọi thứ được viết rõ và cụ thể, không phải bộ slide chung chung.",
+        },
+      },
+      {
+        question: { en: "Is this a one-off or ongoing?", vi: "Dịch vụ này là một lần hay liên tục?" },
+        answer: {
+          en: "Most engagements are one-off: context, assessment, written deliverables, readout, done. Some clients keep a lighter standing arrangement for periodic reviews at decision points, and we scope that separately.",
+          vi: "Phần lớn là một lần: ngữ cảnh, đánh giá, tài liệu bàn giao, buổi trình bày, xong. Một số khách hàng giữ thỏa thuận nhẹ hơn cho các đợt review định kỳ tại các mốc quyết định, và chúng tôi định phạm vi riêng cho hình thức đó.",
+        },
+      },
+      {
+        question: { en: "Are your recommendations independent?", vi: "Các đề xuất của các bạn có độc lập không?" },
+        answer: {
+          en: "Yes, and that is the point of the service: the assessment is the same whether Retech builds the result or another team does. We also recommend not building when the evidence says so.",
+          vi: "Có, và đó là lý do của dịch vụ này: bản đánh giá giữ nguyên dù Retech xây dựng kết quả hay đội khác thực hiện. Chúng tôi cũng đề xuất không xây dựng khi bằng chứng chỉ ra như vậy.",
+        },
+      },
+      {
+        question: { en: "Do you implement afterwards?", vi: "Sau đó các bạn có triển khai không?" },
+        answer: {
+          en: "When you want us to, the roadmap becomes the starting brief for a build engagement. When you take it elsewhere, the documents are written to hand over cleanly.",
+          vi: "Khi bạn muốn, lộ trình trở thành bản đầu vào cho một dự án xây dựng với chúng tôi. Khi bạn mang đi nơi khác, các tài liệu được viết để bàn giao gọn gàng.",
+        },
+      },
+    ],
+    timeline: [
+      { week: { en: "Week 1", vi: "Tuần 1" }, phase: { en: "Context", vi: "Ngữ cảnh" }, description: { en: "Stakeholder interviews, access to code and infrastructure, and the review questions agreed.", vi: "Phỏng vấn stakeholder, quyền truy cập code và hạ tầng, cùng các câu hỏi đánh giá được thống nhất." } },
+      { week: { en: "Week 1-3", vi: "Tuần 1-3" }, phase: { en: "Assessment", vi: "Đánh giá" }, description: { en: "Architecture, code, data, security, and team or vendor review against the agreed questions.", vi: "Kiến trúc, code, dữ liệu, bảo mật và đội ngũ hoặc vendor được đánh giá theo các câu hỏi đã thống nhất." } },
+      { week: { en: "Week 3-4", vi: "Tuần 3-4" }, phase: { en: "Deliverables", vi: "Tài liệu bàn giao" }, description: { en: "Written assessment, architecture proposal, and sequenced delivery roadmap.", vi: "Bản đánh giá bằng văn bản, đề xuất kiến trúc và lộ trình triển khai có trình tự." } },
+      { week: { en: "Week 4", vi: "Tuần 4" }, phase: { en: "Readout", vi: "Trình bày" }, description: { en: "Findings walkthrough with your team, follow-up questions, and document handover.", vi: "Đi qua kết luận cùng đội của bạn, trả lời câu hỏi tiếp theo và bàn giao tài liệu." } },
     ],
   },
 ];

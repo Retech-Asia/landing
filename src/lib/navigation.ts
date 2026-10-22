@@ -5,6 +5,10 @@ import {
   Globe,
   Palette,
   UsersRound,
+  Smartphone,
+  Monitor,
+  Brain,
+  Compass,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -71,6 +75,30 @@ export const servicesNavigation: NavChild[] = [
     href: "/services/dedicated-teams",
     descriptionKey: "teamsDesc",
     icon: UsersRound,
+  },
+  {
+    labelKey: "mobile",
+    href: "/services/mobile-app-development",
+    descriptionKey: "mobileDesc",
+    icon: Smartphone,
+  },
+  {
+    labelKey: "desktop",
+    href: "/services/desktop-app-development",
+    descriptionKey: "desktopDesc",
+    icon: Monitor,
+  },
+  {
+    labelKey: "ai",
+    href: "/services/ai-development",
+    descriptionKey: "aiDesc",
+    icon: Brain,
+  },
+  {
+    labelKey: "consulting",
+    href: "/services/it-consulting",
+    descriptionKey: "consultingDesc",
+    icon: Compass,
   },
 ];
 

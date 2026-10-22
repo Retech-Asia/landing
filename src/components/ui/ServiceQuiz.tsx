@@ -6,12 +6,6 @@ import {
   ArrowRight,
   ArrowLeft,
   RotateCcw,
-  Layout,
-  Users,
-  BarChart3,
-  Globe,
-  Palette,
-  UsersRound,
   CheckCircle2,
   type LucideIcon,
 } from "lucide-react";
@@ -53,8 +47,8 @@ const QUESTIONS: QuizQuestion[] = [
     question: "What best describes your project?",
     options: [
       { label: "Website", slugs: ["cms-platforms", "web-development", "ui-ux-design"] },
-      { label: "Internal Tool", slugs: ["crm-systems", "erp-solutions", "web-development"] },
-      { label: "Mobile App", slugs: ["web-development", "ui-ux-design", "dedicated-teams"] },
+      { label: "Internal Tool", slugs: ["crm-systems", "erp-solutions", "web-development", "desktop-app-development"] },
+      { label: "Mobile App", slugs: ["mobile-app-development", "web-development", "ui-ux-design"] },
       { label: "Business System", slugs: ["erp-solutions", "crm-systems"] },
       { label: "Design Refresh", slugs: ["ui-ux-design", "web-development"] },
       { label: "Team Extension", slugs: ["dedicated-teams"] },
@@ -65,10 +59,10 @@ const QUESTIONS: QuizQuestion[] = [
     question: "What's your primary goal?",
     options: [
       { label: "Attract Customers", slugs: ["cms-platforms", "ui-ux-design", "web-development"] },
-      { label: "Streamline Operations", slugs: ["erp-solutions", "crm-systems"] },
+      { label: "Streamline Operations", slugs: ["erp-solutions", "crm-systems", "ai-development"] },
       { label: "Manage Data", slugs: ["erp-solutions", "crm-systems", "web-development"] },
       { label: "Improve UX", slugs: ["ui-ux-design", "web-development"] },
-      { label: "Scale Development", slugs: ["dedicated-teams", "web-development"] },
+      { label: "Scale Development", slugs: ["dedicated-teams", "it-consulting", "web-development"] },
     ],
   },
   {
@@ -83,21 +77,21 @@ const QUESTIONS: QuizQuestion[] = [
   },
 ];
 
-const SERVICES: ServiceBrief[] = [
-  { slug: "cms-platforms", title: "CMS Platforms", subtitle: "Content Management Made Easy", icon: Layout },
-  { slug: "crm-systems", title: "CRM Systems", subtitle: "Customer-Centric Tools", icon: Users },
-  { slug: "erp-solutions", title: "ERP Solutions", subtitle: "Insightful Dashboards", icon: BarChart3 },
-  { slug: "web-development", title: "Web Development", subtitle: "Modern Web Applications", icon: Globe },
-  { slug: "ui-ux-design", title: "UI/UX Design", subtitle: "User-Centered Design", icon: Palette },
-  { slug: "dedicated-teams", title: "Dedicated Teams", subtitle: "Your Offshore Development Team", icon: UsersRound },
-];
-
 /* ------------------------------------------------------------------ */
 /*  Locale dictionaries (EN | VI)                                      */
 /* ------------------------------------------------------------------ */
 
-// Canonical VI service names/subtitles, reused from services-data (keyed by
-// the invariant EN slug) so quiz results match the service pages exactly.
+// Canonical EN+VI service briefs derived from services-data (keyed by the
+// invariant EN slug) so quiz results match the service pages exactly and
+// new services appear without edits here.
+const SERVICE_EN: Record<string, { title: string; subtitle: string; icon: LucideIcon }> =
+  Object.fromEntries(
+    services.map((s) => [
+      s.slug.en,
+      { title: s.title.en, subtitle: s.subtitle.en, icon: s.icon },
+    ]),
+  );
+
 const SERVICE_VI: Record<string, { title: string; subtitle: string }> =
   Object.fromEntries(
     services.map((s) => [s.slug.en, { title: s.title.vi, subtitle: s.subtitle.vi }]),
@@ -248,8 +242,10 @@ export function ServiceQuiz() {
     return Object.entries(counts)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 3)
-      .map(([slug]) => SERVICES.find((s) => s.slug === slug)!)
-      .filter(Boolean);
+      .map(([slug]) =>
+        SERVICE_EN[slug] ? { slug, ...SERVICE_EN[slug] } : null,
+      )
+      .filter((svc): svc is ServiceBrief => svc !== null);
   })();
 
   /* Progress percentage */

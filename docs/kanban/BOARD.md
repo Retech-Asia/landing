@@ -5,6 +5,14 @@ Round 2026-10-22: **Enterprise upgrade** (owner-approved plan:
 Baseline audit evidence: `docs/enterprise-baseline-2026-10-22.md` (findings F1-F12).
 Claims classification: `docs/evidence-register.md`.
 
+**Owner corrections directive (2026-10-22, supersedes conflicting RT-04/RT-05 calls):**
+LitDunes hero must be restored (P0); no template/AI-sounding copy; no weak project
+metrics in promotional UI; green brand palette enforced (no #1A1A2E-class surfaces);
+/process rebuilt editorial; photography overhauled. Waves: RT-18 → RT-19 → RT-20,
+each gated by RT-17 reconciliation + owner-visible evidence.
+**DEPLOY FREEZE: no production push until the next owner checkpoint** (overrides the
+ship-on-green standing rule for this corrections round; RT-08 lands as a local commit).
+
 One file per ticket (`RT-##-*.md`) with Context, AC, Files, Progress log.
 Rule: update BOTH the ticket file and this board row in the same edit.
 
@@ -18,7 +26,7 @@ Rule: update BOTH the ticket file and this board row in the same edit.
 | RT-05 | P1 | Two design directions + recommendation | RT-04 | Prototypes + 7-axis comparison done (`docs/rt05-design-comparison.md`: B system, hero wording decoupled); STOPPED for owner checkpoint |
 | RT-06 | P1 | Shared nav/typography/component system | RT-05 | DONE locally (Inter + Source Serif 4, ink button, IndexRow, editorial chrome; Lighthouse mobile EN 95 / VI 92, LCP 1.9/2.2s — font double-download root cause fixed). LOCAL COMMIT ONLY; awaiting owner checkpoint before push/deploy |
 | RT-07 | P1 | Homepage implementation | RT-02, RT-04, RT-06 | DONE locally (Option A hero, B sections 01-05 + proof strip + ink closing band, retired 4 sections, menu focus fix, footer h3s; Lighthouse mobile EN 96/VI 95, a11y 100, LCP 1.9/1.8s, probes 36/36). LOCAL COMMIT ONLY, awaiting owner review |
-| RT-08 | P1 | Service hub + CRM depth + new service pages | RT-04, RT-06 | blocked |
+| RT-08 | P1 | Service hub + CRM depth + new service pages | RT-04, RT-06 | DONE 2026-10-22 (10 service pages EN+VI; probes 46/46, a11y 100, CLS 0). LOCAL COMMIT ONLY — deploy frozen by owner corrections directive |
 | RT-09 | P1 | Case-study proof + template upgrades | RT-02, RT-06 | blocked |
 | RT-10 | P1 | About + approach + engagement/pricing presentation | RT-02, RT-06 | blocked |
 | RT-11 | P1 | Contact flow + consent-aware instrumentation | RT-01, RT-06 | blocked |
@@ -27,6 +35,10 @@ Rule: update BOTH the ticket file and this board row in the same edit.
 | RT-14 | P1 | Vercel preview + release package | RT-13 | blocked |
 | RT-15 | P2 | Identity reconciliation (owner-executed) | RT-02 | owner items open |
 | RT-16 | P2 | Editorial queue + measurement baseline | RT-01, RT-04 | blocked |
+| RT-17 | P0 | Owner corrections: reconciliation audit (hero/copy/metrics/palette/process/images) | — | in progress |
+| RT-18 | P0 | Wave 1 brand recovery: LitDunes hero + palette + worst generic copy | RT-17 | blocked |
+| RT-19 | P0 | Wave 2: project presentation + /process rebuild | RT-18 | blocked |
+| RT-20 | P1 | Wave 3: imagery overhaul + site-wide consistency | RT-19 | blocked |
 
 ## Notes
 

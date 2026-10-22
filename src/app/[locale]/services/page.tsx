@@ -42,8 +42,8 @@ export async function generateMetadata({
   const isEn = locale === "en";
   const title = isEn ? "IT Outsourcing Services" : "Dịch vụ Gia công IT";
   const description = isEn
-    ? "Custom CMS, CRM, ERP, web apps, UI/UX design & dedicated teams from Vietnam. Full-cycle IT outsourcing services for global businesses."
-    : "CMS, CRM, ERP, ứng dụng web, UI/UX và đội chuyên trách từ Việt Nam. Dịch vụ gia công IT toàn vòng đời cho doanh nghiệp toàn cầu.";
+    ? "Custom CMS, CRM, ERP, web, mobile, desktop, AI engineering, UI/UX design & dedicated teams from Vietnam. Full-cycle IT outsourcing services for global businesses."
+    : "CMS, CRM, ERP, ứng dụng web, mobile, desktop, kỹ thuật AI, UI/UX và đội chuyên trách từ Việt Nam. Dịch vụ gia công IT toàn vòng đời cho doanh nghiệp toàn cầu.";
   const enUrl = `${SITE_URL}/en/services`;
   const viUrl = `${SITE_URL}/vi/services`;
   const canonical = isEn ? enUrl : viUrl;
@@ -104,7 +104,9 @@ const processSteps = [
 /**
  * Feature comparison matrix.
  * Order of booleans maps to `services` array:
- *   [CMS Platforms, CRM Systems, ERP Solutions, Web Development, UI/UX Design, Dedicated Teams]
+ *   [CMS Platforms, CRM Systems, ERP Solutions, Web Development, UI/UX Design,
+ *    Dedicated Teams, Mobile App Development, Desktop App Development,
+ *    AI Development, IT Consulting]
  */
 const comparisonFeatures: {
   feature: string;
@@ -115,49 +117,49 @@ const comparisonFeatures: {
   {
     feature: "Custom Development",
     tooltip: "Bespoke software built from scratch to match your unique business requirements.",
-    supported: [true, true, true, true, true, true],
+    supported: [true, true, true, true, true, true, true, true, true, false],
   },
   {
     feature: "CMS Integration",
     tooltip: "Connect and extend content management systems like WordPress, Strapi, or Contentful.",
-    supported: [true, false, false, true, false, false],
+    supported: [true, false, false, true, false, false, false, false, false, false],
   },
   {
     feature: "CRM Integration",
     tooltip: "Integrate or build customer relationship management tools such as Salesforce or HubSpot.",
-    supported: [false, true, true, true, false, false],
+    supported: [false, true, true, true, false, false, false, false, false, false],
   },
   {
     feature: "ERP Capabilities",
     tooltip: "Full enterprise resource planning: finance, HR, procurement, inventory in one platform.",
-    supported: [false, false, true, false, false, false],
+    supported: [false, false, true, false, false, false, false, false, false, false],
   },
   // -- Technical features --
   {
     feature: "Mobile App",
     tooltip: "Native or cross-platform mobile application development for iOS and Android.",
-    supported: [false, false, true, true, false, false],
+    supported: [false, false, true, true, false, false, true, false, false, false],
   },
   {
     feature: "AI / ML",
     tooltip: "Machine learning features like smart recommendations, prediction, and automation.",
-    supported: [true, true, true, true, false, false],
+    supported: [true, true, true, true, false, false, false, false, true, false],
   },
   {
     feature: "Cloud Deployment",
     tooltip: "Deploy to AWS, GCP, or Azure with scalable, high-availability infrastructure.",
-    supported: [false, false, true, true, false, false],
+    supported: [false, false, true, true, false, false, false, false, true, false],
   },
   // -- Cross-cutting --
   {
     feature: "UI/UX Design",
     tooltip: "User research, wireframes, prototypes, and high-fidelity visual design.",
-    supported: [true, true, true, true, true, false],
+    supported: [true, true, true, true, true, false, true, true, false, false],
   },
   {
     feature: "Ongoing Support",
     tooltip: "Post-launch maintenance, monitoring, updates, and performance optimization.",
-    supported: [true, true, true, true, true, true],
+    supported: [true, true, true, true, true, true, true, true, true, false],
   },
 ];
 
@@ -175,7 +177,7 @@ export default async function ServicesPage({
       {/* Structured Data */}
       <WebPageJsonLd
         title="Our Services"
-        description="Custom CMS, CRM, ERP, web apps, UI/UX design & dedicated teams. Full-spectrum development services."
+        description="Custom CMS, CRM, ERP, web, mobile, desktop, AI engineering, UI/UX design & dedicated teams. Full-spectrum development services."
         url={`${SITE_URL}/${locale}/services`}
       />
       <BreadcrumbJsonLd
@@ -193,7 +195,7 @@ export default async function ServicesPage({
             "@type": "ItemList",
             name: "Retech Solutions Services",
             description:
-              "Full-spectrum IT services from Vietnam: CMS, CRM, ERP, web development, UI/UX design, and dedicated teams.",
+              "Full-spectrum IT services from Vietnam: CMS, CRM, ERP, web, mobile, desktop, AI development, UI/UX design, and dedicated teams.",
             numberOfItems: services.length,
             itemListElement: services.map((s, i) => ({
               "@type": "ListItem",

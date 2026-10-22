@@ -1,4 +1,5 @@
 import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { IndexRow, IndexRowList } from "@/components/ui/IndexRow";
@@ -7,9 +8,8 @@ import { localizeServiceHref } from "@/lib/services-data";
 /**
  * Direction B capabilities section (RT-08, section 01). Static SSR server
  * component: no motion, no client JS. A featured CRM block (the pillar
- * service) followed by the ruled capability index. Only capabilities with
- * a shipped page carry a href; the rest stay static rows until their
- * service pages ship (RT-08 sequence), so no dead links.
+ * service) followed by the ruled capability index. Every capability row
+ * links to its service page (slugs resolve per locale), so no dead links.
  */
 
 interface ScopeItem {
@@ -30,14 +30,14 @@ export function ServicePreview() {
   const scope = t.raw("featured.scope") as ScopeItem[];
   const rows = t.raw("rows") as CapabilityRow[];
 
-  // Row hrefs: only pages that exist today. Row 1 (web development) is
-  // live; rows 2 to 5 have no page yet and render as static rows.
+  // Row hrefs: every capability has a service page. localizeServiceHref
+  // resolves the EN-slug id to the active locale's slug (VI slugs differ).
   const rowHrefs: (string | undefined)[] = [
     localizeServiceHref("/services/web-development", locale),
-    undefined,
-    undefined,
-    undefined,
-    undefined,
+    localizeServiceHref("/services/mobile-app-development", locale),
+    localizeServiceHref("/services/desktop-app-development", locale),
+    localizeServiceHref("/services/ai-development", locale),
+    localizeServiceHref("/services/it-consulting", locale),
   ];
 
   return (
@@ -63,6 +63,15 @@ export function ServicePreview() {
             <p className="mt-4 italic text-foreground-muted">
               {t("featured.fits")}
             </p>
+            <div className="mt-6">
+              <Link
+                href={localizeServiceHref("/services/crm-systems", locale)}
+                className="inline-flex items-baseline gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-foreground underline-offset-4 transition-colors hover:text-brand hover:underline"
+              >
+                {t("featured.title")}
+                <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </div>
           </div>
           <ul className="mt-8 border-t border-rule-soft md:mt-0">
             {scope.map((item) => (

@@ -50,7 +50,15 @@
       "uiux": "Thiết kế UI/UX",
       "uiuxDesc": "Thiết kế sản phẩm cho giao diện AI-native, bao gồm UX copilot và luồng hội thoại",
       "teams": "Đội ngũ Chuyên trách",
-      "teamsDesc": "Kỹ sư tích hợp có kinh nghiệm triển khai RAG, agents và tích hợp LLM"
+      "teamsDesc": "Kỹ sư tích hợp có kinh nghiệm triển khai RAG, agents và tích hợp LLM",
+      "mobile": "Phát triển ứng dụng Mobile",
+      "mobileDesc": "Ứng dụng iOS và Android từ một mã nguồn chung, từ luồng đặt lịch đến công cụ hiện trường",
+      "desktop": "Phát triển ứng dụng Desktop",
+      "desktopDesc": "Phần mềm Windows và macOS khi công việc cần nhiều hơn một tab trình duyệt",
+      "ai": "Phát triển AI",
+      "aiDesc": "RAG, trợ lý ảo và trí tuệ tài liệu khi use case thực sự cần",
+      "consulting": "Tư vấn IT",
+      "consultingDesc": "Rà soát kiến trúc, thẩm định kỹ thuật và lộ trình trước khi bạn cam kết"
     },
     "footer": {
       "home": "Trang chủ",

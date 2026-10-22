@@ -12,6 +12,7 @@ import {
   Globe,
   Palette,
   UsersRound,
+  Smartphone,
   CheckCircle2,
   Clock,
   UserCircle2,
@@ -90,11 +91,11 @@ const PROJECT_TYPES: ProjectType[] = [
     teamSize: "4 - 6 people",
     services: [
       {
-        slug: "web-development",
-        title: "Web Development",
-        subtitle: "Modern Web Applications",
-        icon: Globe,
-        reason: "Cross-platform mobile apps with PWA or React Native",
+        slug: "mobile-app-development",
+        title: "Mobile App Development",
+        subtitle: "iOS & Android Applications",
+        icon: Smartphone,
+        reason: "Native and cross-platform mobile engineering",
       },
       {
         slug: "ui-ux-design",
@@ -104,11 +105,11 @@ const PROJECT_TYPES: ProjectType[] = [
         reason: "Mobile-first design with intuitive touch interactions",
       },
       {
-        slug: "dedicated-teams",
-        title: "Dedicated Teams",
-        subtitle: "Your Offshore Development Team",
-        icon: UsersRound,
-        reason: "Extended team capacity for ongoing mobile development",
+        slug: "web-development",
+        title: "Web Development",
+        subtitle: "Modern Web Applications",
+        icon: Globe,
+        reason: "Cross-platform mobile apps with PWA or React Native",
       },
     ],
   },
@@ -293,6 +294,8 @@ const SERVICE_REASON_VI: Record<string, string> = {
     "Đảm bảo trải nghiệm người dùng hấp dẫn, tối ưu chuyển đổi",
   "new-website:web-development":
     "Kỹ thuật front-end và back-end theo yêu cầu",
+  "mobile-app:mobile-app-development":
+    "Kỹ thuật ứng dụng di động native và đa nền tảng",
   "mobile-app:web-development":
     "Ứng dụng di động đa nền tảng với PWA hoặc React Native",
   "mobile-app:ui-ux-design":
