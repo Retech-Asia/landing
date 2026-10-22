@@ -18,3 +18,9 @@ in-product AI). No invented rates, guarantees, or savings percentages.
 
 ## Progress log
 - 2026-10-22 created.
+- 2026-10-22 copy plan drafted: `docs/rt04-positioning-copy-plan.md`. Hero handled
+  as two options (A: existing tagline becomes the real H1, no canon change;
+  B: new offer-naming H1) — Jay gates any hero wording change per content-guidelines.
+  Service map proposed: 4 new pages + 6 kept, VI slugs listed. Three docs-drift
+  items recorded (case-study naming table stale, em-dash rule conflict, Wix-source
+  note outdated).

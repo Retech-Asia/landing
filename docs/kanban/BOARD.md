@@ -14,7 +14,7 @@ Rule: update BOTH the ticket file and this board row in the same edit.
 | RT-01 | P0 | Baseline audit (routes/SEO/UX/perf) | RT-00 | DONE (baseline doc + local captures) |
 | RT-02 | P0 | Claims + asset evidence register | RT-00 | DONE as register; owner confirmations OPEN |
 | RT-03 | P0 | Reproduced crawl/schema/tracking fixes | RT-01 | DONE 2026-10-22 (10/10 probe PASS; F9/F10 resolved as consistency fixes) |
-| RT-04 | P1 | Buyer positioning + homepage copy + service IA | RT-01, RT-02 | READY (copy only; design = RT-05) |
+| RT-04 | P1 | Buyer positioning + homepage copy + service IA | RT-01, RT-02 | Copy plan drafted (`docs/rt04-positioning-copy-plan.md`); hero options await Jay |
 | RT-05 | P1 | Two design directions + recommendation | RT-04 | GATED on owner checkpoint |
 | RT-06 | P1 | Shared nav/typography/component system | RT-05 | blocked |
 | RT-07 | P1 | Homepage implementation | RT-02, RT-04, RT-06 | blocked |
