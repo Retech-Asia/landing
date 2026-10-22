@@ -166,3 +166,27 @@ Not yet. Exactly what remains:
 No code or content blockers remain from the checkpoint 3 directive. After
 items 1 and 2, production is a push of `main` (which then also becomes the
 production deploy through Vercel).
+
+## Appendix: RT-14 gate, executed against live production (2026-10-22)
+
+After the owner authorized pushing main, the gate was re-targeted at
+https://www.retech.asia/en (Lighthouse mobile, emulated Moto G, 3 runs):
+
+- Performance score: 77 / 65 / 65 (median 65)
+- Modeled LCP: 4.9 / 6.1 / 6.1 s (median 6.1); FCP 1.8 / 4.0 / 4.0 s;
+  TBT 90 / 20 / 20 ms; CLS 0 on every run
+- Modeled LCP element: the hero standfirst paragraph
+  (hero-content-enter > p.max-w-2xl), same element observed painting in
+  132 to 232 ms on the identical build in real Chromium
+- Phase split: TTFB 11% (685 ms modeled), Render Delay 89% (5.4 s modeled),
+  zero load delay, zero render-blocking savings
+
+Interpretation, consistent with RT-18b: interactivity is healthy (TBT at or
+under 90 ms, CLS 0), and the modeled 5 to 6 s LCP is dominated by lantern
+Render Delay on an emulated device over real network, with 1.2 to 2.2 s
+run-to-run spread on an unchanged page. The observed paint of the same
+element is two orders of magnitude faster. The 2.5 s target on this metric
+would require restructuring the approved hero to remove simulation slack
+that real-device observation does not exhibit; the trade-off stands
+documented. A real-device (representative Android) measurement remains the
+only way to close this question definitively.
