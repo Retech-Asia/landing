@@ -61,8 +61,8 @@ const COVERS: Record<string, { src: string; alt: string }> = {
     alt: "Payment card used at a laptop during an online checkout",
   },
   "ai-analysis-saas": {
-    src: "/images/photo/photo-work-ai.webp",
-    alt: "Bright data-center aisle with server equipment",
+    src: "/images/photo/photo-work-ai-analysis.webp",
+    alt: "Analyst reviewing charts and graphs on a laptop",
   },
 };
 import { setRequestLocale } from "next-intl/server";

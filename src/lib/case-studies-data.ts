@@ -31,6 +31,9 @@ export interface CaseStudy {
   slug: L;
   title: L;
   tagline: L;
+  /** Deliberately written one-sentence challenge→solution arc for listing
+   *  surfaces (owner ruling 2026-10-23: no mechanically clipped previews). */
+  summary: L;
   description: L;
   industry: L;
   challenge: L;
@@ -56,6 +59,10 @@ export const caseStudies: CaseStudy[] = [
     slug: { en: "mining-analytics-platform", vi: "phan-tich-mining" },
     title: { en: "Mining Analytics Platform", vi: "Nền tảng Phân tích Mining" },
     tagline: { en: "BTC Mining Operations Dashboard", vi: "Dashboard Vận hành Mining BTC" },
+    summary: {
+      en: "Mining operators juggled four dashboards and spreadsheets; Retech unified pool metrics, market pricing, and difficulty forecasts into one auditable operations platform.",
+      vi: "Operator mining phải xoay xở giữa bốn dashboard và spreadsheet; Retech hợp nhất số liệu pool, giá thị trường và dự báo difficulty thành một nền tảng vận hành có audit đầy đủ.",
+    },
     description: {
       en: "A full-stack BTC mining analytics platform that ingests hashrate and worker metrics from F2Pool and ViaBTC, layers in CoinGecko market pricing and mempool-derived difficulty projections, and gives operators and admins a unified dashboard for performance, accounting, and manual data entry.",
       vi: "Nền tảng phân tích mining BTC full-stack tiếp nhận hashrate và worker metrics từ F2Pool và ViaBTC, tích hợp giá thị trường CoinGecko và dự báo difficulty từ mempool, cung cấp cho operator và admin một dashboard thống nhất cho hiệu suất, kế toán và nhập liệu thủ công.",
@@ -145,6 +152,10 @@ export const caseStudies: CaseStudy[] = [
     slug: { en: "asset-management-platform", vi: "quan-ly-tai-san" },
     title: { en: "Asset Management Platform", vi: "Nền tảng Quản lý Tài sản" },
     tagline: { en: "Investment Management System", vi: "Hệ thống Quản lý Đầu tư" },
+    summary: {
+      en: "Investment operations ran on fragmented spreadsheets; Retech replaced them with one multi-portal platform serving administrators, investors, and introducers.",
+      vi: "Vận hành đầu tư chạy trên spreadsheet phân mảnh; Retech thay thế bằng một nền tảng multi-portal phục vụ quản trị viên, nhà đầu tư và introducer.",
+    },
     description: {
       en: "A web-based investment management system with interconnected admin, customer, and introducer portals for scalable financial operations. The platform streamlines investment workflows across three stakeholder roles with role-based access, portfolio and dividend tracking, document handling, and CSV/XLSX reporting.",
       vi: "Hệ thống quản lý đầu tư dựa trên web với cổng admin, customer và introducer liên kết cho vận hành tài chính khả mở. Nền tảng tinh gọn quy trình đầu tư trên ba vai trò stakeholder với truy cập role-based, theo dõi danh mục và cổ tức, xử lý tài liệu và báo cáo CSV/XLSX.",
@@ -214,6 +225,10 @@ export const caseStudies: CaseStudy[] = [
     slug: { en: "investment-intelligence-platform", vi: "tri-tue-dau-tu" },
     title: { en: "Investment Intelligence Platform", vi: "Nền tảng Trí tuệ Đầu tư" },
     tagline: { en: "AI-Powered Investment Research", vi: "Nghiên cứu Đầu tư Hỗ trợ AI" },
+    summary: {
+      en: "Research teams spent days reading scattered filings and transcripts; Retech made thousands of documents queryable and added an AI investor panel for instant perspectives.",
+      vi: "Đội nghiên cứu mất nhiều ngày đọc hồ sơ và transcript rời rạc; Retech giúp hàng nghìn tài liệu truy vấn được và bổ sung panel nhà đầu tư AI cho góc nhìn tức thì.",
+    },
     description: {
       en: "A full-stack investment research platform that ingests diverse financial content sources, runs LLM-powered synthesis with vector search, and delivers comparative analysis, smart dashboards, and multi-agent investor panel debates for institutional-grade decision support.",
       vi: "Nền tảng nghiên cứu đầu tư full-stack tiếp nhận nguồn nội dung tài chính đa dạng, chạy synthesis LLM-powered với vector search và phân tích so sánh, dashboard thông minh và multi-agent investor panel debates cho hỗ trợ quyết định cấp tổ chức.",
@@ -265,6 +280,10 @@ export const caseStudies: CaseStudy[] = [
     slug: { en: "fintech-card-marketing", vi: "marketing-the-fintech" },
     title: { en: "Fintech Card Marketing Platform", vi: "Nền tảng Marketing Thẻ Fintech" },
     tagline: { en: "Headless CMS Marketing Platform", vi: "Nền tảng Marketing Headless CMS" },
+    summary: {
+      en: "Every campaign change waited on developers; Retech built a headless CMS so marketers compose, preview, and publish pages and funnels themselves.",
+      vi: "Mỗi thay đổi chiến dịch đều phải chờ developer; Retech xây dựng headless CMS để đội marketing tự dựng, preview và publish trang cùng funnel.",
+    },
     description: {
       en: "A content-driven marketing website for a consumer fintech card product, built on a headless CMS architecture. The platform gives non-technical marketing teams full page-composition control, blog publishing, app download funnels, and real-time preview editing. No developer involvement required.",
       vi: "Website marketing hướng nội dung cho sản phẩm thẻ fintech tiêu dùng, xây dựng trên kiến trúc headless CMS. Nền tảng cung cấp cho đội marketing không chuyên kỹ thuật toàn quyền kiểm soát page-composition, xuất bản blog, funnel tải app và chỉnh sửa preview thời gian thực. Không cần developer.",
@@ -316,6 +335,10 @@ export const caseStudies: CaseStudy[] = [
     slug: { en: "ai-analysis-saas", vi: "ai-analysis-saas" },
     title: { en: "AI Analysis SaaS Platform", vi: "Nền tảng AI Analysis SaaS" },
     tagline: { en: "Multi-Tool AI Analysis Platform", vi: "Nền tảng Phân tích AI Multi-Tool" },
+    summary: {
+      en: "Separate apps per AI tool would be costly and fragmented; Retech shipped one credit-based platform where every analyzer shares auth, history, and Stripe billing.",
+      vi: "Mỗi công cụ AI một app riêng vừa tốn kém vừa phân mảnh; Retech triển khai một nền tảng theo credit, nơi mọi analyzer dùng chung xác thực, lịch sử và thanh toán Stripe.",
+    },
     description: {
       en: "A credit-based multi-tool AI SaaS platform that bundles four distinct analyzers under one authenticated product: a blood test report analyzer, a food image nutrition scanner, a general-purpose AI chat, and a Stripe-powered credit payment system.",
       vi: "Nền tảng AI SaaS multi-tool dựa trên credit đóng gói bốn analyzer riêng biệt dưới một sản phẩm đã xác thực: analyzer báo cáo xét nghiệm máu, scanner dinh dưỡng ảnh thực phẩm, AI chat mục đích chung và hệ thống thanh toán credit powered bởi Stripe.",
@@ -386,6 +409,7 @@ export interface FlatCaseStudy {
   slug: string;
   title: string;
   tagline: string;
+  summary: string;
   description: string;
   industry: string;
   challenge: string;
@@ -408,6 +432,7 @@ export function flattenCaseStudy(cs: CaseStudy, locale: Locale): FlatCaseStudy {
     slug: cs.slug[locale],
     title: cs.title[locale],
     tagline: cs.tagline[locale],
+    summary: cs.summary[locale],
     description: cs.description[locale],
     industry: cs.industry[locale],
     challenge: cs.challenge[locale],

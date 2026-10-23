@@ -37,8 +37,8 @@ const COVERS: Record<string, { src: string; alt: string }> = {
     alt: "Payment card used at a laptop during an online checkout",
   },
   "ai-analysis-saas": {
-    src: "/images/photo/photo-work-ai.webp",
-    alt: "Bright data-center aisle with server equipment",
+    src: "/images/photo/photo-work-ai-analysis.webp",
+    alt: "Analyst reviewing charts and graphs on a laptop",
   },
 };
 
@@ -97,8 +97,8 @@ export function OurWork() {
               </p>
             </div>
           </div>
-          <p className="mt-4 line-clamp-2 max-w-3xl text-sm leading-relaxed text-foreground-secondary">
-            {first.challenge}
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-foreground-secondary">
+            {first.summary}
           </p>
         </CoverLink>
 
@@ -146,8 +146,8 @@ export function OurWork() {
                   <p className="mt-1 text-sm font-medium text-foreground-muted">
                     {study.tagline}
                   </p>
-                  <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-foreground-secondary">
-                    {study.description}
+                  <p className="mt-4 text-sm leading-relaxed text-foreground-secondary">
+                    {study.summary}
                   </p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {study.technologies.slice(0, 4).map((tech) => (

@@ -77,8 +77,8 @@ const COVERS: Record<string, { src: string; alt: string }> = {
     alt: "Payment card used at a laptop during an online checkout",
   },
   "ai-analysis-saas": {
-    src: "/images/photo/photo-work-ai.webp",
-    alt: "Bright data-center aisle with server equipment",
+    src: "/images/photo/photo-work-ai-analysis.webp",
+    alt: "Analyst reviewing charts and graphs on a laptop",
   },
 };
 
@@ -183,8 +183,8 @@ export default async function CaseStudiesPage({
                           </p>
                         </div>
                       </div>
-                      <p className="mt-4 line-clamp-2 max-w-3xl text-sm leading-relaxed text-foreground-secondary">
-                        {study.challenge}
+                      <p className="mt-4 max-w-3xl text-sm leading-relaxed text-foreground-secondary">
+                        {study.summary}
                       </p>
                       <span className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-brand group-hover:gap-3 transition-all">
                         {chrome.readCaseStudy} <ArrowRight size={16} aria-hidden="true" />
@@ -233,7 +233,7 @@ export default async function CaseStudiesPage({
                         {study.tagline}
                       </p>
                       <p className="mt-4 leading-relaxed text-foreground-secondary">
-                        {study.description}
+                        {study.summary}
                       </p>
 
                       {/* Verified technologies (owner arc: verified tech over
