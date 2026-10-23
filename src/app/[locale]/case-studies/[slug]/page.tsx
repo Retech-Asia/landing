@@ -68,11 +68,8 @@ const COVERS: Record<string, { src: string; alt: string }> = {
 import { setRequestLocale } from "next-intl/server";
 import { routing, type Locale } from "@/i18n/routing";
 import { ProjectTimeline } from "@/components/case-studies/ProjectTimeline";
-import {
-  HeroParallaxSection,
-  TechPillsStagger,
-  TestimonialCard,
-} from "./CaseStudyClientComponents";
+import { HeroParallaxSection, TestimonialCard } from "./CaseStudyClientComponents";
+import { ArchitectureStack } from "./ArchitectureStack";
 
 // Locale-aware chrome strings. Case study content comes from the
 // bilingual data via getFlatCaseStudy; only page chrome lives here.
@@ -103,6 +100,7 @@ function getChrome(locale: string) {
         outcomesLabel: "Outcomes",
         keyResultsDelivered: "Key Results Delivered",
         builtWith: "Built With",
+        crossCutting: "Cross-cutting",
         relatedServicesTitle: "Services Used in This Project",
         relatedServicesDescription:
           "The expertise behind this successful delivery.",
@@ -142,6 +140,7 @@ function getChrome(locale: string) {
         outcomesLabel: "Kết quả",
         keyResultsDelivered: "Kết quả đã Đạt được",
         builtWith: "Xây dựng bằng",
+        crossCutting: "Dùng chung",
         relatedServicesTitle: "Dịch vụ trong Dự án này",
         relatedServicesDescription:
           "Chuyên môn đứng sau lần bàn giao thành công này.",
@@ -740,7 +739,12 @@ export default async function CaseStudyDetailPage({
             </div>
           </AnimatedSection>
 
-          <TechPillsStagger technologies={study.technologies} />
+          <ArchitectureStack
+            layers={study.architecture ?? []}
+            technologies={study.technologies}
+            locale={loc}
+            crossCuttingLabel={chrome.crossCutting}
+          />
         </Container>
       </section>
 

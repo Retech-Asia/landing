@@ -8,7 +8,6 @@ import {
 } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { TimelinePhase } from "@/lib/case-studies-data";
@@ -112,49 +111,7 @@ export function HeroParallaxSection({
 }
 
 /* -------------------------------------------------------------------------- */
-/*  2. Technology Pills Stagger                                               */
-/* -------------------------------------------------------------------------- */
-
-interface TechPillsStaggerProps {
-  technologies: string[];
-}
-
-export function TechPillsStagger({ technologies }: TechPillsStaggerProps) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={{
-        hidden: {},
-        visible: { transition: { staggerChildren: 0.07 } },
-      }}
-      className="flex flex-wrap justify-center gap-3"
-    >
-      {technologies.map((tech) => (
-        <motion.span
-          key={tech}
-          variants={{
-            hidden: { opacity: 0, scale: 0.8, y: 12 },
-            visible: {
-              opacity: 1,
-              scale: 1,
-              y: 0,
-              transition: { duration: 0.35, ease: "easeOut" },
-            },
-          }}
-        >
-          <Badge variant="outline" className="text-sm px-4 py-2">
-            {tech}
-          </Badge>
-        </motion.span>
-      ))}
-    </motion.div>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  3. Testimonial Card with Decorative Quote                                 */
+/*  2. Testimonial Card with Decorative Quote                                 */
 /* -------------------------------------------------------------------------- */
 
 interface TestimonialCardProps {

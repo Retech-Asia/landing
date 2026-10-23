@@ -15,6 +15,26 @@ export interface TimelinePhase {
 }
 
 /**
+ * Architecture presentation (owner P1 directive, 2026-10-23): the raw
+ * "Built With" pill list becomes a layered stack where every technology
+ * carries a one-line role. Roles are sourced strictly from the study's own
+ * narrative (solution/features/timeline) or are definitional — no unevidenced
+ * role claims, no fabricated provider logos (trademark-safe text composition).
+ * Items not attributed to a layer (e.g. TypeScript) render as a stack-wide
+ * "cross-cutting" line, so the inventory of record stays fully visible.
+ */
+export interface ArchitectureItem {
+  /** Proper noun — intentionally not localized. */
+  name: string;
+  role: L;
+}
+
+export interface ArchitectureLayer {
+  label: L;
+  items: ArchitectureItem[];
+}
+
+/**
  * Owner directive 2026-10-22 (checkpoint 2 §2): vanity metrics are out of the
  * promotional presentation. `results` (stat rows) and `beforeAfter`
  * (comparison tables) carried numbers with no business record behind them and
@@ -47,6 +67,7 @@ export interface CaseStudy {
   clientCountry?: L;
   testimonial: Testimonial;
   technologies: string[];
+  architecture?: ArchitectureLayer[];
   images: {
     dashboard: { src: string; width: number; height: number };
     mobile: { src: string; width: number; height: number };
@@ -139,6 +160,84 @@ export const caseStudies: CaseStudy[] = [
       company: { en: "", vi: "" },
     },
     technologies: ["Next.js", "TypeScript", "NestJS", "PostgreSQL", "Prisma", "Redis"],
+    architecture: [
+      {
+        label: { en: "Experience", vi: "Trải nghiệm" },
+        items: [
+          {
+            name: "Next.js",
+            role: {
+              en: "Role-aware operations dashboard for operators and super-admins",
+              vi: "Dashboard vận hành phân vai cho operator và super-admin",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Application", vi: "Ứng dụng" },
+        items: [
+          {
+            name: "NestJS",
+            role: {
+              en: "API layer with JWT auth, refresh-token rotation, and role-based guards",
+              vi: "Tầng API với JWT auth, refresh-token rotation và guard phân vai",
+            },
+          },
+          {
+            name: "Prisma",
+            role: {
+              en: "Typed data access over the operations schema",
+              vi: "Truy cập dữ liệu type-safe trên schema vận hành",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Data", vi: "Dữ liệu" },
+        items: [
+          {
+            name: "PostgreSQL",
+            role: {
+              en: "Snapshot history, audit trails, and hashrate series",
+              vi: "Lịch sử snapshot, audit trail và series hashrate",
+            },
+          },
+          {
+            name: "Redis",
+            role: {
+              en: "Cache tier behind market-price lookups",
+              vi: "Tầng cache cho truy vấn giá thị trường",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Integrations", vi: "Tích hợp" },
+        items: [
+          {
+            name: "F2Pool + ViaBTC",
+            role: {
+              en: "Pool metrics ingestion with encrypted credential storage",
+              vi: "Tiếp nhận số liệu pool với lưu credential mã hóa",
+            },
+          },
+          {
+            name: "CoinGecko",
+            role: {
+              en: "Market pricing cache with automatic refresh TTLs",
+              vi: "Cache giá thị trường với TTL refresh tự động",
+            },
+          },
+          {
+            name: "Mempool.space",
+            role: {
+              en: "Difficulty projections and reward-window statistics",
+              vi: "Dự báo difficulty và thống kê reward window",
+            },
+          },
+        ],
+      },
+    ],
     // Illustrative visualization, not a product capture (owner directive:
     // real screenshots only where approved; never present stock as the
     // product). The earlier cs-wellness-* files belonged to no study.
@@ -215,6 +314,82 @@ export const caseStudies: CaseStudy[] = [
     teamSize: { en: "8-person team", vi: "Đội 8 người" },
     testimonial: { quote: { en: "", vi: "" }, author: { en: "", vi: "" }, role: { en: "", vi: "" }, company: { en: "", vi: "" } },
     technologies: ["Next.js", "TypeScript", "NestJS", "PostgreSQL", "Prisma", "FastAPI", "Docker", "AWS"],
+    architecture: [
+      {
+        label: { en: "Portals", vi: "Cổng truy cập" },
+        items: [
+          {
+            name: "Next.js",
+            role: {
+              en: "Admin, customer, and introducer portals on one platform",
+              vi: "Cổng admin, customer và introducer trên một nền tảng",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Application", vi: "Ứng dụng" },
+        items: [
+          {
+            name: "NestJS",
+            role: {
+              en: "Shared backend serving all three stakeholder portals",
+              vi: "Backend dùng chung phục vụ cả ba cổng stakeholder",
+            },
+          },
+          {
+            name: "Prisma",
+            role: {
+              en: "Typed data access across portfolios, dividends, and documents",
+              vi: "Truy cập dữ liệu type-safe cho danh mục, cổ tức và tài liệu",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Services", vi: "Dịch vụ" },
+        items: [
+          {
+            name: "FastAPI",
+            role: {
+              en: "Dedicated file service: 500MB uploads with rate limiting",
+              vi: "Dịch vụ file chuyên trách: upload 500MB với rate limiting",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Data", vi: "Dữ liệu" },
+        items: [
+          {
+            name: "PostgreSQL",
+            role: {
+              en: "Portfolio, dividend, and document records",
+              vi: "Bản ghi danh mục, cổ tức và tài liệu",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Platform", vi: "Nền tảng" },
+        items: [
+          {
+            name: "Docker",
+            role: {
+              en: "Containerized application delivery",
+              vi: "Vận hành ứng dụng bằng container",
+            },
+          },
+          {
+            name: "AWS",
+            role: {
+              en: "Cloud hosting for platform services",
+              vi: "Lưu trữ đám mây cho các dịch vụ nền tảng",
+            },
+          },
+        ],
+      },
+    ],
     images: {
       dashboard: { src: "/images/stock/cs-asset-hero.webp", width: 1200, height: 800 },
       mobile: { src: "/images/stock/cs-asset-mobile.webp", width: 600, height: 800 },
@@ -270,6 +445,89 @@ export const caseStudies: CaseStudy[] = [
     teamSize: { en: "5-person team", vi: "Đội 5 người" },
     testimonial: { quote: { en: "", vi: "" }, author: { en: "", vi: "" }, role: { en: "", vi: "" }, company: { en: "", vi: "" } },
     technologies: ["Next.js", "FastAPI", "PostgreSQL", "pgvector", "LangChain", "Google GenAI", "Terraform", "Docker"],
+    architecture: [
+      {
+        label: { en: "Experience", vi: "Trải nghiệm" },
+        items: [
+          {
+            name: "Next.js",
+            role: {
+              en: "Analyst workspace: comparative analysis, macro dashboards, investor panel",
+              vi: "Không gian làm việc analyst: phân tích so sánh, dashboard macro, investor panel",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Application", vi: "Ứng dụng" },
+        items: [
+          {
+            name: "FastAPI",
+            role: {
+              en: "Ingestion pipeline, query routing, and streaming responses",
+              vi: "Pipeline ingestion, định tuyến truy vấn và phản hồi streaming",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Intelligence", vi: "Trí tuệ" },
+        items: [
+          {
+            name: "LangChain",
+            role: {
+              en: "RAG orchestration: three-tier chunking and multi-agent debate",
+              vi: "Điều phối RAG: chunking ba tầng và debate multi-agent",
+            },
+          },
+          {
+            name: "Google GenAI",
+            role: {
+              en: "Embeddings and LLM synthesis for research queries",
+              vi: "Embedding và tổng hợp LLM cho truy vấn nghiên cứu",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Data", vi: "Dữ liệu" },
+        items: [
+          {
+            name: "PostgreSQL",
+            role: {
+              en: "Relational store for research content",
+              vi: "Kho lưu trữ quan hệ cho nội dung nghiên cứu",
+            },
+          },
+          {
+            name: "pgvector",
+            role: {
+              en: "Vector search over 3072-dimension embeddings",
+              vi: "Tìm kiếm vector trên embedding 3072 chiều",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Platform", vi: "Nền tảng" },
+        items: [
+          {
+            name: "Terraform",
+            role: {
+              en: "Provisioned cloud infrastructure",
+              vi: "Cấp phát hạ tầng đám mây",
+            },
+          },
+          {
+            name: "Docker",
+            role: {
+              en: "Containerized services",
+              vi: "Các dịch vụ đóng gói container",
+            },
+          },
+        ],
+      },
+    ],
     images: {
       dashboard: { src: "/images/stock/cs-intel-hero.webp", width: 1200, height: 800 },
       mobile: { src: "/images/stock/cs-intel-mobile.webp", width: 600, height: 800 },
@@ -325,6 +583,58 @@ export const caseStudies: CaseStudy[] = [
     teamSize: { en: "3-person team", vi: "Đội 3 người" },
     testimonial: { quote: { en: "", vi: "" }, author: { en: "", vi: "" }, role: { en: "", vi: "" }, company: { en: "", vi: "" } },
     technologies: ["Next.js", "Prismic CMS", "Tailwind CSS", "Framer Motion", "GSAP", "TypeScript"],
+    architecture: [
+      {
+        label: { en: "Experience", vi: "Trải nghiệm" },
+        items: [
+          {
+            name: "Next.js",
+            role: {
+              en: "Composable pages with real-time preview, draft mode, and 60s ISR revalidation",
+              vi: "Trang dựng từ block với preview thời gian thực, draft mode và ISR revalidation 60 giây",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Content", vi: "Nội dung" },
+        items: [
+          {
+            name: "Prismic CMS",
+            role: {
+              en: "Headless content model with 15+ reusable slices",
+              vi: "Mô hình nội dung headless với 15+ slice tái sử dụng",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Interface", vi: "Giao diện" },
+        items: [
+          {
+            name: "Tailwind CSS",
+            role: {
+              en: "Styling foundation for the slice library",
+              vi: "Nền tảng styling cho thư viện slice",
+            },
+          },
+          {
+            name: "Framer Motion",
+            role: {
+              en: "Component motion across page blocks",
+              vi: "Chuyển động component trên các block trang",
+            },
+          },
+          {
+            name: "GSAP",
+            role: {
+              en: "Animation layer for campaign interactions",
+              vi: "Tầng animation cho tương tác chiến dịch",
+            },
+          },
+        ],
+      },
+    ],
     images: {
       dashboard: { src: "/images/stock/cs-fintech-hero.webp", width: 1200, height: 800 },
       mobile: { src: "/images/stock/cs-fintech-mobile.webp", width: 600, height: 800 },
@@ -380,6 +690,65 @@ export const caseStudies: CaseStudy[] = [
     teamSize: { en: "4-person team", vi: "Đội 4 người" },
     testimonial: { quote: { en: "", vi: "" }, author: { en: "", vi: "" }, role: { en: "", vi: "" }, company: { en: "", vi: "" } },
     technologies: ["Next.js", "LangChain", "Anthropic Claude", "Google Gemini", "Supabase", "Stripe"],
+    architecture: [
+      {
+        label: { en: "Experience", vi: "Trải nghiệm" },
+        items: [
+          {
+            name: "Next.js",
+            role: {
+              en: "One application hosting every analyzer, chat, and the admin dashboard",
+              vi: "Một ứng dụng chứa mọi analyzer, chat và dashboard admin",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Analyzers", vi: "Bộ phân tích" },
+        items: [
+          {
+            name: "LangChain",
+            role: {
+              en: "Orchestration pairing each analyzer with the model suited to its task",
+              vi: "Điều phối ghép từng analyzer với model phù hợp với nhiệm vụ",
+            },
+          },
+          {
+            name: "Anthropic Claude",
+            role: {
+              en: "Language-model reasoning behind the analyzers",
+              vi: "Suy luận language-model đứng sau các analyzer",
+            },
+          },
+          {
+            name: "Google Gemini",
+            role: {
+              en: "Model layer paired across analyzer tasks alongside Claude",
+              vi: "Tầng model ghép theo từng nhiệm vụ analyzer cùng Claude",
+            },
+          },
+        ],
+      },
+      {
+        label: { en: "Platform", vi: "Nền tảng" },
+        items: [
+          {
+            name: "Supabase",
+            role: {
+              en: "OTP authentication and shared user management",
+              vi: "Xác thực OTP và quản lý người dùng dùng chung",
+            },
+          },
+          {
+            name: "Stripe",
+            role: {
+              en: "Credit-based payments with automated billing",
+              vi: "Thanh toán theo credit với billing tự động",
+            },
+          },
+        ],
+      },
+    ],
     images: {
       dashboard: { src: "/images/stock/cs-ai-hero.webp", width: 1200, height: 800 },
       mobile: { src: "/images/stock/cs-ai-mobile.webp", width: 600, height: 800 },
@@ -423,6 +792,7 @@ export interface FlatCaseStudy {
   clientCountry?: string;
   testimonial: { quote: string; author: string; role: string; company: string };
   technologies: string[];
+  architecture?: ArchitectureLayer[];
   images: CaseStudy["images"];
 }
 
@@ -455,6 +825,7 @@ export function flattenCaseStudy(cs: CaseStudy, locale: Locale): FlatCaseStudy {
       company: cs.testimonial.company[locale],
     },
     technologies: cs.technologies,
+    architecture: cs.architecture,
     images: cs.images,
   };
 }
