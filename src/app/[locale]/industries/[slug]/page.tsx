@@ -118,6 +118,69 @@ export function generateMetadata({
 /* -- Approach step icon mapping ------------------------------------------ */
 const approachIcons = [Compass, Layers, Wrench, Rocket];
 
+/* -- Visual-break imagery (per-industry, 2026-10-23 sourcing pass) --------
+ * Keyed by the locale-resolved slug (industry.slug). The four curated
+ * photos replace the shared analytics-dashboard break for their industries;
+ * honest descriptive alts (they describe the photograph, never implying a
+ * Retech product is shown). All other industries keep the dashboard image
+ * as a deliberate neutral fallback. Registry: docs/imagery-asset-register.md
+ * + src/lib/photography.ts (canonical Unsplash page + creator recorded).
+ */
+const INDUSTRY_IMAGES: Record<
+  string,
+  { src: string; alt: { en: string; vi: string } }
+> = {
+  healthcare: {
+    src: "/images/photo/photo-industry-healthcare.webp",
+    alt: {
+      en: "Two doctors reviewing information together on a tablet",
+      vi: "Hai bác sĩ cùng xem thông tin trên máy tính bảng",
+    },
+  },
+  "y-te": {
+    src: "/images/photo/photo-industry-healthcare.webp",
+    alt: {
+      en: "Two doctors reviewing information together on a tablet",
+      vi: "Hai bác sĩ cùng xem thông tin trên máy tính bảng",
+    },
+  },
+  education: {
+    src: "/images/photo/photo-industry-education.webp",
+    alt: {
+      en: "Students collaborating around a laptop",
+      vi: "Nhóm học viên cùng làm việc quanh một chiếc laptop",
+    },
+  },
+  "giao-duc": {
+    src: "/images/photo/photo-industry-education.webp",
+    alt: {
+      en: "Students collaborating around a laptop",
+      vi: "Nhóm học viên cùng làm việc quanh một chiếc laptop",
+    },
+  },
+  logistics: {
+    src: "/images/photo/photo-industry-logistics.webp",
+    alt: {
+      en: "Warehouse associate working among storage shelves",
+      vi: "Nhân viên kho làm việc giữa các kệ hàng",
+    },
+  },
+  "e-commerce": {
+    src: "/images/photo/photo-industry-ecommerce.webp",
+    alt: {
+      en: "Retailer checking an order beside packed boxes and a laptop",
+      vi: "Nhân viên bán hàng kiểm tra đơn cạnh các thùng hàng và laptop",
+    },
+  },
+  "thuong-mai-dien-tu": {
+    src: "/images/photo/photo-industry-ecommerce.webp",
+    alt: {
+      en: "Retailer checking an order beside packed boxes and a laptop",
+      vi: "Nhân viên bán hàng kiểm tra đơn cạnh các thùng hàng và laptop",
+    },
+  },
+};
+
 /* -- Related case studies lookup ----------------------------------------- */
 function getRelatedCaseStudies(industry: FlatIndustry, locale: Locale) {
   return caseStudies.filter(
@@ -302,11 +365,16 @@ export default async function IndustryDetailPage({
 
       <SectionDivider />
 
-      {/* Visual break — relevant stock photo between Overview and Approach */}
+      {/* Visual break — per-industry photo between Overview and Approach */}
       <div className="relative h-[180px] md:h-[260px] overflow-hidden">
         <Image
-          src="/images/stock/analytics-dashboard.webp"
-          alt={`${industry.name} software solutions in action`}
+          src={INDUSTRY_IMAGES[industry.slug]?.src ?? "/images/stock/analytics-dashboard.webp"}
+          alt={
+            INDUSTRY_IMAGES[industry.slug]?.alt[loc] ??
+            (loc === "vi"
+              ? "Màn hình máy tính hiển thị bảng phân tích dữ liệu"
+              : "Laptop screen showing data analytics dashboards")
+          }
           fill
           sizes="100vw"
           className="object-cover transition-transform duration-700 hover:scale-105"
