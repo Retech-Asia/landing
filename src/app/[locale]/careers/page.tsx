@@ -384,8 +384,8 @@ export default async function CareersPage({
       {/* Team photo — careers pages need human element for employer branding */}
       <div className="relative h-[220px] md:h-[320px] overflow-hidden">
         <Image
-          src="/images/stock/team-portrait.webp"
-          alt="Retech Solutions team in our Ho Chi Minh City office"
+          src="/images/photo/photo-careers-team.webp"
+          alt="Team collaborating around a table with laptops"
           fill
           sizes="100vw"
           className="object-cover transition-transform duration-700 hover:scale-105"

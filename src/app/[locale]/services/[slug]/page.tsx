@@ -113,6 +113,27 @@ export function generateMetadata({
  * Bilingual content (kept inline rather than moved to services-data.ts
  * because it's page-specific UI copy, not data-model content).
  */
+/**
+ * Per-cluster contextual band (visual-experience round, 2026-10-23).
+ * Replaces the shared code-screen/developer-workspace strips: each service
+ * cluster gets one identity image instead of every page sharing two.
+ * CRM/web/mobile deliberately mirror their homepage capability-panel photo
+ * (intentional identity link, see src/lib/photography.ts); desktop/AI/
+ * consulting get their own subjects so adjacent clusters never repeat.
+ */
+const SERVICE_CLUSTER_IMAGES: Record<string, { src: string }> = {
+  "crm-systems": { src: "/images/photo/photo-crm-laptop.webp" },
+  "cms-platforms": { src: "/images/photo/photo-crm-laptop.webp" },
+  "erp-solutions": { src: "/images/photo/photo-crm-laptop.webp" },
+  "web-development": { src: "/images/photo/photo-web-code.webp" },
+  "ui-ux-design": { src: "/images/photo/photo-web-code.webp" },
+  "mobile-app-development": { src: "/images/photo/photo-mobile-dev.webp" },
+  "desktop-app-development": { src: "/images/photo/photo-desktop-terminal.webp" },
+  "ai-development": { src: "/images/photo/photo-ai-hardware.webp" },
+  "it-consulting": { src: "/images/photo/photo-consulting-session.webp" },
+  "dedicated-teams": { src: "/images/photo/photo-consulting-session.webp" },
+};
+
 const serviceChecklists: Record<string, { en: string[]; vi: string[] }> = {
   "cms-platforms": {
     en: [
@@ -622,17 +643,18 @@ export default async function ServiceDetailPage({
         </Container>
       </section>
 
-      {/* Code/development visual strip — adds tangible "this is what we
-          build" context between the features grid and the project timeline. */}
-      <div className="relative h-[160px] md:h-[220px] overflow-hidden">
+      {/* Cluster identity band — one contextual photo per service cluster
+          (visual-experience round). Adds tangible "this is what we build"
+          context between the features grid and the checklist. */}
+      <div className="relative h-[200px] md:h-[300px] overflow-hidden">
         <Image
-          src="/images/stock/code-screen.webp"
+          src={SERVICE_CLUSTER_IMAGES[service.id]?.src ?? "/images/photo/photo-web-code.webp"}
           alt={t("imageAlts.codeStrip")}
           fill
           sizes="100vw"
-          className="object-cover transition-transform duration-700 hover:scale-105"
+          className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
       </div>
 
       {/* Timeline section removed — was redundant with "How We Work"
@@ -731,17 +753,9 @@ export default async function ServiceDetailPage({
         </Container>
       </section>
 
-      {/* Second image strip — developer workspace between Benefits and Process */}
-      <div className="relative h-[160px] md:h-[220px] overflow-hidden">
-        <Image
-          src="/images/stock/developer-workspace.webp"
-          alt={t("imageAlts.workspaceStrip")}
-          fill
-          sizes="100vw"
-          className="object-cover transition-transform duration-700 hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-l from-background via-background/50 to-transparent" />
-      </div>
+      {/* (Second generic strip removed in the visual-experience round —
+          the cluster band above carries the page's photographic identity;
+          ten pages no longer share two interchangeable photos.) */}
 
       {/* ── How We Work (Process Steps) ───────────────────────── */}
       {service.processSteps && service.processSteps.length > 0 && (

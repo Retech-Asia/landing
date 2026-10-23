@@ -1,11 +1,15 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 
 /**
- * Direction B delivery section (RT-08, section 03). Static SSR server
- * component: the six delivery phases as an indexed two-column checklist,
- * each step ending with the concrete artifact the client sees.
+ * Section 03 — Delivery (visual-experience round, 2026-10-23). Keeps the
+ * six-phase checklist and its artifacts (no timeline reversion); adds a
+ * full-height contextual photo column so the section stops reading as pure
+ * text. Photo: photo-delivery-focus.webp (photography.ts). Static SSR
+ * server component — no client JS.
  */
 
 interface DeliveryStep {
@@ -28,24 +32,50 @@ export function DeliverySection() {
           description={t("lede")}
         />
 
-        <ol className="grid grid-cols-1 gap-x-12 md:grid-cols-2">
-          {steps.map((step, i) => (
-            <li key={step.title} className="border-t border-rule-soft py-6 md:py-8">
-              <p className="font-display text-sm font-semibold text-foreground" aria-hidden="true">
-                {String(i + 1).padStart(2, "0")}
-              </p>
-              <h3 className="font-display-title mt-2 text-lg leading-snug text-foreground">
-                {step.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-foreground-secondary">
-                {step.what}
-              </p>
-              <p className="mt-3 text-sm text-foreground-muted">
-                {t("seesLabel")} {step.sees}
-              </p>
-            </li>
-          ))}
-        </ol>
+        <div className="mt-10 grid grid-cols-1 gap-10 md:mt-14 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-14">
+          {/* Contextual photo column — engineering work in progress */}
+          <div className="relative md:sticky md:top-24 md:self-start">
+            <Image
+              src="/images/photo/photo-delivery-focus.webp"
+              alt="Engineer working across multiple displays during an active build"
+              width={1400}
+              height={1750}
+              sizes="(max-width: 768px) 100vw, 40vw"
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
+              className="h-[280px] w-full object-cover md:h-auto"
+            />
+          </div>
+
+          <ol className="border-t border-rule">
+            {steps.map((step, i) => (
+              <li
+                key={step.title}
+                className="border-b border-rule-soft py-6 md:py-7"
+              >
+                <div className="grid grid-cols-[44px_1fr] gap-3">
+                  <p
+                    className="font-display text-sm text-foreground-muted tabular-nums"
+                    aria-hidden="true"
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <div>
+                    <h3 className="font-display-title text-lg leading-snug text-foreground md:text-xl">
+                      {step.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-foreground-secondary">
+                      {step.what}
+                    </p>
+                    <p className="mt-2 text-sm text-foreground-muted">
+                      {t("seesLabel")} {step.sees}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </Container>
     </section>
   );

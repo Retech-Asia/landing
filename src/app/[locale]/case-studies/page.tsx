@@ -3,13 +3,10 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { GradientBackground } from "@/components/ui/GradientBackground";
-import { TiltCard } from "@/components/ui/TiltCard";
-import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { caseStudies, flattenCaseStudy } from "@/lib/case-studies-data";
 import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 import { SITE_URL } from "@/lib/constants";
@@ -30,6 +27,8 @@ function getChrome(locale: string) {
         heroLead:
           "Real-world products solving real-world problems. Explore how Retech Solutions helps businesses transform their ideas into powerful digital solutions.",
         readCaseStudy: "Read Case Study",
+        coversNote:
+          "The covers below are contextual photography, not product captures; each case-study page captions its own product imagery.",
         ctaTitle: "Ready to Build Something Great?",
         ctaBody:
           "Get a free project estimate. Our team will map out the right approach, timeline, and tech stack for your idea.",
@@ -43,6 +42,8 @@ function getChrome(locale: string) {
         heroLead:
           "Sản phẩm thực tế giải quyết vấn đề thực tế. Khám phá cách Retech Solutions giúp doanh nghiệp biến ý tưởng thành giải pháp số hiệu quả.",
         readCaseStudy: "Đọc Dự án",
+        coversNote:
+          "Ảnh bìa dưới đây là hình ảnh bối cảnh, không phải ảnh sản phẩm; trang từng dự án luôn chú thích rõ ảnh sản phẩm.",
         ctaTitle: "Sẵn sàng Xây dựng Sản phẩm Mới?",
         ctaBody:
           "Nhận báo giá dự án miễn phí. Đội ngũ của chúng tôi sẽ đề xuất hướng tiếp cận, lộ trình và tech stack phù hợp với ý tưởng của bạn.",
@@ -51,49 +52,35 @@ function getChrome(locale: string) {
       };
 }
 
-function CaseStudyImage({
-  src,
-  alt,
-  width,
-  height,
-  className,
-  sizes,
-}: {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-  className?: string;
-  sizes?: string;
-}) {
-  if (!src) {
-    return (
-      <div
-        className={`relative rounded-lg bg-gradient-to-br from-cyan-500/20 via-violet-500/20 to-cyan-500/10 flex items-center justify-center ${className ?? ""}`}
-        style={{ aspectRatio: `${width} / ${height}` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-violet-500/10 rounded-lg" />
-        <div className="relative text-foreground-muted/40 text-sm font-medium tracking-wide uppercase">
-          {alt.split(" \u2014 ")[0]}
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      className={className}
-      placeholder="blur"
-      blurDataURL={BLUR_DATA_URL}
-      loading="lazy"
-      sizes={sizes}
-    />
-  );
-}
+/**
+ * Contextual covers per study (visual-experience round, 2026-10-23).
+ * Same identity map as the homepage OurWork section — the cover is the
+ * project's identity across surfaces (intentional reuse, see
+ * src/lib/photography.ts). Product captures stay on the detail pages,
+ * captioned as illustrative.
+ */
+const COVERS: Record<string, { src: string; alt: string }> = {
+  "mining-analytics-platform": {
+    src: "/images/photo/photo-work-mining.webp",
+    alt: "Server racks with cabling in a dark operations room",
+  },
+  "asset-management-platform": {
+    src: "/images/photo/photo-work-asset.webp",
+    alt: "Residential building facade with lit windows at dusk",
+  },
+  "investment-intelligence-platform": {
+    src: "/images/photo/photo-work-invest.webp",
+    alt: "Market chart with trend overlay on a trading screen",
+  },
+  "fintech-card-marketing": {
+    src: "/images/photo/photo-work-fintech.webp",
+    alt: "Payment card used at a laptop during an online checkout",
+  },
+  "ai-analysis-saas": {
+    src: "/images/photo/photo-work-ai.webp",
+    alt: "Bright data-center aisle with server equipment",
+  },
+};
 
 export async function generateMetadata({
   params,
@@ -149,77 +136,128 @@ export default async function CaseStudiesPage({
         </Container>
       </section>
 
-      {/* Case Study Cards */}
+      {/* Case Study Cards — editorial rhythm: lead study full-width
+          cinematic, the rest as varied asymmetric rows. Covers are
+          contextual photography; the note below the hero keeps the
+          product-imagery governance visible. */}
       <section className="py-20 md:py-28">
         <Container>
-          <div className="space-y-20">
-            {studies.map((study, index) => (
-              <AnimatedSection
-                key={study.id}
-                variant={index % 2 === 0 ? "slideRight" : "slideLeft"}
-              >
-                <div
-                  className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center`}
-                >
-                  {/* Project image — single hero, full card width */}
-                  <div className={index % 2 !== 0 ? "lg:order-2" : ""}>
-                    <div className="group relative h-[280px] md:h-[360px] rounded-2xl overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
-                      <CaseStudyImage
-                        src={study.images.dashboard.src}
-                        alt={study.title}
-                        width={study.images.dashboard.width}
-                        height={study.images.dashboard.height}
-                        className="h-full w-auto object-cover transition-transform duration-700 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                      <div className="absolute bottom-4 left-5">
-                        <span className="text-xs font-medium uppercase tracking-wider text-white/90">
-                          {study.industry}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+          <p className="mb-12 max-w-3xl text-xs leading-relaxed text-foreground-muted">
+            {chrome.coversNote}
+          </p>
+          <div className="space-y-20 md:space-y-28">
+            {studies.map((study, index) => {
+              const cover = COVERS[study.id];
+              const isLead = index === 0;
+              const flip = index % 2 === 1;
 
-                  {/* Text */}
-                  <div className={index % 2 !== 0 ? "lg:order-1" : ""}>
-                    <p className="text-xs font-medium uppercase tracking-wider text-foreground-muted mb-3">
-                      {study.industry}
-                    </p>
-                    <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-                      {study.title}
-                    </h2>
-                    <p className="text-foreground-muted font-medium text-sm mb-4">
-                      {study.tagline}
-                    </p>
-                    <p className="text-foreground-secondary leading-relaxed mb-6">
-                      {study.description}
-                    </p>
-
-                    {/* Verified technologies (owner arc: verified tech over
-                        vanity metrics; the former stat grid carried numbers
-                        with no record behind it). */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {study.technologies.slice(0, 5).map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1 rounded-full bg-background-subtle border border-card-border text-xs font-medium text-foreground-secondary"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
+              if (isLead) {
+                return (
+                  <AnimatedSection key={study.id}>
                     <Link
                       href={`/case-studies/${study.slug}`}
-                      className="inline-flex items-center gap-2 text-sm font-medium text-brand hover:gap-3 transition-all"
+                      className="group block focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-brand"
+                      aria-label={`${study.title} — ${study.industry}`}
                     >
-                      {chrome.readCaseStudy} <ArrowRight size={16} aria-hidden="true" />
+                      <div className="relative overflow-hidden">
+                        <Image
+                          src={cover.src}
+                          alt={cover.alt}
+                          width={2000}
+                          height={1125}
+                          sizes="100vw"
+                          placeholder="blur"
+                          blurDataURL={BLUR_DATA_URL}
+                          className="h-[240px] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100 md:h-[520px]"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+                        <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
+                          <p className="text-xs font-medium uppercase tracking-[0.14em] text-white/80">
+                            {study.industry}
+                          </p>
+                          <h2 className="font-display-title mt-2 max-w-3xl text-2xl leading-tight text-white md:text-4xl">
+                            {study.title}
+                          </h2>
+                          <p className="mt-2 max-w-2xl text-sm text-white/85 md:text-base">
+                            {study.tagline}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="mt-4 line-clamp-2 max-w-3xl text-sm leading-relaxed text-foreground-secondary">
+                        {study.challenge}
+                      </p>
+                      <span className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-brand group-hover:gap-3 transition-all">
+                        {chrome.readCaseStudy} <ArrowRight size={16} aria-hidden="true" />
+                      </span>
                     </Link>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
+                  </AnimatedSection>
+                );
+              }
+
+              return (
+                <AnimatedSection
+                  key={study.id}
+                  variant={flip ? "slideLeft" : "slideRight"}
+                >
+                  <Link
+                    href={`/case-studies/${study.slug}`}
+                    className="group grid grid-cols-1 items-center gap-8 focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-brand lg:grid-cols-12 lg:gap-12"
+                    aria-label={`${study.title} — ${study.industry}`}
+                  >
+                    <div
+                      className={`relative overflow-hidden lg:col-span-7 ${
+                        flip ? "lg:order-2" : ""
+                      }`}
+                    >
+                      <Image
+                        src={cover.src}
+                        alt={cover.alt}
+                        width={2000}
+                        height={1125}
+                        sizes="(max-width: 768px) 100vw, 58vw"
+                        placeholder="blur"
+                        blurDataURL={BLUR_DATA_URL}
+                        className="h-[220px] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100 md:h-[360px]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
+                      <span className="absolute bottom-4 left-5 text-xs font-medium uppercase tracking-[0.14em] text-white/90">
+                        {study.industry}
+                      </span>
+                    </div>
+
+                    <div className={flip ? "lg:order-1 lg:col-span-5" : "lg:col-span-5"}>
+                      <h2 className="font-display-title text-2xl leading-tight text-foreground transition-colors group-hover:text-brand md:text-3xl">
+                        {study.title}
+                      </h2>
+                      <p className="mt-1 text-sm font-medium text-foreground-muted">
+                        {study.tagline}
+                      </p>
+                      <p className="mt-4 leading-relaxed text-foreground-secondary">
+                        {study.description}
+                      </p>
+
+                      {/* Verified technologies (owner arc: verified tech over
+                          vanity metrics; the former stat grid carried numbers
+                          with no record behind it). */}
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {study.technologies.slice(0, 5).map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-3 py-1 rounded-full bg-background-subtle border border-card-border text-xs font-medium text-foreground-secondary"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-brand group-hover:gap-3 transition-all">
+                        {chrome.readCaseStudy} <ArrowRight size={16} aria-hidden="true" />
+                      </span>
+                    </div>
+                  </Link>
+                </AnimatedSection>
+              );
+            })}
           </div>
         </Container>
       </section>

@@ -508,6 +508,23 @@ p, li {
   50% { transform: translateY(-8px); }
 }
 
+/* Capability explorer panel entrance (home section 01). CSS-only so
+   prefers-reduced-motion can disable it without client JS. */
+@keyframes capability-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.capability-enter {
+  animation: capability-enter 280ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capability-enter {
+    animation: none;
+  }
+}
+
 @keyframes float-slow {
   0%, 100% { transform: translateY(0px) translateX(0px); }
   33% { transform: translateY(-20px) translateX(10px); }

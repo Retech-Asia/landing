@@ -169,7 +169,7 @@ function getChrome(locale: string) {
   const isEn = locale === "en";
   return isEn
     ? {
-        workspaceAlt: "Retech Solutions development workspace in Vietnam",
+        workspaceAlt: "An open-plan engineering studio with developers at work",
         missionTitle: "Building Digital Solutions from Vietnam to the World",
         missionP1:
           "Founded with a mission to bridge the gap between global businesses and Vietnamese engineering talent, Retech Solutions has grown into a trusted partner for companies seeking reliable, scalable software development services.",
@@ -193,8 +193,8 @@ function getChrome(locale: string) {
         capabilityTitle: "The Practice Behind Every Engagement",
         capabilityDescription:
           "What working with Retech actually involves: full-cycle delivery, custom business systems, applied AI, and long-term support.",
-        officeAlt: "Retech Solutions modern office workspace",
-        teamAlt: "Retech Solutions team collaborating in the office",
+        officeAlt: "Desk setup with laptops and notebooks during an active project",
+        teamAlt: "Engineers collaborating at their desks",
         journeyTitle: "Our Journey",
         journeyDescription:
           "Key milestones that have shaped Retech Solutions since our founding in 2020.",
@@ -205,7 +205,7 @@ function getChrome(locale: string) {
         ctaSecondary: "See Our Work",
       }
     : {
-        workspaceAlt: "Không gian làm việc của Retech Solutions tại Việt Nam",
+        workspaceAlt: "Studio kỹ thuật mở với các kỹ sư đang làm việc",
         missionTitle: "Xây dựng giải pháp số từ Việt Nam đến thế giới",
         missionP1:
           "Được thành lập với sứ mệnh kết nối doanh nghiệp toàn cầu với nguồn nhân lực kỹ thuật Việt Nam, Retech Solutions đã trở thành đối tác đáng tin cậy cho các công ty tìm kiếm dịch vụ phát triển phần mềm ổn định và dễ mở rộng.",
@@ -229,8 +229,8 @@ function getChrome(locale: string) {
         capabilityTitle: "Nền tảng đằng sau Mỗi Dự án",
         capabilityDescription:
           "Làm việc với Retech thực chất gồm những gì: bàn giao trọn vòng đời, hệ thống doanh nghiệp tùy chỉnh, AI ứng dụng và hỗ trợ lâu dài.",
-        officeAlt: "Văn phòng hiện đại của Retech Solutions",
-        teamAlt: "Đội ngũ Retech Solutions cùng làm việc tại văn phòng",
+        officeAlt: "Bàn làm việc với laptop và ghi chú trong một dự án đang triển khai",
+        teamAlt: "Các kỹ sư cùng làm việc tại bàn",
         journeyTitle: "Hành trình của chúng tôi",
         journeyDescription:
           "Những cột mốc quan trọng đã định hình Retech Solutions kể từ khi thành lập năm 2020.",
@@ -281,7 +281,7 @@ export default async function AboutPage({
       {/* Full-width workspace image — makes the company feel real */}
       <div className="relative h-[280px] md:h-[420px] overflow-hidden">
         <Image
-          src="/images/stock/modern-office.webp"
+          src="/images/photo/photo-about-studio.webp"
           alt={chrome.workspaceAlt}
           fill
           sizes="100vw"
@@ -421,7 +421,7 @@ export default async function AboutPage({
       {/* Office interior — adds professional workspace context */}
       <div className="relative h-[200px] md:h-[300px] overflow-hidden">
         <Image
-          src="/images/stock/office-interior.webp"
+          src="/images/photo/photo-about-desk.webp"
           alt={chrome.officeAlt}
           fill
           sizes="100vw"
@@ -453,7 +453,7 @@ export default async function AboutPage({
       {/* Team portrait — adds human element before the commitment section */}
       <div className="relative h-[200px] md:h-[300px] overflow-hidden">
         <Image
-          src="/images/stock/team-portrait.webp"
+          src="/images/photo/photo-about-team.webp"
           alt={chrome.teamAlt}
           fill
           sizes="100vw"

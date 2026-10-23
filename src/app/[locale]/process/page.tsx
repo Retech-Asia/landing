@@ -383,8 +383,8 @@ export default async function ProcessPage({
       {/* Visual break — brainstorming/collaboration photo */}
       <div className="relative h-[180px] md:h-[260px] overflow-hidden">
         <Image
-          src="/images/stock/brainstorming.webp"
-          alt="Retech Solutions team brainstorming and planning"
+          src="/images/photo/photo-process-review.webp"
+          alt="Two engineers reviewing code together at a laptop"
           fill
           sizes="100vw"
           className="object-cover transition-transform duration-700 hover:scale-105"

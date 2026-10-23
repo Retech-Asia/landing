@@ -37,6 +37,34 @@ import {
   CaseStudyJsonLd,
 } from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/constants";
+
+/**
+ * Contextual cover per study — the project's identity asset shared with the
+ * homepage OurWork section and the listing (intentional reuse; provenance in
+ * src/lib/photography.ts). Distinct from the captioned product slots above.
+ */
+const COVERS: Record<string, { src: string; alt: string }> = {
+  "mining-analytics-platform": {
+    src: "/images/photo/photo-work-mining.webp",
+    alt: "Server racks with cabling in a dark operations room",
+  },
+  "asset-management-platform": {
+    src: "/images/photo/photo-work-asset.webp",
+    alt: "Residential building facade with lit windows at dusk",
+  },
+  "investment-intelligence-platform": {
+    src: "/images/photo/photo-work-invest.webp",
+    alt: "Market chart with trend overlay on a trading screen",
+  },
+  "fintech-card-marketing": {
+    src: "/images/photo/photo-work-fintech.webp",
+    alt: "Payment card used at a laptop during an online checkout",
+  },
+  "ai-analysis-saas": {
+    src: "/images/photo/photo-work-ai.webp",
+    alt: "Bright data-center aisle with server equipment",
+  },
+};
 import { setRequestLocale } from "next-intl/server";
 import { routing, type Locale } from "@/i18n/routing";
 import { ProjectTimeline } from "@/components/case-studies/ProjectTimeline";
@@ -478,6 +506,26 @@ export default async function CaseStudyDetailPage({
             </div>
           </div>
         </Container>
+      </section>
+
+      {/* Contextual band — the project's cover identity (same asset as the
+          homepage/listing covers; photography.ts). Captioned as illustrative
+          like the product slots: it is atmosphere, not the product UI. */}
+      <section className="relative">
+        <div className="relative h-[220px] md:h-[360px] overflow-hidden">
+          <Image
+            src={COVERS[study.id].src}
+            alt={COVERS[study.id].alt}
+            fill
+            loading="lazy"
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+          <p className="absolute bottom-3 right-4 text-xs text-foreground-muted">
+            {chrome.illustrativeNote}
+          </p>
+        </div>
       </section>
 
       {/* Key Results Highlight Row */}

@@ -46,7 +46,7 @@ function getChrome(locale: string) {
           "Get a quick ballpark estimate based on your project type, scope, and team size.",
         sendMessageTitle: "Send Us a Message",
         contactFormAria: "Contact form",
-        teamAlt: "Retech Solutions team ready to discuss your project",
+        teamAlt: "Team discussing a project at a whiteboard",
         teamCaption: "Let's build something together",
         infoEmailDesc: "For project inquiries and partnerships",
         infoResponseLabel: "Email",
@@ -83,7 +83,7 @@ function getChrome(locale: string) {
           "Nhận mức ước tính nhanh dựa trên loại dự án, phạm vi và quy mô đội ngũ.",
         sendMessageTitle: "Gửi tin nhắn cho chúng tôi",
         contactFormAria: "Biểu mẫu liên hệ",
-        teamAlt: "Đội ngũ Retech Solutions sẵn sàng trao đổi về dự án của bạn",
+        teamAlt: "Đội ngũ trao đổi dự án tại bảng whiteboard",
         teamCaption: "Hãy cùng nhau xây dựng",
         infoEmailDesc: "Dành cho yêu cầu dự án và hợp tác",
         infoResponseLabel: "Email",
@@ -358,7 +358,7 @@ export default async function ContactPage({
             {/* Team photo — adds human element to the contact page */}
             <div className="relative h-44 rounded-2xl overflow-hidden">
               <Image
-                src="/images/stock/team-meeting.webp"
+                src="/images/photo/photo-contact-workshop.webp"
                 alt={c.teamAlt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"

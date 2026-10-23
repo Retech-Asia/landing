@@ -182,13 +182,19 @@
           "what": "Architecture reviews, technical due diligence, and roadmap planning before you commit to a build.",
           "fits": "Fits leaders who need an independent read before spending."
         }
-      ]
+      ],
+      "explorer": {
+        "problemLabel": "Who it fits",
+        "techLabel": "Technologies",
+        "visitLabel": "Full service page"
+      }
     },
     "work": {
       "label": "Selected work",
       "h2": "Five systems, five operators, one standard of delivery.",
       "lede": "Each case study names the problem, our scope and responsibility, the solution, and the outcome.",
-      "viewAll": "Browse all case studies"
+      "viewAll": "Browse all case studies",
+      "coversNote": "The covers in this section are contextual photography, not product captures; each case-study page captions its own product imagery."
     },
     "delivery": {
       "label": "Delivery and quality",
@@ -262,7 +268,8 @@
         }
       ],
       "driversTitle": "What drives cost",
-      "drivers": "Scope, the number of platforms, integrations with existing systems, roles and permissions complexity, and third-party costs (infrastructure, licenses, model APIs). We quote against these factors after discovery, so the number reflects your system rather than a rate card."
+      "drivers": "Scope, the number of platforms, integrations with existing systems, roles and permissions complexity, and third-party costs (infrastructure, licenses, model APIs). We quote against these factors after discovery, so the number reflects your system rather than a rate card.",
+      "ctaLine": "Not sure which shape fits? Start with a scoped discovery."
     }
   },
   "homepage": {

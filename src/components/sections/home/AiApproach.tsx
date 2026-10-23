@@ -3,9 +3,11 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 
 /**
- * Direction B AI approach section (RT-08, section 04). Static SSR server
- * component: two lettered blocks separating how we build with AI from
- * what goes into the client's product.
+ * Section 04 — AI approach (visual-experience round, 2026-10-23). Same two
+ * lettered blocks (how we build with AI vs AI in the product), recomposed
+ * as an asymmetric editorial spread: oversized watermark letters, top rules,
+ * 5/7 column proportions — a typographic identity distinct from the
+ * photographic sections around it. Static SSR server component.
  */
 
 interface AiBlock {
@@ -28,19 +30,27 @@ export function AiApproach() {
       <Container>
         <SectionHeader number="04" label={t("label")} title={t("h2")} />
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+        <div className="mt-10 grid grid-cols-1 gap-10 md:mt-14 md:grid-cols-12 md:gap-14">
           {blocks.map((block, i) => (
-            <div key={block.title} className="border border-rule-soft p-6 md:p-8">
-              <p className="font-display text-lg font-semibold text-foreground" aria-hidden="true">
+            <div
+              key={block.title}
+              className={`relative border-t border-rule pt-8 md:pt-10 ${
+                i === 0 ? "md:col-span-5" : "md:col-span-7"
+              }`}
+            >
+              <p
+                className="font-display-title pointer-events-none absolute -top-2 right-0 select-none text-7xl leading-none text-rule-soft md:text-8xl"
+                aria-hidden="true"
+              >
                 {BLOCK_LETTERS[i]}
               </p>
-              <h3 className="font-display-title mt-3 text-xl leading-snug text-foreground">
+              <h3 className="font-display-title relative max-w-sm text-xl leading-snug text-foreground md:text-2xl">
                 {block.title}
               </h3>
-              <p className="mt-3 leading-relaxed text-foreground-secondary">
+              <p className="relative mt-4 max-w-xl leading-relaxed text-foreground-secondary">
                 {block.body}
               </p>
-              <p className="mt-4 text-sm italic text-foreground-muted">
+              <p className="relative mt-5 border-l-2 border-brand pl-4 text-sm italic text-foreground-muted">
                 {block.note}
               </p>
             </div>

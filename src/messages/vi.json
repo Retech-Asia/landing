@@ -182,13 +182,19 @@
           "what": "Rà soát kiến trúc, thẩm định kỹ thuật và lập lộ trình trước khi bạn cam kết xây dựng.",
           "fits": "Phù hợp nhà lãnh đạo cần góc nhìn độc lập trước khi chi tiêu."
         }
-      ]
+      ],
+      "explorer": {
+        "problemLabel": "Phù hợp với ai",
+        "techLabel": "Công nghệ",
+        "visitLabel": "Trang dịch vụ đầy đủ"
+      }
     },
     "work": {
       "label": "Dự án tiêu biểu",
       "h2": "Năm hệ thống, năm doanh nghiệp, một chuẩn bàn giao.",
       "lede": "Mỗi case study nêu rõ bài toán, phạm vi và trách nhiệm của chúng tôi, giải pháp và kết quả.",
-      "viewAll": "Xem tất cả dự án"
+      "viewAll": "Xem tất cả dự án",
+      "coversNote": "Ảnh bìa trong phần này là hình ảnh bối cảnh, không phải ảnh sản phẩm; trang từng dự án luôn chú thích rõ ảnh sản phẩm."
     },
     "delivery": {
       "label": "Triển khai và chất lượng",
@@ -262,7 +268,8 @@
         }
       ],
       "driversTitle": "Yếu tố chi phối chi phí",
-      "drivers": "Phạm vi, số nền tảng, tích hợp với hệ thống hiện có, độ phức tạp phân quyền và chi phí bên thứ ba (hạ tầng, license, model API). Chúng tôi báo giá dựa trên các yếu tố này sau giai đoạn khám phá, để con số phản ánh đúng hệ thống của bạn thay vì bảng giá chung."
+      "drivers": "Phạm vi, số nền tảng, tích hợp với hệ thống hiện có, độ phức tạp phân quyền và chi phí bên thứ ba (hạ tầng, license, model API). Chúng tôi báo giá dựa trên các yếu tố này sau giai đoạn khám phá, để con số phản ánh đúng hệ thống của bạn thay vì bảng giá chung.",
+      "ctaLine": "Chưa chắc hình thức nào phù hợp? Bắt đầu với một giai đoạn Discovery có phạm vi rõ ràng."
     }
   },
   "homepage": {
