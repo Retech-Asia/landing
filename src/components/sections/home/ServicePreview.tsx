@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -85,6 +85,35 @@ export function ServicePreview() {
 
   const toggle = (i: number) => setActive((cur) => (cur === i ? null : i));
 
+  // Hero quick-nav (HeroHybrid) deep-links: /#capabilities-<service-id>
+  // preselects that capability and scrolls it clear of the sticky header.
+  // Anchor ids live on the desktop rows (capabilities-<id>) and mobile rows
+  // (capabilities-mobile-<id>) — unique ids; the visible one is scrolled.
+  useEffect(() => {
+    const applyHash = () => {
+      const m = window.location.hash.match(/^#capabilities-([\w-]+)$/);
+      if (!m) return;
+      const i = PANEL_SERVICES.indexOf(m[1] as (typeof PANEL_SERVICES)[number]);
+      if (i < 0) return;
+      setActive(i);
+      const el =
+        document.getElementById(`capabilities-${m[1]}`)?.offsetParent !== null
+          ? document.getElementById(`capabilities-${m[1]}`)
+          : document.getElementById(`capabilities-mobile-${m[1]}`);
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // Defer past the router's own scroll reset: on client-side navigation
+      // the App Router fires scrollTo({top:0}) in the same tick as hash
+      // handling, cancelling an instant (reduced-motion) jump. The 60ms
+      // delay makes this the last writer; imperceptible for smooth too.
+      window.setTimeout(() => {
+        el?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+      }, 60);
+    };
+    applyHash();
+    window.addEventListener("hashchange", applyHash);
+    return () => window.removeEventListener("hashchange", applyHash);
+  }, []);
+
   const techOf = (i: number): string[] => {
     const svc = getServiceById(PANEL_SERVICES[i]);
     return svc ? svc.technologies.slice(0, 6) : [];
@@ -111,7 +140,12 @@ export function ServicePreview() {
             {capabilities.map((cap, i) => {
               const expanded = active === i;
               return (
-                <div role="listitem" key={cap.title} className="border-b border-rule-soft">
+                <div
+                  role="listitem"
+                  key={cap.title}
+                  id={`capabilities-${PANEL_SERVICES[i]}`}
+                  className="border-b border-rule-soft scroll-mt-28"
+                >
                   <button
                     type="button"
                     onClick={() => toggle(i)}
@@ -165,7 +199,11 @@ export function ServicePreview() {
             const expanded = active === i;
             const regionId = `capability-mobile-${i}`;
             return (
-              <div key={cap.title} className="border-b border-rule-soft">
+              <div
+                key={cap.title}
+                id={`capabilities-mobile-${PANEL_SERVICES[i]}`}
+                className="border-b border-rule-soft scroll-mt-28"
+              >
                 <button
                   type="button"
                   onClick={() => toggle(i)}

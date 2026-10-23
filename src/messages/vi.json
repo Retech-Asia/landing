@@ -98,7 +98,11 @@
       "h1Accent": "Giải pháp",
       "standfirst": "Phát triển phần mềm toàn trình: phân tích nghiệp vụ, thiết kế và triển khai, với CRM và hệ thống quản lý doanh nghiệp tùy chỉnh làm cốt lõi. Bàn giao từ Việt Nam đến các đội ngũ trên toàn cầu.",
       "ctaPrimary": "Tư vấn Miễn phí",
-      "ctaSecondary": "Xem Dịch vụ"
+      "ctaSecondary": "Xem Dịch vụ",
+      "hybrid": {
+        "railLabel": "Chúng tôi xây dựng gì",
+        "exploreLabel": "Xem các năng lực của chúng tôi"
+      }
     },
     "trustedBy": {
       "title": "Phục vụ ngành nghề toàn cầu",

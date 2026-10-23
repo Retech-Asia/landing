@@ -98,7 +98,11 @@
       "h1Accent": "Solutions",
       "standfirst": "Full-cycle software development: business analysis, design, and deployment, with custom CRM and business systems at the core. Shipped from Vietnam to teams worldwide.",
       "ctaPrimary": "Get Free Consultation",
-      "ctaSecondary": "Explore Services"
+      "ctaSecondary": "Explore Services",
+      "hybrid": {
+        "railLabel": "What we build",
+        "exploreLabel": "Explore our capabilities"
+      }
     },
     "trustedBy": {
       "title": "Serving industries worldwide",
