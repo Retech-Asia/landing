@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hero Concepts — 2026-10-23 (Lit Dunes preserved in all three)</title>
+<!--
+  Comparison index for the 2026-10-23 hero round. Each concept renders the
+  approved Lit Dunes scene byte-identically (lit-dunes-current.js); only the
+  composition around it differs. For owner selection — nothing here is
+  implemented in src/ (production hero untouched, per directive).
+-->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet" />
+<style>
+  :root { --fg: #16181d; --fg2: #4b5158; --muted: #82878e; --brand: #208535; --rule: rgba(22,24,29,.16); }
+  * { margin: 0; box-sizing: border-box; }
+  body { font-family: "Inter", system-ui, sans-serif; color: var(--fg); background: #f4f4f1; padding: 3rem 1.5rem 5rem; }
+  .wrap { max-width: 64rem; margin: 0 auto; }
+  h1 { font-family: "Source Serif 4", Georgia, serif; font-size: 2rem; margin: .4rem 0 1rem; }
+  .lede { color: var(--fg2); max-width: 46rem; line-height: 1.6; margin-bottom: 2.5rem; }
+  .card { background: #fff; border: 1px solid var(--rule); margin-bottom: 1.5rem; }
+  .card-head { display: flex; align-items: baseline; gap: 1rem; padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--rule); }
+  .card-head h2 { font-family: "Source Serif 4", Georgia, serif; font-size: 1.25rem; }
+  .tag { font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--brand); }
+  .card-body { padding: 1.2rem 1.5rem; color: var(--fg2); font-size: .92rem; line-height: 1.65; }
+  .card-body ul { margin: .5rem 0 0 1.1rem; }
+  .card-body li { margin-bottom: .35rem; }
+  .view { display: inline-block; margin: 0 1.5rem 1.5rem; font-weight: 600; font-size: .9rem; color: var(--brand); text-decoration: none; }
+  .view:hover { text-decoration: underline; }
+  .note { font-size: .85rem; color: var(--muted); margin-top: 2.5rem; border-top: 1px solid var(--rule); padding-top: 1rem; line-height: 1.6; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="tag">Hero round · 2026-10-23 · for owner selection</p>
+    <h1>Three hero concepts — the approved Lit Dunes scene in all three</h1>
+    <p class="lede">
+      The scene is protected: every concept mounts the byte-identical shader
+      (palette, cursor lamp, contour lines untouched). What varies is the
+      composition around it — where the copy sits, how the CTAs read, and
+      what the hero hands off to. Open each full-screen; check desktop and
+      phone widths.
+    </p>
+
+    <div class="card">
+      <div class="card-head"><h2>Concept A — Refined Original</h2><span class="tag">Conservative</span></div>
+      <div class="card-body">
+        The live composition, structurally unchanged. Polish only: Direction-B
+        hairline industry pills (replacing the soft bubbles), a hairline rule
+        above the standfirst echoing the homepage's ruled rhythm, and a quiet
+        "no commitment" note beside the CTAs.
+        <ul>
+          <li>Zero structural change — cheapest to ship, zero re-validation risk</li>
+          <li>Chips + rule align the hero with the new homepage design language</li>
+          <li>Best when the goal is coherence, not a new statement</li>
+        </ul>
+      </div>
+      <a class="view" href="concept-a-refined.html">Open Concept A →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Concept B — Immersive Technology Identity</h2><span class="tag">Cinematic</span></div>
+      <div class="card-body">
+        Copy drops to the bottom; the terrain owns the first impression. The
+        headline steps up a size, the industries strip becomes one quiet ruled
+        footer row beside the CTAs, and the eyebrow states only verified facts.
+        <ul>
+          <li>Strongest "premium studio" read — the dune horizon stays unobstructed</li>
+          <li>CTA bar anchored at the viewport edge: clearest conversion line</li>
+          <li>Risk: copy sits below the fold's midpoint — measure scroll-depth on mobile</li>
+        </ul>
+      </div>
+      <a class="view" href="concept-b-immersive.html">Open Concept B →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>Concept C — Interactive Enterprise Hero</h2><span class="tag">Interactive</span></div>
+      <div class="card-body">
+        Live composition plus one restrained interactive layer: a capability
+        quick-nav rail mirroring the section-01 explorer. Hover/focus previews
+        a one-line problem domain; activation deep-links to
+        <code>#capabilities-&lt;id&gt;</code> where the explorer preselects.
+        <ul>
+          <li>Turns the hero into an orientation device — answers "what do they build" in one glance</li>
+          <li>Real links: keyboard reachable, visible focus, reduced-motion safe</li>
+          <li>Risk: busier than A/B; needs the explorer (already shipped this round) to land first</li>
+        </ul>
+      </div>
+      <a class="view" href="concept-c-enterprise.html">Open Concept C →</a>
+    </div>
+
+    <p class="note">
+      Recommendation: <strong>C on desktop ambition, A as the safe floor.</strong>
+      C pairs the protected scene with the round's new interactive explorer and
+      gives the hero a job beyond decoration; if the owner prefers zero new
+      risk, A is a strict visual upgrade at near-zero cost. B is the boldest
+      read but trades copy prominence for cinema — better suited to a campaign
+      page than the default landing. Nothing here is implemented in src/;
+      production hero untouched pending owner selection.
+    </p>
+  </div>
+</body>
+</html>
