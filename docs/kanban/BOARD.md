@@ -52,15 +52,18 @@ Rule: update BOTH the ticket file and this board row in the same edit.
 
 - **Deployment split (2026-10-23):** `prod` branch = retech.asia production
   only; `main` = staging. Pushed: `prod` at `b06dc02` (identical to released
-  main). Owner Vercel steps (pending): (1) project Settings → Git →
-  Production Branch: `main` → `prod`; (2) Domains → add staging domain
-  (e.g. staging.retech.asia) assigned to Git Branch `main` + DNS CNAME;
-  (3) Deployment Protection → disable Standard Protection so the staging
-  domain is publicly viewable. Safety rails already in code: host-aware
-  robots.txt (non-prod hosts get `Disallow: /` + noindex header) and the
-  IndexNow ping stays gated on VERCEL_ENV=production. Until step 1 lands,
-  pushes to main still deploy retech.asia — treat as production until
-  confirmed flipped.
+  main). Step 1 DONE (owner, 2026-10-23 ~09:55 local): Vercel Production
+  Branch flipped `main` → `prod` (Settings → Environments → Production →
+  Branch Tracking; the setting moved off the Git page). Vercel fired a
+  Production deployment from `b06dc02` and retech.asia verified healthy
+  (robots full rules, /en 200). Remaining owner steps: (2) Domains → add
+  staging domain (e.g. staging.retech.asia) assigned to Git Branch `main`
+  + DNS; (3) Deployment Protection → disable Standard Protection so staging
+  is publicly viewable; (4) revoke or re-point the `indexnow-ping` Deploy
+  Hook (still bound to `main` — after the flip it would deploy staging).
+  Safety rails already in code: host-aware robots.txt (non-prod hosts get
+  `Disallow: /` + noindex header) and the IndexNow ping stays gated on
+  VERCEL_ENV=production.
 - **Deployment mapping (confirmed 2026-10-22):** Vercel is connected to
   `Retech-Asia/retech-landing`; `Retech-Asia/landing` has no Vercel integration.
   The local remote pushes to BOTH URLs → every push updates both repos; the
