@@ -50,20 +50,25 @@ Rule: update BOTH the ticket file and this board row in the same edit.
 
 ## Notes
 
-- **Deployment split (2026-10-23):** `prod` branch = retech.asia production
-  only; `main` = staging. Pushed: `prod` at `b06dc02` (identical to released
-  main). Step 1 DONE (owner, 2026-10-23 ~09:55 local): Vercel Production
-  Branch flipped `main` → `prod` (Settings → Environments → Production →
-  Branch Tracking; the setting moved off the Git page). Vercel fired a
-  Production deployment from `b06dc02` and retech.asia verified healthy
-  (robots full rules, /en 200). Remaining owner steps: (2) Domains → add
-  staging domain (e.g. staging.retech.asia) assigned to Git Branch `main`
-  + DNS; (3) Deployment Protection → disable Standard Protection so staging
-  is publicly viewable; (4) revoke or re-point the `indexnow-ping` Deploy
-  Hook (still bound to `main` — after the flip it would deploy staging).
-  Safety rails already in code: host-aware robots.txt (non-prod hosts get
-  `Disallow: /` + noindex header) and the IndexNow ping stays gated on
-  VERCEL_ENV=production.
+- **Deployment split LIVE + verified (2026-10-23):** `prod` branch =
+  retech.asia production; `main` = staging. Vercel Production Branch flipped
+  to `prod` (setting lives in Settings → Environments → Production → Branch
+  Tracking). Staging domains: `retech-landing.vercel.app` +
+  `staging.retech.asia` (Cloudflare CNAME, DNS-only), both assigned to Git
+  Branch `main`; Standard Deployment Protection off. Deploy hook re-pointed
+  to `prod`. End-to-end verification: prod robots.txt full rules +
+  `X-Robots-Tag: all` (/en 200); both staging hosts `Disallow: /` +
+  `X-Robots-Tag: noindex`. IndexNow ping stays gated on
+  VERCEL_ENV=production. **Release flow: merge `main` → `prod`
+  (fast-forward) + push `prod`; day-to-day pushes to `main` land on staging
+  only.**
+- **Build-failure root cause (2026-10-23, fixed in `51cd107`):** the
+  `src/app/robots.ts` deletion that accompanied the new host-aware
+  `robots.txt/route.ts` was never committed — Vercel builds the git tree,
+  saw both files, and every 10/23 deployment died in the build with
+  "Conflicting route and metadata at /robots.txt" while local gates passed
+  (local disk genuinely lacked the file). Law: a disk deletion that gates
+  depend on must be `git rm`-committed before trusting local greens.
 - **Deployment mapping (confirmed 2026-10-22):** Vercel is connected to
   `Retech-Asia/retech-landing`; `Retech-Asia/landing` has no Vercel integration.
   The local remote pushes to BOTH URLs → every push updates both repos; the
