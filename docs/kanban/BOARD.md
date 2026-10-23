@@ -50,10 +50,21 @@ Rule: update BOTH the ticket file and this board row in the same edit.
 
 ## Notes
 
+- **Deployment split (2026-10-23):** `prod` branch = retech.asia production
+  only; `main` = staging. Pushed: `prod` at `b06dc02` (identical to released
+  main). Owner Vercel steps (pending): (1) project Settings → Git →
+  Production Branch: `main` → `prod`; (2) Domains → add staging domain
+  (e.g. staging.retech.asia) assigned to Git Branch `main` + DNS CNAME;
+  (3) Deployment Protection → disable Standard Protection so the staging
+  domain is publicly viewable. Safety rails already in code: host-aware
+  robots.txt (non-prod hosts get `Disallow: /` + noindex header) and the
+  IndexNow ping stays gated on VERCEL_ENV=production. Until step 1 lands,
+  pushes to main still deploy retech.asia — treat as production until
+  confirmed flipped.
 - **Deployment mapping (confirmed 2026-10-22):** Vercel is connected to
   `Retech-Asia/retech-landing`; `Retech-Asia/landing` has no Vercel integration.
-  The local remote pushes to BOTH URLs → every `git push origin main` deploys
-  production. Treat pushes as releases.
+  The local remote pushes to BOTH URLs → every push updates both repos; the
+  PRODUCTION BRANCH (main until the flip, `prod` after) deploys retech.asia.
 - Build law: while working unpublished routes, use `npx next build` (NOT `npm run build`,
   whose postbuild pings IndexNow).
 - Standing repo ground rules (`docs/overhaul-roadmap.md`): owner's eye is final on visual
