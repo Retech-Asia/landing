@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
 import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 
 /**
@@ -10,6 +11,11 @@ import { BLUR_DATA_URL } from "@/lib/image-placeholders";
  * full-height contextual photo column so the section stops reading as pure
  * text. Photo: photo-delivery-focus.webp (photography.ts). Static SSR
  * server component — no client JS.
+ *
+ * Glass kit round (same day): each phase carries its ReTech Glass kit
+ * pictogram beside the title (discover → support, positional — the step
+ * order is fixed in the messages, titles are localized so string keys
+ * would break in VI).
  */
 
 interface DeliveryStep {
@@ -17,6 +23,15 @@ interface DeliveryStep {
   what: string;
   sees: string;
 }
+
+const DELIVERY_GLASS: GlassIconName[] = [
+  "discover",
+  "design",
+  "build",
+  "test",
+  "launch",
+  "support",
+];
 
 export function DeliverySection() {
   const t = useTranslations("home.delivery");
@@ -61,9 +76,12 @@ export function DeliverySection() {
                     {String(i + 1).padStart(2, "0")}
                   </p>
                   <div>
-                    <h3 className="font-display-title text-lg leading-snug text-foreground md:text-xl">
-                      {step.title}
-                    </h3>
+                    <div className="flex items-center gap-3">
+                      <GlassIcon name={DELIVERY_GLASS[i] ?? "discover"} size="sm" />
+                      <h3 className="font-display-title text-lg leading-snug text-foreground md:text-xl">
+                        {step.title}
+                      </h3>
+                    </div>
                     <p className="mt-2 text-sm leading-relaxed text-foreground-secondary">
                       {step.what}
                     </p>

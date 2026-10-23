@@ -19,7 +19,7 @@ const intlMiddleware = createMiddleware(routing);
  *    matched WITHOUT extension so the proxy doesn't 307 them to
  *    `/en/apple-icon` (which 404s, since the route files live outside
  *    `[locale]`).
- *  - Public assets (`/images`, `/fonts`)
+ *  - Public assets (`/images`, `/fonts`, `/retech-glass` kit SVGs)
  *
  * `localeDetection: false` in routing.ts means we never auto-redirect on
  * Accept-Language; the proxy only handles `/` → `/en` and `/en/...` ↔
@@ -55,6 +55,6 @@ export default function proxy(request: NextRequest) {
 export const config = {
   // Skip Next internals, API, static files, and known root metadata routes.
   matcher: [
-    "/((?!_next|_vercel|api|images|fonts|sitemap\\.xml|robots\\.txt|manifest\\.webmanifest|feed\\.xml|icon|apple-icon|opengraph-image|favicon).*)",
+    "/((?!_next|_vercel|api|images|fonts|retech-glass|sitemap\\.xml|robots\\.txt|manifest\\.webmanifest|feed\\.xml|icon|apple-icon|opengraph-image|favicon).*)",
   ],
 };

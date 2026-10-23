@@ -1820,3 +1820,176 @@ select:focus {
     animation: none;
   }
 }
+
+/* ───────────────────────────────────────────────────────────────────
+   ReTech Glass Icon & Motion Kit (owner-approved 2026-10-23).
+   Adapted from the kit's glass.css: size variants via --rg-size, hover
+   motion gated to .rg-glass-control targets on fine pointers only,
+   dark-theme glass added, reduced-motion kills all of it.
+
+   Color law: the kit primary green is EXACT #30AB47 and is used for the
+   glass vocabulary (tile borders, glows, focus outlines). White-on-green
+   TEXT surfaces (primary CTAs, badges) keep the AA-audited --brand
+   (#208535, 4.69:1) — #30AB47 measures ~2.98:1 with white text, which
+   the 2026-10-22 brand audit already ruled out for text surfaces.
+   ─────────────────────────────────────────────────────────────────── */
+:root {
+  --rg-green: #30ab47;
+  --rg-green-dark: #207d35;
+  --rg-soft: #dff6e4;
+  --rg-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rg-glass {
+  --rg-size: 56px;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: var(--rg-size);
+  height: var(--rg-size);
+  flex: none;
+  overflow: hidden;
+  border: 1px solid rgba(48, 171, 71, 0.24);
+  border-radius: calc(var(--rg-size) * 0.22);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.85),
+    rgba(222, 247, 228, 0.6) 60%,
+    rgba(183, 236, 194, 0.42)
+  );
+  box-shadow:
+    inset 1px 2px 0 rgba(255, 255, 255, 0.94),
+    inset -2px -2px 8px rgba(48, 171, 71, 0.065),
+    0 8px 19px rgba(32, 100, 52, 0.08);
+  transform: translate3d(0, 0, 0) scale(1);
+  transition:
+    transform 0.24s var(--rg-ease),
+    box-shadow 0.24s var(--rg-ease),
+    border-color 0.24s ease;
+}
+.rg-glass--sm {
+  --rg-size: 40px;
+}
+.rg-glass--lg {
+  --rg-size: 72px;
+}
+
+/* Single hover light sweep — never loops on idle. */
+.rg-glass::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: -35%;
+  pointer-events: none;
+  transform: translate3d(-55%, -30%, 0) rotate(25deg);
+  background: linear-gradient(
+    90deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 58%
+  );
+  transition: transform 0.6s var(--rg-ease);
+}
+
+/* Soft under-glow. */
+.rg-glass::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 18%;
+  right: 18%;
+  bottom: -12%;
+  height: 43%;
+  border-radius: 50%;
+  pointer-events: none;
+  background: rgba(48, 171, 71, 0.2);
+  filter: blur(14px);
+  opacity: 0.5;
+  transition: opacity 0.25s ease;
+}
+
+.rg-glass img {
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: 76%;
+  height: 76%;
+  object-fit: contain;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.24s var(--rg-ease);
+}
+
+/* Motion only for interactive hosts carrying .rg-glass-control, and only
+   on devices with a fine pointer — touch devices keep the calm at-rest
+   state (kit law: hover is a pointer affordance, not a touch one). */
+@media (hover: hover) and (pointer: fine) {
+  .rg-glass-control:hover .rg-glass {
+    transform: translateY(-4px) scale(1.025);
+    border-color: rgba(48, 171, 71, 0.5);
+    box-shadow:
+      inset 1px 2px 0 #fff,
+      0 15px 27px rgba(32, 100, 52, 0.16),
+      0 0 22px rgba(48, 171, 71, 0.14);
+  }
+  .rg-glass-control:hover .rg-glass::before {
+    transform: translate3d(65%, 30%, 0) rotate(25deg);
+  }
+  .rg-glass-control:hover .rg-glass::after {
+    opacity: 0.84;
+  }
+  .rg-glass-control:hover .rg-glass img {
+    transform: translateY(-2px) scale(1.045);
+  }
+}
+
+/* Press: gentle scale-down. */
+.rg-glass-control:active .rg-glass {
+  transform: scale(0.965);
+  transition-duration: 0.12s;
+}
+
+/* Focus: explicit kit-green outline, never animation-only. Element-type
+   selectors lift specificity above Tailwind's focus-visible outline
+   utilities, which otherwise win the tie on source order. */
+button.rg-glass-control:focus-visible,
+a.rg-glass-control:focus-visible {
+  outline: 3px solid var(--rg-green);
+  outline-offset: 4px;
+}
+
+/* Dark theme — glass goes translucent dark-green; border/glow stay kit
+   green so the vocabulary survives both themes. */
+[data-theme="dark"] .rg-glass {
+  border-color: rgba(48, 171, 71, 0.35);
+  background: linear-gradient(
+    145deg,
+    rgba(44, 58, 48, 0.92),
+    rgba(26, 45, 31, 0.78) 60%,
+    rgba(18, 36, 23, 0.62)
+  );
+  box-shadow:
+    inset 1px 2px 0 rgba(255, 255, 255, 0.1),
+    inset -2px -2px 8px rgba(48, 171, 71, 0.12),
+    0 8px 19px rgba(0, 0, 0, 0.35);
+}
+[data-theme="dark"] .rg-glass::before {
+  background: linear-gradient(
+    90deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.16) 50%,
+    transparent 58%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rg-glass,
+  .rg-glass::before,
+  .rg-glass::after,
+  .rg-glass img,
+  .rg-glass-control {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}

@@ -8,10 +8,6 @@ import {
   Mail,
   AlertTriangle,
   CheckCircle2,
-  Compass,
-  Wrench,
-  Layers,
-  Rocket,
   ChevronRight,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -29,6 +25,7 @@ import { GradientBackground } from "@/components/ui/GradientBackground";
 import { GridPattern } from "@/components/ui/GridPattern";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { Badge } from "@/components/ui/Badge";
+import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
 import { BreadcrumbJsonLd, ServiceJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import {
   industries,
@@ -115,8 +112,12 @@ export function generateMetadata({
   });
 }
 
-/* -- Approach step icon mapping ------------------------------------------ */
-const approachIcons = [Compass, Layers, Wrench, Rocket];
+/* -- Approach step pictograms ---------------------------------------------
+ * ReTech Glass kit tiles (glass round 2026-10-23), positional — the four
+ * approach steps follow the same understand → design → build → launch arc
+ * on every industry page, so the generic stroke placeholders
+ * (Compass/Layers/Wrench/Rocket) are retired. */
+const approachGlass: GlassIconName[] = ["discover", "design", "build", "launch"];
 
 /* -- Visual-break imagery (per-industry, 2026-10-23 sourcing pass) --------
  * Keyed by the locale-resolved slug (industry.slug). The four curated
@@ -397,7 +398,6 @@ export default async function IndustryDetailPage({
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {industry.approach.map((step, i) => {
-                const StepIcon = approachIcons[i] || Compass;
                 return (
                   <AnimatedSection
                     key={step.step}
@@ -405,11 +405,12 @@ export default async function IndustryDetailPage({
                     delay={i * 0.1}
                   >
                     <div className="relative rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] h-full">
-                      {/* Step number badge */}
+                      {/* Step pictogram — ReTech Glass kit tile */}
                       <div className="flex items-center gap-3 mb-4">
-                        <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand/[0.04]">
-                          <StepIcon size={20} className={industry.color} />
-                        </div>
+                        <GlassIcon
+                          name={approachGlass[i] ?? "discover"}
+                          size="sm"
+                        />
                         <span className="text-sm font-mono font-semibold text-brand tracking-wider">
                           {step.step}
                         </span>

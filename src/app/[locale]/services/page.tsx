@@ -3,15 +3,7 @@ import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
-import {
-  ArrowRight,
-  Search,
-  Palette,
-  Code2,
-  Rocket,
-  CheckCircle2,
-  HelpCircle,
-} from "lucide-react";
+import { ArrowRight, CheckCircle2, HelpCircle } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
@@ -28,6 +20,7 @@ import { ServiceGridSkeleton } from "@/components/ui/Skeleton";
 import { ServiceQuiz } from "@/components/ui/ServiceQuiz";
 import { ServiceExplorer } from "@/components/ui/ServiceExplorer";
 import { Tooltip } from "@/components/ui/Tooltip";
+import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
 import { cn } from "@/lib/cn";
 import { services } from "@/lib/services-data";
 import { SITE_URL } from "@/lib/constants";
@@ -70,36 +63,59 @@ export async function generateMetadata({
 }
 
 
-const processSteps = [
+const processSteps: {
+  glass: GlassIconName;
+  step: string;
+  title: string;
+  description: string;
+}[] = [
   {
-    icon: Search,
+    glass: "discover",
     step: "01",
     title: "Discovery",
     description:
       "We dive deep into your business goals, challenges, and requirements to define a clear project scope and success criteria.",
   },
   {
-    icon: Palette,
+    glass: "design",
     step: "02",
     title: "Design",
     description:
       "Our designers create wireframes, prototypes, and visual designs that align with your brand and optimize user experience.",
   },
   {
-    icon: Code2,
+    glass: "build",
     step: "03",
     title: "Development",
     description:
       "Engineers build your solution using modern frameworks, agile sprints, and continuous integration with transparent progress updates.",
   },
   {
-    icon: Rocket,
+    glass: "launch",
     step: "04",
     title: "Delivery",
     description:
       "We launch, monitor, and optimize your product, providing ongoing support, maintenance, and iterative improvements.",
   },
 ];
+
+/**
+ * Service id → ReTech Glass kit pictogram (glass-icon-motion kit). All ten
+ * services map; an unmapped future id falls back to its data-file lucide
+ * icon in the card grid rather than rendering a wrong pictogram.
+ */
+const SERVICE_GLASS: Record<string, GlassIconName> = {
+  "cms-platforms": "database",
+  "crm-systems": "crm",
+  "erp-solutions": "analytics",
+  "web-development": "frontend",
+  "ui-ux-design": "design",
+  "dedicated-teams": "partnership",
+  "mobile-app-development": "mobile",
+  "desktop-app-development": "desktop",
+  "ai-development": "ai-solutions",
+  "it-consulting": "consulting",
+};
 
 /**
  * Feature comparison matrix.
@@ -266,20 +282,22 @@ export default async function ServicesPage({
         <Container>
           <Suspense fallback={<ServiceGridSkeleton />}>
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              {services.map((service, i) => {
+              {services.map((service) => {
                 const Icon = service.icon;
-                const iconColor =
-                  i % 3 === 0
-                    ? "text-brand"
-                    : i % 3 === 1
-                    ? "text-accent-cyan"
-                    : "text-accent-violet";
+                const glass = SERVICE_GLASS[service.id];
                 return (
                   <StaggerItem key={service.id} className="h-full">
                     <Link href={`/services/${service.slug[loc]}`} className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-2xl focus-visible:ring-offset-2">
                       <div className="relative h-full rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 md:p-8 transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
-                        {/* Icon */}
-                        <Icon size={28} className={`${iconColor} mb-5`} />
+                        {/* Icon — ReTech Glass kit pictogram; one consistent
+                            vocabulary replaces the rotating brand/cyan/violet
+                            accent colors (glass round 2026-10-23). Unmapped
+                            ids fall back to the data-file lucide icon. */}
+                        {glass ? (
+                          <GlassIcon name={glass} size="md" className="mb-5" />
+                        ) : (
+                          <Icon size={28} className="text-brand mb-5" />
+                        )}
 
                         {/* Content */}
                         <h2 className="text-xl font-semibold text-foreground mb-1 group-hover:text-brand transition-colors">
@@ -449,7 +467,6 @@ export default async function ServicesPage({
 
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {processSteps.map((step) => {
-              const StepIcon = step.icon;
               return (
                 <StaggerItem key={step.step}>
                   <div className="relative rounded-2xl bg-card-bg border border-card-border backdrop-blur-sm p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
@@ -457,7 +474,7 @@ export default async function ServicesPage({
                       <span className="text-3xl font-bold text-black/[0.06] leading-none">
                         {step.step}
                       </span>
-                      <StepIcon size={18} className="text-foreground-secondary" />
+                      <GlassIcon name={step.glass} size="sm" />
                     </div>
 
                     <h2 className="text-lg font-semibold text-foreground mb-2">

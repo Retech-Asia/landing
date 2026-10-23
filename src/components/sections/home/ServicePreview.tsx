@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
 import { localizeServiceHref } from "@/lib/services-data";
 import { getServiceById } from "@/lib/services-data";
 import { BLUR_DATA_URL } from "@/lib/image-placeholders";
@@ -60,6 +61,17 @@ const PANEL_IMAGES = [
 
 /** Row index → services-data id for technologies + localized href. */
 const PANEL_SERVICES = ["crm-systems", ...CAPABILITY_IDS] as const;
+
+/** Row index → ReTech Glass kit pictogram (glass-icon-motion kit). Same
+ * order as PANEL_SERVICES; names are compile-checked by GlassIconName. */
+const PANEL_GLASS: GlassIconName[] = [
+  "crm",
+  "frontend",
+  "mobile",
+  "desktop",
+  "ai-solutions",
+  "consulting",
+];
 
 export function ServicePreview() {
   const t = useTranslations("home.capabilities");
@@ -151,11 +163,12 @@ export function ServicePreview() {
                     onClick={() => toggle(i)}
                     aria-expanded={expanded}
                     aria-controls="capability-panel"
-                    className="group grid w-full grid-cols-[44px_1fr] items-baseline gap-3 py-6 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+                    className="rg-glass-control group grid w-full grid-cols-[44px_auto_1fr] items-baseline gap-3 py-6 text-left"
                   >
                     <span className="font-display text-sm text-foreground-muted tabular-nums">
                       1.{i + 1}
                     </span>
+                    <GlassIcon name={PANEL_GLASS[i]} size="sm" className="self-center" />
                     <span>
                       <span
                         className={`font-display-title block text-xl leading-snug transition-colors group-hover:text-brand ${
@@ -184,6 +197,7 @@ export function ServicePreview() {
                 tech={techOf(active)}
                 href={hrefOf(active)}
                 image={img(active)}
+                glass={PANEL_GLASS[active]}
                 visitLabel={t("explorer.visitLabel")}
                 problemLabel={t("explorer.problemLabel")}
                 techLabel={t("explorer.techLabel")}
@@ -209,18 +223,21 @@ export function ServicePreview() {
                   onClick={() => toggle(i)}
                   aria-expanded={expanded}
                   aria-controls={regionId}
-                  className="flex w-full items-baseline justify-between gap-4 py-5 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+                  className="rg-glass-control flex w-full items-baseline justify-between gap-4 py-5 text-left"
                 >
-                  <span>
-                    <span className="font-display text-xs text-foreground-muted tabular-nums">
-                      1.{i + 1}
-                    </span>
-                    <span
-                      className={`font-display-title mt-1 block text-lg leading-snug ${
-                        expanded ? "text-brand" : "text-foreground"
-                      }`}
-                    >
-                      {cap.title}
+                  <span className="flex items-center gap-3">
+                    <GlassIcon name={PANEL_GLASS[i]} size="sm" />
+                    <span>
+                      <span className="font-display text-xs text-foreground-muted tabular-nums">
+                        1.{i + 1}
+                      </span>
+                      <span
+                        className={`font-display-title mt-1 block text-lg leading-snug ${
+                          expanded ? "text-brand" : "text-foreground"
+                        }`}
+                      >
+                        {cap.title}
+                      </span>
                     </span>
                   </span>
                   <span
@@ -242,6 +259,7 @@ export function ServicePreview() {
                       tech={techOf(i)}
                       href={hrefOf(i)}
                       image={img(i)}
+                      glass={PANEL_GLASS[i]}
                       visitLabel={t("explorer.visitLabel")}
                       problemLabel={t("explorer.problemLabel")}
                       techLabel={t("explorer.techLabel")}
@@ -271,6 +289,7 @@ function PanelBody({
   tech,
   href,
   image,
+  glass,
   visitLabel,
   problemLabel,
   techLabel,
@@ -283,13 +302,14 @@ function PanelBody({
   tech: string[];
   href: string;
   image: { src: string; alt: string };
+  glass: GlassIconName;
   visitLabel: string;
   problemLabel: string;
   techLabel: string;
   imageSizes: string;
 }) {
   return (
-    <div className="capability-enter">
+    <div className="capability-enter relative">
       <div className="relative overflow-hidden">
         <Image
           src={image.src}
@@ -301,6 +321,15 @@ function PanelBody({
           blurDataURL={BLUR_DATA_URL}
           className="h-auto w-full object-cover"
         />
+        {/* Glass kit pictogram anchors the panel (decorative; the photo
+            alt + visible copy carry the meaning). Static tile — the panel
+            is not itself a control, so no hover motion here. Positioned
+            via a wrapper: .rg-glass sets position:relative in the rg CSS
+            layer, which would defeat an `absolute` utility on the tile
+            itself, and the wrapper also carries the separating ring. */}
+        <span className="absolute left-4 top-4 z-10 inline-flex rounded-xl ring-2 ring-background">
+          <GlassIcon name={glass} size="md" />
+        </span>
       </div>
 
       <h3 className="sr-only">{title}</h3>
