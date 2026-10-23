@@ -105,16 +105,16 @@ export const photoRegistry: PhotoAsset[] = [
   },
   {
     file: "photo-desktop-workstation.webp",
-    source: "unsplash",
-    id: "1542744094-3a31f272c490",
-    pageUrl: null, // pending — see interface note
-    creator: null, // pending
-    sourceUrl: unsplash("1542744094-3a31f272c490"),
-    license: "Unsplash License",
+    source: "pexels",
+    id: 36706460,
+    pageUrl: pexels(36706460),
+    creator: "Zayed Hossain",
+    sourceUrl: pexels(36706460),
+    license: "Pexels License",
     imported: "2026-10-23",
-    original: { width: 4016, height: 6016 },
+    original: { width: 2400, height: 1800 },
     delivered: { width: 1400, height: 950 },
-    subject: "Engineer at a multi-monitor development workstation",
+    subject: "Developer at a dual-monitor workstation, code on screen",
     surfaces: ["home #01 desktop panel"],
   },
   {
@@ -380,16 +380,16 @@ export const photoRegistry: PhotoAsset[] = [
   // ---- Contact (replaces stock/team-meeting.webp) ----
   {
     file: "photo-contact-workshop.webp",
-    source: "unsplash",
-    id: "1552664730-d307ca884978",
-    pageUrl: null, // pending — see interface note
-    creator: null, // pending
-    sourceUrl: unsplash("1552664730-d307ca884978"),
-    license: "Unsplash License",
+    source: "pexels",
+    id: 17724731,
+    pageUrl: pexels(17724731),
+    creator: "Walls.io",
+    sourceUrl: pexels(17724731),
+    license: "Pexels License",
     imported: "2026-10-23",
-    original: { width: 4608, height: 3072 },
-    delivered: { width: 1400, height: 1750 },
-    subject: "Workshop discussion at a whiteboard with sticky notes",
+    original: { width: 2400, height: 1600 },
+    delivered: { width: 1400, height: 934 },
+    subject: "Two colleagues at a whiteboard with sticky notes",
     surfaces: ["/contact side panel"],
   },
 
@@ -425,16 +425,16 @@ export const photoRegistry: PhotoAsset[] = [
   },
   {
     file: "photo-consulting-session.webp",
-    source: "unsplash",
-    id: "1531482615713-2afd69097998",
-    pageUrl: null, // pending — see interface note
-    creator: null, // pending
-    sourceUrl: unsplash("1531482615713-2afd69097998"),
-    license: "Unsplash License",
+    source: "pexels",
+    id: 4339795,
+    pageUrl: pexels(4339795),
+    creator: "Edmond Dantès",
+    sourceUrl: pexels(4339795),
+    license: "Pexels License",
     imported: "2026-10-23",
-    original: { width: 6016, height: 4016 },
+    original: { width: 2400, height: 1600 },
     delivered: { width: 1600, height: 1067 },
-    subject: "Consultant at a screen in a candid office session",
+    subject: "Consultant and client in discussion over a laptop",
     surfaces: ["/services it-consulting + dedicated-teams"],
   },
 ];
