@@ -45,6 +45,15 @@ files in the dashboard slot), `cs-wellness-{hero,dashboard,mobile}.webp`
 `vietnam-cityscape.webp` (4), `ux-design.webp` (1 — checkpoint 3 correction:
 no source file references it).
 
+**DISPOSITION (2026-10-23, owner-approved): DELETED** in commit `2640557`
+after a deep reference check (src ts/tsx/json/mdx, CSS, public metadata —
+zero runtime references; substring false positives ruled out). The commit
+also removed 5 files that the 2026-10-23 photography replacements orphaned
+after this list was written: `brainstorming.webp`, `modern-office.webp`,
+`office-interior.webp`, `team-meeting.webp`, `team-portrait.webp`.
+Surviving stock set: 15 files, all with live references. Binaries remain
+recoverable from git history; this section is the provenance record.
+
 ## Wave 3D curation plan (owner-gated)
 
 1. Jay supplies real product captures per study → replaces cs-* slots, caption
