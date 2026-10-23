@@ -83,10 +83,13 @@ export function HeroHybrid() {
       <div className="relative z-10 w-full flex-1 flex items-center">
         <Container className="w-full py-8 md:py-10">
           <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-8">
-            {/* Copy column — identical composition to the live hero. */}
-            <div className="hero-content-enter max-w-4xl md:col-span-7">
-              <h1 className="font-display-title mt-6 mb-6 text-balance text-[2.75rem] leading-[1.05] tracking-[-0.015em] text-foreground sm:text-6xl md:text-7xl lg:text-[5.25rem]">
-                {t("h1Pre")}
+            {/* Copy column — identical composition to the live hero.
+                md is full-width (rail drops out below lg): at 768 a 7/12
+                column left ~407px for a 72px headline, wrapping VI/EN into
+                a 4-line rag (P0 fix, 2026-10-23). */}
+            <div className="hero-content-enter max-w-4xl md:col-span-12 lg:col-span-7">
+              <h1 className="font-display-title mt-6 mb-6 text-balance text-[2.75rem] leading-[1.05] tracking-[-0.015em] text-foreground sm:text-6xl md:text-7xl lg:text-[4rem] xl:text-[5.25rem]">
+                {t("h1Pre")}{" "}
                 <br />
                 {t("h1Into")}{" "}
                 <em className="font-display italic text-brand">{t("h1Accent")}</em>
@@ -120,7 +123,7 @@ export function HeroHybrid() {
                 explorer: title + hover hint, hairline separators, no card. */}
             <nav
               aria-label={t("hybrid.railLabel")}
-              className="hidden md:block md:col-span-5 lg:col-span-4 lg:col-start-9"
+              className="hidden lg:block lg:col-span-4 lg:col-start-9"
             >
               <p className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-foreground-muted">
                 {t("hybrid.railLabel")}

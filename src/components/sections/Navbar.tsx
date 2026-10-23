@@ -340,7 +340,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden xl:flex items-center gap-1">
             {navigation.main.map((item) =>
               item.children ? (
                 <div
@@ -354,7 +354,7 @@ export function Navbar() {
                     aria-expanded={servicesOpen}
                     aria-haspopup="true"
                     className={cn(
-                      "group/dropdown flex items-center gap-1 px-4 py-2 text-sm rounded-lg transition-colors duration-200 cursor-pointer",
+                      "group/dropdown flex items-center gap-1 whitespace-nowrap px-4 py-2 text-sm rounded-lg transition-colors duration-200 cursor-pointer",
                       isItemActive(item.href)
                         ? "text-brand font-medium nav-active-text"
                         : "text-foreground-secondary hover:text-foreground hover:bg-black/[0.04]"
@@ -423,7 +423,7 @@ export function Navbar() {
                   href={item.href}
                   aria-current={isItemActive(item.href) ? "page" : undefined}
                   className={cn(
-                    "group/link relative px-4 py-2 text-sm rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2",
+                    "group/link relative whitespace-nowrap px-4 py-2 text-sm rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2",
                     isItemActive(item.href)
                       ? "text-brand font-medium nav-active-text"
                       : "text-foreground-secondary hover:text-foreground hover:bg-black/[0.04]"
@@ -442,7 +442,7 @@ export function Navbar() {
           </div>
 
           {/* Desktop CTA + locale switcher + theme toggle */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden xl:flex items-center gap-2">
             <LocaleSwitcher />
             <ThemeToggle />
             {/* WhatsApp as secondary CTA — paired with primary "Get Free
@@ -462,7 +462,7 @@ export function Navbar() {
             aria-expanded={isMobileOpen}
             aria-controls="mobile-menu"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className="lg:hidden relative z-[var(--z-dropdown)] p-3 text-foreground-secondary hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2 rounded-lg"
+            className="xl:hidden relative z-[var(--z-dropdown)] p-3 text-foreground-secondary hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2 rounded-lg"
           >
             {/* Simple icon swap — no AnimatePresence (was causing zero-size button) */}
             {isMobileOpen ? (
@@ -492,7 +492,7 @@ export function Navbar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="lg:hidden fixed inset-0 top-16 bg-black/20 backdrop-blur-sm z-[var(--z-dropdown)]"
+              className="xl:hidden fixed inset-0 top-16 bg-black/20 backdrop-blur-sm z-[var(--z-dropdown)]"
               onClick={() => setIsMobileOpen(false)}
               aria-hidden="true"
             />
@@ -509,7 +509,7 @@ export function Navbar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="lg:hidden fixed top-16 right-0 bottom-0 w-full max-w-sm bg-background/[0.98] backdrop-blur-xl z-[var(--z-dropdown)] overflow-y-auto border-l border-card-border"
+              className="xl:hidden fixed top-16 right-0 bottom-0 w-full max-w-sm bg-background/[0.98] backdrop-blur-xl z-[var(--z-dropdown)] overflow-y-auto border-l border-card-border"
               onKeyDown={handleMobileKeyDown}
             >
               <div className="px-6 py-6 space-y-1">
