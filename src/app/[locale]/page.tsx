@@ -1,5 +1,9 @@
 import dynamic from "next/dynamic";
-import { Hero } from "@/components/sections/home/Hero";
+// Hero flip (owner checkpoint-2 ruling, 2026-10-23): HeroHybrid is the
+// staging homepage default. Rollback = swap this import back to
+// `@/components/sections/home/Hero` (Concept A stays in the tree) or
+// revert the commit. Production branch is untouched.
+import { HeroHybrid } from "@/components/sections/home/HeroHybrid";
 import { ProofStrip } from "@/components/sections/home/ProofStrip";
 import { WebPageJsonLd } from "@/components/seo/JsonLd";
 import { SectionFallback, CompactSectionFallback } from "@/components/ui/Skeleton";
@@ -71,10 +75,11 @@ export default async function HomePage({
         url="https://www.retech.asia"
       />
 
-      {/* 1. Hero - full-viewport composition: copy + CTAs + stats +
-          industries strip on the dune canvas (TrustedBy renders inside
-          the Hero section now, not as a standalone band) */}
-      <Hero />
+      {/* 1. Hero - full-viewport composition: copy + CTAs + capability
+          quick-nav rail (desktop) + industries strip on the dune canvas
+          (TrustedBy renders inside the hero section, not as a standalone
+          band). Rail rows deep-link to the section-01 explorer. */}
+      <HeroHybrid />
 
       {/* 2. ProofStrip - one-line proof band under the hero; links to
           the selected-work anchor (#work on OurWork). Small enough to
