@@ -63,6 +63,7 @@ export function Footer() {
                   alt="Retech Solutions"
                   width={284}
                   height={33}
+                  sizes="(max-width: 768px) 238px, 272px"
                   decoding="async"
                   className="h-7 md:h-8 w-auto opacity-90 group-hover:opacity-100 transition-opacity footer-logo-silhouette"
                 />

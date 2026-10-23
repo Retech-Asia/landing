@@ -8,8 +8,11 @@ const nextConfig: NextConfig = {
   images: {
     // AVIF first = best compression + quality. WebP fallback for older browsers.
     formats: ["image/avif", "image/webp"],
-    deviceSizes: [640, 750, 828, 1080, 1200],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256],
+    // Full desktop ladder: 1440/1920 viewports and DPR-2 screens must get
+    // native-width candidates, never an upscaled 1200 (owner asset-quality
+    // law, 2026-10-23: images match the device screen size).
+    deviceSizes: [640, 750, 828, 1080, 1200, 1600, 1920, 2048, 2560, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512],
     // Allow opting into higher-quality variants per-image (default stays 75).
     // Use <Image quality={90} /> for hero/feature images where visual fidelity
     // matters more than byte size (case study dashboards, hero stock photos).

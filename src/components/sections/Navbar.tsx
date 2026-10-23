@@ -333,6 +333,7 @@ export function Navbar() {
               width={284}
               height={33}
               priority
+              sizes="(max-width: 640px) 238px, (max-width: 768px) 272px, 306px"
               decoding="async"
               className="h-7 sm:h-8 md:h-9 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-[1.03]"
             />
