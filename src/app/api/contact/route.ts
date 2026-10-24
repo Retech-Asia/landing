@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
 import { sendEmail, escapeHtml, isValidEmail } from "@/lib/email";
+import {
+  parseAttribution,
+  attributionEmailHtml,
+} from "@/lib/lead-attribution-server";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -11,6 +15,8 @@ interface ContactPayload {
   company?: unknown;
   service?: unknown;
   message?: unknown;
+  /** Non-PII acquisition context (see lead-attribution.ts). */
+  attribution?: unknown;
   /** Honeypot — bots fill this, humans don't (it's visually hidden). */
   website?: unknown;
 }
@@ -65,6 +71,7 @@ export async function POST(request: Request) {
     typeof payload.service === "string" ? payload.service.trim() : "";
 
   // ---- Compose + send email ----
+  const attribution = parseAttribution(payload.attribution);
   const subject = `New inquiry from ${escapeHtml(name)}${
     company ? ` (${escapeHtml(company)})` : ""
   }${service ? `: ${escapeHtml(service)}` : ""}`;
@@ -81,6 +88,7 @@ export async function POST(request: Request) {
       </table>
       <h3 style="margin: 24px 0 8px 0; font-size: 14px; color: #737373;">Message</h3>
       <div style="padding: 16px; background: #f5f5f4; border-radius: 8px; white-space: pre-wrap; line-height: 1.6;">${escapeHtml(message)}</div>
+      ${attributionEmailHtml(attribution)}
       <p style="margin: 24px 0 0 0; font-size: 12px; color: #a3a3a3;">Sent from the Retech Solutions website contact form.</p>
     </div>
   `;

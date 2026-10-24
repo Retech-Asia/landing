@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/FormField";
 import { cn } from "@/lib/cn";
 import { CONTACT } from "@/lib/constants";
+import { attributionFields, trackGenerateLead } from "@/lib/lead-attribution";
 import { useLocale } from "next-intl";
 
 const SERVICES = [
@@ -659,6 +660,8 @@ export function ContactForm() {
           company: formData.company,
           service: formData.service,
           message: formData.message,
+          // Acquisition context for the inquiry email (no PII in analytics).
+          attribution: attributionFields(),
           // Honeypot — grab the value from the hidden field. Bots fill it.
           website: (document.querySelector('input[name="website"]') as HTMLInputElement)?.value || undefined,
         }),
@@ -672,6 +675,9 @@ export function ContactForm() {
         setTimeout(() => setShakeSubmit(false), 600);
         return;
       }
+      // Confirmed submission → GA4 recommended lead conversion event
+      // (fires only here, never on clicks or failures; no PII in params).
+      trackGenerateLead("contact", formData.service ? { service_interest: formData.service } : undefined);
       setSubmitted(true);
     } catch {
       setSubmitError(t.networkError);

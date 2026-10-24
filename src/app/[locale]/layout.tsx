@@ -12,6 +12,7 @@ import { ClientOnlyWidgets } from "@/components/ui/ClientOnlyWidgets";
 import { DeferredProviders } from "@/components/ui/DeferredProviders";
 import { DeferredPageTransition } from "@/components/ui/DeferredPageTransition";
 import { GA4 } from "@/components/ui/GA4";
+import { Clarity } from "@/components/ui/Clarity";
 import {
   SITE_URL as SITE_URL_CONST,
   SITE_NAME as SITE_NAME_CONST,
@@ -223,6 +224,7 @@ export default async function LocaleLayout({
         />
         <SiteJsonLd locale={locale as Locale} />
         <GA4 />
+        <Clarity />
       </head>
       <body
         id="top"

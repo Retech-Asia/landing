@@ -210,6 +210,13 @@ const sections: {
         },
       },
       {
+        heading: { en: "Microsoft Clarity", vi: "Microsoft Clarity" },
+        text: {
+          en: "We use Microsoft Clarity to understand how visitors use our pages through anonymized heatmaps, scroll maps, and session recordings. Clarity always masks all text and inputs you type into form fields, so no personally identifiable information is captured in recordings. Clarity does not sell this data to third parties or use it for advertising. You can learn more at https://clarity.microsoft.com.",
+          vi: "Chúng tôi sử dụng Microsoft Clarity để hiểu cách khách truy cập sử dụng các trang thông qua bản đồ nhiệt, bản đồ cuộn và bản ghi phiên ẩn danh. Clarity luôn che toàn bộ văn bản và nội dung bạn nhập vào các trường biểu mẫu, nên không có thông tin định danh cá nhân nào được ghi lại trong bản ghi phiên. Clarity không bán dữ liệu này cho bên thứ ba hay dùng cho quảng cáo. Bạn có thể tìm hiểu thêm tại https://clarity.microsoft.com.",
+        },
+      },
+      {
         heading: { en: "Vercel", vi: "Vercel" },
         text: {
           en: "Our website is hosted on Vercel's platform. Vercel may collect server logs containing IP addresses, browser types, and other standard web request data to deliver and optimize the hosting service. Vercel's data processing practices are governed by their own privacy policy available at https://vercel.com/legal/privacy-policy.",

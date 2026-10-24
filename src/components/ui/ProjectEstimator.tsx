@@ -25,6 +25,11 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useLocale } from "next-intl";
+import {
+  attributionFields,
+  trackGenerateLead,
+} from "@/lib/lead-attribution";
+import { trackEvent } from "@/lib/analytics";
 // CONTACT import removed — no longer needed since mailto was replaced with API POST
 
 // ---------------------------------------------------------------------------
@@ -574,6 +579,8 @@ export function ProjectEstimator() {
           teamSizeDescription: tsLabel ? optionText(tsLabel, TEAM_SIZE_VI).description : undefined,
           estimateLabel: estimate?.label,
           estimateRange: estimate?.range,
+          // Acquisition context for the inquiry email (no PII in analytics).
+          attribution: attributionFields(),
         }),
       });
       const data = await response.json();
@@ -583,6 +590,8 @@ export function ProjectEstimator() {
         );
         return;
       }
+      // Confirmed submission → GA4 recommended lead conversion event.
+      trackGenerateLead("estimate", selections.projectType ? { project_type: selections.projectType } : undefined);
       setSubmitted(true);
     } catch {
       setSubmitError(t.errNetwork);
@@ -598,6 +607,8 @@ export function ProjectEstimator() {
       if (step === 0) setSelections((prev) => ({ ...prev, projectType: value as ProjectType }));
       if (step === 1) setSelections((prev) => ({ ...prev, scope: value as Scope }));
       if (step === 2) setSelections((prev) => ({ ...prev, teamSize: value as TeamSize }));
+      // Wizard progression (option ids only, no PII).
+      trackEvent("estimate_step", { step: String(step + 1), option: value });
       setDirection(1);
       setCurrentStep(step + 1);
     },

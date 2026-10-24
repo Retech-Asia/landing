@@ -1,6 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useEffect } from "react";
+import { captureAttribution } from "@/lib/lead-attribution";
 
 /**
  * Deferred providers: heavy client components that are not needed for initial paint.
@@ -44,6 +46,13 @@ const MobileStickyCTA = dynamic(
 );
 
 export function DeferredProviders() {
+  // First-touch/last-touch acquisition capture (utm, referrer channel —
+  // including AI assistants — landing page). Consent-aware persistence
+  // lives inside captureAttribution.
+  useEffect(() => {
+    captureAttribution();
+  }, []);
+
   return (
     <>
       <WebVitals />

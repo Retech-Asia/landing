@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
 import { sendEmail, escapeHtml, isValidEmail } from "@/lib/email";
+import {
+  parseAttribution,
+  attributionEmailHtml,
+} from "@/lib/lead-attribution-server";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -20,6 +24,8 @@ interface EstimatePayload {
   estimateLabel?: unknown;
   estimateRange?: unknown;
   notes?: unknown;
+  /** Non-PII acquisition context (see lead-attribution.ts). */
+  attribution?: unknown;
   /** Honeypot — bots fill this, humans don't. */
   website?: unknown;
 }
@@ -86,6 +92,7 @@ export async function POST(request: Request) {
   const notes = typeof payload.notes === "string" ? payload.notes.trim() : "";
 
   // ---- Compose + send email ----
+  const attribution = parseAttribution(payload.attribution);
   const subject = `Detailed quote request from ${escapeHtml(name)}${
     projectTypeLabel ? `: ${escapeHtml(projectTypeLabel)}` : ""
   }`;
@@ -113,6 +120,7 @@ export async function POST(request: Request) {
           ? `<h3 style="margin: 24px 0 8px 0; font-size: 14px; color: #737373;">Notes</h3><div style="padding: 16px; background: #f5f5f4; border-radius: 8px; white-space: pre-wrap; line-height: 1.6;">${escapeHtml(notes)}</div>`
           : ""
       }
+      ${attributionEmailHtml(attribution)}
 
       <p style="margin: 24px 0 0 0; font-size: 12px; color: #a3a3a3;">Sent from the project estimator on the Retech Solutions website.</p>
     </div>

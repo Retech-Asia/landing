@@ -64,34 +64,53 @@ const nextConfig: NextConfig = {
           },
           {
             key: "Content-Security-Policy",
-            value: [
-              "default-src 'self'",
-              // When NEXT_PUBLIC_GA_MEASUREMENT_ID is set, allow Google's
-              // gtag.js loader + GA4 collection endpoints. Otherwise the
-              // policy stays stricter (no third-party script origins).
-              ...(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
-                ? [
-                    // GA4 uses multiple Google domains. Per Google's docs:
-                    // - googletagmanager.com hosts the gtag.js loader
-                    // - google-analytics.com + analytics.google.com receive events
-                    // - www.google.com/g/collect is a fallback collect endpoint
-                    // - www.google.<tld>/ads/ga-audiences is the Google Signals
-                    //   pixel (region-specific TLD, e.g. google.com.vn for VN)
-                    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://www.googletagmanager.com",
-                    "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://*.google.com https://*.googletagmanager.com",
-                    "img-src 'self' data: blob: https://*.google.com https://www.google.com.vn https://*.google-analytics.com https://*.googletagmanager.com",
-                  ]
-                : [
-                    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com",
-                    "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com",
-                    "img-src 'self' data: blob:",
-                  ]),
-              "frame-ancestors 'none'",
-              "base-uri 'self'",
-              "form-action 'self' mailto:",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "font-src 'self' https://fonts.gstatic.com",
-            ].join("; "),
+            // Directives are composed from the analytics providers that are
+            // actually configured (duplicate directives are ignored by
+            // browsers, so each directive must be built once).
+            value: (() => {
+              const scriptSrc = ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://va.vercel-scripts.com"];
+              const connectSrc = ["'self'", "https://va.vercel-scripts.com", "https://vitals.vercel-insights.com"];
+              const imgSrc = ["'self'", "data:", "blob:"];
+              if (process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID) {
+                // GA4: googletagmanager.com hosts gtag.js;
+                // google-analytics.com + analytics.google.com receive events;
+                // www.google.com/g/collect is a fallback collect endpoint;
+                // www.google.<tld>/ads/ga-audiences is the Google Signals pixel.
+                scriptSrc.push("https://www.googletagmanager.com");
+                connectSrc.push(
+                  "https://*.google-analytics.com",
+                  "https://analytics.google.com",
+                  "https://*.analytics.google.com",
+                  "https://www.google.com",
+                  "https://*.google.com",
+                  "https://*.googletagmanager.com",
+                );
+                imgSrc.push(
+                  "https://*.google.com",
+                  "https://www.google.com.vn",
+                  "https://*.google-analytics.com",
+                  "https://*.googletagmanager.com",
+                );
+              }
+              if (process.env.NEXT_PUBLIC_CLARITY_ID) {
+                // Microsoft Clarity: tag loader on www.clarity.ms,
+                // beacons on *.clarity.ms.
+                scriptSrc.push("https://www.clarity.ms");
+                connectSrc.push("https://www.clarity.ms", "https://*.clarity.ms");
+                imgSrc.push("https://*.clarity.ms");
+              }
+              return [
+                "default-src 'self'",
+                `script-src ${scriptSrc.join(" ")}`,
+                `connect-src ${connectSrc.join(" ")}`,
+                `img-src ${imgSrc.join(" ")}`,
+                "frame-ancestors 'none'",
+                "base-uri 'self'",
+                "form-action 'self' mailto:",
+                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+                "font-src 'self' https://fonts.gstatic.com",
+              ].join("; ");
+            })(),
           },
         ],
       },
