@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, ArrowLeft, Mail, CheckCircle2, Quote } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { GlassIcon } from "@/components/ui/GlassIcon";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
 import { Button } from "@/components/ui/Button";
@@ -622,13 +623,11 @@ export default async function ServiceDetailPage({
           </AnimatedSection>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {service.features.map((feature, i) => {
-              const FeatureIcon = feature.icon;
-              const colorClass = i % 3 === 0 ? "text-brand" : i % 3 === 1 ? "text-accent-cyan" : "text-accent-violet";
+            {service.features.map((feature) => {
               return (
                 <StaggerItem key={feature.title}>
                   <div className="rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] h-full transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
-                    <FeatureIcon size={20} className={`${colorClass} mb-4`} />
+                    <GlassIcon name={feature.glass} size="sm" className="mb-4" />
                     <h3 className="text-base font-semibold text-foreground mb-2">
                       {feature.title}
                     </h3>
@@ -1164,20 +1163,17 @@ export default async function ServiceDetailPage({
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {otherServices.map((related) => {
-              const RelatedIcon = related.icon;
               return (
                 <StaggerItem key={related.slug}>
                   <Link
                     href={`/services/${related.slug}`}
-                    className="group block h-full"
+                    className="group block h-full rg-glass-control"
                   >
                     <div className="relative h-full rounded-2xl bg-card-bg border border-card-border overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                       {/* Top gradient accent bar matching service color */}
                       <div className={`h-1 bg-gradient-to-r ${related.heroAccent}`} aria-hidden="true" />
                       <div className="p-6 md:p-8">
-                        <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-brand/10 mb-5">
-                          <RelatedIcon size={20} className="text-brand" />
-                        </div>
+                        <GlassIcon name={related.glass} size="sm" className="mb-5" />
 
                         <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-brand transition-colors">
                           {related.title}
@@ -1213,12 +1209,7 @@ export default async function ServiceDetailPage({
                 className="group flex flex-col sm:flex-row items-center justify-between gap-6 max-w-4xl mx-auto rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
               >
                 <div className="flex items-center gap-4 text-center sm:text-left">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-brand/10 shrink-0">
-                    {(() => {
-                      const NextIcon = nextService.icon;
-                      return <NextIcon size={24} className="text-brand" />;
-                    })()}
-                  </div>
+                  <GlassIcon name={nextService.glass} size="sm" className="shrink-0" />
                   <div>
                     <p className="text-xs font-medium uppercase tracking-wider text-foreground-muted mb-1">
                       {t("next.label")}

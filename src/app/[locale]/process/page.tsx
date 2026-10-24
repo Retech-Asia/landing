@@ -3,14 +3,8 @@ import Image from "next/image";
 import {
   ArrowRight,
   CheckCircle2,
-  FolderKanban,
-  MessageSquare,
-  GitBranch,
-  Paintbrush,
-  Box,
-  TestTube2,
-  Brain,
 } from "lucide-react";
+import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
 import { Container as ContainerUI } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
@@ -171,40 +165,40 @@ const groups = [
   },
 ];
 
-const toolCategories = [
+const toolCategories: { name: { en: string; vi: string }; glass: GlassIconName; tools: string[] }[] = [
   {
     name: { en: "Project Management", vi: "Quản lý Dự án" },
-    icon: FolderKanban,
+    glass: "build",
     tools: ["Jira", "Linear", "Notion"],
   },
   {
     name: { en: "Communication", vi: "Giao tiếp" },
-    icon: MessageSquare,
+    glass: "partnership",
     tools: ["Slack", "Zoom", "Google Meet"],
   },
   {
     name: { en: "Development", vi: "Phát triển" },
-    icon: GitBranch,
+    glass: "backend",
     tools: ["GitHub", "VS Code", "Cursor"],
   },
   {
     name: { en: "AI Engineering", vi: "AI Engineering" },
-    icon: Brain,
+    glass: "ai-ml",
     tools: ["LangChain", "pgvector", "OpenAI", "Anthropic", "Cursor"],
   },
   {
     name: { en: "Design", vi: "Thiết kế" },
-    icon: Paintbrush,
+    glass: "design",
     tools: ["Figma", "FigJam"],
   },
   {
     name: { en: "DevOps", vi: "DevOps" },
-    icon: Box,
+    glass: "devops",
     tools: ["Docker", "AWS", "Vercel"],
   },
   {
     name: { en: "Testing", vi: "Kiểm thử" },
-    icon: TestTube2,
+    glass: "test",
     tools: ["Jest", "Playwright", "Cypress"],
   },
 ];
@@ -405,14 +399,11 @@ export default async function ProcessPage({
 
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
             {toolCategories.map((category) => {
-              const CategoryIcon = category.icon;
               return (
                 <StaggerItem key={category.name.en}>
                   <div className="rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] h-full">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-brand/10">
-                        <CategoryIcon size={20} className="text-brand" />
-                      </div>
+                      <GlassIcon name={category.glass} size="sm" />
                       <h3 className="text-base font-semibold text-foreground">
                         {category.name[lang]}
                       </h3>

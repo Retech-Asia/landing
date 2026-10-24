@@ -1,22 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import {
-  Clock,
-  DollarSign,
-  GraduationCap,
-  Globe,
   ArrowRight,
   Mail,
-  Heart,
   Users,
-  Sparkles,
-  Laptop,
-  Shield,
   FileText,
   MessageCircle,
   Code2,
   Handshake,
 } from "lucide-react";
+import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card } from "@/components/ui/Card";
@@ -110,39 +103,33 @@ function getChrome(locale: string) {
 /*  Benefits data                                                      */
 /* ------------------------------------------------------------------ */
 
-const benefits = [
+const benefits: { glass: GlassIconName; title: L; description: { en: string; vi: string } }[] = [
   {
-    icon: DollarSign,
+    glass: "finance",
     title: { en: "Competitive Salary", vi: "Lương Cạnh tranh" } as L,
     description: {
       en: "Market-leading compensation with performance-based bonuses and regular salary reviews.",
       vi: "Mức lương cạnh tranh theo thị trường, kèm thưởng theo hiệu suất và xét lương định kỳ.",
     },
-    color: "text-brand",
-    bg: "bg-brand/10",
   },
   {
-    icon: Shield,
+    glass: "security",
     title: { en: "Health Insurance", vi: "Bảo hiểm Y tế" } as L,
     description: {
       en: "Comprehensive health coverage and wellness allowance to keep you and your family protected.",
       vi: "Quyền lợi bảo hiểm sức khỏe toàn diện và phụ cấp chăm sóc sức khỏe để bảo vệ bạn và gia đình.",
     },
-    color: "text-accent-cyan",
-    bg: "bg-accent-cyan/10",
   },
   {
-    icon: Clock,
+    glass: "launch",
     title: { en: "Flexible Hours", vi: "Giờ làm việc Linh hoạt" } as L,
     description: {
       en: "Hybrid work model with flexible schedules so you can do your best work when it suits you.",
       vi: "Mô hình làm việc hybrid với lịch trình linh hoạt để bạn làm việc hiệu quả vào thời điểm phù hợp.",
     },
-    color: "text-accent-violet",
-    bg: "bg-accent-violet/10",
   },
   {
-    icon: GraduationCap,
+    glass: "education",
     title: {
       en: "Professional Development",
       vi: "Phát triển Chuyên môn",
@@ -151,28 +138,22 @@ const benefits = [
       en: "Annual learning budget for courses, certifications, and conferences plus internal tech talks.",
       vi: "Ngân sách học tập hàng năm cho khóa học, chứng chỉ, hội thảo cùng các buổi chia sẻ công nghệ nội bộ.",
     },
-    color: "text-brand",
-    bg: "bg-brand/10",
   },
   {
-    icon: Laptop,
+    glass: "desktop",
     title: { en: "Modern Tech Stack", vi: "Tech Stack Hiện đại" } as L,
     description: {
       en: "Work with React, Next.js, Node.js, TypeScript, and cloud-native architectures.",
       vi: "Làm việc với React, Next.js, Node.js, TypeScript và các kiến trúc cloud-native.",
     },
-    color: "text-accent-cyan",
-    bg: "bg-accent-cyan/10",
   },
   {
-    icon: Globe,
+    glass: "global",
     title: { en: "International Projects", vi: "Dự án Quốc tế" } as L,
     description: {
       en: "Collaborate with clients across Asia, Australia, Europe, and North America.",
       vi: "Hợp tác với khách hàng trên khắp Châu Á, Úc, Châu Âu và Bắc Mỹ.",
     },
-    color: "text-accent-violet",
-    bg: "bg-accent-violet/10",
   },
 ];
 
@@ -180,46 +161,38 @@ const benefits = [
 /*  "Why Retech" culture highlights                                     */
 /* ------------------------------------------------------------------ */
 
-const cultureHighlights = [
+const cultureHighlights: { glass: GlassIconName; title: L; description: { en: string; vi: string } }[] = [
   {
-    icon: Users,
+    glass: "partnership",
     title: { en: "Collaborative Culture", vi: "Văn hóa Cộng tác" } as L,
     description: {
       en: "Flat hierarchy where every voice matters. We make decisions together and celebrate wins as a team.",
       vi: "Cơ cấu phẳng nơi mọi ý kiến đều được lắng nghe. Chúng tôi cùng nhau ra quyết định và cùng nhau ghi nhận thành công.",
     },
-    color: "text-brand",
-    bg: "bg-brand/10",
   },
   {
-    icon: Sparkles,
+    glass: "growth",
     title: { en: "Innovation First", vi: "Ưu tiên Đổi mới" } as L,
     description: {
       en: "We experiment with modern technologies and encourage creative problem-solving in everything we build.",
       vi: "Chúng tôi thử nghiệm các công nghệ hiện đại và khuyến khích tư duy sáng tạo trong mọi sản phẩm chúng tôi xây dựng.",
     },
-    color: "text-accent-cyan",
-    bg: "bg-accent-cyan/10",
   },
   {
-    icon: Heart,
+    glass: "sustainability",
     title: { en: "Work-Life Balance", vi: "Cân bằng Công việc & Cuộc sống" } as L,
     description: {
       en: "Sustainable pace, not burnout. We respect your time off and invest in an environment where you can thrive long-term.",
       vi: "Nhịp độ bền vững, không kiệt sức. Chúng tôi tôn trọng thời gian nghỉ ngơi của bạn và đầu tư vào môi trường để bạn phát triển lâu dài.",
     },
-    color: "text-accent-violet",
-    bg: "bg-accent-violet/10",
   },
   {
-    icon: Globe,
+    glass: "global",
     title: { en: "Global Impact", vi: "Tác động Toàn cầu" } as L,
     description: {
       en: "Your code ships to users worldwide. From startups to enterprises, the products you build make a real difference.",
       vi: "Code của bạn đến với người dùng trên toàn thế giới. Từ startup đến doanh nghiệp lớn, sản phẩm bạn xây dựng tạo ra giá trị thực.",
     },
-    color: "text-brand",
-    bg: "bg-brand/10",
   },
 ];
 
@@ -353,15 +326,10 @@ export default async function CareersPage({
 
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {cultureHighlights.map((item) => {
-              const Icon = item.icon;
               return (
                 <StaggerItem key={item.title.en}>
-                  <Card padding="lg" className="h-full text-center">
-                    <div
-                      className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${item.bg} mb-4`}
-                    >
-                      <Icon size={22} className={item.color} />
-                    </div>
+                  <Card padding="lg" className="h-full text-center rg-glass-control">
+                    <GlassIcon name={item.glass} size="sm" className="mb-4 mx-auto" />
                     <h3 className="text-base font-semibold text-foreground mb-2">
                       {item.title[lang]}
                     </h3>
@@ -412,16 +380,11 @@ export default async function CareersPage({
 
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((benefit) => {
-              const Icon = benefit.icon;
               return (
                 <StaggerItem key={benefit.title.en}>
-                  <Card padding="lg" className="h-full">
+                  <Card padding="lg" className="h-full rg-glass-control">
                     <div className="flex items-start gap-4">
-                      <div
-                        className={`inline-flex items-center justify-center w-11 h-11 rounded-xl ${benefit.bg} shrink-0`}
-                      >
-                        <Icon size={20} className={benefit.color} />
-                      </div>
+                      <GlassIcon name={benefit.glass} size="sm" className="shrink-0" />
                       <div>
                         <h3 className="text-base font-semibold text-foreground mb-1">
                           {benefit.title[lang]}

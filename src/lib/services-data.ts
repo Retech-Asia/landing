@@ -25,6 +25,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import type { Locale } from "@/i18n/routing";
+import type { GlassIconName } from "@/components/ui/GlassIcon";
 
 /**
  * Localized string — every user-facing field on a service carries both
@@ -37,7 +38,10 @@ import type { Locale } from "@/i18n/routing";
 export type L = { en: string; vi: string };
 
 export interface ServiceFeature {
+  /** Compact lucide marker for small inline contexts (16–20px lists). */
   icon: LucideIcon;
+  /** ReTech Glass kit pictogram for prominent card/hero contexts. */
+  glass: GlassIconName;
   title: L;
   description: L;
 }
@@ -72,7 +76,10 @@ export interface ServiceData {
   subtitle: L;
   description: L;
   longDescription: L;
+  /** Compact lucide marker for small inline contexts (nav chips, 16px lists). */
   icon: LucideIcon;
+  /** ReTech Glass kit pictogram for hero/card contexts. */
+  glass: GlassIconName;
   gradient: string;
   /** Gradient CSS class for the hero accent bar (e.g. "from-brand to-accent-cyan") */
   heroAccent: string;
@@ -104,12 +111,14 @@ export const services: ServiceData[] = [
       vi: "Chúng tôi xây dựng các website tùy chỉnh dựa trên giải pháp CMS mạnh mẽ, giúp doanh nghiệp quản lý và xuất bản nội dung hiệu quả trên nhiều nền tảng một cách dễ dàng và linh hoạt. Các tính năng AI tích hợp giúp tinh gọn tổ chức nội dung, giảm thiểu sai sót con người và nâng cao khả năng bảo trì dài hạn.",
     },
     icon: Layout,
+    glass: "database",
     gradient: "from-brand/10 to-accent-cyan/10",
     heroAccent: "from-brand to-accent-cyan",
     heroColor: "brand",
     features: [
       {
         icon: Layout,
+        glass: "design",
         title: { en: "Custom Themes", vi: "Giao diện Tùy chỉnh" },
         description: {
           en: "Bespoke designs tailored to your brand identity and user expectations.",
@@ -118,6 +127,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: ShieldCheck,
+        glass: "security",
         title: { en: "Security Hardening", vi: "Tăng cường Bảo mật" },
         description: {
           en: "Enterprise-grade security with regular updates and vulnerability scanning.",
@@ -126,6 +136,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Search,
+        glass: "growth",
         title: { en: "SEO Optimization", vi: "Tối ưu SEO" },
         description: {
           en: "Built-in SEO best practices for maximum search engine visibility.",
@@ -134,6 +145,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Smartphone,
+        glass: "mobile",
         title: { en: "Responsive Design", vi: "Thiết kế Responsive" },
         description: {
           en: "Pixel-perfect layouts across all devices and screen sizes.",
@@ -142,6 +154,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Workflow,
+        glass: "devops",
         title: { en: "Content Workflows", vi: "Quy trình Nội dung" },
         description: {
           en: "Custom editorial workflows with role-based permissions and approval chains.",
@@ -150,6 +163,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Headphones,
+        glass: "support",
         title: { en: "Ongoing Support", vi: "Hỗ trợ Liên tục" },
         description: {
           en: "Dedicated maintenance and support to keep your CMS running smoothly.",
@@ -312,12 +326,14 @@ export const services: ServiceData[] = [
       vi: "Chúng tôi phát triển các website tùy chỉnh tích hợp với hệ thống CRM, được thiết kế để tăng tương tác khách hàng, cải thiện giao tiếp và tinh gọn quy trình quan hệ khách hàng. Với hỗ trợ AI, giải pháp của chúng tôi cho phép tự động hóa thông minh, insight dự đoán và ít sai sót vận hành hơn, giúp hệ thống của bạn dễ quản lý và mở rộng.",
     },
     icon: Users,
+    glass: "crm",
     gradient: "from-accent-cyan/10 to-accent-violet/10",
     heroAccent: "from-accent-cyan to-brand",
     heroColor: "accent-cyan",
     features: [
       {
         icon: Users,
+        glass: "crm",
         title: { en: "Contact Management", vi: "Quản lý Liên hệ" },
         description: {
           en: "360-degree customer profiles with interaction history and insights.",
@@ -326,6 +342,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: BarChart,
+        glass: "growth",
         title: { en: "Sales Pipeline", vi: "Pipeline Bán hàng" },
         description: {
           en: "Visual pipeline management with forecasting and automation.",
@@ -334,6 +351,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Headphones,
+        glass: "support",
         title: { en: "Support Integration", vi: "Tích hợp Hỗ trợ" },
         description: {
           en: "Unified support ticketing with customer context and SLA tracking.",
@@ -342,6 +360,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Workflow,
+        glass: "devops",
         title: { en: "Workflow Automation", vi: "Tự động hóa Quy trình" },
         description: {
           en: "Automated lead nurturing, follow-ups, and task assignments.",
@@ -350,6 +369,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: BarChart3,
+        glass: "analytics",
         title: { en: "Analytics Dashboard", vi: "Dashboard Phân tích" },
         description: {
           en: "Real-time reporting on sales performance and customer behavior.",
@@ -358,6 +378,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: ShieldCheck,
+        glass: "security",
         title: { en: "Data Security", vi: "Bảo mật Dữ liệu" },
         description: {
           en: "Role-based access, encryption, and compliance-ready data handling.",
@@ -513,12 +534,14 @@ export const services: ServiceData[] = [
       vi: "Chúng tôi tạo các giải pháp web tích hợp dựa trên hệ thống ERP, kết nối các phòng ban, tối ưu vận hành và cung cấp truy cập dữ liệu thời gian thực cho ra quyết định sáng suốt và tăng trưởng bền vững. Phân tích dẫn dắt AI và tự động hóa quy trình giảm nỗ lực thủ công, tối thiểu sai sót và đảm bảo độ tin cậy hệ thống tốt hơn cùng khả năng bảo trì theo thời gian.",
     },
     icon: BarChart3,
+    glass: "analytics",
     gradient: "from-accent-violet/10 to-brand/10",
     heroAccent: "from-accent-violet to-brand",
     heroColor: "accent-violet",
     features: [
       {
         icon: BarChart3,
+        glass: "analytics",
         title: { en: "Real-Time Dashboards", vi: "Dashboard Thời gian thực" },
         description: {
           en: "Live operational dashboards with customizable KPIs and alerts.",
@@ -527,6 +550,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Workflow,
+        glass: "devops",
         title: { en: "Process Automation", vi: "Tự động hóa Quy trình" },
         description: {
           en: "Automated workflows across departments for efficiency and accuracy.",
@@ -535,6 +559,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: ShieldCheck,
+        glass: "database",
         title: { en: "Data Governance", vi: "Quản trị Dữ liệu" },
         description: {
           en: "Centralized data management with audit trails and compliance.",
@@ -543,6 +568,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Users,
+        glass: "scalability",
         title: { en: "Multi-Department", vi: "Đa Phòng ban" },
         description: {
           en: "Unified platform connecting finance, HR, operations, and more.",
@@ -551,6 +577,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Globe,
+        glass: "cloud",
         title: { en: "Cloud Deployment", vi: "Triển khai Cloud" },
         description: {
           en: "Scalable cloud infrastructure with high availability and DR.",
@@ -559,6 +586,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Smartphone,
+        glass: "mobile",
         title: { en: "Mobile Access", vi: "Truy cập Mobile" },
         description: {
           en: "Full ERP functionality on mobile devices for on-the-go management.",
@@ -721,12 +749,14 @@ export const services: ServiceData[] = [
       vi: "Chúng tôi xây dựng các ứng dụng web hiệu suất cao sử dụng công nghệ và framework hiện đại. Từ ứng dụng single-page đến nền tảng doanh nghiệp phức tạp, đội phát triển của chúng tôi bàn giao các giải pháp khả mở, an toàn và dễ bảo trì thúc đẩy tăng trưởng kinh doanh. Mọi dự án đều tuân theo thực hành tốt nhất hiện đại bao gồm thiết kế responsive, kiến trúc API-first và kiểm thử toàn diện.",
     },
     icon: Globe,
+    glass: "frontend",
     gradient: "from-brand/10 to-accent-violet/10",
     heroAccent: "from-brand to-accent-violet",
     heroColor: "brand",
     features: [
       {
         icon: Globe,
+        glass: "backend",
         title: { en: "Full-Stack Development", vi: "Phát triển Full-Stack" },
         description: {
           en: "Frontend and backend development with React, Next.js, Node.js, and more.",
@@ -735,6 +765,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Smartphone,
+        glass: "mobile",
         title: { en: "Progressive Web Apps", vi: "Progressive Web Apps" },
         description: {
           en: "App-like web experiences with offline support and push notifications.",
@@ -743,6 +774,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Search,
+        glass: "growth",
         title: { en: "SEO-Friendly Architecture", vi: "Kiến trúc Thân thiện SEO" },
         description: {
           en: "Server-side rendering, semantic HTML, and optimized performance.",
@@ -751,6 +783,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: ShieldCheck,
+        glass: "security",
         title: { en: "Security First", vi: "Bảo mật Lên đầu" },
         description: {
           en: "OWASP-compliant development with authentication and encryption.",
@@ -759,6 +792,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: BarChart3,
+        glass: "performance",
         title: { en: "Performance Optimization", vi: "Tối ưu Hiệu suất" },
         description: {
           en: "Core Web Vitals optimization, CDN setup, and caching strategies.",
@@ -767,6 +801,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Workflow,
+        glass: "cloud",
         title: { en: "API Development", vi: "Phát triển API" },
         description: {
           en: "RESTful and GraphQL APIs with documentation and versioning.",
@@ -922,12 +957,14 @@ export const services: ServiceData[] = [
       vi: "Quy trình thiết kế UI/UX của chúng tôi dựa trên nghiên cứu người dùng, quyết định dẫn dắt dữ liệu và kiểm thử lặp lại. Chúng tôi tạo các giao diện không chỉ đẹp mà còn chức năng, thúc đẩy cải thiện đo lường được trong tương tác, chuyển đổi và sự hài lòng của người dùng. Từ wireframe đến prototype high-fidelity, mọi quyết định thiết kế đều có chủ đích và được validate.",
     },
     icon: Palette,
+    glass: "design",
     gradient: "from-accent-cyan/10 to-brand/10",
     heroAccent: "from-accent-cyan to-accent-violet",
     heroColor: "accent-cyan",
     features: [
       {
         icon: Search,
+        glass: "discover",
         title: { en: "User Research", vi: "Nghiên cứu Người dùng" },
         description: {
           en: "Interviews, surveys, and analytics to understand your users deeply.",
@@ -936,6 +973,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Workflow,
+        glass: "design",
         title: { en: "Wireframing", vi: "Wireframing" },
         description: {
           en: "Low and high-fidelity wireframes to validate structure and flow.",
@@ -944,6 +982,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Palette,
+        glass: "frontend",
         title: { en: "Visual Design", vi: "Thiết kế Thị giác" },
         description: {
           en: "Pixel-perfect designs with your brand identity and design system.",
@@ -952,6 +991,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Smartphone,
+        glass: "build",
         title: { en: "Interactive Prototypes", vi: "Prototype Tương tác" },
         description: {
           en: "Clickable prototypes for stakeholder review and user testing.",
@@ -960,6 +1000,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: BarChart3,
+        glass: "test",
         title: { en: "Usability Testing", vi: "Kiểm thử Khả năng Sử dụng" },
         description: {
           en: "Real-user testing sessions to validate and refine designs.",
@@ -968,6 +1009,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Users,
+        glass: "quality",
         title: { en: "Design Systems", vi: "Design Systems" },
         description: {
           en: "Scalable component libraries for consistent, efficient development.",
@@ -1123,12 +1165,14 @@ export const services: ServiceData[] = [
       vi: "Mô hình đội chuyên trách của chúng tôi cho phép bạn truy cập developer senior được sàng lọc trước, designer và project manager làm việc độc quyền cho dự án của bạn. Chúng tôi xử lý tuyển dụng, HR, hạ tầng và quản lý đội ngũ trong khi bạn giữ toàn quyền kiểm soát kỹ thuật. Mở rộng hoặc thu hẹp theo nhu cầu với overhead tối thiểu và tính linh hoạt tối đa.",
     },
     icon: UsersRound,
+    glass: "partnership",
     gradient: "from-accent-violet/10 to-accent-cyan/10",
     heroAccent: "from-accent-violet to-accent-cyan",
     heroColor: "accent-violet",
     features: [
       {
         icon: UsersRound,
+        glass: "partnership",
         title: { en: "Pre-Vetted Talent", vi: "Nhân sự Đã sàng lọc" },
         description: {
           en: "Senior engineers selected through rigorous technical assessments.",
@@ -1137,6 +1181,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Headphones,
+        glass: "support",
         title: { en: "Fully Managed", vi: "Được Quản lý Toàn diện" },
         description: {
           en: "HR, payroll, equipment, and infrastructure all handled by us.",
@@ -1145,6 +1190,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Workflow,
+        glass: "build",
         title: { en: "Agile Processes", vi: "Quy trình Agile" },
         description: {
           en: "Scrum/Kanban workflows with daily standups and sprint planning.",
@@ -1153,6 +1199,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: ShieldCheck,
+        glass: "security",
         title: { en: "IP Protection", vi: "Bảo vệ IP" },
         description: {
           en: "NDAs, secure infrastructure, and compliance with your policies.",
@@ -1161,6 +1208,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: BarChart3,
+        glass: "transparency",
         title: { en: "Transparent Reporting", vi: "Báo cáo Minh bạch" },
         description: {
           en: "Weekly reports, time tracking, and performance metrics.",
@@ -1169,6 +1217,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Globe,
+        glass: "global",
         title: { en: "Timezone Friendly", vi: "Thân thiện Múi giờ" },
         description: {
           en: "Overlap hours with AU, EU, and US timezones for collaboration.",
@@ -1331,12 +1380,14 @@ export const services: ServiceData[] = [
       vi: "Ứng dụng mobile sống nhờ chi tiết: thời gian khởi động, hành vi offline và cảm giác cầm trên một tay. Chúng tôi xây dựng với React Native và Flutter làm nền tảng cross-platform, để một đội bàn giao cả iOS và Android, và bổ sung native module khi tính năng cần khả năng phần cứng mà framework không bao phủ. Lớp dữ liệu được thiết kế offline first và đồng bộ khi mạng trở lại, push notification cùng deep link được nối từ build đầu tiên, và việc submit App Store cùng Google Play được xử lý trọn gói. Kết quả là một codebase để bảo trì và một đội từ thiết kế đến ra mắt.",
     },
     icon: Smartphone,
+    glass: "mobile",
     gradient: "from-brand/10 to-accent-cyan/10",
     heroAccent: "from-brand to-accent-cyan",
     heroColor: "brand",
     features: [
       {
         icon: Smartphone,
+        glass: "build",
         title: { en: "Cross-Platform Builds", vi: "Build Cross-platform" },
         description: {
           en: "One React Native or Flutter codebase, shipped to both the App Store and Google Play.",
@@ -1345,6 +1396,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Layers,
+        glass: "performance",
         title: { en: "Native Capability Where Needed", vi: "Native Capability ở nơi Cần" },
         description: {
           en: "Native modules where the hardware demands it: camera, sensors, and platform-specific features.",
@@ -1353,6 +1405,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: WifiOff,
+        glass: "database",
         title: { en: "Offline-First Data", vi: "Dữ liệu Offline First" },
         description: {
           en: "Local data layers that keep the app working without a connection and sync when the network returns.",
@@ -1361,6 +1414,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Bell,
+        glass: "launch",
         title: { en: "Push and Deep Linking", vi: "Push và Deep Linking" },
         description: {
           en: "Notifications and deep links wired from the first build, so campaigns and shared links land in the right screen.",
@@ -1369,6 +1423,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Rocket,
+        glass: "quality",
         title: { en: "Store Submission and Release Management", vi: "Submit Store và Quản lý Phát hành" },
         description: {
           en: "App Store and Google Play submission, review responses, and staged rollouts handled end to end.",
@@ -1377,6 +1432,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: BarChart3,
+        glass: "analytics",
         title: { en: "Analytics and Crash Reporting", vi: "Analytics và Crash Reporting" },
         description: {
           en: "Usage analytics and crash reporting wired from day one, so the first release is already measurable.",
@@ -1527,12 +1583,14 @@ export const services: ServiceData[] = [
       vi: "Một số công việc không vừa một tab trình duyệt: phần cứng quét, file dung lượng lớn, xưởng và hiện trường không có kết nối ổn định. Chúng tôi xây dựng sản phẩm desktop cho các công việc đó bằng cách đóng gói stack cấp web (TypeScript, Node.js, React) thành ứng dụng cài đặt, tích hợp phần cứng và thiết bị ngoại vi cục bộ, và thiết kế cho vận hành offline first. Khi hợp lý, ứng dụng desktop dùng chung code với sản phẩm web của bạn, để một đội có thể bảo trì cả hai. Phân phối và cập nhật chạy qua kênh auto-update được ký số, để bản sửa đến mọi workstation mà IT không phải đi từng bàn.",
     },
     icon: Monitor,
+    glass: "desktop",
     gradient: "from-accent-cyan/10 to-accent-violet/10",
     heroAccent: "from-accent-cyan to-accent-violet",
     heroColor: "accent-cyan",
     features: [
       {
         icon: Monitor,
+        glass: "backend",
         title: { en: "Local Hardware and Peripherals", vi: "Phần cứng và Thiết bị Ngoại vi Cục bộ" },
         description: {
           en: "Integration with scanners, printers, and other devices your operation runs on, talked to directly from the app.",
@@ -1541,6 +1599,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: WifiOff,
+        glass: "database",
         title: { en: "Offline-First Operation", vi: "Vận hành Offline First" },
         description: {
           en: "The app keeps working when the network drops and reconciles data when it returns.",
@@ -1549,6 +1608,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: HardDrive,
+        glass: "performance",
         title: { en: "Large-File Performance", vi: "Hiệu suất File Lớn" },
         description: {
           en: "Local processing for files too large or too sensitive to push through a browser round trip.",
@@ -1557,6 +1617,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: RefreshCw,
+        glass: "cloud",
         title: { en: "Auto-Update Distribution", vi: "Phân phối Auto-Update" },
         description: {
           en: "Signed updates delivered to every workstation through a managed channel, with rollback available.",
@@ -1565,6 +1626,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Workflow,
+        glass: "sustainability",
         title: { en: "Shared Codebase with Web", vi: "Codebase Chung với Web" },
         description: {
           en: "Where it makes sense, the desktop app shares code with your web product, so one team maintains both.",
@@ -1707,12 +1769,14 @@ export const services: ServiceData[] = [
       vi: "Hai câu hỏi quyết định cách chúng tôi làm việc với AI. Thứ nhất, cách chúng tôi xây dựng: kỹ sư của chúng tôi dùng công cụ AI hằng ngày, và mọi dòng code phát hành đều được kỹ sư review và chịu trách nhiệm, để tốc độ không bao giờ thay thế trách nhiệm. Thứ hai, AI bên trong sản phẩm của bạn: chúng tôi chỉ bổ sung khi tác vụ đo lường được, dữ liệu sẵn sàng và chi phí vận hành mỗi request được hiểu rõ. Trong những điều kiện đó, chúng tôi bàn giao RAG pipeline và vector search trên pgvector, document intelligence, classification, retrieval, assistant và hệ thống multi-agent, được xây dựng với LangChain cùng API OpenAI và Anthropic. Khi giải pháp dựa trên luật là câu trả lời tốt hơn, chúng tôi nói rõ.",
     },
     icon: Brain,
+    glass: "ai-solutions",
     gradient: "from-accent-violet/10 to-brand/10",
     heroAccent: "from-accent-violet to-brand",
     heroColor: "accent-violet",
     features: [
       {
         icon: FileText,
+        glass: "discover",
         title: { en: "Document Intelligence", vi: "Document Intelligence" },
         description: {
           en: "Extraction, classification, and structured output from contracts, invoices, and forms.",
@@ -1721,6 +1785,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Search,
+        glass: "database",
         title: { en: "Retrieval and Search", vi: "Retrieval và Tìm kiếm" },
         description: {
           en: "RAG pipelines with vector search on pgvector, so answers cite the source documents.",
@@ -1729,6 +1794,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Bot,
+        glass: "ai-solutions",
         title: { en: "Assistants and Copilots", vi: "Assistant và Copilot" },
         description: {
           en: "In-product assistants scoped to your data and workflows, with human review where the stakes require it.",
@@ -1737,6 +1803,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Workflow,
+        glass: "analytics",
         title: { en: "Analysis Pipelines", vi: "Pipeline Phân tích" },
         description: {
           en: "Multi-agent and LLM pipelines that process queues of documents, tickets, or records into structured results.",
@@ -1745,6 +1812,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: BarChart3,
+        glass: "quality",
         title: { en: "Evaluation and Cost Controls", vi: "Đánh giá và Kiểm soát Chi phí" },
         description: {
           en: "Eval sets, quality gates, and per-request cost tracking, so quality and spend stay visible in production.",
@@ -1886,12 +1954,14 @@ export const services: ServiceData[] = [
       vi: "Các cam kết lớn cần một góc nhìn độc lập trước tiên. Chúng tôi đánh giá kiến trúc, codebase và cách tổ chức đội ngũ cùng vendor xung quanh, sau đó đưa kết luận thành văn bản: bản đánh giá điều gì vững và điều gì không, đề xuất kiến trúc cho hướng đi tiếp theo, và lộ trình triển khai với trình tự cùng khối lượng. Cuộc hợp tác kết thúc bằng các tài liệu, và đề xuất không bị kéo theo hướng có hợp đồng xây dựng. Nếu bạn mang lộ trình tới đội khác, nó được viết để dùng được trong trường hợp đó.",
     },
     icon: Compass,
+    glass: "consulting",
     gradient: "from-brand/10 to-accent-violet/10",
     heroAccent: "from-brand to-accent-violet",
     heroColor: "brand",
     features: [
       {
         icon: Layout,
+        glass: "backend",
         title: { en: "Architecture Review", vi: "Đánh giá Kiến trúc" },
         description: {
           en: "A structured read of your system: boundaries, data flows, failure modes, and the trade-offs already baked in.",
@@ -1900,6 +1970,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: ShieldCheck,
+        glass: "quality",
         title: { en: "Technical Due Diligence", vi: "Technical Due Diligence" },
         description: {
           en: "Codebase, infrastructure, and process reviewed before an acquisition, investment, or platform commitment.",
@@ -1908,6 +1979,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Compass,
+        glass: "discover",
         title: { en: "Roadmap Planning", vi: "Lập Kế hoạch Lộ trình" },
         description: {
           en: "A sequenced delivery roadmap that separates what must come first from what can wait.",
@@ -1916,6 +1988,7 @@ export const services: ServiceData[] = [
       },
       {
         icon: Users,
+        glass: "partnership",
         title: { en: "Team and Vendor Assessment", vi: "Đánh giá Đội ngũ và Vendor" },
         description: {
           en: "An outside read on in-house capability and vendor delivery, with options for the structure you actually need.",
@@ -2072,10 +2145,11 @@ export interface FlatService {
   description: string;
   longDescription: string;
   icon: LucideIcon;
+  glass: GlassIconName;
   gradient: string;
   heroAccent: string;
   heroColor: string;
-  features: { icon: LucideIcon; title: string; description: string }[];
+  features: { icon: LucideIcon; glass: GlassIconName; title: string; description: string }[];
   benefits: { title: string; description: string }[];
   technologies: string[];
   processSteps: { step: number; title: string; description: string }[];
@@ -2096,11 +2170,13 @@ export function flattenService(svc: ServiceData, locale: Locale): FlatService {
     description: svc.description[locale],
     longDescription: svc.longDescription[locale],
     icon: svc.icon,
+    glass: svc.glass,
     gradient: svc.gradient,
     heroAccent: svc.heroAccent,
     heroColor: svc.heroColor,
     features: svc.features.map((f) => ({
       icon: f.icon,
+      glass: f.glass,
       title: f.title[locale],
       description: f.description[locale],
     })),

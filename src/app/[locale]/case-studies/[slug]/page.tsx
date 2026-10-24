@@ -17,6 +17,7 @@ import {
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card } from "@/components/ui/Card";
+import { GlassIcon } from "@/components/ui/GlassIcon";
 import { Button } from "@/components/ui/Button";
 import {
   AnimatedSection,
@@ -761,15 +762,14 @@ export default async function CaseStudyDetailPage({
 
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
               {relatedServices.map((service) => {
-                const ServiceIcon = service.icon;
                 return (
                   <StaggerItem key={service.id}>
                     <Link
                       href={`/services/${service.slug[loc]}`}
-                      className="group block h-full"
+                      className="group block h-full rg-glass-control"
                     >
                       <div className="relative h-full rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
-                        <ServiceIcon size={22} className="text-brand mb-4" />
+                        <GlassIcon name={service.glass} size="sm" className="mb-4" />
                         <h3 className="text-base font-bold text-foreground mb-1 group-hover:text-brand transition-colors">
                           {service.title[loc]}
                         </h3>

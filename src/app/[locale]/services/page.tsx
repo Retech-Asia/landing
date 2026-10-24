@@ -100,22 +100,10 @@ const processSteps: {
 ];
 
 /**
- * Service id → ReTech Glass kit pictogram (glass-icon-motion kit). All ten
- * services map; an unmapped future id falls back to its data-file lucide
- * icon in the card grid rather than rendering a wrong pictogram.
+ * Glass pictograms now live on the data model (`services-data.ts`,
+ * `glass: GlassIconName` per service + feature) — single source of truth
+ * shared by the listing grid, detail pages, and cross-references.
  */
-const SERVICE_GLASS: Record<string, GlassIconName> = {
-  "cms-platforms": "database",
-  "crm-systems": "crm",
-  "erp-solutions": "analytics",
-  "web-development": "frontend",
-  "ui-ux-design": "design",
-  "dedicated-teams": "partnership",
-  "mobile-app-development": "mobile",
-  "desktop-app-development": "desktop",
-  "ai-development": "ai-solutions",
-  "it-consulting": "consulting",
-};
 
 /**
  * Feature comparison matrix.
@@ -283,21 +271,14 @@ export default async function ServicesPage({
           <Suspense fallback={<ServiceGridSkeleton />}>
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {services.map((service) => {
-                const Icon = service.icon;
-                const glass = SERVICE_GLASS[service.id];
                 return (
                   <StaggerItem key={service.id} className="h-full">
                     <Link href={`/services/${service.slug[loc]}`} className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-2xl focus-visible:ring-offset-2">
                       <div className="relative h-full rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 md:p-8 transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
-                        {/* Icon — ReTech Glass kit pictogram; one consistent
-                            vocabulary replaces the rotating brand/cyan/violet
-                            accent colors (glass round 2026-10-23). Unmapped
-                            ids fall back to the data-file lucide icon. */}
-                        {glass ? (
-                          <GlassIcon name={glass} size="md" className="mb-5" />
-                        ) : (
-                          <Icon size={28} className="text-brand mb-5" />
-                        )}
+                        {/* Icon — ReTech Glass kit pictogram from the data
+                            model; one consistent vocabulary replaces the
+                            rotating brand/cyan/violet accent colors. */}
+                        <GlassIcon name={service.glass} size="md" className="mb-5" />
 
                         {/* Content */}
                         <h2 className="text-xl font-semibold text-foreground mb-1 group-hover:text-brand transition-colors">

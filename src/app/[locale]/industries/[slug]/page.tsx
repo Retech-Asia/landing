@@ -214,7 +214,6 @@ export default async function IndustryDetailPage({
     notFound();
   }
 
-  const Icon = industry.icon;
   const pageUrl = `${SITE_URL}/${locale}/industries/${industry.slug}`;
 
   const paragraphs = industry.longDescription.split("\n\n").filter(Boolean);
@@ -278,22 +277,10 @@ export default async function IndustryDetailPage({
           </AnimatedSection>
 
           <div className="max-w-3xl relative">
-            {/* Large semi-transparent icon behind the title */}
-            <div
-              className="absolute -top-8 -right-8 md:-right-16 pointer-events-none select-none"
-              aria-hidden="true"
-            >
-              <Icon
-                size={220}
-                className={`${industry.color} opacity-[0.06]`}
-                strokeWidth={0.8}
-              />
-            </div>
-
             <AnimatedSection variant="slideUp" delay={0.06}>
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand/[0.04] mb-6">
-                <Icon size={28} className={industry.color} />
-              </div>
+              {/* ReTech Glass kit tile replaces the lucide-in-glow-box +
+                  ghost watermark pattern (icon round 2026-10-24). */}
+              <GlassIcon name={industry.glass} size="md" className="mb-6" />
             </AnimatedSection>
 
             <AnimatedSection variant="slideUp" delay={0.12}>
@@ -665,20 +652,14 @@ export default async function IndustryDetailPage({
             <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {relatedServices.map((service) => {
                 if (!service) return null;
-                const ServiceIcon = service.icon;
                 return (
                   <StaggerItem key={service.id}>
                     <Link
                       href={`/services/${service.slug[loc]}`}
-                      className="group block h-full"
+                      className="group block h-full rg-glass-control"
                     >
                       <Card padding="lg" className="h-full">
-                        <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand/[0.04] group-hover:bg-card-bg transition-colors duration-300">
-                          <ServiceIcon
-                            size={20}
-                            className="text-brand"
-                          />
-                        </div>
+                        <GlassIcon name={service.glass} size="sm" className="mb-4" />
                         <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-brand transition-colors">
                           {service.title[loc]}
                         </h3>
@@ -716,17 +697,14 @@ export default async function IndustryDetailPage({
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {otherIndustries.map((other) => {
-              const OtherIcon = other.icon;
               return (
                 <StaggerItem key={other.slug}>
                   <Link
                     href={`/industries/${other.slug}`}
-                    className="group block h-full"
+                    className="group block h-full rg-glass-control"
                   >
                     <Card padding="lg" className="h-full">
-                      <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand/[0.04] group-hover:bg-card-bg transition-colors duration-300">
-                        <OtherIcon size={20} className={other.color} />
-                      </div>
+                      <GlassIcon name={other.glass} size="sm" className="mb-4" />
                       <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-brand transition-colors">
                         {other.name}
                       </h3>

@@ -10,6 +10,7 @@ import {
   Film,
   type LucideIcon,
 } from "lucide-react";
+import type { GlassIconName } from "@/components/ui/GlassIcon";
 import type { L } from "./services-data";
 import type { Locale } from "@/i18n/routing";
 
@@ -32,7 +33,10 @@ export interface Industry {
   id: string;
   slug: L;
   name: L;
+  /** Compact lucide marker for small inline contexts. */
   icon: LucideIcon;
+  /** ReTech Glass kit pictogram for card/hero contexts. */
+  glass: GlassIconName;
   description: L;
   longDescription: L;
   challenges: L[];
@@ -60,6 +64,7 @@ export const industries: Industry[] = [
     slug: { en: "healthcare", vi: "y-te" },
     name: { en: "Healthcare", vi: "Y tế" },
     icon: HeartPulse,
+    glass: "healthcare",
     description: {
       en: "HIPAA-compliant platforms for patient management, telemedicine, and health analytics that improve care delivery and clinical outcomes. We build secure, reliable systems that integrate with existing EHR infrastructure using HL7/FHIR standards so records stay consistent across systems. From patient portals to clinical decision-support dashboards, our solutions are designed to reduce administrative burden and let healthcare professionals focus on what matters most: patient care. Our team has built clinical decision-support tools with HIPAA-compliant RAG pipelines over medical knowledge bases, and patient-facing assistants with strict scope guards to prevent medical advice.",
       vi: "Các nền tảng tuân thủ HIPAA cho quản lý bệnh nhân, telemedicine và phân tích y tế giúp cải thiện việc chăm sóc và kết quả lâm sàng. Chúng tôi xây dựng hệ thống an toàn, đáng tin cậy tích hợp với hạ tầng EHR sẵn có bằng tiêu chuẩn HL7/FHIR để dữ liệu đồng bộ giữa các hệ thống. Từ cổng thông tin bệnh nhân đến dashboard hỗ trợ quyết định lâm sàng, giải pháp của chúng tôi được thiết kế để giảm gánh nặng hành chính và giúp chuyên gia y tế tập trung vào điều quan trọng nhất: chăm sóc bệnh nhân. Đội ngũ của chúng tôi đã xây dựng công cụ hỗ trợ quyết định lâm sàng với RAG pipeline tuân thủ HIPAA trên cơ sở tri thức y khoa, và trợ lý hướng bệnh nhân với scope guard nghiêm ngặt để ngăn tư vấn y tế.",
@@ -160,6 +165,7 @@ export const industries: Industry[] = [
     slug: { en: "finance", vi: "tai-chinh" },
     name: { en: "Finance", vi: "Tài chính" },
     icon: Landmark,
+    glass: "finance",
     description: {
       en: "Secure, scalable financial systems for investment management, banking portals, and regulatory compliance workflows. Our team has deep experience building platforms that process complex financial data with zero tolerance for error, from real-time portfolio analytics to automated compliance reporting. We balance speed, security, and regulatory adherence to deliver fintech solutions that institutions and startups alike can trust. Our AI work in finance includes investment research platforms with multi-agent debate, RAG over SEC filings and earnings transcripts, and anomaly detection on transaction streams.",
       vi: "Hệ thống tài chính an toàn, khả mở cho quản lý đầu tư, cổng thông tin ngân hàng và quy trình tuân thủ pháp lý. Đội ngũ của chúng tôi có kinh nghiệm sâu trong xây dựng nền tảng xử lý dữ liệu tài chính phức tạp với dung sai lỗi bằng không, từ phân tích danh mục đầu tư thời gian thực đến báo cáo tuân thủ tự động. Chúng tôi cân bằng tốc độ, bảo mật và tuân thủ pháp lý để bàn giao giải pháp fintech mà các tổ chức và startup đều có thể tin tưởng. Công việc AI của chúng tôi trong tài chính bao gồm nền tảng nghiên cứu đầu tư với multi-agent debate, RAG trên hồ sơ SEC và transcript báo cáo, cũng như phát hiện bất thường trên luồng giao dịch.",
@@ -260,6 +266,7 @@ export const industries: Industry[] = [
     slug: { en: "e-commerce", vi: "thuong-mai-dien-tu" },
     name: { en: "E-commerce", vi: "Thương mại Điện tử" },
     icon: ShoppingCart,
+    glass: "ecommerce",
     description: {
       en: "High-performance online stores and marketplace platforms with advanced inventory, payment, and customer management features. We specialize in building commerce experiences that drive conversion, from headless architectures with sub-second page loads to AI-powered product recommendations. Whether B2C or B2B marketplace, our solutions scale with your business and integrate with the payment, logistics, and marketing tools you already use.",
       vi: "Cửa hàng trực tuyến hiệu suất cao và nền tảng marketplace với tính năng quản lý tồn kho, thanh toán và khách hàng tiên tiến. Chúng tôi chuyên xây dựng trải nghiệm thương mại thúc đẩy chuyển đổi, từ kiến trúc headless với thời gian tải dưới 1 giây đến gợi ý sản phẩm hỗ trợ AI. Dù là B2C hay marketplace B2B, giải pháp của chúng tôi mở rộng cùng doanh nghiệp và tích hợp với công cụ thanh toán, logistics và marketing bạn đang dùng.",
@@ -360,6 +367,7 @@ export const industries: Industry[] = [
     slug: { en: "education", vi: "giao-duc" },
     name: { en: "Education", vi: "Giáo dục" },
     icon: GraduationCap,
+    glass: "education",
     description: {
       en: "Learning management systems, student portals, and educational platforms that make knowledge accessible and engaging for learners at every level. We combine modern web technologies with pedagogical best practices to build adaptive, mobile-first learning experiences that improve completion rates and student outcomes. From K-12 to corporate training, our solutions support real-time collaboration, multi-language content, and data-driven progress tracking.",
       vi: "Hệ thống quản lý học tập, cổng sinh viên và nền tảng giáo dục giúp kiến thức dễ tiếp cận và hấp dẫn với người học ở mọi cấp độ. Chúng tôi kết hợp công nghệ web hiện đại với thực hành sư phạm tốt nhất để xây dựng trải nghiệm học tập adaptive, mobile-first cải thiện tỷ lệ hoàn thành và kết quả học tập. Từ K-12 đến đào tạo doanh nghiệp, giải pháp của chúng tôi hỗ trợ cộng tác thời gian thực, nội dung đa ngôn ngữ và theo dõi tiến độ dẫn dắt dữ liệu.",
@@ -460,6 +468,7 @@ export const industries: Industry[] = [
     slug: { en: "real-estate", vi: "bat-dong-san" },
     name: { en: "Real Estate", vi: "Bất động sản" },
     icon: Building2,
+    glass: "real-estate",
     description: {
       en: "Property management systems, listing platforms, and CRM tools that streamline operations for agents, developers, and investors. We build data-rich real estate platforms that connect buyers, sellers, and property managers through intuitive interfaces with virtual tours, automated valuations, and predictive market analytics. Our solutions cover residential, commercial, and industrial real estate, reducing overhead and accelerating deal cycles.",
       vi: "Hệ thống quản lý bất động sản, nền tảng listing và công cụ CRM giúp tinh gọn vận hành cho môi giới, nhà phát triển và nhà đầu tư. Chúng tôi xây dựng nền tảng bất động sản giàu dữ liệu kết nối người mua, người bán và quản lý tài sản qua giao diện trực quan với tour ảo, định giá tự động và phân tích thị trường dự đoán. Giải pháp của chúng tôi bao phủ bất động sản dân cư, thương mại và công nghiệp, giảm overhead và tăng tốc chu kỳ giao dịch.",
@@ -560,6 +569,7 @@ export const industries: Industry[] = [
     slug: { en: "logistics", vi: "logistics" },
     name: { en: "Logistics", vi: "Logistics" },
     icon: Truck,
+    glass: "logistics",
     description: {
       en: "Fleet management, route optimization, and supply chain visibility tools that reduce costs and improve delivery performance. We leverage AI, real-time GPS tracking, and predictive analytics to optimize every link in the supply chain, from warehouse management to last-mile delivery. Our platforms help logistics companies scale operations without proportional overhead increases, keeping deliveries on time and budgets intact.",
       vi: "Quản lý đội xe, tối ưu hóa tuyến đường và công cụ hiển thị chuỗi cung ứng giúp giảm chi phí và cải thiện hiệu suất giao hàng. Chúng tôi tận dụng AI, theo dõi GPS thời gian thực và phân tích dự đoán để tối ưu mọi mắt xích trong chuỗi cung ứng, từ quản lý kho đến giao hàng chặng cuối. Nền tảng của chúng tôi giúp công ty logistics mở rộng vận hành mà không tăng overhead tỷ lệ thuận, giữ giao hàng đúng hạn và ngân sách nguyên vẹn.",
@@ -660,6 +670,7 @@ export const industries: Industry[] = [
     slug: { en: "manufacturing", vi: "san-xuat" },
     name: { en: "Manufacturing", vi: "Sản xuất" },
     icon: Factory,
+    glass: "sustainability",
     description: {
       en: "Production tracking, inventory management, and ERP integrations that boost operational efficiency and reduce unplanned downtime. We build software that bridges the gap between operational technology and information technology, connecting IoT sensors, legacy PLC systems, and enterprise planning tools into a unified, real-time view of your operations. Our shop-floor-friendly interfaces are designed for workers with varying technical skills, not just IT teams.",
       vi: "Theo dõi sản xuất, quản lý tồn kho và tích hợp ERP thúc đẩy hiệu suất vận hành và giảm downtime ngoài kế hoạch. Chúng tôi xây dựng phần mềm kết nối khoảng cách giữa công nghệ vận hành và công nghệ thông tin, liên kết cảm biến IoT, hệ thống PLC legacy và công cụ lập kế hoạch doanh nghiệp thành góc nhìn thống nhất, thời gian thực về vận hành. Giao diện thân thiện xưởng sản xuất của chúng tôi được thiết kế cho công nhân với kỹ năng kỹ thuật đa dạng, không chỉ đội IT.",
@@ -760,6 +771,7 @@ export const industries: Industry[] = [
     slug: { en: "technology", vi: "cong-nghe" },
     name: { en: "Technology", vi: "Công nghệ" },
     icon: Cpu,
+    glass: "ai-ml",
     description: {
       en: "Developer tools, SaaS platforms, and AI-native applications built with modern architectures and scalable infrastructure. We speak your language. Our engineers bring deep expertise in microservices, event-driven architectures, RAG pipelines, and multi-agent systems. From MVP development and rapid prototyping to full-scale platform engineering, we help technology companies ship AI features that earn their compute cost.",
       vi: "Công cụ developer, nền tảng SaaS và ứng dụng AI-native được xây dựng với kiến trúc hiện đại và hạ tầng khả mở. Chúng tôi nói ngôn ngữ của bạn. Kỹ sư của chúng tôi mang chuyên môn sâu về microservices, kiến trúc event-driven, RAG pipeline và hệ thống multi-agent. Từ phát triển MVP và prototyping nhanh đến engineering nền tảng quy mô đầy đủ, chúng tôi giúp công ty công nghệ tung ra tính năng AI xứng đáng chi phí compute.",
@@ -860,6 +872,7 @@ export const industries: Industry[] = [
     slug: { en: "media-entertainment", vi: "media-giai-tri" },
     name: { en: "Media & Entertainment", vi: "Media & Giải trí" },
     icon: Film,
+    glass: "design",
     description: {
       en: "Content management platforms, streaming solutions, and digital publishing tools that engage audiences at scale. We understand the unique demands of content-heavy applications, from high-traffic streaming infrastructure to intelligent recommendation engines. Whether you need a CMS for digital publishing or a full video streaming platform, we deliver solutions that perform under pressure and keep audiences coming back.",
       vi: "Nền tảng quản lý nội dung, giải pháp streaming và công cụ xuất bản số thu hút khán giả ở quy mô lớn. Chúng tôi hiểu những đòi hỏi độc đáo của ứng dụng nặng nội dung, từ hạ tầng streaming lưu lượng cao đến engine gợi ý thông minh. Dù bạn cần CMS cho xuất bản số hay nền tảng streaming video đầy đủ, chúng tôi bàn giao giải pháp hoạt động tốt dưới áp lực và giữ khán giả quay lại.",
@@ -979,6 +992,7 @@ export interface FlatIndustry {
   slug: string;
   name: string;
   icon: LucideIcon;
+  glass: GlassIconName;
   description: string;
   longDescription: string;
   challenges: string[];
@@ -1000,6 +1014,7 @@ export function flattenIndustry(ind: Industry, locale: Locale): FlatIndustry {
     slug: ind.slug[locale],
     name: ind.name[locale],
     icon: ind.icon,
+    glass: ind.glass,
     description: ind.description[locale],
     longDescription: ind.longDescription[locale],
     challenges: ind.challenges.map((c) => c[locale]),

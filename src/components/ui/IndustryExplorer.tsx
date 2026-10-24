@@ -11,6 +11,7 @@ import {
 import { Link } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
 import { cn } from "@/lib/cn";
+import { GlassIcon } from "@/components/ui/GlassIcon";
 import { industries, flattenIndustry, type FlatIndustry, type IndustryCategory } from "@/lib/industries-data";
 
 /* ------------------------------------------------------------------ */
@@ -140,7 +141,6 @@ export function IndustryExplorer() {
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
       >
         {filteredIndustries.map((industry) => {
-          const Icon = industry.icon;
           const isExpanded = expandedSlug === industry.slug;
 
           return (
@@ -167,13 +167,8 @@ export function IndustryExplorer() {
               <div className="relative z-10">
                 {/* Card header - always visible */}
                 <div className="p-5 md:p-6">
-                  {/* Icon with background */}
-                  <div className="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl bg-brand/[0.04] transition-colors duration-300">
-                    <Icon
-                      size={22}
-                      className={cn(industry.color, "transition-transform duration-300")}
-                    />
-                  </div>
+                  {/* Icon — ReTech Glass kit pictogram */}
+                  <GlassIcon name={industry.glass} size="sm" className="mb-4" />
 
                   <h3 className="text-base font-semibold text-foreground mb-1.5">
                     {industry.name}
