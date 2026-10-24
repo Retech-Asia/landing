@@ -186,6 +186,7 @@ export default async function BlogPostPage({
   // owns the next `paras ?? 1` paragraphs of the flat content array. The
   // optional comparison table renders directly after its anchor paragraph.
   let paraCursor = 1;
+  const table = viBody?.table ?? post.table;
   postHeadings.forEach((heading) => {
     const take = heading.paras ?? 1;
     // Insert the heading before its section paragraphs
@@ -209,7 +210,7 @@ export default async function BlogPostPage({
         </p>
       );
       // Optional comparison table rendered after its anchor paragraph
-      if (post.table && post.table.afterParagraph === paragraphIndex) {
+      if (table && table.afterParagraph === paragraphIndex) {
         contentElements.push(
           <div
             key={`table-${paragraphIndex}`}
@@ -218,7 +219,7 @@ export default async function BlogPostPage({
             <table className="w-full min-w-[560px] border-collapse text-sm">
               <thead>
                 <tr className="border-b border-card-border bg-card/50">
-                  {post.table.columns.map((col) => (
+                  {table.columns.map((col) => (
                     <th
                       key={col}
                       scope="col"
@@ -230,7 +231,7 @@ export default async function BlogPostPage({
                 </tr>
               </thead>
               <tbody>
-                {post.table.rows.map((row) => (
+                {table.rows.map((row) => (
                   <tr
                     key={row[0]}
                     className="border-b border-card-border/60 last:border-0"
@@ -251,9 +252,9 @@ export default async function BlogPostPage({
                 ))}
               </tbody>
             </table>
-            {post.table.caption && (
+            {table.caption && (
               <p className="border-t border-card-border/60 bg-card/30 px-4 py-2.5 text-xs text-foreground-muted">
-                {post.table.caption}
+                {table.caption}
               </p>
             )}
           </div>

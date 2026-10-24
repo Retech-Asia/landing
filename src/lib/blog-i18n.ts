@@ -36,7 +36,7 @@ export const blogViMeta: Record<string, BlogViMeta> = {
   "vietnam-software-developer-rates-2026-complete-pricing-guide": {
     slug: "chi-phi-lap-trinh-vien-viet-nam-2026-huong-dan-gia",
     title: "Chi phí Lập trình viên Việt Nam 2026: Hướng dẫn Giá Hoàn chỉnh",
-    excerpt: "Lập trình viên Việt Nam thực sự giá bao nhiêu năm 2026, mức giá theo năm kinh nghiệm, giá đội chuyên trách hàng tháng, và so sánh với Ấn Độ, Đông Âu. Hướng dẫn lập ngân sách thực tế cho doanh nghiệp đánh giá offshore.",
+    excerpt: "Hiểu mức giá nhà cung cấp, khác biệt giữa lương và tổng chi phí khi lập ngân sách cho một đội phần mềm tại Việt Nam. Hãy so sánh báo giá cùng điều kiện thay vì tin vào một mức trung bình không rõ nguồn gốc.",
     category: "Insight Ngành",
   },
   "odoo-vs-sap-business-one-2026-honest-comparison": {
@@ -47,8 +47,8 @@ export const blogViMeta: Record<string, BlogViMeta> = {
   },
   "ai-agents-small-business-workflows-2026-practical-guide": {
     slug: "ai-agent-doanh-nghiep-nho-2026-huong-dan-thuc-te",
-    title: "AI Agent cho Doanh nghiệp Nhỏ: Quy trình Tự động hóa Đáng đồng tiền 2026",
-    excerpt: "AI agent đã từ demo trở nên đáng tin cho quy trình doanh nghiệp nhỏ, phân loại hỗ trợ, xử lý hóa đơn, sàng lọc khách hàng tiềm năng. Agent làm gì, chi phí bao nhiêu, và bắt đầu từ đâu mà không cần đội data science.",
+    title: "AI Agent cho Doanh nghiệp Nhỏ 2026: Bắt đầu từ Một Quy trình Có Giới hạn",
+    excerpt: "Chọn một thí điểm AI agent có giới hạn rõ ràng, đặt quyền hạn và bước phê duyệt của con người, và đo lường xem nó có thực sự cải thiện một quy trình kinh doanh cụ thể hay không.",
     category: "Công nghệ",
   },
   "nab-innovation-centre-vietnam-global-bank-tech-hub": {
@@ -312,8 +312,10 @@ export const blogViMeta: Record<string, BlogViMeta> = {
 export interface BlogViBody {
   content: string[];
   /** Same shape as the EN headings (Heading.paras is optional; VI bodies
-   * are one paragraph per heading and simply omit it). */
+   * of single-paragraph-per-heading posts simply omit it). */
   headings: BlogPost["headings"];
+  /** Optional VI comparison table; falls back to the EN post.table. */
+  table?: BlogPost["table"];
 }
 
 /**
