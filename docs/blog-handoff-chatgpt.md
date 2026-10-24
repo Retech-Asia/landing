@@ -25,7 +25,7 @@ access, though the source repo is `Retech-Asia/retech-landing` (read-only).
 
 - Legal name: **RETECH SOLUTIONS CO., LTD.** (tax ID 0318655079),
   288K8 Nam Ky Khoi Nghia, Vo Thi Sau Ward, Ho Chi Minh City, Vietnam.
-- Contact: retechasia@gmail.com, (+84) 769 294 225, https://www.retech.asia.
+- Contact: hello@retech.asia, (+84) 769 294 225, https://www.retech.asia.
 - Bilingual EN/VI site; engineering team in HCMC serving US/international
   clients; working-hours overlap with US West Coast is a real operational
   practice (see existing post `vietnam-timezone-follow-the-sun-engineering-202608`).
