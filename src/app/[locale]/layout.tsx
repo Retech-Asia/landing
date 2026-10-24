@@ -16,6 +16,7 @@ import { Clarity } from "@/components/ui/Clarity";
 import {
   SITE_URL as SITE_URL_CONST,
   SITE_NAME as SITE_NAME_CONST,
+  OG_IMAGE_URL,
   CONTACT,
 } from "@/lib/constants";
 import { routing, type Locale } from "@/i18n/routing";
@@ -160,6 +161,7 @@ export async function generateMetadata({
       siteName: SITE_NAME,
       title,
       description,
+      images: [{ url: OG_IMAGE_URL, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
