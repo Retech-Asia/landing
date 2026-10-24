@@ -164,12 +164,18 @@ function getChrome(locale: string) {
 const caseStudyServiceMap: Record<string, string[]> = {
   "mining-analytics-platform": ["web-development", "ui-ux-design", "dedicated-teams"],
   "asset-management-platform": ["crm-systems", "erp-solutions", "ui-ux-design", "dedicated-teams"],
+  "investment-intelligence-platform": ["ai-development", "web-development", "dedicated-teams"],
+  "fintech-card-marketing": ["mobile-app-development", "ui-ux-design", "dedicated-teams"],
+  "ai-analysis-saas": ["ai-development", "web-development", "ui-ux-design"],
 };
 
 /* ── Case study to blog posts mapping ─────────────────────── */
 const caseStudyBlogMap: Record<string, string[]> = {
   "mining-analytics-platform": ["nextjs-16-server-components-performance-guide", "why-typescript-became-default-enterprise-development"],
   "asset-management-platform": ["erp-modernization-legacy-systems-migration-guide", "cloud-native-erp-microservices-architecture-future", "cms-vs-crm-choosing-right-system-business"],
+  "investment-intelligence-platform": ["rag-retrieval-augmented-generation-best-practices-2026", "pgvector-vector-search-production-patterns-2026", "llm-pricing-comparison-2026-gpt5-claude-gemini-enterprise-costs"],
+  "fintech-card-marketing": ["building-scalable-web-applications-technical-deep-dive", "role-of-ai-in-modern-business-software", "ui-ux-design-principles-enterprise-software"],
+  "ai-analysis-saas": ["agentic-ai-autonomous-software-systems-2026", "ai-agent-frameworks-comparison-2026-langchain-langgraph-crewai", "rag-retrieval-augmented-generation-best-practices-2026"],
 };
 
 function CaseStudyImage({

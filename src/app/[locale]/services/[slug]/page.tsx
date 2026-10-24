@@ -413,12 +413,14 @@ const serviceCaseStudyMap: Record<string, string[]> = {
 /* ── Blog post mapping per service ────────────────────────────── */
 const serviceBlogMap: Record<string, string[]> = {
   "cms-platforms": ["rise-of-headless-cms-separating-content-from-presentation", "cms-vs-crm-choosing-right-system-business"],
-  "crm-systems": ["cms-vs-crm-choosing-right-system-business", "how-ai-transforming-custom-software-development"],
+  "crm-systems": ["custom-crm-vs-off-the-shelf-crm", "cms-vs-crm-choosing-right-system-business", "how-ai-transforming-custom-software-development"],
   "erp-solutions": ["erp-modernization-legacy-systems-migration-guide", "cloud-native-erp-microservices-architecture-future"],
   "web-development": ["nextjs-16-server-components-performance-guide", "rise-of-edge-computing-what-it-means-for-web-applications", "state-of-react-server-components-2026"],
   "ui-ux-design": ["building-accessible-websites-practical-guide-2026", "how-choose-right-tech-stack-next-project"],
-  "dedicated-teams": ["building-offshore-development-team-practical-guide", "why-vietnam-top-it-outsourcing-destination-2026", "software-development-cost-comparison-vietnam-india-eastern-europe-2026"],
-  "ai-development": ["how-ai-transforming-custom-software-development"],
+  "dedicated-teams": ["hiring-vietnam-software-development-team-california", "building-offshore-development-team-practical-guide", "software-development-cost-comparison-vietnam-india-eastern-europe-2026"],
+  "mobile-app-development": ["building-scalable-web-applications-technical-deep-dive", "how-choose-right-tech-stack-next-project"],
+  "desktop-app-development": ["custom-software-vs-off-the-shelf-how-to-choose", "how-choose-right-tech-stack-next-project"],
+  "ai-development": ["how-ai-transforming-custom-software-development", "rag-retrieval-augmented-generation-best-practices-2026", "llm-pricing-comparison-2026-gpt5-claude-gemini-enterprise-costs"],
   "it-consulting": ["how-choose-right-tech-stack-next-project", "building-offshore-development-team-practical-guide", "software-development-cost-comparison-vietnam-india-eastern-europe-2026"],
 };
 

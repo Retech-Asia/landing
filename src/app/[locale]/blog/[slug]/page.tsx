@@ -201,7 +201,7 @@ export default async function BlogPostPage({
           key={`para-${paragraphIndex}`}
           className="text-foreground-secondary leading-relaxed text-base md:text-lg mb-5"
         >
-          {renderContent(postContent[paragraphIndex])}
+          {renderContent(postContent[paragraphIndex], loc)}
         </p>
       );
     }
@@ -392,7 +392,7 @@ export default async function BlogPostPage({
                     subtle brand-tinted left rule. Readers scan the first sentence before
                     committing; making it visually distinct improves engagement. */}
                 <p className="text-foreground leading-relaxed text-xl md:text-2xl font-medium mb-8 pl-5 border-l-2 border-brand/40">
-                  {renderContent(postContent[0])}
+                  {renderContent(postContent[0], loc)}
                 </p>
                 {contentElements.map((el, i) => (
                   <div key={i}>
