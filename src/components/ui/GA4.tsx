@@ -12,8 +12,12 @@ import { readConsent } from "@/lib/cookie-consent";
  *   the env var is removed). The component renders nothing and gtag is
  *   never loaded — zero runtime cost.
  * - When the env var is set, gtag.js loads once on first interaction.
- *   Default consent is `denied` for analytics/ad storage, so GA4 receives
- *   only cookieless, consent-mode pings until the user accepts the banner.
+ *   Default consent is `denied` for analytics/ad storage, so exactly ONE
+ *   cookieless page-view ping fires (g/collect with `gcs=G100`): no
+ *   cookies, no client ID, no device data — Google's documented Consent
+ *   Mode v2 denied-state behavior, retained here so post-grant sessions
+ *   can be measured at all. No cookie is written until grant; rejection
+ *   keeps the denied state permanently (pings stay G100 cookieless).
  * - On consent grant, `gtag('consent', 'update', ...)` flips
  *   `analytics_storage` to `granted` and GA4 starts writing cookies.
  *
