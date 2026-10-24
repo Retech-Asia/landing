@@ -5,8 +5,8 @@ import { services } from "@/lib/services-data";
 
 const categoryToServices: Record<string, string[]> = {
   "Industry Insights": ["cms-platforms", "dedicated-teams", "crm-systems"],
-  Technology: ["web-development", "erp-solutions", "ui-ux-design"],
-  Guides: ["web-development", "cms-platforms", "ui-ux-design"],
+  Technology: ["web-development", "ai-development", "erp-solutions"],
+  Guides: ["web-development", "dedicated-teams", "cms-platforms"],
 };
 
 export function RelatedServicesSidebar({ category }: { category: string }) {
