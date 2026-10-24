@@ -23,7 +23,7 @@
  *    so licensing can be verified at the source.
  */
 
-export type PhotoSource = "unsplash" | "pexels";
+export type PhotoSource = "unsplash" | "pexels" | "original";
 
 export interface PhotoAsset {
   /** File under /images/photo/ (webp). */
@@ -45,7 +45,7 @@ export interface PhotoAsset {
   sourceUrl: string;
   license: string;
   /** Import date. */
-  imported: "2026-10-23";
+  imported: "2026-10-23" | "2026-10-24";
   /** Original resolution (px, long edge first). */
   original: { width: number; height: number };
   /** Delivered crop (px). */
@@ -71,9 +71,9 @@ export const photoRegistry: PhotoAsset[] = [
     license: "Unsplash License",
     imported: "2026-10-23",
     original: { width: 5184, height: 3264 },
-    delivered: { width: 1400, height: 950 },
+    delivered: { width: 2400, height: 1628 },
     subject: "Laptop showing business analytics dashboards, warm desk",
-    surfaces: ["home #01 CRM panel", "/services crm-systems cluster (cms, erp)"],
+    surfaces: ["home #01 CRM panel", "/services crm-systems band"],
   },
   {
     file: "photo-web-code.webp",
@@ -87,7 +87,7 @@ export const photoRegistry: PhotoAsset[] = [
     original: { width: 5760, height: 3840 },
     delivered: { width: 1400, height: 950 },
     subject: "Hands typing code on a laptop at a wooden desk",
-    surfaces: ["home #01 web panel", "/services web-development + ui-ux-design"],
+    surfaces: ["home #01 web panel"],
   },
   {
     file: "photo-mobile-dev.webp",
@@ -99,7 +99,7 @@ export const photoRegistry: PhotoAsset[] = [
     license: "Unsplash License",
     imported: "2026-10-23",
     original: { width: 3840, height: 2560 },
-    delivered: { width: 1400, height: 950 },
+    delivered: { width: 2400, height: 1628 },
     subject: "Hand holding a phone running an app analytics screen",
     surfaces: ["home #01 mobile panel", "/services mobile-app-development"],
   },
@@ -405,7 +405,7 @@ export const photoRegistry: PhotoAsset[] = [
     license: "Unsplash License",
     imported: "2026-10-23",
     original: { width: 5712, height: 3808 },
-    delivered: { width: 1600, height: 1067 },
+    delivered: { width: 2400, height: 1600 },
     subject: "Terminal window macro, dark (local software context)",
     surfaces: ["/services desktop-app-development"],
   },
@@ -419,7 +419,7 @@ export const photoRegistry: PhotoAsset[] = [
     license: "Unsplash License",
     imported: "2026-10-23",
     original: { width: 4240, height: 2832 },
-    delivered: { width: 1600, height: 1067 },
+    delivered: { width: 2400, height: 1600 },
     subject: "Circuit board macro, cyan/teal hardware detail",
     surfaces: ["/services ai-development"],
   },
@@ -433,9 +433,87 @@ export const photoRegistry: PhotoAsset[] = [
     license: "Pexels License",
     imported: "2026-10-23",
     original: { width: 2400, height: 1600 },
-    delivered: { width: 1600, height: 1067 },
+    delivered: { width: 2400, height: 1600 },
     subject: "Consultant and client in discussion over a laptop",
-    surfaces: ["/services it-consulting + dedicated-teams"],
+    surfaces: ["/services it-consulting band"],
+  },
+
+  // ---- Services band de-duplication (growth-design handoff, 2026-10-24).
+  //      Breaks the exact photo reuse across CMS/CRM/ERP, Web/UI/UX and
+  //      consulting/dedicated-teams. Three photos acquired per the approved
+  //      manifest (retech-growth-design-handoff imagery/asset-manifest.md,
+  //      Pexels license: free commercial use, no attribution required);
+  //      CMS/ERP use in-house diagram strips per the manifest's
+  //      "better than stock" direction (no fabricated screenshots). ----
+  {
+    file: "photo-service-uiux-designer.webp",
+    source: "pexels",
+    id: 13451104,
+    pageUrl: pexels(13451104),
+    creator: "Jonathan Borba",
+    sourceUrl: pexels(13451104),
+    license: "Pexels License",
+    imported: "2026-10-24",
+    original: { width: 5472, height: 3648 },
+    delivered: { width: 3200, height: 1365 },
+    subject: "Designer working at a computer, design tool on screen",
+    surfaces: ["/services ui-ux-design band"],
+  },
+  {
+    file: "photo-service-web-developers.webp",
+    source: "pexels",
+    id: 6804068,
+    pageUrl: pexels(6804068),
+    creator: "cottonbro studio",
+    sourceUrl: pexels(6804068),
+    license: "Pexels License",
+    imported: "2026-10-24",
+    original: { width: 6472, height: 4315 },
+    delivered: { width: 3200, height: 1365 },
+    subject: "Developers working at computers in an office",
+    surfaces: ["/services web-development band"],
+  },
+  {
+    file: "photo-service-dedicated-collaboration.webp",
+    source: "pexels",
+    id: 5428766,
+    pageUrl: pexels(5428766),
+    creator: "Ivan S",
+    sourceUrl: pexels(5428766),
+    license: "Pexels License",
+    imported: "2026-10-24",
+    original: { width: 6000, height: 4000 },
+    delivered: { width: 3200, height: 1365 },
+    subject: "Two colleagues reviewing a project together at a desk",
+    surfaces: ["/services dedicated-teams band"],
+  },
+  {
+    file: "photo-diagram-cms-lifecycle.webp",
+    source: "original",
+    id: "in-house",
+    pageUrl: null,
+    creator: "Retech Solutions (original SVG diagram, authored in-house)",
+    sourceUrl: "n/a — original diagram, no third-party source",
+    license: "Original work",
+    imported: "2026-10-24",
+    original: { width: 3200, height: 1365 },
+    delivered: { width: 3200, height: 1365 },
+    subject: "Content lifecycle: author, review, approve, publish, measure",
+    surfaces: ["/services cms-platforms band"],
+  },
+  {
+    file: "photo-diagram-erp-integration.webp",
+    source: "original",
+    id: "in-house",
+    pageUrl: null,
+    creator: "Retech Solutions (original SVG diagram, authored in-house)",
+    sourceUrl: "n/a — original diagram, no third-party source",
+    license: "Original work",
+    imported: "2026-10-24",
+    original: { width: 3200, height: 1365 },
+    delivered: { width: 3200, height: 1365 },
+    subject: "ERP core sharing one data model with entry and reporting systems",
+    surfaces: ["/services erp-solutions band"],
   },
 ];
 

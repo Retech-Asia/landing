@@ -11,10 +11,10 @@ export const part3: Record<string, BlogViBody> = {
       "Tại Retech Solutions, chúng tôi tích hợp các công cụ AI xuyên suốt quy trình phát triển. Từ code review thông minh, kiểm thử tự động đến deployment pipeline thông minh, chúng tôi dùng công nghệ để mang lại kết quả tốt hơn cho khách hàng. Đội ngũ của chúng tôi kết hợp nền tảng kỹ thuật sâu với bộ công cụ AI hiện đại để xây dựng [các giải pháp CMS, CRM và ERP](/services) vừa bàn giao nhanh hơn vừa có chất lượng cao hơn.",
     ],
     headings: [
-      { id: "ai-code-generation", text: "Sinh Code bằng AI" },
-      { id: "ai-testing-transformation", text: "Bước chuyển mình của Kiểm thử" },
-      { id: "project-estimation-ai", text: "Ước lượng Dự án Thông minh hơn" },
-      { id: "business-benefits-ai", text: "Lợi ích Kinh doanh của Tích hợp AI" },
+      { id: "ai-code-generation", text: "Sinh Code bằng AI", level: 2 },
+      { id: "ai-testing-transformation", text: "Bước chuyển mình của Kiểm thử", level: 2 },
+      { id: "project-estimation-ai", text: "Ước lượng Dự án Thông minh hơn", level: 2 },
+      { id: "business-benefits-ai", text: "Lợi ích Kinh doanh của Tích hợp AI", level: 2 },
     ],
   },
   "agentic-ai-autonomous-software-systems-2026": {
@@ -26,10 +26,10 @@ export const part3: Record<string, BlogViBody> = {
       "Tại Retech Solutions, chúng tôi giúp khách hàng tích hợp năng lực agentic vào [hệ thống CMS, CRM và ERP](/services) hiện có. Thay vì xây dựng lại từ đầu, chúng tôi bổ sung lớp agent vận hành song song với workflow hiện tại, tự động hóa tác vụ thường nhật trong khi con người vẫn nắm quyền quyết định chiến lược. Cách tiếp cận của chúng tôi kết hợp các framework điều phối AI hiện đại với độ tin cậy và bảo mật mà hệ thống doanh nghiệp đòi hỏi.",
     ],
     headings: [
-      { id: "what-is-agentic-ai", text: "Agentic AI là gì?" },
-      { id: "software-architecture-shift", text: "Sự dịch chuyển trong Kiến trúc Phần mềm" },
-      { id: "business-implications", text: "Tác động Kinh doanh và ROI" },
-      { id: "integrating-agents-existing-systems", text: "Tích hợp Agent vào Hệ thống Hiện có" },
+      { id: "what-is-agentic-ai", text: "Agentic AI là gì?", level: 2 },
+      { id: "software-architecture-shift", text: "Sự dịch chuyển trong Kiến trúc Phần mềm", level: 2 },
+      { id: "business-implications", text: "Tác động Kinh doanh và ROI", level: 2 },
+      { id: "integrating-agents-existing-systems", text: "Tích hợp Agent vào Hệ thống Hiện có", level: 2 },
     ],
   },
   "erp-modernization-legacy-systems-migration-guide": {
@@ -42,10 +42,10 @@ export const part3: Record<string, BlogViBody> = {
       "Tại Retech Solutions, chúng tôi chuyên về [các dự án hiện đại hóa ERP](/services/erp-solutions) cho doanh nghiệp phân khúc trung. Dù bạn cần mở rộng một hệ thống Odoo hay SAP hiện hữu bằng module tùy chỉnh, di chuyển từ hệ thống on-premise legacy lên cloud, hay xây dựng ERP riêng từ đầu, đội ngũ của chúng tôi mang đủ chiều sâu kỹ thuật và tính kỷ luật trong quản lý dự án để bàn giao đúng hạn và đúng ngân sách.",
     ],
     headings: [
-      { id: "hidden-costs-legacy-erp", text: "Chi phí Ẩn của ERP Legacy" },
-      { id: "modernization-strategies", text: "Ba Chiến lược Hiện đại hóa" },
-      { id: "modern-erp-features", text: "Tính năng Then chốt của ERP Hiện đại" },
-      { id: "change-management", text: "Quản trị Thay đổi: Yếu tố Bắt buộc" },
+      { id: "hidden-costs-legacy-erp", text: "Chi phí Ẩn của ERP Legacy", level: 2 },
+      { id: "modernization-strategies", text: "Ba Chiến lược Hiện đại hóa", level: 2 },
+      { id: "modern-erp-features", text: "Tính năng Then chốt của ERP Hiện đại", level: 2 },
+      { id: "change-management", text: "Quản trị Thay đổi: Yếu tố Bắt buộc", level: 2 },
     ],
   },
   "building-offshore-development-team-practical-guide": {
@@ -58,10 +58,10 @@ export const part3: Record<string, BlogViBody> = {
       "Tại Retech Solutions, mô hình dedicated team của chúng tôi gồm các kỹ sư senior đã được sàng lọc trước, project manager chuyên trách, quy trình agile đồng bộ với workflow của bạn và bảo vệ IP trọn vẹn. Chúng tôi lo tuyển dụng, HR, thiết bị và hạ tầng để bạn tập trung xây dựng sản phẩm tốt. Mở rộng hay thu hẹp đội chỉ cần báo trước 2-4 tuần. [Khám phá dịch vụ của chúng tôi](/services) hoặc tìm hiểu thêm [vì sao Việt Nam là điểm đến IT outsourcing hàng đầu](/blog/vi-sao-viet-nam-diem-den-it-outsourcing-hang-dau-2026).",
     ],
     headings: [
-      { id: "choosing-engagement-model", text: "Chọn Mô hình Hợp tác Phù hợp" },
-      { id: "hiring-quality", text: "Chất lượng Tuyển dụng: Yếu tố Quan trọng Nhất" },
-      { id: "communication-infrastructure", text: "Xây dựng Hạ tầng Giao tiếp" },
-      { id: "legal-ip-protection", text: "Bảo vệ Pháp lý và IP" },
+      { id: "choosing-engagement-model", text: "Chọn Mô hình Hợp tác Phù hợp", level: 2 },
+      { id: "hiring-quality", text: "Chất lượng Tuyển dụng: Yếu tố Quan trọng Nhất", level: 2 },
+      { id: "communication-infrastructure", text: "Xây dựng Hạ tầng Giao tiếp", level: 2 },
+      { id: "legal-ip-protection", text: "Bảo vệ Pháp lý và IP", level: 2 },
     ],
   },
   "nextjs-16-server-components-performance-guide": {
@@ -74,10 +74,10 @@ export const part3: Record<string, BlogViBody> = {
       "Tại Retech Solutions, chúng tôi xây dựng mọi dự án web mới bằng Next.js và App Router. Khách hàng hưởng lợi từ thời gian tải nhanh hơn, thứ hạng SEO tốt hơn và chi phí hạ tầng thấp hơn. Dù bạn đang xây dựng một [CMS tùy chỉnh](/services/cms-platforms), cổng thông tin khách hàng hay một ứng dụng SaaS trọn vẹn, lợi ích hiệu suất từ kiến trúc server-first là quá lớn để bỏ qua.",
     ],
     headings: [
-      { id: "react-server-components", text: "React Server Components trong Next.js 16" },
-      { id: "streaming-ssr", text: "Streaming SSR và Suspense" },
-      { id: "caching-model", text: "Mô hình Caching Đơn giản hóa" },
-      { id: "real-world-performance", text: "Mức tăng Hiệu suất Thực tế" },
+      { id: "react-server-components", text: "React Server Components trong Next.js 16", level: 2 },
+      { id: "streaming-ssr", text: "Streaming SSR và Suspense", level: 2 },
+      { id: "caching-model", text: "Mô hình Caching Đơn giản hóa", level: 2 },
+      { id: "real-world-performance", text: "Mức tăng Hiệu suất Thực tế", level: 2 },
     ],
   },
 };

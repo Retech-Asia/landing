@@ -11,10 +11,10 @@ export const part4: Record<string, BlogViBody> = {
       "Tại Retech Solutions, chúng tôi giúp doanh nghiệp đưa ra quyết định này một cách trung thực. Chúng tôi là công ty phát triển theo yêu cầu, nhưng sẽ nói thẳng khi một công cụ low-code giải quyết vấn đề của bạn nhanh hơn và rẻ hơn. Trọng tâm của chúng tôi là xây dựng những hệ thống mà low-code không thể: [nền tảng CMS theo yêu cầu](/services/cms-platforms), [giải pháp CRM và ERP bespoke](/services), và các ứng dụng AI đòi hỏi chuyên môn kỹ thuật sâu cùng khả năng kiểm soát kiến trúc.",
     ],
     headings: [
-      { id: "when-low-code-excels", text: "Khi nào Low-Code Phát huy Thế mạnh" },
-      { id: "when-custom-development-wins", text: "Khi nào Phát triển Theo yêu cầu Thắng" },
-      { id: "vendor-lock-in-risk", text: "Chi phí Ẩn: Vendor Lock-In" },
-      { id: "hybrid-approach", text: "Cách tiếp cận Hybrid" },
+      { id: "when-low-code-excels", text: "Khi nào Low-Code Phát huy Thế mạnh", level: 2 },
+      { id: "when-custom-development-wins", text: "Khi nào Phát triển Theo yêu cầu Thắng", level: 2 },
+      { id: "vendor-lock-in-risk", text: "Chi phí Ẩn: Vendor Lock-In", level: 2 },
+      { id: "hybrid-approach", text: "Cách tiếp cận Hybrid", level: 2 },
     ],
   },
   "cloud-native-erp-microservices-architecture-future": {
@@ -26,10 +26,10 @@ export const part4: Record<string, BlogViBody> = {
       "Tại Retech Solutions, chúng tôi xây dựng [hệ thống ERP cloud-native](/services/erp-solutions) theo kiến trúc microservices cho những khách hàng cần sự linh hoạt mà các nền tảng có sẵn không đáp ứng được. Dù bạn đang di chuyển từ một monolith legacy hay xây dựng hệ thống mới từ đầu, đội ngũ của chúng tôi thiết kế các service có thể triển khai độc lập, bền vững và sẵn sàng tiến hóa cùng doanh nghiệp của bạn. Chúng tôi tận dụng Kubernetes, container orchestration và CI/CD pipeline hiện đại để đảm bảo ERP của bạn phát triển cùng tham vọng của bạn thay vì kìm hãm nó.",
     ],
     headings: [
-      { id: "microservices-architecture", text: "Kiến trúc Microservices là gì" },
-      { id: "containerization-kubernetes", text: "Containerization và Kubernetes" },
-      { id: "scalability-benefits", text: "Lợi ích Khả mở Mang tính Bước ngoặt" },
-      { id: "building-cloud-native-erp", text: "Xây dựng Cloud-Native ERP tại Retech" },
+      { id: "microservices-architecture", text: "Kiến trúc Microservices là gì", level: 2 },
+      { id: "containerization-kubernetes", text: "Containerization và Kubernetes", level: 2 },
+      { id: "scalability-benefits", text: "Lợi ích Khả mở Mang tính Bước ngoặt", level: 2 },
+      { id: "building-cloud-native-erp", text: "Xây dựng Cloud-Native ERP tại Retech", level: 2 },
     ],
   },
   "evaluate-offshore-software-development-partner-checklist": {
@@ -42,11 +42,11 @@ export const part4: Record<string, BlogViBody> = {
       "Minh bạch về giá và cultural fit hoàn tất phần đánh giá. Một đối tác tốt cung cấp mô hình giá rõ ràng, fixed-price, time-and-materials hay dedicated team, kèm bảng giá minh bạch và không có chi phí ẩn. Hãy cảnh giác với những mức giá tốt đến khó tin; chúng thường là như vậy. Cultural fit khó đo lường hơn nhưng quan trọng không kém. Tìm những đối tác đặt câu hỏi sâu sắc về doanh nghiệp của bạn, phản biện các giả định một cách xây dựng, và thể hiện sự quan tâm thực sự đến thành công của bạn thay vì đơn thuần đồng ý với mọi yêu cầu. Để so sánh chi phí, xem [phân tích Việt Nam vs Ấn Độ vs Đông Âu](/blog/so-sanh-chi-phi-phat-trien-phan-mem-viet-nam-an-do-dong-au-2026) của chúng tôi. Tại Retech Solutions, chúng tôi khuyến khích khách hàng tiềm năng đánh giá chúng tôi theo từng tiêu chí trong checklist này, vì chúng tôi tin rằng sự minh bạch tạo dựng niềm tin mà những hợp tác tốt đẹp cần đến.",
     ],
     headings: [
-      { id: "technical-assessment", text: "Đánh giá Kỹ thuật" },
-      { id: "communication-capability", text: "Năng lực Giao tiếp" },
-      { id: "security-ip-protection", text: "Bảo mật và Bảo vệ IP" },
-      { id: "portfolio-references", text: "Portfolio và Tham chiếu" },
-      { id: "pricing-cultural-fit", text: "Minh bạch Giá và Cultural Fit" },
+      { id: "technical-assessment", text: "Đánh giá Kỹ thuật", level: 2 },
+      { id: "communication-capability", text: "Năng lực Giao tiếp", level: 2 },
+      { id: "security-ip-protection", text: "Bảo mật và Bảo vệ IP", level: 2 },
+      { id: "portfolio-references", text: "Portfolio và Tham chiếu", level: 2 },
+      { id: "pricing-cultural-fit", text: "Minh bạch Giá và Cultural Fit", level: 2 },
     ],
   },
   "rise-of-headless-cms-separating-content-from-presentation": {
@@ -58,10 +58,10 @@ export const part4: Record<string, BlogViBody> = {
       "Tại Retech Solutions, chúng tôi xây dựng [giải pháp headless CMS](/services/cms-platforms) cho những khách hàng cần phân phối nội dung đa kênh mà không bị giới hạn bởi các nền tảng monolithic. Dù bạn đang di chuyển từ WordPress sang Strapi, xây content API tùy chỉnh trên nền Contentful, hay cần một hệ thống quản lý nội dung hoàn toàn bespoke với gợi ý nội dung chạy AI, đội ngũ của chúng tôi bàn giao những kiến trúc mở rộng được cùng chiến lược nội dung của bạn. Headless không chỉ là một lựa chọn kỹ thuật. Đó là khoản đầu tư chiến lược vào sự linh hoạt của nội dung, sinh lời khi hiện diện số của bạn mở rộng.",
     ],
     headings: [
-      { id: "headless-architecture-explained", text: "Kiến trúc Headless Hoạt động như thế nào" },
-      { id: "leading-platforms", text: "Các Nền tảng Headless CMS Dẫn đầu" },
-      { id: "api-first-delivery", text: "Phân phối Nội dung API-First" },
-      { id: "building-headless-cms-retech", text: "Giải pháp Headless CMS tại Retech" },
+      { id: "headless-architecture-explained", text: "Kiến trúc Headless Hoạt động như thế nào", level: 2 },
+      { id: "leading-platforms", text: "Các Nền tảng Headless CMS Dẫn đầu", level: 2 },
+      { id: "api-first-delivery", text: "Phân phối Nội dung API-First", level: 2 },
+      { id: "building-headless-cms-retech", text: "Giải pháp Headless CMS tại Retech", level: 2 },
     ],
   },
   "software-development-cost-comparison-vietnam-india-eastern-europe-2026": {
@@ -74,11 +74,11 @@ export const part4: Record<string, BlogViBody> = {
       "Tổng chi phí sở hữu (TCO) mới là chỉ số quan trọng nhất. Nó bao gồm không chỉ giá theo giờ mà còn chi phí tuyển dụng và onboarding, tổn phí giao tiếp, làm lại do vấn đề chất lượng, thời gian quản lý, và chi phí cơ hội của sự chậm trễ. Một phân tích của Gartner ước tính rằng tổn phí giao tiếp và việc làm lại có thể cộng thêm 20-40% vào chi phí phát triển danh nghĩa. Sự kết hợp giữa mức giá cạnh tranh, chất lượng đang cải thiện, vị trí múi giờ thuận lợi và khả năng thích ứng văn hóa thường giúp Việt Nam đạt tổng chi phí sở hữu thấp nhất cho các công ty tại khu vực châu Á - Thái Bình Dương, và TCO cạnh tranh cho cả khách hàng châu Âu. Để tìm hiểu thêm vì sao chọn Việt Nam, đọc [vì sao Việt Nam là điểm đến IT outsourcing hàng đầu](/blog/vi-sao-viet-nam-diem-den-it-outsourcing-hang-dau-2026). Tại Retech Solutions, chúng tôi cung cấp giá minh bạch, project manager chuyên trách và quy trình agile giúp giảm thiểu tổn phí và tối đa hóa giá trị của từng giờ phát triển được đầu tư.",
     ],
     headings: [
-      { id: "hourly-rates-comparison", text: "Giá theo Giờ giữa các Khu vực" },
-      { id: "quality-comparison", text: "Chất lượng: Giáo dục và Chuyên môn hóa" },
-      { id: "timezone-advantages", text: "Lợi thế Múi giờ theo Khu vực" },
-      { id: "cultural-factors", text: "Yếu tố Văn hóa trong Hợp tác" },
-      { id: "total-cost-ownership", text: "Tổng chi phí Sở hữu" },
+      { id: "hourly-rates-comparison", text: "Giá theo Giờ giữa các Khu vực", level: 2 },
+      { id: "quality-comparison", text: "Chất lượng: Giáo dục và Chuyên môn hóa", level: 2 },
+      { id: "timezone-advantages", text: "Lợi thế Múi giờ theo Khu vực", level: 2 },
+      { id: "cultural-factors", text: "Yếu tố Văn hóa trong Hợp tác", level: 2 },
+      { id: "total-cost-ownership", text: "Tổng chi phí Sở hữu", level: 2 },
     ],
   },
 };

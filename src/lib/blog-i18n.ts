@@ -311,7 +311,9 @@ export const blogViMeta: Record<string, BlogViMeta> = {
  */
 export interface BlogViBody {
   content: string[];
-  headings: { id: string; text: string }[];
+  /** Same shape as the EN headings (Heading.paras is optional; VI bodies
+   * are one paragraph per heading and simply omit it). */
+  headings: BlogPost["headings"];
 }
 
 /**

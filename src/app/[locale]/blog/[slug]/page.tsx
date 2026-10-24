@@ -182,9 +182,13 @@ export default async function BlogPostPage({
   // content[0] = intro, then each heading maps to the paragraph at (heading index + 1).
   const contentElements: React.ReactNode[] = [];
 
-  postHeadings.forEach((heading, hIndex) => {
-    const paragraphIndex = hIndex + 1;
-    // Insert the heading before its corresponding paragraph
+  // Body assembly: content[0] is the lede (rendered above); every heading
+  // owns the next `paras ?? 1` paragraphs of the flat content array. The
+  // optional comparison table renders directly after its anchor paragraph.
+  let paraCursor = 1;
+  postHeadings.forEach((heading) => {
+    const take = heading.paras ?? 1;
+    // Insert the heading before its section paragraphs
     contentElements.push(
       <h2
         key={`heading-${heading.id}`}
@@ -194,8 +198,8 @@ export default async function BlogPostPage({
         {heading.text}
       </h2>
     );
-    // Insert the paragraph after the heading (if it exists)
-    if (paragraphIndex < postContent.length) {
+    for (let taken = 0; taken < take && paraCursor < postContent.length; taken++) {
+      const paragraphIndex = paraCursor++;
       contentElements.push(
         <p
           key={`para-${paragraphIndex}`}
@@ -204,57 +208,57 @@ export default async function BlogPostPage({
           {renderContent(postContent[paragraphIndex])}
         </p>
       );
-    }
-    // Optional comparison table rendered after its anchor paragraph
-    if (post.table && post.table.afterParagraph === paragraphIndex) {
-      contentElements.push(
-        <div
-          key={`table-${paragraphIndex}`}
-          className="my-10 overflow-x-auto rounded-xl border border-card-border"
-        >
-          <table className="w-full min-w-[560px] border-collapse text-sm">
-            <thead>
-              <tr className="border-b border-card-border bg-card/50">
-                {post.table.columns.map((col) => (
-                  <th
-                    key={col}
-                    scope="col"
-                    className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-foreground-secondary"
-                  >
-                    {col}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {post.table.rows.map((row) => (
-                <tr
-                  key={row[0]}
-                  className="border-b border-card-border/60 last:border-0"
-                >
-                  {row.map((cell, cellIndex) => (
-                    <td
-                      key={cellIndex}
-                      className={
-                        cellIndex === 0
-                          ? "px-4 py-3 font-medium text-foreground"
-                          : "px-4 py-3 text-foreground-secondary"
-                      }
+      // Optional comparison table rendered after its anchor paragraph
+      if (post.table && post.table.afterParagraph === paragraphIndex) {
+        contentElements.push(
+          <div
+            key={`table-${paragraphIndex}`}
+            className="my-10 overflow-x-auto rounded-xl border border-card-border"
+          >
+            <table className="w-full min-w-[560px] border-collapse text-sm">
+              <thead>
+                <tr className="border-b border-card-border bg-card/50">
+                  {post.table.columns.map((col) => (
+                    <th
+                      key={col}
+                      scope="col"
+                      className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-foreground-secondary"
                     >
-                      {cell}
-                    </td>
+                      {col}
+                    </th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          {post.table.caption && (
-            <p className="border-t border-card-border/60 bg-card/30 px-4 py-2.5 text-xs text-foreground-muted">
-              {post.table.caption}
-            </p>
-          )}
-        </div>
-      );
+              </thead>
+              <tbody>
+                {post.table.rows.map((row) => (
+                  <tr
+                    key={row[0]}
+                    className="border-b border-card-border/60 last:border-0"
+                  >
+                    {row.map((cell, cellIndex) => (
+                      <td
+                        key={cellIndex}
+                        className={
+                          cellIndex === 0
+                            ? "px-4 py-3 font-medium text-foreground"
+                            : "px-4 py-3 text-foreground-secondary"
+                        }
+                      >
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {post.table.caption && (
+              <p className="border-t border-card-border/60 bg-card/30 px-4 py-2.5 text-xs text-foreground-muted">
+                {post.table.caption}
+              </p>
+            )}
+          </div>
+        );
+      }
     }
   });
 

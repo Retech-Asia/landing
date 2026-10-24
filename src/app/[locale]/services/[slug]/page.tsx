@@ -115,24 +115,25 @@ export function generateMetadata({
  * because it's page-specific UI copy, not data-model content).
  */
 /**
- * Per-cluster contextual band (visual-experience round, 2026-10-23).
- * Replaces the shared code-screen/developer-workspace strips: each service
- * cluster gets one identity image instead of every page sharing two.
+ * Per-cluster contextual band (visual-experience round, 2026-10-23;
+ * de-duplicated 2026-10-24 per the growth-design handoff). Each service
+ * gets its own band subject: photos sourced per the approved manifest
+ * (Pexels, provenance in src/lib/photography.ts); CMS/ERP use in-house
+ * diagram strips instead of stock photography (no fabricated screenshots).
  * CRM/web/mobile deliberately mirror their homepage capability-panel photo
- * (intentional identity link, see src/lib/photography.ts); desktop/AI/
- * consulting get their own subjects so adjacent clusters never repeat.
+ * (intentional identity link, see src/lib/photography.ts).
  */
-const SERVICE_CLUSTER_IMAGES: Record<string, { src: string }> = {
-  "crm-systems": { src: "/images/photo/photo-crm-laptop.webp" },
-  "cms-platforms": { src: "/images/photo/photo-crm-laptop.webp" },
-  "erp-solutions": { src: "/images/photo/photo-crm-laptop.webp" },
-  "web-development": { src: "/images/photo/photo-web-code.webp" },
-  "ui-ux-design": { src: "/images/photo/photo-web-code.webp" },
-  "mobile-app-development": { src: "/images/photo/photo-mobile-dev.webp" },
-  "desktop-app-development": { src: "/images/photo/photo-desktop-terminal.webp" },
-  "ai-development": { src: "/images/photo/photo-ai-hardware.webp" },
-  "it-consulting": { src: "/images/photo/photo-consulting-session.webp" },
-  "dedicated-teams": { src: "/images/photo/photo-consulting-session.webp" },
+const SERVICE_CLUSTER_IMAGES: Record<string, { src: string; altKey: string }> = {
+  "crm-systems": { src: "/images/photo/photo-crm-laptop.webp", altKey: "clusterCrm" },
+  "cms-platforms": { src: "/images/photo/photo-diagram-cms-lifecycle.webp", altKey: "clusterCms" },
+  "erp-solutions": { src: "/images/photo/photo-diagram-erp-integration.webp", altKey: "clusterErp" },
+  "web-development": { src: "/images/photo/photo-service-web-developers.webp", altKey: "clusterWeb" },
+  "ui-ux-design": { src: "/images/photo/photo-service-uiux-designer.webp", altKey: "clusterUiux" },
+  "mobile-app-development": { src: "/images/photo/photo-mobile-dev.webp", altKey: "clusterMobile" },
+  "desktop-app-development": { src: "/images/photo/photo-desktop-terminal.webp", altKey: "clusterDesktop" },
+  "ai-development": { src: "/images/photo/photo-ai-hardware.webp", altKey: "clusterAi" },
+  "it-consulting": { src: "/images/photo/photo-consulting-session.webp", altKey: "clusterConsulting" },
+  "dedicated-teams": { src: "/images/photo/photo-service-dedicated-collaboration.webp", altKey: "clusterDedicated" },
 };
 
 const serviceChecklists: Record<string, { en: string[]; vi: string[] }> = {
@@ -648,7 +649,7 @@ export default async function ServiceDetailPage({
       <div className="relative h-[200px] md:h-[300px] overflow-hidden">
         <Image
           src={SERVICE_CLUSTER_IMAGES[service.id]?.src ?? "/images/photo/photo-web-code.webp"}
-          alt={t("imageAlts.codeStrip")}
+          alt={t(`imageAlts.${SERVICE_CLUSTER_IMAGES[service.id]?.altKey ?? "clusterWeb"}`)}
           fill
           sizes="100vw"
           className="object-cover"

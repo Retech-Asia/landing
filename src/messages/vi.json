@@ -409,8 +409,16 @@
       "ctaSecondary": "Xem Dịch vụ"
     },
     "imageAlts": {
-      "codeStrip": "Không gian làm việc phát triển: code, công cụ và quy trình kỹ thuật",
-      "workspaceStrip": "Không gian làm việc phát triển tại Retech Solutions"
+      "clusterCrm": "Bảng phân tích trên laptop tại bàn làm việc",
+      "clusterCms": "Sơ đồ vòng đời nội dung: soạn thảo, duyệt bài, phê duyệt, xuất bản, đo lường",
+      "clusterErp": "Sơ đồ lõi ERP dùng chung một mô hình dữ liệu với bán hàng, tồn kho, mua hàng, kế toán, báo cáo và nhân sự",
+      "clusterWeb": "Lập trình viên làm việc tại máy tính trong văn phòng",
+      "clusterUiux": "Nhà thiết kế làm việc tại máy tính trong studio",
+      "clusterMobile": "Bàn tay cầm điện thoại đang chạy ứng dụng",
+      "clusterDesktop": "Cửa sổ terminal với dấu nhắc dòng lệnh",
+      "clusterAi": "Ảnh macro bo mạch với ánh sáng xanh teal",
+      "clusterConsulting": "Chuyên gia tư vấn và khách hàng trao đổi bên laptop",
+      "clusterDedicated": "Hai đồng nghiệp cùng xem xét một dự án tại bàn làm việc"
     }
   },
   "industryDetail": {

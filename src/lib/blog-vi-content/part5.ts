@@ -11,10 +11,10 @@ export const part5: Record<string, BlogViBody> = {
       "Tại Retech Solutions, chúng tôi xây dựng quản trị AI vào mọi hệ thống mà chúng tôi phát triển. Các [giải pháp CMS, CRM và ERP](/services) của chúng tôi bao gồm audit trail khả năng cấu hình, phân quyền truy cập tính năng AI theo vai trò, và khả năng tài liệu hóa tích hợp sẵn giúp khách hàng đáp ứng yêu cầu tuân thủ mà không đánh đổi tốc độ và trí thông minh mà các tính năng AI hiện đại mang lại.",
     ],
     headings: [
-      { id: "eu-ai-act-2026", text: "Đạo luật AI của EU trong năm 2026" },
-      { id: "governance-development-lifecycle", text: "Quản trị trong Vòng đời Phát triển" },
-      { id: "technical-implementation", text: "Triển khai Kỹ thuật của Quản trị AI" },
-      { id: "business-case-governance", text: "Lập luận Kinh doanh cho Quản trị AI" },
+      { id: "eu-ai-act-2026", text: "Đạo luật AI của EU trong năm 2026", level: 2 },
+      { id: "governance-development-lifecycle", text: "Quản trị trong Vòng đời Phát triển", level: 2 },
+      { id: "technical-implementation", text: "Triển khai Kỹ thuật của Quản trị AI", level: 2 },
+      { id: "business-case-governance", text: "Lập luận Kinh doanh cho Quản trị AI", level: 2 },
     ],
   },
   "how-small-businesses-leverage-ai-without-breaking-bank": {
@@ -27,10 +27,10 @@ export const part5: Record<string, BlogViBody> = {
       "Tại Retech Solutions, chúng tôi giúp các doanh nghiệp nhỏ và vừa tích hợp AI vào [hệ thống CMS, CRM và ERP](/services) hiện có của họ. Cho dù bạn cần một chatbot tùy chỉnh được huấn luyện trên tài liệu sản phẩm, một pipeline báo cáo tự động, hay một engine gợi ý nội dung bằng AI cho website, chúng tôi xây dựng giải pháp vừa túi tiền và lớn lên cùng doanh nghiệp của bạn. Bạn không cần ngân sách doanh nghiệp lớn để sở hữu trí thông minh hạng doanh nghiệp.",
     ],
     headings: [
-      { id: "customer-facing-ai-tools", text: "Công cụ AI Hướng khách hàng Tự hoàn vốn" },
-      { id: "marketing-automation-generative-ai", text: "Tự động hóa Marketing Với Generative AI" },
-      { id: "analytics-business-intelligence", text: "Phân tích và Business Intelligence Giá dễ chịu" },
-      { id: "incremental-adoption-strategy", text: "Chiến lược Áp dụng Từng bước" },
+      { id: "customer-facing-ai-tools", text: "Công cụ AI Hướng khách hàng Tự hoàn vốn", level: 2 },
+      { id: "marketing-automation-generative-ai", text: "Tự động hóa Marketing Với Generative AI", level: 2 },
+      { id: "analytics-business-intelligence", text: "Phân tích và Business Intelligence Giá dễ chịu", level: 2 },
+      { id: "incremental-adoption-strategy", text: "Chiến lược Áp dụng Từng bước", level: 2 },
     ],
   },
   "rise-of-edge-computing-what-it-means-for-web-applications": {
@@ -43,10 +43,10 @@ export const part5: Record<string, BlogViBody> = {
       "Tại Retech Solutions, chúng tôi thiết kế ứng dụng web tận dụng edge computing ở nơi nó mang lại giá trị nhiều nhất. Cho dù là xây dựng một [CMS lưu lượng cao](/services/cms-platforms) phân phối nội dung được cá nhân hóa cho người dùng khắp châu Á, một dashboard phân tích thời gian thực cần thời gian phản hồi dưới 50ms, hay một nền tảng thương mại điện tử nơi mỗi mili-giây tốc độ thanh khoản đều quy đổi thành doanh thu, chúng tôi thiết kế sự kết hợp đúng đắn giữa hạ tầng edge và origin cho từng yêu cầu dự án.",
     ],
     headings: [
-      { id: "cdn-to-edge-evolution", text: "Từ CDN đến Nền tảng Edge Compute" },
-      { id: "latency-improvements", text: "Cải thiện Độ trễ Đo lường được" },
-      { id: "authentication-personalization", text: "Xác thực và Cá nhân hóa tại Edge" },
-      { id: "edge-vs-server", text: "Khi nào Dùng Edge, khi nào Dùng Server" },
+      { id: "cdn-to-edge-evolution", text: "Từ CDN đến Nền tảng Edge Compute", level: 2 },
+      { id: "latency-improvements", text: "Cải thiện Độ trễ Đo lường được", level: 2 },
+      { id: "authentication-personalization", text: "Xác thực và Cá nhân hóa tại Edge", level: 2 },
+      { id: "edge-vs-server", text: "Khi nào Dùng Edge, khi nào Dùng Server", level: 2 },
     ],
   },
   "why-typescript-became-default-enterprise-development": {
@@ -59,10 +59,10 @@ export const part5: Record<string, BlogViBody> = {
       "Tại Retech Solutions, TypeScript là ngôn ngữ mặc định cho mọi dự án mới và là lựa chọn được khuyến nghị cho khách hàng doanh nghiệp đang đánh giá technology stack của mình. Đội ngũ chúng tôi xây dựng [giải pháp CMS, CRM và ERP theo yêu cầu](/services) bằng TypeScript, hưởng lợi từ type safety chặt chẽ hơn, hỗ trợ IDE tốt hơn và codebase dễ bảo trì hơn. Với các doanh nghiệp đang có ứng dụng JavaScript, chúng tôi cung cấp dịch vụ di chuyển có cấu trúc, chuyển đổi codebase từng phần với tối thiểu gián đoạn cho quá trình phát triển đang diễn ra.",
     ],
     headings: [
-      { id: "adoption-statistics", text: "Mức độ Áp dụng TypeScript qua Con số" },
-      { id: "benefits-large-teams", text: "Lợi ích cho Các đội Kỹ thuật Lớn" },
-      { id: "migration-strategies", text: "Chiến lược Di chuyển Từ JavaScript đã được Chứng minh" },
-      { id: "ecosystem-maturity", text: "Độ trưởng thành của Hệ sinh thái và Công cụ" },
+      { id: "adoption-statistics", text: "Mức độ Áp dụng TypeScript qua Con số", level: 2 },
+      { id: "benefits-large-teams", text: "Lợi ích cho Các đội Kỹ thuật Lớn", level: 2 },
+      { id: "migration-strategies", text: "Chiến lược Di chuyển Từ JavaScript đã được Chứng minh", level: 2 },
+      { id: "ecosystem-maturity", text: "Độ trưởng thành của Hệ sinh thái và Công cụ", level: 2 },
     ],
   },
   "building-accessible-websites-practical-guide-2026": {
@@ -75,10 +75,10 @@ export const part5: Record<string, BlogViBody> = {
       "Tại Retech Solutions, chúng tôi đưa accessibility vào mọi dự án ngay từ giai đoạn thiết kế. Các [giải pháp CMS, CRM và ERP](/services) của chúng tôi tuân theo tiêu chuẩn WCAG 2.2 AA theo mặc định, với markup ngữ nghĩa, điều hướng bàn phím, tương thích trình đọc màn hình và độ tương phản màu đầy đủ được tích hợp sẵn trong từng component. Chúng tôi tiến hành kiểm tra accessibility tự động và thủ công trước khi ra mắt, cùng giám sát liên tục để đảm bảo tuân thủ khi nội dung và tính năng thay đổi. Accessibility không phải một phần bổ sung. Đó là một thuộc tính chất lượng nền tảng của phần mềm chuyên nghiệp.",
     ],
     headings: [
-      { id: "foundational-techniques", text: "Các Kỹ thuật Nền tảng Mọi Developer cần Biết" },
-      { id: "wcag-22-updates", text: "Điểm mới trong WCAG 2.2" },
-      { id: "testing-tools-workflow", text: "Công cụ Kiểm thử và Tích hợp Quy trình" },
-      { id: "business-case-accessibility", text: "Lập luận Kinh doanh cho Accessibility" },
+      { id: "foundational-techniques", text: "Các Kỹ thuật Nền tảng Mọi Developer cần Biết", level: 2 },
+      { id: "wcag-22-updates", text: "Điểm mới trong WCAG 2.2", level: 2 },
+      { id: "testing-tools-workflow", text: "Công cụ Kiểm thử và Tích hợp Quy trình", level: 2 },
+      { id: "business-case-accessibility", text: "Lập luận Kinh doanh cho Accessibility", level: 2 },
     ],
   },
 };

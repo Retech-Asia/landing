@@ -409,8 +409,16 @@
       "ctaSecondary": "Browse Services"
     },
     "imageAlts": {
-      "codeStrip": "Development workspace: code, tools, and engineering process",
-      "workspaceStrip": "Development workspace at Retech Solutions"
+      "clusterCrm": "Analytics dashboards on a laptop at a desk",
+      "clusterCms": "Diagram of the content lifecycle: author, review, approve, publish, measure",
+      "clusterErp": "Diagram of an ERP core sharing one data model with sales, inventory, procurement, accounting, reporting and people systems",
+      "clusterWeb": "Developers working at computers in an office",
+      "clusterUiux": "Designer working at a computer in a studio",
+      "clusterMobile": "Hand holding a phone running an app",
+      "clusterDesktop": "Terminal window with a command-line prompt",
+      "clusterAi": "Macro of a circuit board with teal lighting",
+      "clusterConsulting": "Consultant and client in discussion over a laptop",
+      "clusterDedicated": "Two colleagues reviewing a project together at a desk"
     }
   },
   "industryDetail": {

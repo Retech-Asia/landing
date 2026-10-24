@@ -18,6 +18,13 @@
  */
 
 const BLOG_IMAGES: Record<string, string> = {
+  // 2026-10-24 growth-design handoff batch — covers derived from already-
+  // licensed registry assets (photography.ts), 1200x630 via sharp
+  // (fit: cover, attention crop).
+  "how-to-scope-an-mvp-remote-development-team": "/images/blog/how-to-scope-an-mvp-remote-development-team.webp",
+  "hiring-vietnam-software-development-team-california": "/images/blog/hiring-vietnam-software-development-team-california.webp",
+  "custom-crm-vs-off-the-shelf-crm": "/images/blog/custom-crm-vs-off-the-shelf-crm.webp",
+
   // 2026-09 AI model wave synthesized post — data center aisle (Pexels
   // #4508751), converted via sharp (fit: cover, attention crop).
   "ai-model-wave-2026-astra-fable-gemini-glm-acquisitions": "/images/blog/ai-model-wave-2026-astra-fable-gemini-glm-acquisitions.webp",

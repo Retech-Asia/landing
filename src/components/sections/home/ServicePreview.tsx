@@ -197,11 +197,10 @@ export function ServicePreview() {
                 tech={techOf(active)}
                 href={hrefOf(active)}
                 image={img(active)}
-                glass={PANEL_GLASS[active]}
                 visitLabel={t("explorer.visitLabel")}
                 problemLabel={t("explorer.problemLabel")}
                 techLabel={t("explorer.techLabel")}
-                imageSizes="(max-width: 1280px) 50vw, 560px"
+                imageSizes="(max-width: 1280px) 55vw, 44rem"
               />
             )}
           </div>
@@ -259,7 +258,6 @@ export function ServicePreview() {
                       tech={techOf(i)}
                       href={hrefOf(i)}
                       image={img(i)}
-                      glass={PANEL_GLASS[i]}
                       visitLabel={t("explorer.visitLabel")}
                       problemLabel={t("explorer.problemLabel")}
                       techLabel={t("explorer.techLabel")}
@@ -289,7 +287,6 @@ function PanelBody({
   tech,
   href,
   image,
-  glass,
   visitLabel,
   problemLabel,
   techLabel,
@@ -302,7 +299,6 @@ function PanelBody({
   tech: string[];
   href: string;
   image: { src: string; alt: string };
-  glass: GlassIconName;
   visitLabel: string;
   problemLabel: string;
   techLabel: string;
@@ -321,15 +317,6 @@ function PanelBody({
           blurDataURL={BLUR_DATA_URL}
           className="h-auto w-full object-cover"
         />
-        {/* Glass kit pictogram anchors the panel (decorative; the photo
-            alt + visible copy carry the meaning). Static tile — the panel
-            is not itself a control, so no hover motion here. Positioned
-            via a wrapper: .rg-glass sets position:relative in the rg CSS
-            layer, which would defeat an `absolute` utility on the tile
-            itself, and the wrapper also carries the separating ring. */}
-        <span className="absolute left-4 top-4 z-10 inline-flex rounded-xl ring-2 ring-background">
-          <GlassIcon name={glass} size="md" />
-        </span>
       </div>
 
       <h3 className="sr-only">{title}</h3>

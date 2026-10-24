@@ -11,10 +11,10 @@ export const part6: Record<string, BlogViBody> = {
       "Tại Retech Solutions, chúng tôi xây dựng mọi ứng dụng web mới bằng React Server Components với Next.js App Router. Các [dự án CMS, CRM và ERP](/services) của chúng tôi hưởng lợi từ những cải thiện về hiệu suất, bảo mật và trải nghiệm developer mà kiến trúc server-first mang lại. Chúng tôi giúp các đội ngũ di chuyển ứng dụng React hiện có sang pattern RSC: xác định component nào nên chuyển lên server, tái cấu trúc tầng lấy dữ liệu và thiết lập kiến trúc hybrid server-client mang lại sự kết hợp tối ưu giữa hiệu suất và tính tương tác.",
     ],
     headings: [
-      { id: "rsc-performance-gains", text: "Lợi ích Hiệu suất đã Kiểm chứng trong Production" },
-      { id: "server-vs-client-patterns", text: "Server vs Client: Thực hành Tốt nhất trong 2026" },
-      { id: "data-fetching-patterns", text: "Pattern Lấy dữ liệu Hiện đại" },
-      { id: "streaming-suspense", text: "Tích hợp Streaming và Suspense" },
+      { id: "rsc-performance-gains", text: "Lợi ích Hiệu suất đã Kiểm chứng trong Production", level: 2 },
+      { id: "server-vs-client-patterns", text: "Server vs Client: Thực hành Tốt nhất trong 2026", level: 2 },
+      { id: "data-fetching-patterns", text: "Pattern Lấy dữ liệu Hiện đại", level: 2 },
+      { id: "streaming-suspense", text: "Tích hợp Streaming và Suspense", level: 2 },
     ],
   },
   "why-vietnam-smart-choice-it-outsourcing-2026": {
@@ -27,11 +27,11 @@ export const part6: Record<string, BlogViBody> = {
       "So với Ấn Độ, Việt Nam có chi phí thấp hơn ở mức chất lượng tương đương cho các dự án độ phức tạp trung bình, múi giờ phù hợp hơn với khách hàng châu Á – Thái Bình Dương và châu Âu, cùng mô hình cộng tác mang tính cá nhân hơn: các công ty Việt Nam thường nhỏ gọn và lấy khách hàng làm trung tâm hơn so với những nhà cung cấp dịch vụ khổng lồ của Ấn Độ. So với Đông Âu, Việt Nam có mức giá thấp hơn 40-50%, nguồn nhân lực lớn hơn và tăng nhanh hơn, cùng trình độ tiếng Anh tương đương. Tại Retech Solutions với trụ sở ở TP.HCM, chúng tôi tận dụng các lợi thế này mỗi ngày, bàn giao [giải pháp CMS, CRM và ERP cấp doanh nghiệp](/services) cho khách hàng toàn cầu với mức giá khiến những dự án tham vọng trở nên khả thi về tài chính.",
     ],
     headings: [
-      { id: "cost-advantage-vietnam", text: "Lợi thế Chi phí 40-60%" },
-      { id: "talent-pool-quality", text: "Nguồn Nhân lực đã Trưởng thành" },
-      { id: "timezone-strategic-edge", text: "Múi giờ như một Lợi thế Chiến lược" },
-      { id: "government-tech-investment", text: "Đầu tư của Chính phủ vào Công nghệ" },
-      { id: "vietnam-vs-india-eastern-europe", text: "Việt Nam vs Ấn Độ vs Đông Âu" },
+      { id: "cost-advantage-vietnam", text: "Lợi thế Chi phí 40-60%", level: 2 },
+      { id: "talent-pool-quality", text: "Nguồn Nhân lực đã Trưởng thành", level: 2 },
+      { id: "timezone-strategic-edge", text: "Múi giờ như một Lợi thế Chiến lược", level: 2 },
+      { id: "government-tech-investment", text: "Đầu tư của Chính phủ vào Công nghệ", level: 2 },
+      { id: "vietnam-vs-india-eastern-europe", text: "Việt Nam vs Ấn Độ vs Đông Âu", level: 2 },
     ],
   },
   "how-choose-right-tech-stack-next-project": {
@@ -44,10 +44,10 @@ export const part6: Record<string, BlogViBody> = {
       "Tại Retech Solutions, chúng tôi giúp khách hàng đưa ra quyết định này qua một quy trình đánh giá có cấu trúc. Chúng tôi khảo sát yêu cầu kinh doanh, hạ tầng hiện có, năng lực đội ngũ và dự báo tăng trưởng trước khi khuyến nghị tech stack. Các đội của chúng tôi thành thạo mọi stack chủ đạo, từ Next.js và React đến Python, Django và microservices Node.js, nghĩa là chúng tôi khuyến nghị dựa trên điều đúng cho dự án của bạn, không phải điều tiện lợi cho đội của chúng tôi. [Khám phá dịch vụ của chúng tôi](/services) để xem các giải pháp công nghệ chúng tôi cung cấp. Lựa chọn đúng stack ngay từ đầu sẽ mang lại lợi ích cộng dồn về tốc độ, chất lượng và khả năng bảo trì trong nhiều năm tiếp theo.",
     ],
     headings: [
-      { id: "five-key-factors", text: "Khung Quyết định Năm Yếu tố" },
-      { id: "popular-stacks-compared", text: "So sánh Các Stack Phổ biến" },
-      { id: "enterprise-considerations", text: "Yêu cầu Tích hợp Doanh nghiệp" },
-      { id: "no-universal-best", text: "Vì sao Không có Stack Tốt nhất Phổ quát" },
+      { id: "five-key-factors", text: "Khung Quyết định Năm Yếu tố", level: 2 },
+      { id: "popular-stacks-compared", text: "So sánh Các Stack Phổ biến", level: 2 },
+      { id: "enterprise-considerations", text: "Yêu cầu Tích hợp Doanh nghiệp", level: 2 },
+      { id: "no-universal-best", text: "Vì sao Không có Stack Tốt nhất Phổ quát", level: 2 },
     ],
   },
   "from-legacy-to-cloud-native-practical-migration-guide": {
@@ -60,11 +60,11 @@ export const part6: Record<string, BlogViBody> = {
       "Đào tạo đội ngũ là yếu tố thành công bị đánh giá thấp nhất. Phát triển cloud-native đòi hỏi những kỹ năng mà các đội legacy thường thiếu: điều phối container, thiết kế hệ thống phân tán, thực hành observability và infrastructure-as-code. Đầu tư vào chương trình đào tạo có cấu trúc, ghép kỹ sư senior với chuyên gia cloud-native, và dành thời gian cho thử nghiệm và học hỏi. Tại Retech Solutions, chúng tôi đã đồng hành cùng nhiều doanh nghiệp tầm trung qua các cuộc di chuyển cloud-native. Chúng tôi mang đến chuyên môn kiến trúc, kỷ luật quản lý dự án và những pattern từng thực chiến giúp giảm rủi ro và đẩy nhanh tiến độ bàn giao. Dù bạn đang strangle một ERP legacy, container hóa một CMS monolithic, hay xây lại từ đầu, đội ngũ chúng tôi bàn giao các dự án di chuyển đúng hạn, đúng ngân sách, với sự tự tin đến từ một phương pháp bài bản. [Khám phá giải pháp ERP của chúng tôi](/services/erp-solutions) để tìm hiểu thêm.",
     ],
     headings: [
-      { id: "why-migrate-cloud-native", text: "Vì sao Nên Di chuyển: Business Case" },
-      { id: "migration-strategies", text: "So sánh Ba Chiến lược Di chuyển" },
-      { id: "step-by-step-execution", text: "Kế hoạch Thực thi Từng bước" },
-      { id: "risk-mitigation", text: "Kỹ thuật Giảm thiểu Rủi ro" },
-      { id: "team-training", text: "Yếu tố Bị đánh giá thấp nhất: Đào tạo Đội ngũ" },
+      { id: "why-migrate-cloud-native", text: "Vì sao Nên Di chuyển: Business Case", level: 2 },
+      { id: "migration-strategies", text: "So sánh Ba Chiến lược Di chuyển", level: 2 },
+      { id: "step-by-step-execution", text: "Kế hoạch Thực thi Từng bước", level: 2 },
+      { id: "risk-mitigation", text: "Kỹ thuật Giảm thiểu Rủi ro", level: 2 },
+      { id: "team-training", text: "Yếu tố Bị đánh giá thấp nhất: Đào tạo Đội ngũ", level: 2 },
     ],
   },
   "custom-software-vs-off-the-shelf-how-to-choose": {
@@ -76,10 +76,10 @@ export const part6: Record<string, BlogViBody> = {
       "Khả năng mở rộng và tính linh hoạt nghiêng cán cân về phía phát triển theo yêu cầu đối với các công ty đang tăng trưởng. Nền tảng có sẵn áp đặt ràng buộc: quyền truy cập API hạn chế, mô hình dữ liệu cứng nhắc và lộ trình tính năng phụ thuộc vào nhà cung cấp. Khi doanh nghiệp của bạn chuyển hướng, tiến vào thị trường mới, hay mua lại một công ty khác, phần mềm theo yêu cầu thích ứng theo. Phần mềm có sẵn đòi hỏi bạn phải thích ứng với nó. Để tìm hiểu thêm về chủ đề này, xem so sánh [low-code vs phát triển theo yêu cầu](/blog/low-code-vs-phat-trien-theo-yeu-cau-khi-nao-chon). Tại Retech Solutions, chúng tôi giúp doanh nghiệp đưa ra quyết định này một cách trung thực. Chúng tôi đã xây [giải pháp CMS, CRM và ERP theo yêu cầu](/services) cho những khách hàng tăng trưởng vượt quá khả năng đáp ứng của nền tảng SaaS, và chúng tôi cũng từng khuyên khách hàng dùng công cụ có sẵn khi nhu cầu của họ thực sự phổ quát. Câu trả lời đúng hoàn toàn phụ thuộc vào bối cảnh cụ thể của bạn, và chúng tôi đánh giá dựa trên yêu cầu kinh doanh của bạn, chứ không dựa trên danh mục dịch vụ của mình.",
     ],
     headings: [
-      { id: "when-off-the-shelf-excels", text: "Khi nào Phần mềm Có sẵn Tỏa sáng" },
-      { id: "when-custom-development-wins", text: "Khi nào Phát triển Theo yêu cầu Mang lại Giá trị Hơn" },
-      { id: "total-cost-ownership-comparison", text: "Tổng chi phí Sở hữu: So sánh Trung thực" },
-      { id: "scalability-flexibility", text: "Khả năng Mở rộng và Tính Linh hoạt" },
+      { id: "when-off-the-shelf-excels", text: "Khi nào Phần mềm Có sẵn Tỏa sáng", level: 2 },
+      { id: "when-custom-development-wins", text: "Khi nào Phát triển Theo yêu cầu Mang lại Giá trị Hơn", level: 2 },
+      { id: "total-cost-ownership-comparison", text: "Tổng chi phí Sở hữu: So sánh Trung thực", level: 2 },
+      { id: "scalability-flexibility", text: "Khả năng Mở rộng và Tính Linh hoạt", level: 2 },
     ],
   },
 };

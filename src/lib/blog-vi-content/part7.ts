@@ -10,10 +10,10 @@ export const part7: Record<string, BlogViBody> = {
       "Tuy nhiên, AI không phải giải pháp cho mọi vấn đề. AI gặp khó khăn với những tác vụ đòi hỏi chuyên môn sâu, phán đoán tinh tế hoặc am hiểu văn hóa tổ chức. AI không thể thay thế tư duy chiến lược, thứ quyết định vấn đề nào đáng giải quyết trước tiên. Cách tiếp cận hiệu quả nhất là xem AI như một công cụ mạnh nằm trong các hệ thống được thiết kế tốt, chứ không phải sự thay thế cho chuyên môn con người. Về các cân nhắc quản trị, xem hướng dẫn của chúng tôi về [quản trị AI cho phần mềm doanh nghiệp](/blog/quan-tri-ai-phần-mem-doanh-nghiep-tuan-thu-2026). Tại Retech Solutions, chúng tôi tích hợp năng lực AI vào các [giải pháp CMS, CRM và ERP](/services) do mình xây dựng, tập trung vào các tính năng mang lại kết quả kinh doanh thiết thực thay vì công nghệ vì chính công nghệ. Cách tiếp cận của chúng tôi đưa AI vào đúng nơi nó thực sự cải thiện hiệu suất và việc ra quyết định, trong khi con người vẫn nắm quyền kiểm soát chiến lược và các quyết định hệ trọng.",
     ],
     headings: [
-      { id: "ai-in-crm", text: "AI trong CRM: Từ Chấm điểm Lead đến Dự báo Rời bỏ" },
-      { id: "ai-in-erp", text: "AI trong ERP: Chuỗi Cung ứng và Vận hành Tài chính" },
-      { id: "ai-in-cms", text: "AI trong CMS: Trí tuệ Nội dung và Cá nhân hóa" },
-      { id: "where-ai-falls-short", text: "Những giới hạn Còn lại của AI" },
+      { id: "ai-in-crm", text: "AI trong CRM: Từ Chấm điểm Lead đến Dự báo Rời bỏ", level: 2 },
+      { id: "ai-in-erp", text: "AI trong ERP: Chuỗi Cung ứng và Vận hành Tài chính", level: 2 },
+      { id: "ai-in-cms", text: "AI trong CMS: Trí tuệ Nội dung và Cá nhân hóa", level: 2 },
+      { id: "where-ai-falls-short", text: "Những giới hạn Còn lại của AI", level: 2 },
     ],
   },
   "building-scalable-web-applications-technical-deep-dive": {
@@ -25,10 +25,10 @@ export const part7: Record<string, BlogViBody> = {
       "Hiệu suất frontend là phương diện mở rộng mà người dùng cảm nhận trực tiếp nhất. Code splitting chỉ phân phối phần JavaScript cần cho trang hiện tại thay vì toàn bộ bundle ứng dụng. Tối ưu hóa hình ảnh (dùng các định dạng hiện đại như WebP và AVIF, thuộc tính srcset responsive, và lazy loading cho hình ảnh dưới màn hình đầu) giảm đáng kể băng thông tiêu thụ. Server-side rendering và static generation loại bỏ hoàn toàn chi phí thực thi JavaScript cho những nội dung không cần tương tác phía client. Để tìm hiểu thêm về edge computing như một chiến lược mở rộng, xem bài viết của chúng tôi về [sự trỗi dậy của edge computing cho ứng dụng web](/blog/edge-computing-y-nghia-voi-ung-dung-web). Tại Retech Solutions, chúng tôi thiết kế các ứng dụng web với khả năng mở rộng cài sẵn ở mọi tầng. Dù là xây dựng [CMS lưu lượng cao](/services/cms-platforms), [dashboard CRM](/services/crm-systems) giàu dữ liệu hay [giao diện ERP](/services/erp-solutions) thời gian thực, cách tiếp cận của chúng tôi đảm bảo hiệu suất ổn định khi số người dùng và khối lượng dữ liệu tăng lên.",
     ],
     headings: [
-      { id: "database-architecture", text: "Kiến trúc Cơ sở Dữ liệu cho Quy mô Lớn" },
-      { id: "caching-strategies", text: "Caching: Đòn bẩy Mở rộng Hiệu quả nhất" },
-      { id: "horizontal-scaling", text: "Horizontal Scaling và Cân bằng Tải" },
-      { id: "frontend-performance", text: "Hiệu suất Frontend ở Quy mô Lớn" },
+      { id: "database-architecture", text: "Kiến trúc Cơ sở Dữ liệu cho Quy mô Lớn", level: 2 },
+      { id: "caching-strategies", text: "Caching: Đòn bẩy Mở rộng Hiệu quả nhất", level: 2 },
+      { id: "horizontal-scaling", text: "Horizontal Scaling và Cân bằng Tải", level: 2 },
+      { id: "frontend-performance", text: "Hiệu suất Frontend ở Quy mô Lớn", level: 2 },
     ],
   },
   "ui-ux-design-principles-enterprise-software": {
@@ -40,10 +40,10 @@ export const part7: Record<string, BlogViBody> = {
       "Thiết kế responsive cho phần mềm doanh nghiệp nghĩa là nhiều hơn việc layout hiển thị tốt trên màn hình mobile. Đó là thích ứng giao diện theo ngữ cảnh sử dụng: quản lý kho kiểm tra tồn kho trên tablet cần vùng chạm lớn và giao diện đơn giản hóa, trong khi phân tích tài chính xem báo cáo trên màn hình desktop cần bảng dữ liệu dày đặc và hỗ trợ đa cửa sổ. Design system bao gồm các biến thể component responsive (không chỉ là layout desktop bị kéo giãn) đảm bảo ứng dụng doanh nghiệp hoạt động hiệu quả trên toàn bộ phổ thiết bị và kích thước màn hình mà nhân viên thực sự dùng. Về các thực tiễn accessibility tốt nhất, xem [hướng dẫn thực tế xây dựng website tiếp cận được](/blog/xay-dung-website-tiep-can-duoc-huong-dan-thuc-te-2026) của chúng tôi. Tại Retech Solutions, chúng tôi thiết kế và xây dựng các [giao diện CMS, CRM và ERP](/services) doanh nghiệp, ưu tiên tính khả dụng mà không đánh đổi năng lực. Quy trình thiết kế của chúng tôi khởi đầu bằng nghiên cứu người dùng và lập bản đồ quy trình làm việc, tạo ra giao diện khớp với cách con người thực sự làm việc, và kiểm chứng thiết kế qua usability testing trước khi viết dòng code đầu tiên.",
     ],
     headings: [
-      { id: "information-architecture", text: "Kiến trúc Thông tin: Thiết kế theo Mô hình Tư duy" },
-      { id: "data-heavy-interfaces", text: "Pattern Thiết kế cho Giao diện Giàu Dữ liệu" },
-      { id: "accessibility-enterprise", text: "Khả năng Tiếp cận là Yêu cầu Kinh doanh" },
-      { id: "responsive-enterprise-design", text: "Thiết kế Responsive cho Bối cảnh Doanh nghiệp" },
+      { id: "information-architecture", text: "Kiến trúc Thông tin: Thiết kế theo Mô hình Tư duy", level: 2 },
+      { id: "data-heavy-interfaces", text: "Pattern Thiết kế cho Giao diện Giàu Dữ liệu", level: 2 },
+      { id: "accessibility-enterprise", text: "Khả năng Tiếp cận là Yêu cầu Kinh doanh", level: 2 },
+      { id: "responsive-enterprise-design", text: "Thiết kế Responsive cho Bối cảnh Doanh nghiệp", level: 2 },
     ],
   },
   "vietnam-digital-transformation-hub-2025": {
@@ -55,10 +55,10 @@ export const part7: Record<string, BlogViBody> = {
       "Khung chính sách tiếp tục được hoàn thiện nhằm hỗ trợ tăng trưởng công nghệ. Chương trình Chuyển đổi số Quốc gia, triển khai đến năm 2030, phân bổ nguồn lực cho các công nghệ mới nổi gồm trí tuệ nhân tạo, blockchain và Internet vạn vật (IoT). Ưu đãi thuế cho doanh nghiệp công nghệ, thủ tục đăng ký kinh doanh được tinh gọn, và cải cách bảo hộ sở hữu trí tuệ khiến Việt Nam ngày càng hấp dẫn với cả nhà đầu tư nước ngoài lẫn chuyên gia Việt Nam từng làm việc tại các hãng công nghệ toàn cầu nay quay về nước. Để có hướng dẫn thực tế khi làm việc với các đội ngũ Việt Nam, xem bài viết của chúng tôi về [xây dựng đội phát triển chuyên trách tại Việt Nam](/blog/cach-xay-dung-doi-phat-trien-chuyen-trach-tai-viet-nam). Tại Retech Solutions với trụ sở tại TP. Hồ Chí Minh, chúng tôi là một phần của cuộc chuyển đổi này. Đội ngũ kỹ sư giàu kinh nghiệm của chúng tôi xây dựng các [giải pháp CMS, CRM và ERP](/services) cấp doanh nghiệp cho khách hàng toàn cầu, kết hợp lợi thế nguồn nhân lực đang lớn mạnh của Việt Nam với chuẩn mực kỹ thuật mà khách hàng quốc tế đòi hỏi.",
     ],
     headings: [
-      { id: "education-policy-investment", text: "Chính sách Giáo dục: Kiến tạo Nguồn Nhân lực" },
-      { id: "infrastructure-development", text: "Hạ tầng Nâng đỡ Đổi mới" },
-      { id: "startup-ecosystem", text: "Hệ sinh thái Startup ngày càng Trưởng thành" },
-      { id: "policy-framework-future", text: "Khung Chính sách Thúc đẩy Tăng trưởng Tương lai" },
+      { id: "education-policy-investment", text: "Chính sách Giáo dục: Kiến tạo Nguồn Nhân lực", level: 2 },
+      { id: "infrastructure-development", text: "Hạ tầng Nâng đỡ Đổi mới", level: 2 },
+      { id: "startup-ecosystem", text: "Hệ sinh thái Startup ngày càng Trưởng thành", level: 2 },
+      { id: "policy-framework-future", text: "Khung Chính sách Thúc đẩy Tăng trưởng Tương lai", level: 2 },
     ],
   },
   "offshore-software-development-complete-guide-2026": {
@@ -70,10 +70,10 @@ export const part7: Record<string, BlogViBody> = {
       "Đo lường ROI từ phát triển phần mềm offshore đòi hỏi theo dõi đúng chỉ số. Hãy so sánh chi phí trọn gói của một kỹ sư offshore (gồm tuyển dụng, chi phí quản lý, công cụ và thời gian giao tiếp) với mức chi phí tương đương của một nhân sự in-house. Theo dõi velocity, chất lượng code (tỷ lệ bug, độ phủ test) và cycle time để đảm bảo chất lượng đầu ra đạt chuẩn của bạn. Tính cả chi phí cơ hội của việc ra mắt nhanh hơn: nếu đội offshore giúp bạn ship sớm ba tháng, doanh thu tạo ra trong giai đoạn đó là một phần của phép tính ROI. Tại Retech Solutions, chúng tôi cung cấp báo cáo minh bạch về tất cả các chỉ số này để khách hàng định lượng được giá trị đầu tư offshore của mình. [Tìm hiểu thêm về dịch vụ của chúng tôi](/services) hoặc [khám phá cách chúng tôi xây dựng dedicated team](/blog/cach-xay-dung-doi-phat-trien-chuyen-trach-tai-viet-nam) để xem chúng tôi có thể giúp bạn mở rộng thế nào.",
     ],
     headings: [
-      { id: "engagement-models", text: "Chọn Đúng Mô hình Hợp tác" },
-      { id: "selecting-offshore-destination", text: "Lựa chọn Điểm đến Offshore Phù hợp" },
-      { id: "communication-process", text: "Giao tiếp và Đồng bộ Quy trình" },
-      { id: "measuring-roi", text: "Đo lường ROI từ Phát triển Offshore" },
+      { id: "engagement-models", text: "Chọn Đúng Mô hình Hợp tác", level: 2 },
+      { id: "selecting-offshore-destination", text: "Lựa chọn Điểm đến Offshore Phù hợp", level: 2 },
+      { id: "communication-process", text: "Giao tiếp và Đồng bộ Quy trình", level: 2 },
+      { id: "measuring-roi", text: "Đo lường ROI từ Phát triển Offshore", level: 2 },
     ],
   },
 };
