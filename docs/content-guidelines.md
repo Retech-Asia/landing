@@ -117,7 +117,7 @@ Dead buttons are forbidden. Every button must lead somewhere real. No `href="#"`
 Single source: `src/lib/constants.ts` `CONTACT` object.
 
 - Phone: `(+84) 769 294 225`
-- Email: `retechasia@gmail.com`
+- Email: `hello@retech.asia`
 - Address: `288K8 Nam Ky Khoi Nghia, Vo Thi Sau Ward, HCMC, Vietnam`
 - Tax ID: `0318655079`
 - Business name: `RETECH SOLUTIONS CO., LTD.`

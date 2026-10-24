@@ -49,7 +49,8 @@ function getChrome(locale: string) {
         teamAlt: "Team discussing a project at a whiteboard",
         teamCaption: "Let's build something together",
         infoEmailDesc: "For project inquiries and partnerships",
-        infoResponseLabel: "Email",
+        infoResponseLabel: "Response Time",
+        infoResponseValue: "< 1 business day",
         infoResponseDesc: "Replies within one business day",
         infoEmailAction: "Email us",
         addressLabel: "Address",
@@ -86,7 +87,8 @@ function getChrome(locale: string) {
         teamAlt: "Đội ngũ trao đổi dự án tại bảng whiteboard",
         teamCaption: "Hãy cùng nhau xây dựng",
         infoEmailDesc: "Dành cho yêu cầu dự án và hợp tác",
-        infoResponseLabel: "Email",
+        infoResponseLabel: "Thời gian Phản hồi",
+        infoResponseValue: "< 1 ngày làm việc",
         infoResponseDesc: "Phản hồi trong vòng một ngày làm việc",
         infoEmailAction: "Gửi email",
         addressLabel: "Địa chỉ",
@@ -389,7 +391,7 @@ export default async function ContactPage({
                 iconBg="bg-accent-cyan/10"
                 iconColor="text-accent-cyan"
                 label={c.infoResponseLabel}
-                value={CONTACT.email}
+                value={c.infoResponseValue}
                 description={c.infoResponseDesc}
                 action={{ type: "link", href: CONTACT.emailHref, label: c.infoEmailAction }}
               />

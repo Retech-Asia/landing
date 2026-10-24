@@ -12,7 +12,7 @@ existing copy is pending classification, not presumed false. Owner = Vu Pham.
 | Address 288K8 Nam Ky Khoi Nghia, Vo Thi Sau Ward, HCMC | `constants.ts` | owner | Confirm current |
 | Phone +84 769 294 225 (tel links) | `constants.ts` | owner | Is this the intended sales line? |
 | WhatsApp +84 90 642 6802 (wa.me link) | `Footer.tsx:95` | owner | Different number from phone — intentional channel or stale? |
-| Email retechasia@gmail.com (public contact everywhere) | `constants.ts` | owner | Confirm before any move to hello@retech.asia; receiving config unverified |
+| Email hello@retech.asia (public contact everywhere) | `constants.ts` | owner DECIDED 2026-10-24 | Owner moved the public email off gmail to hello@retech.asia (Cloudflare email forward); constants.ts updated site-wide |
 | Stats: 50+ projects, 30+ engineers, 5+ years | was `constants.ts` STATS + hero strip, ABOUT_STATS, about milestones, FAQ, CultureValues, LeadershipTeam | REMOVE DONE 2026-10-22 (checkpoint 3) | Owner ruled: unverified numbers stop displaying. Hero strip + both stat constants deleted; about numeric grid replaced by capability cards; FAQ/about/bio de-numbered |
 | 98% client satisfaction | was STATS_BAR, FAQ answer, OG image | REMOVE DONE 2026-10-22 | Last two hiding spots (FAQ, OG image) removed; must not return |
 | 6 countries served | was ABOUT_STATS + about milestone + FAQ + footer | REMOVE DONE 2026-10-22 | Footer line rewritten to industries; milestone de-numbered; markets list still wanted from owner for future use |

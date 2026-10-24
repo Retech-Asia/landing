@@ -16,8 +16,8 @@ export const CONTENT_LAST_UPDATED = "2026-08-21";
 export const CONTACT = {
   phone: "(+84) 769 294 225",
   phoneHref: "tel:+84769294225",
-  email: "retechasia@gmail.com",
-  emailHref: "mailto:retechasia@gmail.com",
+  email: "hello@retech.asia",
+  emailHref: "mailto:hello@retech.asia",
   address: "288K8 Nam Ky Khoi Nghia, Vo Thi Sau Ward, HCMC, Vietnam",
   mapUrl: "https://maps.app.goo.gl/6NEtFfXAubCPoKj96",
   taxId: "0318655079",
