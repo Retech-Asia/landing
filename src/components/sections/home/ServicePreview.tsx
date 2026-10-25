@@ -27,6 +27,9 @@ import { BLUR_DATA_URL } from "@/lib/image-placeholders";
  * All content comes from verified home.capabilities messages + services-data
  * technologies; nothing invented. Transitions are CSS-only and disabled
  * under prefers-reduced-motion (see globals.css .capability-enter).
+ *
+ * Hallmark pass (2026-10-25): row numerals are ghost serif ("01"…"06"),
+ * matching the problem-ledger DNA from the industries/case-study redesigns.
  */
 
 interface ScopeItem {
@@ -165,8 +168,11 @@ export function ServicePreview() {
                     aria-controls="capability-panel"
                     className="rg-glass-control group grid w-full grid-cols-[44px_auto_1fr] items-baseline gap-3 py-6 text-left"
                   >
-                    <span className="font-display text-sm text-foreground-muted tabular-nums">
-                      1.{i + 1}
+                    <span
+                      aria-hidden="true"
+                      className="font-display text-xl leading-none text-foreground/30 tabular-nums"
+                    >
+                      {String(i + 1).padStart(2, "0")}
                     </span>
                     <GlassIcon name={PANEL_GLASS[i]} size="sm" className="self-center" />
                     <span>
@@ -227,8 +233,11 @@ export function ServicePreview() {
                   <span className="flex items-center gap-3">
                     <GlassIcon name={PANEL_GLASS[i]} size="sm" />
                     <span>
-                      <span className="font-display text-xs text-foreground-muted tabular-nums">
-                        1.{i + 1}
+                      <span
+                        aria-hidden="true"
+                        className="font-display text-sm leading-none text-foreground/30 tabular-nums"
+                      >
+                        {String(i + 1).padStart(2, "0")}
                       </span>
                       <span
                         className={`font-display-title mt-1 block text-lg leading-snug ${
