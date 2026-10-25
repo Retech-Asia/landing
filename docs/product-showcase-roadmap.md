@@ -55,7 +55,7 @@ invented locally. Blocker is flagged, not worked around.
 | Item | Status | Notes |
 | --- | --- | --- |
 | 1A Content audit (CRM/ERP/AI/industry copy) | IN PROGRESS 2026-10-25 | Audit + findings = Claude; copy fixes = ChatGPT handoff. Prior art: `docs/evidence-register.md` (stats/claims already swept 10/22; industries whyP2 "same business day" line flagged, untouched) |
-| 1B Showcase framework (routing, fixture layer, lazy-load, capture harness) | NOT STARTED | Creative-neutral infrastructure only; stays local until demo content exists (empty shells must not ship) |
+| 1B Showcase framework (routing, fixture layer, lazy-load, capture harness) | BUILT 2026-10-25 | Ships inert (empty registry → routes statically 404). `src/lib/showcases/` (types + registry), `src/components/showcases/` (ConceptDemoLabel, ShowcaseDemoShell + ViewPanel, view-registry), routes `/[locale]/showcases` + `[product]` + `[product]/[view]` |
 | 1C Flagship CRM demo (5 views: dashboard, leads, pipeline, customer 360, automation/reporting) | BLOCKED | Needs ChatGPT creative handoff (product identity, visual composition, demo data) |
 
 ### Wave 2 — Showcases across ERP / CMS / AI / mobile — NOT STARTED
@@ -84,5 +84,9 @@ owner approval.** LitDunes hero, brand identity, nav/homepage structure preserve
 
 ## Session log
 
-- 2026-10-25 — Session 1: roadmap created; Wave 1A audit started (see
-  `docs/showcase-content-audit-2026-10-25.md` when written).
+- 2026-10-25 — Session 1: roadmap created; Wave 1A audit done
+  (`docs/showcase-content-audit-2026-10-25.md`, findings F1–F9, committed +
+  pushed to main). Wave 1B framework built inert: registry ships empty until
+  the ChatGPT handoff lands, so all showcase routes statically 404 (no visible
+  pages, no sitemap impact). Wave 1C remains blocked on the creative handoff
+  (see the audit doc's handoff request).
