@@ -58,11 +58,18 @@ invented locally. Blocker is flagged, not worked around.
 | 1B Showcase framework (routing, fixture layer, lazy-load, capture harness) | BUILT 2026-10-25, ACTIVATED 2026-10-25 | `src/lib/showcases/` (types + registry), `src/components/showcases/` (ConceptDemoLabel, ShowcaseDemoShell + ViewPanel, view-registry), routes `/[locale]/showcases` + `[product]` + `[product]/[view]` (full-screen per-view exploration). Staged-unrouted pattern retired once content existed (soft-404 avoidance) |
 | 1C Flagship CRM demo — "Northline CRM" | DONE 2026-10-25 | Creative handoff implemented verbatim: registry entry (id `crm`, slug `northline-crm`), deterministic fixtures (24 leads / 12 accounts / 8 opps = $346k derived / 30 activities / 10 tasks / 4 rules / 3 team, `DEMO_NOW` anchor), reducer store shared across views, scoped `--nl-*` palette, dependency-free SVG charts, 5 views (Overview, Leads, Pipeline, Customer 360°, Automation & Insights). Routes activated (`/showcases` + product + full-screen per-view), sitemap EN/VI hreflang, CRM service page preview (approved §1 copy/CTA + interactive embed). Verified: tsc + eslint clean, build green, deterministic Playwright 65/65 (view interactions, stage move $346k→$322k + Won 1 reflected on dashboard, search/drawer/assignment, EN/VI parity, 390/768/1440, no page errors, no external requests, genuine 404s, homepage demo-free) |
 
-### Wave 2 — Showcases across ERP / CMS / AI / mobile — NOT STARTED
+### Wave 2 — Showcases across ERP / CMS / AI / mobile — IN PROGRESS (2A of 4 done)
 
-Blocked on Wave 1 framework + per-showcase ChatGPT creative direction. Minimum
-3 substantive views each; distinct product identity and IA per showcase; no
-recolor-the-CRM shortcuts.
+Creative handoff for all four concepts received 2026-10-25 (Status: Ready for
+implementation). Sequential checkpoints: 2A ERP → 2B CMS → 2C AI → 2D Mobile;
+each independently shippable to main + prod.
+
+| Item | Status | Notes |
+| --- | --- | --- |
+| 2A ERP — "Meridian Operations" | DONE 2026-10-25 | Handoff §2A implemented verbatim: registry entry (id `erp`, slug `meridian-operations`), deterministic fixtures (2 warehouses / 4 suppliers / 12 POs PO-1042..1053 / 16 SKUs / 8 approvals / dated events; handoff anchor records exact: PO-1042 $7,200 awaiting, PO-1043 $10,000 approved, PO-1044 $8,000 in transit, FL-101 120 vs 150 low, PT-204 480 vs 200 healthy, NV-310 75 vs 100 low; `MERIDIAN_NOW` anchor), shared reducer store (approve/reject with confirmation + transfer-stock with availability validation + reset; events auto-logged, formatted currency), scoped `--md-*` precise-enterprise palette + squared primitives + original three-rectangle product mark, 4 views (Operations Overview with 4 derived KPIs + spend-by-request-day chart + warehouse health + stock alerts + inbound + event feed; Purchase Orders search/filter/sort + line-item drawer; Inventory Control facility switch + SKU detail drawer + validated transfer; Approval Center confirm-gated decisions + history). Service preview generalized into `ServiceShowcasePreview` (config-driven per service id; CRM copy preserved verbatim; ERP heading/copy/CTA verbatim; TOC entries for crm-systems + erp-solutions). Verified: tsc + eslint clean, build green, Meridian harness 92/92 (approve PO-1042 + reject PO-1051 reflected on overview KPIs 9/3/5/3,370 → 8/1/5/3,370, transfer NORTH→SOUTH moves stock + logs event, EN/VI parity, 390/768/1440, no page errors, no external requests) + Wave 1 CRM harness 65/65 regression. Commits `308d90c` (main) / `7d0adae` (prod), deployed and curl-verified on www.retech.asia |
+
+Remaining checkpoints: 2B CMS "Forma Studio" → 2C AI "Citewell" → 2D Mobile
+"Relay Field" (per-product handoff sections).
 
 ### Wave 3 — Visual and conversion refinement — NOT STARTED
 
@@ -95,6 +102,12 @@ owner approval.** LitDunes hero, brand identity, nav/homepage structure preserve
   `{ locale: "en" | "vi" }`; `view-registry` pre-wraps each in next/dynamic at
   module scope (stable identity, per-view chunk splitting, lint-clean); the
   shell threads the page locale through.
+- 2026-10-25 — Wave 2 creative handoff received (approved): four product
+  concepts with per-product palettes/marks/screens/data + approved service-page
+  copy. Service previews generalized into one config-driven
+  `ServiceShowcasePreview` (services-data ids → showcase id/slug/copy);
+  per-showcase demo roots (`STORE_PROVIDERS`) keep shared state alive across
+  shell tabs.
 
 ## Session log
 
@@ -114,3 +127,8 @@ owner approval.** LitDunes hero, brand identity, nav/homepage structure preserve
   tsc/eslint clean (2 pre-existing warnings in services page untouched),
   build green, deterministic Playwright harness 65/65 at 390/768/1440
   (harness + captures local-only under agent/uiux-audit/showcase-verify-2026-10-25/).
+- 2026-10-25 — Session 3: Wave 2A Meridian Operations shipped (checkpoint table
+  above for scope + verification; harness `meridian-verify-2a.mjs` + captures
+  local-only in agent/uiux-audit/showcase-verify-2026-10-25/). Fix found
+  during verification: store approval-event summaries now use formatted
+  currency ("$7,200 USD") instead of raw numbers.
