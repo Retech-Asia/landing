@@ -58,11 +58,34 @@ invented locally. Blocker is flagged, not worked around.
 | 1B Showcase framework (routing, fixture layer, lazy-load, capture harness) | BUILT 2026-10-25, ACTIVATED 2026-10-25 | `src/lib/showcases/` (types + registry), `src/components/showcases/` (ConceptDemoLabel, ShowcaseDemoShell + ViewPanel, view-registry), routes `/[locale]/showcases` + `[product]` + `[product]/[view]` (full-screen per-view exploration). Staged-unrouted pattern retired once content existed (soft-404 avoidance) |
 | 1C Flagship CRM demo — "Northline CRM" | DONE 2026-10-25 | Creative handoff implemented verbatim: registry entry (id `crm`, slug `northline-crm`), deterministic fixtures (24 leads / 12 accounts / 8 opps = $346k derived / 30 activities / 10 tasks / 4 rules / 3 team, `DEMO_NOW` anchor), reducer store shared across views, scoped `--nl-*` palette, dependency-free SVG charts, 5 views (Overview, Leads, Pipeline, Customer 360°, Automation & Insights). Routes activated (`/showcases` + product + full-screen per-view), sitemap EN/VI hreflang, CRM service page preview (approved §1 copy/CTA + interactive embed). Verified: tsc + eslint clean, build green, deterministic Playwright 65/65 (view interactions, stage move $346k→$322k + Won 1 reflected on dashboard, search/drawer/assignment, EN/VI parity, 390/768/1440, no page errors, no external requests, genuine 404s, homepage demo-free) |
 
-### Wave 2 — Showcases across ERP / CMS / AI / mobile — NOT STARTED
+### Wave 2 — Showcases across ERP / CMS / AI / mobile — IN PROGRESS (2B of 4 done)
 
-Blocked on Wave 1 framework + per-showcase ChatGPT creative direction. Minimum
-3 substantive views each; distinct product identity and IA per showcase; no
-recolor-the-CRM shortcuts.
+Creative handoff for all four concepts received 2026-10-25 (Status: Ready for
+implementation). Sequential checkpoints: 2A ERP → 2B CMS → 2C AI → 2D Mobile;
+each independently shippable to main + prod.
+
+| Item | Status | Notes |
+| --- | --- | --- |
+| 2A ERP — "Meridian Operations" | DONE 2026-10-25 | Handoff §2A implemented verbatim: registry entry (id `erp`, slug `meridian-operations`), deterministic fixtures (2 warehouses / 4 suppliers / 12 POs PO-1042..1053 / 16 SKUs / 8 approvals / dated events; handoff anchor records exact: PO-1042 $7,200 awaiting, PO-1043 $10,000 approved, PO-1044 $8,000 in transit, FL-101 120 vs 150 low, PT-204 480 vs 200 healthy, NV-310 75 vs 100 low; `MERIDIAN_NOW` anchor), shared reducer store (approve/reject with confirmation + transfer-stock with availability validation + reset; events auto-logged, formatted currency), scoped `--md-*` precise-enterprise palette + squared primitives + original three-rectangle product mark, 4 views (Operations Overview with 4 derived KPIs + spend-by-request-day chart + warehouse health + stock alerts + inbound + event feed; Purchase Orders search/filter/sort + line-item drawer; Inventory Control facility switch + SKU detail drawer + validated transfer; Approval Center confirm-gated decisions + history). Service preview generalized into `ServiceShowcasePreview` (config-driven per service id; CRM copy preserved verbatim; ERP heading/copy/CTA verbatim; TOC entries for crm-systems + erp-solutions). Verified: tsc + eslint clean, build green, Meridian harness 92/92 (approve PO-1042 + reject PO-1051 reflected on overview KPIs 9/3/5/3,370 → 8/1/5/3,370, transfer NORTH→SOUTH moves stock + logs event, EN/VI parity, 390/768/1440, no page errors, no external requests) + Wave 1 CRM harness 65/65 regression. Commits `308d90c` (main) / `7d0adae` (prod), deployed and curl-verified on www.retech.asia |
+| 2B CMS — "Forma Studio" | DONE 2026-10-25 | Handoff §2B implemented verbatim: registry entry (id `cms`, slug `forma-studio`, verbatim tagline/description + 4 view titles/summaries EN+VI), deterministic fixtures (8 articles art-01..08 from the handoff seed titles incl. verbatim "The Materials Issue" lead + natural VI translations, 4 staff, 3 collections with hue-driven covers, 3 destinations; first 3 articles carry editable 3-paragraph bodies; `FORMA_NOW` anchor 2026-10-26T09:00), shared reducer store (per-locale edit-draft/save-draft with saved-state tracking + confirm-gated set-status + reset; every mutation lands in the editorial event history), scoped `--fs-*` editorial palette (canvas #FAF9F6, ink #242735, accent #625CA7) + rounded-full primitives + serif voice + geometric-F product mark, 4 views (Editorial Desk status cards 3/2/2/1 + featured drafts + assignments; Content Editor split workspace with live reader preview + word count + unsaved/saved state + confirm-gated schedule/publish; Publishing Calendar reference-dated production schedule with derived upcoming count 2 and per-story confirm-gated status moves; Asset Library with handoff-mandated color-and-type editorial cover cards, collection/status filters + detail drawer — no stock photography). Service integration: cms-platforms config in `ServiceShowcasePreview` (verbatim heading/copy/CTA) + "Interactive CMS demo" TOC entry; FormaApp added to the DEMOS map. Verified: tsc + eslint clean, build green, Forma harness 81/81 (desk counts 3/2/2/1, live preview mirrors edits + draft persists across shell tabs, calendar art-08 schedule confirm moves upcoming 2→3 and desk scheduled 2→3 cross-view, library 8 covers → col-tech filter 3 → drawer open/close, reload restores seed, EN/VI parity, 390/768/1440, no page errors, no external requests) + Wave 1 CRM harness 65/65 regression. Hallmark static lint (quota pilot, see below) ran on 2A Meridian: 0 genuine defects. Commit `1f3e5b5` (main); prod = cherry-pick of `1f3e5b5` |
+
+Remaining checkpoints: 2B CMS "Forma Studio" → 2C AI "Citewell" → 2D Mobile
+"Relay Field" (per-product handoff sections).
+
+**Hallmark pilot (2026-10-25, closed — static-lint only per owner quota ruling).**
+Owner directive: Hallmark may run its deterministic static lint where useful; no
+rendered audits, fresh-context reviewer subagents, autonomous redesign, or
+iterative screenshot critique (visual judgment goes to ChatGPT via small
+screenshot sets; Playwright scripts stay the verification harness). Pilot ran
+`sloplint.mjs --scope app` on the Meridian dirs: 31 FAIL / 3 REFLEX, all
+triaged and dismissed — 28× uppercase micro-labels are the handoff-approved
+precise-enterprise style (creative owner outranks the generic rule), 3×
+`:disabled`/`:active` are false positives (Tailwind `disabled:` variants exist,
+primitives.tsx:141), 1× dash is a data separator inside an `<option>`, 4×
+colour literals are token-hygiene notes with no visual impact. 0 genuine
+defects, 0 fixes, no re-verification needed. Skill installed project-scoped at
+`.agents/skills/hallmark/` (untracked); future use = static lint only, one
+pass per checkpoint at most, findings triaged against the approved handoff.
 
 ### Wave 3 — Visual and conversion refinement — NOT STARTED
 

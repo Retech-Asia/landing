@@ -111,6 +111,54 @@ export const SHOWCASES: ShowcaseDefinition[] = [
     ],
     label: "concept-demo",
   },
+  {
+    id: "cms",
+    slug: { en: "forma-studio", vi: "forma-studio" },
+    product: { en: "Forma Studio", vi: "Forma Studio" },
+    tagline: {
+      en: "From first draft to published story.",
+      vi: "Từ bản nháp đến nội dung xuất bản.",
+    },
+    description: {
+      en: "Explore an editorial content platform with structured writing, review stages, media management and publication planning.",
+      vi: "Khám phá nền tảng quản lý nội dung với công cụ biên tập, quy trình duyệt bài, thư viện hình ảnh và kế hoạch xuất bản.",
+    },
+    views: [
+      {
+        id: "desk",
+        title: { en: "Editorial Desk", vi: "Bàn biên tập" },
+        summary: {
+          en: "Content status, featured drafts and assignments.",
+          vi: "Trạng thái nội dung, bản nháp nổi bật và phân công.",
+        },
+      },
+      {
+        id: "editor",
+        title: { en: "Content Editor", vi: "Trình biên tập" },
+        summary: {
+          en: "Title, summary, article body, structured metadata and preview.",
+          vi: "Tiêu đề, tóm tắt, thân bài, siêu dữ liệu có cấu trúc và bản xem trước.",
+        },
+      },
+      {
+        id: "calendar",
+        title: { en: "Publishing Calendar", vi: "Lịch xuất bản" },
+        summary: {
+          en: "Upcoming stories, scheduled dates and status changes.",
+          vi: "Bài sắp xuất bản, ngày định lịch và thay đổi trạng thái.",
+        },
+      },
+      {
+        id: "library",
+        title: { en: "Asset Library", vi: "Thư viện tài nguyên" },
+        summary: {
+          en: "Media cards, filters, selection and asset details.",
+          vi: "Thẻ tài nguyên, bộ lọc, chọn lựa và chi tiết tài nguyên.",
+        },
+      },
+    ],
+    label: "concept-demo",
+  },
 ];
 
 export function getShowcaseBySlug(

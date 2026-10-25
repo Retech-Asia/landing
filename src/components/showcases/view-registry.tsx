@@ -2,6 +2,7 @@ import type { ComponentType, ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { NorthlineDemoRoot } from "./northline/NorthlineShell";
 import { MeridianDemoRoot } from "./meridian/MeridianShell";
+import { FormaDemoRoot } from "./forma/FormaShell";
 
 /**
  * Interactive showcase view components, keyed by showcase id then view id.
@@ -54,6 +55,19 @@ const MeridianApprovals = dynamic(
   () => import("./meridian/views/ApprovalsView").then((m) => ({ default: m.ApprovalsView }))
 );
 
+const FormaDesk = dynamic(
+  () => import("./forma/views/DeskView").then((m) => ({ default: m.DeskView }))
+);
+const FormaEditor = dynamic(
+  () => import("./forma/views/EditorView").then((m) => ({ default: m.EditorView }))
+);
+const FormaCalendar = dynamic(
+  () => import("./forma/views/CalendarView").then((m) => ({ default: m.CalendarView }))
+);
+const FormaLibrary = dynamic(
+  () => import("./forma/views/LibraryView").then((m) => ({ default: m.LibraryView }))
+);
+
 export const VIEW_COMPONENTS: Record<string, Record<string, ShowcaseViewComponent>> = {
   crm: {
     dashboard: NorthlineDashboard,
@@ -68,9 +82,16 @@ export const VIEW_COMPONENTS: Record<string, Record<string, ShowcaseViewComponen
     inventory: MeridianInventory,
     approvals: MeridianApprovals,
   },
+  cms: {
+    desk: FormaDesk,
+    editor: FormaEditor,
+    calendar: FormaCalendar,
+    library: FormaLibrary,
+  },
 };
 
 export const STORE_PROVIDERS: Record<string, ComponentType<{ children: ReactNode }>> = {
   crm: NorthlineDemoRoot,
   erp: MeridianDemoRoot,
+  cms: FormaDemoRoot,
 };
