@@ -4,6 +4,7 @@ import { caseStudies } from "@/lib/case-studies-data";
 import { blogPosts, BLOG_CATEGORIES } from "@/lib/blog-data";
 import { blogViMeta } from "@/lib/blog-i18n";
 import { industries } from "@/lib/industries-data";
+import { SHOWCASES } from "@/lib/showcases/registry";
 import { SITE_URL, CONTENT_LAST_UPDATED } from "@/lib/constants";
 import { routing } from "@/i18n/routing";
 
@@ -197,6 +198,54 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ];
   });
 
+  // Showcase pages ship fully localized (crawlable EN + VI content), so
+  // both locales get entries with bidirectional hreflang. View sub-routes
+  // are noindex (robots in their metadata) — only index + product pages list.
+  const showcasePages: MetadataRoute.Sitemap = [
+    ...(() => {
+      const enUrl = `${SITE_URL}/en/showcases`;
+      const viUrl = `${SITE_URL}/vi/showcases`;
+      const languages = { en: enUrl, vi: viUrl, "x-default": enUrl };
+      return [
+        {
+          url: enUrl,
+          lastModified: CONTENT_LAST_MODIFIED,
+          changeFrequency: "monthly" as const,
+          priority: 0.6,
+          alternates: { languages },
+        },
+        {
+          url: viUrl,
+          lastModified: CONTENT_LAST_MODIFIED,
+          changeFrequency: "monthly" as const,
+          priority: 0.6,
+          alternates: { languages },
+        },
+      ];
+    })(),
+    ...SHOWCASES.flatMap((showcase) => {
+      const enUrl = `${SITE_URL}/en/showcases/${showcase.slug.en}`;
+      const viUrl = `${SITE_URL}/vi/showcases/${showcase.slug.vi}`;
+      const languages = { en: enUrl, vi: viUrl, "x-default": enUrl };
+      return [
+        {
+          url: enUrl,
+          lastModified: CONTENT_LAST_MODIFIED,
+          changeFrequency: "monthly" as const,
+          priority: 0.7,
+          alternates: { languages },
+        },
+        {
+          url: viUrl,
+          lastModified: CONTENT_LAST_MODIFIED,
+          changeFrequency: "monthly" as const,
+          priority: 0.7,
+          alternates: { languages },
+        },
+      ];
+    }),
+  ];
+
   return [
     ...staticEntries,
     ...servicePages,
@@ -204,6 +253,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogPages,
     ...industryPages,
     ...blogCategoryPages,
+    ...showcasePages,
   ];
 }
 

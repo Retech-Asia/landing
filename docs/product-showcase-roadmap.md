@@ -54,9 +54,9 @@ invented locally. Blocker is flagged, not worked around.
 
 | Item | Status | Notes |
 | --- | --- | --- |
-| 1A Content audit (CRM/ERP/AI/industry copy) | IN PROGRESS 2026-10-25 | Audit + findings = Claude; copy fixes = ChatGPT handoff. Prior art: `docs/evidence-register.md` (stats/claims already swept 10/22; industries whyP2 "same business day" line flagged, untouched) |
-| 1B Showcase framework (routing, fixture layer, lazy-load, capture harness) | BUILT 2026-10-25 | Ships inert (empty registry → routes statically 404). `src/lib/showcases/` (types + registry), `src/components/showcases/` (ConceptDemoLabel, ShowcaseDemoShell + ViewPanel, view-registry), routes `/[locale]/showcases` + `[product]` + `[product]/[view]` |
-| 1C Flagship CRM demo (5 views: dashboard, leads, pipeline, customer 360, automation/reporting) | BLOCKED | Needs ChatGPT creative handoff (product identity, visual composition, demo data) |
+| 1A Content audit (CRM/ERP/AI/industry copy) | DONE 2026-10-25 | Approved replacement copy EN+VI applied verbatim from handoff §5 (F1–F9): services-data.ts, industries-data.ts, industries hub + healthcare pages. Commits `a6df465` (main) / `e395337` (prod), deployed. Out-of-scope residuals flagged in the audit doc (other services' week labels, industries "40–60%" market-rate stat) |
+| 1B Showcase framework (routing, fixture layer, lazy-load, capture harness) | BUILT 2026-10-25, ACTIVATED 2026-10-25 | `src/lib/showcases/` (types + registry), `src/components/showcases/` (ConceptDemoLabel, ShowcaseDemoShell + ViewPanel, view-registry), routes `/[locale]/showcases` + `[product]` + `[product]/[view]` (full-screen per-view exploration). Staged-unrouted pattern retired once content existed (soft-404 avoidance) |
+| 1C Flagship CRM demo — "Northline CRM" | DONE 2026-10-25 | Creative handoff implemented verbatim: registry entry (id `crm`, slug `northline-crm`), deterministic fixtures (24 leads / 12 accounts / 8 opps = $346k derived / 30 activities / 10 tasks / 4 rules / 3 team, `DEMO_NOW` anchor), reducer store shared across views, scoped `--nl-*` palette, dependency-free SVG charts, 5 views (Overview, Leads, Pipeline, Customer 360°, Automation & Insights). Routes activated (`/showcases` + product + full-screen per-view), sitemap EN/VI hreflang, CRM service page preview (approved §1 copy/CTA + interactive embed). Verified: tsc + eslint clean, build green, deterministic Playwright 65/65 (view interactions, stage move $346k→$322k + Won 1 reflected on dashboard, search/drawer/assignment, EN/VI parity, 390/768/1440, no page errors, no external requests, genuine 404s, homepage demo-free) |
 
 ### Wave 2 — Showcases across ERP / CMS / AI / mobile — NOT STARTED
 
@@ -81,6 +81,20 @@ owner approval.** LitDunes hero, brand identity, nav/homepage structure preserve
   + framework infra proceed in Claude's lane; CRM demo build blocked pending
   handoff. Flagged to owner in the wave report rather than self-authorizing
   visual design (Creative Ownership Update prohibits it).
+- 2026-10-25 — Wave 1 creative handoff received (approved): Northline CRM
+  identity §1, scoped light palette §2, five screens §3, synthetic data §4
+  (8 named people/companies, $346,000 derived pipeline), approved editorial
+  corrections §5, integration §6, testing/deployment §7. Implemented verbatim.
+- 2026-10-25 — Demo determinism: all fixtures keyed to a fixed `DEMO_NOW`
+  constant + relative `daysAgo`/`dueInDays` fields, so renders are
+  hydration-safe and test-stable; no clocks, no randomness.
+- 2026-10-25 — Palette isolation: Northline uses scoped `--nl-*` CSS vars set
+  on the shell root so the site's light/dark themes cannot bleed into the app
+  canvas; the demo palette does NOT replace site tokens (handoff §2).
+- 2026-10-25 — View locale contract: view components take
+  `{ locale: "en" | "vi" }`; `view-registry` pre-wraps each in next/dynamic at
+  module scope (stable identity, per-view chunk splitting, lint-clean); the
+  shell threads the page locale through.
 
 ## Session log
 
@@ -90,3 +104,13 @@ owner approval.** LitDunes hero, brand identity, nav/homepage structure preserve
   the ChatGPT handoff lands, so all showcase routes statically 404 (no visible
   pages, no sitemap impact). Wave 1C remains blocked on the creative handoff
   (see the audit doc's handoff request).
+- 2026-10-25 — Session 2: Wave 1 creative handoff received → Wave 1A applied
+  (`a6df465` main / `e395337` prod, both deployed). Wave 1C built and shipped:
+  Northline data layer + store + primitives + charts + shell + all 5 views
+  (2 parallel FE agents for Leads/Pipeline and Customers/Automation); showcase
+  routes activated; registry + view-registry populated (per-view next/dynamic
+  chunks + per-showcase demo root so shared state survives tab switches);
+  sitemap entries; CRM service page preview section. Verification:
+  tsc/eslint clean (2 pre-existing warnings in services page untouched),
+  build green, deterministic Playwright harness 65/65 at 390/768/1440
+  (harness + captures local-only under agent/uiux-audit/showcase-verify-2026-10-25/).
