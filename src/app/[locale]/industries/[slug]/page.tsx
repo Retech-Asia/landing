@@ -321,16 +321,26 @@ export default async function IndustryDetailPage({
             {industry.stats.map((stat, i) => (
               <StaggerItem key={i}>
                 <div className="text-center">
-                  <p className={`text-3xl md:text-4xl font-bold ${industry.color}`}>
-                    <AnimatedCounter
-                      target={stat.value}
-                      suffix={stat.suffix}
-                      duration={2000}
-                    />
-                  </p>
-                  <p className="text-sm text-foreground-secondary mt-2 leading-snug">
-                    {stat.label}
-                  </p>
+                  {stat.word ? (
+                    // Qualitative design-consideration card (e.g. healthcare,
+                    // where numeric KPIs would be unsupported claims).
+                    <p className={`text-2xl md:text-3xl font-bold ${industry.color}`}>
+                      {stat.word}
+                    </p>
+                  ) : (
+                    <p className={`text-3xl md:text-4xl font-bold ${industry.color}`}>
+                      <AnimatedCounter
+                        target={stat.value ?? 0}
+                        suffix={stat.suffix ?? ""}
+                        duration={2000}
+                      />
+                    </p>
+                  )}
+                  {stat.label && (
+                    <p className="text-sm text-foreground-secondary mt-2 leading-snug">
+                      {stat.label}
+                    </p>
+                  )}
                 </div>
               </StaggerItem>
             ))}
