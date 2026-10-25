@@ -492,7 +492,8 @@ export default async function ServiceDetailPage({
   if (
     service.id === "crm-systems" ||
     service.id === "erp-solutions" ||
-    service.id === "cms-platforms"
+    service.id === "cms-platforms" ||
+    service.id === "ai-development"
   ) {
     tocItems.push({
       id: "concept-demo",
@@ -505,9 +506,13 @@ export default async function ServiceDetailPage({
             ? loc === "vi"
               ? "ERP mẫu tương tác"
               : "Interactive ERP demo"
-            : loc === "vi"
-              ? "CMS mẫu tương tác"
-              : "Interactive CMS demo",
+            : service.id === "cms-platforms"
+              ? loc === "vi"
+                ? "CMS mẫu tương tác"
+                : "Interactive CMS demo"
+              : loc === "vi"
+                ? "AI mẫu tương tác"
+                : "Interactive AI demo",
     });
   }
 

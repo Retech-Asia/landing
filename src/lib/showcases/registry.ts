@@ -159,6 +159,54 @@ export const SHOWCASES: ShowcaseDefinition[] = [
     ],
     label: "concept-demo",
   },
+  {
+    id: "ai",
+    slug: { en: "citewell", vi: "citewell" },
+    product: { en: "Citewell", vi: "Citewell" },
+    tagline: {
+      en: "Answers connected to evidence.",
+      vi: "Câu trả lời gắn liền với nguồn thông tin.",
+    },
+    description: {
+      en: "Explore an AI knowledge-workspace concept focused on document retrieval, source citations, review workflows and answer quality. All answers are predefined demonstrations based on fictional documents.",
+      vi: "Khám phá mô hình không gian tri thức AI tập trung vào tìm kiếm tài liệu, trích dẫn nguồn, quy trình kiểm duyệt và chất lượng câu trả lời. Mọi câu trả lời đều được chuẩn bị sẵn từ tài liệu giả lập.",
+    },
+    views: [
+      {
+        id: "answers",
+        title: { en: "Answer Workspace", vi: "Không gian hỏi đáp" },
+        summary: {
+          en: "Curated questions, simulated answers and clickable citations.",
+          vi: "Câu hỏi được tuyển chọn, câu trả lời mô phỏng và trích dẫn có thể nhấp vào.",
+        },
+      },
+      {
+        id: "sources",
+        title: { en: "Source Library", vi: "Thư viện nguồn" },
+        summary: {
+          en: "Document list, version information, categories and excerpts.",
+          vi: "Danh sách tài liệu, thông tin phiên bản, phân loại và đoạn trích.",
+        },
+      },
+      {
+        id: "review",
+        title: { en: "Human Review", vi: "Kiểm duyệt" },
+        summary: {
+          en: "Pending answers, supporting evidence, approve/reject simulation.",
+          vi: "Câu trả lời chờ duyệt, bằng chứng hỗ trợ, mô phỏng phê duyệt/từ chối.",
+        },
+      },
+      {
+        id: "quality",
+        title: { en: "Quality Checks", vi: "Kiểm tra chất lượng" },
+        summary: {
+          en: "Deterministic example evaluation cases and outcomes.",
+          vi: "Các trường hợp đánh giá mẫu tất định và kết quả.",
+        },
+      },
+    ],
+    label: "concept-demo",
+  },
 ];
 
 export function getShowcaseBySlug(

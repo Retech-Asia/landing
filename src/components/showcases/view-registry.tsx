@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { NorthlineDemoRoot } from "./northline/NorthlineShell";
 import { MeridianDemoRoot } from "./meridian/MeridianShell";
 import { FormaDemoRoot } from "./forma/FormaShell";
+import { CitewellDemoRoot } from "./citewell/CitewellShell";
 
 /**
  * Interactive showcase view components, keyed by showcase id then view id.
@@ -68,6 +69,19 @@ const FormaLibrary = dynamic(
   () => import("./forma/views/LibraryView").then((m) => ({ default: m.LibraryView }))
 );
 
+const CitewellAnswers = dynamic(
+  () => import("./citewell/views/AnswersView").then((m) => ({ default: m.AnswersView }))
+);
+const CitewellSources = dynamic(
+  () => import("./citewell/views/SourcesView").then((m) => ({ default: m.SourcesView }))
+);
+const CitewellReview = dynamic(
+  () => import("./citewell/views/ReviewView").then((m) => ({ default: m.ReviewView }))
+);
+const CitewellQuality = dynamic(
+  () => import("./citewell/views/QualityView").then((m) => ({ default: m.QualityView }))
+);
+
 export const VIEW_COMPONENTS: Record<string, Record<string, ShowcaseViewComponent>> = {
   crm: {
     dashboard: NorthlineDashboard,
@@ -88,10 +102,17 @@ export const VIEW_COMPONENTS: Record<string, Record<string, ShowcaseViewComponen
     calendar: FormaCalendar,
     library: FormaLibrary,
   },
+  ai: {
+    answers: CitewellAnswers,
+    sources: CitewellSources,
+    review: CitewellReview,
+    quality: CitewellQuality,
+  },
 };
 
 export const STORE_PROVIDERS: Record<string, ComponentType<{ children: ReactNode }>> = {
   crm: NorthlineDemoRoot,
   erp: MeridianDemoRoot,
   cms: FormaDemoRoot,
+  ai: CitewellDemoRoot,
 };
