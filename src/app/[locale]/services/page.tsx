@@ -23,7 +23,7 @@ import { Tooltip } from "@/components/ui/Tooltip";
 import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
 import { cn } from "@/lib/cn";
 import { services } from "@/lib/services-data";
-import { SITE_URL, OG_IMAGE_URL } from "@/lib/constants";
+import { SITE_URL, OG_IMAGE_URL, OG_IMAGE_ALT } from "@/lib/constants";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 
 export async function generateMetadata({
@@ -53,7 +53,9 @@ export async function generateMetadata({
       description,
       url: canonical,
       type: "website",
-      images: [{ url: OG_IMAGE_URL, width: 1200, height: 630 }],
+      images: [
+        { url: OG_IMAGE_URL, width: 1200, height: 630, alt: OG_IMAGE_ALT },
+      ],
     },
     twitter: {
       card: "summary_large_image",

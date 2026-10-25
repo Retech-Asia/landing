@@ -17,6 +17,7 @@ import {
   SITE_URL as SITE_URL_CONST,
   SITE_NAME as SITE_NAME_CONST,
   OG_IMAGE_URL,
+  OG_IMAGE_ALT,
   CONTACT,
 } from "@/lib/constants";
 import { routing, type Locale } from "@/i18n/routing";
@@ -161,7 +162,9 @@ export async function generateMetadata({
       siteName: SITE_NAME,
       title,
       description,
-      images: [{ url: OG_IMAGE_URL, width: 1200, height: 630 }],
+      images: [
+        { url: OG_IMAGE_URL, width: 1200, height: 630, alt: OG_IMAGE_ALT },
+      ],
     },
     twitter: {
       card: "summary_large_image",

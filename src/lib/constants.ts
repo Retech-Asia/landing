@@ -7,6 +7,9 @@ export const SITE_NAME = "Retech Solutions";
 // OG image of ancestor segments from being inherited.
 export const OG_IMAGE_URL = `${SITE_URL}/opengraph-image`;
 
+// Alt text for the social card above (matches its rendered headline).
+export const OG_IMAGE_ALT = "Retech Solutions — Turning Ideas into Solutions";
+
 // Last content review date for SEO sitemap. Update when the relevant
 // content is meaningfully revised. Static pages, services, industries,
 // and case studies rarely change — use this stable timestamp instead of

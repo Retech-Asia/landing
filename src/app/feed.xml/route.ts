@@ -89,7 +89,7 @@ export async function GET() {
     <ttl>60</ttl>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
     <image>
-      <url>${SITE_URL}/images/og-image.png</url>
+      <url>${SITE_URL}/icon-192.png</url>
       <title>Retech Solutions Blog</title>
       <link>${SITE_URL}/en</link>
     </image>
