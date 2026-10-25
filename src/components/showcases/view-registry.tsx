@@ -1,17 +1,55 @@
-import type { ComponentType } from "react";
+import type { ComponentType, ReactNode } from "react";
+import dynamic from "next/dynamic";
+import { NorthlineDemoRoot } from "./northline/NorthlineShell";
 
 /**
  * Interactive showcase view components, keyed by showcase id then view id.
  *
- * INTENTIONALLY EMPTY on 2026-10-25 — populated in Wave 1C when the ChatGPT
- * creative handoff provides the flagship CRM design. Components added here
- * must be client components with deterministic synthetic fixtures, no
- * backend/API calls, and responsive down to mobile widths.
- *
- * Contract per view component: `ComponentType` taking no props — fixtures
- * are imported by the view itself. Wrap each component in `next/dynamic`
- * HERE, at module scope (stable component identity, per-view chunk splitting,
+ * Components are wrapped in next/dynamic HERE, at module scope (stable
+ * component identity, per-view chunk splitting,
  * `react-hooks/static-components`-clean). The shell only looks entries up
- * and Suspense-wraps them.
+ * and Suspense-wraps them; the skeleton fallback lives in the shell.
+ *
+ * Contract per view component: `(props: { locale: "en" | "vi" })` — client
+ * components with deterministic synthetic fixtures, no backend/API calls,
+ * responsive down to mobile widths. Northline copy derives from the approved
+ * Wave 1 creative handoff.
+ *
+ * STORE_PROVIDERS: the per-showcase demo root each view mounts inside —
+ * shared store + scoped styles that persist across shell tab switches
+ * (stage moves in one view must stay visible after switching views). Views
+ * mounted here render WITHOUT the app chrome; the full-chrome variant lives
+ * in the showcase's own shell component.
  */
-export const VIEW_COMPONENTS: Record<string, Record<string, ComponentType>> = {};
+
+export type ShowcaseViewComponent = ComponentType<{ locale: "en" | "vi" }>;
+
+const NorthlineDashboard = dynamic(
+  () => import("./northline/views/DashboardView").then((m) => ({ default: m.DashboardView }))
+);
+const NorthlineLeads = dynamic(
+  () => import("./northline/views/LeadsView").then((m) => ({ default: m.LeadsView }))
+);
+const NorthlinePipeline = dynamic(
+  () => import("./northline/views/PipelineView").then((m) => ({ default: m.PipelineView }))
+);
+const NorthlineCustomers = dynamic(
+  () => import("./northline/views/CustomersView").then((m) => ({ default: m.CustomersView }))
+);
+const NorthlineAutomation = dynamic(
+  () => import("./northline/views/AutomationView").then((m) => ({ default: m.AutomationView }))
+);
+
+export const VIEW_COMPONENTS: Record<string, Record<string, ShowcaseViewComponent>> = {
+  crm: {
+    dashboard: NorthlineDashboard,
+    leads: NorthlineLeads,
+    pipeline: NorthlinePipeline,
+    customers: NorthlineCustomers,
+    automation: NorthlineAutomation,
+  },
+};
+
+export const STORE_PROVIDERS: Record<string, ComponentType<{ children: ReactNode }>> = {
+  crm: NorthlineDemoRoot,
+};

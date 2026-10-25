@@ -3,7 +3,7 @@
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { LocalePair } from "@/lib/showcases/types";
-import { VIEW_COMPONENTS } from "./view-registry";
+import { STORE_PROVIDERS, VIEW_COMPONENTS } from "./view-registry";
 
 /**
  * Client shell for a showcase product page: accessible view tabs, lazy
@@ -29,23 +29,30 @@ function DemoSkeleton() {
 export function ViewPanel({
   showcaseId,
   viewId,
+  locale,
 }: {
   showcaseId: string;
   viewId: string;
+  locale: "en" | "vi";
 }) {
   // Views register components already wrapped in next/dynamic at module
   // scope (stable identity, lint-clean) — the shell only looks them up.
   const View = VIEW_COMPONENTS[showcaseId]?.[viewId];
+  // Per-showcase demo root (shared store + scoped styles). Rendered ABOVE
+  // the view, inside the persistent panel — switching tabs swaps `viewId`
+  // but keeps ViewPanel mounted, so demo state survives view changes.
+  const Store = STORE_PROVIDERS[showcaseId];
 
   if (!View) {
     // Registry entry missing (framework used before Wave 1C content lands):
     // show nothing interactive — the crawlable summary above stays the content.
     return null;
   }
+  const view = <View locale={locale} />;
   return (
     <Suspense fallback={<DemoSkeleton />}>
       <div role="tabpanel" id={`showcase-panel-${viewId}`} aria-labelledby={`showcase-tab-${viewId}`} tabIndex={0} className="mt-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
-        <View />
+        {Store ? <Store>{view}</Store> : view}
       </div>
     </Suspense>
   );
@@ -121,7 +128,7 @@ function ShellInner({
       </div>
       {active ? (
         <Suspense fallback={<DemoSkeleton />}>
-          <ViewPanel showcaseId={showcaseId} viewId={active} />
+          <ViewPanel showcaseId={showcaseId} viewId={active} locale={locale} />
         </Suspense>
       ) : null}
     </div>
