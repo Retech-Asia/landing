@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE_URL, OG_IMAGE_URL } from "./constants";
+import { SITE_URL, OG_IMAGE_URL, OG_IMAGE_ALT } from "./constants";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 
@@ -64,7 +64,9 @@ export async function buildPageMetadata({
       url: canonical,
       type: "website",
       locale: isEn ? "en_US" : "vi_VN",
-      images: [{ url: OG_IMAGE_URL, width: 1200, height: 630 }],
+      images: [
+        { url: OG_IMAGE_URL, width: 1200, height: 630, alt: OG_IMAGE_ALT },
+      ],
     },
     twitter: {
       card: "summary_large_image",

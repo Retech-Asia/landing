@@ -103,7 +103,12 @@ export function generateMetadata({
         card: "summary_large_image",
         title: `${meta.title} | ${SITE_NAME} Blog`,
         description,
-        images: [ogImageUrl],
+        images: [
+          {
+            url: ogImageUrl,
+            alt: `${post.title} - Retech Solutions Blog`,
+          },
+        ],
       },
     };
   });
