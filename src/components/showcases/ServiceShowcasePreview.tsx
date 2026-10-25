@@ -79,6 +79,24 @@ const PREVIEWS: Record<
       },
     },
   },
+  "ai-development": {
+    showcaseId: "ai",
+    showcaseSlug: "citewell",
+    copy: {
+      en: {
+        heading: "Useful AI begins with trustworthy information.",
+        body: "Explore document-backed answers, traceable citations and human review in an interactive AI workspace concept. The demonstration focuses on responsible application design rather than unsupported claims about model intelligence.",
+        cta: "Explore AI Demo",
+        demoLabel: "Interactive preview — Citewell answer workspace screen",
+      },
+      vi: {
+        heading: "AI hữu ích bắt đầu từ nguồn thông tin đáng tin cậy.",
+        body: "Trải nghiệm mô hình ứng dụng AI với câu trả lời dựa trên tài liệu, trích dẫn rõ ràng và quy trình kiểm duyệt của con người. Nội dung tập trung vào thiết kế ứng dụng có trách nhiệm, không đưa ra những tuyên bố thiếu căn cứ về năng lực của mô hình.",
+        cta: "Trải nghiệm AI mẫu",
+        demoLabel: "Xem trước tương tác — màn hình không gian hỏi đáp Citewell",
+      },
+    },
+  },
 };
 
 function DemoSkeleton() {
@@ -104,10 +122,16 @@ const FormaDemo = dynamic(
   { ssr: false, loading: DemoSkeleton }
 );
 
+const CitewellDemo = dynamic(
+  () => import("./citewell/CitewellShell").then((m) => ({ default: m.CitewellApp })),
+  { ssr: false, loading: DemoSkeleton }
+);
+
 const DEMOS: Record<string, React.ComponentType<{ locale: "en" | "vi" }>> = {
   crm: NorthlineDemo,
   erp: MeridianDemo,
   cms: FormaDemo,
+  ai: CitewellDemo,
 };
 
 export function ServiceShowcasePreview({
