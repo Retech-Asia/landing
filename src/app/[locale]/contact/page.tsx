@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
-import { Clock, Mail, MessageSquare, FileText, Video, Hash, ArrowRight } from "lucide-react";
+import { Mail, MessageSquare, FileText, Video, Hash, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import Image from "next/image";
 import { CompositeSectionBackground } from "@/components/ui/SectionBackground";
@@ -38,7 +38,7 @@ function getChrome(locale: string) {
         heroEyebrow: "Contact",
         heroTitle: "Get In Touch",
         heroLead:
-          "Have a project in mind? We'd love to hear about it. Fill out the form below and our team will get back to you within one business day.",
+          "Have a project in mind? We'd love to hear about it. Fill out the form below or email us directly — we read every message and will get back to you.",
         expectTitle: "What to Expect",
         estimatorLabel: "Estimator",
         estimatorTitle: "Estimate Your Project",
@@ -52,9 +52,9 @@ function getChrome(locale: string) {
         addressLabel: "Address",
         addressDesc: "Vo Thi Sau Ward, Ho Chi Minh City",
         mapsAction: "Open in Google Maps",
-        quickTitle: "Quick Response Guaranteed",
+        quickTitle: "Prefer Email?",
         quickBody:
-          "We respond to all inquiries within one business day. Email is the fastest channel, we monitor it throughout the day.",
+          "Write a few lines about your project — what you're building, roughly when, and what success looks like. That's enough for us to start a useful conversation.",
         quickButton: "Email Us",
         connectLabel: "Connect",
         connectTitle: "Other Ways to Connect",
@@ -72,7 +72,7 @@ function getChrome(locale: string) {
         heroEyebrow: "Liên hệ",
         heroTitle: "Liên hệ với chúng tôi",
         heroLead:
-          "Bạn đang có ý tưởng dự án? Chúng tôi rất muốn được lắng nghe. Điền vào biểu mẫu bên dưới và đội ngũ của chúng tôi sẽ phản hồi trong vòng một ngày làm việc.",
+          "Bạn đang có ý tưởng dự án? Chúng tôi rất muốn được lắng nghe. Điền vào biểu mẫu bên dưới hoặc gửi email trực tiếp — mỗi tin nhắn đều được đọc và chúng tôi sẽ phản hồi bạn.",
         expectTitle: "Những gì sẽ diễn ra",
         estimatorLabel: "Dự toán",
         estimatorTitle: "Dự toán Dự án của Bạn",
@@ -86,9 +86,9 @@ function getChrome(locale: string) {
         addressLabel: "Địa chỉ",
         addressDesc: "Phường Võ Thị Sáu, TP. Hồ Chí Minh",
         mapsAction: "Mở trong Google Maps",
-        quickTitle: "Cam kết Phản hồi Nhanh",
+        quickTitle: "Ưu tiên Email?",
         quickBody:
-          "Chúng tôi phản hồi mọi yêu cầu trong vòng một ngày làm việc. Email là kênh nhanh nhất, chúng tôi theo dõi thường xuyên trong ngày.",
+          "Vài dòng về dự án của bạn — bạn đang xây dựng gì, khung thời gian dự kiến và điều gì gọi là thành công — đã đủ để chúng tôi bắt đầu một cuộc trao đổi hữu ích.",
         quickButton: "Gửi email",
         connectLabel: "Kết nối",
         connectTitle: "Các Kênh Kết nối Khác",
@@ -109,10 +109,10 @@ function getWhatToExpectItems(isEn: boolean) {
       icon: Mail,
       color: "text-brand",
       bg: "bg-brand/10",
-      title: isEn ? "Quick Response" : "Phản hồi Nhanh",
+      title: isEn ? "Reach Out" : "Kết Nối với Chúng tôi",
       description: isEn
-        ? "We respond to all inquiries within one business day."
-        : "Chúng tôi phản hồi mọi yêu cầu trong vòng một ngày làm việc.",
+        ? "Tell us about your project in the form, by email, or on a quick call — whichever suits you."
+        : "Kể cho chúng tôi về dự án của bạn qua biểu mẫu, email hoặc một cuộc gọi ngắn — theo cách thuận tiện nhất với bạn.",
     },
     {
       step: 2,
@@ -148,17 +148,6 @@ function getCommunicationChannels(isEn: boolean) {
       description: isEn
         ? "For project inquiries and partnerships"
         : "Dành cho yêu cầu dự án và hợp tác",
-      href: CONTACT.emailHref,
-    },
-    {
-      icon: Clock,
-      color: "text-accent-cyan",
-      bg: "bg-accent-cyan/10",
-      title: isEn ? "Response Time" : "Thời gian Phản hồi",
-      detail: isEn ? "< 1 business day" : "< 1 ngày làm việc",
-      description: isEn
-        ? "We reply to every inquiry within one business day"
-        : "Chúng tôi phản hồi mọi yêu cầu trong vòng một ngày làm việc",
       href: CONTACT.emailHref,
     },
     {
@@ -424,7 +413,7 @@ export default async function ContactPage({
             description={c.connectDescription}
           />
         </AnimatedSection>
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {communicationChannels.map(({ icon: Icon, color, bg, title, detail, description, href }) => (
             <StaggerItem key={title}>
               <a
@@ -459,7 +448,7 @@ export default async function ContactPage({
             description={c.exploreDescription}
           />
         </AnimatedSection>
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {quickLinks.map((link) => (
             <StaggerItem key={link.href}>
               <Link
