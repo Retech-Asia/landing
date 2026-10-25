@@ -90,7 +90,7 @@ export default async function ShowcaseViewPage({
         <p className="mt-2 text-foreground/70">{viewDef.summary[loc]}</p>
       </header>
       <div className="mt-8">
-        <ViewPanel showcaseId={showcase.id} viewId={viewDef.id} locale={loc} />
+        <ViewPanel showcaseId={showcase.id} viewId={viewDef.id} locale={loc} standalone />
       </div>
     </Container>
   );

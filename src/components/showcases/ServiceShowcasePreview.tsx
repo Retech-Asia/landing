@@ -97,6 +97,24 @@ const PREVIEWS: Record<
       },
     },
   },
+  "mobile-app-development": {
+    showcaseId: "mobile",
+    showcaseSlug: "relay-field",
+    copy: {
+      en: {
+        heading: "Designed for the people doing the work.",
+        body: "Explore a mobile workflow designed around everyday field tasks, quick interactions and clear operational context.",
+        cta: "Explore Mobile Demo",
+        demoLabel: "Interactive preview — Relay Field today's schedule screen",
+      },
+      vi: {
+        heading: "Thiết kế dành cho người trực tiếp thực hiện công việc.",
+        body: "Trải nghiệm ứng dụng di động được thiết kế theo công việc thực tế tại hiện trường, với thao tác nhanh và thông tin rõ ràng.",
+        cta: "Trải nghiệm ứng dụng mẫu",
+        demoLabel: "Xem trước tương tác — màn hình lịch hôm nay Relay Field",
+      },
+    },
+  },
 };
 
 function DemoSkeleton() {
@@ -127,11 +145,17 @@ const CitewellDemo = dynamic(
   { ssr: false, loading: DemoSkeleton }
 );
 
+const RelayDemo = dynamic(
+  () => import("./relay/RelayShell").then((m) => ({ default: m.RelayApp })),
+  { ssr: false, loading: DemoSkeleton }
+);
+
 const DEMOS: Record<string, React.ComponentType<{ locale: "en" | "vi" }>> = {
   crm: NorthlineDemo,
   erp: MeridianDemo,
   cms: FormaDemo,
   ai: CitewellDemo,
+  mobile: RelayDemo,
 };
 
 export function ServiceShowcasePreview({
