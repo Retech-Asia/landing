@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { LocalePair } from "@/lib/showcases/types";
 import { STORE_PROVIDERS, VIEW_COMPONENTS } from "./view-registry";
@@ -30,10 +30,13 @@ export function ViewPanel({
   showcaseId,
   viewId,
   locale,
+  standalone = false,
 }: {
   showcaseId: string;
   viewId: string;
   locale: "en" | "vi";
+  /** Full-screen [view] route: the demo root pins its chrome to this view. */
+  standalone?: boolean;
 }) {
   // Views register components already wrapped in next/dynamic at module
   // scope (stable identity, lint-clean) — the shell only looks them up.
@@ -52,7 +55,7 @@ export function ViewPanel({
   return (
     <Suspense fallback={<DemoSkeleton />}>
       <div role="tabpanel" id={`showcase-panel-${viewId}`} aria-labelledby={`showcase-tab-${viewId}`} tabIndex={0} className="mt-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
-        {Store ? <Store>{view}</Store> : view}
+        {Store ? <Store viewId={standalone ? viewId : undefined}>{view}</Store> : view}
       </div>
     </Suspense>
   );
@@ -70,17 +73,16 @@ function ShellInner({
   const router = useRouter();
   const searchParams = useSearchParams();
   const paramView = searchParams.get("view");
-  const [active, setActive] = useState(
-    views.some((v) => v.id === paramView) ? (paramView as string) : views[0]?.id
+  // Single source of truth: ?view=. Shell tabs, keyboard nav and in-demo
+  // navigation (showcase screens changing ?view= through the demo root) all
+  // router.replace it, so tabs, phone chrome and mounted view stay in sync
+  // and ?view= deep links land directly — no state-sync effects needed.
+  const active =
+    paramView && views.some((v) => v.id === paramView) ? paramView : views[0]?.id;
+  const setActive = useCallback(
+    (id: string) => router.replace(`?view=${id}`, { scroll: false }),
+    [router]
   );
-
-  // Keep the URL shareable without triggering a server round-trip.
-  useEffect(() => {
-    if (active && active !== paramView) {
-      router.replace(`?view=${active}`, { scroll: false });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active]);
 
   const onKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
@@ -93,7 +95,7 @@ function ShellInner({
         setActive(views[idx - 1].id);
       }
     },
-    [views, active]
+    [views, active, setActive]
   );
 
   return (

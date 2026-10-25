@@ -4,6 +4,7 @@ import { NorthlineDemoRoot } from "./northline/NorthlineShell";
 import { MeridianDemoRoot } from "./meridian/MeridianShell";
 import { FormaDemoRoot } from "./forma/FormaShell";
 import { CitewellDemoRoot } from "./citewell/CitewellShell";
+import { RelayDemoRoot } from "./relay/RelayShell";
 
 /**
  * Interactive showcase view components, keyed by showcase id then view id.
@@ -82,6 +83,19 @@ const CitewellQuality = dynamic(
   () => import("./citewell/views/QualityView").then((m) => ({ default: m.QualityView }))
 );
 
+const RelayToday = dynamic(
+  () => import("./relay/views/TodayView").then((m) => ({ default: m.TodayView }))
+);
+const RelayJob = dynamic(
+  () => import("./relay/views/JobView").then((m) => ({ default: m.JobView }))
+);
+const RelayNotes = dynamic(
+  () => import("./relay/views/NotesView").then((m) => ({ default: m.NotesView }))
+);
+const RelaySync = dynamic(
+  () => import("./relay/views/SyncView").then((m) => ({ default: m.SyncView }))
+);
+
 export const VIEW_COMPONENTS: Record<string, Record<string, ShowcaseViewComponent>> = {
   crm: {
     dashboard: NorthlineDashboard,
@@ -108,11 +122,21 @@ export const VIEW_COMPONENTS: Record<string, Record<string, ShowcaseViewComponen
     review: CitewellReview,
     quality: CitewellQuality,
   },
+  mobile: {
+    today: RelayToday,
+    job: RelayJob,
+    notes: RelayNotes,
+    sync: RelaySync,
+  },
 };
 
-export const STORE_PROVIDERS: Record<string, ComponentType<{ children: ReactNode }>> = {
+export const STORE_PROVIDERS: Record<
+  string,
+  ComponentType<{ children: ReactNode; viewId?: string }>
+> = {
   crm: NorthlineDemoRoot,
   erp: MeridianDemoRoot,
   cms: FormaDemoRoot,
   ai: CitewellDemoRoot,
+  mobile: RelayDemoRoot,
 };

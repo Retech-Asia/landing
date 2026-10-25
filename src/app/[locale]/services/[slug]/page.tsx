@@ -494,7 +494,8 @@ export default async function ServiceDetailPage({
     service.id === "crm-systems" ||
     service.id === "erp-solutions" ||
     service.id === "cms-platforms" ||
-    service.id === "ai-development"
+    service.id === "ai-development" ||
+    service.id === "mobile-app-development"
   ) {
     tocItems.push({
       id: "concept-demo",
@@ -511,9 +512,13 @@ export default async function ServiceDetailPage({
               ? loc === "vi"
                 ? "CMS mẫu tương tác"
                 : "Interactive CMS demo"
-              : loc === "vi"
-                ? "AI mẫu tương tác"
-                : "Interactive AI demo",
+              : service.id === "ai-development"
+                ? loc === "vi"
+                  ? "AI mẫu tương tác"
+                  : "Interactive AI demo"
+                : loc === "vi"
+                  ? "App mẫu tương tác"
+                  : "Interactive mobile demo",
     });
   }
 

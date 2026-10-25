@@ -207,6 +207,54 @@ export const SHOWCASES: ShowcaseDefinition[] = [
     ],
     label: "concept-demo",
   },
+  {
+    id: "mobile",
+    slug: { en: "relay-field", vi: "relay-field" },
+    product: { en: "Relay Field", vi: "Relay Field" },
+    tagline: {
+      en: "Field work, without the friction.",
+      vi: "Công việc hiện trường, đơn giản và liền mạch.",
+    },
+    description: {
+      en: "Explore a mobile-first field-service concept for daily schedules, job checklists, visit notes and simulated offline synchronization.",
+      vi: "Khám phá mô hình ứng dụng di động dành cho đội kỹ thuật hiện trường, hỗ trợ lịch công việc, danh sách kiểm tra, ghi chú và đồng bộ ngoại tuyến mô phỏng.",
+    },
+    views: [
+      {
+        id: "today",
+        title: { en: "Today's Schedule", vi: "Lịch hôm nay" },
+        summary: {
+          en: "Technician schedule and upcoming visits.",
+          vi: "Lịch kỹ thuật viên và các cuộc hẹn sắp tới.",
+        },
+      },
+      {
+        id: "job",
+        title: { en: "Job Details", vi: "Chi tiết công việc" },
+        summary: {
+          en: "Customer site details, checklist and visit progress.",
+          vi: "Thông tin khách hàng, danh sách kiểm tra và tiến độ.",
+        },
+      },
+      {
+        id: "notes",
+        title: { en: "Visit Notes", vi: "Ghi chú công việc" },
+        summary: {
+          en: "Structured notes and simulated photo attachment placeholders.",
+          vi: "Ghi chú có cấu trúc và ảnh đính kèm mô phỏng.",
+        },
+      },
+      {
+        id: "sync",
+        title: { en: "Offline Queue", vi: "Hàng đợi ngoại tuyến" },
+        summary: {
+          en: "Locally queued actions and simulated sync state.",
+          vi: "Hành động chờ đồng bộ và trạng thái mô phỏng.",
+        },
+      },
+    ],
+    label: "concept-demo",
+  },
 ];
 
 export function getShowcaseBySlug(
