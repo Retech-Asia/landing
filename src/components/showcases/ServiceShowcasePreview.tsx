@@ -61,6 +61,24 @@ const PREVIEWS: Record<
       },
     },
   },
+  "cms-platforms": {
+    showcaseId: "cms",
+    showcaseSlug: "forma-studio",
+    copy: {
+      en: {
+        heading: "Publishing tools should feel as thoughtful as the content.",
+        body: "Explore an editorial workspace that brings writing, review, assets and scheduling together without losing the simplicity of a focused content experience.",
+        cta: "Explore CMS Demo",
+        demoLabel: "Interactive preview — Forma Studio editorial desk screen",
+      },
+      vi: {
+        heading: "Công cụ xuất bản cũng cần được thiết kế chỉn chu như nội dung.",
+        body: "Trải nghiệm không gian biên tập kết nối soạn thảo, duyệt bài, quản lý tài nguyên và lên lịch xuất bản trong một giao diện dễ sử dụng.",
+        cta: "Trải nghiệm CMS mẫu",
+        demoLabel: "Xem trước tương tác — màn hình bàn biên tập Forma Studio",
+      },
+    },
+  },
 };
 
 function DemoSkeleton() {
@@ -81,9 +99,15 @@ const MeridianDemo = dynamic(
   { ssr: false, loading: DemoSkeleton }
 );
 
+const FormaDemo = dynamic(
+  () => import("./forma/FormaShell").then((m) => ({ default: m.FormaApp })),
+  { ssr: false, loading: DemoSkeleton }
+);
+
 const DEMOS: Record<string, React.ComponentType<{ locale: "en" | "vi" }>> = {
   crm: NorthlineDemo,
   erp: MeridianDemo,
+  cms: FormaDemo,
 };
 
 export function ServiceShowcasePreview({

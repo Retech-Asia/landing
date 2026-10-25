@@ -490,7 +490,11 @@ export default async function ServiceDetailPage({
   }
   tocItems.push({ id: "technologies", label: t("toc.technologies") });
   tocItems.push({ id: "faq", label: t("toc.faq") });
-  if (service.id === "crm-systems" || service.id === "erp-solutions") {
+  if (
+    service.id === "crm-systems" ||
+    service.id === "erp-solutions" ||
+    service.id === "cms-platforms"
+  ) {
     tocItems.push({
       id: "concept-demo",
       label:
@@ -498,9 +502,13 @@ export default async function ServiceDetailPage({
           ? loc === "vi"
             ? "CRM mẫu tương tác"
             : "Interactive CRM demo"
-          : loc === "vi"
-            ? "ERP mẫu tương tác"
-            : "Interactive ERP demo",
+          : service.id === "erp-solutions"
+            ? loc === "vi"
+              ? "ERP mẫu tương tác"
+              : "Interactive ERP demo"
+            : loc === "vi"
+              ? "CMS mẫu tương tác"
+              : "Interactive CMS demo",
     });
   }
 
