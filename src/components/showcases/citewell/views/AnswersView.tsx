@@ -45,7 +45,6 @@ interface AnswerCopy {
   subtitle: string;
   questionsTitle: string;
   answerTitle: string;
-  simulatedLabel: string;
   askedLabel: string;
   citationsTitle: string;
   citationLabel: string;
@@ -68,7 +67,6 @@ const COPY: Record<"en" | "vi", AnswerCopy> = {
       "Curated questions with predefined, cited answers. Open a citation to read the exact source passage.",
     questionsTitle: "Questions",
     answerTitle: "Answer",
-    simulatedLabel: "Simulated answer — predefined demonstration",
     askedLabel: "Asked",
     citationsTitle: "Citations",
     citationLabel: "Citation",
@@ -93,7 +91,6 @@ const COPY: Record<"en" | "vi", AnswerCopy> = {
       "Các câu hỏi được tuyển chọn cùng câu trả lời chuẩn bị sẵn kèm trích dẫn. Mở một trích dẫn để đọc đúng đoạn nguồn.",
     questionsTitle: "Câu hỏi",
     answerTitle: "Câu trả lời",
-    simulatedLabel: "Câu trả lời mô phỏng — trình diễn được chuẩn bị sẵn",
     askedLabel: "Hỏi",
     citationsTitle: "Trích dẫn",
     citationLabel: "Trích dẫn",
@@ -233,12 +230,6 @@ export function AnswersView({ locale }: { locale: "en" | "vi" }) {
           <CwPanel>
             <CwPanelHeader title={t.answerTitle} />
             <div className="flex flex-col gap-4 border-t border-[var(--cw-border)] px-5 py-5">
-              <p
-                data-simulated="true"
-                className="inline-flex w-fit items-center gap-1.5 rounded-md bg-[var(--cw-warn-bg)] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--cw-warn-text)]"
-              >
-                {t.simulatedLabel}
-              </p>
               <h3 className="text-lg font-semibold leading-snug text-[var(--cw-ink)]">
                 {qa.question[locale]}
               </h3>

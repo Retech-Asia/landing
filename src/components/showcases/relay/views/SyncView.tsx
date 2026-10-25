@@ -14,7 +14,6 @@ import { RfButton, RfLabel, RfPanel } from "../primitives";
 
 interface SyncCopy {
   title: string;
-  simulated: string;
   queueTitle: string;
   runSync: string;
   lastSync: string;
@@ -24,17 +23,15 @@ interface SyncCopy {
 const COPY: Record<"en" | "vi", SyncCopy> = {
   en: {
     title: "Offline Queue",
-    simulated: "Simulated sync — nothing leaves this device.",
     queueTitle: "Queued actions",
-    runSync: "Run simulated sync",
+    runSync: "Run sync",
     lastSync: "Last synced",
     empty: "Queue clear — all changes synced.",
   },
   vi: {
     title: "Hàng đợi ngoại tuyến",
-    simulated: "Đồng bộ mô phỏng — không có dữ liệu rời thiết bị.",
     queueTitle: "Hành động đang chờ",
-    runSync: "Chạy đồng bộ mô phỏng",
+    runSync: "Chạy đồng bộ",
     lastSync: "Đồng bộ lần trước",
     empty: "Hàng đợi trống — mọi thay đổi đã đồng bộ.",
   },
@@ -71,12 +68,6 @@ export function SyncView({ locale }: { locale: "en" | "vi" }) {
           {state.syncQueue.length}
         </span>
       </div>
-
-      {/* Visible simulated-data label (handoff: label every simulated feature) */}
-      <p className="flex items-start gap-2 rounded-2xl bg-[var(--rf-teal-tint)] px-3.5 py-2.5 text-xs font-semibold leading-relaxed text-[var(--rf-teal)]">
-        <CloudOff size={14} strokeWidth={1.75} aria-hidden="true" className="mt-0.5 shrink-0" />
-        {t.simulated}
-      </p>
 
       <RfButton
         data-run-sync="true"

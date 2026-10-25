@@ -7,7 +7,7 @@ import { CalendarDays, ClipboardCheck, CloudOff, MapPin, RotateCcw } from "lucid
 import { cn } from "@/lib/cn";
 import { RelayProvider, useRelay } from "@/lib/showcases/relay/store";
 import { formatToday, statusBarClock } from "@/lib/showcases/relay/format";
-import { RelayMark, rfVars, RfChip, RfLabel } from "./primitives";
+import { RelayMark, rfVars, RfLabel } from "./primitives";
 import { RelayNavContext as NavContext, type RelayViewId } from "./nav";
 import { TodayView } from "./views/TodayView";
 import { JobView } from "./views/JobView";
@@ -49,14 +49,14 @@ const SCREENS: {
     id: "notes",
     nav: { en: "Notes", vi: "Ghi chú" },
     title: { en: "Visit Notes", vi: "Ghi chú công việc" },
-    blurb: { en: "Structured notes and simulated photo attachment placeholders", vi: "Ghi chú có cấu trúc và ảnh đính kèm mô phỏng" },
+    blurb: { en: "Structured notes and photo attachment placeholders", vi: "Ghi chú có cấu trúc và ảnh đính kèm" },
     icon: ClipboardCheck,
   },
   {
     id: "sync",
     nav: { en: "Sync", vi: "Đồng bộ" },
     title: { en: "Offline Queue", vi: "Hàng đợi ngoại tuyến" },
-    blurb: { en: "Locally queued actions and simulated sync state", vi: "Hành động chờ đồng bộ và trạng thái mô phỏng" },
+    blurb: { en: "Locally queued actions and sync state", vi: "Hành động chờ đồng bộ và trạng thái" },
     icon: CloudOff,
   },
 ];
@@ -66,7 +66,7 @@ function ResetButton({ locale }: { locale: "en" | "vi" }) {
   return (
     <button
       onClick={reset}
-      aria-label={locale === "vi" ? "Đặt lại bản mô phỏng" : "Reset the demo"}
+      aria-label={locale === "vi" ? "Đặt lại demo" : "Reset the demo"}
       className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--rf-border)] bg-[var(--rf-surface)] text-[var(--rf-secondary)] transition-colors hover:border-[var(--rf-accent)] hover:text-[var(--rf-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--rf-accent)]"
     >
       <RotateCcw size={15} aria-hidden="true" />
@@ -88,7 +88,6 @@ function AppHeader({ locale, active }: { locale: "en" | "vi"; active: RelayViewI
             <RelayMark size={15} />
           </span>
           <span className="text-[15px] font-bold tracking-tight text-[var(--rf-ink)]">Relay Field</span>
-          <RfChip tone="muted">{locale === "vi" ? "Dữ liệu mẫu" : "Sample data"}</RfChip>
         </div>
         <div className="flex items-center gap-2">
           {state.syncQueue.length > 0 && (

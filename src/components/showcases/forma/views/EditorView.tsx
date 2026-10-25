@@ -71,7 +71,6 @@ interface EditorCopy {
   destinationLabel: string;
   publicationTitle: string;
   dateLabel: string;
-  simulationNote: string;
   sendToReview: string;
   schedule: string;
   publish: string;
@@ -115,8 +114,6 @@ const COPY: Record<"en" | "vi", EditorCopy> = {
     destinationLabel: "Destination",
     publicationTitle: "Publication",
     dateLabel: "Publication date",
-    simulationNote:
-      "Publishing and scheduling are simulated in this demo. Nothing is sent and no content leaves your browser.",
     sendToReview: "Send to review",
     schedule: "Schedule",
     publish: "Publish",
@@ -125,9 +122,9 @@ const COPY: Record<"en" | "vi", EditorCopy> = {
     scheduleDrawerTitle: "Schedule publication",
     publishDrawerTitle: "Publish now",
     scheduleLeadIn:
-      "Confirm to schedule this story for publication. This demo is simulated: nothing is sent or published.",
+      "Confirm to schedule this story for publication.",
     publishLeadIn:
-      "Confirm to mark this story as published. This demo is simulated: nothing is sent or published.",
+      "Confirm to mark this story as published.",
     publishDateLabel: "Publish date",
     confirmSchedule: "Confirm scheduling",
     confirmPublish: "Confirm publishing",
@@ -165,8 +162,6 @@ const COPY: Record<"en" | "vi", EditorCopy> = {
     destinationLabel: "Nơi xuất bản",
     publicationTitle: "Xuất bản",
     dateLabel: "Ngày xuất bản",
-    simulationNote:
-      "Xuất bản và định lịch trong demo chỉ là mô phỏng. Không có nội dung nào được gửi đi hay rời khỏi trình duyệt của bạn.",
     sendToReview: "Gửi duyệt",
     schedule: "Định lịch",
     publish: "Xuất bản",
@@ -175,9 +170,9 @@ const COPY: Record<"en" | "vi", EditorCopy> = {
     scheduleDrawerTitle: "Lên lịch xuất bản",
     publishDrawerTitle: "Xuất bản ngay",
     scheduleLeadIn:
-      "Xác nhận để lên lịch xuất bản bài viết này. Demo chỉ mô phỏng: không có nội dung nào được gửi hay xuất bản.",
+      "Xác nhận để lên lịch xuất bản bài viết này.",
     publishLeadIn:
-      "Xác nhận để đánh dấu bài viết này đã xuất bản. Demo chỉ mô phỏng: không có nội dung nào được gửi hay xuất bản.",
+      "Xác nhận để đánh dấu bài viết này đã xuất bản.",
     publishDateLabel: "Ngày xuất bản",
     confirmSchedule: "Xác nhận định lịch",
     confirmPublish: "Xác nhận xuất bản",
@@ -449,7 +444,6 @@ function EditorWorkspace({ article, locale }: { article: Article; locale: DemoLo
                   </FsButton>
                 )}
               </div>
-              <p className="text-xs leading-relaxed text-[var(--fs-secondary)]">{t.simulationNote}</p>
             </div>
           </FsPanel>
         </div>

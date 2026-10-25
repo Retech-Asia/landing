@@ -4,7 +4,6 @@ import { Link } from "@/i18n/navigation";
 import { ArrowLeft } from "lucide-react";
 import { setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
-import { ConceptDemoLabel } from "@/components/showcases/ConceptDemoLabel";
 import { ViewPanel } from "@/components/showcases/ShowcaseDemoShell";
 import { SHOWCASES, getShowcaseBySlug } from "@/lib/showcases/registry";
 import { routing, type Locale } from "@/i18n/routing";
@@ -81,7 +80,6 @@ export default async function ShowcaseViewPage({
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           {showcase.product[loc]}
         </Link>
-        <ConceptDemoLabel locale={loc} className="max-w-md" />
       </div>
       <header className="mt-6 max-w-3xl">
         <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">

@@ -82,7 +82,7 @@ const STATUS_EVENT: Record<ArticleStatus, { en: string; vi: string }> = {
   draft: { en: "moved back to draft", vi: "chuyển về bản nháp" },
   in_review: { en: "moved into review", vi: "chuyển sang hạng duyệt" },
   scheduled: { en: "scheduled for publication", vi: "được lên lịch xuất bản" },
-  published: { en: "marked as published (simulated)", vi: "đánh dấu đã xuất bản (mô phỏng)" },
+  published: { en: "marked as published", vi: "đánh dấu đã xuất bản" },
 };
 
 function reducer(state: FormaState, action: FormaAction): FormaState {
