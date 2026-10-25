@@ -63,6 +63,54 @@ export const SHOWCASES: ShowcaseDefinition[] = [
     ],
     label: "concept-demo",
   },
+  {
+    id: "erp",
+    slug: { en: "meridian-operations", vi: "meridian-operations" },
+    product: { en: "Meridian Operations", vi: "Meridian Operations" },
+    tagline: {
+      en: "Every operation, connected.",
+      vi: "Kết nối mọi hoạt động vận hành.",
+    },
+    description: {
+      en: "Explore an ERP concept connecting purchasing, inventory, supplier records and approval workflows. See how operational information can move through one coordinated business system.",
+      vi: "Khám phá mô hình ERP kết nối mua hàng, tồn kho, nhà cung cấp và quy trình phê duyệt. Trải nghiệm cách dữ liệu vận hành được quản lý trong một hệ thống thống nhất.",
+    },
+    views: [
+      {
+        id: "overview",
+        title: { en: "Operations Overview", vi: "Tổng quan vận hành" },
+        summary: {
+          en: "Procurement summary, stock alerts, pending approvals and inbound shipments.",
+          vi: "Tổng kết mua hàng, cảnh báo tồn kho, phê duyệt đang chờ và lô hàng đang về.",
+        },
+      },
+      {
+        id: "purchasing",
+        title: { en: "Purchase Orders", vi: "Đơn mua hàng" },
+        summary: {
+          en: "Searchable PO table, supplier filters, detail drawer and order status.",
+          vi: "Bảng đơn mua hàng có tìm kiếm, bộ lọc nhà cung cấp, chi tiết đơn và trạng thái.",
+        },
+      },
+      {
+        id: "inventory",
+        title: { en: "Inventory Control", vi: "Quản lý tồn kho" },
+        summary: {
+          en: "Warehouse stock, reorder thresholds, SKU details and transfer simulation.",
+          vi: "Tồn kho theo kho, ngưỡng đặt hàng lại, chi tiết SKU và mô phỏng chuyển kho.",
+        },
+      },
+      {
+        id: "approvals",
+        title: { en: "Approval Center", vi: "Trung tâm phê duyệt" },
+        summary: {
+          en: "Approval inbox, purchase justification, decision history and review actions.",
+          vi: "Hộp phê duyệt, lý do mua hàng, lịch sử quyết định và thao tác xét duyệt.",
+        },
+      },
+    ],
+    label: "concept-demo",
+  },
 ];
 
 export function getShowcaseBySlug(
