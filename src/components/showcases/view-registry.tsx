@@ -1,6 +1,7 @@
 import type { ComponentType, ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { NorthlineDemoRoot } from "./northline/NorthlineShell";
+import { MeridianDemoRoot } from "./meridian/MeridianShell";
 
 /**
  * Interactive showcase view components, keyed by showcase id then view id.
@@ -40,6 +41,19 @@ const NorthlineAutomation = dynamic(
   () => import("./northline/views/AutomationView").then((m) => ({ default: m.AutomationView }))
 );
 
+const MeridianOverview = dynamic(
+  () => import("./meridian/views/OverviewView").then((m) => ({ default: m.OverviewView }))
+);
+const MeridianPurchasing = dynamic(
+  () => import("./meridian/views/PurchasingView").then((m) => ({ default: m.PurchasingView }))
+);
+const MeridianInventory = dynamic(
+  () => import("./meridian/views/InventoryView").then((m) => ({ default: m.InventoryView }))
+);
+const MeridianApprovals = dynamic(
+  () => import("./meridian/views/ApprovalsView").then((m) => ({ default: m.ApprovalsView }))
+);
+
 export const VIEW_COMPONENTS: Record<string, Record<string, ShowcaseViewComponent>> = {
   crm: {
     dashboard: NorthlineDashboard,
@@ -48,8 +62,15 @@ export const VIEW_COMPONENTS: Record<string, Record<string, ShowcaseViewComponen
     customers: NorthlineCustomers,
     automation: NorthlineAutomation,
   },
+  erp: {
+    overview: MeridianOverview,
+    purchasing: MeridianPurchasing,
+    inventory: MeridianInventory,
+    approvals: MeridianApprovals,
+  },
 };
 
 export const STORE_PROVIDERS: Record<string, ComponentType<{ children: ReactNode }>> = {
   crm: NorthlineDemoRoot,
+  erp: MeridianDemoRoot,
 };

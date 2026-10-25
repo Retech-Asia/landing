@@ -19,7 +19,7 @@ import { ServiceTimeline } from "@/components/services/ServiceTimeline";
 import { ServiceTOC, type TocItem } from "@/components/services/ServiceTOC";
 import { AnimatedChecklist } from "@/components/services/AnimatedChecklist";
 import { TechBadges } from "@/components/services/TechBadges";
-import { CrmShowcasePreview } from "@/components/showcases/CrmShowcasePreview";
+import { ServiceShowcasePreview } from "@/components/showcases/ServiceShowcasePreview";
 import { services, getServiceBySlug, getFlatService, flattenService, type FlatService } from "@/lib/services-data";
 import { caseStudies, flattenCaseStudy } from "@/lib/case-studies-data";
 import { blogPosts } from "@/lib/blog-data";
@@ -490,10 +490,17 @@ export default async function ServiceDetailPage({
   }
   tocItems.push({ id: "technologies", label: t("toc.technologies") });
   tocItems.push({ id: "faq", label: t("toc.faq") });
-  if (service.id === "crm-systems") {
+  if (service.id === "crm-systems" || service.id === "erp-solutions") {
     tocItems.push({
       id: "concept-demo",
-      label: loc === "vi" ? "CRM mẫu tương tác" : "Interactive CRM demo",
+      label:
+        service.id === "crm-systems"
+          ? loc === "vi"
+            ? "CRM mẫu tương tác"
+            : "Interactive CRM demo"
+          : loc === "vi"
+            ? "ERP mẫu tương tác"
+            : "Interactive ERP demo",
     });
   }
 
@@ -1015,9 +1022,9 @@ export default async function ServiceDetailPage({
         </Container>
       </section>
 
-      {/* ── Interactive CRM concept demo (crm-systems only; creative
-          handoff §6: substantial interactive preview, not a thumbnail) ── */}
-      {service.id === "crm-systems" && <CrmShowcasePreview locale={loc} />}
+      {/* ── Interactive concept demo (approved services only; creative
+          handoffs: substantial interactive preview, not a thumbnail) ── */}
+      <ServiceShowcasePreview serviceId={service.id} locale={loc} />
 
           </div>{/* end main content */}
 
