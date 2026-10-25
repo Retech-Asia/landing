@@ -427,7 +427,11 @@
       "title": "Cách chúng tôi Tiếp cận"
     },
     "problems": {
-      "title": "Từ Vấn đề đến Giải pháp"
+      "label": "Thách thức & Giải pháp",
+      "title": "Từ Vấn đề đến Giải pháp",
+      "description": "Ngành {industry} đối mặt với những thách thức kỹ thuật và pháp lý riêng. Đây là cách chúng tôi giải quyết.",
+      "challengeLabel": "Thách thức",
+      "solutionLabel": "Cách chúng tôi giải quyết"
     },
     "technologies": {
       "title": "Công nghệ chúng tôi sử dụng"

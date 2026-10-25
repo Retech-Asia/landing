@@ -427,7 +427,11 @@
       "title": "Our Approach"
     },
     "problems": {
-      "title": "From Problem to Solution"
+      "label": "Challenges & Solutions",
+      "title": "From Problem to Solution",
+      "description": "The {industry} industry faces unique technical and regulatory challenges. Here is how we solve them.",
+      "challengeLabel": "The challenge",
+      "solutionLabel": "How we solve it"
     },
     "technologies": {
       "title": "Technologies We Use"
