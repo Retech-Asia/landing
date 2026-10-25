@@ -9,8 +9,8 @@ durable progress record between sessions. Update after each wave.
 Turn retech.asia from descriptive services copy into a product-engineering
 portfolio: visitors can inspect real, polished application interfaces (CRM,
 ERP, CMS, AI, mobile) built as React/Tailwind demos with deterministic
-synthetic fixtures — clearly labeled concept demonstrations, never presented
-as delivered client work.
+synthetic fixtures — presented as product concepts, never as delivered client
+work (owner ruling 2026-10-25: no visible disclaimer labels).
 
 ## Ownership split (binding, from the Creative Ownership Update)
 
@@ -32,7 +32,8 @@ invented locally. Blocker is flagged, not worked around.
 - Preserve existing URLs, SEO metadata, approved editorial copy. Do not restart
   completed metadata/branding audits (see `docs/evidence-register.md`).
 - Case studies (verified delivered work) stay strictly separate from showcases
-  (illustrative capabilities, labeled "Concept demonstration — sample data").
+  (illustrative product concepts; visible disclaimer labels removed per owner
+  ruling 2026-10-25).
 - No K&K Homes material (branding, workflows, screenshots, data) — separate
   authorization required, none granted.
 - Approved ReTech green `#30AB47`, glass/frosted pictogram system per
@@ -77,6 +78,16 @@ Wave 2 complete: all four creative-handoff showcases (ERP, CMS, AI, mobile) are
 implemented verbatim, gated, harness-verified and shipped. The showcase
 framework is now the standard container for future concept demos; remaining
 program work (Wave 3 editorial, Wave 4 homepage) is gated separately.
+
+**Disclaimer sweep (2026-10-25, owner ruling "remove dummy/AI signs asap").**
+All visitor-facing concept/sample/simulated disclaimers are removed: the
+"Concept demonstration — sample data" label component (deleted), per-showcase
+"Sample data" chips and footer notes, simulated-camera/sync/citation markers,
+registry and metadata "sample data" phrasing. Demo data stays deterministic and
+synthetic; the separation from delivered client work now lives in the framing
+copy ("product concepts", "showing how we design"), not disclaimers. All five
+harnesses updated (labels/marker assertions dropped or replaced) and green:
+CRM 63, Relay 97, Forma 78, Meridian 89, Citewell 77.
 
 **Hallmark pilot (2026-10-25, closed — static-lint only per owner quota ruling).**
 Owner directive: Hallmark may run its deterministic static lint where useful; no

@@ -16,7 +16,6 @@ interface NotesCopy {
   jobPickerAria: string;
   photosTitle: string;
   photosEmpty: string;
-  simulatedPhoto: string;
   attachPlaceholder: string;
   removePlaceholder: string;
   newNoteTitle: string;
@@ -33,7 +32,6 @@ const COPY: Record<"en" | "vi", NotesCopy> = {
     jobPickerAria: "Select work order",
     photosTitle: "Photos",
     photosEmpty: "No photo placeholders for this visit.",
-    simulatedPhoto: "Simulated — no camera used",
     attachPlaceholder: "Attach placeholder",
     removePlaceholder: "Remove placeholder",
     newNoteTitle: "New note",
@@ -47,10 +45,9 @@ const COPY: Record<"en" | "vi", NotesCopy> = {
   vi: {
     jobPickerAria: "Chọn phiếu công việc",
     photosTitle: "Ảnh",
-    photosEmpty: "Không có ảnh mô phỏng cho cuộc hẹn này.",
-    simulatedPhoto: "Mô phỏng — không dùng camera",
-    attachPlaceholder: "Gắn ảnh mô phỏng",
-    removePlaceholder: "Gỡ ảnh mô phỏng",
+    photosEmpty: "Chưa có ảnh đính kèm cho cuộc hẹn này.",
+    attachPlaceholder: "Gắn ảnh",
+    removePlaceholder: "Gỡ ảnh",
     newNoteTitle: "Ghi chú mới",
     noteAria: "Thêm ghi chú cuộc hẹn",
     notePlaceholder: "Bạn ghi nhận được gì tại hiện trường?",
@@ -147,9 +144,6 @@ export function NotesView({ locale }: { locale: "en" | "vi" }) {
                   <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                     <span className="break-words text-sm font-semibold leading-snug text-[var(--rf-ink)]">
                       {photo.label[locale]}
-                    </span>
-                    <span className="text-[11px] font-medium text-[var(--rf-secondary)]">
-                      {t.simulatedPhoto}
                     </span>
                   </span>
                   <RfButton

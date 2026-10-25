@@ -16,8 +16,8 @@ export const SHOWCASES: ShowcaseDefinition[] = [
       vi: "Từ liên hệ đầu tiên đến khi chốt hợp đồng, trong một không gian làm việc thống nhất.",
     },
     description: {
-      en: "Explore a custom CRM concept connecting lead management, sales pipelines, customer records, workflow automation, and reporting. Navigate five interactive screens built with realistic sample data.",
-      vi: "Khám phá mô hình CRM tùy chỉnh kết nối quản lý khách hàng tiềm năng, quy trình bán hàng, hồ sơ khách hàng, tự động hóa và báo cáo. Trải nghiệm năm màn hình tương tác với dữ liệu minh họa.",
+      en: "Explore a custom CRM concept connecting lead management, sales pipelines, customer records, workflow automation, and reporting. Navigate five interactive screens built on a realistic dataset.",
+      vi: "Khám phá mô hình CRM tùy chỉnh kết nối quản lý khách hàng tiềm năng, quy trình bán hàng, hồ sơ khách hàng, tự động hóa và báo cáo. Trải nghiệm năm màn hình tương tác trên tập dữ liệu thực tế.",
     },
     views: [
       {
@@ -56,8 +56,8 @@ export const SHOWCASES: ShowcaseDefinition[] = [
         id: "automation",
         title: { en: "Automation & Insights", vi: "Tự động hóa & Báo cáo" },
         summary: {
-          en: "Examine rule-based workflows, simulated triggers, and operational reporting without connecting to real external systems.",
-          vi: "Khám phá quy trình tự động, điều kiện kích hoạt mô phỏng và báo cáo vận hành mà không kết nối hệ thống thật.",
+          en: "Examine rule-based workflows, trigger previews, and operational reporting across your pipeline and activity data.",
+          vi: "Khám phá quy trình tự động, xem trước điều kiện kích hoạt và báo cáo vận hành trên dữ liệu cơ hội và hoạt động.",
         },
       },
     ],
@@ -96,8 +96,8 @@ export const SHOWCASES: ShowcaseDefinition[] = [
         id: "inventory",
         title: { en: "Inventory Control", vi: "Quản lý tồn kho" },
         summary: {
-          en: "Warehouse stock, reorder thresholds, SKU details and transfer simulation.",
-          vi: "Tồn kho theo kho, ngưỡng đặt hàng lại, chi tiết SKU và mô phỏng chuyển kho.",
+          en: "Warehouse stock, reorder thresholds, SKU details and internal transfers.",
+          vi: "Tồn kho theo kho, ngưỡng đặt hàng lại, chi tiết SKU và chuyển kho nội bộ.",
         },
       },
       {
@@ -168,16 +168,16 @@ export const SHOWCASES: ShowcaseDefinition[] = [
       vi: "Câu trả lời gắn liền với nguồn thông tin.",
     },
     description: {
-      en: "Explore an AI knowledge-workspace concept focused on document retrieval, source citations, review workflows and answer quality. All answers are predefined demonstrations based on fictional documents.",
-      vi: "Khám phá mô hình không gian tri thức AI tập trung vào tìm kiếm tài liệu, trích dẫn nguồn, quy trình kiểm duyệt và chất lượng câu trả lời. Mọi câu trả lời đều được chuẩn bị sẵn từ tài liệu giả lập.",
+      en: "Explore an AI knowledge-workspace concept focused on document retrieval, source citations, review workflows and answer quality.",
+      vi: "Khám phá mô hình không gian tri thức AI tập trung vào tìm kiếm tài liệu, trích dẫn nguồn, quy trình kiểm duyệt và chất lượng câu trả lời.",
     },
     views: [
       {
         id: "answers",
         title: { en: "Answer Workspace", vi: "Không gian hỏi đáp" },
         summary: {
-          en: "Curated questions, simulated answers and clickable citations.",
-          vi: "Câu hỏi được tuyển chọn, câu trả lời mô phỏng và trích dẫn có thể nhấp vào.",
+          en: "Curated questions, prepared answers and clickable citations.",
+          vi: "Câu hỏi được tuyển chọn, câu trả lời được soạn sẵn và trích dẫn có thể nhấp vào.",
         },
       },
       {
@@ -192,8 +192,8 @@ export const SHOWCASES: ShowcaseDefinition[] = [
         id: "review",
         title: { en: "Human Review", vi: "Kiểm duyệt" },
         summary: {
-          en: "Pending answers, supporting evidence, approve/reject simulation.",
-          vi: "Câu trả lời chờ duyệt, bằng chứng hỗ trợ, mô phỏng phê duyệt/từ chối.",
+          en: "Pending answers, supporting evidence and approve/reject decisions.",
+          vi: "Câu trả lời chờ duyệt, bằng chứng hỗ trợ và quyết định phê duyệt/từ chối.",
         },
       },
       {
@@ -216,8 +216,8 @@ export const SHOWCASES: ShowcaseDefinition[] = [
       vi: "Công việc hiện trường, đơn giản và liền mạch.",
     },
     description: {
-      en: "Explore a mobile-first field-service concept for daily schedules, job checklists, visit notes and simulated offline synchronization.",
-      vi: "Khám phá mô hình ứng dụng di động dành cho đội kỹ thuật hiện trường, hỗ trợ lịch công việc, danh sách kiểm tra, ghi chú và đồng bộ ngoại tuyến mô phỏng.",
+      en: "Explore a mobile-first field-service concept for daily schedules, job checklists, visit notes and offline synchronization.",
+      vi: "Khám phá mô hình ứng dụng di động dành cho đội kỹ thuật hiện trường, hỗ trợ lịch công việc, danh sách kiểm tra, ghi chú và đồng bộ ngoại tuyến.",
     },
     views: [
       {
@@ -240,16 +240,16 @@ export const SHOWCASES: ShowcaseDefinition[] = [
         id: "notes",
         title: { en: "Visit Notes", vi: "Ghi chú công việc" },
         summary: {
-          en: "Structured notes and simulated photo attachment placeholders.",
-          vi: "Ghi chú có cấu trúc và ảnh đính kèm mô phỏng.",
+          en: "Structured notes and photo attachment placeholders.",
+          vi: "Ghi chú có cấu trúc và ảnh đính kèm.",
         },
       },
       {
         id: "sync",
         title: { en: "Offline Queue", vi: "Hàng đợi ngoại tuyến" },
         summary: {
-          en: "Locally queued actions and simulated sync state.",
-          vi: "Hành động chờ đồng bộ và trạng thái mô phỏng.",
+          en: "Locally queued actions and sync state.",
+          vi: "Hành động chờ đồng bộ và trạng thái đồng bộ.",
         },
       },
     ],

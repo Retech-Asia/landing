@@ -75,7 +75,7 @@ const COPY: Record<"en" | "vi", InventoryCopy> = {
   en: {
     title: "Inventory Control",
     subtitle:
-      "Track stock across facilities, watch reorder thresholds, and simulate internal transfers.",
+      "Track stock across facilities, watch reorder thresholds, and move stock between facilities.",
     kpiSkus: "SKUs tracked",
     kpiLow: "Low-stock lines",
     kpiUnits: "Units on hand",
@@ -122,7 +122,7 @@ const COPY: Record<"en" | "vi", InventoryCopy> = {
   vi: {
     title: "Quản lý tồn kho",
     subtitle:
-      "Theo dõi tồn kho theo từng kho, canh chừng ngưỡng đặt lại và mô phỏng chuyển kho nội bộ.",
+      "Theo dõi tồn kho theo từng kho, canh chừng ngưỡng đặt lại và thực hiện chuyển kho nội bộ.",
     kpiSkus: "SKU đang theo dõi",
     kpiLow: "Dòng tồn thấp",
     kpiUnits: "Tổng tồn kho",

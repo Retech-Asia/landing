@@ -91,9 +91,6 @@ function AppInner({
             Meridian
             <span className="ml-1.5 text-sm font-medium text-[var(--md-secondary)]">Operations</span>
           </span>
-          <span className="ml-1 hidden rounded-sm bg-[var(--md-accent-soft)] px-2 py-0.5 text-[11px] font-medium text-[var(--md-accent)] sm:inline">
-            {locale === "vi" ? "Dữ liệu mẫu" : "Sample data"}
-          </span>
         </div>
         <ResetButton locale={locale} />
       </div>
@@ -146,13 +143,6 @@ function AppInner({
       </div>
 
       {/* Session note — the full disclaimer renders above the app on the page */}
-      <div className="border-t border-[var(--md-border)] bg-[var(--md-surface)] px-4 py-2">
-        <p className="text-[11px] text-[var(--md-secondary)]">
-          {locale === "vi"
-            ? "Dữ liệu mẫu — các thay đổi sẽ đặt lại khi tải lại demo."
-            : "Sample data — changes reset when the demo reloads."}
-        </p>
-      </div>
     </div>
   );
 }

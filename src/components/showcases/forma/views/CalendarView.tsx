@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import { CalendarRange, History, PenLine, Send } from "lucide-react";
+import { CalendarRange, PenLine, Send } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { articlePublishInDays, articleStatus, useForma } from "@/lib/showcases/forma/store";
 import { dateDaysFromNow, formatLongDate, formatPublishIn } from "@/lib/showcases/forma/format";
@@ -31,7 +31,6 @@ import {
 interface CalendarCopy {
   title: string;
   subtitle: string;
-  simNote: string;
   referenceDate: string;
   statScheduled: string;
   statProduction: string;
@@ -60,8 +59,6 @@ const COPY: Record<DemoLocale, CalendarCopy> = {
   en: {
     title: "Publishing Calendar",
     subtitle: "Upcoming stories, scheduled dates and status changes.",
-    simNote:
-      "Simulated demo: status changes update this workspace only, no content is sent to readers.",
     referenceDate: "Reference date",
     statScheduled: "Scheduled",
     statProduction: "In production",
@@ -84,10 +81,8 @@ const COPY: Record<DemoLocale, CalendarCopy> = {
     cancel: "Cancel",
     confirmScheduling: "Confirm scheduling",
     confirmPublishing: "Confirm publishing",
-    scheduleLeadIn:
-      "Scheduling is simulated in this demo. The story joins the production schedule below, and no content is sent to readers.",
-    publishLeadIn:
-      "Publishing is simulated in this demo. The story is marked as published locally, and no content is sent to readers.",
+    scheduleLeadIn: "Confirm to schedule this story for publication.",
+    publishLeadIn: "Confirm to mark this story as published.",
     kvStory: "Story",
     kvDate: "Publication date",
     kvDestination: "Destination",
@@ -95,8 +90,6 @@ const COPY: Record<DemoLocale, CalendarCopy> = {
   vi: {
     title: "Lịch xuất bản",
     subtitle: "Các bài viết sắp xuất bản, ngày định lịch và thay đổi trạng thái.",
-    simNote:
-      "Demo mô phỏng: thay đổi trạng thái chỉ cập nhật trong giao diện này, không có nội dung được gửi đến độc giả.",
     referenceDate: "Ngày tham chiếu",
     statScheduled: "Đã định lịch",
     statProduction: "Đang thực hiện",
@@ -119,10 +112,8 @@ const COPY: Record<DemoLocale, CalendarCopy> = {
     cancel: "Huỷ",
     confirmScheduling: "Xác nhận định lịch",
     confirmPublishing: "Xác nhận xuất bản",
-    scheduleLeadIn:
-      "Việc định lịch chỉ mô phỏng trong demo. Bài viết sẽ vào lịch xuất bản bên dưới, không có nội dung được gửi đến độc giả.",
-    publishLeadIn:
-      "Việc xuất bản chỉ mô phỏng trong demo. Bài viết được đánh dấu đã xuất bản trong dữ liệu cục bộ, không có nội dung được gửi đến độc giả.",
+    scheduleLeadIn: "Xác nhận để lên lịch xuất bản bài viết này.",
+    publishLeadIn: "Xác nhận để đánh dấu bài viết này đã xuất bản.",
     kvStory: "Bài viết",
     kvDate: "Ngày xuất bản",
     kvDestination: "Kênh xuất bản",
@@ -350,10 +341,6 @@ export function CalendarView({ locale }: { locale: "en" | "vi" }) {
             </p>
           </div>
         </div>
-        <p className="flex items-center gap-1.5 text-xs leading-relaxed text-[var(--fs-secondary)]">
-          <History size={13} strokeWidth={1.75} aria-hidden="true" />
-          {t.simNote}
-        </p>
       </div>
 
       {/* Schedule counts, derived from the shared store */}

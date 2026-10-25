@@ -82,9 +82,6 @@ function AppInner({
               {locale === "vi" ? "Nền tảng tri thức" : "Knowledge workspace"}
             </span>
           </span>
-          <span className="ml-1 hidden rounded-md bg-[var(--cw-accent-soft)] px-2 py-0.5 text-[11px] font-medium text-[var(--cw-accent)] sm:inline">
-            {locale === "vi" ? "Dữ liệu mẫu" : "Sample data"}
-          </span>
         </div>
         <ResetButton locale={locale} />
       </div>
@@ -137,13 +134,6 @@ function AppInner({
       </div>
 
       {/* Session note — the full simulated-answers disclaimer renders above the app on the page */}
-      <div className="border-t border-[var(--cw-border)] bg-[var(--cw-surface)] px-4 py-2">
-        <p className="text-[11px] text-[var(--cw-secondary)]">
-          {locale === "vi"
-            ? "Dữ liệu mẫu — câu trả lời được chuẩn bị sẵn và đặt lại khi tải lại demo."
-            : "Sample data — answers are predefined and reset when the demo reloads."}
-        </p>
-      </div>
     </div>
   );
 }

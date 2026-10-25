@@ -4,7 +4,6 @@ import { Link } from "@/i18n/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { ConceptDemoLabel } from "@/components/showcases/ConceptDemoLabel";
 import { SHOWCASES } from "@/lib/showcases/registry";
 import { routing, type Locale } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/constants";
@@ -35,7 +34,7 @@ export function generateMetadata({
     return {
       title: "Product Showcases | Retech Solutions",
       description:
-        "Interactive concept demonstrations of business software we know how to design and build — CRM, ERP, CMS, and AI interfaces with sample data.",
+        "Interactive products showing how we design and build business software — CRM, ERP, CMS, and AI interfaces.",
       alternates: {
         canonical: pageUrl,
         languages: {
@@ -61,18 +60,17 @@ export default async function ShowcasesIndexPage({
   return (
     <Container className="py-16">
       <SectionHeader
-        label={loc === "vi" ? "Minh họa khái niệm" : "Concept demonstrations"}
+        label={loc === "vi" ? "Sản phẩm" : "Products"}
         title={loc === "vi" ? "Sản phẩm minh họa" : "Product showcases"}
         description={
           loc === "vi"
-            ? "Minh họa khái niệm tương tác với dữ liệu mẫu — thể hiện cách chúng tôi thiết kế và phát triển phần mềm doanh nghiệp."
-            : "Interactive concept demonstrations with sample data — showing how we design and engineer business software."
+            ? "Sản phẩm tương tác thể hiện cách chúng tôi thiết kế và phát triển phần mềm doanh nghiệp."
+            : "Interactive products showing how we design and engineer business software."
         }
       />
       <div className="mt-10 grid gap-6 md:grid-cols-2">
         {SHOWCASES.map((showcase) => (
           <article key={showcase.id} className="rounded-xl border border-foreground/10 p-6">
-            <ConceptDemoLabel locale={loc} className="mb-4" />
             <h2 className="text-xl font-semibold">
               <Link href={`/showcases/${showcase.slug[loc]}`} className="hover:text-brand">
                 {showcase.product[loc]}

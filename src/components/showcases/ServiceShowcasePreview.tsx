@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { ConceptDemoLabel } from "./ConceptDemoLabel";
 
 /**
  * Service-page concept-demo preview (creative handoffs §service-integration):
@@ -174,7 +173,6 @@ export function ServiceShowcasePreview({
     <section id="concept-demo" className="relative py-20 md:py-28 overflow-hidden scroll-mt-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <ConceptDemoLabel locale={locale} className="mb-6" />
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4">
             {t.heading}
           </h2>

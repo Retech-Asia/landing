@@ -4,7 +4,6 @@ import { Link } from "@/i18n/navigation";
 import { ArrowLeft } from "lucide-react";
 import { setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
-import { ConceptDemoLabel } from "@/components/showcases/ConceptDemoLabel";
 import { ShowcaseDemoShell } from "@/components/showcases/ShowcaseDemoShell";
 import { SHOWCASES, getShowcaseBySlug } from "@/lib/showcases/registry";
 import { routing, type Locale } from "@/i18n/routing";
@@ -81,7 +80,6 @@ export default async function ShowcaseProductPage({
         {loc === "vi" ? "Tất cả sản phẩm minh họa" : "All showcases"}
       </Link>
       <div className="mt-6 max-w-3xl">
-        <ConceptDemoLabel locale={loc} className="mb-4" />
         <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
           {showcase.product[loc]}
         </h1>
@@ -94,7 +92,7 @@ export default async function ShowcaseProductPage({
       {/* Crawlable view index — server-rendered, no JS required. */}
       <section className="mt-12" aria-label={loc === "vi" ? "Các màn hình" : "Views"}>
         <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground/50">
-          {loc === "vi" ? "Các màn hình trong bản minh họa" : "Views in this demonstration"}
+          {loc === "vi" ? "Các màn hình" : "Views"}
         </h2>
         <ul className="mt-4 grid gap-4 md:grid-cols-2">
           {showcase.views.map((view) => (

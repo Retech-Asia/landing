@@ -21,7 +21,6 @@ interface TodayCopy {
   all: string;
   summary: (visits: number, techs: number) => string;
   empty: string;
-  footnote: string;
 }
 
 const COPY: Record<"en" | "vi", TodayCopy> = {
@@ -30,14 +29,12 @@ const COPY: Record<"en" | "vi", TodayCopy> = {
     all: "All",
     summary: (visits, techs) => `${visits} visits · ${techs} technicians`,
     empty: "No visits for this technician.",
-    footnote: "Simulated schedule for demonstration.",
   },
   vi: {
     filterLabel: "Lọc theo kỹ thuật viên",
     all: "Tất cả",
     summary: (visits, techs) => `${visits} cuộc hẹn · ${techs} kỹ thuật viên`,
     empty: "Không có cuộc hẹn nào của kỹ thuật viên này.",
-    footnote: "Lịch mô phỏng để trình diễn.",
   },
 };
 
@@ -160,10 +157,6 @@ export function TodayView({ locale }: { locale: "en" | "vi" }) {
           </p>
         )}
       </div>
-
-      <p className="mt-auto pt-1 text-[11px] leading-snug text-[var(--rf-secondary)]">
-        {t.footnote}
-      </p>
     </div>
   );
 }

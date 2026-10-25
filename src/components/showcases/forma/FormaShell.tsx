@@ -77,9 +77,6 @@ function AppInner({
           <span className="font-serif text-lg font-semibold tracking-tight">
             Forma<span className="ml-1.5 text-sm font-medium text-[var(--fs-secondary)]">Studio</span>
           </span>
-          <span className="ml-1 hidden rounded-full bg-[var(--fs-accent-soft)] px-2 py-0.5 text-[11px] font-medium text-[var(--fs-accent)] sm:inline">
-            {locale === "vi" ? "Dữ liệu mẫu" : "Sample data"}
-          </span>
         </div>
         <ResetButton locale={locale} />
       </div>
@@ -132,13 +129,6 @@ function AppInner({
       </div>
 
       {/* Session note — the full disclaimer renders above the app on the page */}
-      <div className="border-t border-[var(--fs-border)] bg-[var(--fs-surface)] px-4 py-2">
-        <p className="text-[11px] text-[var(--fs-secondary)]">
-          {locale === "vi"
-            ? "Dữ liệu mẫu — các thay đổi sẽ đặt lại khi tải lại demo."
-            : "Sample data — changes reset when the demo reloads."}
-        </p>
-      </div>
     </div>
   );
 }

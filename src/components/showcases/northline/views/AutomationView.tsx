@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ChevronUp, Info, Play } from "lucide-react";
+import { ChevronUp, Play } from "lucide-react";
 import { useNorthline } from "../store";
 import { KV, Mono, NlButton, Panel, PanelHeader, Pill, type StageTone } from "../primitives";
 import { BarList, DonutChart } from "../charts";
@@ -29,9 +29,7 @@ const COPY = {
   en: {
     title: "Automation & Insights",
     summary:
-      "Examine rule-based workflows, simulated triggers, and operational reporting without connecting to real external systems.",
-    disclosure:
-      "Everything on this screen is sample simulation. No emails, webhooks, or external systems are ever triggered.",
+      "Examine rule-based workflows, trigger previews, and operational reporting across your pipeline and activity data.",
     rulesTitle: "Automation rules",
     statusActive: "Active",
     statusPaused: "Paused",
@@ -41,9 +39,7 @@ const COPY = {
     lastRun: "Last run",
     runPreview: "Run preview",
     hidePreview: "Hide preview",
-    simNote: "Simulated preview — nothing was sent.",
     reporting: "Reporting",
-    reportingNote: "Computed live from the sample dataset in this session.",
     pipelineByStage: "Pipeline value by stage",
     activityDistribution: "Activity distribution",
     donutCenter: "total",
@@ -72,9 +68,7 @@ const COPY = {
   vi: {
     title: "Tự động hóa & Báo cáo",
     summary:
-      "Khám phá quy trình tự động, điều kiện kích hoạt mô phỏng và báo cáo vận hành mà không kết nối hệ thống thật.",
-    disclosure:
-      "Mọi thứ trên màn hình này chỉ là mô phỏng mẫu. Không có email, webhook hay hệ thống bên ngoài nào được kích hoạt.",
+      "Khám phá quy trình tự động, xem trước điều kiện kích hoạt và báo cáo vận hành trên dữ liệu cơ hội và hoạt động.",
     rulesTitle: "Quy trình tự động",
     statusActive: "Đang chạy",
     statusPaused: "Tạm dừng",
@@ -82,11 +76,9 @@ const COPY = {
     action: "Hành động",
     runsMonth: "lần/tháng",
     lastRun: "Chạy gần nhất",
-    runPreview: "Chạy mô phỏng",
-    hidePreview: "Ẩn mô phỏng",
-    simNote: "Mô phỏng — không có gì được gửi đi.",
+    runPreview: "Chạy xem trước",
+    hidePreview: "Ẩn xem trước",
     reporting: "Báo cáo",
-    reportingNote: "Tính trực tiếp từ dữ liệu mẫu trong phiên xem này.",
     pipelineByStage: "Giá trị cơ hội theo giai đoạn",
     activityDistribution: "Phân bố hoạt động",
     donutCenter: "tổng",
@@ -153,14 +145,6 @@ export function AutomationView({ locale }: { locale: "en" | "vi" }) {
         <p className="text-sm text-[var(--nl-muted)]">{t.summary}</p>
       </div>
 
-      {/* Simulation disclosure */}
-      <Panel className="bg-[var(--nl-accent-soft)]">
-        <div className="flex items-start gap-2 px-4 py-3">
-          <Info size={15} strokeWidth={1.75} className="mt-0.5 shrink-0 text-[var(--nl-accent)]" aria-hidden="true" />
-          <p className="text-xs leading-relaxed text-[var(--nl-accent)]">{t.disclosure}</p>
-        </div>
-      </Panel>
-
       {/* Automation rules */}
       <h3 className="text-sm font-semibold text-[var(--nl-ink)]">{t.rulesTitle}</h3>
       <div className="flex flex-col gap-4">
@@ -213,10 +197,6 @@ export function AutomationView({ locale }: { locale: "en" | "vi" }) {
                         </li>
                       ))}
                     </ol>
-                    <p className="mt-2 flex items-center gap-1.5 text-xs text-[var(--nl-accent)]">
-                      <Info size={13} strokeWidth={1.75} aria-hidden="true" />
-                      {t.simNote}
-                    </p>
                   </div>
                 )}
               </div>
@@ -226,10 +206,7 @@ export function AutomationView({ locale }: { locale: "en" | "vi" }) {
       </div>
 
       {/* Reporting */}
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 className="text-sm font-semibold text-[var(--nl-ink)]">{t.reporting}</h3>
-        <p className="text-xs text-[var(--nl-muted)]">{t.reportingNote}</p>
-      </div>
+      <h3 className="text-sm font-semibold text-[var(--nl-ink)]">{t.reporting}</h3>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Panel>
           <PanelHeader title={t.pipelineByStage} />

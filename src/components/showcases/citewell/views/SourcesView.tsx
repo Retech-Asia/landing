@@ -34,7 +34,7 @@ const COPY: Record<"en" | "vi", SourcesCopy> = {
   en: {
     title: "Source Library",
     subtitle:
-      "Five fictional internal documents back the demo answers. Open a document to read every section and excerpt.",
+      "Five internal documents back the answers. Open a document to read every section and excerpt.",
     documentsTitle: "Documents",
     searchAria: "Search sources",
     searchPlaceholder: "Search by document title…",
@@ -51,7 +51,7 @@ const COPY: Record<"en" | "vi", SourcesCopy> = {
   vi: {
     title: "Thư viện nguồn",
     subtitle:
-      "Năm tài liệu nội bộ giả lập là nguồn cho các câu trả lời mẫu. Mở một tài liệu để đọc toàn bộ các mục và đoạn trích.",
+      "Năm tài liệu nội bộ là nguồn cho các câu trả lời. Mở một tài liệu để đọc toàn bộ các mục và đoạn trích.",
     documentsTitle: "Tài liệu",
     searchAria: "Tìm kiếm nguồn",
     searchPlaceholder: "Tìm theo tên tài liệu…",

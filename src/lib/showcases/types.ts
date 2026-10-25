@@ -40,10 +40,10 @@ export interface ShowcaseDefinition {
   /** The screens that make up the demo (>= 3 per program standard). */
   views: ShowcaseViewDef[];
   /**
-   * Always "concept-demo" for now — the visible
-   * "Concept demonstration — sample data" label is mandatory and
-   * non-removable (mock-labeling law). The field exists so a future
-   * substantiated showcase type can be added deliberately, not by accident.
+   * Always "concept-demo" — no visible label is rendered for it
+   * (owner ruling 2026-10-25: no dummy/sample/concept disclaimers on
+   * visitor-facing surfaces). The field exists so a future substantiated
+   * showcase type can be added deliberately, not by accident.
    */
   label: "concept-demo";
 }
