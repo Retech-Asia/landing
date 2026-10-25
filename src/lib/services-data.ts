@@ -103,12 +103,12 @@ export const services: ServiceData[] = [
       vi: "Quản lý Nội dung Dễ dàng",
     },
     description: {
-      en: "We build custom websites leveraging powerful CMS solutions, enabling businesses to manage and publish content efficiently across multiple platforms. Our approach combines headless and traditional architectures to give you the flexibility of modern content delivery with the ease of use your editorial team expects.",
-      vi: "Chúng tôi xây dựng các website tùy chỉnh dựa trên giải pháp CMS mạnh mẽ, giúp doanh nghiệp quản lý và xuất bản nội dung hiệu quả trên nhiều nền tảng. Phương pháp của chúng tôi kết hợp kiến trúc headless và truyền thống, mang lại sự linh hoạt của phân phối nội dung hiện đại cùng dễ sử dụng mà đội biên tập của bạn mong đợi.",
+      en: "We design content management experiences that make publishing, organizing, and maintaining digital content easier for your team. From editorial workflows and media libraries to structured content and multi-channel delivery, we build CMS solutions around real publishing needs.",
+      vi: "Chúng tôi thiết kế hệ thống quản lý nội dung giúp đội ngũ dễ dàng xuất bản, sắp xếp và cập nhật thông tin số. Từ quy trình biên tập, thư viện hình ảnh đến nội dung có cấu trúc và phân phối đa kênh, giải pháp CMS được xây dựng theo nhu cầu xuất bản thực tế.",
     },
     longDescription: {
-      en: "We build custom websites leveraging powerful CMS solutions, enabling businesses to manage and publish content efficiently across multiple platforms with ease and flexibility. Integrated AI features help streamline content organization, reduce human error, and enhance long-term maintainability.",
-      vi: "Chúng tôi xây dựng các website tùy chỉnh dựa trên giải pháp CMS mạnh mẽ, giúp doanh nghiệp quản lý và xuất bản nội dung hiệu quả trên nhiều nền tảng một cách dễ dàng và linh hoạt. Các tính năng AI tích hợp giúp tinh gọn tổ chức nội dung, giảm thiểu sai sót con người và nâng cao khả năng bảo trì dài hạn.",
+      en: "A content platform should support the people who manage it every day. We design content models, editor interfaces, review flows, previews, and publishing integrations based on the organization's workflow. Traditional or headless architectures can be considered according to content channels, team needs, and maintenance requirements.",
+      vi: "Nền tảng nội dung cần phục vụ hiệu quả những người sử dụng hằng ngày. Chúng tôi thiết kế cấu trúc nội dung, giao diện biên tập, quy trình duyệt, xem trước và tích hợp xuất bản theo cách làm việc của doanh nghiệp. Kiến trúc truyền thống hoặc headless được cân nhắc tùy theo kênh nội dung, nhu cầu đội ngũ và khả năng bảo trì.",
     },
     icon: Layout,
     glass: "database",
@@ -318,12 +318,12 @@ export const services: ServiceData[] = [
       vi: "Công cụ Lấy Khách hàng làm Trung tâm",
     },
     description: {
-      en: "We develop tailored websites integrated with CRM systems, designed to enhance customer engagement and improve communication. Whether extending an existing platform like Salesforce or HubSpot, or building a bespoke CRM from scratch, we focus on streamlining your sales, support, and marketing workflows into one unified system.",
-      vi: "Chúng tôi phát triển các website tùy chỉnh tích hợp với hệ thống CRM, được thiết kế để tăng tương tác khách hàng và cải thiện giao tiếp. Dù là mở rộng nền tảng sẵn có như Salesforce hay HubSpot, hay xây dựng CRM riêng từ đầu, chúng tôi tập trung hợp nhất quy trình bán hàng, hỗ trợ và marketing vào một hệ thống thống nhất.",
+      en: "We design and build custom CRM applications around the way your team actually works. From lead intake and sales pipelines to customer records, permissions, automation, and reporting, we bring important workflows together in one manageable system.",
+      vi: "Chúng tôi thiết kế và phát triển ứng dụng CRM tùy chỉnh theo quy trình làm việc thực tế của doanh nghiệp. Từ tiếp nhận khách hàng tiềm năng, quản lý bán hàng đến hồ sơ khách hàng, phân quyền, tự động hóa và báo cáo, các công việc quan trọng được kết nối trong một hệ thống dễ quản lý.",
     },
     longDescription: {
-      en: "We develop tailored websites integrated with CRM systems, designed to enhance customer engagement, improve communication, and streamline client relationship workflows. With AI support, our solutions enable intelligent automation, predictive insights, and fewer operational mistakes, making your system easier to manage and scale.",
-      vi: "Chúng tôi phát triển các website tùy chỉnh tích hợp với hệ thống CRM, được thiết kế để tăng tương tác khách hàng, cải thiện giao tiếp và tinh gọn quy trình quan hệ khách hàng. Với hỗ trợ AI, giải pháp của chúng tôi cho phép tự động hóa thông minh, insight dự đoán và ít sai sót vận hành hơn, giúp hệ thống của bạn dễ quản lý và mở rộng.",
+      en: "A useful CRM does more than store contacts. We map the way information moves between your teams, design the right data model, and build interfaces for daily operations. Custom workflows, integrations, reporting, and role-based permissions are planned around your requirements, with AI features considered only where they offer a practical benefit.",
+      vi: "Một CRM hữu ích không chỉ dùng để lưu thông tin liên hệ. Chúng tôi tìm hiểu cách dữ liệu được chia sẻ giữa các bộ phận, thiết kế mô hình dữ liệu phù hợp và xây dựng giao diện phục vụ công việc hằng ngày. Quy trình tùy chỉnh, tích hợp, báo cáo và phân quyền được thiết kế theo nhu cầu thực tế; tính năng AI chỉ được cân nhắc khi mang lại giá trị thiết thực.",
     },
     icon: Users,
     glass: "crm",
@@ -425,12 +425,12 @@ export const services: ServiceData[] = [
       {
         title: { en: "Compliance-Ready Data Handling", vi: "Xử lý Dữ liệu Sẵn sàng Tuân thủ" },
         description: {
-          en: "Built-in data governance, role-based access controls, and audit trails that meet GDPR and industry-specific regulations.",
-          vi: "Quản trị dữ liệu tích hợp, kiểm soát truy cập theo vai trò và audit trail đáp ứng GDPR và quy định đặc thù ngành.",
+          en: "Role-based permissions, audit trails, and configurable data-handling controls that can support privacy and compliance requirements identified during discovery.",
+          vi: "Phân quyền theo vai trò, nhật ký hoạt động và các cơ chế quản lý dữ liệu có thể cấu hình để hỗ trợ yêu cầu về quyền riêng tư và tuân thủ được xác định trong giai đoạn khảo sát.",
         },
       },
     ],
-    technologies: ["Salesforce", "HubSpot", "Zoho", "React", "Node.js", "PostgreSQL", "REST APIs", "TypeScript", "Redis", "Webhooks"],
+    technologies: ["React", "Node.js", "PostgreSQL", "REST APIs", "TypeScript", "Redis", "Webhooks"],
     processSteps: [
       {
         step: 1,
@@ -461,7 +461,7 @@ export const services: ServiceData[] = [
         title: { en: "Data Migration and Testing", vi: "Di chuyển Dữ liệu và Kiểm thử" },
         description: {
           en: "Existing customer data is migrated with deduplication and field mapping, followed by end-to-end testing including user acceptance testing with your team.",
-          vi: "Dữ liệu khách hàng hiện có được di chuyển với khử trùng lặp và ánh xạ trường, sau đó là kiểm thử end-to-end bao gồm kiểm thử chấp nhận người dùng với đội của bạn.",
+          vi: "Dữ liệu khách hàng hiện có được di chuyển với loại bỏ trùng lặp và ánh xạ trường, sau đó là kiểm thử end-to-end bao gồm kiểm thử chấp nhận người dùng với đội của bạn.",
         },
       },
       {
@@ -477,15 +477,15 @@ export const services: ServiceData[] = [
       {
         question: { en: "What CRM platforms do you integrate with?", vi: "Các bạn tích hợp với nền tảng CRM nào?" },
         answer: {
-          en: "We integrate with Salesforce, HubSpot, Zoho, Pipedrive, and custom CRM solutions. Our team can also build bespoke CRM systems tailored to your unique business processes.",
-          vi: "Chúng tôi tích hợp với Salesforce, HubSpot, Zoho, Pipedrive và các giải pháp CRM tùy chỉnh. Đội của chúng tôi cũng có thể xây dựng hệ thống CRM riêng phù hợp với quy trình kinh doanh đặc thù của bạn.",
+          en: "We design custom CRM applications and evaluate integrations with a client's existing tools. Compatibility with any particular CRM platform depends on its available APIs, permissions, and project requirements.",
+          vi: "Chúng tôi thiết kế ứng dụng CRM tùy chỉnh và đánh giá khả năng tích hợp với các công cụ doanh nghiệp đang sử dụng. Việc kết nối với từng nền tảng CRM phụ thuộc vào API, quyền truy cập và yêu cầu cụ thể của dự án.",
         },
       },
       {
         question: { en: "How long does CRM development take?", vi: "Phát triển CRM mất bao lâu?" },
         answer: {
-          en: "CRM integration projects typically take 4-10 weeks. Custom CRM development can range from 8-20 weeks depending on the complexity of workflows, integrations, and automation requirements.",
-          vi: "Dự án tích hợp CRM thường mất 4-10 tuần. Phát triển CRM tùy chỉnh có thể kéo dài 8-20 tuần tùy thuộc vào độ phức tạp của quy trình, tích hợp và yêu cầu tự động hóa.",
+          en: "The schedule depends on workflow complexity, integrations, data migration, and approval cycles. After discovery, we propose phases and milestones tailored to the agreed scope.",
+          vi: "Tiến độ phụ thuộc vào độ phức tạp của quy trình, tích hợp, di chuyển dữ liệu và các bước phê duyệt. Sau giai đoạn khảo sát, chúng tôi đề xuất các giai đoạn và mốc bàn giao phù hợp với phạm vi thống nhất.",
         },
       },
       {
@@ -498,23 +498,23 @@ export const services: ServiceData[] = [
       {
         question: { en: "Do you provide CRM training?", vi: "Các bạn có đào tạo CRM không?" },
         answer: {
-          en: "We provide comprehensive training for your team including documentation, video tutorials, and hands-on workshops to ensure smooth adoption and maximum ROI from your CRM investment.",
-          vi: "Chúng tôi cung cấp đào tạo toàn diện cho đội của bạn bao gồm tài liệu, video hướng dẫn và workshop thực hành để đảm bảo áp dụng suôn sẻ và ROI tối đa từ khoản đầu tư CRM.",
+          en: "We can provide team onboarding, practical training sessions, and documentation tailored to user roles, helping staff understand the workflows introduced by the new CRM.",
+          vi: "Chúng tôi có thể hỗ trợ hướng dẫn sử dụng, đào tạo thực hành và cung cấp tài liệu phù hợp với từng nhóm người dùng, giúp nhân viên nắm rõ quy trình làm việc trên CRM mới.",
         },
       },
       {
         question: { en: "What about data migration to a new CRM?", vi: "Còn về di chuyển dữ liệu sang CRM mới thì sao?" },
         answer: {
           en: "We handle complete data migration with deduplication, field mapping, relationship preservation, and validation to ensure your data transfers cleanly to the new system.",
-          vi: "Chúng tôi xử lý di chuyển dữ liệu toàn diện với khử trùng lặp, ánh xạ trường, bảo toàn quan hệ và validation để đảm bảo dữ liệu của bạn chuyển sạch sang hệ thống mới.",
+          vi: "Chúng tôi xử lý di chuyển dữ liệu toàn diện với loại bỏ trùng lặp, ánh xạ trường, bảo toàn quan hệ và validation để đảm bảo dữ liệu của bạn chuyển sạch sang hệ thống mới.",
         },
       },
     ],
     timeline: [
-      { week: { en: "Week 1-2", vi: "Tuần 1-2" }, phase: { en: "Requirements", vi: "Yêu cầu" }, description: { en: "Stakeholder interviews, workflow mapping, and CRM platform evaluation.", vi: "Phỏng vấn stakeholder, ánh xạ quy trình và đánh giá nền tảng CRM." } },
-      { week: { en: "Week 2-5", vi: "Tuần 2-5" }, phase: { en: "Architecture", vi: "Kiến trúc" }, description: { en: "Data model design, integration planning, and system architecture.", vi: "Thiết kế mô hình dữ liệu, lập kế hoạch tích hợp và kiến trúc hệ thống." } },
-      { week: { en: "Week 5-10", vi: "Tuần 5-10" }, phase: { en: "Build", vi: "Xây dựng" }, description: { en: "Custom development, data migration, workflow automation, and API integrations.", vi: "Phát triển tùy chỉnh, di chuyển dữ liệu, tự động hóa quy trình và tích hợp API." } },
-      { week: { en: "Week 10-12", vi: "Tuần 10-12" }, phase: { en: "Deploy", vi: "Triển khai" }, description: { en: "User acceptance testing, team training, and production rollout.", vi: "Kiểm thử chấp nhận người dùng, đào tạo đội và rollout sản xuất." } },
+      { week: { en: "Phase 1", vi: "Giai đoạn 1" }, phase: { en: "Requirements", vi: "Yêu cầu" }, description: { en: "Stakeholder interviews, workflow mapping, and CRM approach evaluation.", vi: "Phỏng vấn stakeholder, ánh xạ quy trình và đánh giá hướng tiếp cận CRM." } },
+      { week: { en: "Phase 2", vi: "Giai đoạn 2" }, phase: { en: "Architecture", vi: "Kiến trúc" }, description: { en: "Data model design, integration planning, and system architecture.", vi: "Thiết kế mô hình dữ liệu, lập kế hoạch tích hợp và kiến trúc hệ thống." } },
+      { week: { en: "Phase 3", vi: "Giai đoạn 3" }, phase: { en: "Build", vi: "Xây dựng" }, description: { en: "Custom development, data migration, workflow automation, and API integrations.", vi: "Phát triển tùy chỉnh, di chuyển dữ liệu, tự động hóa quy trình và tích hợp API." } },
+      { week: { en: "Phase 4", vi: "Giai đoạn 4" }, phase: { en: "Deploy", vi: "Triển khai" }, description: { en: "User acceptance testing, team training, and production rollout.", vi: "Kiểm thử chấp nhận người dùng, đào tạo đội và rollout sản xuất." } },
     ],
   },
   {
@@ -526,12 +526,12 @@ export const services: ServiceData[] = [
       vi: "Dashboard Đầy đủ Insight",
     },
     description: {
-      en: "We create integrated web solutions based on ERP systems, connecting departments and optimizing operations. From finance and HR to procurement and inventory, our ERP implementations unify your business processes into a single platform with real-time visibility across the organization.",
-      vi: "Chúng tôi tạo các giải pháp web tích hợp dựa trên hệ thống ERP, kết nối các phòng ban và tối ưu vận hành. Từ tài chính và HR đến mua hàng và tồn kho, các triển khai ERP của chúng tôi hợp nhất quy trình kinh doanh vào một nền tảng duy nhất với tầm nhìn thời gian thực trên toàn tổ chức.",
+      en: "We build and integrate business operations software that connects the processes behind purchasing, inventory, finance, and day-to-day management. The goal is clearer information flow, fewer repetitive steps, and tools designed around the people using them.",
+      vi: "Chúng tôi phát triển và tích hợp phần mềm vận hành doanh nghiệp, kết nối các quy trình mua hàng, tồn kho, tài chính và quản lý hằng ngày. Mục tiêu là giúp dữ liệu được luân chuyển rõ ràng hơn, giảm thao tác lặp lại và xây dựng công cụ phù hợp với người sử dụng.",
     },
     longDescription: {
-      en: "We create integrated web solutions based on ERP systems, connecting departments, optimizing operations, and providing real-time data access for informed decision-making and sustainable growth. AI-driven analytics and process automation reduce manual effort, minimize errors, and ensure better system reliability and maintenance over time.",
-      vi: "Chúng tôi tạo các giải pháp web tích hợp dựa trên hệ thống ERP, kết nối các phòng ban, tối ưu vận hành và cung cấp truy cập dữ liệu thời gian thực cho ra quyết định sáng suốt và tăng trưởng bền vững. Phân tích dẫn dắt AI và tự động hóa quy trình giảm nỗ lực thủ công, tối thiểu sai sót và đảm bảo độ tin cậy hệ thống tốt hơn cùng khả năng bảo trì theo thời gian.",
+      en: "ERP projects require careful coordination between business processes, data, and existing systems. We help map those dependencies, design appropriate modules and integrations, and plan phased implementation. Dashboards, approval workflows, access permissions, and reporting are tailored to the agreed operational requirements.",
+      vi: "Dự án ERP cần phối hợp chặt chẽ giữa quy trình kinh doanh, dữ liệu và hệ thống hiện có. Chúng tôi hỗ trợ làm rõ các mối liên hệ này, thiết kế phân hệ và tích hợp phù hợp, đồng thời lập kế hoạch triển khai theo giai đoạn. Dashboard, quy trình phê duyệt, phân quyền và báo cáo được xây dựng theo yêu cầu vận hành đã thống nhất.",
     },
     icon: BarChart3,
     glass: "analytics",
@@ -598,8 +598,8 @@ export const services: ServiceData[] = [
       {
         title: { en: "Operational Efficiency", vi: "Hiệu suất Vận hành" },
         description: {
-          en: "Automate cross-department workflows and eliminate manual data entry, reducing processing time by up to 60%.",
-          vi: "Tự động hóa quy trình xuyên phòng ban và loại bỏ nhập liệu thủ công, giảm thời gian xử lý tới 60%.",
+          en: "Connect purchasing, inventory, finance, and operational workflows to reduce repetitive data entry and make handoffs easier to manage.",
+          vi: "Kết nối quy trình mua hàng, tồn kho, tài chính và vận hành để giảm thao tác nhập liệu lặp lại và quản lý việc bàn giao giữa các bộ phận thuận tiện hơn.",
         },
       },
       {
@@ -645,7 +645,7 @@ export const services: ServiceData[] = [
         },
       },
     ],
-    technologies: ["Odoo", "SAP", "Docker", "Kubernetes", "Python", "PostgreSQL", "Redis", "REST APIs", "AWS", "Nginx"],
+    technologies: ["Docker", "Kubernetes", "Python", "PostgreSQL", "Redis", "REST APIs", "AWS", "Nginx"],
     processSteps: [
       {
         step: 1,
@@ -692,15 +692,15 @@ export const services: ServiceData[] = [
       {
         question: { en: "What ERP systems do you work with?", vi: "Các bạn làm việc với hệ thống ERP nào?" },
         answer: {
-          en: "We work with Odoo, SAP, Microsoft Dynamics, NetSuite, and custom-built ERP solutions. We help you choose the right platform based on your industry, scale, and operational complexity.",
-          vi: "Chúng tôi làm việc với Odoo, SAP, Microsoft Dynamics, NetSuite và các giải pháp ERP tự xây dựng. Chúng tôi giúp bạn chọn nền tảng phù hợp dựa trên ngành, quy mô và độ phức tạp vận hành.",
+          en: "We help evaluate whether an existing ERP platform should be configured, extended, integrated, or complemented by custom software. Specific platform compatibility is confirmed during technical discovery.",
+          vi: "Chúng tôi hỗ trợ đánh giá nên cấu hình, mở rộng, tích hợp nền tảng ERP hiện có hay phát triển phần mềm bổ sung. Khả năng tương thích với từng nền tảng được xác nhận trong giai đoạn khảo sát kỹ thuật.",
         },
       },
       {
         question: { en: "How long does ERP implementation take?", vi: "Triển khai ERP mất bao lâu?" },
         answer: {
-          en: "ERP implementations typically range from 12-24 weeks for mid-sized deployments. We follow a phased approach starting with core modules, then expanding to additional departments and features.",
-          vi: "Triển khai ERP thường kéo dài 12-24 tuần cho các triển khai quy mô vừa. Chúng tôi áp dụng cách tiếp cận theo giai đoạn, bắt đầu với module cốt lõi, sau đó mở rộng sang các phòng ban và tính năng bổ sung.",
+          en: "ERP delivery varies with the number of departments, modules, integrations, and migration requirements. We plan phased delivery around business priorities and confirm the schedule after requirements review.",
+          vi: "Tiến độ ERP phụ thuộc vào số bộ phận, phân hệ, tích hợp và yêu cầu chuyển đổi dữ liệu. Chúng tôi lên kế hoạch triển khai theo giai đoạn dựa trên mức độ ưu tiên và xác nhận lịch trình sau khi rà soát yêu cầu.",
         },
       },
       {
@@ -726,10 +726,10 @@ export const services: ServiceData[] = [
       },
     ],
     timeline: [
-      { week: { en: "Week 1-3", vi: "Tuần 1-3" }, phase: { en: "Analysis", vi: "Phân tích" }, description: { en: "Business process review, department workshops, and ERP platform selection.", vi: "Đánh giá quy trình kinh doanh, workshop phòng ban và lựa chọn nền tảng ERP." } },
-      { week: { en: "Week 3-8", vi: "Tuần 3-8" }, phase: { en: "Design & Config", vi: "Thiết kế & Cấu hình" }, description: { en: "Module configuration, workflow design, and data architecture planning.", vi: "Cấu hình module, thiết kế quy trình và lập kế hoạch kiến trúc dữ liệu." } },
-      { week: { en: "Week 8-16", vi: "Tuần 8-16" }, phase: { en: "Development", vi: "Phát triển" }, description: { en: "Custom module build, integrations, data migration, and user roles setup.", vi: "Xây dựng module tùy chỉnh, tích hợp, di chuyển dữ liệu và thiết lập vai trò người dùng." } },
-      { week: { en: "Week 16-20", vi: "Tuần 16-20" }, phase: { en: "Go-Live", vi: "Go-Live" }, description: { en: "Pilot testing, staff training, phased rollout, and stabilization support.", vi: "Kiểm thử pilot, đào tạo nhân sự, rollout theo giai đoạn và hỗ trợ ổn định." } },
+      { week: { en: "Phase 1", vi: "Giai đoạn 1" }, phase: { en: "Analysis", vi: "Phân tích" }, description: { en: "Business process review, department workshops, and ERP approach definition.", vi: "Đánh giá quy trình kinh doanh, workshop phòng ban và xác định hướng tiếp cận ERP." } },
+      { week: { en: "Phase 2", vi: "Giai đoạn 2" }, phase: { en: "Design & Config", vi: "Thiết kế & Cấu hình" }, description: { en: "Module configuration, workflow design, and data architecture planning.", vi: "Cấu hình module, thiết kế quy trình và lập kế hoạch kiến trúc dữ liệu." } },
+      { week: { en: "Phase 3", vi: "Giai đoạn 3" }, phase: { en: "Development", vi: "Phát triển" }, description: { en: "Custom module build, integrations, data migration, and user roles setup.", vi: "Xây dựng module tùy chỉnh, tích hợp, di chuyển dữ liệu và thiết lập vai trò người dùng." } },
+      { week: { en: "Phase 4", vi: "Giai đoạn 4" }, phase: { en: "Go-Live", vi: "Go-Live" }, description: { en: "Pilot testing, staff training, phased rollout, and stabilization support.", vi: "Kiểm thử pilot, đào tạo nhân sự, rollout theo giai đoạn và hỗ trợ ổn định." } },
     ],
   },
   {

@@ -15,9 +15,13 @@ import type { L } from "./services-data";
 import type { Locale } from "@/i18n/routing";
 
 export interface IndustryStat {
-  value: number;
-  suffix: string;
-  label: L;
+  /** Numeric KPI rendering (AnimatedCounter). Omit when `word` is set. */
+  value?: number;
+  suffix?: string;
+  label?: L;
+  /** Qualitative design-consideration card (no numeric claim). Omit `value`
+   * when set — used where numbers would be unsupported claims. */
+  word?: L;
 }
 
 export interface IndustryApproachStep {
@@ -66,12 +70,12 @@ export const industries: Industry[] = [
     icon: HeartPulse,
     glass: "healthcare",
     description: {
-      en: "HIPAA-compliant platforms for patient management, telemedicine, and health analytics that improve care delivery and clinical outcomes. We build secure, reliable systems that integrate with existing EHR infrastructure using HL7/FHIR standards so records stay consistent across systems. From patient portals to clinical decision-support dashboards, our solutions are designed to reduce administrative burden and let healthcare professionals focus on what matters most: patient care. Our team has built clinical decision-support tools with HIPAA-compliant RAG pipelines over medical knowledge bases, and patient-facing assistants with strict scope guards to prevent medical advice.",
-      vi: "Các nền tảng tuân thủ HIPAA cho quản lý bệnh nhân, telemedicine và phân tích y tế giúp cải thiện việc chăm sóc và kết quả lâm sàng. Chúng tôi xây dựng hệ thống an toàn, đáng tin cậy tích hợp với hạ tầng EHR sẵn có bằng tiêu chuẩn HL7/FHIR để dữ liệu đồng bộ giữa các hệ thống. Từ cổng thông tin bệnh nhân đến dashboard hỗ trợ quyết định lâm sàng, giải pháp của chúng tôi được thiết kế để giảm gánh nặng hành chính và giúp chuyên gia y tế tập trung vào điều quan trọng nhất: chăm sóc bệnh nhân. Đội ngũ của chúng tôi đã xây dựng công cụ hỗ trợ quyết định lâm sàng với RAG pipeline tuân thủ HIPAA trên cơ sở tri thức y khoa, và trợ lý hướng bệnh nhân với scope guard nghiêm ngặt để ngăn tư vấn y tế.",
+      en: "Healthcare applications require careful attention to privacy, usability, interoperability, and operational reliability. We help teams evaluate requirements and plan tailored software workflows for patient portals, scheduling, reporting, and system integration. Regulatory and clinical requirements are assessed with qualified stakeholders before implementation.",
+      vi: "Ứng dụng y tế đòi hỏi sự chú trọng đến quyền riêng tư, trải nghiệm sử dụng, khả năng kết nối dữ liệu và độ tin cậy trong vận hành. Chúng tôi hỗ trợ đánh giá yêu cầu và xây dựng phương án phần mềm cho cổng thông tin bệnh nhân, lịch hẹn, báo cáo và tích hợp hệ thống. Các yêu cầu pháp lý và chuyên môn y tế cần được xem xét cùng những bên có chuyên môn trước khi triển khai.",
     },
     longDescription: {
-      en: "The healthcare industry is undergoing a massive digital transformation, driven by the need for better patient outcomes, regulatory compliance, and operational efficiency. From electronic health records to telemedicine platforms, technology is reshaping how care is delivered, managed, and experienced by patients worldwide.\n\nRetech Solutions brings deep expertise in building HIPAA-compliant healthcare software that meets HIPAA security and reliability requirements. Our team understands the complexities of healthcare data interoperability, patient privacy regulations, and the critical importance of system uptime in clinical environments.\n\nWhether you need a patient portal, a health analytics dashboard, or a full-scale telemedicine platform, we deliver solutions that fit existing clinical workflows and comply with HL7/FHIR standards for health data exchange.",
-      vi: "Ngành y tế đang trải qua chuyển đổi số quy mô lớn, thúc đẩy bởi nhu cầu kết quả bệnh nhân tốt hơn, tuân thủ pháp lý và hiệu quả vận hành. Từ hồ sơ sức khỏe điện tử đến nền tảng telemedicine, công nghệ đang định hình lại cách chăm sóc được cung cấp, quản lý và trải nghiệm bởi bệnh nhân trên toàn cầu.\n\nRetech Solutions mang chuyên môn sâu trong xây dựng phần mềm y tế tuân thủ HIPAA đáp ứng yêu cầu bảo mật và độ tin cậy của HIPAA. Đội ngũ của chúng tôi hiểu sự phức tạp của khả năng tương tác dữ liệu y tế, quy định quyền riêng tư bệnh nhân và tầm quan trọng thiết yếu của uptime hệ thống trong môi trường lâm sàng.\n\nDù bạn cần cổng thông tin bệnh nhân, dashboard phân tích y tế hay nền tảng telemedicine quy mô đầy đủ, chúng tôi bàn giao giải pháp phù hợp với quy trình lâm sàng hiện có và tuân thủ tiêu chuẩn HL7/FHIR cho trao đổi dữ liệu y tế.",
+      en: "Healthcare technology projects begin with a clear understanding of the people, information, and systems involved. From patient-facing interfaces to administrative dashboards, good software design helps teams navigate complex workflows while making privacy and usability central to the product.\n\nReTech can support discovery, workflow design, application architecture, and technical implementation planning. This includes evaluating role-based access, audit logging, data flows, and possible integration with existing healthcare systems.\n\nRequirements involving HIPAA, HL7/FHIR, clinical safety, or protected health information must be verified for each engagement with appropriate domain and compliance specialists. No compliance certification or previously delivered healthcare project is implied.",
+      vi: "Dự án công nghệ y tế cần bắt đầu từ việc hiểu rõ người sử dụng, dữ liệu và các hệ thống liên quan. Từ giao diện dành cho bệnh nhân đến dashboard quản trị, thiết kế phần mềm tốt giúp đơn giản hóa quy trình phức tạp và chú trọng quyền riêng tư cũng như trải nghiệm sử dụng.\n\nReTech có thể hỗ trợ khảo sát yêu cầu, thiết kế quy trình, kiến trúc ứng dụng và lập kế hoạch triển khai kỹ thuật. Những nội dung cần xem xét bao gồm phân quyền truy cập, nhật ký hoạt động, luồng dữ liệu và khả năng tích hợp với các hệ thống y tế hiện có.\n\nCác yêu cầu liên quan đến HIPAA, HL7/FHIR, an toàn lâm sàng hoặc dữ liệu sức khỏe nhạy cảm phải được đánh giá riêng cho từng dự án cùng chuyên gia phù hợp. Nội dung này không hàm ý chứng nhận tuân thủ hay kinh nghiệm bàn giao dự án y tế đã được xác minh.",
     },
     challenges: [
       {
@@ -93,8 +97,8 @@ export const industries: Industry[] = [
     ],
     solutions: [
       {
-        en: "HIPAA-compliant patient portals with secure authentication and audit trails",
-        vi: "Cổng bệnh nhân tuân thủ HIPAA với xác thực an toàn và audit trail",
+        en: "Patient portals with secure authentication and audit trails",
+        vi: "Cổng thông tin bệnh nhân với xác thực an toàn và nhật ký hoạt động",
       },
       {
         en: "Telemedicine platforms with real-time video, scheduling, and prescription management",
@@ -111,16 +115,16 @@ export const industries: Industry[] = [
     ],
     technologies: ["React", "Node.js", "PostgreSQL", "AWS", "HL7/FHIR", "TypeScript", "Docker", "WebRTC"],
     caseStudyExcerpt: {
-      en: "We have delivered secure, user-facing healthcare platforms that handle sensitive patient data with strict compliance requirements, demonstrating our ability to build reliable clinical-grade software.",
-      vi: "Chúng tôi đã bàn giao các nền tảng y tế an toàn, hướng người dùng xử lý dữ liệu bệnh nhân nhạy cảm với yêu cầu tuân thủ nghiêm ngặt, minh chứng cho khả năng xây dựng phần mềm cấp lâm sàng đáng tin cậy.",
+      en: "For healthcare engagements, ReTech supports discovery, workflow design, application architecture, and technical implementation planning. Regulatory and clinical requirements are assessed with qualified stakeholders for each project. Our published case studies cover delivered work in other industries.",
+      vi: "Với các dự án y tế, ReTech hỗ trợ khảo sát yêu cầu, thiết kế quy trình, kiến trúc ứng dụng và lập kế hoạch triển khai kỹ thuật. Các yêu cầu pháp lý và chuyên môn được đánh giá cùng bên có chuyên môn cho từng dự án. Các case study đã xuất bản của chúng tôi là công việc bàn giao ở các ngành khác.",
     },
     color: "text-brand",
     gradient: "from-brand/10 via-brand/5 to-accent-cyan/5",
     stats: [
-      { value: 99, suffix: ".9%", label: { en: "Uptime SLA", vi: "SLA Uptime" } },
-      { value: 100, suffix: "%", label: { en: "HIPAA Compliant", vi: "Tuân thủ HIPAA" } },
-      { value: 40, suffix: "%", label: { en: "Faster Workflows", vi: "Quy trình Nhanh hơn" } },
-      { value: 3, suffix: "x", label: { en: "Patient Engagement", vi: "Tương tác Bệnh nhân" } },
+      { word: { en: "Access Control", vi: "Kiểm soát truy cập" } },
+      { word: { en: "Auditability", vi: "Khả năng kiểm toán" } },
+      { word: { en: "Interoperability", vi: "Khả năng tương tác" } },
+      { word: { en: "Usability", vi: "Trải nghiệm sử dụng" } },
     ],
     approach: [
       {
@@ -1001,7 +1005,7 @@ export interface FlatIndustry {
   caseStudyExcerpt: string;
   color: string;
   gradient: string;
-  stats: { value: number; suffix: string; label: string }[];
+  stats: { value?: number; suffix?: string; label?: string; word?: string }[];
   approach: { step: string; title: string; description: string }[];
   relatedServiceSlugs: string[];
   caseStudyIndustry: string;
@@ -1023,7 +1027,12 @@ export function flattenIndustry(ind: Industry, locale: Locale): FlatIndustry {
     caseStudyExcerpt: ind.caseStudyExcerpt[locale],
     color: ind.color,
     gradient: ind.gradient,
-    stats: ind.stats.map((s) => ({ value: s.value, suffix: s.suffix, label: s.label[locale] })),
+    stats: ind.stats.map((s) => ({
+      value: s.value,
+      suffix: s.suffix,
+      label: s.label?.[locale],
+      word: s.word?.[locale],
+    })),
     approach: ind.approach.map((a) => ({
       step: a.step,
       title: a.title[locale],
