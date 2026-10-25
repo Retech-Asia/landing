@@ -404,7 +404,7 @@
     },
     "finalCta": {
       "title": "Build Your {service} Solution",
-      "body": "Our {service} specialists will review your requirements and return a detailed proposal with architecture recommendations, team allocation, and clear milestones, typically within one business day.",
+      "body": "Our {service} specialists will review your requirements and return a detailed proposal with architecture recommendations, team allocation, and clear milestones.",
       "ctaPrimary": "Get Free Consultation",
       "ctaSecondary": "Browse Services"
     },
@@ -468,7 +468,7 @@
     },
     "contact": {
       "title": "Contact",
-      "description": "Get a free consultation. We respond within one business day with architecture recommendations, team allocation, and clear milestones."
+      "description": "Get a free consultation. Tell us about your project and we'll get back to you with architecture recommendations, team allocation, and clear milestones."
     },
     "faq": {
       "title": "FAQ",

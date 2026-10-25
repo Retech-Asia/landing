@@ -404,7 +404,7 @@
     },
     "finalCta": {
       "title": "Xây dựng Giải pháp {service} của Bạn",
-      "body": "Chuyên gia {service} của chúng tôi sẽ xem xét yêu cầu và trả lại đề xuất chi tiết với đề xuất kiến trúc, phân bổ đội và milestone rõ ràng, thường trong vòng một ngày làm việc.",
+      "body": "Chuyên gia {service} của chúng tôi sẽ xem xét yêu cầu và trả lại đề xuất chi tiết với đề xuất kiến trúc, phân bổ đội và milestone rõ ràng.",
       "ctaPrimary": "Tư vấn Miễn phí",
       "ctaSecondary": "Xem Dịch vụ"
     },
@@ -468,7 +468,7 @@
     },
     "contact": {
       "title": "Liên hệ",
-      "description": "Nhận tư vấn miễn phí. Chúng tôi phản hồi trong vòng một ngày làm việc với đề xuất kiến trúc, phân bổ đội và milestone rõ ràng."
+      "description": "Nhận tư vấn miễn phí. Hãy kể cho chúng tôi về dự án của bạn; chúng tôi sẽ phản hồi với đề xuất kiến trúc, phân bổ đội và milestone rõ ràng."
     },
     "faq": {
       "title": "Câu hỏi Thường gặp",
