@@ -6,9 +6,7 @@ import {
   ArrowRight,
   ArrowLeft,
   Mail,
-  AlertTriangle,
   CheckCircle2,
-  ChevronRight,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -434,94 +432,86 @@ export default async function IndustryDetailPage({
         </Container>
       </section>
 
-      {/* -- Challenges & Solutions (Side-by-Side) -------------------------- */}
+      {/* -- Challenges & Solutions ----------------------------------------
+           Hallmark · redesign: problem-ledger · genre: editorial
+           system: site tokens (docs/design-system.md) — --card-bg, --rule-soft,
+           --brand (decorative-only); one reveal; no per-row chips. */}
       <section className="py-20 md:py-28 relative overflow-hidden">
         <Container className="relative">
           <AnimatedSection variant="slideUp">
             <SectionHeader
-              label="Challenges & Solutions"
+              label={t("problems.label")}
               title={t("problems.title")}
-              description={`The ${industry.name.toLowerCase()} industry faces unique technical and regulatory challenges. Here is how we solve them.`}
+              description={t("problems.description", {
+                industry: industry.name.toLowerCase(),
+              })}
             />
           </AnimatedSection>
 
-          <div className="max-w-6xl mx-auto space-y-5">
-            {industry.challenges.map((challenge, i) => {
-              const solution = industry.solutions[i] || "";
-              return (
-                <AnimatedSection
-                  key={i}
-                  variant="slideUp"
-                  delay={i * 0.08}
-                >
-                  <div className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-0 md:gap-0 items-stretch">
-                    {/* Challenge (left) */}
-                    <div className="rounded-2xl md:rounded-r-none bg-card-bg border border-card-border md:border-r-0 p-5 md:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-amber-200 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
-                      <div className="flex items-start gap-3">
-                        <div className="shrink-0 mt-0.5 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-amber-50">
-                          <AlertTriangle
-                            size={16}
-                            className="text-amber-500"
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-medium text-amber-600 uppercase tracking-wider mb-1">
-                            Challenge {i + 1}
-                          </p>
-                          <p className="text-sm text-foreground leading-relaxed">
-                            {challenge}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+          <AnimatedSection variant="slideUp" delay={0.08}>
+            <div
+              data-problem-ledger="true"
+              className="max-w-6xl mx-auto rounded-2xl border border-card-border bg-card-bg shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]"
+            >
+              {/* Column headers — stated once for the whole ledger */}
+              <div className="hidden md:grid grid-cols-[3rem_minmax(0,1fr)_minmax(0,1fr)] border-b border-rule-soft">
+                <div aria-hidden="true" />
+                <h3 className="px-6 pb-3 pt-5 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/50">
+                  {t("problems.challengeLabel")}
+                </h3>
+                <h3 className="px-6 pb-3 pt-5 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/50 md:border-l md:border-rule-soft">
+                  {t("problems.solutionLabel")}
+                </h3>
+              </div>
 
-                    {/* Connector arrow (center) */}
-                    <div className="hidden md:flex items-center justify-center w-12 relative">
-                      {/* Gradient line behind the arrow */}
-                      <div
-                        className="absolute inset-y-0 left-0 right-0 w-px bg-gradient-to-b from-amber-300 via-brand to-brand"
+              {industry.challenges.map((challenge, i) => {
+                const solution = industry.solutions[i] || "";
+                const num = String(i + 1).padStart(2, "0");
+                return (
+                  <div
+                    key={i}
+                    className="border-b border-rule-soft last:border-b-0 md:grid md:grid-cols-[3rem_minmax(0,1fr)_minmax(0,1fr)]"
+                  >
+                    {/* Ghost numeral (desktop rail) */}
+                    <div className="hidden md:flex items-start justify-center pt-7">
+                      <span
                         aria-hidden="true"
+                        className="font-display text-xl leading-none text-foreground/30 tabular-nums"
+                      >
+                        {num}
+                      </span>
+                    </div>
+
+                    {/* Challenge */}
+                    <div className="flex items-start gap-3 px-5 pb-2 pt-6 md:block md:px-6 md:pb-6">
+                      <span
+                        aria-hidden="true"
+                        className="font-display text-sm leading-[1.7] text-foreground/30 tabular-nums md:hidden"
+                      >
+                        {num}
+                      </span>
+                      <p className="text-[15px] font-medium leading-relaxed text-foreground">
+                        {challenge}
+                      </p>
+                    </div>
+
+                    {/* Solution */}
+                    <div className="flex items-start gap-2.5 px-5 pb-6 pt-1 md:gap-3 md:px-6 md:pt-6 md:border-l md:border-rule-soft">
+                      <CheckCircle2
+                        size={16}
+                        strokeWidth={1.75}
+                        aria-hidden="true"
+                        className="mt-0.5 shrink-0 text-brand"
                       />
-                      <div className="relative z-10 w-8 h-8 rounded-full bg-card-bg border-2 border-brand shadow-sm flex items-center justify-center">
-                        <ChevronRight size={16} className="text-brand" />
-                      </div>
-                    </div>
-
-                    {/* Mobile arrow */}
-                    <div className="flex md:hidden items-center justify-center py-2">
-                      <div className="flex flex-col items-center gap-0">
-                        <div className="w-px h-3 bg-gradient-to-b from-amber-300 to-brand" />
-                        <div className="w-7 h-7 rounded-full bg-card-bg border-2 border-brand shadow-sm flex items-center justify-center">
-                          <ChevronRight size={14} className="text-brand rotate-90" />
-                        </div>
-                        <div className="w-px h-3 bg-brand" />
-                      </div>
-                    </div>
-
-                    {/* Solution (right) */}
-                    <div className="rounded-2xl md:rounded-l-none bg-card-bg border border-card-border md:border-l-0 p-5 md:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/20 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
-                      <div className="flex items-start gap-3">
-                        <div className="shrink-0 mt-0.5 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-brand/10">
-                          <CheckCircle2
-                            size={16}
-                            className="text-brand"
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-medium text-brand uppercase tracking-wider mb-1">
-                            Solution {i + 1}
-                          </p>
-                          <p className="text-sm text-foreground leading-relaxed">
-                            {solution}
-                          </p>
-                        </div>
-                      </div>
+                      <p className="text-[15px] leading-relaxed text-foreground/80">
+                        {solution}
+                      </p>
                     </div>
                   </div>
-                </AnimatedSection>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          </AnimatedSection>
         </Container>
       </section>
 
