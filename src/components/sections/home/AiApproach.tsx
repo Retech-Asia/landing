@@ -28,7 +28,7 @@ export function AiApproach() {
       aria-label={t("label")}
     >
       <Container>
-        <SectionHeader number="04" label={t("label")} title={t("h2")} />
+        <SectionHeader number="05" label={t("label")} title={t("h2")} />
 
         <div className="mt-10 grid grid-cols-1 gap-10 md:mt-14 md:grid-cols-12 md:gap-14">
           {blocks.map((block, i) => (

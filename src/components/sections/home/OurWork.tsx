@@ -56,7 +56,7 @@ export function OurWork() {
     >
       <Container>
         <SectionHeader
-          number="02"
+          number="03"
           label={t("label")}
           title={t("h2")}
           description={t("lede")}

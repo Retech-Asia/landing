@@ -25,7 +25,7 @@ export function Engagement() {
     <section className="py-16 md:py-24" aria-label={t("label")}>
       <Container>
         <SectionHeader
-          number="05"
+          number="06"
           label={t("label")}
           title={t("h2")}
         />

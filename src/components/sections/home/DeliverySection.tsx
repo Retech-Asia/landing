@@ -41,7 +41,7 @@ export function DeliverySection() {
     <section className="py-16 md:py-24" aria-label={t("label")}>
       <Container>
         <SectionHeader
-          number="03"
+          number="04"
           label={t("label")}
           title={t("h2")}
           description={t("lede")}

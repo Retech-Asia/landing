@@ -193,6 +193,17 @@
         "visitLabel": "Trang dịch vụ đầy đủ"
       }
     },
+    "discovery": {
+      "number": "01",
+      "label": "Khám phá",
+      "title": "Chúng tôi bắt đầu từ cách doanh nghiệp của bạn vận hành",
+      "body": "Mọi hợp tác đều bắt đầu bằng việc lập bản đồ quy trình, dữ liệu và ràng buộc của bạn. Hệ thống chúng tôi thiết kế dựa trên bức tranh đó."
+    },
+    "gallery": {
+      "systemsTag": "Giải pháp chuyên biệt: CMS + ERP",
+      "webTag": "UI/UX đa nền tảng",
+      "explore": "Khám phá"
+    },
     "work": {
       "label": "Dự án tiêu biểu",
       "h2": "Năm hệ thống, năm doanh nghiệp, một chuẩn bàn giao.",

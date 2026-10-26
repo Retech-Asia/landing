@@ -193,6 +193,17 @@
         "visitLabel": "Full service page"
       }
     },
+    "discovery": {
+      "number": "01",
+      "label": "Discovery",
+      "title": "We start with how your business works",
+      "body": "Every engagement begins with a map of your workflows, data, and constraints. The systems we design follow from that picture."
+    },
+    "gallery": {
+      "systemsTag": "Specialist solutions: CMS + ERP",
+      "webTag": "UI/UX across platforms",
+      "explore": "Explore"
+    },
     "work": {
       "label": "Selected work",
       "h2": "Five systems, five operators, one standard of delivery.",

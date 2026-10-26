@@ -11,8 +11,15 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 
 // Below-fold sections: lazy-loaded to reduce initial JS bundle.
 // All are static server components in the Direction B design (RT-08).
-const ServicePreview = dynamic(
-  () => import("@/components/sections/home/ServicePreview").then((m) => m.ServicePreview),
+// Hallmark B1 (2026-10-26): ServicePreview is replaced by the approved
+// discovery + services-gallery composition. Rollback = restore the
+// ServicePreview import + section below (file stays in the tree).
+const DiscoverySection = dynamic(
+  () => import("@/components/sections/home/DiscoverySection").then((m) => m.DiscoverySection),
+  { loading: () => <SectionFallback /> },
+);
+const ServicesGallery = dynamic(
+  () => import("@/components/sections/home/ServicesGallery").then((m) => m.ServicesGallery),
   { loading: () => <SectionFallback /> },
 );
 const OurWork = dynamic(
@@ -81,29 +88,31 @@ export default async function HomePage({
           band). Rail rows deep-link to the section-01 explorer. */}
       <HeroHybrid />
 
-      {/* 2. ProofStrip - one-line proof band under the hero; links to
-          the selected-work anchor (#work on OurWork). Small enough to
-          load statically with the page shell. */}
+      {/* 2. DiscoverySection - Hallmark B1 act: immersive "how your business
+          works" section (AR-1 backdrop placeholder until the asset lands) */}
+      <DiscoverySection />
+
+      {/* 3. ServicesGallery - six families as image-led editorial panels;
+          carries the explorer deep-link (#capabilities-*) + aria contract */}
+      <ServicesGallery locale={locale as "en" | "vi"} />
+
+      {/* 4. ProofStrip - one-line proof band; links to the selected-work
+          anchor (#work on OurWork). Small enough to load statically. */}
       <ProofStrip />
 
-      {/* 3. ServicePreview - capabilities: featured CRM block + ruled
-          index of five capabilities (RT-08 section 01) */}
-      <ServicePreview />
-
-      {/* 4. OurWork - selected work: the five case studies as a ruled
-          editorial index (RT-08 section 02); carries the #work anchor */}
+      {/* 5. OurWork - selected work: the five case studies as a ruled
+          editorial index; carries the #work anchor */}
       <OurWork />
 
-      {/* 5. DeliverySection - six-phase delivery checklist with the
-          artifact each phase produces (RT-08 section 03) */}
+      {/* 6. DeliverySection - delivery checklist with the artifact each
+          phase produces */}
       <DeliverySection />
 
-      {/* 6. AiApproach - two lettered blocks: building with AI vs AI in
-          the product (RT-08 section 04) */}
+      {/* 7. AiApproach - two lettered blocks: building with AI vs AI in
+          the product */}
       <AiApproach />
 
-      {/* 7. Engagement - three engagement shapes + cost drivers
-          (RT-08 section 05) */}
+      {/* 8. Engagement - three engagement shapes + cost drivers */}
       <Engagement />
 
       {/* 8. HomeCTA - closing contact band (light default per owner surface
