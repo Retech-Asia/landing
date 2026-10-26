@@ -166,7 +166,7 @@ export default async function BlogPostPage({
         ctaTitle: "Cần đội ngũ phát triển chuyên nghiệp?",
         ctaBody:
           "Liên hệ với đội ngũ của chúng tôi để trao đổi dự án tiếp theo của bạn. Chúng tôi xây dựng giải pháp CMS, CRM và ERP theo yêu cầu, phù hợp với doanh nghiệp của bạn.",
-        ctaButton: "Liên hệ",
+        ctaButton: "Thảo luận dự án",
         sidebar: "Thanh điều hướng bài viết",
       }
     : {
@@ -178,7 +178,7 @@ export default async function BlogPostPage({
         ctaTitle: "Need expert development?",
         ctaBody:
           "Get in touch with our team to discuss your next project. We build custom CMS, CRM, and ERP solutions tailored to your business.",
-        ctaButton: "Get in Touch",
+        ctaButton: "Discuss Your Project",
         sidebar: "Article sidebar",
       };
 

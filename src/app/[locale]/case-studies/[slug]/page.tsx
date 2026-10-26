@@ -114,7 +114,7 @@ function getChrome(locale: string) {
         ctaTitle: "Want Results Like These?",
         ctaBody:
           "Get a free project estimate. Tell us about your vision and we will map out the right solution, team, and timeline.",
-        ctaPrimary: "Get Your Free Estimate",
+        ctaPrimary: "Discuss Your Project",
         ctaSecondary: "All Case Studies",
       }
     : {
@@ -155,7 +155,7 @@ function getChrome(locale: string) {
         ctaTitle: "Muốn Có Kết quả Như Vậy?",
         ctaBody:
           "Nhận báo giá dự án miễn phí. Hãy chia sẻ tầm nhìn của bạn và chúng tôi sẽ đề xuất giải pháp, đội ngũ và lộ trình phù hợp.",
-        ctaPrimary: "Nhận Báo giá Miễn phí",
+        ctaPrimary: "Thảo luận dự án",
         ctaSecondary: "Tất cả Dự án",
       };
 }
@@ -198,10 +198,10 @@ function CaseStudyImage({
   if (!src) {
     return (
       <div
-        className={`relative rounded-lg bg-gradient-to-br from-cyan-500/20 via-violet-500/20 to-cyan-500/10 flex items-center justify-center ${className ?? ""}`}
+        className={`relative rounded-lg bg-gradient-to-br from-cyan-500/20 via-transparent to-cyan-500/10 flex items-center justify-center ${className ?? ""}`}
         style={{ aspectRatio: `${width} / ${height}` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-violet-500/10 rounded-lg" />
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-transparent rounded-lg" />
         <div className="relative text-foreground-muted/40 text-sm font-medium tracking-wide uppercase">
           {alt.split(" \u2014 ")[0]}
         </div>
@@ -594,8 +594,8 @@ export default async function CaseStudyDetailPage({
 
               <StaggerItem>
                 <Card hover={false} padding="lg" className="h-full text-center">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-accent-violet/10 mx-auto mb-4">
-                    <Users size={22} className="text-accent-violet" aria-hidden="true" />
+                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-accent-cyan/10 mx-auto mb-4">
+                    <Users size={22} className="text-accent-cyan" aria-hidden="true" />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-foreground-muted font-semibold mb-1">
                     {chrome.teamSizeLabel}
@@ -879,7 +879,7 @@ export default async function CaseStudyDetailPage({
 
       {/* CTA with enhanced gradient */}
       <section className="py-20 md:py-28 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.03] via-transparent to-violet-500/[0.04]" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.03] via-transparent to-brand/[0.04]" aria-hidden="true" />
         <GradientBackground variant="cta" />
         <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-white/40" aria-hidden="true" />
         <Container className="relative z-10">

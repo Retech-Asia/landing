@@ -11,12 +11,12 @@ export function ParallaxDivider() {
     locale === "vi" ? (
       <>
         Xây dựng tương lai của{" "}
-        <span className="gradient-text">phần mềm từ Việt Nam</span>
+        <span className="text-brand">phần mềm từ Việt Nam</span>
       </>
     ) : (
       <>
         Building the future of{" "}
-        <span className="gradient-text">software from Vietnam</span>
+        <span className="text-brand">software from Vietnam</span>
       </>
     );
 
@@ -58,7 +58,7 @@ export function ParallaxDivider() {
         aria-hidden="true"
       />
       <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[30vw] h-[30vw] rounded-full bg-accent-violet/[0.05] blur-[100px]"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[30vw] h-[30vw] rounded-full bg-accent-cyan/[0.05] blur-[100px]"
         style={{ y: orbY1 }}
         aria-hidden="true"
       />

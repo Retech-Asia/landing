@@ -5,7 +5,6 @@ interface SectionHeaderProps {
   label?: string;
   title: string;
   description?: string;
-  gradient?: boolean;
   align?: "left" | "center";
   /** Direction B editorial chrome: renders "NN Label" (zero-padded) above the
    * h2 with a left-aligned grid head. Requires label when set. */
@@ -18,7 +17,6 @@ export function SectionHeader({
   label,
   title,
   description,
-  gradient = false,
   align = "center",
   number,
   className,
@@ -33,10 +31,7 @@ export function SectionHeader({
         </p>
         <div>
           <h2
-            className={cn(
-              "text-3xl md:text-4xl lg:text-[2.7rem] leading-[1.16] font-semibold tracking-tight text-foreground text-balance",
-              gradient && "gradient-text"
-            )}
+            className="text-3xl md:text-4xl lg:text-[2.7rem] leading-[1.16] font-semibold tracking-tight text-foreground text-balance"
           >
             {title}
           </h2>
@@ -59,17 +54,7 @@ export function SectionHeader({
         className
       )}
     >
-      {label && (
-        <p className="text-sm font-medium tracking-widest uppercase text-brand-dark nav-active-text mb-3">
-          {label}
-        </p>
-      )}
-      <h2
-        className={cn(
-          "text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground text-balance",
-          gradient && "gradient-text"
-        )}
-      >
+      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground text-balance">
         {title}
       </h2>
       {description && (

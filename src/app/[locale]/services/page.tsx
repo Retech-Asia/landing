@@ -222,7 +222,7 @@ export default async function ServicesPage({
             <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Services" }]} />
           </div>
           <div className="page-hero-enter" style={{ animationDelay: "80ms" }}>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground text-balance text-center mx-auto gradient-text">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground text-balance text-center mx-auto">
               What We Build
             </h1>
             <p className="mt-4 text-lg text-foreground-secondary leading-relaxed max-w-3xl text-center mx-auto">
@@ -233,7 +233,7 @@ export default async function ServicesPage({
       </section>
 
       {/* -- Find Your Service Quiz ------------------------------------- */}
-      <section className="relative py-16 md:py-20">
+      <section className="relative py-20 md:py-28">
         <Container>
           <AnimatedSection variant="slideUp">
             <SectionHeader
@@ -251,7 +251,7 @@ export default async function ServicesPage({
       </section>
 
       {/* -- Service Explorer ------------------------------------------ */}
-      <section className="relative py-16 md:py-20">
+      <section className="relative py-20 md:py-28">
         <Container>
           <AnimatedSection variant="slideUp">
             <SectionHeader
@@ -493,7 +493,7 @@ export default async function ServicesPage({
                   size="lg"
                   className="bg-card-bg text-foreground hover:bg-card-bg"
                 >
-                  Get Your Free Estimate
+                  Discuss Your Project
                   <ArrowRight size={18} />
                 </Button>
                 <Button

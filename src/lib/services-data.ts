@@ -327,7 +327,7 @@ export const services: ServiceData[] = [
     },
     icon: Users,
     glass: "crm",
-    gradient: "from-accent-cyan/10 to-accent-violet/10",
+    gradient: "from-accent-cyan/10 to-brand/10",
     heroAccent: "from-accent-cyan to-brand",
     heroColor: "accent-cyan",
     features: [
@@ -535,9 +535,9 @@ export const services: ServiceData[] = [
     },
     icon: BarChart3,
     glass: "analytics",
-    gradient: "from-accent-violet/10 to-brand/10",
-    heroAccent: "from-accent-violet to-brand",
-    heroColor: "accent-violet",
+    gradient: "from-brand/10 to-accent-cyan/10",
+    heroAccent: "from-accent-cyan to-brand",
+    heroColor: "accent-cyan",
     features: [
       {
         icon: BarChart3,
@@ -750,8 +750,8 @@ export const services: ServiceData[] = [
     },
     icon: Globe,
     glass: "frontend",
-    gradient: "from-brand/10 to-accent-violet/10",
-    heroAccent: "from-brand to-accent-violet",
+    gradient: "from-brand/10 to-accent-cyan/10",
+    heroAccent: "from-brand to-accent-cyan",
     heroColor: "brand",
     features: [
       {
@@ -959,7 +959,7 @@ export const services: ServiceData[] = [
     icon: Palette,
     glass: "design",
     gradient: "from-accent-cyan/10 to-brand/10",
-    heroAccent: "from-accent-cyan to-accent-violet",
+    heroAccent: "from-accent-cyan to-brand",
     heroColor: "accent-cyan",
     features: [
       {
@@ -1166,9 +1166,9 @@ export const services: ServiceData[] = [
     },
     icon: UsersRound,
     glass: "partnership",
-    gradient: "from-accent-violet/10 to-accent-cyan/10",
-    heroAccent: "from-accent-violet to-accent-cyan",
-    heroColor: "accent-violet",
+    gradient: "from-brand/10 to-accent-cyan/10",
+    heroAccent: "from-brand to-accent-cyan",
+    heroColor: "accent-cyan",
     features: [
       {
         icon: UsersRound,
@@ -1584,8 +1584,8 @@ export const services: ServiceData[] = [
     },
     icon: Monitor,
     glass: "desktop",
-    gradient: "from-accent-cyan/10 to-accent-violet/10",
-    heroAccent: "from-accent-cyan to-accent-violet",
+    gradient: "from-accent-cyan/10 to-brand/10",
+    heroAccent: "from-accent-cyan to-brand",
     heroColor: "accent-cyan",
     features: [
       {
@@ -1770,9 +1770,9 @@ export const services: ServiceData[] = [
     },
     icon: Brain,
     glass: "ai-solutions",
-    gradient: "from-accent-violet/10 to-brand/10",
-    heroAccent: "from-accent-violet to-brand",
-    heroColor: "accent-violet",
+    gradient: "from-brand/10 to-accent-cyan/10",
+    heroAccent: "from-accent-cyan to-brand",
+    heroColor: "accent-cyan",
     features: [
       {
         icon: FileText,
@@ -1955,8 +1955,8 @@ export const services: ServiceData[] = [
     },
     icon: Compass,
     glass: "consulting",
-    gradient: "from-brand/10 to-accent-violet/10",
-    heroAccent: "from-brand to-accent-violet",
+    gradient: "from-brand/10 to-accent-cyan/10",
+    heroAccent: "from-brand to-accent-cyan",
     heroColor: "brand",
     features: [
       {

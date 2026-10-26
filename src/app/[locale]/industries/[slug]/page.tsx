@@ -299,7 +299,7 @@ export default async function IndustryDetailPage({
               <div className="flex flex-col sm:flex-row items-start gap-4 mt-8">
                 <Button href="/contact" size="lg">
                   <Mail size={18} />
-                  Get Free Consultation
+                  Discuss Your Project
                 </Button>
                 <Button href="/industries" variant="secondary" size="lg">
                   <ArrowLeft size={18} />
@@ -749,7 +749,7 @@ export default async function IndustryDetailPage({
                   className="bg-card-bg text-foreground hover:bg-card-bg"
                 >
                   <Mail size={18} />
-                  Get Free Consultation
+                  Discuss Your Project
                 </Button>
                 <Button
                   href="/industries"

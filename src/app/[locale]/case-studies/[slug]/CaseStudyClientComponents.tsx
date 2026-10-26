@@ -64,7 +64,7 @@ export function HeroParallaxSection({
         />
         <motion.div
           style={{ y: orbY3 }}
-          className="absolute top-1/3 right-1/4 w-[40vw] h-[40vw] rounded-full bg-accent-violet/[0.02] blur-[120px]"
+          className="absolute top-1/3 right-1/4 w-[40vw] h-[40vw] rounded-full bg-accent-cyan/[0.02] blur-[120px]"
         />
       </div>
 
@@ -132,7 +132,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
             className="absolute top-4 right-6 md:top-2 md:right-10 select-none pointer-events-none text-[10rem] leading-none"
             aria-hidden="true"
           >
-            <span className="bg-gradient-to-br from-brand/10 to-accent-violet/10 bg-clip-text text-transparent font-serif">
+            <span className="bg-gradient-to-br from-brand/10 to-accent-cyan/10 bg-clip-text text-transparent font-serif">
               {"\u201C"}
             </span>
           </motion.span>

@@ -50,7 +50,7 @@ function getChrome(locale: string) {
         faqDescription: "Common questions about how we work, what to expect, and how we ensure your project succeeds.",
         ctaTitle: "Ready to Start Your Project?",
         ctaBody: "Tell us what you are building and we will map out the scope, team, and timeline, with a free estimate.",
-        ctaPrimary: "Get Your Free Estimate",
+        ctaPrimary: "Discuss Your Project",
         ctaSecondary: "View Case Studies",
         keyActivities: "What you will see",
       }
@@ -68,7 +68,7 @@ function getChrome(locale: string) {
         faqDescription: "Các câu hỏi thường gặp về cách chúng tôi làm việc, điều cần kỳ vọng và cách chúng tôi đảm bảo dự án thành công.",
         ctaTitle: "Sẵn sàng Bắt đầu Dự án?",
         ctaBody: "Chia sẻ những gì bạn đang xây dựng, chúng tôi sẽ đề xuất phạm vi, đội ngũ và lộ trình, kèm báo giá miễn phí.",
-        ctaPrimary: "Nhận Báo giá Miễn phí",
+        ctaPrimary: "Thảo luận dự án",
         ctaSecondary: "Xem Dự án",
         keyActivities: "Bạn sẽ thấy gì",
       };

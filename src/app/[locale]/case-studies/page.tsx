@@ -32,7 +32,7 @@ function getChrome(locale: string) {
         ctaTitle: "Ready to Build Something Great?",
         ctaBody:
           "Get a free project estimate. Our team will map out the right approach, timeline, and tech stack for your idea.",
-        ctaPrimary: "Get Your Free Estimate",
+        ctaPrimary: "Discuss Your Project",
         ctaSecondary: "Explore Services",
       }
     : {
@@ -47,7 +47,7 @@ function getChrome(locale: string) {
         ctaTitle: "Sẵn sàng Xây dựng Sản phẩm Mới?",
         ctaBody:
           "Nhận báo giá dự án miễn phí. Đội ngũ của chúng tôi sẽ đề xuất hướng tiếp cận, lộ trình và tech stack phù hợp với ý tưởng của bạn.",
-        ctaPrimary: "Nhận Báo giá Miễn phí",
+        ctaPrimary: "Thảo luận dự án",
         ctaSecondary: "Khám phá Dịch vụ",
       };
 }

@@ -352,20 +352,9 @@ p, li {
   color: var(--foreground);
 }
 
-/* Gradient text utility */
-.gradient-text {
-  color: var(--brand);
-  background: linear-gradient(135deg, var(--brand) 0%, var(--accent-cyan) 50%, var(--accent-violet) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-@supports not (background-clip: text) {
-  .gradient-text {
-    -webkit-text-fill-color: var(--brand);
-  }
-}
+/* Retired .gradient-text (green→cyan→violet fill) per Hallmark ruling
+   2026-10-26: decorative gradient headlines retired site-wide. Headings carry
+   emphasis with weight or the brand voice color instead. */
 
 .gradient-text-brand {
   color: var(--brand);
@@ -813,15 +802,8 @@ p, li {
   animation: scroll-bar-shimmer 2s ease-in-out infinite;
 }
 
-/* Shimmer gradient text animation */
-@keyframes gradient-shift-text {
-  0% { background-position: 200% center; }
-  100% { background-position: -200% center; }
-}
-.animate-gradient-text {
-  background-size: 200% auto;
-  animation: gradient-shift-text 3s linear infinite;
-}
+/* Shimmer gradient text animation (retired .animate-gradient-text had zero
+   usages; keyframes kept only for .animate-gradient-text reference removal) */
 
 /* Removed .hero-gradient-headline + @keyframes hero-gradient-shift per
    Hallmark audit (gradient-text fill is a critical AI tell). The hero

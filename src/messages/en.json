@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Retech Solutions | Vietnam Software Development & IT Outsourcing",
-    "description": "Retech Solutions is a Vietnam-based software development firm building custom CMS, CRM, ERP and AI-powered products for teams worldwide. Free consultation.",
+    "description": "Retech Solutions is a Vietnam-based software development firm building custom CMS, CRM, ERP and AI-powered products for teams worldwide. Talk directly with the engineers who would build it.",
     "keywords": [
       "IT outsourcing Vietnam",
       "software development Vietnam",
@@ -32,8 +32,8 @@
       "blog": "Blog"
     },
     "cta": {
-      "quote": "Request Quote",
-      "consultation": "Get Free Consultation",
+      "quote": "Get a Project Estimate",
+      "consultation": "Discuss Your Project",
       "allServices": "All Services",
       "openMenu": "Open menu",
       "closeMenu": "Close menu"
@@ -97,7 +97,7 @@
       "h1Into": "into",
       "h1Accent": "Solutions",
       "standfirst": "Full-cycle software development: business analysis, design, and deployment, with custom CRM and business systems at the core.",
-      "ctaPrimary": "Get Free Consultation",
+      "ctaPrimary": "Discuss Your Project",
       "ctaSecondary": "Explore Services",
       "hybrid": {
         "railLabel": "What we build",
@@ -121,7 +121,7 @@
       "titleLine1": "Let's Build Your Product",
       "titleLine2": "From First Call to Release",
       "body": "Tell us what you need to build. You get a scoped project plan with a detailed written estimate, and a delivery process you can inspect from the first sprint.",
-      "cta": "Get Your Free Estimate",
+      "cta": "Get a Project Estimate",
       "secondary": "View Our Work",
       "trust": {
         "freeConsult": "Free consultation",
@@ -300,7 +300,7 @@
       "services": "Services"
     },
     "hero": {
-      "ctaConsult": "Get Free Consultation",
+      "ctaConsult": "Discuss Your Project",
       "ctaAllServices": "All Services"
     },
     "features": {
@@ -377,8 +377,8 @@
     },
     "postCta": {
       "title": "Questions Answered? Let's Talk.",
-      "body": "Schedule a free consultation to discuss your {service} requirements and get a detailed project estimate.",
-      "cta": "Get Free Consultation"
+      "body": "Discuss your {service} requirements and get a detailed project estimate.",
+      "cta": "Discuss Your Project"
     },
     "related": {
       "caseStudies": {
@@ -405,7 +405,7 @@
     "finalCta": {
       "title": "Build Your {service} Solution",
       "body": "Our {service} specialists will review your requirements and return a detailed proposal with architecture recommendations, team allocation, and clear milestones.",
-      "ctaPrimary": "Get Free Consultation",
+      "ctaPrimary": "Discuss Your Project",
       "ctaSecondary": "Browse Services"
     },
     "imageAlts": {
@@ -472,7 +472,7 @@
     },
     "contact": {
       "title": "Contact",
-      "description": "Get a free consultation. Tell us about your project and we'll get back to you with architecture recommendations, team allocation, and clear milestones."
+      "description": "Tell us about your project and we'll get back to you with architecture recommendations, team allocation, and clear milestones."
     },
     "faq": {
       "title": "FAQ",
@@ -488,7 +488,7 @@
         "subhead": "Everything you need to know about our services, process, and engagement models. Can't find what you're looking for? Reach out to our team directly.",
         "ctaTitle": "Still Have Questions?",
         "ctaBody": "Our team is happy to discuss your project, answer technical questions, and help you find the right solution for your business.",
-        "ctaPrimary": "Get in Touch",
+        "ctaPrimary": "Discuss Your Project",
         "ctaSecondary": "View All Services",
         "searchPlaceholder": "Search questions...",
         "noResults": "No questions match your search. Try a different term or reach out to us directly.",
@@ -511,7 +511,7 @@
         "faqDescription": "Common questions about how we work, what to expect, and how we ensure your project succeeds.",
         "ctaTitle": "Ready to Start Your Project?",
         "ctaBody": "Our proven process ensures your project is delivered on time, on budget, and to the highest quality standards. Let's talk about what you're building.",
-        "ctaPrimary": "Get Your Free Estimate",
+        "ctaPrimary": "Get a Project Estimate",
         "ctaSecondary": "View Case Studies",
         "keyActivities": "Key Activities",
         "deliverables": "Deliverables"
