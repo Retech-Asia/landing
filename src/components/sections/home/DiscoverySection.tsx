@@ -5,19 +5,24 @@ import { useTranslations } from "next-intl";
 /**
  * Discovery section (Hallmark B1, approved composition act: "We start with
  * how your business works"). Immersive full-bleed section that the Concept II
- * scroll transition will hand off into (keyframes doc beat 4). AR-1 becomes
- * the permanent backdrop; until the asset is approved by ChatGPT, a registry
- * photo stands in per the asset-ownership law (placeholders never block).
+ * scroll transition will hand off into (keyframes doc beat 4).
  *
- * AR-1 swap point: replace BACKDROP below with the approved AR-1 landscape
- * master (portrait master swapped in via the `max-md:` variant or a client
- * breakpoint when it arrives), add `placeholder="blur"` + blurDataURL for
- * the beat-3 blur-to-sharp settle. Content stays anchored lower-left so the
- * left third (landscape) / upper third (portrait) of AR-1 remain calm.
+ * BACKDROP is AR-1, the owner-approved ChatGPT-generated discovery master
+ * (2026-10-26). Original PNG master: assets/masters/ar1-discovery-whiteboard.png
+ * (not web-served, kept for recomposition). Delivery master: q92 sRGB JPEG;
+ * next/image derives all responsive sizes. The 4:5 portrait master is NOT yet
+ * approved — mobile uses a temporary object-cover crop centered on the
+ * whiteboard until it lands (open dependency, do not treat as final).
+ *
+ * Concept II match-cut anchor: the whiteboard plane is frontal with a
+ * vanishing point near 52% x / 42% y (wall center); Beat 2 canvas convergence
+ * and the dominant wall lines (whiteboard frame top/bottom) align to it.
  */
 const BACKDROP = {
-  src: "/images/photo/photo-consulting-workshop.webp",
-  alt: "Workshop wall during a working session",
+  src: "/images/studio/ar1-discovery-whiteboard.jpg",
+  alt: "Engineering workshop wall with business process, system architecture, and user experience sketches",
+  blurDataURL:
+    "data:image/jpeg;base64,/9j/2wBDABsSFBcUERsXFhceHBsgKEIrKCUlKFE6PTBCYFVlZF9VXVtqeJmBanGQc1tdhbWGkJ6jq62rZ4C8ybqmx5moq6T/2wBDARweHigjKE4rK06kbl1upKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKT/wAARCAAGABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEC/8QAHRAAAgICAwEAAAAAAAAAAAAAAQIAEQQxAxIh0f/EABUBAQEAAAAAAAAAAAAAAAAAAAID/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AiZHM1BQikbNb9+TD5JyH6IiimF3oitREmb//2Q==",
 };
 
 export function DiscoverySection() {
@@ -33,10 +38,12 @@ export function DiscoverySection() {
         alt={BACKDROP.alt}
         fill
         sizes="100vw"
-        className="object-cover"
+        placeholder="blur"
+        blurDataURL={BACKDROP.blurDataURL}
+        className="object-cover object-[center_38%]"
       />
       {/* Photo overlay law: black scrim only */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/10" />
 
       <Container className="relative z-10 pb-16 pt-24 md:pb-24">
         <div className="max-w-2xl">
