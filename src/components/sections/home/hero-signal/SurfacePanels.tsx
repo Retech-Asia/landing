@@ -5,11 +5,16 @@ import { opportunities } from "@/lib/showcases/northline/fixtures";
 import { RELAY_JOBS } from "@/lib/showcases/relay/fixtures";
 
 /**
- * Concept II hero evidence: three compact product surfaces (CRM pipeline
- * board, operations dashboard, mobile field screen) built from the
- * deterministic showcase fixtures. All fictional -> mono "Product concept"
- * label on every panel. Data ticks are idle-only and freeze the moment the
- * user scrolls (Beat 1 law: no live interface past the first beat).
+ * Concept II hero evidence: product surfaces built from the deterministic
+ * showcase fixtures. All fictional -> mono "Product concept" label on every
+ * panel. Data ticks are idle-only and freeze the moment the user scrolls.
+ *
+ * Aurora integration (2026-10-26 owner correction): the stage carries TWO
+ * screen-like surfaces (CRM pipeline board, field-service mobile screen) —
+ * the operations metric dashboard was retired as "generic floating dashboard
+ * metrics". Panels are borderless glass (no card chrome) and EMERGE
+ * progressively via the scroll-driven `emerge` 0..1 (staggered windows),
+ * rather than being permanently visible from the first frame.
  */
 
 const STAGES = ["qualified", "proposal", "negotiation"] as const;
@@ -45,10 +50,8 @@ function PipelineBoard({ frozen }: { frozen: boolean }) {
               return (
                 <div
                   key={o.id}
-                  className={`rounded border px-2 py-1.5 transition-colors duration-500 md:px-2.5 md:py-2 ${
-                    hot
-                      ? "border-brand/60 bg-brand/10"
-                      : "border-white/10 bg-white/[0.04]"
+                  className={`rounded bg-white/[0.04] px-2 py-1.5 transition-colors duration-500 md:px-2.5 md:py-2 ${
+                    hot ? "bg-brand/15" : ""
                   }`}
                 >
                   <p className="truncate text-[10px] font-medium text-white/85 md:text-[11px]">
@@ -67,61 +70,10 @@ function PipelineBoard({ frozen }: { frozen: boolean }) {
   );
 }
 
-function OpsDashboard({ frozen }: { frozen: boolean }) {
-  const [tick, setTick] = useState(0);
-  useEffect(() => {
-    if (frozen) return;
-    const id = setInterval(() => setTick((t) => t + 1), 3400);
-    return () => clearInterval(id);
-  }, [frozen]);
-
-  const sla = (96.2 + ((tick % 3) * 0.1)).toFixed(1);
-  const spark = "0,14 12,11 24,12 36,8 48,9 60,5 72,6 84,3";
-
-  return (
-    <div className="grid grid-cols-3 gap-2 md:gap-3">
-      <div>
-        <p className="font-mono text-[9px] uppercase tracking-wider text-white/40 md:text-[10px]">
-          Open jobs
-        </p>
-        <p className="mt-1 font-mono text-lg font-semibold text-white md:text-xl">
-          {128 + (tick % 3)}
-        </p>
-      </div>
-      <div>
-        <p className="font-mono text-[9px] uppercase tracking-wider text-white/40 md:text-[10px]">
-          SLA 30d
-        </p>
-        <p className="mt-1 font-mono text-lg font-semibold text-white md:text-xl">
-          {sla}%
-        </p>
-      </div>
-      <div>
-        <p className="font-mono text-[9px] uppercase tracking-wider text-white/40 md:text-[10px]">
-          Utilization
-        </p>
-        <p className="mt-1 font-mono text-lg font-semibold text-white md:text-xl">
-          84%
-        </p>
-      </div>
-      <div className="col-span-3 mt-1">
-        <svg viewBox="0 0 84 16" className="h-6 w-full" aria-hidden="true">
-          <polyline
-            points={spark}
-            fill="none"
-            stroke="var(--brand)"
-            strokeWidth="1.4"
-          />
-        </svg>
-      </div>
-    </div>
-  );
-}
-
 function FieldScreen() {
   const job = RELAY_JOBS[0];
   return (
-    <div className="rounded-lg border border-white/15 bg-black/30 p-3">
+    <div className="rounded-lg bg-white/[0.04] p-3">
       <div className="flex items-center justify-between gap-2">
         <p className="truncate text-[11px] font-medium text-white/90 md:text-xs">
           {job.customer}
@@ -155,33 +107,44 @@ function ConceptLabel() {
   );
 }
 
+/** Per-panel emergence style from the global emerge progress (0..1). */
+function panelStyle(emerge: number, from: number, to: number) {
+  const e = Math.min(1, Math.max(0, (emerge - from) / (to - from)));
+  return {
+    opacity: e,
+    transform: `translateY(${((1 - e) * 40).toFixed(1)}px) scale(${(0.96 + 0.04 * e).toFixed(4)})`,
+  };
+}
+
 export function SurfacePanels({
   frozen,
   layout,
+  emerge = 1,
 }: {
   frozen: boolean;
   layout: "stage" | "static";
+  /** Scroll-driven emergence 0..1; 1 = fully shown (static fallback). */
+  emerge?: number;
 }) {
+  const glass =
+    "rounded-xl bg-[#0E1626]/70 shadow-[0_40px_90px_-32px_rgba(0,0,0,0.9)] backdrop-blur-md";
+
   if (layout === "static") {
     return (
-      <div className="grid w-full max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3">
-        <div className="rounded-md border border-white/10 bg-white/[0.03] p-3">
+      <div className="grid w-full max-w-3xl grid-cols-1 gap-3 sm:grid-cols-[1.35fr_1fr]">
+        <div className={`${glass} p-3 md:p-4`}>
           <ConceptLabel />
-          <div className="mt-2">
-            <PipelineBoard frozen />
-          </div>
+          <p className="mb-2 mt-1 font-mono text-[10px] tracking-wide text-white/55 md:text-[11px]">
+            Northline CRM
+          </p>
+          <PipelineBoard frozen />
         </div>
-        <div className="rounded-md border border-white/10 bg-white/[0.03] p-3">
+        <div className={`${glass} p-3 md:p-4`}>
           <ConceptLabel />
-          <div className="mt-2">
-            <OpsDashboard frozen />
-          </div>
-        </div>
-        <div className="rounded-md border border-white/10 bg-white/[0.03] p-3">
-          <ConceptLabel />
-          <div className="mt-2">
-            <FieldScreen />
-          </div>
+          <p className="mb-2 mt-1 font-mono text-[10px] tracking-wide text-white/55 md:text-[11px]">
+            Relay Field
+          </p>
+          <FieldScreen />
         </div>
       </div>
     );
@@ -189,12 +152,15 @@ export function SurfacePanels({
 
   return (
     <div
-      className="grid w-full max-w-4xl grid-cols-1 gap-3 sm:grid-cols-3 md:gap-4"
+      className="grid w-full max-w-4xl grid-cols-1 gap-4 sm:grid-cols-[1.35fr_1fr] md:gap-5"
       style={{ perspective: "1200px" }}
     >
       <div
-        className="rounded-md border border-white/10 bg-white/[0.03] p-3 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.8)] md:p-4"
-        style={{ transform: "rotateY(6deg) rotateX(2deg)" }}
+        className={`${glass} p-3 will-change-transform md:p-4`}
+        style={{
+          ...panelStyle(emerge, 0, 0.55),
+          transform: `${panelStyle(emerge, 0, 0.55).transform} rotateY(5deg) rotateX(2deg)`,
+        }}
       >
         <ConceptLabel />
         <p className="mb-2 mt-1 font-mono text-[10px] tracking-wide text-white/55 md:text-[11px]">
@@ -203,18 +169,11 @@ export function SurfacePanels({
         <PipelineBoard frozen={frozen} />
       </div>
       <div
-        className="rounded-md border border-white/10 bg-white/[0.03] p-3 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.8)] md:p-4 sm:mt-6"
-        style={{ transform: "rotateY(0deg)" }}
-      >
-        <ConceptLabel />
-        <p className="mb-2 mt-1 font-mono text-[10px] tracking-wide text-white/55 md:text-[11px]">
-          Operations dashboard
-        </p>
-        <OpsDashboard frozen={frozen} />
-      </div>
-      <div
-        className="rounded-md border border-white/10 bg-white/[0.03] p-3 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.8)] md:p-4 sm:mt-12"
-        style={{ transform: "rotateY(-6deg) rotateX(2deg)" }}
+        className={`${glass} p-3 will-change-transform md:p-4 sm:mt-10`}
+        style={{
+          ...panelStyle(emerge, 0.4, 1),
+          transform: `${panelStyle(emerge, 0.4, 1).transform} rotateY(-5deg) rotateX(2deg)`,
+        }}
       >
         <ConceptLabel />
         <p className="mb-2 mt-1 font-mono text-[10px] tracking-wide text-white/55 md:text-[11px]">

@@ -78,11 +78,13 @@ export default async function HomePage({
         url="https://www.retech.asia"
       />
 
-      {/* 1. Hero - Concept II "Signal to System": dark engineering volume,
-          triptych product-concept surfaces, and the sticky scroll transition
-          that match-cuts into the AR-1 discovery scene. The capability
-          quick-nav rail is not part of the approved Beat 0 composition;
-          #capabilities-* deep links resolve on the gallery panels below. */}
+      {/* 1. Hero - "Aurora Signal" (2026-10-26 correction on Concept II):
+          the approved LitDunes Aurora is the visual foundation; signal
+          line-work emerges from it, organizes into architecture, two
+          product surfaces emerge progressively, and the environment
+          match-cuts into the AR-1 discovery scene. The stage is dark in
+          both site themes (owner-sanctioned). #capabilities-* deep links
+          resolve on the gallery panels below. */}
       <HeroSignal />
 
       {/* 2. DiscoverySection - Hallmark B1 act: immersive "how your business

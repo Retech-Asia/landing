@@ -23,6 +23,12 @@
  *
  * Reduced motion: one balanced static frame (t=47), cursor zeroed; redrawn
  * only when the theme or size changes.
+ *
+ * HeroSignal integration (2026-10-26): `forceDark` pins the cinematic dark
+ * scene regardless of site theme (the sticky hero stage is dark in both
+ * themes by owner ruling), and `flowRef` carries the scroll-driven "signal
+ * energy" 0..1 that slightly lifts the aurora curtain and contour emphasis
+ * while the signal line-work is converging (uFlow).
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -42,6 +48,7 @@ uniform vec2 uRes;
 uniform float uTime;
 uniform vec2 uMouse;
 uniform float uDark;
+uniform float uFlow;
 
 float hash(vec2 p){ p = fract(p*vec2(234.34, 435.345)); p += dot(p, p+34.23); return fract(p.x*p.y); }
 float noise(vec2 p){
@@ -141,7 +148,7 @@ void main(){
     vec3 lit = wash * (0.38 + rim) + lamp;
     if (uDark > .5) {
       terrain += lit;
-      terrain += wash * contour * 0.85 + lamp * contour * 1.2 * mAct;
+      terrain += wash * contour * (0.85 + uFlow * 0.30) + lamp * contour * 1.2 * mAct;
     } else {
       float lum = dot(lit + wash * contour * 0.8, vec3(0.333));
       vec3 tint = normalize(lit + wash * contour + 0.001);
@@ -154,11 +161,11 @@ void main(){
     float band = exp(-pow((uv.y - 0.34 - (curtain - 0.5) * 0.12) * 5.0, 2.0));
     vec3 cCol = mix(vec3(0.10, 0.60, 0.30), vec3(0.024, 0.714, 0.831), curtain);
     if (uDark > .5) {
-      col += cCol * band * 0.16 * smoothstep(0.9, 0.2, uv.x + 0.5);
+      col += cCol * band * (0.16 + uFlow * 0.10) * smoothstep(0.9, 0.2, uv.x + 0.5);
       float star = smoothstep(0.9965, 1.0, hash(floor(gl_FragCoord.xy / 2.0)));
       col += vec3(star * 0.35 * (0.5 + 0.5 * sin(uTime * 2.0 + hash(floor(gl_FragCoord.xy)) * 6.28)));
     } else {
-      col = mix(col, cCol * 0.95 + 0.03, band * 0.10);
+      col = mix(col, cCol * 0.95 + 0.03, band * (0.10 + uFlow * 0.05));
     }
   }
 
@@ -169,7 +176,15 @@ void main(){
 }
 `;
 
-export function LitDunes() {
+export function LitDunes({
+  forceDark = false,
+  flowRef,
+}: {
+  /** Pin the dark cinematic scene regardless of site theme (hero stage). */
+  forceDark?: boolean;
+  /** Scroll-driven signal energy 0..1, read per-frame without re-renders. */
+  flowRef?: { current: number };
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reduced = usePrefersReducedMotion();
 
@@ -233,9 +248,12 @@ export function LitDunes() {
     const uTime = gl.getUniformLocation(prog, "uTime");
     const uMouse = gl.getUniformLocation(prog, "uMouse");
     const uDark = gl.getUniformLocation(prog, "uDark");
+    const uFlow = gl.getUniformLocation(prog, "uFlow");
 
     const isDark = () =>
-      document.documentElement.getAttribute("data-theme") === "dark" ? 1 : 0;
+      forceDark || document.documentElement.getAttribute("data-theme") === "dark"
+        ? 1
+        : 0;
 
     const resize = () => {
       // Perf investigation 2026-10-22: the terrain is soft gradients and
@@ -261,6 +279,7 @@ export function LitDunes() {
       gl.uniform1f(uTime, t);
       gl.uniform2f(uMouse, mx, my);
       gl.uniform1f(uDark, isDark());
+      gl.uniform1f(uFlow, flowRef?.current ?? 0);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
 
@@ -301,13 +320,16 @@ export function LitDunes() {
     };
 
     // Theme changes: uDark follows the data-theme attribute on <html>
+    // (skipped when forceDark pins the scene).
     const themeObserver = new MutationObserver(() => {
       if (reduced) render(STATIC_TIME, 0, 0);
     });
-    themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
+    if (!forceDark) {
+      themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"],
+      });
+    }
 
     window.addEventListener("resize", onResize);
     document.addEventListener("visibilitychange", onVisibility);
@@ -331,7 +353,7 @@ export function LitDunes() {
       gl.deleteBuffer(buf);
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, [armed, reduced]);
+  }, [armed, reduced, forceDark, flowRef]);
 
   return (
     <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
@@ -339,7 +361,9 @@ export function LitDunes() {
           attractive bed before the idle-armed mount and wherever WebGL is
           unavailable (getContext null / context lost). The opaque canvas
           paints over it once the shader is live. */}
-      <div className="absolute inset-0 lit-dunes-fallback" />
+      <div
+        className={`absolute inset-0 lit-dunes-fallback${forceDark ? " lit-dunes-fallback-dark" : ""}`}
+      />
       <canvas ref={canvasRef} className="lit-dunes-in relative block w-full h-full" />
     </div>
   );

@@ -7,36 +7,42 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { LitDunes } from "./LitDunes";
 import { SignalCanvas } from "./hero-signal/SignalCanvas";
 import { SurfacePanels } from "./hero-signal/SurfacePanels";
 
 /**
- * Concept II "Signal to System" hero (owner-approved 2026-10-26) with the
- * cinematic hero-to-discovery transition. Spec: agent/uiux-audit/
- * hallmark-concept2-keyframes-ar1-2026-10-26.md
+ * "Aurora Signal" hero (2026-10-26 owner correction on Concept II): the
+ * approved Horizon Aurora (LitDunes) is RESTORED as the visual foundation,
+ * and the signal narrative is layered INTO it instead of replacing it.
+ * The stage is dark-cinematic in both site themes (owner-sanctioned);
+ * LitDunes runs forceDark so the scene is identical either way.
  *
- * One sticky scroll region, native scroll only (no trapping): outer height
- * 320vh desktop / 240vh mobile (100vh end frame + 220vh / 140vh transition,
- * inside the "about 200vh, adjustable" target). Beats:
- *   0 (p=0)      end frame: H1 + CTA + triptych idle over faint schematic
- *   1 (0-0.28)   surfaces flatten + freeze, text exits up, scroll cue in
- *   2 (0.28-0.62) push in; line-work converges to AR-1's vanishing point
- *   3 (0.62-0.88) match-cut: AR-1 blur-to-sharp + dark-cool to warm ramp
- *   4 (0.88-1)   canvas unmounted, AR-1 sharp; flow releases to discovery
+ * Sequence (progress p across one sticky region; 220vh mobile / 300vh desktop):
+ *   0.00-0.06  atmosphere: pure Aurora dunes + dominant headline
+ *   0.06-0.16  signal energy (nodes/pulses) emerges out of the terrain
+ *   0.16-0.50  energy organizes into connected engineering line-work
+ *   0.34-0.56  product surfaces EMERGE progressively (two, borderless)
+ *   0.30-0.62  the whole environment pushes toward AR-1's vanishing point
+ *   0.60-0.84  match-cut: AR-1 blur-to-sharp, cool tint to warm, scale-settle
+ *   0.84-1.00  brief photo-only hold, then release into the discovery section
+ *
+ * Regression-2 fixes (2026-10-26): the black dim layer is GONE (it used to
+ * persist over AR-1 at 0.45); the cool tint peaks at 0.22 and fully ramps
+ * out; the photo starts at brightness 0.78 / blur 12px and resolves sooner.
  *
  * Implementation note: beat styles are computed from ONE quantized progress
  * state (0.005 steps) instead of per-layer useTransform MotionValues.
  * The MV-chain variant settled at stable but wrong per-layer opacities in
  * this environment (framer-motion 12.39 + React 19.2 interplay); discrete
  * state is deterministic and re-renders a small subtree ~1/frame while
- * scrolling. The canvas keeps the raw MotionValue (its RAF loop reads it
- * without re-renders and rendered correctly throughout).
+ * scrolling. The canvas and LitDunes keep the raw MotionValue/ref (their
+ * RAF loops read them without re-renders).
  *
- * Guards per correction 7: at most one live surface set and only at rest
- * (idle ticks freeze the moment scrolling starts); canvas RAF pauses when
- * hidden/off-screen and unmounts at beat 4; AR-1 is lazy (below the LCP
- * frame). prefers-reduced-motion renders the static triptych end frame and
- * a hard rule into the discovery section - no sticky sequence.
+ * Guards: surfaces mount only while emerging (no hidden idle timers); data
+ * ticks freeze while scrolling; canvas unmounts after release (GPU freed);
+ * AR-1 is lazy (below the LCP frame). prefers-reduced-motion renders the
+ * static Aurora + headline + surfaces end frame — no sticky sequence.
  *
  * Rollback: swap page.tsx back to HeroHybrid (file kept in the tree).
  */
@@ -55,9 +61,25 @@ const seg = (p: number, a: number, b: number) => clamp01((p - a) / (b - a));
 function StaticHero() {
   const t = useTranslations("home.hero");
   return (
-    <section className="relative overflow-hidden bg-[#0A0A14] py-20 md:py-28" aria-label={t("h1Accent")}>
+    <section
+      className="relative overflow-hidden bg-[#0A0A14] py-20 md:py-28"
+      aria-label={t("h1Accent")}
+    >
+      <div className="absolute inset-0">
+        <LitDunes forceDark />
+      </div>
+      {/* Localized dark vignette so the copy reads over the terrain (theme-
+          independent: the stage is dark in both themes). */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 90% 60% at 30% 36%, rgba(5, 8, 6, 0.55), transparent 72%)",
+        }}
+        aria-hidden="true"
+      />
       <Container>
-        <div className="max-w-3xl">
+        <div className="relative max-w-3xl">
           <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-white text-balance md:text-6xl">
             {t("h1Pre")} {t("h1Into")}{" "}
             <em className="font-display italic text-brand">{t("h1Accent")}</em>
@@ -81,7 +103,7 @@ function StaticHero() {
             </Link>
           </div>
         </div>
-        <div className="mt-14">
+        <div className="relative mt-14">
           <SurfacePanels frozen layout="static" />
         </div>
       </Container>
@@ -93,64 +115,94 @@ export function HeroSignal() {
   const t = useTranslations("home.hero");
   const reduced = useReducedMotion();
   const regionRef = useRef<HTMLDivElement>(null);
+  const flowRef = useRef(0);
   const { scrollYProgress } = useScroll({
     target: regionRef,
     offset: ["start start", "end end"],
   });
 
   // Quantized progress drives every beat style; canvas unmount and surface
-  // freeze are discrete thresholds on the raw value.
+  // freeze are discrete thresholds on the raw value. flowRef feeds LitDunes'
+  // uFlow without re-renders.
   const [p, setP] = useState(0);
   const [canvasActive, setCanvasActive] = useState(true);
   const [frozen, setFrozen] = useState(false);
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     setP(Math.round(v * 200) / 200);
-    setCanvasActive(v < 0.88);
+    setCanvasActive(v < 0.64);
     setFrozen(v > 0.02);
+    flowRef.current = seg(v, 0.05, 0.3) * (1 - seg(v, 0.55, 0.72));
   });
 
   if (reduced) return <StaticHero />;
 
-  // Beat 1: text exit + surface flatten; cue appears.
-  const textY = seg(p, 0, 0.22) * -90;
-  const textOpacity = 1 - seg(p, 0, 0.16);
-  const stageSeg = seg(p, 0, 0.3);
-  const stageScale = 1 - 0.14 * stageSeg;
-  const stageY = stageSeg * -24;
-  const stageOpacity = 1 - seg(p, 0.1, 0.34);
-  const dim = 0.45 * seg(p, 0, 0.25);
-  const cueOpacity = seg(p, 0.06, 0.16) * (1 - seg(p, 0.5, 0.6));
+  // Headline: dominant through the atmosphere beat, exits as the signal
+  // organizes. The vignette tracks it so it never darkens the surfaces.
+  const textY = seg(p, 0.14, 0.28) * -70;
+  const textOpacity = 1 - seg(p, 0.14, 0.26);
 
-  // Beat 2: push into the plane (scale toward the vanishing point).
-  const pushSeg = seg(p, 0.28, 0.62);
-  const planeScale = 1 + 1.6 * pushSeg;
-  const planeY = `${-6 * pushSeg}%`;
+  // Scroll cue: in with the signal, out before the surfaces arrive.
+  const cueOpacity = seg(p, 0.06, 0.14) * (1 - seg(p, 0.3, 0.38));
 
-  // Beat 3: match-cut. AR-1 fades in exactly on the converged line-work
-  // (same vanishing point), blur-to-sharp, dark-cool to warm exposure ramp.
-  const ar1Opacity = seg(p, 0.62, 0.8);
-  const cutSeg = seg(p, 0.62, 0.88);
-  const ar1Filter = `blur(${(18 * (1 - cutSeg)).toFixed(2)}px) brightness(${(0.6 + 0.4 * cutSeg).toFixed(3)})`;
-  const coolTint = 0.55 * (1 - seg(p, 0.62, 0.9));
-  const canvasOpacity = 1 - seg(p, 0.6, 0.72);
+  // Environment push: dunes + line-work scale toward the vanishing point.
+  const pushSeg = seg(p, 0.3, 0.62);
+  const planeScale = 1 + 1.5 * pushSeg;
+  const planeY = `${-5 * pushSeg}%`;
+
+  // Product surfaces emerge progressively (staggered inside SurfacePanels).
+  const emerge = seg(p, 0.34, 0.56);
+  const stageSeg = seg(p, 0.34, 0.62);
+  const stageY = stageSeg * -30;
+  const stageScale = 1 + 0.1 * stageSeg;
+  const stageOpacity = 1 - seg(p, 0.56, 0.68);
+
+  // Signal release as the surfaces take over.
+  const canvasOpacity = 1 - seg(p, 0.5, 0.62);
+
+  // Cinematic exposure dip: the bright wash deepens while the line-work
+  // organizes and the surfaces arrive (contrast for the architecture beat),
+  // then FULLY clears before the photo resolves. Unlike the retired
+  // regression-2 dim layer, nothing persists into the discovery scene.
+  const dip = 0.5 * seg(p, 0.12, 0.4) * (1 - seg(p, 0.6, 0.78));
+
+  // Match-cut: AR-1 arrives over the converged environment, blur-to-sharp,
+  // gently cool to warm, scale settles 1.10 -> 1.00. No black dim layer.
+  const ar1Opacity = seg(p, 0.6, 0.78);
+  const cutSeg = seg(p, 0.6, 0.84);
+  const ar1Scale = 1.1 - 0.1 * seg(p, 0.6, 0.88);
+  const ar1Filter = `blur(${(12 * (1 - cutSeg)).toFixed(2)}px) brightness(${(0.78 + 0.22 * cutSeg).toFixed(3)})`;
+  const coolTint = 0.22 * (1 - seg(p, 0.62, 0.8));
 
   return (
-    <div ref={regionRef} className="relative h-[240vh] md:h-[320vh]" aria-label={t("h1Accent")}>
+    <div ref={regionRef} className="relative h-[220vh] md:h-[300vh]" aria-label={t("h1Accent")}>
       <div className="sticky top-0 h-screen overflow-hidden bg-[#0A0A14]">
-        {/* Signal volume: canvas fades out on the converged line-work, then
-            unmounts entirely at beat 4 (GPU released). */}
-        <div style={{ opacity: canvasOpacity }} className="absolute inset-0">
-          <div
-            style={{ transform: `scale(${planeScale.toFixed(4)}) translateY(${planeY})` }}
-            className="absolute inset-0"
-          >
+        {/* Aurora environment: the restored LitDunes scene with the signal
+            volume layered into it; both push toward the vanishing point. */}
+        <div
+          style={{
+            transform: `scale(${planeScale.toFixed(4)}) translateY(${planeY})`,
+          }}
+          className="absolute inset-0 will-change-transform"
+        >
+          <LitDunes forceDark flowRef={flowRef} />
+          <div style={{ opacity: canvasOpacity }} className="absolute inset-0">
             <SignalCanvas progress={scrollYProgress} active={canvasActive} />
           </div>
         </div>
 
-        {/* Beat 3: AR-1 match-cut layer (lazy: only needed past the LCP frame). */}
+        {/* Exposure dip (environment only: sits below the photo layer). */}
+        <div
+          style={{ opacity: dip }}
+          className="absolute inset-0 bg-[#06090A]"
+          aria-hidden="true"
+        />
+
+        {/* Match-cut: AR-1 (lazy: only needed past the LCP frame). */}
         <div style={{ opacity: ar1Opacity }} className="absolute inset-0">
-          <div style={{ filter: ar1Filter }} className="absolute inset-0">
+          <div
+            style={{ filter: ar1Filter, transform: `scale(${ar1Scale.toFixed(4)})` }}
+            className="absolute inset-0 will-change-transform"
+          >
             <Image
               src={AR1.src}
               alt={AR1.alt}
@@ -169,13 +221,20 @@ export function HeroSignal() {
           />
         </div>
 
-        {/* Beat 1 environment dim step. */}
-        <div style={{ opacity: dim }} className="absolute inset-0 bg-black" aria-hidden="true" />
-
-        {/* Beat 0 end frame: statement + CTAs + triptych stage. */}
+        {/* Headline + CTAs (atmosphere beat), with a localized vignette that
+            keeps the copy readable over the bright wash — exits with it. */}
+        <div
+          style={{
+            opacity: textOpacity,
+            background:
+              "radial-gradient(ellipse 90% 60% at 30% 36%, rgba(5, 8, 6, 0.55), transparent 72%)",
+          }}
+          className="absolute inset-0"
+          aria-hidden="true"
+        />
         <div
           style={{ transform: `translateY(${textY.toFixed(1)}px)`, opacity: textOpacity }}
-          className="absolute inset-x-0 top-0 z-10 pt-24 md:pt-28 will-change-transform"
+          className="absolute inset-x-0 top-0 z-10 pt-24 will-change-transform md:pt-28"
         >
           <Container>
             <div className="max-w-3xl">
@@ -205,17 +264,21 @@ export function HeroSignal() {
           </Container>
         </div>
 
-        <div
-          style={{
-            transform: `translateY(${stageY.toFixed(1)}px) scale(${stageScale.toFixed(4)})`,
-            opacity: stageOpacity,
-          }}
-          className="absolute inset-x-0 bottom-10 z-10 flex justify-center px-4 will-change-transform md:bottom-14"
-        >
-          <SurfacePanels frozen={frozen} layout="stage" />
-        </div>
+        {/* Product surfaces: mounted only while emerging (no hidden idle
+            timers), exiting with the environment push. */}
+        {emerge > 0.005 && (
+          <div
+            style={{
+              transform: `translateY(${stageY.toFixed(1)}px) scale(${stageScale.toFixed(4)})`,
+              opacity: stageOpacity,
+            }}
+            className="absolute inset-x-0 bottom-10 z-10 flex justify-center px-4 will-change-transform md:bottom-14"
+          >
+            <SurfacePanels frozen={frozen} layout="stage" emerge={emerge} />
+          </div>
+        )}
 
-        {/* Thin mono scroll cue (beat 1). */}
+        {/* Thin mono scroll cue (signal beat). */}
         <div
           style={{ opacity: cueOpacity }}
           className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2"
