@@ -6,14 +6,12 @@ import { motion, AnimatePresence } from "framer-motion";
 
 type Theme = "light" | "dark";
 
-const STORAGE_KEY = "retech-theme";
-
-function getSystemPreference(): Theme {
-  if (typeof window === "undefined") return "light";
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-}
+// Key bump (2026-10-26): the original build auto-followed the OS color
+// scheme (stored ?? system), so browsers that lived through that era hold
+// a stored "dark" the user never explicitly chose. Moving the key flushes
+// that stale value once — first visit after the bump initializes light,
+// and explicit choices persist under the new key.
+const STORAGE_KEY = "retech-theme:v2";
 
 function getStoredPreference(): Theme | null {
   if (typeof window === "undefined") return null;

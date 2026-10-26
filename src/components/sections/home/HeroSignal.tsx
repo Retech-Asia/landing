@@ -9,7 +9,6 @@ import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { LitDunes } from "./LitDunes";
 import { SignalCanvas } from "./hero-signal/SignalCanvas";
-import { SurfacePanels } from "./hero-signal/SurfacePanels";
 
 /**
  * "Aurora Signal" hero (2026-10-26 owner correction on Concept II): the
@@ -22,14 +21,16 @@ import { SurfacePanels } from "./hero-signal/SurfacePanels";
  *   0.00-0.06  atmosphere: pure Aurora dunes + dominant headline
  *   0.06-0.16  signal energy (nodes/pulses) emerges out of the terrain
  *   0.16-0.50  energy organizes into connected engineering line-work
- *   0.34-0.56  product surfaces EMERGE progressively (two, borderless)
  *   0.30-0.62  the whole environment pushes toward AR-1's vanishing point
- *   0.60-0.84  match-cut: AR-1 blur-to-sharp, cool tint to warm, scale-settle
+ *   0.60-0.84  match-cut: AR-1 (the whiteboard = the realized architecture)
+ *              blur-to-sharp, cool tint to warm, scale-settle
  *   0.84-1.00  brief photo-only hold, then release into the discovery section
  *
- * Regression-2 fixes (2026-10-26): the black dim layer is GONE (it used to
- * persist over AR-1 at 0.45); the cool tint peaks at 0.22 and fully ramps
- * out; the photo starts at brightness 0.78 / blur 12px and resolves sooner.
+ * Owner corrections applied: the fake product-surface cards were removed
+ * ("dummy ... mean nothing") — the product interfaces beat is carried by the
+ * AR-1 whiteboard itself; the black dim layer is GONE; the cool tint peaks
+ * at 0.22 and fully ramps out; the photo starts at brightness 0.78 /
+ * blur 12px and resolves sooner.
  *
  * Implementation note: beat styles are computed from ONE quantized progress
  * state (0.005 steps) instead of per-layer useTransform MotionValues.
@@ -39,10 +40,9 @@ import { SurfacePanels } from "./hero-signal/SurfacePanels";
  * scrolling. The canvas and LitDunes keep the raw MotionValue/ref (their
  * RAF loops read them without re-renders).
  *
- * Guards: surfaces mount only while emerging (no hidden idle timers); data
- * ticks freeze while scrolling; canvas unmounts after release (GPU freed);
- * AR-1 is lazy (below the LCP frame). prefers-reduced-motion renders the
- * static Aurora + headline + surfaces end frame — no sticky sequence.
+ * Guards: canvas unmounts after release (GPU freed); AR-1 is lazy (below
+ * the LCP frame). prefers-reduced-motion renders the static Aurora +
+ * headline end frame — no sticky sequence.
  *
  * Rollback: swap page.tsx back to HeroHybrid (file kept in the tree).
  */
@@ -103,9 +103,6 @@ function StaticHero() {
             </Link>
           </div>
         </div>
-        <div className="relative mt-14">
-          <SurfacePanels frozen layout="static" />
-        </div>
       </Container>
     </section>
   );
@@ -121,27 +118,25 @@ export function HeroSignal() {
     offset: ["start start", "end end"],
   });
 
-  // Quantized progress drives every beat style; canvas unmount and surface
-  // freeze are discrete thresholds on the raw value. flowRef feeds LitDunes'
-  // uFlow without re-renders.
+  // Quantized progress drives every beat style; canvas unmount is a discrete
+  // threshold on the raw value. flowRef feeds LitDunes' uFlow without
+  // re-renders.
   const [p, setP] = useState(0);
   const [canvasActive, setCanvasActive] = useState(true);
-  const [frozen, setFrozen] = useState(false);
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     setP(Math.round(v * 200) / 200);
     setCanvasActive(v < 0.64);
-    setFrozen(v > 0.02);
     flowRef.current = seg(v, 0.05, 0.3) * (1 - seg(v, 0.55, 0.72));
   });
 
   if (reduced) return <StaticHero />;
 
   // Headline: dominant through the atmosphere beat, exits as the signal
-  // organizes. The vignette tracks it so it never darkens the surfaces.
+  // organizes. The vignette tracks it so the terrain reads clean after.
   const textY = seg(p, 0.14, 0.28) * -70;
   const textOpacity = 1 - seg(p, 0.14, 0.26);
 
-  // Scroll cue: in with the signal, out before the surfaces arrive.
+  // Scroll cue: in with the signal, out as the push begins.
   const cueOpacity = seg(p, 0.06, 0.14) * (1 - seg(p, 0.3, 0.38));
 
   // Environment push: dunes + line-work scale toward the vanishing point.
@@ -149,20 +144,13 @@ export function HeroSignal() {
   const planeScale = 1 + 1.5 * pushSeg;
   const planeY = `${-5 * pushSeg}%`;
 
-  // Product surfaces emerge progressively (staggered inside SurfacePanels).
-  const emerge = seg(p, 0.34, 0.56);
-  const stageSeg = seg(p, 0.34, 0.62);
-  const stageY = stageSeg * -30;
-  const stageScale = 1 + 0.1 * stageSeg;
-  const stageOpacity = 1 - seg(p, 0.56, 0.68);
-
-  // Signal release as the surfaces take over.
+  // Signal release on the fully organized line-work — the match-cut lands
+  // on AR-1's whiteboard (the "recognizable software architecture").
   const canvasOpacity = 1 - seg(p, 0.5, 0.62);
 
   // Cinematic exposure dip: the bright wash deepens while the line-work
-  // organizes and the surfaces arrive (contrast for the architecture beat),
-  // then FULLY clears before the photo resolves. Unlike the retired
-  // regression-2 dim layer, nothing persists into the discovery scene.
+  // organizes (contrast for the architecture beat), then FULLY clears
+  // before the photo resolves. Nothing persists into the discovery scene.
   const dip = 0.5 * seg(p, 0.12, 0.4) * (1 - seg(p, 0.6, 0.78));
 
   // Match-cut: AR-1 arrives over the converged environment, blur-to-sharp,
@@ -263,20 +251,6 @@ export function HeroSignal() {
             </div>
           </Container>
         </div>
-
-        {/* Product surfaces: mounted only while emerging (no hidden idle
-            timers), exiting with the environment push. */}
-        {emerge > 0.005 && (
-          <div
-            style={{
-              transform: `translateY(${stageY.toFixed(1)}px) scale(${stageScale.toFixed(4)})`,
-              opacity: stageOpacity,
-            }}
-            className="absolute inset-x-0 bottom-10 z-10 flex justify-center px-4 will-change-transform md:bottom-14"
-          >
-            <SurfacePanels frozen={frozen} layout="stage" emerge={emerge} />
-          </div>
-        )}
 
         {/* Thin mono scroll cue (signal beat). */}
         <div
