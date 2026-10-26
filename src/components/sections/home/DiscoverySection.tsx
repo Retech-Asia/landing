@@ -42,8 +42,9 @@ export function DiscoverySection() {
         blurDataURL={BACKDROP.blurDataURL}
         className="object-cover object-[center_38%]"
       />
-      {/* Photo overlay law: black scrim only */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/10" />
+      {/* Photo overlay law: black scrim only. Mobile crop lands the headline
+          in the diagram zone, so the scrim runs one step deeper there. */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/10 max-md:from-black/90 max-md:via-black/45" />
 
       <Container className="relative z-10 pb-16 pt-24 md:pb-24">
         <div className="max-w-2xl">
