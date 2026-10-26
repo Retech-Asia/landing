@@ -24,11 +24,11 @@
  * Reduced motion: one balanced static frame (t=47), cursor zeroed; redrawn
  * only when the theme or size changes.
  *
- * HeroSignal integration (2026-10-26): `forceDark` pins the cinematic dark
- * scene regardless of site theme (the sticky hero stage is dark in both
- * themes by owner ruling), and `flowRef` carries the scroll-driven "signal
- * energy" 0..1 that slightly lifts the aurora curtain and contour emphasis
- * while the signal line-work is converging (uFlow).
+ * HeroSignal integration (2026-10-26): `flowRef` carries the scroll-driven
+ * "signal energy" 0..1 that slightly lifts the aurora curtain and contour
+ * emphasis while the signal line-work is converging (uFlow). The scene
+ * follows the site theme exactly as the previous hero did (owner correction:
+ * the hero must never pin dark).
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -177,11 +177,8 @@ void main(){
 `;
 
 export function LitDunes({
-  forceDark = false,
   flowRef,
 }: {
-  /** Pin the dark cinematic scene regardless of site theme (hero stage). */
-  forceDark?: boolean;
   /** Scroll-driven signal energy 0..1, read per-frame without re-renders. */
   flowRef?: { current: number };
 }) {
@@ -251,9 +248,7 @@ export function LitDunes({
     const uFlow = gl.getUniformLocation(prog, "uFlow");
 
     const isDark = () =>
-      forceDark || document.documentElement.getAttribute("data-theme") === "dark"
-        ? 1
-        : 0;
+      document.documentElement.getAttribute("data-theme") === "dark" ? 1 : 0;
 
     const resize = () => {
       // Perf investigation 2026-10-22: the terrain is soft gradients and
@@ -319,17 +314,14 @@ export function LitDunes({
       stop();
     };
 
-    // Theme changes: uDark follows the data-theme attribute on <html>
-    // (skipped when forceDark pins the scene).
+    // Theme changes: uDark follows the data-theme attribute on <html>.
     const themeObserver = new MutationObserver(() => {
       if (reduced) render(STATIC_TIME, 0, 0);
     });
-    if (!forceDark) {
-      themeObserver.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ["data-theme"],
-      });
-    }
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
 
     window.addEventListener("resize", onResize);
     document.addEventListener("visibilitychange", onVisibility);
@@ -353,7 +345,7 @@ export function LitDunes({
       gl.deleteBuffer(buf);
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, [armed, reduced, forceDark, flowRef]);
+  }, [armed, reduced, flowRef]);
 
   return (
     <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
@@ -361,9 +353,7 @@ export function LitDunes({
           attractive bed before the idle-armed mount and wherever WebGL is
           unavailable (getContext null / context lost). The opaque canvas
           paints over it once the shader is live. */}
-      <div
-        className={`absolute inset-0 lit-dunes-fallback${forceDark ? " lit-dunes-fallback-dark" : ""}`}
-      />
+      <div className="absolute inset-0 lit-dunes-fallback" />
       <canvas ref={canvasRef} className="lit-dunes-in relative block w-full h-full" />
     </div>
   );

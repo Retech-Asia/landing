@@ -23,6 +23,11 @@ import type { MotionValue } from "framer-motion";
  *
  * Budget: ~90 nodes, ~26 lines, 7 pulses. RAF pauses when `active` is false
  * (off-screen or unmounted after release) or document hidden.
+ *
+ * Theme (owner correction 2026-10-26: the hero follows the site theme, never
+ * pins dark): the palette branches per-frame off the data-theme attribute —
+ * light strokes over the dark scene, deep-green schematic strokes over the
+ * light dunes (brand-family, reads like pencil line-work on paper).
  */
 
 const NODES = 90;
@@ -118,6 +123,16 @@ export function SignalCanvas({
       speed: 0.0016 + rand() * 0.0022,
     }));
 
+    // Theme tracking: same mechanism as LitDunes (data-theme on <html>).
+    let dark = document.documentElement.getAttribute("data-theme") === "dark";
+    const themeObserver = new MutationObserver(() => {
+      dark = document.documentElement.getAttribute("data-theme") === "dark";
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
     const pointOn = (li: number, t: number): [number, number] => {
       const l = lines[li];
       // Start far out, converge to VP as t -> 1.
@@ -149,7 +164,7 @@ export function SignalCanvas({
       // Schematic plane: faint grid, denser near VP, falls away with converge.
       const gridA = 0.05 * (1 - converge * 0.85) * master;
       if (gridA > 0.004) {
-        ctx.strokeStyle = `rgba(148, 190, 210, ${gridA})`;
+        ctx.strokeStyle = dark ? `rgba(148, 190, 210, ${gridA})` : `rgba(30, 96, 74, ${gridA})`;
         ctx.lineWidth = 0.5;
         const step = 72;
         ctx.beginPath();
@@ -165,8 +180,8 @@ export function SignalCanvas({
       }
 
       // Connection lines drawing themselves toward the VP. Two strokes:
-      // a soft mint glow underlay (reads over the bright aurora wash) and
-      // the bright core line.
+      // a soft glow underlay (mint over the dark wash / deep green over the
+      // light dunes) and the core line.
       for (let i = 0; i < lines.length; i++) {
         const drawn = Math.min(1, converge * 1.15 + lines[i].width * 0.04);
         if (drawn <= 0.02) continue;
@@ -179,10 +194,14 @@ export function SignalCanvas({
         ctx.beginPath();
         ctx.moveTo(x1 * w, y1 * h);
         ctx.lineTo(x2 * w, y2 * h);
-        ctx.strokeStyle = `rgba(134, 239, 190, ${alpha * 0.4})`;
+        ctx.strokeStyle = dark
+          ? `rgba(134, 239, 190, ${alpha * 0.4})`
+          : `rgba(16, 94, 66, ${alpha * 0.28})`;
         ctx.lineWidth = lines[i].width * (1.8 + converge * 1.4);
         ctx.stroke();
-        ctx.strokeStyle = `rgba(224, 255, 234, ${alpha * 0.9})`;
+        ctx.strokeStyle = dark
+          ? `rgba(224, 255, 234, ${alpha * 0.9})`
+          : `rgba(12, 74, 52, ${alpha * 0.85})`;
         ctx.lineWidth = lines[i].width * (0.55 + converge * 0.45);
         ctx.stroke();
       }
@@ -199,10 +218,13 @@ export function SignalCanvas({
         const cy = n.y * (1 - captured) + ly * captured;
         const a = ((0.5 - n.t * 0.25) * clutter + captured * 0.5) * master;
         if (a <= 0.01) continue;
-        ctx.fillStyle =
-          n.r > 1.6
+        ctx.fillStyle = dark
+          ? n.r > 1.6
             ? `rgba(103, 210, 228, ${a * 0.75})`
-            : `rgba(148, 190, 210, ${a * 0.5})`;
+            : `rgba(148, 190, 210, ${a * 0.5})`
+          : n.r > 1.6
+            ? `rgba(13, 110, 92, ${a * 0.75})`
+            : `rgba(40, 100, 85, ${a * 0.5})`;
         ctx.beginPath();
         ctx.arc(cx * w, cy * h, n.r * (1 - captured * 0.4), 0, Math.PI * 2);
         ctx.fill();
@@ -219,8 +241,8 @@ export function SignalCanvas({
         const [px, py] = pointOn(pulse.line, t);
         const a = (0.5 + 0.35 * converge) * master;
         const g = ctx.createRadialGradient(px * w, py * h, 0, px * w, py * h, 9);
-        g.addColorStop(0, `rgba(72, 187, 92, ${a})`);
-        g.addColorStop(1, "rgba(72, 187, 92, 0)");
+        g.addColorStop(0, dark ? `rgba(72, 187, 92, ${a})` : `rgba(32, 133, 53, ${a})`);
+        g.addColorStop(1, dark ? "rgba(72, 187, 92, 0)" : "rgba(32, 133, 53, 0)");
         ctx.fillStyle = g;
         ctx.beginPath();
         ctx.arc(px * w, py * h, 9, 0, Math.PI * 2);
@@ -232,6 +254,7 @@ export function SignalCanvas({
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
+      themeObserver.disconnect();
     };
   }, []);
 

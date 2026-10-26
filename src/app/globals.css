@@ -836,14 +836,6 @@ p, li {
     radial-gradient(120% 60% at 85% 100%, rgba(6, 182, 212, 0.14), transparent 60%),
     linear-gradient(165deg, #081209 0%, #0a1c0e 50%, #0c2413 80%, #0e2a16 100%);
 }
-/* Forced-dark variant for cinematic hero stages (HeroSignal): the same deep
-   green-black bed regardless of site theme, so the pre-shader paint already
-   matches the forceDark scene. */
-.lit-dunes-fallback-dark {
-  background:
-    radial-gradient(120% 60% at 85% 100%, rgba(6, 182, 212, 0.14), transparent 60%),
-    linear-gradient(165deg, #081209 0%, #0a1c0e 50%, #0c2413 80%, #0e2a16 100%);
-}
 
 /* .lit-dunes-in — the shader canvas fades in over the static fallback when
    the idle-armed scene mounts, so the swap is never a hard cut. One-shot
