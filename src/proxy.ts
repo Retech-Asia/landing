@@ -31,6 +31,38 @@ const intlMiddleware = createMiddleware(routing);
  * pointing at unprefixed paths like `/about` should pass full SEO juice).
  * So we upgrade any redirect next-intl returns to a 308 before sending it.
  */
+/**
+ * next-intl emits the HTTP `Link: rel="alternate"` header with x-default
+ * pointing at the UN-prefixed default-locale path (e.g. `https://…/` for the
+ * root). Under `localePrefix: "always"` that bare path is a 308 redirect, not
+ * a page — while the HTML hreflang and the sitemap both declare x-default =
+ * the /en URL. Google reads all three signals, so the header must agree:
+ * rewrite any x-default entry whose path lacks a locale prefix onto `/en`.
+ * (Search Console "Page with redirect" round, 2026-10-26.)
+ */
+function withFixedXDefault<T extends { headers: Headers }>(response: T): T {
+  const link = response.headers.get("link");
+  const match = link?.match(
+    /<([^>]+)>;\s*rel="alternate";\s*hreflang="x-default"/,
+  );
+  if (!match) return response;
+  try {
+    const url = new URL(match[1]);
+    if (/^\/(en|vi)(\/|$)/.test(url.pathname)) return response;
+    url.pathname = `/en${url.pathname === "/" ? "" : url.pathname}`;
+    response.headers.set(
+      "link",
+      link!.replace(
+        match[0],
+        `<${url.toString()}>; rel="alternate"; hreflang="x-default"`,
+      ),
+    );
+  } catch {
+    // Malformed header from next-intl — leave it untouched.
+  }
+  return response;
+}
+
 export default function proxy(request: NextRequest) {
   const response = intlMiddleware(request);
 
@@ -46,10 +78,10 @@ export default function proxy(request: NextRequest) {
       response.headers.forEach((value, key) => {
         if (key !== "location") permanent.headers.set(key, value);
       });
-      return permanent;
+      return withFixedXDefault(permanent);
     }
   }
-  return response;
+  return withFixedXDefault(response);
 }
 
 export const config = {
