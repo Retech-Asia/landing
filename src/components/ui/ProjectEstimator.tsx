@@ -424,7 +424,7 @@ const STRINGS: Record<"en" | "vi", EstimatorStrings> = {
       "Hãy cho chúng tôi biết bất kỳ điều gì cụ thể về dự án, thời gian, hoặc ràng buộc của bạn.",
     optional: "(không bắt buộc)",
     sending: "Đang gửi…",
-    requestQuote: "Nhận báo giá dự án",
+    requestQuote: "Ước tính chi phí dự án",
     cancel: "Hủy",
     errName: "Vui lòng nhập họ và tên.",
     errEmail: "Vui lòng nhập email hợp lệ.",

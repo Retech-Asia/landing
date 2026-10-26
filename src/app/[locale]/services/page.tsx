@@ -484,8 +484,7 @@ export default async function ServicesPage({
                 Let&apos;s Build Your Solution
               </h2>
               <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto">
-                Get a free project estimate. Our team will scope the
-                right team, technology, and timeline for your business.
+                Share your project requirements to receive an initial cost estimate.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button

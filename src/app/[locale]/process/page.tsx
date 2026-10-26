@@ -68,7 +68,7 @@ function getChrome(locale: string) {
         faqDescription: "Các câu hỏi thường gặp về cách chúng tôi làm việc, điều cần kỳ vọng và cách chúng tôi đảm bảo dự án thành công.",
         ctaTitle: "Sẵn sàng Bắt đầu Dự án?",
         ctaBody: "Chia sẻ những gì bạn đang xây dựng, chúng tôi sẽ đề xuất phạm vi, đội ngũ và lộ trình, kèm báo giá miễn phí.",
-        ctaPrimary: "Thảo luận dự án",
+        ctaPrimary: "Trao đổi về dự án",
         ctaSecondary: "Xem Dự án",
         keyActivities: "Bạn sẽ thấy gì",
       };

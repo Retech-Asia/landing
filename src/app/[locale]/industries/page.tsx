@@ -75,7 +75,7 @@ function getChrome(locale: string) {
         step3Description: "Chúng tôi triển khai, giám sát và hỗ trợ giải pháp của bạn trong môi trường sản xuất, đảm bảo ra mắt suôn sẻ và độ tin cậy lâu dài.",
         ctaTitle: "Ngành của Bạn, Chuyên môn của chúng tôi",
         ctaBody: "Dù bạn ở ngành nào, chúng tôi có kinh nghiệm và chiều sâu kỹ thuật để bàn giao phần mềm tạo ra khác biệt. Hãy trao đổi về nhu cầu của bạn.",
-        ctaPrimary: "Thảo luận dự án",
+        ctaPrimary: "Trao đổi về dự án",
         ctaSecondary: "Khám phá Dịch vụ",
       };
 }

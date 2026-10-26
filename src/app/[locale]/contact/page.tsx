@@ -119,7 +119,7 @@ function getWhatToExpectItems(isEn: boolean) {
       icon: MessageSquare,
       color: "text-accent-cyan",
       bg: "bg-accent-cyan/10",
-      title: isEn ? "Discuss Your Project" : "Thảo luận dự án",
+      title: isEn ? "Discuss Your Project" : "Trao đổi về dự án",
       description: isEn
         ? "No commitment required. We'll discuss your project scope, timeline, and the best approach."
         : "Không cần cam kết. Chúng tôi sẽ trao đổi về phạm vi dự án, thời gian và cách tiếp cận phù hợp.",

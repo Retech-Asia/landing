@@ -31,7 +31,7 @@ function getChrome(locale: string) {
           "The covers below are contextual photography, not product captures; each case-study page captions its own product imagery.",
         ctaTitle: "Ready to Build Something Great?",
         ctaBody:
-          "Get a free project estimate. Our team will map out the right approach, timeline, and tech stack for your idea.",
+          "Share your project requirements to receive an initial cost estimate.",
         ctaPrimary: "Discuss Your Project",
         ctaSecondary: "Explore Services",
       }
@@ -46,8 +46,8 @@ function getChrome(locale: string) {
           "Ảnh bìa dưới đây là hình ảnh bối cảnh, không phải ảnh sản phẩm; trang từng dự án luôn chú thích rõ ảnh sản phẩm.",
         ctaTitle: "Sẵn sàng Xây dựng Sản phẩm Mới?",
         ctaBody:
-          "Nhận báo giá dự án miễn phí. Đội ngũ của chúng tôi sẽ đề xuất hướng tiếp cận, lộ trình và tech stack phù hợp với ý tưởng của bạn.",
-        ctaPrimary: "Thảo luận dự án",
+          "Chia sẻ thông tin dự án để nhận ước tính chi phí ban đầu.",
+        ctaPrimary: "Trao đổi về dự án",
         ctaSecondary: "Khám phá Dịch vụ",
       };
 }

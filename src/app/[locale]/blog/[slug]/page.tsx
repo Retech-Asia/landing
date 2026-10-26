@@ -166,7 +166,7 @@ export default async function BlogPostPage({
         ctaTitle: "Cần đội ngũ phát triển chuyên nghiệp?",
         ctaBody:
           "Liên hệ với đội ngũ của chúng tôi để trao đổi dự án tiếp theo của bạn. Chúng tôi xây dựng giải pháp CMS, CRM và ERP theo yêu cầu, phù hợp với doanh nghiệp của bạn.",
-        ctaButton: "Thảo luận dự án",
+        ctaButton: "Trao đổi về dự án",
         sidebar: "Thanh điều hướng bài viết",
       }
     : {

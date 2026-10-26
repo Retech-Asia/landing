@@ -71,7 +71,7 @@ export function MobileStickyCTA() {
             href="/contact"
             className="pointer-events-auto flex items-center justify-center gap-2 w-full h-12 rounded-full bg-brand text-white font-medium text-base shadow-[0_4px_20px_rgba(32,133,53,0.35)] hover:bg-brand-light active:scale-[0.98] transition-all"
           >
-            {isVi ? "Thảo luận dự án" : "Discuss Your Project"}
+            {isVi ? "Trao đổi về dự án" : "Discuss Your Project"}
             <ArrowRight size={18} strokeWidth={2.5} />
           </Link>
         </motion.div>

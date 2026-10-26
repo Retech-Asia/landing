@@ -33,7 +33,7 @@
     },
     "cta": {
       "quote": "Nhận Báo giá",
-      "consultation": "Thảo luận dự án",
+      "consultation": "Trao đổi về dự án",
       "allServices": "Tất cả Dịch vụ",
       "openMenu": "Mở menu",
       "closeMenu": "Đóng menu"
@@ -97,7 +97,7 @@
       "h1Into": "thành",
       "h1Accent": "Giải pháp",
       "standfirst": "Phát triển phần mềm toàn trình: phân tích nghiệp vụ, thiết kế và triển khai, với CRM và hệ thống quản lý doanh nghiệp tùy chỉnh làm cốt lõi.",
-      "ctaPrimary": "Thảo luận dự án",
+      "ctaPrimary": "Trao đổi về dự án",
       "ctaSecondary": "Xem Dịch vụ",
       "hybrid": {
         "railLabel": "Chúng tôi xây dựng gì",
@@ -121,7 +121,7 @@
       "titleLine1": "Hãy Xây dựng Sản phẩm của Bạn",
       "titleLine2": "Từ Cuộc gọi Đầu tiên đến Ra mắt",
       "body": "Hãy kể chúng tôi nghe điều bạn cần xây dựng. Bạn nhận được kế hoạch dự án với báo giá chi tiết bằng văn bản, và quy trình bàn giao có thể kiểm chứng từ sprint đầu tiên.",
-      "cta": "Nhận báo giá dự án",
+      "cta": "Ước tính chi phí dự án",
       "secondary": "Xem Dự án",
       "trust": {
         "freeConsult": "Tư vấn miễn phí",
@@ -300,7 +300,7 @@
       "services": "Dịch vụ"
     },
     "hero": {
-      "ctaConsult": "Thảo luận dự án",
+      "ctaConsult": "Trao đổi về dự án",
       "ctaAllServices": "Tất cả Dịch vụ"
     },
     "features": {
@@ -378,7 +378,7 @@
     "postCta": {
       "title": "Đã giải đáp thắc mắc? Hãy trò chuyện.",
       "body": "Đặt tư vấn miễn phí để thảo luận yêu cầu {service} của bạn và nhận báo giá dự án chi tiết.",
-      "cta": "Thảo luận dự án"
+      "cta": "Trao đổi về dự án"
     },
     "related": {
       "caseStudies": {
@@ -405,7 +405,7 @@
     "finalCta": {
       "title": "Xây dựng Giải pháp {service} của Bạn",
       "body": "Chuyên gia {service} của chúng tôi sẽ xem xét yêu cầu và trả lại đề xuất chi tiết với đề xuất kiến trúc, phân bổ đội và milestone rõ ràng.",
-      "ctaPrimary": "Thảo luận dự án",
+      "ctaPrimary": "Trao đổi về dự án",
       "ctaSecondary": "Xem Dịch vụ"
     },
     "imageAlts": {
@@ -511,7 +511,7 @@
         "faqDescription": "Các câu hỏi thường gặp về cách chúng tôi làm việc, điều cần kỳ vọng và cách chúng tôi đảm bảo dự án thành công.",
         "ctaTitle": "Sẵn sàng Bắt đầu Dự án?",
         "ctaBody": "Quy trình đã được kiểm chứng đảm bảo dự án của bạn được bàn giao đúng hạn, đúng ngân sách và đạt tiêu chuẩn chất lượng cao nhất. Hãy trò chuyện về những gì bạn đang xây dựng.",
-        "ctaPrimary": "Nhận báo giá dự án",
+        "ctaPrimary": "Ước tính chi phí dự án",
         "ctaSecondary": "Xem Dự án",
         "keyActivities": "Hoạt động Chính",
         "deliverables": "Bàn giao"

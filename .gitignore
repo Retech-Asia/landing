@@ -54,3 +54,7 @@ next-env.d.ts
 /*.gif
 .tmp-audit/
 visual-qa/out/
+
+# Skill tooling artifacts (reproducible from skills-lock.json)
+.agents/
+.hallmark/
