@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 // cinematic hero-to-discovery transition. Rollback = swap this import back
 // to `@/components/sections/home/HeroHybrid` (or `Hero`, both in the tree).
 import { HeroSignal } from "@/components/sections/home/HeroSignal";
+import { ProductConcepts } from "@/components/sections/home/ProductConcepts";
 import { ProofStrip } from "@/components/sections/home/ProofStrip";
 import { WebPageJsonLd } from "@/components/seo/JsonLd";
 import { SectionFallback, CompactSectionFallback } from "@/components/ui/Skeleton";
@@ -19,10 +20,6 @@ const DiscoverySection = dynamic(
 );
 const ServicesGallery = dynamic(
   () => import("@/components/sections/home/ServicesGallery").then((m) => m.ServicesGallery),
-  { loading: () => <SectionFallback /> },
-);
-const OurWork = dynamic(
-  () => import("@/components/sections/home/OurWork").then((m) => m.OurWork),
   { loading: () => <SectionFallback /> },
 );
 const DeliverySection = dynamic(
@@ -96,13 +93,18 @@ export default async function HomePage({
           carries the explorer deep-link (#capabilities-*) + aria contract */}
       <ServicesGallery locale={locale as "en" | "vi"} />
 
-      {/* 4. ProofStrip - one-line proof band; links to the selected-work
-          anchor (#work on OurWork). Small enough to load statically. */}
+      {/* 4. ProofStrip - one-line band pointing at the concepts section
+          (#concepts). Small enough to load statically. */}
       <ProofStrip />
 
-      {/* 5. OurWork - selected work: the five case studies as a ruled
-          editorial index; carries the #work anchor */}
-      <OurWork />
+      {/* 5. ProductConcepts - owner decision 2026-10-26: featured product
+          concepts replace the five delivered case studies (OurWork kept in
+          the tree for rollback; case-study routes/SEO untouched, reached
+          via the section's delivered-work line). Featured: Meridian
+          Operations + Relay Field; flagship slots 1-2 (Property CRM,
+          Healthcare mobile) prepend after ChatGPT blueprint approval.
+          #capabilities deep links are unaffected (they live on the gallery). */}
+      <ProductConcepts />
 
       {/* 6. DeliverySection - delivery checklist with the artifact each
           phase produces */}

@@ -130,8 +130,8 @@
       }
     },
     "proof": {
-      "line": "Selected work for operators in mining, finance, and asset management.",
-      "link": "See selected work"
+      "line": "Interactive product concepts and delivered case studies.",
+      "link": "Explore"
     },
     "capabilities": {
       "label": "Capabilities",
@@ -203,6 +203,15 @@
       "systemsTag": "Specialist solutions: CMS + ERP",
       "webTag": "UI/UX across platforms",
       "explore": "Explore"
+    },
+    "concepts": {
+      "label": "Concepts",
+      "h2": "Product concepts",
+      "lede": "Explore thoughtfully designed software experiences built around real business workflows.",
+      "badge": "Product concept",
+      "viewCount": "{count} interactive views",
+      "explore": "Explore the concept",
+      "delivered": "Delivered work — browse all case studies"
     },
     "work": {
       "label": "Selected work",

@@ -3,9 +3,10 @@ import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/Container";
 
 /**
- * Direction B proof strip (RT-08): one compact band directly under the
- * hero. Static server component, no motion, no client JS. The link
- * anchors to the selected-work section (id="work" on OurWork).
+ * Direction B proof strip (RT-08): one compact band between the services
+ * gallery and the featured section. Static server component, no motion, no
+ * client JS. The link anchors to the product-concepts section
+ * (id="concepts" on ProductConcepts, 2026-10-26 portfolio decision).
  */
 export function ProofStrip() {
   const t = useTranslations("home.proof");
@@ -16,7 +17,7 @@ export function ProofStrip() {
         <div className="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1 py-4 text-center md:flex-nowrap md:justify-between md:text-left">
           <p className="text-sm font-semibold text-foreground">{t("line")}</p>
           <Link
-            href="#work"
+            href="#concepts"
             className="inline-flex items-baseline gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-foreground-muted underline-offset-4 transition-colors hover:text-brand hover:underline"
           >
             {t("link")}

@@ -130,8 +130,8 @@
       }
     },
     "proof": {
-      "line": "Sản phẩm tiêu biểu cho doanh nghiệp trong khai khoáng, tài chính và quản lý tài sản.",
-      "link": "Xem dự án tiêu biểu"
+      "line": "Mô hình sản phẩm tương tác và các case study đã bàn giao.",
+      "link": "Khám phá"
     },
     "capabilities": {
       "label": "Năng lực",
@@ -203,6 +203,15 @@
       "systemsTag": "Giải pháp chuyên biệt: CMS + ERP",
       "webTag": "UI/UX đa nền tảng",
       "explore": "Khám phá"
+    },
+    "concepts": {
+      "label": "Mô hình",
+      "h2": "Mô hình sản phẩm",
+      "lede": "Khám phá những trải nghiệm phần mềm được thiết kế tỉ mỉ xoay quanh quy trình kinh doanh thực tế.",
+      "badge": "Mô hình sản phẩm",
+      "viewCount": "{count} màn hình tương tác",
+      "explore": "Khám phá mô hình",
+      "delivered": "Dự án đã bàn giao — xem tất cả case study"
     },
     "work": {
       "label": "Dự án tiêu biểu",
