@@ -1,9 +1,8 @@
 import dynamic from "next/dynamic";
-// Hero flip (owner checkpoint-2 ruling, 2026-10-23): HeroHybrid is the
-// staging homepage default. Rollback = swap this import back to
-// `@/components/sections/home/Hero` (Concept A stays in the tree) or
-// revert the commit. Production branch is untouched.
-import { HeroHybrid } from "@/components/sections/home/HeroHybrid";
+// Hero: Concept II "Signal to System" (owner-approved 2026-10-26) with the
+// cinematic hero-to-discovery transition. Rollback = swap this import back
+// to `@/components/sections/home/HeroHybrid` (or `Hero`, both in the tree).
+import { HeroSignal } from "@/components/sections/home/HeroSignal";
 import { ProofStrip } from "@/components/sections/home/ProofStrip";
 import { WebPageJsonLd } from "@/components/seo/JsonLd";
 import { SectionFallback, CompactSectionFallback } from "@/components/ui/Skeleton";
@@ -82,14 +81,15 @@ export default async function HomePage({
         url="https://www.retech.asia"
       />
 
-      {/* 1. Hero - full-viewport composition: copy + CTAs + capability
-          quick-nav rail (desktop) + industries strip on the dune canvas
-          (TrustedBy renders inside the hero section, not as a standalone
-          band). Rail rows deep-link to the section-01 explorer. */}
-      <HeroHybrid />
+      {/* 1. Hero - Concept II "Signal to System": dark engineering volume,
+          triptych product-concept surfaces, and the sticky scroll transition
+          that match-cuts into the AR-1 discovery scene. The capability
+          quick-nav rail is not part of the approved Beat 0 composition;
+          #capabilities-* deep links resolve on the gallery panels below. */}
+      <HeroSignal />
 
       {/* 2. DiscoverySection - Hallmark B1 act: immersive "how your business
-          works" section (AR-1 backdrop placeholder until the asset lands) */}
+          works" section (AR-1 backdrop) */}
       <DiscoverySection />
 
       {/* 3. ServicesGallery - six families as image-led editorial panels;
