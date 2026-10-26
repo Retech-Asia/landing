@@ -1,5 +1,6 @@
 import createMiddleware from "next-intl/middleware";
 import { NextResponse, type NextRequest } from "next/server";
+import { PROD_HOSTS } from "./lib/constants";
 import { routing } from "./i18n/routing";
 
 const intlMiddleware = createMiddleware(routing);
@@ -65,6 +66,17 @@ function withFixedXDefault<T extends { headers: Headers }>(response: T): T {
 
 export default function proxy(request: NextRequest) {
   const response = intlMiddleware(request);
+
+  // Non-prod hosts must never be indexed. The `X-Robots-Tag` header wins
+  // over the `index, follow` meta in the HTML (most restrictive directive
+  // applies) and is honored on page responses AND the 308 locale redirects
+  // — the robots.txt `Disallow: /` alone can't de-index a URL that gets
+  // linked from elsewhere (Google would list it URL-only, never crawling
+  // to see the canonical). Staging noindex round, 2026-10-26.
+  const host = (request.headers.get("host") || "").toLowerCase();
+  if (!PROD_HOSTS.has(host)) {
+    response.headers.set("x-robots-tag", "noindex");
+  }
 
   if (response.status >= 300 && response.status < 400) {
     const location = response.headers.get("location");

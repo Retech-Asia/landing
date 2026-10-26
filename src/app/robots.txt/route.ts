@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/lib/constants";
+import { PROD_HOSTS, SITE_URL } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
@@ -14,8 +14,6 @@ export const dynamic = "force-dynamic";
  * Second line of defense alongside canonicals, which already point every
  * page at www.retech.asia regardless of serving host.
  */
-
-const PROD_HOSTS = new Set(["retech.asia", "www.retech.asia"]);
 
 const CRAWL_RULES = [
   // Explicit rule for Bingbot — ensures full crawl access for
