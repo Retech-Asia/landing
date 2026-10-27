@@ -10,13 +10,15 @@ import { Container } from "@/components/ui/Container";
 import { localizeServiceHref } from "@/lib/services-data";
 
 /**
- * Site footer — full redesign 2026-10-27 (owner visual-refinement directive):
- * typographic editorial composition on the established bg-brand-dark surface.
- * Six approved service families (the ServicesGallery set — not the legacy
- * ten-service list), no geographic labels/flags/physical address, no icon
- * lists or badges. Positioning copy is the owner's exact wording (EN) with a
- * faithful VI rendering, pending ChatGPT editorial review.
- * Revert: git checkout 6fb7ab1 -- src/components/sections/Footer.tsx
+ * Site footer — full redesign 2026-10-27 (owner visual-refinement directive),
+ * round 2: the saturated green block is retired — the footer now sits on a
+ * warm charcoal editorial surface (--charcoal #201D19, theme-independent)
+ * with restrained brand accents, per the owner's "warm ivory or charcoal"
+ * direction. Six approved service families (the ServicesGallery set — not
+ * the legacy ten-service list), no geographic labels/flags/physical address,
+ * no icon lists or badges. Positioning copy is the owner's approved wording
+ * in both locales.
+ * Revert: git checkout 791202b -- src/components/sections/Footer.tsx
  */
 
 const FOOTER_SERVICE_IDS = [
@@ -58,7 +60,7 @@ export function Footer() {
   ).filter((s): s is (typeof services)[number] => Boolean(s));
 
   return (
-    <footer role="contentinfo" aria-label="Site footer" className="bg-brand-dark text-white">
+    <footer role="contentinfo" aria-label="Site footer" className="bg-charcoal text-white">
       <Container className="pt-16 pb-12 md:pt-20">
         {/* Wordmark + owner positioning copy */}
         <div className="max-w-3xl">

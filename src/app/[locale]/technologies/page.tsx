@@ -98,7 +98,7 @@ export default async function TechnologiesPage({
         <CodeToProduct className="ctp-stage--inset" />
       </div>
 
-      {/* Interactive tech listing with filter tabs and intro cards */}
+      {/* Capability-led listing: five static sections, no filter tabs */}
       <Container>
         <TechListing locale={locale} />
       </Container>

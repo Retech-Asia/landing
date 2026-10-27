@@ -17,7 +17,6 @@ import { AnimatedTimeline } from "@/components/about/AnimatedTimeline";
 import { ParallaxHero } from "@/components/about/ParallaxHero";
 import { CultureValues } from "@/components/about/CultureValues";
 import { OurCommitment } from "@/components/about/OurCommitment";
-import { GlobalReach } from "@/components/about/GlobalReach";
 import { WhatSetsUsApart } from "@/components/about/WhatSetsUsApart";
 
 export async function generateMetadata({
@@ -95,8 +94,8 @@ const milestones: { year: string; title: LocaleText; description: LocaleText }[]
       vi: "Phục vụ khách hàng quốc tế",
     },
     description: {
-      en: "Expanded our client base across Asia Pacific, North America, and Europe.",
-      vi: "Mở rộng tệp khách hàng khắp châu Á Thái Bình Dương, Bắc Mỹ và châu Âu.",
+      en: "Grew into long-term partnerships with international clients across multiple time zones.",
+      vi: "Phát triển thành các quan hệ đối tác lâu dài với khách hàng quốc tế ở nhiều múi giờ.",
     },
   },
   {
@@ -182,7 +181,7 @@ function getChrome(locale: string) {
         visionCardTitle: "Our Vision",
         visionCardBody:
           "To be a long-term software development partner in Southeast Asia, delivering dependable quality, practical innovation, and lasting value for businesses worldwide.",
-        visionB1: "Growing our global footprint to 10+ countries by 2028",
+        visionB1: "Deepening long-term partnerships with international clients",
         visionB2: "Investing in AI and automation capabilities for smarter delivery",
         visionB3: "Building Vietnam's next generation of engineering leaders",
         capabilityLabel: "What we do",
@@ -218,7 +217,7 @@ function getChrome(locale: string) {
         visionCardTitle: "Tầm nhìn của chúng tôi",
         visionCardBody:
           "Trở thành đối tác phát triển phần mềm đồng hành lâu dài tại Đông Nam Á, bàn giao chất lượng đáng tin cậy, đổi mới thực dụng và giá trị bền vững cho doanh nghiệp toàn cầu.",
-        visionB1: "Mở rộng phạm vi hoạt động toàn cầu lên hơn 10 quốc gia vào năm 2028",
+        visionB1: "Làm sâu thêm các quan hệ đối tác lâu dài với khách hàng quốc tế",
         visionB2: "Đầu tư vào năng lực AI và tự động hóa để bàn giao thông minh hơn",
         visionB3: "Xây dựng thế hệ kỹ sư kế tiếp của Việt Nam",
         capabilityLabel: "Chúng tôi làm gì",
@@ -419,9 +418,6 @@ export default async function AboutPage({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
       </div>
-
-      {/* Global Reach */}
-      <GlobalReach />
 
       {/* What Sets Us Apart */}
       <WhatSetsUsApart />

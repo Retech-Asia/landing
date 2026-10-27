@@ -46,14 +46,16 @@ export function HeroSignal() {
       </div>
       {/* Theme-aware text scrim (same treatment as the previous heroes). */}
       <div className="absolute inset-0 hero-text-scrim" aria-hidden="true" />
-      {/* 2026-10-27 presence pass: the copy anchors lower-left — the serif
-          display headline sits over the rich near dunes while the layered
-          aurora curtain owns the upper-right. One deliberate composition
-          instead of a top-left block with bare space around it. */}
-      <div className="relative flex flex-1 flex-col justify-end pb-24 pt-24 md:pb-32 md:pt-28">
+      {/* 2026-10-27 refinement round 2 (owner: the composition sat too low
+          and read weaker than the production homepage): the copy block hangs
+          at a natural visual center — slightly below geometric center, over
+          the near dunes — while the layered aurora curtain owns the
+          upper-right and the dune field carries the lower third. No new
+          components; art direction only. */}
+      <div className="relative flex flex-1 flex-col justify-center pb-24 pt-24 md:pb-28 md:pt-24">
         <Container>
           <div className="max-w-3xl">
-            <h1 className="font-display-title text-5xl leading-[1.04] tracking-tight text-foreground text-balance md:text-7xl">
+            <h1 className="font-display-title text-5xl leading-[1.04] tracking-tight text-foreground text-balance md:text-7xl xl:text-[5.25rem]">
               {t("h1Pre")} {t("h1Into")}{" "}
               <em className="italic text-brand">{t("h1Accent")}</em>
             </h1>

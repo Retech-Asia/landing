@@ -7,7 +7,6 @@ import dynamic from "next/dynamic";
 // is still in the tree.
 import { HeroSignal } from "@/components/sections/home/HeroSignal";
 import { ProductConcepts } from "@/components/sections/home/ProductConcepts";
-import { ProofStrip } from "@/components/sections/home/ProofStrip";
 import { WebPageJsonLd } from "@/components/seo/JsonLd";
 import { SectionFallback, CompactSectionFallback } from "@/components/ui/Skeleton";
 import { setRequestLocale, getTranslations } from "next-intl/server";
@@ -92,9 +91,9 @@ export default async function HomePage({
           carries the explorer deep-link (#capabilities-*) + aria contract */}
       <ServicesGallery locale={locale as "en" | "vi"} />
 
-      {/* 3. ProofStrip - one-line band pointing at the concepts section
-          (#concepts). Small enough to load statically. */}
-      <ProofStrip />
+      {/* 3. ProofStrip RETIRED 2026-10-27 (refinement round 2, owner: the
+          "Interactive product concepts..." line is a redundant divider) —
+          the concepts heading carries the transition. */}
 
       {/* 4. ProductConcepts - owner decision 2026-10-26: featured product
           concepts replace the five delivered case studies (OurWork kept in

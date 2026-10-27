@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
-import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { GradientBackground } from "@/components/ui/GradientBackground";
 import { caseStudies, flattenCaseStudy } from "@/lib/case-studies-data";
-import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 import { SITE_URL } from "@/lib/constants";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/page-metadata";
@@ -25,10 +22,12 @@ function getChrome(locale: string) {
         breadcrumbCurrent: "Case Studies",
         heroTitle: "Case Studies",
         heroLead:
-          "Real-world products solving real-world problems. Explore how Retech Solutions helps businesses transform their ideas into powerful digital solutions.",
-        readCaseStudy: "Read Case Study",
-        coversNote:
-          "The covers below are contextual photography, not product captures; each case-study page captions its own product imagery.",
+          "An archive of delivered projects. Our public portfolio is presented as product concepts; detailed case notes are shared on request.",
+        readCaseStudy: "Read case study",
+        archiveNote:
+          "Project summaries are kept brief here; full references are provided during conversations.",
+        conceptsLine: "For a picture of what we build, explore the public product concepts:",
+        conceptsLink: "View product concepts",
         ctaTitle: "Ready to Build Something Great?",
         ctaBody:
           "Share your project requirements to receive an initial cost estimate.",
@@ -40,10 +39,10 @@ function getChrome(locale: string) {
         breadcrumbCurrent: "Dự án",
         heroTitle: "Dự án",
         heroLead:
-          "Sản phẩm thực tế giải quyết vấn đề thực tế. Khám phá cách Retech Solutions giúp doanh nghiệp biến ý tưởng thành giải pháp số hiệu quả.",
-        readCaseStudy: "Đọc Dự án",
-        coversNote:
-          "Ảnh bìa dưới đây là hình ảnh bối cảnh, không phải ảnh sản phẩm; trang từng dự án luôn chú thích rõ ảnh sản phẩm.",
+          "Kho lưu trữ các dự án đã triển khai. Portfolio công khai của chúng tôi được trình bày dưới dạng product concepts; hồ sơ chi tiết được cung cấp theo yêu cầu.",
+        readCaseStudy: "Đọc dự án",
+        archiveNote:
+          "Tóm tắt dự án ở đây được giữ ngắn gọn; thông tin tham chiếu đầy đủ được cung cấp trong buổi trao đổi.",
         ctaTitle: "Sẵn sàng Xây dựng Sản phẩm Mới?",
         ctaBody:
           "Chia sẻ thông tin dự án để nhận ước tính chi phí ban đầu.",
@@ -51,36 +50,6 @@ function getChrome(locale: string) {
         ctaSecondary: "Khám phá Dịch vụ",
       };
 }
-
-/**
- * Contextual covers per study (visual-experience round, 2026-10-23).
- * Same identity map as the homepage OurWork section — the cover is the
- * project's identity across surfaces (intentional reuse, see
- * src/lib/photography.ts). Product captures stay on the detail pages,
- * captioned as illustrative.
- */
-const COVERS: Record<string, { src: string; alt: string }> = {
-  "mining-analytics-platform": {
-    src: "/images/photo/photo-work-mining.webp",
-    alt: "Server racks with cabling in a dark operations room",
-  },
-  "asset-management-platform": {
-    src: "/images/photo/photo-work-asset.webp",
-    alt: "Residential building facade with lit windows at dusk",
-  },
-  "investment-intelligence-platform": {
-    src: "/images/photo/photo-work-invest.webp",
-    alt: "Market chart with trend overlay on a trading screen",
-  },
-  "fintech-card-marketing": {
-    src: "/images/photo/photo-work-fintech.webp",
-    alt: "Payment card used at a laptop during an online checkout",
-  },
-  "ai-analysis-saas": {
-    src: "/images/photo/photo-work-ai-analysis.webp",
-    alt: "Analyst reviewing charts and graphs on a laptop",
-  },
-};
 
 export async function generateMetadata({
   params,
@@ -107,7 +76,7 @@ export default async function CaseStudiesPage({
       {/* Structured Data */}
       <WebPageJsonLd
         title="Case Studies"
-        description="Real results from real projects. Explore case studies in healthcare, finance & e-commerce. Custom software on time & budget."
+        description="An archive of software projects delivered by Retech Solutions."
         url={`${SITE_URL}/${locale}/case-studies`}
         type="CollectionPage"
       />
@@ -125,140 +94,62 @@ export default async function CaseStudiesPage({
         <div className="absolute inset-0 dot-pattern pointer-events-none opacity-20" aria-hidden="true" />
         <Container className="relative z-10">
           <BreadcrumbNav items={[{ label: chrome.breadcrumbHome, href: "/" }, { label: chrome.breadcrumbCurrent }]} />
-          <AnimatedSection>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground text-balance">
-              {chrome.heroTitle}
-            </h1>
-            <p className="mt-4 text-lg md:text-xl text-foreground-secondary max-w-3xl leading-relaxed">
-              {chrome.heroLead}
-            </p>
-          </AnimatedSection>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground text-balance">
+            {chrome.heroTitle}
+          </h1>
+          <p className="mt-4 text-lg md:text-xl text-foreground-secondary max-w-3xl leading-relaxed">
+            {chrome.heroLead}
+          </p>
         </Container>
       </section>
 
-      {/* Case Study Cards — editorial rhythm: lead study full-width
-          cinematic, the rest as varied asymmetric rows. Covers are
-          contextual photography; the note below the hero keeps the
-          product-imagery governance visible. */}
-      <section className="py-20 md:py-28">
+      {/* Archive list (2026-10-27, owner portfolio direction): the five
+          legacy projects are no longer prominently marketed — this quiet
+          typographic index preserves the internal links to their detail
+          URLs (SEO-safe interim state) while the concept-led portfolio
+          lives on /showcases and the homepage. Nav-terminology and URL
+          migration await an owner-approved proposal. */}
+      <section className="pb-20 md:pb-28" aria-label={chrome.breadcrumbCurrent}>
         <Container>
-          <p className="mb-12 max-w-3xl text-xs leading-relaxed text-foreground-muted">
-            {chrome.coversNote}
+          <p className="max-w-3xl text-xs leading-relaxed text-foreground-muted border-t border-rule pt-4">
+            {chrome.archiveNote}
           </p>
-          <div className="space-y-20 md:space-y-28">
-            {studies.map((study, index) => {
-              const cover = COVERS[study.id];
-              const isLead = index === 0;
-              const flip = index % 2 === 1;
-
-              if (isLead) {
-                return (
-                  <AnimatedSection key={study.id}>
-                    <Link
-                      href={`/case-studies/${study.slug}`}
-                      className="group block focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-brand"
-                      aria-label={`${study.title} — ${study.industry}`}
-                    >
-                      <div className="relative overflow-hidden">
-                        <Image
-                          src={cover.src}
-                          alt={cover.alt}
-                          width={2000}
-                          height={1125}
-                          sizes="100vw"
-                          placeholder="blur"
-                          blurDataURL={BLUR_DATA_URL}
-                          className="h-[240px] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100 md:h-[520px]"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
-                        <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
-                          <p className="text-xs font-medium uppercase tracking-[0.14em] text-white/80">
-                            {study.industry}
-                          </p>
-                          <h2 className="font-display-title mt-2 max-w-3xl text-2xl leading-tight text-white md:text-4xl">
-                            {study.title}
-                          </h2>
-                          <p className="mt-2 max-w-2xl text-sm text-white/85 md:text-base">
-                            {study.tagline}
-                          </p>
-                        </div>
-                      </div>
-                      <p className="mt-4 max-w-3xl text-sm leading-relaxed text-foreground-secondary">
-                        {study.summary}
-                      </p>
-                      <span className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-brand group-hover:gap-3 transition-all">
-                        {chrome.readCaseStudy} <ArrowRight size={16} aria-hidden="true" />
-                      </span>
-                    </Link>
-                  </AnimatedSection>
-                );
-              }
-
-              return (
-                <AnimatedSection
-                  key={study.id}
-                  variant={flip ? "slideLeft" : "slideRight"}
+          <ul className="mt-10 border-t border-rule">
+            {studies.map((study) => (
+              <li key={study.id} className="border-b border-rule-soft">
+                <Link
+                  href={`/case-studies/${study.slug}`}
+                  className="group grid grid-cols-1 gap-2 py-7 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand md:grid-cols-[140px_1fr_auto] md:items-baseline md:gap-6"
+                  aria-label={`${study.title} — ${study.industry}`}
                 >
-                  <Link
-                    href={`/case-studies/${study.slug}`}
-                    className="group grid grid-cols-1 items-center gap-8 focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-brand lg:grid-cols-12 lg:gap-12"
-                    aria-label={`${study.title} — ${study.industry}`}
-                  >
-                    <div
-                      className={`relative overflow-hidden lg:col-span-7 ${
-                        flip ? "lg:order-2" : ""
-                      }`}
-                    >
-                      <Image
-                        src={cover.src}
-                        alt={cover.alt}
-                        width={2000}
-                        height={1125}
-                        sizes="(max-width: 768px) 100vw, 58vw"
-                        placeholder="blur"
-                        blurDataURL={BLUR_DATA_URL}
-                        className="h-[220px] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100 md:h-[360px]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
-                      <span className="absolute bottom-4 left-5 text-xs font-medium uppercase tracking-[0.14em] text-white/90">
-                        {study.industry}
-                      </span>
-                    </div>
-
-                    <div className={flip ? "lg:order-1 lg:col-span-5" : "lg:col-span-5"}>
-                      <h2 className="font-display-title text-2xl leading-tight text-foreground transition-colors group-hover:text-brand md:text-3xl">
-                        {study.title}
-                      </h2>
-                      <p className="mt-1 text-sm font-medium text-foreground-muted">
-                        {study.tagline}
-                      </p>
-                      <p className="mt-4 leading-relaxed text-foreground-secondary">
-                        {study.summary}
-                      </p>
-
-                      {/* Verified technologies (owner arc: verified tech over
-                          vanity metrics; the former stat grid carried numbers
-                          with no record behind it). */}
-                      <div className="mt-5 flex flex-wrap gap-2">
-                        {study.technologies.slice(0, 5).map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-3 py-1 rounded-full bg-background-subtle border border-card-border text-xs font-medium text-foreground-secondary"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-
-                      <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-brand group-hover:gap-3 transition-all">
-                        {chrome.readCaseStudy} <ArrowRight size={16} aria-hidden="true" />
-                      </span>
-                    </div>
-                  </Link>
-                </AnimatedSection>
-              );
-            })}
-          </div>
+                  <p className="text-xs font-medium uppercase tracking-[0.14em] text-foreground-muted">
+                    {study.industry}
+                  </p>
+                  <div>
+                    <h2 className="font-display-title text-xl leading-snug text-foreground transition-colors group-hover:text-brand md:text-2xl">
+                      {study.title}
+                    </h2>
+                    <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-foreground-secondary">
+                      {study.summary}
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-medium text-brand group-hover:gap-2.5 transition-all">
+                    {chrome.readCaseStudy}
+                    <ArrowRight size={14} aria-hidden="true" />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-10 max-w-2xl text-sm leading-relaxed text-foreground-secondary">
+            {chrome.conceptsLine}{" "}
+            <Link
+              href="/showcases"
+              className="font-medium text-brand underline-offset-4 hover:underline"
+            >
+              {chrome.conceptsLink}
+            </Link>
+          </p>
         </Container>
       </section>
 
@@ -266,24 +157,22 @@ export default async function CaseStudiesPage({
       <section className="py-20 md:py-28 relative overflow-hidden">
         <GradientBackground variant="cta" />
         <Container className="relative z-10">
-          <AnimatedSection>
-            <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                {chrome.ctaTitle}
-              </h2>
-              <p className="text-lg text-foreground-secondary mb-8">
-                {chrome.ctaBody}
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Button href="/contact" size="lg">
-                  {chrome.ctaPrimary}
-                </Button>
-                <Button href="/services" variant="secondary" size="lg">
-                  {chrome.ctaSecondary}
-                </Button>
-              </div>
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              {chrome.ctaTitle}
+            </h2>
+            <p className="text-lg text-foreground-secondary mb-8">
+              {chrome.ctaBody}
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button href="/contact" size="lg">
+                {chrome.ctaPrimary}
+              </Button>
+              <Button href="/services" variant="secondary" size="lg">
+                {chrome.ctaSecondary}
+              </Button>
             </div>
-          </AnimatedSection>
+          </div>
         </Container>
       </section>
     </>

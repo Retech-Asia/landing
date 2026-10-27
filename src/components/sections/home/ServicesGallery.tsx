@@ -12,11 +12,12 @@ import { localizeServiceHref } from "@/lib/services-data";
  * from the capability explorer: hero quick-nav hashes `#capabilities-<id>`
  * still resolve (ids live on each panel; scroll-mt clears the sticky header).
  *
- * Specialist tagging per owner ruling: CMS/ERP tagged inside the business
- * systems panel; UI/UX tagged as a cross-platform Web capability; Dedicated
- * Teams is not a panel (it lives in Engagement). AR-3 photography replaces
- * the AI and Consulting panel photos when approved; existing registry
- * captures stand in per the asset-ownership law.
+ * 2026-10-27 (owner, refinement round 2): the faint mono eyebrow tags above
+ * panel titles ("Specialist solutions: CMS + ERP" etc.) are removed — titles
+ * and descriptions carry the hierarchy. Specialist capabilities (CMS/ERP,
+ * UI/UX) remain discoverable via the service detail pages the panels link
+ * to. AR-3 photography replaces weak panel photos when approved; existing
+ * registry captures stand in per the asset-ownership law.
  */
 
 type Panel = {
@@ -27,7 +28,6 @@ type Panel = {
   titlePath: string;
   whatPath: string;
   span: string;
-  tagKey?: string;
 };
 
 const PANELS: Panel[] = [
@@ -38,7 +38,6 @@ const PANELS: Panel[] = [
     titlePath: "featured.title",
     whatPath: "featured.what",
     span: "md:col-span-4",
-    tagKey: "systemsTag",
   },
   {
     id: "web-development",
@@ -47,7 +46,6 @@ const PANELS: Panel[] = [
     titlePath: "rows.0.title",
     whatPath: "rows.0.what",
     span: "md:col-span-2",
-    tagKey: "webTag",
   },
   {
     id: "mobile-app-development",
@@ -95,7 +93,6 @@ function pick(node: unknown, path: string): string {
 export function ServicesGallery({ locale }: { locale: "en" | "vi" }) {
   const t = useTranslations("home.capabilities");
   const tg = useTranslations("home.gallery");
-
   return (
     <section className="py-20 md:py-28" aria-label={t("label")}>
       <Container>
@@ -134,11 +131,6 @@ export function ServicesGallery({ locale }: { locale: "en" | "vi" }) {
                 {/* Photo overlay law: black scrim only */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
-                  {p.tagKey ? (
-                    <p className="mb-2 font-mono text-[11px] uppercase tracking-wider text-white/60">
-                      {tg(p.tagKey)}
-                    </p>
-                  ) : null}
                   <h3 className="font-display text-2xl text-white md:text-3xl">
                     {title}
                   </h3>

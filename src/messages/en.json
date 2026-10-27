@@ -128,10 +128,6 @@
         "noCommit": "No commitment required"
       }
     },
-    "proof": {
-      "line": "Interactive product concepts and delivered case studies.",
-      "link": "Explore"
-    },
     "capabilities": {
       "label": "Capabilities",
       "h2": "Custom CRM and business systems come first, because that is where most operations break.",
@@ -199,8 +195,6 @@
       "body": "Every engagement begins with a map of your workflows, data, and constraints. The systems we design follow from that picture."
     },
     "gallery": {
-      "systemsTag": "Specialist solutions: CMS + ERP",
-      "webTag": "UI/UX across platforms",
       "explore": "Explore"
     },
     "concepts": {
@@ -226,34 +220,24 @@
       "seesLabel": "You see:",
       "steps": [
         {
-          "title": "Discovery",
+          "title": "Discover",
           "what": "We map your workflow, roles, systems, and constraints with the people who use them.",
           "sees": "a written scope and architecture proposal."
         },
         {
-          "title": "UX and architecture",
+          "title": "Design",
           "what": "Screens, data models, and integration plans are agreed before implementation starts.",
           "sees": "clickable flows and a technical design."
         },
         {
-          "title": "Incremental delivery",
-          "what": "The system ships in reviewed increments you can open and test, not a single reveal.",
-          "sees": "a working build each cycle."
+          "title": "Build",
+          "what": "The system ships in reviewed increments you can open and test, and each phase closes against agreed acceptance criteria with your team testing hands-on.",
+          "sees": "a working build each cycle and a signed acceptance per phase."
         },
         {
-          "title": "Acceptance",
-          "what": "Each phase closes against agreed acceptance criteria with your team testing hands-on.",
-          "sees": "a signed acceptance per phase."
-        },
-        {
-          "title": "Launch",
-          "what": "Staged rollout with data migration, monitoring, and your team trained on the real system.",
-          "sees": "production live, with runbooks."
-        },
-        {
-          "title": "Handover",
-          "what": "Documentation, access, and source code are yours. Ongoing engineering is optional, not a lock-in.",
-          "sees": "a complete handover package."
+          "title": "Release",
+          "what": "Staged rollout with data migration, monitoring, and your team trained on the real system. Documentation, access, and source code are yours; ongoing engineering is optional, not a lock-in.",
+          "sees": "production live, with runbooks and a complete handover package."
         }
       ]
     },

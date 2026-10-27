@@ -296,10 +296,13 @@ export function CookieConsent() {
               }}
             />
 
-            <div className="px-5 py-4 sm:px-6 sm:py-5">
+            {/* Round-2 mobile compaction (10/27): single row of three
+                compact buttons + xs body copy so the banner never covers
+                the hero CTAs on small viewports. Desktop layout unchanged. */}
+            <div className="px-4 py-3 sm:px-6 sm:py-5">
               {/* ── Main row ── */}
-              <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
-                <p className="text-sm leading-relaxed text-foreground-secondary flex-1">
+              <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-6">
+                <p className="text-xs leading-relaxed text-foreground-secondary flex-1 sm:text-sm">
                   {t.bodyPre}{" "}
                   <Link
                     href="/privacy-policy"
@@ -310,26 +313,26 @@ export function CookieConsent() {
                   {t.bodyPost}
                 </p>
 
-                <div className="flex shrink-0 flex-col gap-2 w-full sm:w-auto sm:flex-row sm:gap-3">
-                  {/* Primary CTA — full width on mobile, auto on desktop */}
+                <div className="flex shrink-0 w-full gap-2 sm:w-auto sm:gap-3">
+                  {/* Primary CTA — 1/3 width on mobile, auto on desktop */}
                   <button
                     ref={firstFocusableRef}
                     onClick={handleAcceptAll}
-                    className="w-full sm:w-auto rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 cursor-pointer bg-brand-dark"
+                    className="flex-1 rounded-xl px-3 py-2 text-xs font-semibold text-white transition-all duration-200 hover:bg-brand-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 cursor-pointer bg-brand-dark sm:flex-none sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
                   >
                     {t.acceptAll}
                   </button>
-                  {/* Secondary buttons — side by side on mobile, inline on desktop */}
-                  <div className="flex gap-2 sm:gap-3">
+                  {/* Secondary buttons — one compact row on mobile, inline on desktop */}
+                  <div className="flex flex-1 gap-2 sm:flex-none sm:gap-3">
                     <button
                       onClick={() => setShowPreferences((p) => !p)}
-                      className="flex-1 rounded-xl border border-foreground/15 bg-transparent px-3 py-2.5 text-sm font-medium text-foreground-secondary transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 sm:flex-initial cursor-pointer"
+                      className="flex-1 rounded-xl border border-foreground/15 bg-transparent px-2.5 py-2 text-xs font-medium text-foreground-secondary transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 sm:flex-initial sm:px-4 sm:py-2.5 sm:text-sm cursor-pointer"
                     >
                       {showPreferences ? t.hide : t.preferences}
                     </button>
                     <button
                       onClick={handleDeclineAll}
-                      className="flex-1 rounded-xl border border-foreground/15 bg-transparent px-3 py-2.5 text-sm font-medium text-foreground-secondary transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 sm:flex-initial cursor-pointer"
+                      className="flex-1 rounded-xl border border-foreground/15 bg-transparent px-2.5 py-2 text-xs font-medium text-foreground-secondary transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.04] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 sm:flex-initial sm:px-4 sm:py-2.5 sm:text-sm cursor-pointer"
                     >
                       {t.decline}
                     </button>

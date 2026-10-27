@@ -11,10 +11,12 @@ import { SHOWCASES } from "@/lib/showcases/registry";
  * product concepts. All copy comes verbatim from the approved Wave 1
  * registry (src/lib/showcases/registry.ts) — no invented marketing.
  *
- * Featured set (owner approval 2026-10-27): Property Studio (desktop-first
- * property CRM) and Care Companion (mobile-first healthcare) are the two
- * flagships in slots 1-2, followed by the live concepts Meridian Operations
- * (enterprise operations) and Relay Field (logistics/field service).
+ * Featured set (owner approval 2026-10-27; Citewell added in the round-2
+ * portfolio directive): Property Studio (desktop-first property CRM) and
+ * Care Companion (mobile-first healthcare) are the two flagships in slots
+ * 1-2, followed by Meridian Operations (enterprise operations), Relay Field
+ * (logistics/field service) and Citewell (practical AI, source-grounded
+ * answers + human review).
  *
  * The delivered-work record stays available: the closing line links to
  * /case-studies (all case-study URLs, content and SEO untouched).
@@ -27,6 +29,7 @@ const FEATURED = [
   "care-companion",
   "meridian-operations",
   "relay-field",
+  "citewell",
 ] as const;
 
 type Locale = "en" | "vi";

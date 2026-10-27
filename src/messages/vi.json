@@ -79,8 +79,8 @@
       "backToTop": "Về đầu trang",
       "rightsReserved": "Mọi quyền được bảo lưu.",
       "chatWhatsApp": "Trò chuyện trên WhatsApp",
-      "positioning": "Phần mềm theo yêu cầu, được kiến tạo tinh tế.",
-      "positioningSub": "Chúng tôi thiết kế và xây dựng phần mềm mang lại sự rõ ràng cho những quy trình nghiệp vụ phức tạp.",
+      "positioning": "Phần mềm theo yêu cầu, được thiết kế và phát triển chỉn chu.",
+      "positioningSub": "Chúng tôi thiết kế và phát triển phần mềm giúp đơn giản hóa những quy trình nghiệp vụ phức tạp.",
       "company": "Công ty"
     },
     "languageSwitcher": {
@@ -127,10 +127,6 @@
         "estimate24h": "Báo giá chi tiết bằng văn bản",
         "noCommit": "Không ràng buộc"
       }
-    },
-    "proof": {
-      "line": "Mô hình sản phẩm tương tác và các case study đã bàn giao.",
-      "link": "Khám phá"
     },
     "capabilities": {
       "label": "Năng lực",
@@ -199,8 +195,6 @@
       "body": "Mọi hợp tác đều bắt đầu bằng việc lập bản đồ quy trình, dữ liệu và ràng buộc của bạn. Hệ thống chúng tôi thiết kế dựa trên bức tranh đó."
     },
     "gallery": {
-      "systemsTag": "Giải pháp chuyên biệt: CMS + ERP",
-      "webTag": "UI/UX đa nền tảng",
       "explore": "Khám phá"
     },
     "concepts": {
@@ -231,29 +225,19 @@
           "sees": "đề xuất phạm vi và kiến trúc bằng văn bản."
         },
         {
-          "title": "UX và kiến trúc",
+          "title": "Thiết kế",
           "what": "Màn hình, mô hình dữ liệu và kế hoạch tích hợp được chốt trước khi bắt đầu triển khai.",
           "sees": "luồng thao tác thử được và thiết kế kỹ thuật."
         },
         {
-          "title": "Bàn giao từng phần",
-          "what": "Hệ thống được bàn giao theo từng phần đã review, bạn có thể mở ra và kiểm thử, không dồn vào một lần bàn giao duy nhất.",
-          "sees": "bản build chạy được sau mỗi chu kỳ."
+          "title": "Xây dựng",
+          "what": "Hệ thống được bàn giao theo từng phần đã review, bạn có thể mở ra và kiểm thử, và từng giai đoạn khép lại theo tiêu chí nghiệm thu đã thống nhất, với đội ngũ của bạn trực tiếp kiểm thử.",
+          "sees": "bản build chạy được sau mỗi chu kỳ và biên bản nghiệm thu cho từng giai đoạn."
         },
         {
-          "title": "Nghiệm thu",
-          "what": "Từng giai đoạn khép lại theo tiêu chí nghiệm thu đã thống nhất, với đội ngũ của bạn trực tiếp kiểm thử.",
-          "sees": "biên bản nghiệm thu cho từng giai đoạn."
-        },
-        {
-          "title": "Ra mắt",
-          "what": "Triển khai theo từng bước với di chuyển dữ liệu, giám sát và đào tạo đội ngũ của bạn trên hệ thống thực tế.",
-          "sees": "hệ thống chạy production kèm runbooks."
-        },
-        {
-          "title": "Bàn giao",
-          "what": "Tài liệu, quyền truy cập và mã nguồn thuộc về bạn. Dịch vụ engineering dài hạn là tuỳ chọn, không ràng buộc.",
-          "sees": "trọn bộ hồ sơ bàn giao."
+          "title": "Ban hành",
+          "what": "Triển khai theo từng bước với di chuyển dữ liệu, giám sát và đào tạo đội ngũ của bạn trên hệ thống thực tế. Tài liệu, quyền truy cập và mã nguồn thuộc về bạn; dịch vụ engineering dài hạn là tuỳ chọn, không ràng buộc.",
+          "sees": "hệ thống chạy production kèm runbooks và trọn bộ hồ sơ bàn giao."
         }
       ]
     },

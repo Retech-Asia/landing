@@ -37,6 +37,10 @@
   --brand-light: #2EA04E;
   --brand-dark: #186B2B;
 
+  /* Warm charcoal — footer editorial surface (2026-10-27 owner direction:
+     the footer should not be a saturated green block). Theme-independent. */
+  --charcoal: #201D19;
+
   /* Accents */
   --accent-cyan: #06b6d4;
   --accent-violet: #8b5cf6;
@@ -245,6 +249,7 @@
   --color-brand: var(--brand);
   --color-brand-light: var(--brand-light);
   --color-brand-dark: var(--brand-dark);
+  --color-charcoal: var(--charcoal);
   --color-accent-cyan: var(--accent-cyan);
   --color-accent-violet: var(--accent-violet);
   --color-card-bg: var(--card-bg);
@@ -856,13 +861,15 @@ p, li {
 /* .hero-text-scrim — darkens the text region of the hero so the headline
      stays readable over the Lit Dunes terrain.
      Desktop: left-to-right gradient (text column dark, dunes bright).
+     Round-2 (10/27): solid stop widened 30→42% and fade 60→75% so the
+     standfirst keeps contrast where it crosses the bright mid-frame ridge.
      Mobile:  center-out radial scrim focused behind the headline + CTAs. */
 .hero-text-scrim {
   background: linear-gradient(
     to right,
     var(--background) 0%,
-    var(--background) 30%,
-    transparent 60%
+    var(--background) 42%,
+    transparent 75%
   );
 }
 @media (max-width: 767px) {
