@@ -5,42 +5,53 @@ import type { MotionValue } from "framer-motion";
 
 /**
  * Concept II signal volume, rendered as ONE 2D canvas (deliberately not R3F:
- * the visual is line-work converging to a vanishing point, and a single 2D
- * canvas hits the approved look at a fraction of the GPU cost per the
- * performance guard in the keyframes spec).
+ * the visual is flowing line-work, and a single 2D canvas hits the approved
+ * look at a fraction of the GPU cost per the performance guard in the
+ * keyframes spec).
  *
- * Beat mapping (progress p arrives via MotionValue, read in RAF, no re-renders).
- * Aurora-integrated retiming (2026-10-26): the dunes open the scene alone
- * ("atmosphere first"), then the signal energy rises out of them, organizes
- * into architecture, and hands over to the product surfaces:
- *  - 0.00-0.06: hidden — pure LitDunes atmosphere + headline.
- *  - 0.06-0.16: emerge — idea-nodes and pulses fade in over the terrain.
- *  - 0.16-0.50: converge — nodes organize along connection lines toward the
- *    vanishing point (52% x, 42% y - AR-1's whiteboard wall center); green
- *    pulses travel the lines and accelerate; clutter fades.
- *  - 0.50-0.62: release — the line-work fades as the product surfaces take
- *    over (the parent scales the whole environment toward the same point).
+ * FLOW-LANE REWRITE (2026-10-27): the previous geometry radiated lines from
+ * the vanishing point outward — on the light dunes that read as a flat
+ * radial-line placeholder (owner declined the transition partly on this).
+ * The line-work is now HORIZONTAL WORKFLOW LANES: streams that follow the
+ * dunes' own flow language, gain structure, and bend gently through the
+ * whiteboard zone (the AR-1 architecture wall) as they organize. No spokes,
+ * no starburst, no schematic grid screen.
  *
- * Budget: ~90 nodes, ~26 lines, 7 pulses. RAF pauses when `active` is false
- * (off-screen or unmounted after release) or document hidden.
+ * Beat mapping (progress p arrives via MotionValue, read in RAF, no
+ * re-renders; windows match HeroSignal's 2026-10-27 timeline):
+ *  - 0.00-0.10: hidden — pure LitDunes atmosphere + headline.
+ *  - 0.10-0.20: emerge — flow lanes fade in over the terrain.
+ *  - 0.14-0.44: organize — lane wobble damps, lanes bend through the hub
+ *    (AR-1's whiteboard zone ~52% x / 40% y), nodes settle onto the lanes,
+ *    pulses accelerate: "ideas become connected workflows".
+ *  - 0.44-0.58: release — line-work fades as the masked photo reveal takes
+ *    over (the parent expands the AR-1 clip from the same hub).
  *
- * Theme (owner correction 2026-10-26: the hero follows the site theme, never
- * pins dark): the palette branches per-frame off the data-theme attribute —
- * light strokes over the dark scene, deep-green schematic strokes over the
- * light dunes (brand-family, reads like pencil line-work on paper).
+ * Budget: 9 lanes, 54 nodes, 6 pulses. RAF pauses when `active` is false or
+ * the document is hidden.
+ *
+ * Theme: palette branches per-frame off the data-theme attribute — mint
+ * strokes over the dark scene, deep-green schematic strokes over the light
+ * dunes (brand-family, reads like pencil line-work on paper).
  */
 
-const NODES = 90;
-const LINES = 26;
-const PULSES = 7;
-/** AR-1 vanishing point in canvas-relative coordinates. */
-const VP = { x: 0.52, y: 0.42 };
+const LANES = 9;
+const NODES = 54;
+const PULSES = 6;
+/** AR-1 whiteboard zone in canvas-relative coordinates (mask origin). */
+const HUB = { x: 0.52, y: 0.4 };
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 /** Linear 0..1 progress of p across [a, b]. */
 const seg = (p: number, a: number, b: number) => clamp01((p - a) / (b - a));
 
-type NodeT = { x: number; y: number; vx: number; vy: number; r: number; line: number; t: number };
+type LaneT = {
+  baseY: number;
+  amp: number;
+  freq: number;
+  phase: number;
+  bend: number;
+};
 
 export function SignalCanvas({
   progress,
@@ -87,40 +98,52 @@ export function SignalCanvas({
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
 
-    // Seeded PRNG: deterministic layout across renders (no hydration churn -
-    // canvas draws only, but determinism keeps the visual stable).
-    let seed = 7;
+    // Seeded PRNG: deterministic layout (canvas draws only, determinism
+    // keeps the visual stable across restarts).
+    let seed = 11;
     const rand = () => {
       seed = (seed * 16807) % 2147483647;
       return (seed - 1) / 2147483646;
     };
 
-    // Connection lines: radiate from the vanishing point outward.
-    const lines = Array.from({ length: LINES }, (_, i) => {
-      const a = (i / LINES) * Math.PI * 2 + rand() * 0.22;
-      const len = 0.32 + rand() * 0.62;
-      return { a, len, width: 0.5 + rand() * 0.7 };
-    });
-
-    // Idea-nodes: each belongs to a line and drifts around its start.
-    const nodes: NodeT[] = Array.from({ length: NODES }, () => {
-      const line = Math.floor(rand() * LINES);
-      const t = 0.05 + rand() * 0.5; // position along the line (0 = far end)
+    // Flow lanes: stacked like the dune bands (upper third → lower fifth).
+    // `bend` scales how strongly a lane eases through the hub band: lanes
+    // near the hub's height bend more, so the family reads as streams
+    // converging on the architecture wall — not spokes around a point.
+    const lanes: LaneT[] = Array.from({ length: LANES }, (_, i) => {
+      const baseY = 0.26 + 0.58 * (i / (LANES - 1));
       return {
-        x: rand(),
-        y: rand(),
-        vx: (rand() - 0.5) * 0.00035,
-        vy: (rand() - 0.5) * 0.00028,
-        r: 0.8 + rand() * 1.6,
-        line,
-        t,
+        baseY,
+        amp: 0.03 + rand() * 0.05,
+        freq: 1.1 + rand() * 1.5,
+        phase: rand() * Math.PI * 2,
+        bend: 1 / (1 + Math.abs(baseY - HUB.y) * 2.4),
       };
     });
 
+    // Lane point at x with the organization state applied: wobble damps and
+    // a Gaussian bend carries the lane through the hub.
+    const lanePoint = (l: LaneT, x: number, organize: number): [number, number] => {
+      const wobble = l.amp * (1 - 0.75 * organize) * Math.sin(x * l.freq * Math.PI * 2 + l.phase);
+      const gauss = Math.exp(-((x - HUB.x) ** 2) / (2 * 0.16 ** 2));
+      const pull = (HUB.y - l.baseY) * 0.5 * l.bend * organize * gauss;
+      return [x, l.baseY + wobble + pull];
+    };
+
+    // Process-step nodes: each belongs to a lane; a small residual jitter
+    // collapses onto the lane as organization rises.
+    const nodes = Array.from({ length: NODES }, () => ({
+      lane: Math.floor(rand() * LANES),
+      s: 0.06 + rand() * 0.88,
+      jx: (rand() - 0.5) * 0.05,
+      jy: (rand() - 0.5) * 0.05,
+      r: 0.8 + rand() * 1.6,
+    }));
+
     const pulses = Array.from({ length: PULSES }, () => ({
-      line: Math.floor(rand() * LINES),
-      t: rand(),
-      speed: 0.0016 + rand() * 0.0022,
+      lane: Math.floor(rand() * LANES),
+      s: rand(),
+      speed: 0.0012 + rand() * 0.0018,
     }));
 
     // Theme tracking: same mechanism as LitDunes (data-theme on <html>).
@@ -133,13 +156,7 @@ export function SignalCanvas({
       attributeFilter: ["data-theme"],
     });
 
-    const pointOn = (li: number, t: number): [number, number] => {
-      const l = lines[li];
-      // Start far out, converge to VP as t -> 1.
-      const sx = VP.x + Math.cos(l.a) * l.len;
-      const sy = VP.y + Math.sin(l.a) * l.len * 0.72;
-      return [sx + (VP.x - sx) * t, sy + (VP.y - sy) * t];
-    };
+    const STEPS = 48;
 
     let last = performance.now();
     const draw = (now: number) => {
@@ -152,94 +169,66 @@ export function SignalCanvas({
       last = now;
       const p = progressRef.current;
 
-      // Beat interpolation (Aurora-integrated windows — see header).
-      const master = seg(p, 0.06, 0.16) * (1 - seg(p, 0.5, 0.62));
-      const converge = seg(p, 0.16, 0.5);
-      const clutter = 1 - seg(p, 0.24, 0.5);
-      const pulseBoost = 1 + converge * 2.2;
+      // Beat interpolation (windows — see header).
+      const master = seg(p, 0.1, 0.2) * (1 - seg(p, 0.44, 0.58));
+      const organize = seg(p, 0.14, 0.44);
 
       ctx.clearRect(0, 0, w, h);
       if (master <= 0.01) return;
 
-      // Schematic plane: faint grid, denser near VP, falls away with converge.
-      const gridA = 0.05 * (1 - converge * 0.85) * master;
-      if (gridA > 0.004) {
-        ctx.strokeStyle = dark ? `rgba(148, 190, 210, ${gridA})` : `rgba(30, 96, 74, ${gridA})`;
-        ctx.lineWidth = 0.5;
-        const step = 72;
+      // Flow lanes: soft glow underlay + core stroke (deep green over the
+      // light dunes / mint over the dark wash). Presence firms up as the
+      // lanes organize.
+      const laneAlpha = master * (0.4 + 0.45 * organize);
+      for (const l of lanes) {
         ctx.beginPath();
-        for (let gx = (VP.x * w) % step; gx < w; gx += step) {
-          ctx.moveTo(gx, 0);
-          ctx.lineTo(gx, h);
+        for (let i = 0; i <= STEPS; i++) {
+          const x = -0.04 + (i / STEPS) * 1.08;
+          const [px, py] = lanePoint(l, x, organize);
+          if (i === 0) ctx.moveTo(px * w, py * h);
+          else ctx.lineTo(px * w, py * h);
         }
-        for (let gy = (VP.y * h) % step; gy < h; gy += step) {
-          ctx.moveTo(0, gy);
-          ctx.lineTo(w, gy);
-        }
+        ctx.strokeStyle = dark
+          ? `rgba(134, 239, 190, ${laneAlpha * 0.3})`
+          : `rgba(16, 94, 66, ${laneAlpha * 0.22})`;
+        ctx.lineWidth = 2.6;
+        ctx.stroke();
+        ctx.strokeStyle = dark
+          ? `rgba(224, 255, 234, ${laneAlpha * 0.75})`
+          : `rgba(12, 74, 52, ${laneAlpha * 0.7})`;
+        ctx.lineWidth = 0.9;
         ctx.stroke();
       }
 
-      // Connection lines drawing themselves toward the VP. Two strokes:
-      // a soft glow underlay (mint over the dark wash / deep green over the
-      // light dunes) and the core line.
-      for (let i = 0; i < lines.length; i++) {
-        const drawn = Math.min(1, converge * 1.15 + lines[i].width * 0.04);
-        if (drawn <= 0.02) continue;
-        const [x1, y1] = pointOn(i, 1 - drawn);
-        const [x2, y2] = pointOn(i, 1);
-        // Restrained schematic at full converge: the match-cut lands on a
-        // quiet line skeleton, not a starburst.
-        const alpha = (0.5 + 0.2 * converge) * master;
-        if (alpha <= 0.01) continue;
-        ctx.beginPath();
-        ctx.moveTo(x1 * w, y1 * h);
-        ctx.lineTo(x2 * w, y2 * h);
-        ctx.strokeStyle = dark
-          ? `rgba(134, 239, 190, ${alpha * 0.4})`
-          : `rgba(16, 94, 66, ${alpha * 0.28})`;
-        ctx.lineWidth = lines[i].width * (1.8 + converge * 1.4);
-        ctx.stroke();
-        ctx.strokeStyle = dark
-          ? `rgba(224, 255, 234, ${alpha * 0.9})`
-          : `rgba(12, 74, 52, ${alpha * 0.85})`;
-        ctx.lineWidth = lines[i].width * (0.55 + converge * 0.45);
-        ctx.stroke();
-      }
-
-      // Idea-nodes drifting, then captured along their line.
+      // Process-step nodes settling onto their lanes.
       for (const n of nodes) {
-        n.x += n.vx * dt;
-        n.y += n.vy * dt;
-        if (n.x < 0 || n.x > 1) n.vx *= -1;
-        if (n.y < 0 || n.y > 1) n.vy *= -1;
-        const captured = clamp01((p - 0.16 - n.t * 0.08) / 0.3);
-        const [lx, ly] = pointOn(n.line, n.t + captured * (1 - n.t));
-        const cx = n.x * (1 - captured) + lx * captured;
-        const cy = n.y * (1 - captured) + ly * captured;
-        const a = ((0.5 - n.t * 0.25) * clutter + captured * 0.5) * master;
-        if (a <= 0.01) continue;
+        const l = lanes[n.lane];
+        const [lx, ly] = lanePoint(l, n.s, organize);
+        const cx = (lx + n.jx * (1 - organize)) * w;
+        const cy = (ly + n.jy * (1 - organize)) * h;
+        const a = master * (0.32 + 0.4 * organize);
         ctx.fillStyle = dark
           ? n.r > 1.6
-            ? `rgba(103, 210, 228, ${a * 0.75})`
-            : `rgba(148, 190, 210, ${a * 0.5})`
+            ? `rgba(103, 210, 228, ${a * 0.8})`
+            : `rgba(148, 190, 210, ${a * 0.55})`
           : n.r > 1.6
-            ? `rgba(13, 110, 92, ${a * 0.75})`
-            : `rgba(40, 100, 85, ${a * 0.5})`;
+            ? `rgba(13, 110, 92, ${a * 0.8})`
+            : `rgba(40, 100, 85, ${a * 0.55})`;
         ctx.beginPath();
-        ctx.arc(cx * w, cy * h, n.r * (1 - captured * 0.4), 0, Math.PI * 2);
+        ctx.arc(cx, cy, n.r * (0.85 + 0.35 * organize), 0, Math.PI * 2);
         ctx.fill();
       }
 
-      // Green pulses traveling the lines (accelerate with converge).
+      // Green pulses traveling the lanes (accelerate with organization).
       for (const pulse of pulses) {
-        pulse.t += pulse.speed * pulseBoost * dt;
-        if (pulse.t > 1) {
-          pulse.t = 0;
-          pulse.line = Math.floor(rand() * LINES);
+        pulse.s += pulse.speed * (1 + organize * 2.2) * dt;
+        if (pulse.s > 1) {
+          pulse.s = 0;
+          pulse.lane = Math.floor(rand() * LANES);
         }
-        const t = converge > 0 ? pulse.t * (0.55 + 0.45 * converge) : pulse.t * 0.55;
-        const [px, py] = pointOn(pulse.line, t);
-        const a = (0.5 + 0.35 * converge) * master;
+        const l = lanes[pulse.lane];
+        const [px, py] = lanePoint(l, pulse.s, organize);
+        const a = master * (0.45 + 0.4 * organize);
         const g = ctx.createRadialGradient(px * w, py * h, 0, px * w, py * h, 9);
         g.addColorStop(0, dark ? `rgba(72, 187, 92, ${a})` : `rgba(32, 133, 53, ${a})`);
         g.addColorStop(1, dark ? "rgba(72, 187, 92, 0)" : "rgba(32, 133, 53, 0)");

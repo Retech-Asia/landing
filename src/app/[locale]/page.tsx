@@ -1,7 +1,11 @@
 import dynamic from "next/dynamic";
-// Hero: Concept II "Signal to System" (owner-approved 2026-10-26) with the
-// cinematic hero-to-discovery transition. Rollback = swap this import back
-// to `@/components/sections/home/HeroHybrid` (or `Hero`, both in the tree).
+// Hero + Discovery arrival: Concept II "Signal to System" as ONE coordinated
+// sequence (owner redesign 2026-10-27): Aurora opening -> flow-lane
+// transformation -> masked AR-1 reveal -> discovery copy arrival, all in one
+// sticky stage with a single AR-1 rendering. Reduced motion renders the
+// static hero + the static DiscoverySection inside the same component.
+// Rollback = swap this import back to `@/components/sections/home/HeroHybrid`
+// + a standalone <DiscoverySection /> (both in the tree).
 import { HeroSignal } from "@/components/sections/home/HeroSignal";
 import { ProductConcepts } from "@/components/sections/home/ProductConcepts";
 import { ProofStrip } from "@/components/sections/home/ProofStrip";
@@ -12,12 +16,9 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 // Below-fold sections: lazy-loaded to reduce initial JS bundle.
 // All are static server components in the Direction B design (RT-08).
 // Hallmark B1 (2026-10-26): ServicePreview is replaced by the approved
-// discovery + services-gallery composition. Rollback = restore the
-// ServicePreview import + section below (file stays in the tree).
-const DiscoverySection = dynamic(
-  () => import("@/components/sections/home/DiscoverySection").then((m) => m.DiscoverySection),
-  { loading: () => <SectionFallback /> },
-);
+// discovery + services-gallery composition. The discovery beat itself moved
+// inside HeroSignal (2026-10-27 one-stage redesign). Rollback = restore the
+// DiscoverySection import + render (file stays in the tree).
 const ServicesGallery = dynamic(
   () => import("@/components/sections/home/ServicesGallery").then((m) => m.ServicesGallery),
   { loading: () => <SectionFallback /> },
@@ -78,28 +79,24 @@ export default async function HomePage({
         url="https://www.retech.asia"
       />
 
-      {/* 1. Hero - "Aurora Signal" (2026-10-26 correction on Concept II):
-          the approved LitDunes Aurora is the visual foundation; signal
-          line-work emerges from it, organizes into architecture, two
-          product surfaces emerge progressively, and the environment
-          match-cuts into the AR-1 discovery scene. The stage is dark in
-          both site themes (owner-sanctioned). #capabilities-* deep links
-          resolve on the gallery panels below. */}
+      {/* 1. Hero + Discovery arrival - "Aurora Signal" as one coordinated
+          sequence (owner redesign 2026-10-27): the approved LitDunes Aurora
+          opens, flow-lane line-work organizes into workflow streams, AR-1
+          arrives through a single shared-layer mask reveal, and the settled
+          frame is the "We start with how your business works" discovery —
+          the photo renders exactly once. #capabilities-* deep links resolve
+          on the gallery panels below. */}
       <HeroSignal />
 
-      {/* 2. DiscoverySection - Hallmark B1 act: immersive "how your business
-          works" section (AR-1 backdrop) */}
-      <DiscoverySection />
-
-      {/* 3. ServicesGallery - six families as image-led editorial panels;
+      {/* 2. ServicesGallery - six families as image-led editorial panels;
           carries the explorer deep-link (#capabilities-*) + aria contract */}
       <ServicesGallery locale={locale as "en" | "vi"} />
 
-      {/* 4. ProofStrip - one-line band pointing at the concepts section
+      {/* 3. ProofStrip - one-line band pointing at the concepts section
           (#concepts). Small enough to load statically. */}
       <ProofStrip />
 
-      {/* 5. ProductConcepts - owner decision 2026-10-26: featured product
+      {/* 4. ProductConcepts - owner decision 2026-10-26: featured product
           concepts replace the five delivered case studies (OurWork kept in
           the tree for rollback; case-study routes/SEO untouched, reached
           via the section's delivered-work line). Featured: Meridian
@@ -108,15 +105,15 @@ export default async function HomePage({
           #capabilities deep links are unaffected (they live on the gallery). */}
       <ProductConcepts />
 
-      {/* 6. DeliverySection - delivery checklist with the artifact each
+      {/* 5. DeliverySection - delivery checklist with the artifact each
           phase produces */}
       <DeliverySection />
 
-      {/* 7. AiApproach - two lettered blocks: building with AI vs AI in
+      {/* 6. AiApproach - two lettered blocks: building with AI vs AI in
           the product */}
       <AiApproach />
 
-      {/* 8. Engagement - three engagement shapes + cost drivers */}
+      {/* 7. Engagement - three engagement shapes + cost drivers */}
       <Engagement />
 
       {/* 8. HomeCTA - closing contact band (light default per owner surface
