@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -6,6 +7,7 @@ import { setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { ShowcaseDemoShell } from "@/components/showcases/ShowcaseDemoShell";
 import { SHOWCASES, getShowcaseBySlug } from "@/lib/showcases/registry";
+import { LEAD_PREVIEW } from "@/lib/showcases/previews";
 import { routing, type Locale } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/constants";
 
@@ -98,6 +100,32 @@ export default async function ShowcaseProductPage({
           {showcase.description[loc]}
         </p>
       </div>
+
+      {/* Lead interface capture — the product's strongest view greets the
+          visitor before any further reading (2026-10-27 image-led round). */}
+      {LEAD_PREVIEW[showcase.id] && (
+        <figure className="mt-10">
+          <div className="relative aspect-[16/9] overflow-hidden border border-rule-soft bg-card-bg">
+            <Image
+              src={LEAD_PREVIEW[showcase.id]}
+              alt={
+                loc === "vi"
+                  ? `Giao diện chính của ${showcase.product[loc]}`
+                  : `${showcase.product[loc]} main interface`
+              }
+              fill
+              priority
+              sizes="(max-width: 1280px) 100vw, 1280px"
+              className="object-cover object-top"
+            />
+          </div>
+          <figcaption className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-foreground-muted">
+            {loc === "vi"
+              ? "Chụp trực tiếp từ bản minh họa tương tác bên dưới"
+              : "Captured from the interactive demonstration below"}
+          </figcaption>
+        </figure>
+      )}
 
       {/* Crawlable view index — server-rendered, no JS required. Numbered
           hairline rows, same language as the homepage concept rows. */}

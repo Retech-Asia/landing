@@ -40,8 +40,46 @@ const MILESTONES = [
 ] as const;
 
 /** Path lead-in / continuation beyond the labelled milestones. */
-const START = { x: 2.5, y: 91 };
-const EXIT = { x: 72, y: 44 };
+const START = { x: 2, y: 94 };
+const EXIT = { x: 72, y: 41 };
+
+/** Terrain-following intermediate waypoints (scene %) between the labelled
+ * milestones — traced from the reference's dune valley: the luminous route
+ * sags into each trough and crests each ridge instead of running a straight
+ * diagonal (owner winding-path correction 2026-10-27). Milestone nodes stay
+ * at their registered positions; only the route between them winds. */
+const CURVE = [
+  { x: 11.5, y: 89 }, // sag below Ideas into the first trough
+  { x: 16, y: 82.5 }, // climb toward Strategy
+  { x: 27, y: 74.5 }, // crest the mid dune
+  { x: 32.5, y: 75.5 }, // settle before Design
+  { x: 44, y: 74 }, // pronounced valley bend (reference's big sweep)
+  { x: 49, y: 68 }, // climb the mound skirt
+  { x: 57.5, y: 66 }, // wrap around the mound's left flank
+  { x: 60.5, y: 57 }, // swing up toward Deploy
+  { x: 67.5, y: 46 }, // ride the far ridge out of frame
+] as const;
+
+/** Full render order: lead-in, milestone, two terrain points, next
+ * milestone, …, single terrain point, exit. */
+const ROUTE: ReadonlyArray<{ x: number; y: number }> = [
+  START,
+  MILESTONES[0],
+  CURVE[0],
+  CURVE[1],
+  MILESTONES[1],
+  CURVE[2],
+  CURVE[3],
+  MILESTONES[2],
+  CURVE[4],
+  CURVE[5],
+  MILESTONES[3],
+  CURVE[6],
+  CURVE[7],
+  MILESTONES[4],
+  CURVE[8],
+  EXIT,
+];
 
 /** Stand-in frame: the approved reference's native pixel size. */
 const SCENE = {
@@ -56,7 +94,7 @@ function buildPathD(): string {
     x: (p.x / 100) * SCENE.w,
     y: (p.y / 100) * SCENE.h,
   });
-  const pts = [START, ...MILESTONES.map((m) => ({ x: m.x, y: m.y })), EXIT].map(toPx);
+  const pts = ROUTE.map(toPx);
   const d: string[] = [`M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`];
   for (let i = 0; i < pts.length - 1; i++) {
     const p0 = pts[Math.max(0, i - 1)];
