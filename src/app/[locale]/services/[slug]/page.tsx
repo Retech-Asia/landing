@@ -550,7 +550,7 @@ export default async function ServiceDetailPage({
                 Long service pages (this one is ~12700px tall) lose orientation
                 on mobile without it. */}
             {tocItems.length > 0 && (
-              <details className="lg:hidden group mb-8 rounded-xl border border-foreground/10 bg-card overflow-hidden">
+              <details className="lg:hidden group mb-8 rounded-xl border border-rule bg-card overflow-hidden">
                 <summary className="flex items-center justify-between cursor-pointer list-none px-4 py-3 text-sm font-medium text-foreground select-none">
                   <span className="flex items-center gap-2">
                     <span className="text-xs uppercase tracking-wider text-foreground-secondary">{t("toc.onThisPage")}</span>

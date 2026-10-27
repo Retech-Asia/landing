@@ -71,48 +71,69 @@ export default async function ShowcaseProductPage({
   if (!showcase) notFound();
 
   return (
-    <Container className="py-16">
+    <Container className="py-16 md:py-24">
       <Link
         href="/showcases"
-        className="inline-flex items-center gap-1.5 text-sm text-foreground/60 hover:text-brand"
+        className="inline-flex items-center gap-1.5 text-sm text-foreground-muted transition-colors hover:text-brand"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-        {loc === "vi" ? "Tất cả sản phẩm minh họa" : "All showcases"}
+        {loc === "vi" ? "Tất cả mô hình" : "All concepts"}
       </Link>
-      <div className="mt-6 max-w-3xl">
-        <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
+      <div className="mt-8 max-w-3xl">
+        <p className="flex flex-wrap items-baseline gap-x-3 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-muted">
+          <span>{loc === "vi" ? "Mô hình sản phẩm" : "Product concept"}</span>
+          <span aria-hidden="true">·</span>
+          <span>
+            {showcase.views.length}{" "}
+            {loc === "vi" ? "màn hình tương tác" : "interactive views"}
+          </span>
+        </p>
+        <h1 className="font-display-title mt-4 text-3xl leading-tight tracking-tight text-foreground md:text-5xl">
           {showcase.product[loc]}
         </h1>
-        <p className="mt-3 text-lg text-foreground/70">{showcase.tagline[loc]}</p>
-        <p className="mt-4 leading-relaxed text-foreground/70">
+        <p className="mt-3 text-base font-medium text-foreground-muted">
+          {showcase.tagline[loc]}
+        </p>
+        <p className="mt-4 max-w-xl leading-relaxed text-foreground-secondary">
           {showcase.description[loc]}
         </p>
       </div>
 
-      {/* Crawlable view index — server-rendered, no JS required. */}
-      <section className="mt-12" aria-label={loc === "vi" ? "Các màn hình" : "Views"}>
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground/50">
+      {/* Crawlable view index — server-rendered, no JS required. Numbered
+          hairline rows, same language as the homepage concept rows. */}
+      <section className="mt-14" aria-label={loc === "vi" ? "Các màn hình" : "Views"}>
+        <h2 className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-muted">
           {loc === "vi" ? "Các màn hình" : "Views"}
         </h2>
-        <ul className="mt-4 grid gap-4 md:grid-cols-2">
-          {showcase.views.map((view) => (
-            <li key={view.id} className="rounded-xl border border-foreground/10 p-5">
-              <h3 className="font-semibold">{view.title[loc]}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-foreground/70">
-                {view.summary[loc]}
-              </p>
-              <Link
-                href={`/showcases/${showcase.slug[loc]}/${view.id}`}
-                className="mt-3 inline-block text-sm font-medium text-brand hover:underline"
-              >
-                {loc === "vi" ? "Xem toàn màn hình" : "Open full-screen view"}
-              </Link>
+        <ol className="mt-4">
+          {showcase.views.map((view, i) => (
+            <li
+              key={view.id}
+              className="grid grid-cols-[2rem_1fr] items-baseline gap-x-3 border-t border-rule-soft py-5 md:grid-cols-[2.5rem_240px_1fr] md:gap-x-4"
+            >
+              <span className="font-display text-xs text-foreground-muted tabular-nums">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="font-display text-base text-foreground md:text-lg">
+                {view.title[loc]}
+              </h3>
+              <div className="col-span-2 mt-2 md:col-span-1 md:mt-0">
+                <p className="text-sm leading-relaxed text-foreground-secondary">
+                  {view.summary[loc]}
+                </p>
+                <Link
+                  href={`/showcases/${showcase.slug[loc]}/${view.id}`}
+                  className="mt-2 inline-block text-xs font-semibold uppercase tracking-[0.12em] text-foreground underline-offset-4 transition-colors hover:text-brand hover:underline"
+                >
+                  {loc === "vi" ? "Xem toàn màn hình" : "Open full-screen view"}
+                </Link>
+              </div>
             </li>
           ))}
-        </ul>
+        </ol>
       </section>
 
-      <section className="mt-12" aria-label={loc === "vi" ? "Bản minh họa tương tác" : "Interactive demonstration"}>
+      <section className="mt-14 border-t border-rule pt-10" aria-label={loc === "vi" ? "Bản minh họa tương tác" : "Interactive demonstration"}>
         <ShowcaseDemoShell
           showcaseId={showcase.id}
           locale={loc}

@@ -9,8 +9,12 @@ import { routing, type Locale } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/constants";
 
 /**
- * Showcase index. Inert while the registry is empty (notFound) — the
- * framework ships dark until the first ChatGPT creative handoff lands.
+ * Concept index — editorial presentation (2026-10-27 consolidation round):
+ * the registry-driven concept cards follow the homepage ConceptRow language
+ * (mono "Product concept" badge + view count, display-title product name,
+ * hairline rows). Copy stays verbatim from the registry; honest labelling
+ * preserved. Nav terminology law: "Product Concepts"/"Mô hình sản phẩm".
+ * Locale-aware metadata (previously EN-only on the VI page).
  */
 export function generateStaticParams() {
   // Route only exists once a showcase is registered; empty registry = no
@@ -31,10 +35,17 @@ export function generateMetadata({
     if (SHOWCASES.length === 0) notFound();
     const loc = locale as Locale;
     const pageUrl = `${SITE_URL}/${loc}/showcases`;
+    const title =
+      loc === "vi"
+        ? "Mô hình sản phẩm | Retech Solutions"
+        : "Product Concepts | Retech Solutions";
+    const description =
+      loc === "vi"
+        ? "Các sản phẩm tương tác thể hiện cách chúng tôi thiết kế và phát triển phần mềm doanh nghiệp — CRM, ERP, CMS và giao diện AI."
+        : "Interactive products showing how we design and build business software — CRM, ERP, CMS, and AI interfaces.";
     return {
-      title: "Product Showcases | Retech Solutions",
-      description:
-        "Interactive products showing how we design and build business software — CRM, ERP, CMS, and AI interfaces.",
+      title,
+      description,
       alternates: {
         canonical: pageUrl,
         languages: {
@@ -43,6 +54,7 @@ export function generateMetadata({
           "x-default": `${SITE_URL}/en/showcases`,
         },
       },
+      openGraph: { title, description, url: pageUrl, type: "website" },
     };
   });
 }
@@ -58,29 +70,44 @@ export default async function ShowcasesIndexPage({
   const loc = locale as Locale;
 
   return (
-    <Container className="py-16">
+    <Container className="py-16 md:py-24">
       <SectionHeader
-        label={loc === "vi" ? "Sản phẩm" : "Products"}
-        title={loc === "vi" ? "Sản phẩm minh họa" : "Product showcases"}
+        heading="h1"
+        label={loc === "vi" ? "Mô hình" : "Concepts"}
+        title={loc === "vi" ? "Mô hình sản phẩm" : "Product Concepts"}
         description={
           loc === "vi"
-            ? "Sản phẩm tương tác thể hiện cách chúng tôi thiết kế và phát triển phần mềm doanh nghiệp."
-            : "Interactive products showing how we design and engineer business software."
+            ? "Khám phá những trải nghiệm phần mềm được thiết kế tỉ mỉ xoay quanh quy trình kinh doanh thực tế."
+            : "Explore thoughtfully designed software experiences built around real business workflows."
         }
       />
       <div className="mt-10 grid gap-6 md:grid-cols-2">
-        {SHOWCASES.map((showcase) => (
-          <article key={showcase.id} className="rounded-xl border border-foreground/10 p-6">
-            <h2 className="text-xl font-semibold">
-              <Link href={`/showcases/${showcase.slug[loc]}`} className="hover:text-brand">
+        {SHOWCASES.map((showcase, i) => (
+          <article key={showcase.id} className="border-t border-rule pt-5">
+            <Link
+              href={`/showcases/${showcase.slug[loc]}`}
+              className="group block"
+            >
+              <p className="flex flex-wrap items-baseline gap-x-3 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-muted">
+                <span>{String(i + 1).padStart(2, "0")}</span>
+                <span aria-hidden="true">·</span>
+                <span>{loc === "vi" ? "Mô hình sản phẩm" : "Product concept"}</span>
+                <span aria-hidden="true">·</span>
+                <span>
+                  {showcase.views.length}{" "}
+                  {loc === "vi" ? "màn hình tương tác" : "interactive views"}
+                </span>
+              </p>
+              <h2 className="font-display-title mt-3 text-2xl leading-tight text-foreground transition-colors group-hover:text-brand md:text-3xl">
                 {showcase.product[loc]}
-              </Link>
-            </h2>
-            <p className="mt-2 text-sm text-foreground/70">{showcase.tagline[loc]}</p>
-            <p className="mt-3 text-xs text-foreground/50">
-              {showcase.views.length}{" "}
-              {loc === "vi" ? "màn hình" : "views"}
-            </p>
+              </h2>
+              <p className="mt-2 text-sm font-medium text-foreground-muted">
+                {showcase.tagline[loc]}
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-foreground-secondary">
+                {showcase.description[loc]}
+              </p>
+            </Link>
           </article>
         ))}
       </div>

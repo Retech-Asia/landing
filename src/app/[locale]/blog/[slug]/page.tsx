@@ -358,7 +358,7 @@ export default async function BlogPostPage({
             {/* Mobile TOC disclosure — same pattern as service detail pages.
                 Native <details> for zero-JS accessibility. */}
             {postHeadings.length > 0 && (
-              <details className="lg:hidden group mb-8 rounded-xl border border-foreground/10 bg-card overflow-hidden">
+              <details className="lg:hidden group mb-8 rounded-xl border border-rule bg-card overflow-hidden">
                 <summary className="flex items-center justify-between cursor-pointer list-none px-4 py-3 text-sm font-medium text-foreground select-none">
                   <span className="text-xs uppercase tracking-wider text-foreground-secondary">{chrome.onThisPage}</span>
                   <svg

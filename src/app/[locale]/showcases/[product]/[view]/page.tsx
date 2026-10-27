@@ -71,21 +71,24 @@ export default async function ShowcaseViewPage({
   if (!showcase || !viewDef) notFound();
 
   return (
-    <Container className="py-10">
+    <Container className="py-10 md:py-14">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
           href={`/showcases/${showcase.slug[loc]}`}
-          className="inline-flex items-center gap-1.5 text-sm text-foreground/60 hover:text-brand"
+          className="inline-flex items-center gap-1.5 text-sm text-foreground-muted transition-colors hover:text-brand"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           {showcase.product[loc]}
         </Link>
+        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-muted">
+          {loc === "vi" ? "Mô hình sản phẩm" : "Product concept"}
+        </p>
       </div>
       <header className="mt-6 max-w-3xl">
-        <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
+        <h1 className="font-display-title text-2xl leading-tight tracking-tight text-foreground md:text-4xl">
           {viewDef.title[loc]}
         </h1>
-        <p className="mt-2 text-foreground/70">{viewDef.summary[loc]}</p>
+        <p className="mt-2 text-foreground-secondary">{viewDef.summary[loc]}</p>
       </header>
       <div className="mt-8">
         <ViewPanel showcaseId={showcase.id} viewId={viewDef.id} locale={loc} standalone />
