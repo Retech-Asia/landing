@@ -5,20 +5,24 @@ import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import { ArrowUp } from "lucide-react";
 import { CONTACT } from "@/lib/constants";
+import type { ReactNode } from "react";
 import { services } from "@/lib/services-data";
 import { Container } from "@/components/ui/Container";
 import { localizeServiceHref } from "@/lib/services-data";
 
 /**
  * Site footer — full redesign 2026-10-27 (owner visual-refinement directive),
- * round 2: the saturated green block is retired — the footer now sits on a
- * warm charcoal editorial surface (--charcoal #201D19, theme-independent)
- * with restrained brand accents, per the owner's "warm ivory or charcoal"
- * direction. Six approved service families (the ServicesGallery set — not
- * the legacy ten-service list), no geographic labels/flags/physical address,
- * no icon lists or badges. Positioning copy is the owner's approved wording
- * in both locales.
- * Revert: git checkout 791202b -- src/components/sections/Footer.tsx
+ * round 3: the warm-charcoal surface (#201D19) read as brown and unrelated to
+ * the brand — the footer now sits on --charcoal #0A1A12, a green-tinted
+ * near-black in the RETECH forest-green family (theme-independent). Green is
+ * a deliberate accent (column-header ticks + link hover), never a saturated
+ * block; a theme-aware hairline connects the footer to the light editorial
+ * sections above. Six approved service families, owner-approved positioning
+ * copy in both locales, no geographic labels/flags/physical address.
+ * Round 3 also removes the "Case Studies" company link (legacy portfolio
+ * retirement directive: the footer must not link visitors back to the
+ * archive being retired).
+ * Revert: git checkout 56a651e -- src/components/sections/Footer.tsx
  */
 
 const FOOTER_SERVICE_IDS = [
@@ -35,7 +39,6 @@ const COMPANY_LINKS = [
   { labelKey: "about", href: "/about" },
   { labelKey: "process", href: "/process" },
   { labelKey: "industries", href: "/industries" },
-  { labelKey: "caseStudies", href: "/case-studies" },
   { labelKey: "blog", href: "/blog" },
 ] as const;
 
@@ -46,10 +49,22 @@ const RESOURCE_LINKS = [
 ] as const;
 
 const linkClass =
-  "text-sm text-white/70 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded-sm";
+  "text-sm text-white/70 hover:text-[color:var(--brand-light)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded-sm";
 
+/* Column headers: restrained white label over a short brand-green tick —
+   the deliberate accent the round-3 directive asks for (typographic, not
+   decorative icons). */
 const headerClass =
-  "text-[11px] font-medium uppercase tracking-[0.18em] text-white/50";
+  "text-[11px] font-medium uppercase tracking-[0.18em] text-white/60";
+
+function ColumnHeader({ children }: { children: ReactNode }) {
+  return (
+    <h3 className={headerClass}>
+      <span className="mb-3 block h-px w-5 bg-[color:var(--brand)]/80" aria-hidden="true" />
+      {children}
+    </h3>
+  );
+}
 
 export function Footer() {
   const t = useTranslations("nav.footer");
@@ -60,7 +75,7 @@ export function Footer() {
   ).filter((s): s is (typeof services)[number] => Boolean(s));
 
   return (
-    <footer role="contentinfo" aria-label="Site footer" className="bg-charcoal text-white">
+    <footer role="contentinfo" aria-label="Site footer" className="border-t border-rule bg-charcoal text-white">
       <Container className="pt-16 pb-12 md:pt-20">
         {/* Wordmark + owner positioning copy */}
         <div className="max-w-3xl">
@@ -90,7 +105,7 @@ export function Footer() {
         {/* Ruled link columns */}
         <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-white/10 pt-10 md:mt-16 md:grid-cols-4">
           <nav aria-label={t("servicesHeader")}>
-            <h3 className={headerClass}>{t("servicesHeader")}</h3>
+            <ColumnHeader>{t("servicesHeader")}</ColumnHeader>
             <ul className="mt-4 space-y-2.5">
               {familyLinks.map((service) => (
                 <li key={service.id}>
@@ -106,7 +121,7 @@ export function Footer() {
           </nav>
 
           <nav aria-label={t("company")}>
-            <h3 className={headerClass}>{t("company")}</h3>
+            <ColumnHeader>{t("company")}</ColumnHeader>
             <ul className="mt-4 space-y-2.5">
               {COMPANY_LINKS.map((link) => (
                 <li key={link.href}>
@@ -119,7 +134,7 @@ export function Footer() {
           </nav>
 
           <nav aria-label={t("resources")}>
-            <h3 className={headerClass}>{t("resources")}</h3>
+            <ColumnHeader>{t("resources")}</ColumnHeader>
             <ul className="mt-4 space-y-2.5">
               {RESOURCE_LINKS.map((link) => (
                 <li key={link.href}>
@@ -132,7 +147,7 @@ export function Footer() {
           </nav>
 
           <div>
-            <h3 className={headerClass}>{t("contact")}</h3>
+            <ColumnHeader>{t("contact")}</ColumnHeader>
             <ul className="mt-4 space-y-2.5">
               <li>
                 <a href={CONTACT.emailHref} className={linkClass}>

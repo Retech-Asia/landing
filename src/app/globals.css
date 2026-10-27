@@ -37,9 +37,11 @@
   --brand-light: #2EA04E;
   --brand-dark: #186B2B;
 
-  /* Warm charcoal — footer editorial surface (2026-10-27 owner direction:
-     the footer should not be a saturated green block). Theme-independent. */
-  --charcoal: #201D19;
+  /* Footer editorial surface (2026-10-27 round-3 owner correction: the warm
+     charcoal #201D19 read as brown and disconnected from the brand — replaced
+     with a green-tinted near-black in the RETECH forest-green family, still
+     quiet enough not to compete with the final CTA). Theme-independent. */
+  --charcoal: #0A1A12;
 
   /* Accents */
   --accent-cyan: #06b6d4;
