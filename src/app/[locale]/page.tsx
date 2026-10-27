@@ -1,11 +1,10 @@
 import dynamic from "next/dynamic";
-// Hero + Discovery arrival: Concept II "Signal to System" as ONE coordinated
-// sequence (owner redesign 2026-10-27): Aurora opening -> flow-lane
-// transformation -> masked AR-1 reveal -> discovery copy arrival, all in one
-// sticky stage with a single AR-1 rendering. Reduced motion renders the
-// static hero + the static DiscoverySection inside the same component.
-// Rollback = swap this import back to `@/components/sections/home/HeroHybrid`
-// + a standalone <DiscoverySection /> (both in the tree).
+// Hero: the approved Aurora opening, simplified per owner creative direction
+// (2026-10-27): no pinned scroll stage — a calm full-viewport Aurora hero.
+// The hero-to-discovery handoff is DiscoverySection's one-shot masked
+// reveal (short, unpinned, visually connected). Rollback: the pinned
+// one-stage cinematic version is at commit c7bd276; HeroHybrid (pre-Hallmark)
+// is still in the tree.
 import { HeroSignal } from "@/components/sections/home/HeroSignal";
 import { ProductConcepts } from "@/components/sections/home/ProductConcepts";
 import { ProofStrip } from "@/components/sections/home/ProofStrip";
@@ -14,11 +13,12 @@ import { SectionFallback, CompactSectionFallback } from "@/components/ui/Skeleto
 import { setRequestLocale, getTranslations } from "next-intl/server";
 
 // Below-fold sections: lazy-loaded to reduce initial JS bundle.
-// All are static server components in the Direction B design (RT-08).
 // Hallmark B1 (2026-10-26): ServicePreview is replaced by the approved
-// discovery + services-gallery composition. The discovery beat itself moved
-// inside HeroSignal (2026-10-27 one-stage redesign). Rollback = restore the
-// DiscoverySection import + render (file stays in the tree).
+// discovery + services-gallery composition.
+const DiscoverySection = dynamic(
+  () => import("@/components/sections/home/DiscoverySection").then((m) => m.DiscoverySection),
+  { loading: () => <SectionFallback /> },
+);
 const ServicesGallery = dynamic(
   () => import("@/components/sections/home/ServicesGallery").then((m) => m.ServicesGallery),
   { loading: () => <SectionFallback /> },
@@ -79,16 +79,16 @@ export default async function HomePage({
         url="https://www.retech.asia"
       />
 
-      {/* 1. Hero + Discovery arrival - "Aurora Signal" as one coordinated
-          sequence (owner redesign 2026-10-27): the approved LitDunes Aurora
-          opens, flow-lane line-work organizes into workflow streams, AR-1
-          arrives through a single shared-layer mask reveal, and the settled
-          frame is the "We start with how your business works" discovery —
-          the photo renders exactly once. #capabilities-* deep links resolve
-          on the gallery panels below. */}
+      {/* 1. Hero - the approved Aurora opening (simplified 2026-10-27: no
+          pinned stage; simplicity over cinematic complexity). */}
       <HeroSignal />
 
-      {/* 2. ServicesGallery - six families as image-led editorial panels;
+      {/* 2. DiscoverySection - Hallmark B1 act: "We start with how your
+          business works" (AR-1 backdrop, one-shot masked reveal on entry;
+          AR-1 renders exactly once on the page). */}
+      <DiscoverySection />
+
+      {/* 3. ServicesGallery - six families as image-led editorial panels;
           carries the explorer deep-link (#capabilities-*) + aria contract */}
       <ServicesGallery locale={locale as "en" | "vi"} />
 
