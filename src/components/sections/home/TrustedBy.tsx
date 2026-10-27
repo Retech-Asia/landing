@@ -2,17 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
-import {
-  Building2,
-  Cpu,
-  Factory,
-  GraduationCap,
-  HeartPulse,
-  Landmark,
-  ShoppingCart,
-  Truck,
-  type LucideIcon,
-} from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { localizeIndustryHref } from "@/lib/industries-data";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
@@ -28,28 +17,29 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
  * /industries page (every listed industry has one), so the strip works
  * as navigation, not decoration. Reduced motion falls back to the static
  * wrapped row. Order mirrors home.trustedBy.industries in the catalogs.
+ *
+ * 2026-10-27 (owner: retire the decorative icon language): the per-industry
+ * pictogram tiles are gone — chips are typographic.
  */
-const INDUSTRY_LINKS: { href: string; Icon: LucideIcon }[] = [
-  { href: "/industries/healthcare", Icon: HeartPulse },
-  { href: "/industries/finance", Icon: Landmark },
-  { href: "/industries/e-commerce", Icon: ShoppingCart },
-  { href: "/industries/logistics", Icon: Truck },
-  { href: "/industries/education", Icon: GraduationCap },
-  { href: "/industries/real-estate", Icon: Building2 },
-  { href: "/industries/technology", Icon: Cpu },
-  { href: "/industries/manufacturing", Icon: Factory },
+const INDUSTRY_LINKS: { href: string }[] = [
+  { href: "/industries/healthcare" },
+  { href: "/industries/finance" },
+  { href: "/industries/e-commerce" },
+  { href: "/industries/logistics" },
+  { href: "/industries/education" },
+  { href: "/industries/real-estate" },
+  { href: "/industries/technology" },
+  { href: "/industries/manufacturing" },
 ];
 
 function IndustryChip({
   name,
   href,
-  Icon,
   locale,
   decorative = false,
 }: {
   name: string;
   href: string;
-  Icon: LucideIcon;
   locale: "en" | "vi";
   /** Clone in the looping copy of the marquee: unfocusable, hidden from a11y tree. */
   decorative?: boolean;
@@ -59,17 +49,8 @@ function IndustryChip({
       href={localizeIndustryHref(href, locale)}
       tabIndex={decorative ? -1 : undefined}
       aria-hidden={decorative || undefined}
-      className="group inline-flex items-center gap-2.5 rounded-full border border-foreground/10 bg-card-bg/70 backdrop-blur-md pl-1.5 pr-4 py-1.5 text-[13px] font-medium text-foreground-secondary select-none whitespace-nowrap shadow-[0_1px_2px_rgba(0,0,0,0.05),0_4px_16px_rgba(0,0,0,0.04)] transition-all duration-200 hover:border-brand/40 hover:bg-brand/10 hover:text-foreground hover:-translate-y-0.5 hover:shadow-[0_2px_8px_rgba(0,0,0,0.08),0_8px_24px_rgba(32,133,53,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
+      className="group inline-flex items-center rounded-full border border-foreground/10 bg-card-bg/70 backdrop-blur-md px-4 py-1.5 text-[13px] font-medium text-foreground-secondary select-none whitespace-nowrap shadow-[0_1px_2px_rgba(0,0,0,0.05),0_4px_16px_rgba(0,0,0,0.04)] transition-all duration-200 hover:border-brand/40 hover:bg-brand/10 hover:text-foreground hover:-translate-y-0.5 hover:shadow-[0_2px_8px_rgba(0,0,0,0.08),0_8px_24px_rgba(32,133,53,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2"
     >
-      <span
-        className="inline-flex items-center justify-center rounded-full bg-brand/10 p-1.5 transition-colors duration-200 group-hover:bg-brand/20"
-        aria-hidden="true"
-      >
-        <Icon
-          size={13}
-          className="text-brand transition-transform duration-200 group-hover:scale-110"
-        />
-      </span>
       {name}
     </Link>
   );
@@ -83,7 +64,7 @@ export function TrustedBy() {
 
   const items = industries.flatMap((name, i) => {
     const link = INDUSTRY_LINKS[i];
-    return link ? [{ name, href: link.href, Icon: link.Icon }] : [];
+    return link ? [{ name, href: link.href }] : [];
   });
 
   return (

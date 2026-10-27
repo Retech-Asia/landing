@@ -2,21 +2,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
 import { BLUR_DATA_URL } from "@/lib/image-placeholders";
-
-/**
- * Section 03 — Delivery (visual-experience round, 2026-10-23). Keeps the
- * six-phase checklist and its artifacts (no timeline reversion); adds a
- * full-height contextual photo column so the section stops reading as pure
- * text. Photo: photo-delivery-focus.webp (photography.ts). Static SSR
- * server component — no client JS.
- *
- * Glass kit round (same day): each phase carries its ReTech Glass kit
- * pictogram beside the title (discover → support, positional — the step
- * order is fixed in the messages, titles are localized so string keys
- * would break in VI).
- */
 
 interface DeliveryStep {
   title: string;
@@ -24,14 +10,15 @@ interface DeliveryStep {
   sees: string;
 }
 
-const DELIVERY_GLASS: GlassIconName[] = [
-  "discover",
-  "design",
-  "build",
-  "test",
-  "launch",
-  "support",
-];
+/**
+ * Section 03 — Delivery. Keeps the six-phase checklist and its artifacts
+ * (no timeline reversion) with the contextual photo column. Static SSR
+ * server component — no client JS.
+ *
+ * 2026-10-27 (owner: retire the decorative icon language site-wide): the
+ * per-phase glass pictograms are removed — hierarchy comes from the ghost
+ * numerals, serif titles and hairline rules.
+ */
 
 export function DeliverySection() {
   const t = useTranslations("home.delivery");
@@ -76,12 +63,9 @@ export function DeliverySection() {
                     {String(i + 1).padStart(2, "0")}
                   </p>
                   <div>
-                    <div className="flex items-center gap-3">
-                      <GlassIcon name={DELIVERY_GLASS[i] ?? "discover"} size="sm" />
-                      <h3 className="font-display-title text-lg leading-snug text-foreground md:text-xl">
-                        {step.title}
-                      </h3>
-                    </div>
+                    <h3 className="font-display-title text-lg leading-snug text-foreground md:text-xl">
+                      {step.title}
+                    </h3>
                     <p className="mt-2 text-sm leading-relaxed text-foreground-secondary">
                       {step.what}
                     </p>

@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import {
-  ArrowRight,
-  CheckCircle2,
-} from "lucide-react";
-import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
+import { ArrowRight } from "lucide-react";
 import { Container as ContainerUI } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
@@ -165,40 +161,33 @@ const groups = [
   },
 ];
 
-const toolCategories: { name: { en: string; vi: string }; glass: GlassIconName; tools: string[] }[] = [
+const toolCategories: { name: { en: string; vi: string }; tools: string[] }[] = [
   {
     name: { en: "Project Management", vi: "Quản lý Dự án" },
-    glass: "build",
     tools: ["Jira", "Linear", "Notion"],
   },
   {
     name: { en: "Communication", vi: "Giao tiếp" },
-    glass: "partnership",
     tools: ["Slack", "Zoom", "Google Meet"],
   },
   {
     name: { en: "Development", vi: "Phát triển" },
-    glass: "backend",
     tools: ["GitHub", "VS Code", "Cursor"],
   },
   {
     name: { en: "AI Engineering", vi: "AI Engineering" },
-    glass: "ai-ml",
     tools: ["LangChain", "pgvector", "OpenAI", "Anthropic", "Cursor"],
   },
   {
     name: { en: "Design", vi: "Thiết kế" },
-    glass: "design",
     tools: ["Figma", "FigJam"],
   },
   {
     name: { en: "DevOps", vi: "DevOps" },
-    glass: "devops",
     tools: ["Docker", "AWS", "Vercel"],
   },
   {
     name: { en: "Testing", vi: "Kiểm thử" },
-    glass: "test",
     tools: ["Jest", "Playwright", "Cypress"],
   },
 ];
@@ -354,12 +343,13 @@ export default async function ProcessPage({
                         {group.points.map((point) => (
                           <li
                             key={point.en}
-                            className="flex items-start gap-2 text-sm text-foreground-secondary"
+                            className="flex items-start gap-2.5 text-sm text-foreground-secondary"
                           >
-                            <CheckCircle2
-                              size={16}
-                              className="text-brand flex-shrink-0 mt-0.5"
+                            {/* Hairline dash marker (HomeCTA pattern) — check
+                                icons retired with the decorative-icon language. */}
+                            <span
                               aria-hidden="true"
+                              className="mt-2 h-px w-4 shrink-0 bg-foreground/40"
                             />
                             {point[lang]}
                           </li>
@@ -402,12 +392,9 @@ export default async function ProcessPage({
               return (
                 <StaggerItem key={category.name.en}>
                   <div className="rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] h-full">
-                    <div className="flex items-center gap-3 mb-4">
-                      <GlassIcon name={category.glass} size="sm" />
-                      <h3 className="text-base font-semibold text-foreground">
-                        {category.name[lang]}
-                      </h3>
-                    </div>
+                    <h3 className="text-base font-semibold text-foreground mb-4">
+                      {category.name[lang]}
+                    </h3>
                     <div className="flex flex-wrap gap-2">
                       {category.tools.map((tool) => (
                         <span

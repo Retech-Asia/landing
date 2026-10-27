@@ -1,4 +1,3 @@
-import { CheckCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -77,15 +76,17 @@ export function HomeCTA({ variant = "light" }: { variant?: "dark" | "light" }) {
             </Button>
           </div>
 
+          {/* Trust points as a quiet ruled list (2026-10-27: checkmark icons
+              retired with the decorative-icon language). */}
           <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
             {TRUST_KEYS.map((key) => (
               <li
                 key={key}
-                className={`flex items-center gap-1.5 text-sm ${dark ? "text-white/80" : "text-foreground-secondary"}`}
+                className={`flex items-center gap-2.5 text-sm ${dark ? "text-white/80" : "text-foreground-secondary"}`}
               >
-                <CheckCircle
-                  className={`h-4 w-4 shrink-0 ${dark ? "text-white/90" : "text-brand"}`}
+                <span
                   aria-hidden="true"
+                  className={`h-px w-4 ${dark ? "bg-white/50" : "bg-foreground/40"}`}
                 />
                 {t(`trust.${key}`)}
               </li>

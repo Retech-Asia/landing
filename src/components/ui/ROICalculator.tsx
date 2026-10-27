@@ -3,16 +3,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  TrendingUp,
-  DollarSign,
-  Users,
-  Clock,
   ArrowRight,
   Mail,
-  CheckCircle2,
-  BarChart3,
-  PiggyBank,
-  Globe,
 } from "lucide-react";
 import { useLocale } from "next-intl";
 import { cn } from "@/lib/cn";
@@ -476,9 +468,8 @@ export function ROICalculator() {
                 <div className="space-y-2">
                   <label
                     htmlFor="roi-team-size"
-                    className="flex items-center gap-2 text-sm font-semibold text-foreground"
+                    className="block text-sm font-semibold text-foreground"
                   >
-                    <Users size={16} className="text-brand" />
                     {t.teamSizeLabel}
                   </label>
                   <div className="pt-2">
@@ -504,8 +495,7 @@ export function ROICalculator() {
 
                 {/* Region select */}
                 <div className="space-y-2">
-                  <span className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                    <Globe size={16} className="text-brand" />
+                  <span className="block text-sm font-semibold text-foreground">
                     {t.compareAgainst}
                   </span>
                   <div className="grid grid-cols-3 gap-2 pt-1">
@@ -530,8 +520,7 @@ export function ROICalculator() {
 
                 {/* Projection period */}
                 <div className="space-y-2">
-                  <span className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                    <Clock size={16} className="text-brand" />
+                  <span className="block text-sm font-semibold text-foreground">
                     {t.projectionPeriod}
                   </span>
                   <div className="grid grid-cols-3 gap-2 pt-1">
@@ -574,8 +563,7 @@ export function ROICalculator() {
                     {formatUSDLong(animatedSavings)}
                   </motion.p>
                 </AnimatePresence>
-                <p className="text-sm font-medium text-brand mt-2 flex items-center justify-center gap-1.5">
-                  <TrendingUp size={14} />
+                <p className="text-sm font-medium text-brand mt-2">
                   {t.percentLower(animatedPercent, regionText.label)}
                 </p>
               </div>
@@ -600,14 +588,13 @@ export function ROICalculator() {
                 />
               </div>
 
-              {/* Hidden savings breakdown */}
+              {/* Hidden savings breakdown — label pictograms retired with the
+                  decorative-icon language (2026-10-27); labels + numerals
+                  carry the sections. */}
               <div className="mt-8 pt-6 border-t border-card-border">
-                <div className="flex items-center gap-2 mb-4">
-                  <PiggyBank size={16} className="text-brand" />
-                  <p className="text-xs font-semibold uppercase tracking-wider text-foreground-muted">
-                    {t.hiddenSavingsTitle}
-                  </p>
-                </div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-foreground-muted mb-4">
+                  {t.hiddenSavingsTitle}
+                </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {hiddenCostFactors.map((factor, i) => (
                     <motion.div
@@ -631,49 +618,38 @@ export function ROICalculator() {
                     </motion.div>
                   ))}
                 </div>
-                <div className="mt-4 flex items-center justify-center gap-2 text-sm font-semibold text-brand">
-                  <DollarSign size={16} />
-                  <span>
-                    {t.overhead(formatUSDLong(hiddenSavings))}
-                  </span>
-                </div>
+                <p className="mt-4 text-center text-sm font-semibold text-brand tabular-nums">
+                  {t.overhead(formatUSDLong(hiddenSavings))}
+                </p>
               </div>
 
-              {/* Quick stats row */}
+              {/* Quick stats row — result-badge icons retired with the
+                  decorative-icon language (2026-10-27); the numerals lead. */}
               <div className="mt-6 pt-6 border-t border-card-border">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
                     {
-                      icon: BarChart3,
                       label: t.monthlySavings,
                       value: formatUSDLong(totalMonthlySavings),
                     },
                     {
-                      icon: TrendingUp,
                       label: t.annualSavings,
                       value: formatUSDLong(annualSavings),
                     },
                     {
-                      icon: DollarSign,
                       label: t.costPerDev,
                       value: `${formatUSDLong(VIETNAM_RATE)}${t.perMonth}`,
                     },
                     {
-                      icon: CheckCircle2,
                       label: t.savingsRate,
                       value: `${savingsPercent}%`,
                     },
                   ].map((stat) => {
-                    const StatIcon = stat.icon;
                     return (
                       <div
                         key={stat.label}
                         className="text-center p-3 rounded-xl bg-card-bg border border-card-border"
                       >
-                        <StatIcon
-                          size={16}
-                          className="text-brand mx-auto mb-1.5"
-                        />
                         <p className="text-lg font-bold text-foreground tabular-nums">
                           {stat.value}
                         </p>

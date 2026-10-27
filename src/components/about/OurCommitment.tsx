@@ -1,6 +1,5 @@
 "use client";
 
-import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import {
@@ -15,14 +14,12 @@ interface LocaleText {
 }
 
 interface CommitmentItem {
-  glass: GlassIconName;
   title: LocaleText;
   description: LocaleText;
 }
 
 const commitments: CommitmentItem[] = [
   {
-    glass: "quality",
     title: { en: "Quality Code", vi: "Chất lượng code" },
     description: {
       en: "Clean, maintainable, and well-tested code that follows industry best practices. We write software that is built to last and easy for any team to extend.",
@@ -30,7 +27,6 @@ const commitments: CommitmentItem[] = [
     },
   },
   {
-    glass: "transparency",
     title: { en: "Transparent Communication", vi: "Giao tiếp minh bạch" },
     description: {
       en: "Regular updates, clear timelines, and direct access to the team working on your project. No middlemen, no surprises, just honest, open dialogue.",
@@ -38,7 +34,6 @@ const commitments: CommitmentItem[] = [
     },
   },
   {
-    glass: "launch",
     title: { en: "On-Time Delivery", vi: "Bàn giao đúng hạn" },
     description: {
       en: "Realistic timelines set from the start, with proactive risk management and milestone tracking. We deliver when we say we will.",
@@ -46,7 +41,6 @@ const commitments: CommitmentItem[] = [
     },
   },
   {
-    glass: "sustainability",
     title: { en: "Long-term Partnership", vi: "Hợp tác lâu dài" },
     description: {
       en: "We grow with our clients. From initial build through scaling and evolution, we invest in relationships that deliver lasting value for years to come.",
@@ -78,7 +72,6 @@ export function OurCommitment() {
             return (
               <StaggerItem key={item.title.en}>
                 <div className="group rg-glass-control relative h-full rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
-                  <GlassIcon name={item.glass} size="sm" className="mb-4" />
                   <h3 className="text-base font-semibold text-foreground mb-2">
                     {pick(item.title)}
                   </h3>

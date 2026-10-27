@@ -3,7 +3,6 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card } from "@/components/ui/Card";
-import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
 import {
   AnimatedSection,
   StaggerContainer,
@@ -17,17 +16,12 @@ interface LocaleText {
 }
 
 interface ValueItem {
-  /** ReTech Glass kit pictogram (glass round 2026-10-23) — replaces the
-   * per-value lucide strokes and the pulse-ring entrance (kit law: the
-   * tiles carry the visual identity; the cards already stagger in). */
-  glass: GlassIconName;
   title: LocaleText;
   description: LocaleText;
 }
 
 const values: ValueItem[] = [
   {
-    glass: "ai-ml",
     title: { en: "Innovation", vi: "Đổi mới" },
     description: {
       en: "We integrate AI, machine learning, and modern cloud-native patterns into real products, not just prototypes. When we adopted AI-assisted workflows in 2024, every CMS, CRM, and ERP we shipped afterward benefited from automated content tagging, predictive analytics, and smarter data pipelines.",
@@ -35,7 +29,6 @@ const values: ValueItem[] = [
     },
   },
   {
-    glass: "quality",
     title: { en: "Quality", vi: "Chất lượng" },
     description: {
       en: "We do not ship code that has not been reviewed by at least two senior engineers and validated by automated test suites. One bug in production is one too many for the clients who trust us with their business systems.",
@@ -43,7 +36,6 @@ const values: ValueItem[] = [
     },
   },
   {
-    glass: "partnership",
     title: { en: "Collaboration", vi: "Hợp tác" },
     description: {
       en: "Great software is built together. We foster open teamwork between our engineers, designers, and your stakeholders to ensure every voice shapes the final product.",
@@ -51,7 +43,6 @@ const values: ValueItem[] = [
     },
   },
   {
-    glass: "transparency",
     title: { en: "Transparency", vi: "Minh bạch" },
     description: {
       en: "Open communication is the foundation of every partnership. We provide clear timelines, honest progress updates, and direct access to our team throughout every project.",
@@ -59,7 +50,6 @@ const values: ValueItem[] = [
     },
   },
   {
-    glass: "growth",
     title: { en: "Growth", vi: "Tăng trưởng" },
     description: {
       en: "We invest in continuous learning, technical training, and knowledge sharing across the team. Every engineer at Retech has dedicated learning time each week, because we believe that growing our people is the most reliable way to grow our clients' products.",
@@ -67,7 +57,6 @@ const values: ValueItem[] = [
     },
   },
   {
-    glass: "performance",
     title: { en: "Excellence", vi: "Chuẩn mực cao" },
     description: {
       en: "We hold ourselves to a high bar: clean architecture, thorough code reviews, automated testing, and proactive communication. Not because a process document says so, but because our engineers genuinely care about the craft of building software that lasts.",
@@ -103,8 +92,7 @@ export function CultureValues() {
             return (
               <StaggerItem key={value.title.en}>
                 <Card padding="lg" className="h-full gradient-border">
-                  <GlassIcon name={value.glass} size="md" />
-                  <h3 className="text-base font-semibold text-foreground mb-2 mt-4">
+                  <h3 className="text-base font-semibold text-foreground mb-2">
                     {pick(value.title)}
                   </h3>
                   <p className="text-sm text-foreground-secondary leading-relaxed">

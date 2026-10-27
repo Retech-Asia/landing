@@ -1,15 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import {
-  ArrowRight,
-  Mail,
-  Users,
-  FileText,
-  MessageCircle,
-  Code2,
-  Handshake,
-} from "lucide-react";
-import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
+import { ArrowRight, Mail } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card } from "@/components/ui/Card";
@@ -103,9 +94,8 @@ function getChrome(locale: string) {
 /*  Benefits data                                                      */
 /* ------------------------------------------------------------------ */
 
-const benefits: { glass: GlassIconName; title: L; description: { en: string; vi: string } }[] = [
+const benefits: { title: L; description: { en: string; vi: string } }[] = [
   {
-    glass: "finance",
     title: { en: "Competitive Salary", vi: "Lương Cạnh tranh" } as L,
     description: {
       en: "Market-leading compensation with performance-based bonuses and regular salary reviews.",
@@ -113,7 +103,6 @@ const benefits: { glass: GlassIconName; title: L; description: { en: string; vi:
     },
   },
   {
-    glass: "security",
     title: { en: "Health Insurance", vi: "Bảo hiểm Y tế" } as L,
     description: {
       en: "Comprehensive health coverage and wellness allowance to keep you and your family protected.",
@@ -121,7 +110,6 @@ const benefits: { glass: GlassIconName; title: L; description: { en: string; vi:
     },
   },
   {
-    glass: "launch",
     title: { en: "Flexible Hours", vi: "Giờ làm việc Linh hoạt" } as L,
     description: {
       en: "Hybrid work model with flexible schedules so you can do your best work when it suits you.",
@@ -129,7 +117,6 @@ const benefits: { glass: GlassIconName; title: L; description: { en: string; vi:
     },
   },
   {
-    glass: "education",
     title: {
       en: "Professional Development",
       vi: "Phát triển Chuyên môn",
@@ -140,7 +127,6 @@ const benefits: { glass: GlassIconName; title: L; description: { en: string; vi:
     },
   },
   {
-    glass: "desktop",
     title: { en: "Modern Tech Stack", vi: "Tech Stack Hiện đại" } as L,
     description: {
       en: "Work with React, Next.js, Node.js, TypeScript, and cloud-native architectures.",
@@ -148,7 +134,6 @@ const benefits: { glass: GlassIconName; title: L; description: { en: string; vi:
     },
   },
   {
-    glass: "global",
     title: { en: "International Projects", vi: "Dự án Quốc tế" } as L,
     description: {
       en: "Collaborate with clients across Asia, Australia, Europe, and North America.",
@@ -161,9 +146,8 @@ const benefits: { glass: GlassIconName; title: L; description: { en: string; vi:
 /*  "Why Retech" culture highlights                                     */
 /* ------------------------------------------------------------------ */
 
-const cultureHighlights: { glass: GlassIconName; title: L; description: { en: string; vi: string } }[] = [
+const cultureHighlights: { title: L; description: { en: string; vi: string } }[] = [
   {
-    glass: "partnership",
     title: { en: "Collaborative Culture", vi: "Văn hóa Cộng tác" } as L,
     description: {
       en: "Flat hierarchy where every voice matters. We make decisions together and celebrate wins as a team.",
@@ -171,7 +155,6 @@ const cultureHighlights: { glass: GlassIconName; title: L; description: { en: st
     },
   },
   {
-    glass: "growth",
     title: { en: "Innovation First", vi: "Ưu tiên Đổi mới" } as L,
     description: {
       en: "We experiment with modern technologies and encourage creative problem-solving in everything we build.",
@@ -179,7 +162,6 @@ const cultureHighlights: { glass: GlassIconName; title: L; description: { en: st
     },
   },
   {
-    glass: "sustainability",
     title: { en: "Work-Life Balance", vi: "Cân bằng Công việc & Cuộc sống" } as L,
     description: {
       en: "Sustainable pace, not burnout. We respect your time off and invest in an environment where you can thrive long-term.",
@@ -187,7 +169,6 @@ const cultureHighlights: { glass: GlassIconName; title: L; description: { en: st
     },
   },
   {
-    glass: "global",
     title: { en: "Global Impact", vi: "Tác động Toàn cầu" } as L,
     description: {
       en: "Your code ships to users worldwide. From startups to enterprises, the products you build make a real difference.",
@@ -203,7 +184,6 @@ const cultureHighlights: { glass: GlassIconName; title: L; description: { en: st
 const hiringSteps = [
   {
     number: 1,
-    icon: FileText,
     title: { en: "Application Review", vi: "Xem xét Hồ sơ" } as L,
     description: {
       en: "Our talent team reviews your resume and portfolio within 3 business days. We look for relevant experience, project impact, and cultural alignment.",
@@ -213,7 +193,6 @@ const hiringSteps = [
   },
   {
     number: 2,
-    icon: MessageCircle,
     title: { en: "Initial Interview", vi: "Phỏng vấn Ban đầu" } as L,
     description: {
       en: "A 30-minute conversation with our hiring manager to discuss your background, motivations, and what you are looking for in your next role.",
@@ -223,7 +202,6 @@ const hiringSteps = [
   },
   {
     number: 3,
-    icon: Code2,
     title: { en: "Technical Assessment", vi: "Bài đánh giá Kỹ thuật" } as L,
     description: {
       en: "A practical take-home or live coding exercise relevant to the role. We evaluate problem-solving ability, code quality, and communication, not trick questions.",
@@ -233,7 +211,6 @@ const hiringSteps = [
   },
   {
     number: 4,
-    icon: Users,
     title: { en: "Team Interview", vi: "Phỏng vấn với Đội ngũ" } as L,
     description: {
       en: "Meet the team you would be working with. This is a collaborative session focused on how you approach real-world scenarios and work with others.",
@@ -243,7 +220,6 @@ const hiringSteps = [
   },
   {
     number: 5,
-    icon: Handshake,
     title: { en: "Offer & Onboarding", vi: "Offer & Onboarding" } as L,
     description: {
       en: "If it is a mutual fit, we extend an offer promptly. Our structured onboarding gets you set up with tools, introduced to the team, and contributing within your first week.",
@@ -329,7 +305,6 @@ export default async function CareersPage({
               return (
                 <StaggerItem key={item.title.en}>
                   <Card padding="lg" className="h-full text-center rg-glass-control">
-                    <GlassIcon name={item.glass} size="sm" className="mb-4 mx-auto" />
                     <h3 className="text-base font-semibold text-foreground mb-2">
                       {item.title[lang]}
                     </h3>
@@ -383,17 +358,12 @@ export default async function CareersPage({
               return (
                 <StaggerItem key={benefit.title.en}>
                   <Card padding="lg" className="h-full rg-glass-control">
-                    <div className="flex items-start gap-4">
-                      <GlassIcon name={benefit.glass} size="sm" className="shrink-0" />
-                      <div>
-                        <h3 className="text-base font-semibold text-foreground mb-1">
-                          {benefit.title[lang]}
-                        </h3>
-                        <p className="text-sm text-foreground-secondary leading-relaxed">
-                          {benefit.description[lang]}
-                        </p>
-                      </div>
-                    </div>
+                    <h3 className="text-base font-semibold text-foreground mb-1">
+                      {benefit.title[lang]}
+                    </h3>
+                    <p className="text-sm text-foreground-secondary leading-relaxed">
+                      {benefit.description[lang]}
+                    </p>
                   </Card>
                 </StaggerItem>
               );
@@ -412,25 +382,13 @@ export default async function CareersPage({
           />
 
           <div className="max-w-4xl mx-auto relative">
-            {/* Vertical connector line */}
-            <div
-              className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-brand/20 via-accent-cyan/15 to-accent-violet/15 hidden sm:block"
-              aria-hidden="true"
-            />
-
+            {/* 2026-10-27 (decorative-icon retirement): the step icon tiles and
+                their connector rail are gone — the Step chip + title lead. */}
             <StaggerContainer className="space-y-6" staggerDelay={0.06}>
               {hiringSteps.map((step) => {
-                const StepIcon = step.icon;
                 return (
                   <StaggerItem key={step.number}>
                     <div className="flex gap-5 md:gap-6 items-start">
-                      {/* Step number + icon */}
-                      <div className="shrink-0 relative z-10">
-                        <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
-                          <StepIcon size={22} className="text-brand" />
-                        </div>
-                      </div>
-
                       {/* Content */}
                       <div className="flex-1 pb-2">
                         <div className="flex items-center gap-3 mb-1 flex-wrap">

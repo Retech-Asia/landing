@@ -3,15 +3,7 @@
 import { useState, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "@/i18n/navigation";
-import {  Search,
-  ChevronDown,
-  HelpCircle,
-  Layers,
-  GitBranch,
-  Receipt,
-  Code2,
-  Headphones,
-} from "lucide-react";
+import { Search, ChevronDown } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { cn } from "@/lib/cn";
@@ -29,17 +21,11 @@ interface FlatFAQCategory {
   items: FlatFAQItem[];
 }
 
-/* ── Icon map for category pills ─────────────────────────────── */
-const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
-  HelpCircle,
-  Layers,
-  GitBranch,
-  Receipt,
-  Code2,
-  HeadphonesIcon: Headphones,
-};
-
 /* ── Props ───────────────────────────────────────────────────── */
+
+// 2026-10-27 (decorative-icon retirement): the per-category pictogram map is
+// gone — the filter pills are typographic labels; the search field and the
+// accordion chevron keep their functional icons.
 interface FAQClientPageProps {
   categories: FlatFAQCategory[];
 }
@@ -310,13 +296,11 @@ export function FAQClientPage({ categories }: FAQClientPageProps) {
                     : "bg-card-bg text-foreground-secondary border border-card-border hover:border-foreground/10 hover:text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
                 )}
               >
-                <Layers size={14} />
                 All
               </button>
 
               {/* Category pills */}
               {categories.map((cat) => {
-                const Icon = iconMap[cat.icon] || HelpCircle;
                 const isActive = activeCategory === cat.slug;
 
                 return (
@@ -334,7 +318,6 @@ export function FAQClientPage({ categories }: FAQClientPageProps) {
                         : "bg-card-bg text-foreground-secondary border border-card-border hover:border-foreground/10 hover:text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
                     )}
                   >
-                    <Icon size={14} />
                     {cat.title}
                   </button>
                 );
@@ -353,9 +336,6 @@ export function FAQClientPage({ categories }: FAQClientPageProps) {
               exit={{ opacity: 0, y: -12 }}
               className="max-w-3xl mx-auto text-center py-16"
             >
-              <div className="w-16 h-16 rounded-full bg-black/[0.04] flex items-center justify-center mx-auto mb-4">
-                <Search size={24} className="text-foreground-muted" />
-              </div>
               <h3 className="text-lg font-semibold text-foreground mb-2">
                 No matching questions
               </h3>

@@ -2,16 +2,10 @@
 
 import { useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  ChevronDown,
-  ArrowRight,
-  CheckCircle2,
-  AlertTriangle,
-} from "lucide-react";
+import { ChevronDown, ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
 import { cn } from "@/lib/cn";
-import { GlassIcon } from "@/components/ui/GlassIcon";
 import { industries, flattenIndustry, type FlatIndustry, type IndustryCategory } from "@/lib/industries-data";
 
 /* ------------------------------------------------------------------ */
@@ -155,22 +149,13 @@ export function IndustryExplorer() {
                   : "border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
               )}
             >
-              {/* Gradient overlay on hover */}
-              <div
-                className={cn(
-                  "absolute inset-0 bg-gradient-to-br rounded-2xl pointer-events-none transition-opacity duration-500",
-                  industry.gradient,
-                  isExpanded ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-                )}
-              />
-
+              {/* 2026-10-27 (decorative-icon retirement): the per-industry
+                  gradient wash — the old accent-tile language — is gone; the
+                  serif title and the hairline rules carry the card. */}
               <div className="relative z-10">
                 {/* Card header - always visible */}
                 <div className="p-5 md:p-6">
-                  {/* Icon — ReTech Glass kit pictogram */}
-                  <GlassIcon name={industry.glass} size="sm" className="mb-4" />
-
-                  <h3 className="text-base font-semibold text-foreground mb-1.5">
+                  <h3 className="font-display-title text-lg leading-snug text-foreground mb-1.5">
                     {industry.name}
                   </h3>
                   <p className="text-sm text-foreground-secondary leading-relaxed line-clamp-2">
@@ -213,7 +198,7 @@ export function IndustryExplorer() {
                     >
                       <div className="px-5 md:px-6 pb-5 md:pb-6 space-y-4">
                         {/* Divider */}
-                        <div className="h-px bg-black/[0.06]" />
+                        <div className="h-px bg-rule-soft" />
 
                         {/* Key Challenges */}
                         <div>
@@ -222,8 +207,10 @@ export function IndustryExplorer() {
                           </p>
                           <ul className="space-y-1.5">
                             {industry.challenges.slice(0, 2).map((challenge, i) => (
-                              <li key={i} className="flex items-start gap-2 text-xs text-foreground-secondary leading-relaxed">
-                                <AlertTriangle size={12} className="text-amber-400 shrink-0 mt-0.5" />
+                              <li key={i} className="flex items-start gap-2.5 text-xs text-foreground-secondary leading-relaxed">
+                                {/* Hairline dash markers — pictogram markers
+                                    retired with the decorative-icon language. */}
+                                <span aria-hidden="true" className="mt-2 h-px w-4 shrink-0 bg-foreground/40" />
                                 <span className="line-clamp-2">{challenge}</span>
                               </li>
                             ))}
@@ -237,8 +224,8 @@ export function IndustryExplorer() {
                           </p>
                           <ul className="space-y-1.5">
                             {industry.solutions.slice(0, 2).map((solution, i) => (
-                              <li key={i} className="flex items-start gap-2 text-xs text-foreground-secondary leading-relaxed">
-                                <CheckCircle2 size={12} className="text-brand shrink-0 mt-0.5" />
+                              <li key={i} className="flex items-start gap-2.5 text-xs text-foreground-secondary leading-relaxed">
+                                <span aria-hidden="true" className="mt-2 h-px w-4 shrink-0 bg-foreground/40" />
                                 <span className="line-clamp-2">{solution}</span>
                               </li>
                             ))}

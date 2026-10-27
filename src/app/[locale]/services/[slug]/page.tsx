@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
-import { ArrowRight, ArrowLeft, Mail, CheckCircle2, Quote } from "lucide-react";
+import { ArrowRight, ArrowLeft, Mail } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { GlassIcon } from "@/components/ui/GlassIcon";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
 import { Button } from "@/components/ui/Button";
@@ -662,7 +661,6 @@ export default async function ServiceDetailPage({
               return (
                 <StaggerItem key={feature.title}>
                   <div className="rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] h-full transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
-                    <GlassIcon name={feature.glass} size="sm" className="mb-4" />
                     <h3 className="text-base font-semibold text-foreground mb-2">
                       {feature.title}
                     </h3>
@@ -724,12 +722,8 @@ export default async function ServiceDetailPage({
             <AnimatedSection variant="slideUp">
               <div className="max-w-3xl mx-auto">
                 <div className="relative rounded-2xl bg-card-bg border border-card-border p-8 md:p-10 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] border-l-4 border-l-brand">
-                  <Quote
-                    size={48}
-                    className="text-brand/15 mb-4"
-                    strokeWidth={1.5}
-                    aria-hidden="true"
-                  />
+                  {/* 2026-10-27: decorative quote glyph retired — the italic
+                      quotation leads the card. */}
                   <blockquote className="text-lg md:text-xl text-foreground leading-relaxed italic mb-6">
                     &ldquo;{testimonial.quote}&rdquo;
                   </blockquote>
@@ -772,7 +766,6 @@ export default async function ServiceDetailPage({
               return (
                 <StaggerItem key={benefit.title}>
                   <div className="p-6 rounded-2xl border border-card-border bg-white/60 backdrop-blur-sm h-full">
-                    <CheckCircle2 size={22} className="text-brand mb-4 shrink-0" />
                     <h3 className="text-base font-semibold text-foreground mb-2">
                       {benefit.title}
                     </h3>
@@ -987,7 +980,10 @@ export default async function ServiceDetailPage({
                               )}
                             >
                               {isSupported ? (
-                                <CheckCircle2 size={16} className="inline-block text-brand" />
+                                <span
+                                  aria-hidden="true"
+                                  className="inline-block h-1.5 w-1.5 rounded-full bg-brand align-middle"
+                                />
                               ) : (
                                 <span className="inline-block text-foreground-muted/30 text-sm select-none">
                                   &mdash;
@@ -1212,8 +1208,6 @@ export default async function ServiceDetailPage({
                       {/* Top gradient accent bar matching service color */}
                       <div className={`h-1 bg-gradient-to-r ${related.heroAccent}`} aria-hidden="true" />
                       <div className="p-6 md:p-8">
-                        <GlassIcon name={related.glass} size="sm" className="mb-5" />
-
                         <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-brand transition-colors">
                           {related.title}
                         </h3>
@@ -1248,7 +1242,6 @@ export default async function ServiceDetailPage({
                 className="group flex flex-col sm:flex-row items-center justify-between gap-6 max-w-4xl mx-auto rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
               >
                 <div className="flex items-center gap-4 text-center sm:text-left">
-                  <GlassIcon name={nextService.glass} size="sm" className="shrink-0" />
                   <div>
                     <p className="text-xs font-medium uppercase tracking-wider text-foreground-muted mb-1">
                       {t("next.label")}

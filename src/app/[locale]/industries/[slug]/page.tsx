@@ -6,7 +6,6 @@ import {
   ArrowRight,
   ArrowLeft,
   Mail,
-  CheckCircle2,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -23,7 +22,6 @@ import { GradientBackground } from "@/components/ui/GradientBackground";
 import { GridPattern } from "@/components/ui/GridPattern";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { Badge } from "@/components/ui/Badge";
-import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
 import { BreadcrumbJsonLd, ServiceJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import {
   industries,
@@ -109,13 +107,6 @@ export function generateMetadata({
     };
   });
 }
-
-/* -- Approach step pictograms ---------------------------------------------
- * ReTech Glass kit tiles (glass round 2026-10-23), positional — the four
- * approach steps follow the same understand → design → build → launch arc
- * on every industry page, so the generic stroke placeholders
- * (Compass/Layers/Wrench/Rocket) are retired. */
-const approachGlass: GlassIconName[] = ["discover", "design", "build", "launch"];
 
 /* -- Visual-break imagery (per-industry, 2026-10-23 sourcing pass) --------
  * Keyed by the locale-resolved slug (industry.slug). The four curated
@@ -275,12 +266,8 @@ export default async function IndustryDetailPage({
           </AnimatedSection>
 
           <div className="max-w-3xl relative">
-            <AnimatedSection variant="slideUp" delay={0.06}>
-              {/* ReTech Glass kit tile replaces the lucide-in-glow-box +
-                  ghost watermark pattern (icon round 2026-10-24). */}
-              <GlassIcon name={industry.glass} size="md" className="mb-6" />
-            </AnimatedSection>
-
+            {/* 2026-10-27 (decorative-icon retirement): the hero glass tile is
+                gone — the h1 carries the opening. */}
             <AnimatedSection variant="slideUp" delay={0.12}>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-3">
                 {industry.name} Software Development
@@ -400,16 +387,9 @@ export default async function IndustryDetailPage({
                     delay={i * 0.1}
                   >
                     <div className="relative rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] h-full">
-                      {/* Step pictogram — ReTech Glass kit tile */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <GlassIcon
-                          name={approachGlass[i] ?? "discover"}
-                          size="sm"
-                        />
-                        <span className="text-sm font-mono font-semibold text-brand tracking-wider">
-                          {step.step}
-                        </span>
-                      </div>
+                      <p className="text-sm font-mono font-semibold text-brand tracking-wider mb-4">
+                        {step.step}
+                      </p>
                       <h3 className="text-lg font-semibold text-foreground mb-2">
                         {step.title}
                       </h3>
@@ -497,11 +477,11 @@ export default async function IndustryDetailPage({
 
                     {/* Solution */}
                     <div className="flex items-start gap-2.5 px-5 pb-6 pt-1 md:gap-3 md:px-6 md:pt-6 md:border-l md:border-rule-soft">
-                      <CheckCircle2
-                        size={16}
-                        strokeWidth={1.75}
+                      {/* Hairline dash marker — check icons retired with the
+                          decorative-icon language (2026-10-27). */}
+                      <span
                         aria-hidden="true"
-                        className="mt-0.5 shrink-0 text-brand"
+                        className="mt-3 h-px w-4 shrink-0 bg-foreground/40"
                       />
                       <p className="text-[15px] leading-relaxed text-foreground/80">
                         {solution}
@@ -608,10 +588,6 @@ export default async function IndustryDetailPage({
             <AnimatedSection variant="slideUp">
               <div className="max-w-3xl mx-auto rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
                 <div className="flex items-start gap-4">
-                  <CheckCircle2
-                    size={24}
-                    className="text-brand shrink-0 mt-0.5"
-                  />
                   <div>
                     <h3 className="text-lg font-semibold text-foreground mb-2">
                       Proven Track Record
@@ -659,7 +635,6 @@ export default async function IndustryDetailPage({
                       className="group block h-full rg-glass-control"
                     >
                       <Card padding="lg" className="h-full">
-                        <GlassIcon name={service.glass} size="sm" className="mb-4" />
                         <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-brand transition-colors">
                           {service.title[loc]}
                         </h3>
@@ -704,7 +679,6 @@ export default async function IndustryDetailPage({
                     className="group block h-full rg-glass-control"
                   >
                     <Card padding="lg" className="h-full">
-                      <GlassIcon name={other.glass} size="sm" className="mb-4" />
                       <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-brand transition-colors">
                         {other.name}
                       </h3>

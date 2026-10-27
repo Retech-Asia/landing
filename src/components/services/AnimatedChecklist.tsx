@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
 
 interface AnimatedChecklistProps {
   items: string[];
@@ -10,12 +9,16 @@ interface AnimatedChecklistProps {
 }
 
 /**
- * Checklist section with staggered animated checkmarks.
+ * Checklist section with staggered row reveal, ruled-list language:
+ * hairline rules divide the rows, no icon markers.
  * Each item fades in and slides up with a small delay.
+ *
+ * 2026-10-27 (owner: retire the decorative icon language site-wide): the
+ * animated check circles are gone — the rules and the copy carry the list.
  */
 export function AnimatedChecklist({ items }: AnimatedChecklistProps) {
   return (
-    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <ul className="border-t border-rule">
       {items.map((item, i) => (
         <motion.li
           key={item}
@@ -23,33 +26,9 @@ export function AnimatedChecklist({ items }: AnimatedChecklistProps) {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.35, delay: i * 0.05, ease: "easeOut" }}
-          className="flex items-start gap-3 group"
+          className="border-b border-rule-soft py-4 text-sm font-medium text-foreground leading-snug"
         >
-          {/* Animated check circle */}
-          <motion.span
-            className="relative flex items-center justify-center w-6 h-6 rounded-full bg-brand/10 shrink-0 mt-0.5"
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{
-              type: "spring",
-              stiffness: 400,
-              damping: 15,
-              delay: i * 0.05 + 0.15,
-            }}
-          >
-            <Check size={14} className="text-brand" strokeWidth={3} />
-            {/* Ping animation on appear */}
-            <motion.span
-              className="absolute inset-0 rounded-full bg-brand/20"
-              initial={{ scale: 1, opacity: 0.5 }}
-              animate={{ scale: 1.8, opacity: 0 }}
-              transition={{ duration: 0.6, delay: i * 0.05 + 0.3 }}
-            />
-          </motion.span>
-          <span className="text-sm font-medium text-foreground leading-snug">
-            {item}
-          </span>
+          {item}
         </motion.li>
       ))}
     </ul>

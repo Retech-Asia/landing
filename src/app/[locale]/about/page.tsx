@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import {
-  ArrowRight,
-  Target,
-  Eye,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card } from "@/components/ui/Card";
@@ -312,10 +308,7 @@ export default async function AboutPage({
             <div className="space-y-6">
               <AnimatedSection variant="slideLeft">
                 <Card hover={false} padding="lg" className="bg-background-subtle border-card-border">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Target size={20} className="text-brand" />
-                    <h3 className="text-xl font-bold text-foreground">{chrome.missionCardTitle}</h3>
-                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-4">{chrome.missionCardTitle}</h3>
                   <p className="text-foreground-secondary leading-relaxed mb-5">
                     {chrome.missionCardBody}
                   </p>
@@ -344,10 +337,7 @@ export default async function AboutPage({
 
               <AnimatedSection variant="slideLeft" delay={0.15}>
                 <Card hover={false} padding="lg" className="bg-background-subtle border-card-border">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Eye size={20} className="text-accent-cyan" />
-                    <h3 className="text-xl font-bold text-foreground">{chrome.visionCardTitle}</h3>
-                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-4">{chrome.visionCardTitle}</h3>
                   <p className="text-foreground-secondary leading-relaxed mb-5">
                     {chrome.visionCardBody}
                   </p>

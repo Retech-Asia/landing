@@ -6,18 +6,7 @@ import {
   ArrowRight,
   ArrowLeft,
   RotateCcw,
-  Layout,
-  Users,
-  BarChart3,
-  Globe,
-  Palette,
-  UsersRound,
-  Smartphone,
-  CheckCircle2,
-  Clock,
-  UserCircle2,
   ChevronRight,
-  type LucideIcon,
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
@@ -32,7 +21,6 @@ interface ProjectType {
   id: string;
   label: string;
   description: string;
-  icon: LucideIcon;
   services: ServiceRecommendation[];
   timeline: string;
   teamSize: string;
@@ -42,7 +30,6 @@ interface ServiceRecommendation {
   slug: string;
   title: string;
   subtitle: string;
-  icon: LucideIcon;
   reason: string;
 }
 
@@ -55,7 +42,6 @@ const PROJECT_TYPES: ProjectType[] = [
     id: "new-website",
     label: "New Website",
     description: "Launch a modern, responsive website or web platform",
-    icon: Globe,
     timeline: "4 - 10 weeks",
     teamSize: "3 - 5 people",
     services: [
@@ -63,21 +49,18 @@ const PROJECT_TYPES: ProjectType[] = [
         slug: "cms-platforms",
         title: "CMS Platforms",
         subtitle: "Content Management Made Easy",
-        icon: Layout,
         reason: "Powers your content publishing and editorial workflows",
       },
       {
         slug: "ui-ux-design",
         title: "UI/UX Design",
         subtitle: "User-Centered Design",
-        icon: Palette,
         reason: "Ensures an engaging, conversion-optimized user experience",
       },
       {
         slug: "web-development",
         title: "Web Development",
         subtitle: "Modern Web Applications",
-        icon: Globe,
         reason: "Custom front-end and back-end engineering",
       },
     ],
@@ -86,7 +69,6 @@ const PROJECT_TYPES: ProjectType[] = [
     id: "mobile-app",
     label: "Mobile App",
     description: "Build a cross-platform or native mobile application",
-    icon: Users,
     timeline: "8 - 16 weeks",
     teamSize: "4 - 6 people",
     services: [
@@ -94,21 +76,18 @@ const PROJECT_TYPES: ProjectType[] = [
         slug: "mobile-app-development",
         title: "Mobile App Development",
         subtitle: "iOS & Android Applications",
-        icon: Smartphone,
         reason: "Native and cross-platform mobile engineering",
       },
       {
         slug: "ui-ux-design",
         title: "UI/UX Design",
         subtitle: "User-Centered Design",
-        icon: Palette,
         reason: "Mobile-first design with intuitive touch interactions",
       },
       {
         slug: "web-development",
         title: "Web Development",
         subtitle: "Modern Web Applications",
-        icon: Globe,
         reason: "Cross-platform mobile apps with PWA or React Native",
       },
     ],
@@ -117,7 +96,6 @@ const PROJECT_TYPES: ProjectType[] = [
     id: "business-system",
     label: "Business System",
     description: "ERP, CRM, or custom internal tools for your operations",
-    icon: BarChart3,
     timeline: "12 - 24 weeks",
     teamSize: "5 - 8 people",
     services: [
@@ -125,21 +103,18 @@ const PROJECT_TYPES: ProjectType[] = [
         slug: "erp-solutions",
         title: "ERP Solutions",
         subtitle: "Insightful Dashboards",
-        icon: BarChart3,
         reason: "Connects departments and streamlines operations",
       },
       {
         slug: "crm-systems",
         title: "CRM Systems",
         subtitle: "Customer-Centric Tools",
-        icon: Users,
         reason: "Manages customer relationships and sales pipelines",
       },
       {
         slug: "web-development",
         title: "Web Development",
         subtitle: "Modern Web Applications",
-        icon: Globe,
         reason: "Custom dashboards, APIs, and system integrations",
       },
     ],
@@ -148,7 +123,6 @@ const PROJECT_TYPES: ProjectType[] = [
     id: "design-refresh",
     label: "Design Refresh",
     description: "Modernize your existing product's look and feel",
-    icon: Palette,
     timeline: "3 - 8 weeks",
     teamSize: "2 - 4 people",
     services: [
@@ -156,14 +130,12 @@ const PROJECT_TYPES: ProjectType[] = [
         slug: "ui-ux-design",
         title: "UI/UX Design",
         subtitle: "User-Centered Design",
-        icon: Palette,
         reason: "Research-backed redesign with usability testing",
       },
       {
         slug: "web-development",
         title: "Web Development",
         subtitle: "Modern Web Applications",
-        icon: Globe,
         reason: "Implements the new design with clean, performant code",
       },
     ],
@@ -172,7 +144,6 @@ const PROJECT_TYPES: ProjectType[] = [
     id: "team-extension",
     label: "Team Extension",
     description: "Augment your in-house team with offshore talent",
-    icon: UsersRound,
     timeline: "2 - 4 weeks to onboard",
     teamSize: "Flexible (1 - 10+ people)",
     services: [
@@ -180,7 +151,6 @@ const PROJECT_TYPES: ProjectType[] = [
         slug: "dedicated-teams",
         title: "Dedicated Teams",
         subtitle: "Your Offshore Development Team",
-        icon: UsersRound,
         reason: "Pre-vetted senior engineers, fully managed",
       },
     ],
@@ -438,7 +408,6 @@ export function ServiceExplorer() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {PROJECT_TYPES.map((project) => {
-                  const Icon = project.icon;
                   return (
                     <motion.button
                       key={project.id}
@@ -452,18 +421,18 @@ export function ServiceExplorer() {
                         "transition-colors duration-200 cursor-pointer"
                       )}
                     >
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-brand/10 text-brand">
-                          <Icon size={20} />
-                        </div>
+                      {/* 2026-10-27 (decorative-icon retirement): the icon
+                          tile is gone — the label leads, the chevron keeps
+                          the affordance. */}
+                      <div className="flex items-start justify-between gap-3 mb-1.5">
+                        <p className="text-sm font-semibold text-foreground">
+                          {projectText(project).label}
+                        </p>
                         <ChevronRight
                           size={16}
-                          className="text-foreground-muted/40 group-hover:text-brand group-hover:translate-x-0.5 transition-all duration-200 mt-1"
+                          className="text-foreground-muted/40 group-hover:text-brand group-hover:translate-x-0.5 transition-all duration-200 shrink-0 mt-0.5"
                         />
                       </div>
-                      <p className="text-sm font-semibold text-foreground mb-1">
-                        {projectText(project).label}
-                      </p>
                       <p className="text-xs text-foreground-secondary leading-relaxed">
                         {projectText(project).description}
                       </p>
@@ -484,13 +453,11 @@ export function ServiceExplorer() {
               animate="center"
               exit="exit"
             >
-              {/* Header */}
-              <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 size={20} className="text-brand" />
-                <p className="text-xs font-semibold tracking-widest uppercase text-brand">
-                  {t.blueprint}
-                </p>
-              </div>
+              {/* Header — eyebrow text carries the blueprint state; the
+                  check-circle badge retired with the decorative icons. */}
+              <p className="text-xs font-semibold tracking-widest uppercase text-brand mb-2">
+                {t.blueprint}
+              </p>
               <h3 className="text-xl md:text-2xl font-bold text-foreground mb-1">
                 {projectText(selected).label}
               </h3>
@@ -498,17 +465,16 @@ export function ServiceExplorer() {
                 {t.approach}
               </p>
 
-              {/* Timeline & Team badges */}
+              {/* Timeline & Team badges — pictograms retired; the tabular
+                  values carry the badges. */}
               <div className="flex flex-wrap gap-3 mb-6">
-                <div className="inline-flex items-center gap-2 rounded-lg bg-brand/[0.06] border border-brand/10 px-3.5 py-2">
-                  <Clock size={15} className="text-brand" />
-                  <span className="text-sm font-medium text-foreground">
+                <div className="inline-flex items-center rounded-lg bg-brand/[0.06] border border-brand/10 px-3.5 py-2">
+                  <span className="text-sm font-medium text-foreground tabular-nums">
                     {projectText(selected).timeline}
                   </span>
                 </div>
-                <div className="inline-flex items-center gap-2 rounded-lg bg-accent-cyan/[0.06] border border-accent-cyan/10 px-3.5 py-2">
-                  <UserCircle2 size={15} className="text-accent-cyan" />
-                  <span className="text-sm font-medium text-foreground">
+                <div className="inline-flex items-center rounded-lg bg-accent-cyan/[0.06] border border-accent-cyan/10 px-3.5 py-2">
+                  <span className="text-sm font-medium text-foreground tabular-nums">
                     {projectText(selected).teamSize}
                   </span>
                 </div>
@@ -526,14 +492,7 @@ export function ServiceExplorer() {
                   {/* Desktop: horizontal card flow */}
                   <div className="hidden md:flex items-stretch gap-0">
                     {selected.services.map((svc, idx) => {
-                      const Icon = svc.icon;
                       const isFirst = idx === 0;
-                      const accentColor =
-                        idx % 3 === 0
-                          ? "brand"
-                          : idx % 3 === 1
-                          ? "accent-cyan"
-                          : "accent-violet";
 
                       return (
                         <div key={svc.slug} className="flex items-stretch flex-1">
@@ -548,26 +507,16 @@ export function ServiceExplorer() {
                             href={`/services/${isVi ? SLUG_VI[svc.slug] ?? svc.slug : svc.slug}`}
                             className="group flex-1 rounded-xl border border-card-border p-4 hover:border-brand/25 hover:bg-brand/[0.02] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50"
                           >
-                            <div className="flex items-center gap-2.5 mb-2">
-                              <div
-                                className={cn(
-                                  "flex items-center justify-center w-8 h-8 rounded-lg shrink-0",
-                                  `bg-${accentColor}/10 text-${accentColor}`
-                                )}
-                              >
-                                <Icon size={16} />
-                              </div>
-                              <div className="min-w-0">
-                                <p className="text-sm font-semibold text-foreground group-hover:text-brand transition-colors truncate">
-                                  {svcTitle(svc.slug, svc.title)}
-                                  {isFirst && (
-                                    <span className="ml-1.5 inline-flex items-center rounded-full bg-brand/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-brand">
-                                      {t.core}
-                                    </span>
-                                  )}
-                                </p>
-                              </div>
-                            </div>
+                            {/* 2026-10-27 (decorative-icon retirement): the
+                                accent icon tile is gone — the title leads. */}
+                            <p className="text-sm font-semibold text-foreground group-hover:text-brand transition-colors truncate mb-2">
+                              {svcTitle(svc.slug, svc.title)}
+                              {isFirst && (
+                                <span className="ml-1.5 inline-flex items-center rounded-full bg-brand/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-brand">
+                                  {t.core}
+                                </span>
+                              )}
+                            </p>
                             <p className="text-xs text-foreground-secondary leading-relaxed">
                               {svcReason(selected.id, svc.slug, svc.reason)}
                             </p>
@@ -584,14 +533,7 @@ export function ServiceExplorer() {
                   {/* Mobile: vertical card list */}
                   <div className="md:hidden space-y-3">
                     {selected.services.map((svc, idx) => {
-                      const Icon = svc.icon;
                       const isFirst = idx === 0;
-                      const accentColor =
-                        idx % 3 === 0
-                          ? "brand"
-                          : idx % 3 === 1
-                          ? "accent-cyan"
-                          : "accent-violet";
 
                       return (
                         <Link
@@ -599,14 +541,6 @@ export function ServiceExplorer() {
                           href={`/services/${isVi ? SLUG_VI[svc.slug] ?? svc.slug : svc.slug}`}
                           className="group flex items-start gap-3.5 rounded-xl border border-card-border p-4 hover:border-brand/25 hover:bg-brand/[0.02] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50"
                         >
-                          <div
-                            className={cn(
-                              "flex items-center justify-center w-9 h-9 rounded-lg shrink-0 mt-0.5",
-                              `bg-${accentColor}/10 text-${accentColor}`
-                            )}
-                          >
-                            <Icon size={17} />
-                          </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">
                               {svcTitle(svc.slug, svc.title)}

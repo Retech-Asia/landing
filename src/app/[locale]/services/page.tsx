@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
-import { ArrowRight, CheckCircle2, HelpCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { BreadcrumbNav } from "@/components/ui/BreadcrumbNav";
@@ -20,7 +20,6 @@ import { ServiceGridSkeleton } from "@/components/ui/Skeleton";
 import { ServiceQuiz } from "@/components/ui/ServiceQuiz";
 import { ServiceExplorer } from "@/components/ui/ServiceExplorer";
 import { Tooltip } from "@/components/ui/Tooltip";
-import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
 import { cn } from "@/lib/cn";
 import { services } from "@/lib/services-data";
 import { SITE_URL, OG_IMAGE_URL, OG_IMAGE_ALT } from "@/lib/constants";
@@ -67,34 +66,29 @@ export async function generateMetadata({
 
 
 const processSteps: {
-  glass: GlassIconName;
   step: string;
   title: string;
   description: string;
 }[] = [
   {
-    glass: "discover",
     step: "01",
     title: "Discovery",
     description:
       "We dive deep into your business goals, challenges, and requirements to define a clear project scope and success criteria.",
   },
   {
-    glass: "design",
     step: "02",
     title: "Design",
     description:
       "Our designers create wireframes, prototypes, and visual designs that align with your brand and optimize user experience.",
   },
   {
-    glass: "build",
     step: "03",
     title: "Development",
     description:
       "Engineers build your solution using modern frameworks, agile sprints, and continuous integration with transparent progress updates.",
   },
   {
-    glass: "launch",
     step: "04",
     title: "Delivery",
     description:
@@ -278,12 +272,8 @@ export default async function ServicesPage({
                   <StaggerItem key={service.id} className="h-full">
                     <Link href={`/services/${service.slug[loc]}`} className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-2xl focus-visible:ring-offset-2">
                       <div className="relative h-full rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] p-6 md:p-8 transition-all duration-300 hover:border-foreground/10 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
-                        {/* Icon — ReTech Glass kit pictogram from the data
-                            model; one consistent vocabulary replaces the
-                            rotating brand/cyan/violet accent colors. */}
-                        <GlassIcon name={service.glass} size="md" className="mb-5" />
-
-                        {/* Content */}
+                        {/* 2026-10-27 (decorative-icon retirement): the glass
+                            pictogram tile is gone; the serif title leads. */}
                         <h2 className="text-xl font-semibold text-foreground mb-1 group-hover:text-brand transition-colors">
                           {service.title[loc]}
                         </h2>
@@ -332,19 +322,13 @@ export default async function ServicesPage({
                       <th className="sticky left-0 z-10 bg-card-bg px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider text-foreground-secondary whitespace-nowrap">
                         Feature
                       </th>
-                      {services.map((service) => {
-                        const ServiceIcon = service.icon;
-                        return (
-                          <th key={service.id} className="px-4 py-4 text-center whitespace-nowrap">
-                            <div className="flex flex-col items-center gap-1.5">
-                              <ServiceIcon size={18} className="text-brand" />
-                              <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
-                                {service.title[loc].split(" ")[0]}
-                              </span>
-                            </div>
-                          </th>
-                        );
-                      })}
+                      {services.map((service) => (
+                        <th key={service.id} className="px-4 py-4 text-center whitespace-nowrap">
+                          <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
+                            {service.title[loc].split(" ")[0]}
+                          </span>
+                        </th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody>
@@ -355,19 +339,20 @@ export default async function ServicesPage({
                       >
                         <td className="sticky left-0 z-10 px-5 py-3.5 font-medium text-foreground whitespace-nowrap bg-inherit text-sm">
                           <Tooltip content={row.tooltip} as="span" side="top">
-                            <span className="inline-flex items-center gap-1.5 cursor-help">
+                            <span className="inline-flex items-center cursor-help">
                               {row.feature}
-                              <HelpCircle
-                                size={13}
-                                className="text-foreground-muted/50"
-                              />
                             </span>
                           </Tooltip>
                         </td>
                         {row.supported.map((isSupported, colIdx) => (
                           <td key={colIdx} className="px-4 py-3.5 text-center">
+                            {/* Supported mark is a brand dot — check icons
+                                retired with the decorative-icon language. */}
                             {isSupported ? (
-                              <CheckCircle2 size={18} className="inline-block text-brand" />
+                              <span
+                                aria-hidden="true"
+                                className="inline-block h-1.5 w-1.5 rounded-full bg-brand align-middle"
+                              />
                             ) : (
                               <span className="inline-block text-foreground-muted/30 text-base leading-none select-none">
                                 &mdash;
@@ -385,18 +370,14 @@ export default async function ServicesPage({
             {/* -- Mobile Cards (< md) ------------------------------------ */}
             <div className="md:hidden space-y-4">
               {services.map((service) => {
-                const ServiceIcon = service.icon;
                 return (
                   <div
                     key={service.id}
                     className="rounded-2xl border border-card-border bg-card-bg p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
                   >
-                    <div className="flex items-center gap-2.5 mb-4">
-                      <ServiceIcon size={20} className="text-brand" />
-                      <h2 className="text-base font-semibold text-foreground">
-                        {service.title[loc]}
-                      </h2>
-                    </div>
+                    <h2 className="text-base font-semibold text-foreground mb-4">
+                      {service.title[loc]}
+                    </h2>
                     <ul className="space-y-2.5">
                       {comparisonFeatures.map((row) => {
                         const colIndex = services.findIndex(
@@ -413,14 +394,13 @@ export default async function ServicesPage({
                                 )}
                               >
                                 {row.feature}
-                                <HelpCircle
-                                  size={12}
-                                  className="text-foreground-muted/40 shrink-0"
-                                />
                               </span>
                             </Tooltip>
                             {isSupported ? (
-                              <CheckCircle2 size={16} className="text-brand shrink-0" />
+                              <span
+                                aria-hidden="true"
+                                className="inline-block h-1.5 w-1.5 rounded-full bg-brand shrink-0"
+                              />
                             ) : (
                               <span className="text-foreground-muted/30 text-sm select-none">
                                 &mdash;
@@ -454,11 +434,11 @@ export default async function ServicesPage({
               return (
                 <StaggerItem key={step.step}>
                   <div className="relative rounded-2xl bg-card-bg border border-card-border backdrop-blur-sm p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
-                    <div className="flex items-center gap-3 mb-4">
+                    {/* Ghost numeral carries the step (icon retired 2026-10-27). */}
+                    <div className="mb-4">
                       <span className="text-3xl font-bold text-black/[0.06] leading-none">
                         {step.step}
                       </span>
-                      <GlassIcon name={step.glass} size="sm" />
                     </div>
 
                     <h2 className="text-lg font-semibold text-foreground mb-2">

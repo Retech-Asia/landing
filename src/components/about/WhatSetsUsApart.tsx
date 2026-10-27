@@ -1,6 +1,5 @@
 "use client";
 
-import { GlassIcon, type GlassIconName } from "@/components/ui/GlassIcon";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import {
@@ -16,14 +15,12 @@ interface LocaleText {
 }
 
 interface Differentiator {
-  glass: GlassIconName;
   title: LocaleText;
   description: LocaleText;
 }
 
 const differentiators: Differentiator[] = [
   {
-    glass: "scalability",
     title: { en: "Technical Excellence", vi: "Năng lực kỹ thuật" },
     description: {
       en: "Our engineers bring deep expertise in modern stacks: React, Next.js, Node.js, Python, and cloud-native architectures. Every solution is built on proven best practices with clean, maintainable code.",
@@ -31,7 +28,6 @@ const differentiators: Differentiator[] = [
     },
   },
   {
-    glass: "build",
     title: { en: "Agile Approach", vi: "Phương pháp agile" },
     description: {
       en: "Short sprints, continuous delivery, and transparent progress tracking. We adapt to changing requirements quickly, keeping your project on track and your stakeholders informed at every step.",
@@ -39,7 +35,6 @@ const differentiators: Differentiator[] = [
     },
   },
   {
-    glass: "finance",
     title: { en: "Cost Efficiency", vi: "Hiệu quả chi phí" },
     description: {
       en: "Vietnam-based operations mean competitive rates without compromising quality. We deliver enterprise-grade solutions at a fraction of the cost of onshore or Western European development teams.",
@@ -47,7 +42,6 @@ const differentiators: Differentiator[] = [
     },
   },
   {
-    glass: "partnership",
     title: { en: "Cultural Alignment", vi: "Tương thích văn hóa" },
     description: {
       en: "We understand Western business culture and communication styles. Fluent English proficiency, overlapping working hours, and a collaborative mindset ensure seamless integration with your team.",
@@ -87,9 +81,6 @@ export function WhatSetsUsApart() {
                       0{index + 1}
                     </span>
                   </div>
-
-                  {/* Icon — ReTech Glass kit pictogram */}
-                  <GlassIcon name={item.glass} size="sm" className="mb-5" />
 
                   <h3 className="text-base font-semibold text-foreground mb-2">
                     {pick(item.title)}

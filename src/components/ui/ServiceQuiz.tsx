@@ -6,8 +6,6 @@ import {
   ArrowRight,
   ArrowLeft,
   RotateCcw,
-  CheckCircle2,
-  type LucideIcon,
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
@@ -34,7 +32,6 @@ interface ServiceBrief {
   slug: string;
   title: string;
   subtitle: string;
-  icon: LucideIcon;
 }
 
 /* ------------------------------------------------------------------ */
@@ -84,11 +81,11 @@ const QUESTIONS: QuizQuestion[] = [
 // Canonical EN+VI service briefs derived from services-data (keyed by the
 // invariant EN slug) so quiz results match the service pages exactly and
 // new services appear without edits here.
-const SERVICE_EN: Record<string, { title: string; subtitle: string; icon: LucideIcon }> =
+const SERVICE_EN: Record<string, { title: string; subtitle: string }> =
   Object.fromEntries(
     services.map((s) => [
       s.slug.en,
-      { title: s.title.en, subtitle: s.subtitle.en, icon: s.icon },
+      { title: s.title.en, subtitle: s.subtitle.en },
     ]),
   );
 
@@ -325,12 +322,11 @@ export function ServiceQuiz() {
               exit="exit"
               transition={{ duration: 0.35, ease: "easeInOut" }}
             >
-              <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 size={20} className="text-brand" />
-                <p className="text-xs font-semibold tracking-widest uppercase text-brand">
-                  {t.recommendedForYou}
-                </p>
-              </div>
+              {/* Eyebrow carries the results state; the check-circle badge
+                  retired with the decorative icons (2026-10-27). */}
+              <p className="text-xs font-semibold tracking-widest uppercase text-brand mb-2">
+                {t.recommendedForYou}
+              </p>
               <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">
                 {t.suggestHeading}
               </h3>
@@ -340,25 +336,14 @@ export function ServiceQuiz() {
 
               <div className="space-y-3">
                 {recommendations.map((svc, idx) => {
-                  const Icon = svc.icon;
                   return (
                     <Link
                       key={svc.slug}
                       href={`/services/${isVi ? SLUG_VI[svc.slug] ?? svc.slug : svc.slug}`}
                       className="group flex items-center gap-4 rounded-xl border border-card-border p-4 hover:border-brand/30 hover:bg-brand/[0.02] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50"
                     >
-                      <div
-                        className={cn(
-                          "flex items-center justify-center w-10 h-10 rounded-lg shrink-0",
-                          idx === 0
-                            ? "bg-brand/10 text-brand"
-                            : idx === 1
-                            ? "bg-accent-cyan/10 text-accent-cyan"
-                            : "bg-accent-violet/10 text-accent-violet"
-                        )}
-                      >
-                        <Icon size={20} />
-                      </div>
+                      {/* 2026-10-27 (decorative-icon retirement): the accent
+                          icon tile is gone — the title + Top Pick badge lead. */}
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">
                           {svcTitle(svc.slug, svc.title)}

@@ -2,22 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
-import {
-  ArrowRight,
-  ArrowLeft,
-  CheckCircle2,
-  Layers,
-  AlertTriangle,
-  Sparkles,
-  Clock,
-  Users,
-  Wrench,
-  Globe,
-} from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card } from "@/components/ui/Card";
-import { GlassIcon } from "@/components/ui/GlassIcon";
 import { Button } from "@/components/ui/Button";
 import {
   AnimatedSection,
@@ -427,14 +415,10 @@ export default async function CaseStudyDetailPage({
             <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 mb-8 lg:mb-0">
               <AnimatedSection variant="slideRight" className="lg:py-8">
                 <Card hover={false} padding="lg" className="h-full">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-amber-500/10 shrink-0">
-                      <AlertTriangle size={20} className="text-amber-600" aria-hidden="true" />
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground">
-                      {chrome.challengeTitle}
-                    </h3>
-                  </div>
+                  {/* 2026-10-27: icon tiles retired — the headings lead. */}
+                  <h3 className="text-xl font-bold text-foreground mb-4">
+                    {chrome.challengeTitle}
+                  </h3>
                   <p className="text-foreground-secondary leading-relaxed">
                     {study.challenge}
                   </p>
@@ -465,14 +449,9 @@ export default async function CaseStudyDetailPage({
 
               <AnimatedSection variant="slideLeft" className="lg:py-8">
                 <Card hover={false} padding="lg" className="h-full">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-brand/10 shrink-0">
-                      <Layers size={20} className="text-brand" aria-hidden="true" />
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground">
-                      {chrome.solutionTitle}
-                    </h3>
-                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-4">
+                    {chrome.solutionTitle}
+                  </h3>
                   <p className="text-foreground-secondary leading-relaxed">
                     {study.solution}
                   </p>
@@ -489,14 +468,9 @@ export default async function CaseStudyDetailPage({
             <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
               <AnimatedSection variant="slideRight" className="lg:py-8">
                 <Card hover={false} padding="lg" className="h-full">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-accent-cyan/10 shrink-0">
-                      <Sparkles size={20} className="text-accent-cyan" aria-hidden="true" />
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground">
-                      {chrome.impactTitle}
-                    </h3>
-                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-4">
+                    {chrome.impactTitle}
+                  </h3>
                   <p className="text-foreground-secondary leading-relaxed">
                     {study.impact}
                   </p>
@@ -552,9 +526,7 @@ export default async function CaseStudyDetailPage({
             {study.keyResults.map((result, index) => (
               <StaggerItem key={index}>
                 <Card hover={false} padding="lg" className="h-full text-center">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-brand/10 mx-auto mb-4">
-                    <CheckCircle2 size={20} className="text-brand" aria-hidden="true" />
-                  </div>
+                  {/* 2026-10-27: checkmark badge retired — the result copy stands alone. */}
                   <p className="text-sm text-foreground-secondary leading-relaxed">
                     {result}
                   </p>
@@ -580,9 +552,8 @@ export default async function CaseStudyDetailPage({
             <StaggerContainer className="grid grid-cols-1 sm:grid-cols-3 gap-6" staggerDelay={0.12}>
               <StaggerItem>
                 <Card hover={false} padding="lg" className="h-full text-center">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-brand/10 mx-auto mb-4">
-                    <Clock size={22} className="text-brand" aria-hidden="true" />
-                  </div>
+                  {/* 2026-10-27: pictogram tiles retired — the uppercase labels
+                      carry the detail cells. */}
                   <p className="text-[11px] uppercase tracking-wider text-foreground-muted font-semibold mb-1">
                     {chrome.timelineLabel}
                   </p>
@@ -594,9 +565,6 @@ export default async function CaseStudyDetailPage({
 
               <StaggerItem>
                 <Card hover={false} padding="lg" className="h-full text-center">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-accent-cyan/10 mx-auto mb-4">
-                    <Users size={22} className="text-accent-cyan" aria-hidden="true" />
-                  </div>
                   <p className="text-[11px] uppercase tracking-wider text-foreground-muted font-semibold mb-1">
                     {chrome.teamSizeLabel}
                   </p>
@@ -608,9 +576,6 @@ export default async function CaseStudyDetailPage({
 
               <StaggerItem>
                 <Card hover={false} padding="lg" className="h-full text-center">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-accent-cyan/10 mx-auto mb-4">
-                    <Wrench size={22} className="text-accent-cyan" aria-hidden="true" />
-                  </div>
                   <p className="text-[11px] uppercase tracking-wider text-foreground-muted font-semibold mb-1">
                     {chrome.technologiesLabel}
                   </p>
@@ -625,9 +590,6 @@ export default async function CaseStudyDetailPage({
               {study.clientCountry && (
                 <StaggerItem>
                   <Card hover={false} padding="lg" className="h-full text-center">
-                    <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-brand/10 mx-auto mb-4">
-                      <Globe size={22} className="text-brand" aria-hidden="true" />
-                    </div>
                     <p className="text-[11px] uppercase tracking-wider text-foreground-muted font-semibold mb-1">
                       {chrome.clientCountryLabel}
                     </p>
@@ -653,17 +615,14 @@ export default async function CaseStudyDetailPage({
             </div>
           </AnimatedSection>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.08}>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-5" staggerDelay={0.08}>
             {study.features.map((feature, index) => (
               <StaggerItem key={index}>
-                <div className="flex items-start gap-3 p-4 rounded-xl bg-background-subtle border border-card-border">
-                  <span className="mt-0.5 shrink-0" aria-hidden="true">
-                    <CheckCircle2 size={16} className="text-brand" />
-                  </span>
-                  <p className="text-sm text-foreground-secondary leading-relaxed">
-                    {feature}
-                  </p>
-                </div>
+                {/* 2026-10-27 spacing pass: the marker left an empty card box
+                    — ruled hairline cells carry the copy instead. */}
+                <p className="border-t border-rule pt-4 text-sm text-foreground-secondary leading-relaxed">
+                  {feature}
+                </p>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -716,17 +675,14 @@ export default async function CaseStudyDetailPage({
                   </h2>
                 </div>
               </AnimatedSection>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5 max-w-4xl mx-auto">
                 {study.keyResults.map((result, i) => (
                   <AnimatedSection key={result} variant="slideUp" delay={i * 0.08}>
-                    <div className="flex items-start gap-3 p-5 rounded-xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
-                      <div className="flex-shrink-0 w-7 h-7 rounded-full bg-brand/10 text-brand flex items-center justify-center mt-0.5">
-                        <CheckCircle2 size={16} strokeWidth={2.5} />
-                      </div>
-                      <p className="text-base text-foreground-secondary leading-relaxed">
-                        {result}
-                      </p>
-                    </div>
+                    {/* 2026-10-27 spacing pass: empty card chrome dropped for
+                        ruled hairline cells. */}
+                    <p className="border-t border-rule pt-4 text-base text-foreground-secondary leading-relaxed">
+                      {result}
+                    </p>
                   </AnimatedSection>
                 ))}
               </div>
@@ -775,7 +731,6 @@ export default async function CaseStudyDetailPage({
                       className="group block h-full rg-glass-control"
                     >
                       <div className="relative h-full rounded-2xl bg-card-bg border border-card-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
-                        <GlassIcon name={service.glass} size="sm" className="mb-4" />
                         <h3 className="text-base font-bold text-foreground mb-1 group-hover:text-brand transition-colors">
                           {service.title[loc]}
                         </h3>
