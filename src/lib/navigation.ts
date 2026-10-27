@@ -114,7 +114,10 @@ export const navigation: {
     },
     { labelKey: "process", href: "/process" },
     { labelKey: "industries", href: "/industries" },
-    { labelKey: "caseStudies", href: "/case-studies" },
+    // Portfolio migration Phase 1 (owner-approved 10/27): primary nav lands on
+    // the concept-led portfolio; "Case Studies" remains only in the footer as
+    // the delivered-work archive link. URLs/sitemap/legacy content untouched.
+    { labelKey: "productConcepts", href: "/showcases" },
     { labelKey: "about", href: "/about" },
     { labelKey: "blog", href: "/blog" },
   ],
