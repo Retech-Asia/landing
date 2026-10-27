@@ -2,10 +2,12 @@
 /*  Capability-led technologies listing                                       */
 /*                                                                            */
 /*  2026-10-27 (owner-directed refinement, batch B): the white-card grid with */
-/*  brand-logo tiles, filter pills and service-tag inventories is replaced by */
-/*  five static capability sections in the site's typographic system — ghost  */
-/*  numerals, serif display titles, hairline rules, quiet ruled lists. No     */
-/*  icons, no logos, no pills. Filter functionality removed by design.        */
+/*  brand-logo tiles, filter pills and service-tag inventories was replaced   */
+/*  by five static capability sections in the site's typographic system —     */
+/*  ghost numerals, serif display titles, hairline rules, quiet ruled lists.  */
+/*  Round 3 (same day): authentic official logos (simple-icons path data,     */
+/*  brand colors) now sit beside each technology name — the owner reversed    */
+/*  the no-logos line for technical identifiers; decorative-icon ban stays.   */
 /*                                                                            */
 /*  Content integrity: only technologies the previous data listed appear      */
 /*  here, mapped into five capability groups; role lines are condensed from   */
@@ -14,6 +16,8 @@
 /*  review, automated test suites, per-phase acceptance criteria) rather than */
 /*  inventing tool names the stack does not name.                             */
 /* -------------------------------------------------------------------------- */
+
+import { TechLogo } from "@/components/ui/TechLogo";
 
 interface TechItem {
   name: string;
@@ -273,7 +277,8 @@ export function TechListing({ locale = "en" }: { locale?: string }) {
                   className="border-b border-rule-soft py-4"
                 >
                   <div className="grid gap-0.5 md:grid-cols-[minmax(0,13rem)_minmax(0,1fr)] md:gap-x-6">
-                    <p className="text-sm font-medium text-foreground">
+                    <p className="flex items-center gap-2.5 text-sm font-medium text-foreground">
+                      <TechLogo name={item.name} size={17} />
                       {item.name}
                     </p>
                     <p className="text-sm leading-relaxed text-foreground-muted">
