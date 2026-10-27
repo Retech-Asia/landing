@@ -12,17 +12,18 @@ import { LitDunes } from "./LitDunes";
  * sanctioned, and an ordinary visitor should "arrive at a beautiful
  * Discovery section without noticing complex animation machinery").
  *
- * The hero is a single calm viewport: the theme-following LitDunes Aurora
- * (the approved signature) with the headline, standfirst, and standard CTA
- * pair over the shared text scrim — the exact opening frame the owner
- * approved, now with nothing behind it. No sticky region, no scroll-driven
- * beats, no signal line-work (SignalCanvas deleted — git history keeps it),
- * no exposure dip, no masked stage. The Aurora itself (cursor lamp, contour
- * drift) carries the "alive" quality.
+ * The hero is a single full viewport: the theme-following LitDunes Aurora
+ * (the approved signature) with the serif display headline, standfirst, and
+ * standard CTA pair anchored lower-left over the near dunes while the
+ * layered aurora curtain fills the upper-right. No sticky region, no
+ * scroll-driven beats, no signal line-work, no cards or floating metrics.
  *
- * The hero-to-discovery handoff is DiscoverySection's one-shot masked
- * reveal (see that file): short, smooth, visually connected, and entirely
- * unpinned.
+ * 2026-10-27 presence pass (owner: the hero felt empty — raise the Aurora's
+ * visual presence via art direction, not components): larger dune forms,
+ * fixed key light, layered two-curtain sky weighted to the upper-right,
+ * denser horizon haze, stronger light-mode wash; headline moved to the
+ * serif display face at editorial scale. Transition to Discovery is pure
+ * layout/spacing (no animation machinery — see DiscoverySection).
  *
  * Laws: hero follows the site theme (no forceDark, theme-aware scrim,
  * foreground tokens); AR-1 is NOT rendered here (exactly once, in
@@ -45,17 +46,21 @@ export function HeroSignal() {
       </div>
       {/* Theme-aware text scrim (same treatment as the previous heroes). */}
       <div className="absolute inset-0 hero-text-scrim" aria-hidden="true" />
-      <div className="relative flex-1 pt-24 md:pt-28">
+      {/* 2026-10-27 presence pass: the copy anchors lower-left — the serif
+          display headline sits over the rich near dunes while the layered
+          aurora curtain owns the upper-right. One deliberate composition
+          instead of a top-left block with bare space around it. */}
+      <div className="relative flex flex-1 flex-col justify-end pb-24 pt-24 md:pb-32 md:pt-28">
         <Container>
           <div className="max-w-3xl">
-            <h1 className="text-4xl font-bold leading-[1.08] tracking-tight text-foreground text-balance md:text-6xl lg:text-7xl">
+            <h1 className="font-display-title text-5xl leading-[1.04] tracking-tight text-foreground text-balance md:text-7xl">
               {t("h1Pre")} {t("h1Into")}{" "}
-              <em className="font-display italic text-brand">{t("h1Accent")}</em>
+              <em className="italic text-brand">{t("h1Accent")}</em>
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground-secondary md:text-lg">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground-secondary md:text-lg">
               {t("standfirst")}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-9 flex flex-wrap gap-3">
               <Button href="/contact" size="lg" className="font-semibold">
                 {t("ctaPrimary")}
               </Button>

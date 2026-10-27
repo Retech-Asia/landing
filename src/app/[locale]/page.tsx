@@ -84,8 +84,8 @@ export default async function HomePage({
       <HeroSignal />
 
       {/* 2. DiscoverySection - Hallmark B1 act: "We start with how your
-          business works" (AR-1 backdrop, one-shot masked reveal on entry;
-          AR-1 renders exactly once on the page). */}
+          business works" (static editorial composition + framed AR-1 plate;
+          AR-1 renders exactly once on the page; no reveal animation). */}
       <DiscoverySection />
 
       {/* 3. ServicesGallery - six families as image-led editorial panels;

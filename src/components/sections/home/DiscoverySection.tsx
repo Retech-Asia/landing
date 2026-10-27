@@ -1,35 +1,33 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { useTranslations } from "next-intl";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 /**
  * Discovery section (Hallmark B1: "We start with how your business works").
  *
- * SIMPLIFIED 2026-10-27 (owner creative direction: "prioritize visual
- * elegance, simplicity, and usability over cinematic complexity"; removing
- * the pinned sequence was explicitly sanctioned). The reveal is a one-shot,
- * scroll-triggered masked entrance — no sticky region, no scroll-jacking,
- * no schematic line-work: as the section enters the viewport the AR-1 photo
- * masks out from the whiteboard zone (the same hub the previous transition
- * used) and settles from a slight blur/scale while the scrim rises with it.
- * The copy is in the DOM and readable throughout; it drifts up a few pixels
- * on the same beat.
+ * REDESIGNED 2026-10-27 (owner: the full-bleed photo banner with bottom
+ * text read generic, the AR-1 panorama went soft stretched across the
+ * viewport, and the masked reveal was animation machinery a professional
+ * site doesn't need). The section is now a static editorial composition —
+ * a server component with zero client JS:
  *
- * Implementation note: deliberately NOT framer-motion whileInView — in this
- * environment (framer-motion 12.39 + React 19.2) the in-view trigger never
- * fires (probe 2026-10-27: initial styles applied, observer silent). A plain
- * IntersectionObserver + CSS transitions is deterministic and cheaper.
+ * - Type-led opening: mono number/label eyebrow on a hairline rule, then a
+ *   large serif display headline with the body copy set beside it (small
+ *   column, generous whitespace) — asymmetry through typography, not tricks.
+ * - AR-1 sits below as a framed panoramic plate at its native aspect
+ *   (2055×765 ≈ 8:3) inside the container — sharp at any width instead of
+ *   upscaled full-bleed, and readable as a "workshop wall" exhibit rather
+ *   than a backdrop.
+ * - The Aurora→Discovery handoff is layout, spacing and color only: the
+ *   hero's terrain resolves into a calm paper section.
  *
- * Laws preserved: AR-1 renders exactly ONCE on the page (the hero no longer
- * touches it); temporary mobile crop (portrait master not yet approved);
- * black-scrim-only overlay law; one-shot reveal; reduced motion renders the
- * settled state immediately with no transition; photo is lazy (below the
- * LCP frame).
+ * Laws preserved: AR-1 renders exactly ONCE on the page (the hero never
+ * touches it); no reveal/blur/scale/mask animation anywhere (removed per
+ * owner directive — natural scrolling only); photo is lazy (below the LCP
+ * frame); black-scrim-overlay law retired with the full-bleed treatment
+ * (the plate needs no scrim — no text sits on it).
  */
+
 const BACKDROP = {
   src: "/images/studio/ar1-discovery-whiteboard.jpg",
   alt: "Engineering workshop wall with business process, system architecture, and user experience sketches",
@@ -37,101 +35,47 @@ const BACKDROP = {
     "data:image/jpeg;base64,/9j/2wBDABsSFBcUERsXFhceHBsgKEIrKCUlKFE6PTBCYFVlZF9VXVtqeJmBanGQc1tdhbWGkJ6jq62rZ4C8ybqmx5moq6T/2wBDARweHigjKE4rK06kbl1upKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKT/wAARCAAGABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAEC/8QAHRAAAgICAwEAAAAAAAAAAAAAAQIAEQQxAxIh0f/EABUBAQEAAAAAAAAAAAAAAAAAAAID/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AiZHM1BQikbNb9+TD5JyH6IiimF3oitREmb//2Q==",
 };
 
-/** Mask start box: ~30% x 22% centered on the whiteboard zone (52/42). */
-const MASK_START = "inset(31% 33% 47% 37% round 20px)";
-const MASK_END = "inset(0% 0% 0% 0% round 0px)";
-const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
-
 export function DiscoverySection() {
   const t = useTranslations("home.discovery");
-  const reduced = usePrefersReducedMotion();
-  const secRef = useRef<HTMLElement>(null);
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    if (reduced) return; // settled immediately via `hold` below
-    const el = secRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setRevealed(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.3 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [reduced]);
-
-  const hold = !revealed && !reduced;
 
   return (
-    <section
-      ref={secRef}
-      className="relative flex min-h-[60vh] items-end overflow-hidden bg-black md:min-h-[78vh]"
-      aria-label={t("label")}
-    >
-      <div
-        aria-hidden="true"
-        className="absolute inset-0"
-        style={{
-          clipPath: hold ? MASK_START : MASK_END,
-          opacity: hold ? 0 : 1,
-          transform: hold ? "scale(1.06)" : "scale(1)",
-          filter: hold ? "blur(6px)" : "blur(0px)",
-          transition: reduced
-            ? "none"
-            : `opacity 1.1s ${EASE}, clip-path 1.1s ${EASE}, transform 1.1s ${EASE}, filter 1.1s ${EASE}`,
-          willChange: "opacity, clip-path, transform, filter",
-        }}
-      >
-        <div className="absolute inset-0">
-          <Image
-            src={BACKDROP.src}
-            alt=""
-            fill
-            sizes="100vw"
-            loading="lazy"
-            placeholder="blur"
-            blurDataURL={BACKDROP.blurDataURL}
-            className="object-cover object-[center_38%]"
-          />
+    <section className="border-b border-rule bg-background" aria-label={t("label")}>
+      <Container className="pb-20 pt-16 md:pb-28 md:pt-24">
+        {/* Eyebrow: established number + hairline pattern */}
+        <div className="flex items-baseline gap-4 border-t border-rule pt-4">
+          <span className="font-display text-sm text-foreground-muted">{t("number")}</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground-muted">
+            {t("label")}
+          </span>
         </div>
-        {/* Photo overlay law: black scrim only, rising with the reveal.
-            Mobile crop lands the headline in the diagram zone, so the scrim
-            runs one step deeper there. */}
-        <div
-          className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/10 max-md:from-black/90 max-md:via-black/45"
-          style={{
-            opacity: hold ? 0 : 1,
-            transition: reduced ? "none" : `opacity 1.1s ${EASE}`,
-          }}
-        />
-      </div>
 
-      <Container className="relative z-10 pb-16 pt-24 md:pb-24">
-        <div
-          style={{
-            transform: hold ? "translateY(16px)" : "translateY(0)",
-            opacity: hold ? 0 : 1,
-            transition: reduced
-              ? "none"
-              : `opacity 0.5s ${EASE}, transform 0.5s ${EASE}`,
-          }}
-        >
-          <p className="font-display text-base text-white/90" aria-hidden="true">
-            <span className="font-semibold">{t("number")}</span>
-            <span className="text-white/60"> {t("label")}</span>
-          </p>
-          <h2 className="mt-4 font-display-title text-3xl leading-[1.15] text-white text-balance md:text-5xl">
+        {/* Asymmetric type block: headline spans wide, body holds a narrow
+            right column — hierarchy from scale and whitespace. */}
+        <div className="mt-10 grid grid-cols-1 gap-8 md:mt-14 lg:grid-cols-12 lg:gap-10">
+          <h2 className="font-display-title text-4xl leading-[1.08] tracking-tight text-foreground text-balance lg:col-span-8 lg:text-6xl">
             {t("title")}
           </h2>
-          <p className="mt-5 text-base leading-relaxed text-white/70 md:text-lg">
+          <p className="max-w-md text-base leading-relaxed text-foreground-secondary md:text-lg lg:col-span-4 lg:col-start-9 lg:self-end">
             {t("body")}
           </p>
         </div>
+
+        {/* The AR-1 plate: native-ratio framed panorama, contained in the
+            grid — no full-bleed upscale, no overlay text. */}
+        <figure className="mt-12 md:mt-16">
+          <div className="relative aspect-[8/3] overflow-hidden rounded-lg border border-rule">
+            <Image
+              src={BACKDROP.src}
+              alt={BACKDROP.alt}
+              fill
+              sizes="(min-width: 1280px) 1216px, 100vw"
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL={BACKDROP.blurDataURL}
+              className="object-cover"
+            />
+          </div>
+        </figure>
       </Container>
     </section>
   );

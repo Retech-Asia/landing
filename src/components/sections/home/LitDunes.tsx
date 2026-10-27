@@ -67,7 +67,11 @@ vec3 aces(vec3 x){
 }
 
 // slow rolling dune heightfield; the cursor raises a broad gentle mound under
-// itself (kept low so contour lines slide smoothly instead of jumping)
+// itself (kept low so contour lines slide smoothly instead of jumping).
+// Terrain math is byte-identical to the approved production shader — a
+// 2026-10-27 attempt at larger forms + key light degraded it (contour
+// "rivers", cyan flood) and was reverted after capture; the presence pass
+// lives in the sky + typography instead.
 float dune(vec2 p, vec2 pm, float mAct, float t) {
   float h = fbm(p * 0.45 + vec2(t * 0.22, t * 0.14));
   h += 0.5 * fbm(p * 1.1 - vec2(t * 0.16, t * 0.10));
@@ -86,6 +90,9 @@ void main(){
   vec3 bgBot = uDark > .5 ? vec3(0.030, 0.028, 0.062) : vec3(0.966, 0.966, 0.950);
   vec3 col = mix(bgBot, bgTop, smoothstep(-0.2, 0.8, uv.y + 0.30));
 
+  // Camera/framing: the approved geometry. (A 2026-10-27 attempt to raise
+  // the horizon shifted the plane-sampling span and dragged the palette
+  // ramp into its cyan zone — reverted after capture.)
   vec3 ro = vec3(0.0, 0.38, 3.2);
   ro.x += uMouse.x * 0.07;
   ro.y += uMouse.y * 0.02;
@@ -156,16 +163,33 @@ void main(){
     }
     col = mix(col, terrain, fog);
   } else {
-    // sky: aurora curtains hanging over the horizon
+    // sky: aurora curtains hanging over the horizon. 2026-10-27 presence
+    // pass: TWO parallax layers with vertical streak structure (the aurora
+    // reads as rays, not clouds), plus a restrained horizon glow, weighted
+    // toward the upper-right so the composition balances the lower-left
+    // headline. Greens → cyan only (approved palette; violet stays in the
+    // terrain wash, never amplified here).
     float curtain = fbm(vec2(uv.x * 1.6 + t * 0.4, t * 0.3));
-    float band = exp(-pow((uv.y - 0.34 - (curtain - 0.5) * 0.12) * 5.0, 2.0));
+    float curtain2 = fbm(vec2(uv.x * 1.05 - t * 0.22, t * 0.20 + 7.0));
+    float rays = 0.55 + 0.45 * fbm(vec2(uv.x * 7.0 + curtain * 2.2, t * 0.6));
+    float rays2 = 0.55 + 0.45 * fbm(vec2(uv.x * 5.0 - curtain2 * 1.8, t * 0.45 + 4.0));
+    float bandFar = exp(-pow((uv.y - 0.40 - (curtain - 0.5) * 0.18) * 6.5, 2.0)) * rays;
+    float bandNear = exp(-pow((uv.y - 0.47 - (curtain2 - 0.5) * 0.12) * 8.0, 2.0)) * rays2;
+    float glow = exp(-pow((uv.y - 0.38) * 3.6, 2.0));
     vec3 cCol = mix(vec3(0.10, 0.60, 0.30), vec3(0.024, 0.714, 0.831), curtain);
+    vec3 cCol2 = mix(vec3(0.024, 0.714, 0.831), vec3(0.10, 0.60, 0.30), curtain2);
+    // right-weighted bias (headline owns the lower left)
+    float side = smoothstep(0.05, 0.75, uv.x + 0.5);
     if (uDark > .5) {
-      col += cCol * band * (0.16 + uFlow * 0.10) * smoothstep(0.9, 0.2, uv.x + 0.5);
+      col += cCol * bandFar * (0.38 + uFlow * 0.10) * side;
+      col += cCol2 * bandNear * (0.26 + uFlow * 0.08) * side;
+      col += cCol * glow * 0.14 * side;
       float star = smoothstep(0.9965, 1.0, hash(floor(gl_FragCoord.xy / 2.0)));
       col += vec3(star * 0.35 * (0.5 + 0.5 * sin(uTime * 2.0 + hash(floor(gl_FragCoord.xy)) * 6.28)));
     } else {
-      col = mix(col, cCol * 0.95 + 0.03, band * (0.10 + uFlow * 0.05));
+      col = mix(col, cCol * 0.95 + 0.03, bandFar * (0.34 + uFlow * 0.05) * side);
+      col = mix(col, cCol2 * 0.9 + 0.04, bandNear * (0.24 + uFlow * 0.04) * side);
+      col = mix(col, cCol * 0.5 + 0.28, glow * 0.14 * side);
     }
   }
 
