@@ -275,6 +275,14 @@
       "driversTitle": "Yếu tố chi phối chi phí",
       "drivers": "Phạm vi, số nền tảng, tích hợp với hệ thống hiện có, độ phức tạp phân quyền và chi phí bên thứ ba (hạ tầng, license, model API). Chúng tôi báo giá dựa trên các yếu tố này sau giai đoạn khám phá, để con số phản ánh đúng hệ thống của bạn thay vì bảng giá chung.",
       "ctaLine": "Chưa chắc hình thức nào phù hợp? Bắt đầu với một giai đoạn Discovery có phạm vi rõ ràng."
+    },
+    "heroJourney": {
+      "ideas": "Ý tưởng",
+      "strategy": "Chiến lược",
+      "design": "Thiết kế",
+      "build": "Xây dựng",
+      "deploy": "Triển khai",
+      "note": "Bản dựng xem trước — nền tham chiếu tạm thời; đang chờ master sạch từ ChatGPT."
     }
   },
   "homepage": {

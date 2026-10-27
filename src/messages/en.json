@@ -275,6 +275,14 @@
       "driversTitle": "What drives cost",
       "drivers": "Scope, the number of platforms, integrations with existing systems, roles and permissions complexity, and third-party costs (infrastructure, licenses, model APIs). We quote against these factors after discovery, so the number reflects your system rather than a rate card.",
       "ctaLine": "Not sure which shape fits? Start with a scoped discovery."
+    },
+    "heroJourney": {
+      "ideas": "Ideas",
+      "strategy": "Strategy",
+      "design": "Design",
+      "build": "Build",
+      "deploy": "Deploy",
+      "note": "Preview build — reference stand-in background; ChatGPT clean master pending."
     }
   },
   "homepage": {

@@ -186,6 +186,15 @@
 
 /* Smooth theme transition — applied to key elements so the switch feels fluid.
    Only active when a theme is explicitly set (avoids flashing on first load). */
+/* Hero Journey preview: theme-aware legibility scrim (data-theme, not a
+   Tailwind dark: variant — the site wires dark styling through selectors). */
+.hj-dark-scrim {
+  display: none;
+}
+[data-theme="dark"] .hj-dark-scrim {
+  display: block;
+}
+
 [data-theme="dark"] body,
 [data-theme="dark"] .glass-card,
 [data-theme="dark"] nav {
