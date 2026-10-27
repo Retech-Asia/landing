@@ -74,15 +74,14 @@
       "careers": "Careers",
       "privacy": "Privacy Policy",
       "terms": "Terms of Service",
-      "quickLinks": "Quick Links",
       "resources": "Resources",
       "servicesHeader": "Services",
       "backToTop": "Back to top",
       "rightsReserved": "All rights reserved.",
-      "companyTagline": "Custom software development, CMS/CRM/ERP solutions, and AI-powered digital products from Vietnam.",
-      "projectsDelivered": "Serving operators in mining, finance, and asset management",
       "chatWhatsApp": "Chat on WhatsApp",
-      "vietnam": "Vietnam"
+      "positioning": "Custom software, thoughtfully engineered.",
+      "positioningSub": "We design and build software that brings clarity to complex business workflows.",
+      "company": "Company"
     },
     "languageSwitcher": {
       "label": "Language",

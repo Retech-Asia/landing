@@ -11,7 +11,6 @@ interface TeamMember {
   role: { en: string; vi: string };
   initials: string;
   bio: { en: string; vi: string };
-  gradient: string;
 }
 
 const teamMembers: TeamMember[] = [
@@ -26,7 +25,6 @@ const teamMembers: TeamMember[] = [
       en: "Over a decade in software development and IT outsourcing across Southeast Asia and Australia. Jay founded Retech Solutions to connect global businesses with Vietnam's strongest engineering talent, combining local cost advantages with international delivery standards.",
       vi: "Hơn một thập kỷ kinh nghiệm trong phát triển phần mềm và thuê ngoài công nghệ thông tin tại Đông Nam Á và Úc. Jay sáng lập Retech Solutions để kết nối các doanh nghiệp toàn cầu với đội ngũ kỹ sư tài năng của Việt Nam, kết hợp lợi thế chi phí trong nước cùng tiêu chuẩn bàn giao quốc tế.",
     },
-    gradient: "from-brand via-brand-light to-accent-cyan",
   },
   {
     name: "Minh Tran",
@@ -39,7 +37,6 @@ const teamMembers: TeamMember[] = [
       en: "Systems architect with deep experience in enterprise platforms, from multi-tenant SaaS to real-time financial systems. Minh defines technical strategy, leads architecture reviews, and ensures every project meets production-grade standards for security and performance.",
       vi: "Kiến trúc sư hệ thống với nhiều kinh nghiệm về các nền tảng doanh nghiệp, từ SaaS đa khách hàng đến hệ thống tài chính thời gian thực. Minh định hướng chiến lược kỹ thuật, chủ trì các buổi rà soát kiến trúc và đảm bảo mọi dự án đạt tiêu chuẩn sẵn sàng vận hành thực tế về bảo mật và hiệu năng.",
     },
-    gradient: "from-accent-cyan via-brand to-accent-violet",
   },
   {
     name: "Linh Nguyen",
@@ -52,7 +49,6 @@ const teamMembers: TeamMember[] = [
       en: "UX designer focused on research-driven product design for web and mobile applications. Linh leads the design practice at Retech, building scalable design systems and ensuring every interface is grounded in user research, not assumptions.",
       vi: "Nhà thiết kế trải nghiệm người dùng tập trung vào thiết kế sản phẩm dựa trên nghiên cứu cho các ứng dụng web và di động. Linh dẫn dắt mảng thiết kế tại Retech, xây dựng hệ thống thiết kế có khả năng mở rộng và bảo đảm mọi giao diện đều dựa trên nghiên cứu người dùng thay vì phỏng đoán.",
     },
-    gradient: "from-accent-violet via-brand to-accent-cyan",
   },
   {
     name: "Tuan Le",
@@ -65,7 +61,6 @@ const teamMembers: TeamMember[] = [
       en: "Engineering leader who has managed distributed teams across multiple concurrent projects. Tuan oversees delivery operations, mentors senior engineers, and drives the agile processes that keep Retech's projects on schedule.",
       vi: "Lãnh đạo kỹ thuật từng quản lý các đội ngũ phân tán qua nhiều dự án song song. Tuan giám sát vận hành bàn giao, đồng hành cùng các kỹ sư cấp cao và thúc đẩy quy trình agile giúp các dự án của Retech luôn đúng tiến độ.",
     },
-    gradient: "from-brand via-accent-violet to-accent-cyan",
   },
 ];
 
@@ -110,16 +105,14 @@ export function LeadershipTeam() {
               whileHover={{ y: -6, transition: { duration: 0.3, ease: "easeOut" } }}
               className="group relative rounded-2xl bg-card-bg border border-card-border shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] hover:border-brand/30 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] transition-all duration-300 overflow-hidden"
             >
-              {/* Top gradient accent bar */}
-              <div
-                className={`h-1 w-full bg-gradient-to-r ${member.gradient} opacity-60 group-hover:opacity-100 transition-opacity duration-300`}
-              />
+              {/* Top hairline accent */}
+              <div className="h-px w-full bg-rule" />
 
               <div className="p-6 pb-5">
                 {/* Initials circle */}
                 <div className="flex flex-col items-center text-center">
                   <motion.div
-                    className={`relative w-20 h-20 rounded-full bg-gradient-to-br ${member.gradient} flex items-center justify-center mb-4`}
+                    className="relative w-20 h-20 rounded-full bg-background-subtle text-foreground flex items-center justify-center mb-4"
                     whileHover={{ scale: 1.08 }}
                     transition={{ duration: 0.25 }}
                   >

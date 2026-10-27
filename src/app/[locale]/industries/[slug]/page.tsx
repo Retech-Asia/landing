@@ -249,11 +249,6 @@ export default async function IndustryDetailPage({
           className="absolute inset-0 dot-pattern pointer-events-none opacity-30"
           aria-hidden="true"
         />
-        {/* Industry-specific gradient overlay */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${industry.gradient} opacity-40 pointer-events-none`}
-          aria-hidden="true"
-        />
         <Container className="relative">
           <AnimatedSection variant="slideUp">
             <BreadcrumbNav
@@ -278,8 +273,8 @@ export default async function IndustryDetailPage({
               <p className="text-lg text-foreground-secondary leading-relaxed">
                 {industry.description}
               </p>
-              {/* Gradient divider */}
-              <div className="h-px w-24 bg-gradient-to-r from-brand via-accent-cyan to-accent-violet rounded-full mt-4" />
+              {/* Hairline divider */}
+              <div className="h-px w-24 bg-foreground/20 mt-4" />
             </AnimatedSection>
 
             <AnimatedSection variant="slideUp" delay={0.24}>

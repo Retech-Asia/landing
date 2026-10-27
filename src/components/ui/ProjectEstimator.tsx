@@ -957,13 +957,8 @@ export function ProjectEstimator() {
                   initial={{ opacity: 0, scale: 0.92 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.4, type: "spring", stiffness: 180, damping: 14 }}
-                  className="relative flex items-center justify-center gap-3 p-6 rounded-xl bg-gradient-to-r from-brand/[0.04] via-accent-cyan/[0.03] to-accent-violet/[0.04] border border-brand/10 mb-4 overflow-hidden"
+                  className="relative flex items-center justify-center gap-3 p-6 rounded-xl bg-background-subtle border border-rule mb-4 overflow-hidden"
                 >
-                  {/* Decorative background glow */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-brand/[0.02] to-accent-cyan/[0.02] pointer-events-none" />
-                  <div className="absolute -top-10 -right-10 w-32 h-32 bg-brand/5 rounded-full blur-2xl pointer-events-none" />
-                  <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-accent-cyan/5 rounded-full blur-2xl pointer-events-none" />
-
                   <div className="relative flex items-center gap-3">
                     <DollarSign size={22} className="text-brand shrink-0" strokeWidth={1.75} />
                     <div>

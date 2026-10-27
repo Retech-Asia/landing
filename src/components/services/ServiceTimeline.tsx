@@ -2,13 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import {
-  Lightbulb,
-  PenTool,
-  Code2,
-  Rocket,
-  type LucideIcon,
-} from "lucide-react";
 // Flat timeline phase — receives locale-resolved strings from the page
 // (FlatService.timeline shape, not the localized `{en, vi}` shape).
 interface TimelinePhase {
@@ -21,14 +14,8 @@ interface ServiceTimelineProps {
   timeline: TimelinePhase[];
 }
 
-const stepIcons: LucideIcon[] = [Lightbulb, PenTool, Code2, Rocket];
-
-const stepColors = [
-  { dot: "bg-brand", ring: "ring-brand/25", text: "text-brand", bg: "bg-brand/10", glow: "shadow-brand/20", gradient: "from-brand to-brand-light" },
-  { dot: "bg-accent-cyan", ring: "ring-accent-cyan/25", text: "text-accent-cyan", bg: "bg-accent-cyan/10", glow: "shadow-accent-cyan/20", gradient: "from-accent-cyan to-brand" },
-  { dot: "bg-accent-violet", ring: "ring-accent-violet/25", text: "text-accent-violet", bg: "bg-accent-violet/10", glow: "shadow-accent-violet/20", gradient: "from-accent-violet to-accent-cyan" },
-  { dot: "bg-brand", ring: "ring-brand/25", text: "text-brand", bg: "bg-brand/10", glow: "shadow-brand/20", gradient: "from-brand-light to-accent-cyan" },
-];
+// 2026-10-27 (visual-refinement round): accent-cycling dots, gradient rails
+// and phase icons are retired — numbered brand dots + plain hairlines.
 
 /* ── Animated vertical line that draws on scroll ────────────── */
 function DrawLine() {
@@ -45,7 +32,7 @@ function DrawLine() {
       <div className="absolute inset-0 bg-black/[0.06]" />
       {/* Animated fill */}
       <motion.div
-        className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-brand via-accent-cyan to-accent-violet origin-top"
+        className="absolute top-0 left-0 right-0 bottom-0 bg-brand origin-top"
         style={{ scaleY }}
       />
     </div>
@@ -64,9 +51,6 @@ function DesktopStep({
   total: number;
   isLeft: boolean;
 }) {
-  const colors = stepColors[index % stepColors.length];
-  const StepIcon = stepIcons[index % stepIcons.length];
-
   return (
     <motion.div
       initial={{ opacity: 0, x: isLeft ? -40 : 40, y: 10 }}
@@ -82,7 +66,7 @@ function DesktopStep({
         {isLeft ? (
           <div className="max-w-sm text-right">
             <span
-              className={`inline-block text-xs font-semibold uppercase tracking-wider ${colors.text} ${colors.bg} rounded-full px-3 py-1 mb-3`}
+              className="inline-block text-xs font-semibold uppercase tracking-wider text-foreground-muted rounded-full bg-background-subtle px-3 py-1 mb-3"
             >
               {phase.week}
             </span>
@@ -101,9 +85,9 @@ function DesktopStep({
       {/* Center dot */}
       <div className="flex flex-col items-center">
         <div
-          className={`relative z-10 flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br ${colors.gradient} ring-4 ${colors.ring} shadow-lg ${colors.glow}`}
+          className="relative z-10 flex items-center justify-center w-10 h-10 rounded-full bg-brand ring-4 ring-brand/10"
         >
-          <StepIcon size={18} className="text-white" />
+          <span className="text-sm font-bold text-white tabular-nums">{index + 1}</span>
         </div>
       </div>
 
@@ -112,7 +96,7 @@ function DesktopStep({
         {!isLeft ? (
           <div className="max-w-sm">
             <span
-              className={`inline-block text-xs font-semibold uppercase tracking-wider ${colors.text} ${colors.bg} rounded-full px-3 py-1 mb-3`}
+              className="inline-block text-xs font-semibold uppercase tracking-wider text-foreground-muted rounded-full bg-background-subtle px-3 py-1 mb-3"
             >
               {phase.week}
             </span>
@@ -139,7 +123,7 @@ export function ServiceTimeline({ timeline }: ServiceTimelineProps) {
         <div className="relative">
           {/* Central vertical line */}
           <div
-            className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-gradient-to-b from-brand via-accent-cyan to-accent-violet/30"
+            className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-rule"
             aria-hidden="true"
           />
 
@@ -165,8 +149,6 @@ export function ServiceTimeline({ timeline }: ServiceTimelineProps) {
 
           <div className="flex flex-col gap-8">
             {timeline.map((phase, i) => {
-              const colors = stepColors[i % stepColors.length];
-              const StepIcon = stepIcons[i % stepIcons.length];
               return (
                 <motion.div
                   key={phase.phase}
@@ -182,16 +164,16 @@ export function ServiceTimeline({ timeline }: ServiceTimelineProps) {
                 >
                   {/* Dot with icon */}
                   <div
-                    className={`absolute -left-12 top-0 flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br ${colors.gradient} ring-3 ${colors.ring} shadow-lg ${colors.glow} z-10`}
+                    className="absolute -left-12 top-0 flex items-center justify-center w-10 h-10 rounded-full bg-brand ring-4 ring-brand/10 z-10"
                     style={{ left: "-44px" }}
                   >
-                    <StepIcon size={16} className="text-white" />
+                    <span className="text-sm font-bold text-white tabular-nums">{i + 1}</span>
                   </div>
 
                   {/* Content card */}
                   <div className="rounded-2xl border border-card-border bg-card-bg p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow duration-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]">
                     <span
-                      className={`inline-block text-xs font-semibold uppercase tracking-wider ${colors.text} ${colors.bg} rounded-full px-3 py-1 mb-2`}
+                      className="inline-block text-xs font-semibold uppercase tracking-wider text-foreground-muted rounded-full bg-background-subtle px-3 py-1 mb-2"
                     >
                       {phase.week}
                     </span>

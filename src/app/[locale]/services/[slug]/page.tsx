@@ -799,22 +799,14 @@ export default async function ServiceDetailPage({
               <div className="max-w-2xl mx-auto">
                 <div className="relative">
                   {/* Vertical connecting line */}
-                  <div className="absolute left-[19px] top-6 bottom-6 w-px bg-gradient-to-b from-brand/30 via-accent-cyan/30 to-accent-violet/30" aria-hidden="true" />
+                  <div className="absolute left-[19px] top-6 bottom-6 w-px bg-rule" aria-hidden="true" />
 
                   <div className="flex flex-col gap-8">
-                    {service.processSteps.map((step, i) => {
-                      const stepColors = [
-                        { dot: "from-brand to-brand-light", ring: "ring-brand/20", text: "text-brand", bg: "bg-brand/10" },
-                        { dot: "from-accent-cyan to-brand", ring: "ring-accent-cyan/20", text: "text-accent-cyan", bg: "bg-accent-cyan/10" },
-                        { dot: "from-accent-violet to-accent-cyan", ring: "ring-accent-violet/20", text: "text-accent-violet", bg: "bg-accent-violet/10" },
-                        { dot: "from-brand-light to-accent-cyan", ring: "ring-brand/20", text: "text-brand", bg: "bg-brand/10" },
-                        { dot: "from-accent-cyan to-accent-violet", ring: "ring-accent-cyan/20", text: "text-accent-cyan", bg: "bg-accent-cyan/10" },
-                      ];
-                      const colors = stepColors[i % stepColors.length];
+                    {service.processSteps.map((step) => {
                       return (
                         <div key={step.step} className="relative flex gap-5">
                           {/* Numbered dot */}
-                          <div className={`relative z-10 flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br ${colors.dot} ring-4 ${colors.ring} shadow-lg shrink-0`}>
+                          <div className="relative z-10 flex items-center justify-center w-10 h-10 rounded-full bg-brand ring-4 ring-brand/10 shrink-0">
                             <span className="text-sm font-bold text-white">{step.step}</span>
                           </div>
 
@@ -1055,14 +1047,7 @@ export default async function ServiceDetailPage({
       <section className="relative py-16 md:py-20">
         <Container>
           <AnimatedSection variant="slideUp">
-            <div className="relative rounded-2xl bg-gradient-to-r from-brand/[0.06] via-accent-cyan/[0.04] to-brand/[0.06] border border-brand/[0.10] p-8 md:p-10 overflow-hidden">
-              <div
-                className="absolute -top-20 -right-20 w-60 h-60 rounded-full pointer-events-none"
-                style={{
-                  background: "radial-gradient(circle, rgba(32,133,53,0.06) 0%, transparent 70%)",
-                }}
-                aria-hidden="true"
-              />
+            <div className="relative rounded-2xl bg-background-subtle border border-rule p-8 md:p-10 overflow-hidden">
               <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div className="flex-1">
                   <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">

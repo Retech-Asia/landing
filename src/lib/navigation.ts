@@ -121,24 +121,6 @@ export const navigation: {
   cta: { labelKey: "quote", href: "/contact" },
 };
 
-/**
- * Footer quick-links column. Keys resolve in `nav.footer.*` namespace.
- */
-export const footerQuickLinks: { labelKey: string; href: string }[] = [
-  { labelKey: "home", href: "/" },
-  { labelKey: "about", href: "/about" },
-  { labelKey: "services", href: "/services" },
-  { labelKey: "process", href: "/process" },
-  { labelKey: "industries", href: "/industries" },
-  { labelKey: "caseStudies", href: "/case-studies" },
-  { labelKey: "blog", href: "/blog" },
-  { labelKey: "contact", href: "/contact" },
-];
-
-export const footerResourceLinks: { labelKey: string; href: string }[] = [
-  { labelKey: "faq", href: "/faq" },
-  { labelKey: "technologies", href: "/technologies" },
-  { labelKey: "careers", href: "/careers" },
-  { labelKey: "privacy", href: "/privacy-policy" },
-  { labelKey: "terms", href: "/terms-of-service" },
-];
+// Footer link columns moved inline into src/components/sections/Footer.tsx
+// (2026-10-27 footer redesign: six approved service families + company +
+// resources; the legacy ten-service list and geographic copy are gone).

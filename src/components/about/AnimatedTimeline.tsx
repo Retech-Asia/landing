@@ -153,7 +153,7 @@ export function AnimatedTimeline({ milestones }: AnimatedTimelineProps) {
 
         {/* Animated fill line - draws itself as user scrolls */}
         <motion.div
-          className="absolute left-0 top-0 w-px bg-gradient-to-b from-brand via-accent-cyan to-accent-violet origin-top"
+          className="absolute left-0 top-0 w-px bg-brand origin-top"
           style={{ height: springHeight }}
         />
 
