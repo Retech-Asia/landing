@@ -197,7 +197,7 @@ function getChrome(locale: string) {
         ctaBody:
           "Tell us about your project and we will come back with a tailored plan: team composition, technology choices, timeline, and transparent pricing. No templates, no pressure.",
         ctaPrimary: "Tell Us About Your Project",
-        ctaSecondary: "See Our Work",
+        ctaSecondary: "Explore Product Concepts",
       }
     : {
         workspaceAlt: "Studio kỹ thuật mở với các kỹ sư đang làm việc",
@@ -233,7 +233,7 @@ function getChrome(locale: string) {
         ctaBody:
           "Hãy kể cho chúng tôi về dự án của bạn và chúng tôi sẽ phản hồi với một kế hoạch phù hợp: thành phần đội ngũ, lựa chọn công nghệ, tiến độ và báo giá minh bạch. Không dùng mẫu có sẵn, không tạo áp lực.",
         ctaPrimary: "Kể về dự án của bạn",
-        ctaSecondary: "Xem sản phẩm của chúng tôi",
+        ctaSecondary: "Khám phá Mô hình sản phẩm",
       };
 }
 
@@ -467,7 +467,7 @@ export default async function AboutPage({
                 <Button href="/contact" size="lg">
                   {chrome.ctaPrimary}
                 </Button>
-                <Button href="/case-studies" variant="secondary" size="lg">
+                <Button href="/showcases" variant="secondary" size="lg">
                   {chrome.ctaSecondary} <ArrowRight size={16} />
                 </Button>
               </div>

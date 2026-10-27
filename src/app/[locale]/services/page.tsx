@@ -476,12 +476,12 @@ export default async function ServicesPage({
                   <ArrowRight size={18} />
                 </Button>
                 <Button
-                  href="/case-studies"
+                  href="/showcases"
                   variant="ghost"
                   size="lg"
                   className="text-white/70 hover:text-white hover:bg-white/10"
                 >
-                  See Our Work
+                  Explore Product Concepts
                 </Button>
               </div>
             </div>

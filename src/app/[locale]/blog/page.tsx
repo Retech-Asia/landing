@@ -8,6 +8,7 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { BlogListSkeleton } from "@/components/ui/Skeleton";
 import { blogPosts } from "@/lib/blog-data";
 import { services } from "@/lib/services-data";
+import { SHOWCASES } from "@/lib/showcases/registry";
 import { SITE_URL } from "@/lib/constants";
 import { BreadcrumbJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 
@@ -44,10 +45,10 @@ export default async function BlogPage({
         servicesBody:
           "Từ nền tảng CMS đến hệ thống ERP doanh nghiệp, chúng tôi bàn giao giải pháp phần mềm trọn gói phù hợp với doanh nghiệp của bạn.",
         viewAllServices: "Xem tất cả dịch vụ",
-        caseStudiesTitle: "Dự án Tiêu biểu",
-        caseStudiesBody:
-          "Xem kết quả thực tế từ các dự án của chúng tôi trong các ngành y tế, tài chính và thương mại điện tử.",
-        exploreCaseStudies: "Khám phá dự án của chúng tôi",
+        conceptsTitle: "Mô hình sản phẩm",
+        conceptsBody:
+          "Các mô hình sản phẩm nguyên bản với màn hình demo tương tác, có thể bấm xem trực tiếp.",
+        exploreConcepts: "Khám phá tất cả mô hình sản phẩm",
       }
     : {
         home: "Home",
@@ -58,10 +59,10 @@ export default async function BlogPage({
         servicesBody:
           "From CMS platforms to enterprise ERP systems, we deliver end-to-end software solutions tailored to your business.",
         viewAllServices: "View all services",
-        caseStudiesTitle: "Case Studies",
-        caseStudiesBody:
-          "See real results from our projects across healthcare, finance, and e-commerce industries.",
-        exploreCaseStudies: "Explore our case studies",
+        conceptsTitle: "Product Concepts",
+        conceptsBody:
+          "Original product concepts explored through clickable, interactive screen walkthroughs.",
+        exploreConcepts: "Explore all product concepts",
       };
   const pick = <T,>(l: { en: T; vi: T }) => (isVi ? l.vi : l.en);
   return (
@@ -136,18 +137,34 @@ export default async function BlogPage({
                 <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </div>
+            {/* Product concepts (2026-10-27 legacy retirement: the blog's
+                case-studies promo card now leads with the labelled concepts,
+                same treatment as the industry pages). */}
             <div>
               <h2 className="text-xl md:text-2xl font-bold text-foreground mb-3">
-                {chrome.caseStudiesTitle}
+                {chrome.conceptsTitle}
               </h2>
               <p className="text-sm text-foreground-secondary leading-relaxed mb-5">
-                {chrome.caseStudiesBody}
+                {chrome.conceptsBody}
               </p>
+              <ul className="space-y-2.5">
+                {SHOWCASES.slice(0, 4).map((showcase) => (
+                  <li key={showcase.slug.en}>
+                    <Link
+                      href={`/showcases/${pick(showcase.slug)}`}
+                      className="group inline-flex items-center gap-2 text-sm text-foreground-secondary hover:text-brand transition-colors"
+                    >
+                      <ArrowRight size={14} className="text-brand" aria-hidden="true" />
+                      {pick(showcase.product)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
               <Link
-                href="/case-studies"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:gap-2.5 transition-all"
+                href="/showcases"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-brand mt-4 hover:gap-2.5 transition-all"
               >
-                {chrome.exploreCaseStudies}
+                {chrome.exploreConcepts}
                 <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </div>

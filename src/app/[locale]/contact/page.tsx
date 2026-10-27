@@ -192,11 +192,13 @@ function getQuickLinks(isEn: boolean) {
         : "Cách chúng tôi thực hiện dự án từ khám phá đến triển khai.",
     },
     {
-      href: "/case-studies",
-      label: isEn ? "Case Studies" : "Dự án",
+      // 2026-10-27 legacy retirement: quick-links lead with the product
+      // concepts instead of the /case-studies archive.
+      href: "/showcases",
+      label: isEn ? "Product Concepts" : "Mô hình sản phẩm",
       desc: isEn
-        ? "Real results from projects we have delivered."
-        : "Kết quả thực tế từ các dự án chúng tôi đã bàn giao.",
+        ? "Original product concepts with interactive screen walkthroughs."
+        : "Mô hình sản phẩm nguyên bản với màn hình demo tương tác.",
     },
     {
       href: "/technologies",

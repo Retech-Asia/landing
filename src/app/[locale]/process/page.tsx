@@ -47,7 +47,7 @@ function getChrome(locale: string) {
         ctaTitle: "Ready to Start Your Project?",
         ctaBody: "Tell us what you are building and we will map out the scope, team, and timeline, with a free estimate.",
         ctaPrimary: "Discuss Your Project",
-        ctaSecondary: "View Case Studies",
+        ctaSecondary: "Explore Product Concepts",
         keyActivities: "What you will see",
       }
     : {
@@ -65,7 +65,7 @@ function getChrome(locale: string) {
         ctaTitle: "Sẵn sàng Bắt đầu Dự án?",
         ctaBody: "Chia sẻ những gì bạn đang xây dựng, chúng tôi sẽ đề xuất phạm vi, đội ngũ và lộ trình, kèm báo giá miễn phí.",
         ctaPrimary: "Trao đổi về dự án",
-        ctaSecondary: "Xem Dự án",
+        ctaSecondary: "Khám phá Mô hình sản phẩm",
         keyActivities: "Bạn sẽ thấy gì",
       };
 }
@@ -451,7 +451,7 @@ export default async function ProcessPage({
                   <ArrowRight size={18} />
                 </Button>
                 <Button
-                  href="/case-studies"
+                  href="/showcases"
                   variant="ghost"
                   size="lg"
                   className="text-white/70 hover:text-white hover:bg-white/10"

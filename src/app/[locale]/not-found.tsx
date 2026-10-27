@@ -10,7 +10,8 @@ import { Container } from "@/components/ui/Container";
 
 const popularPages = [
   { label: { en: "Services", vi: "Dịch vụ" }, href: "/services", icon: Briefcase, description: { en: "What we do", vi: "Chúng tôi làm gì" } },
-  { label: { en: "Case Studies", vi: "Dự án" }, href: "/case-studies", icon: Compass, description: { en: "Our work", vi: "Dự án của chúng tôi" } },
+  // 2026-10-27 legacy retirement: concepts replace the case-studies link.
+  { label: { en: "Product Concepts", vi: "Mô hình sản phẩm" }, href: "/showcases", icon: Compass, description: { en: "Interactive concept demos", vi: "Demo mô hình tương tác" } },
   { label: { en: "Blog", vi: "Blog" }, href: "/blog", icon: BookOpen, description: { en: "Insights & news", vi: "Góc nhìn & tin tức" } },
   { label: { en: "Contact", vi: "Liên hệ" }, href: "/contact", icon: Mail, description: { en: "Get in touch", vi: "Liên hệ ngay" } },
 ];

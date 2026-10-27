@@ -62,8 +62,11 @@ export function HomeCTA({ variant = "light" }: { variant?: "dark" | "light" }) {
                 {t("cta")}
               </Button>
             )}
+            {/* Secondary leads to the product concepts (2026-10-27 legacy
+                retirement: the closing band must not hand visitors to the
+                /case-studies archive being retired). */}
             <Button
-              href="/case-studies"
+              href="/showcases"
               variant="ghost"
               size="lg"
               className={
