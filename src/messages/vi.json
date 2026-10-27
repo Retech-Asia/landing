@@ -66,7 +66,6 @@
       "services": "Dịch vụ",
       "process": "Quy trình",
       "industries": "Ngành",
-      "caseStudies": "Dự án",
       "blog": "Blog",
       "contact": "Liên hệ",
       "faq": "Câu hỏi thường gặp",
@@ -203,8 +202,7 @@
       "lede": "Khám phá những trải nghiệm phần mềm được thiết kế tỉ mỉ xoay quanh quy trình kinh doanh thực tế.",
       "badge": "Mô hình sản phẩm",
       "viewCount": "{count} màn hình tương tác",
-      "explore": "Khám phá mô hình",
-      "delivered": "Dự án đã bàn giao — xem tất cả case study"
+      "explore": "Khám phá mô hình"
     },
     "work": {
       "label": "Dự án tiêu biểu",
@@ -384,11 +382,6 @@
       "cta": "Trao đổi về dự án"
     },
     "related": {
-      "caseStudies": {
-        "title": "Dự án Liên quan",
-        "description": "Xem cách chúng tôi đã bàn giao các giải pháp tương tự cho khách hàng.",
-        "viewLink": "Xem Dự án"
-      },
       "articles": {
         "title": "Bài viết Liên quan",
         "description": "Phân tích chuyên sâu về các chủ đề quan trọng cho dự án của bạn.",
@@ -451,10 +444,6 @@
       "eyebrow": "Kết quả",
       "title": "Kết quả Đã chứng minh"
     },
-    "caseStudies": {
-      "eyebrow": "Minh chứng",
-      "title": "Kết quả Thực tế"
-    },
     "relatedServices": {
       "eyebrow": "Dịch vụ",
       "title": "Dịch vụ Liên quan"
@@ -466,7 +455,13 @@
     "challengesLabel": "Thách thức Ngành",
     "solutionsLabel": "Cách chúng tôi Giải quyết",
     "viewIndustry": "Khám phá",
-    "learnMore": "Tìm hiểu thêm"
+    "learnMore": "Tìm hiểu thêm",
+    "concepts": {
+      "eyebrow": "Mô hình sản phẩm",
+      "title": "Xem năng lực qua một mô hình sản phẩm",
+      "description": "Mô hình tương tác phù hợp với ngành này, được ghi rõ là product concept.",
+      "viewLink": "Khám phá mô hình"
+    }
   },
   "pages": {
     "about": {

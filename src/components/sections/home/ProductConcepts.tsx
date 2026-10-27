@@ -18,8 +18,12 @@ import { SHOWCASES } from "@/lib/showcases/registry";
  * (logistics/field service) and Citewell (practical AI, source-grounded
  * answers + human review).
  *
- * The delivered-work record stays available: the closing line links to
- * /case-studies (all case-study URLs, content and SEO untouched).
+ * The delivered-work record stays available at /case-studies (all
+ * case-study URLs, content and SEO untouched) — no longer linked from the
+ * homepage per the 2026-10-27 legacy-retirement directive (the marketing
+ * footer and homepage hand-off line were removed; the archive remains
+ * reachable directly and via preserved redirects while the SEO migration
+ * awaits approval).
  * Rollback: restore the OurWork import in page.tsx (file kept in tree).
  */
 
@@ -57,18 +61,6 @@ export function ProductConcepts() {
           {featured.map((showcase) => (
             <ConceptRow key={showcase.slug.en} showcase={showcase} locale={locale} />
           ))}
-        </div>
-
-        {/* Delivered-work hand-off (owner ruling: keep a separate, clearly
-            identified link; case-study pages unchanged). */}
-        <div className="mt-12 border-t border-rule pt-8">
-          <Link
-            href="/case-studies"
-            className="inline-flex items-baseline gap-2 text-sm font-semibold text-foreground underline-offset-4 transition-colors hover:text-brand hover:underline"
-          >
-            {t("delivered")}
-            <ArrowRight size={14} aria-hidden="true" />
-          </Link>
         </div>
       </Container>
     </section>

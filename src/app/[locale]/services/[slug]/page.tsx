@@ -20,7 +20,6 @@ import { AnimatedChecklist } from "@/components/services/AnimatedChecklist";
 import { TechBadges } from "@/components/services/TechBadges";
 import { ServiceShowcasePreview } from "@/components/showcases/ServiceShowcasePreview";
 import { services, getServiceBySlug, getFlatService, flattenService, type FlatService } from "@/lib/services-data";
-import { caseStudies, flattenCaseStudy } from "@/lib/case-studies-data";
 import { blogPosts } from "@/lib/blog-data";
 import { getBlogMeta } from "@/lib/blog-i18n";
 import { getTestimonialBySlug } from "@/lib/testimonials-data";
@@ -399,17 +398,6 @@ const serviceChecklists: Record<string, { en: string[]; vi: string[] }> = {
   },
 };
 
-/* ── Case study mapping per service ───────────────────────────── */
-const serviceCaseStudyMap: Record<string, string[]> = {
-  "cms-platforms": ["mining-analytics-platform"],
-  "web-development": ["mining-analytics-platform"],
-  "ui-ux-design": ["mining-analytics-platform", "asset-management-platform"],
-  "crm-systems": ["asset-management-platform"],
-  "erp-solutions": ["asset-management-platform"],
-  "dedicated-teams": ["mining-analytics-platform", "asset-management-platform"],
-  "mobile-app-development": ["fintech-card-marketing"],
-  "ai-development": ["investment-intelligence-platform"],
-};
 
 /* ── Blog post mapping per service ────────────────────────────── */
 const serviceBlogMap: Record<string, string[]> = {
@@ -447,11 +435,6 @@ export default async function ServiceDetailPage({
   // locale-rendered slug, to look up.
   const lookupKey = service.id;
   const checklistItems = serviceChecklists[lookupKey]?.[loc] ?? [];
-  const relatedCaseStudySlugs = serviceCaseStudyMap[lookupKey] ?? [];
-  const relatedCaseStudies = caseStudies.filter((cs) =>
-    relatedCaseStudySlugs.includes(cs.slug.en)
-  );
-
   const relatedBlogSlugs = serviceBlogMap[lookupKey] ?? [];
   const relatedBlogPosts = blogPosts.filter((p) =>
     relatedBlogSlugs.includes(p.slug)
@@ -1068,53 +1051,6 @@ export default async function ServiceDetailPage({
           </AnimatedSection>
         </Container>
       </section>
-
-      {/* ── Related Case Studies ────────────────────────────── */}
-      {relatedCaseStudies.length > 0 && (
-        <section className="relative py-20 md:py-28">
-          <Container>
-            <AnimatedSection variant="slideUp">
-              <SectionHeader
-                title={t("related.caseStudies.title")}
-                description={t("related.caseStudies.description")}
-              />
-            </AnimatedSection>
-
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-3xl mx-auto">
-              {relatedCaseStudies.map((rawCs) => {
-                const cs = flattenCaseStudy(rawCs, loc);
-                return (
-                <StaggerItem key={cs.id}>
-                  <Link
-                    href={`/case-studies/${cs.slug}`}
-                    className="group block h-full"
-                  >
-                    <div className="relative h-full rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:border-brand/15 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
-                      <span className="inline-block text-xs font-semibold uppercase tracking-wider text-brand bg-brand/10 rounded-full px-3 py-1 mb-4">
-                        {cs.industry}
-                      </span>
-                      <h3 className="text-lg font-bold text-foreground mb-1 group-hover:text-brand transition-colors">
-                        {cs.title}
-                      </h3>
-                      <p className="text-sm text-foreground-secondary leading-relaxed mb-5">
-                        {cs.tagline}
-                      </p>
-                      <div className="flex items-center gap-1.5 text-sm font-medium text-brand group-hover:gap-2.5 transition-all duration-300">
-                        {t("related.caseStudies.viewLink")}
-                        <ArrowRight
-                          size={15}
-                          className="transition-transform duration-300 group-hover:translate-x-0.5"
-                        />
-                      </div>
-                    </div>
-                  </Link>
-                </StaggerItem>
-                );
-              })}
-            </StaggerContainer>
-          </Container>
-        </section>
-      )}
 
       {/* ── Related Blog Posts ─────────────────────────────── */}
       {relatedBlogPosts.length > 0 && (

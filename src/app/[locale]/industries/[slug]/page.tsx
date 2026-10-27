@@ -30,8 +30,9 @@ import {
   flattenIndustry,
   type FlatIndustry,
 } from "@/lib/industries-data";
+import { SHOWCASES } from "@/lib/showcases/registry";
+import { TechLogo } from "@/components/ui/TechLogo";
 import { services } from "@/lib/services-data";
-import { caseStudies, flattenCaseStudy } from "@/lib/case-studies-data";
 import { SITE_URL } from "@/lib/constants";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { routing, type Locale } from "@/i18n/routing";
@@ -171,13 +172,32 @@ const INDUSTRY_IMAGES: Record<
   },
 };
 
-/* -- Related case studies lookup ----------------------------------------- */
-function getRelatedCaseStudies(industry: FlatIndustry, locale: Locale) {
-  return caseStudies.filter(
-    (cs) =>
-      cs.industry[locale] === industry.caseStudyIndustry ||
-      cs.industry[locale].toLowerCase().includes(industry.slug.replace("-", " "))
-  );
+/* -- Related product concept lookup (2026-10-27 legacy retirement) ------- */
+/* Industry pages surface a labelled product concept instead of the legacy
+   case-study cards; concepts are fictional by design (registry slugs). */
+const INDUSTRY_CONCEPT_SLUGS: Record<string, string> = {
+  healthcare: "care-companion",
+  "y-te": "care-companion",
+  finance: "meridian-operations",
+  "tai-chinh": "meridian-operations",
+  "e-commerce": "citewell",
+  "thuong-mai-dien-tu": "citewell",
+  education: "citewell",
+  "giao-duc": "citewell",
+  "real-estate": "property-studio",
+  "bat-dong-san": "property-studio",
+  logistics: "relay-field",
+  manufacturing: "meridian-operations",
+  "san-xuat": "meridian-operations",
+  technology: "citewell",
+  "cong-nghe": "citewell",
+  "media-entertainment": "citewell",
+  "media-giai-tri": "citewell",
+};
+
+function getRelatedConcept(industry: FlatIndustry) {
+  const conceptSlug = INDUSTRY_CONCEPT_SLUGS[industry.slug];
+  return SHOWCASES.find((s) => s.slug.en === conceptSlug);
 }
 
 /* -- Related services lookup --------------------------------------------- */
@@ -211,7 +231,7 @@ export default async function IndustryDetailPage({
     .filter((i) => i.id !== industry.id)
     .map((i) => flattenIndustry(i, loc));
 
-  const relatedCaseStudies = getRelatedCaseStudies(industry, loc);
+  const relatedConcept = getRelatedConcept(industry);
   const relatedServices = getRelatedServices(industry);
 
   // Locale-aware JSON-LD label — matches the <title> pattern.
@@ -505,8 +525,9 @@ export default async function IndustryDetailPage({
               {industry.technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="inline-block px-4 py-2 text-sm font-medium text-foreground-secondary rounded-full border border-card-border bg-white/60 backdrop-blur-sm transition-all duration-200 hover:border-brand/30 hover:text-brand cursor-default"
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-foreground-secondary rounded-full border border-card-border bg-white/60 backdrop-blur-sm transition-all duration-200 hover:border-brand/30 hover:text-brand cursor-default"
                 >
+                  <TechLogo name={tech} size={16} />
                   {tech}
                 </span>
               ))}
@@ -515,93 +536,47 @@ export default async function IndustryDetailPage({
         </Container>
       </section>
 
-      {/* -- Related Case Studies ----------------------------------------- */}
-      {relatedCaseStudies.length > 0 && (
+      {/* -- Related Product Concept (2026-10-27 legacy retirement) ------- */}
+      {/* The legacy case-study cards are retired from industry marketing;
+          one clearly-labelled product concept demonstrates the capability.
+          Legacy URLs/sitemap stay preserved (owner directive). */}
+      {relatedConcept && (
         <section className="py-20 md:py-28 bg-background-subtle relative overflow-hidden">
           <GradientBackground variant="subtle" />
           <Container className="relative">
             <AnimatedSection variant="slideUp">
               <SectionHeader
-                label="Case Studies"
-                title={t("results.title")}
-                description={`Real projects we've delivered in the ${industry.name.toLowerCase()} space.`}
+                label={t("concepts.eyebrow")}
+                title={t("concepts.title")}
+                description={t("concepts.description")}
               />
             </AnimatedSection>
 
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {relatedCaseStudies.map((rawCs) => {
-                const cs = flattenCaseStudy(rawCs, loc);
-                return (
-                <StaggerItem key={cs.id}>
-                  <Link
-                    href={`/case-studies/${cs.slug}`}
-                    className="group block h-full"
-                  >
-                    <Card padding="lg" className="h-full">
-                      <Badge variant="brand" className="mb-4">
-                        {cs.industry}
-                      </Badge>
-                      <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-brand transition-colors">
-                        {cs.title}
-                      </h3>
-                      <p className="text-sm text-foreground-secondary leading-relaxed mb-4">
-                        {cs.tagline}
-                      </p>
-                      {/* Verified technologies (vanity stat grid removed with
-                          the owner corrections directive 2026-10-22). */}
-                      <div className="flex flex-wrap gap-2 mt-auto">
-                        {cs.technologies.slice(0, 4).map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-2.5 py-1 rounded-full bg-brand/[0.04] border border-card-border text-xs font-medium text-foreground-secondary"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="flex items-center gap-1.5 text-sm font-medium text-brand mt-5 group-hover:gap-2.5 transition-all duration-300">
-                        Read Case Study
-                        <ArrowRight
-                          size={15}
-                          className="transition-transform duration-300 group-hover:translate-x-0.5"
-                        />
-                      </div>
-                    </Card>
-                  </Link>
-                </StaggerItem>
-                );
-              })}
-            </StaggerContainer>
-          </Container>
-        </section>
-      )}
-
-      {/* -- Case Study Excerpt (fallback when no specific case studies) --- */}
-      {relatedCaseStudies.length === 0 && (
-        <section className="py-20 md:py-28 bg-background-subtle relative overflow-hidden">
-          <Container>
-            <AnimatedSection variant="slideUp">
-              <div className="max-w-3xl mx-auto rounded-2xl bg-card-bg border border-card-border p-6 md:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
-                <div className="flex items-start gap-4">
-                  <div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
-                      Proven Track Record
+            <AnimatedSection variant="slideUp" delay={0.1}>
+              <div className="max-w-3xl mx-auto">
+                <Link
+                  href={`/showcases/${relatedConcept.slug[loc]}`}
+                  className="group block"
+                >
+                  <Card padding="lg">
+                    <Badge variant="brand" className="mb-4">
+                      {t("concepts.eyebrow")}
+                    </Badge>
+                    <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-brand transition-colors">
+                      {relatedConcept.product[loc]}
                     </h3>
-                    <p className="text-sm text-foreground-secondary leading-relaxed">
-                      {industry.caseStudyExcerpt}
+                    <p className="text-sm text-foreground-secondary leading-relaxed mb-4">
+                      {relatedConcept.tagline[loc]}
                     </p>
-                    <Link
-                      href="/case-studies"
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-brand mt-4 hover:gap-2.5 transition-all duration-300"
-                    >
-                      View Our Case Studies
+                    <div className="flex items-center gap-1.5 text-sm font-medium text-brand group-hover:gap-2.5 transition-all duration-300">
+                      {t("concepts.viewLink")}
                       <ArrowRight
                         size={15}
                         className="transition-transform duration-300"
                       />
-                    </Link>
-                  </div>
-                </div>
+                    </div>
+                  </Card>
+                </Link>
               </div>
             </AnimatedSection>
           </Container>

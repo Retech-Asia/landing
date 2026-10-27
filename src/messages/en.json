@@ -66,7 +66,6 @@
       "services": "Services",
       "process": "Process",
       "industries": "Industries",
-      "caseStudies": "Case Studies",
       "blog": "Blog",
       "contact": "Contact",
       "faq": "FAQ",
@@ -203,8 +202,7 @@
       "lede": "Explore thoughtfully designed software experiences built around real business workflows.",
       "badge": "Product concept",
       "viewCount": "{count} interactive views",
-      "explore": "Explore the concept",
-      "delivered": "Delivered work — browse all case studies"
+      "explore": "Explore the concept"
     },
     "work": {
       "label": "Selected work",
@@ -384,11 +382,6 @@
       "cta": "Discuss Your Project"
     },
     "related": {
-      "caseStudies": {
-        "title": "Related Case Studies",
-        "description": "See how we've delivered similar solutions for our clients.",
-        "viewLink": "View Case Study"
-      },
       "articles": {
         "title": "Related Articles",
         "description": "Deep dives into the topics that matter for your project.",
@@ -451,10 +444,6 @@
       "eyebrow": "Results",
       "title": "Proven Results"
     },
-    "caseStudies": {
-      "eyebrow": "Proof",
-      "title": "Real-World Results"
-    },
     "relatedServices": {
       "eyebrow": "Services",
       "title": "Related Services"
@@ -466,7 +455,13 @@
     "challengesLabel": "Industry Challenges",
     "solutionsLabel": "How We Solve Them",
     "viewIndustry": "Explore",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "concepts": {
+      "eyebrow": "Product concepts",
+      "title": "Explore the capability through a product concept",
+      "description": "An interactive concept model relevant to this industry, clearly labelled as a product concept.",
+      "viewLink": "Explore the concept"
+    }
   },
   "pages": {
     "about": {
