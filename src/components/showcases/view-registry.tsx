@@ -5,6 +5,8 @@ import { MeridianDemoRoot } from "./meridian/MeridianShell";
 import { FormaDemoRoot } from "./forma/FormaShell";
 import { CitewellDemoRoot } from "./citewell/CitewellShell";
 import { RelayDemoRoot } from "./relay/RelayShell";
+import { PropertyDemoRoot } from "./property/PropertyShell";
+import { CareDemoRoot } from "./care/CareShell";
 
 /**
  * Interactive showcase view components, keyed by showcase id then view id.
@@ -96,7 +98,57 @@ const RelaySync = dynamic(
   () => import("./relay/views/SyncView").then((m) => ({ default: m.SyncView }))
 );
 
+const PropertyDetail = dynamic(
+  () => import("./property/views/PropertyDetailView").then((m) => ({ default: m.PropertyDetailView }))
+);
+const PropertyPortfolio = dynamic(
+  () => import("./property/views/PortfolioView").then((m) => ({ default: m.PortfolioView }))
+);
+const PropertyPipeline = dynamic(
+  () => import("./property/views/PipelineView").then((m) => ({ default: m.PipelineView }))
+);
+const PropertyMap = dynamic(
+  () => import("./property/views/MapView").then((m) => ({ default: m.MapView }))
+);
+const PropertyCompanion = dynamic(
+  () => import("./property/views/CompanionView").then((m) => ({ default: m.CompanionView }))
+);
+
+const CareToday = dynamic(
+  () => import("./care/views/TodayView").then((m) => ({ default: m.TodayView }))
+);
+const CarePlanView = dynamic(
+  () => import("./care/views/CarePlanView").then((m) => ({ default: m.CarePlanView }))
+);
+const CareMedications = dynamic(
+  () => import("./care/views/MedicationsView").then((m) => ({ default: m.MedicationsView }))
+);
+const CareAppointments = dynamic(
+  () => import("./care/views/AppointmentsView").then((m) => ({ default: m.AppointmentsView }))
+);
+const CareMessages = dynamic(
+  () => import("./care/views/MessagesView").then((m) => ({ default: m.MessagesView }))
+);
+const CareClinic = dynamic(
+  () => import("./care/views/ClinicView").then((m) => ({ default: m.ClinicView }))
+);
+
 export const VIEW_COMPONENTS: Record<string, Record<string, ShowcaseViewComponent>> = {
+  property: {
+    property: PropertyDetail,
+    portfolio: PropertyPortfolio,
+    pipeline: PropertyPipeline,
+    map: PropertyMap,
+    companion: PropertyCompanion,
+  },
+  care: {
+    today: CareToday,
+    "care-plan": CarePlanView,
+    medications: CareMedications,
+    appointments: CareAppointments,
+    messages: CareMessages,
+    clinic: CareClinic,
+  },
   crm: {
     dashboard: NorthlineDashboard,
     leads: NorthlineLeads,
@@ -134,6 +186,8 @@ export const STORE_PROVIDERS: Record<
   string,
   ComponentType<{ children: ReactNode; viewId?: string }>
 > = {
+  property: PropertyDemoRoot,
+  care: CareDemoRoot,
   crm: NorthlineDemoRoot,
   erp: MeridianDemoRoot,
   cms: FormaDemoRoot,

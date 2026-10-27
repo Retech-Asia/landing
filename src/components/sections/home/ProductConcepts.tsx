@@ -11,19 +11,23 @@ import { SHOWCASES } from "@/lib/showcases/registry";
  * product concepts. All copy comes verbatim from the approved Wave 1
  * registry (src/lib/showcases/registry.ts) — no invented marketing.
  *
- * Featured set: Meridian Operations (enterprise operations) and Relay Field
- * (logistics/field service) are live concepts. Slots 1-2 are reserved for
- * the two flagship directions — Real Estate & Property CRM and Healthcare
- * mobile — pending ChatGPT review of docs/chatgpt-handoff-concept-
- * blueprints-2026-10-26.md; they prepend to FEATURED when approved.
+ * Featured set (owner approval 2026-10-27): Property Studio (desktop-first
+ * property CRM) and Care Companion (mobile-first healthcare) are the two
+ * flagships in slots 1-2, followed by the live concepts Meridian Operations
+ * (enterprise operations) and Relay Field (logistics/field service).
  *
  * The delivered-work record stays available: the closing line links to
  * /case-studies (all case-study URLs, content and SEO untouched).
  * Rollback: restore the OurWork import in page.tsx (file kept in tree).
  */
 
-/** Featured slugs, in approved priority order (flagships prepend when ready). */
-const FEATURED = ["meridian-operations", "relay-field"] as const;
+/** Featured slugs, in approved priority order (flagships first, 10/27). */
+const FEATURED = [
+  "property-studio",
+  "care-companion",
+  "meridian-operations",
+  "relay-field",
+] as const;
 
 type Locale = "en" | "vi";
 

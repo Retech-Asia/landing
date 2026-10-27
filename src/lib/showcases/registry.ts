@@ -8,6 +8,126 @@ import type { ShowcaseDefinition } from "./types";
  */
 export const SHOWCASES: ShowcaseDefinition[] = [
   {
+    id: "property",
+    slug: { en: "property-studio", vi: "property-studio" },
+    product: { en: "Property Studio", vi: "Property Studio" },
+    tagline: {
+      en: "Every property, lead, and next move in one place.",
+      vi: "Mọi bất động sản, khách hàng và bước tiếp theo trong một nơi duy nhất.",
+    },
+    description: {
+      en: "Explore a property management CRM concept connecting listings, leads, offers and agent workflows in one connected workspace. Navigate five interactive screens built on a realistic small-agency dataset.",
+      vi: "Khám phá mô hình CRM quản lý bất động sản kết nối danh mục, khách hàng, đề xuất và quy trình đại lý trong một không gian làm việc thống nhất. Trải nghiệm năm màn hình tương tác trên tập dữ liệu thực tế.",
+    },
+    views: [
+      {
+        id: "property",
+        title: { en: "Property Detail", vi: "Chi tiết bất động sản" },
+        summary: {
+          en: "One connected property record: gallery, specifications, price and status, location, documents, and linked leads and offers.",
+          vi: "Hồ sơ bất động sản thống nhất: thư viện ảnh, thông số, giá và trạng thái, vị trí, tài liệu, cùng khách hàng và đề xuất liên quan.",
+        },
+      },
+      {
+        id: "portfolio",
+        title: { en: "Portfolio", vi: "Danh mục bất động sản" },
+        summary: {
+          en: "Filterable portfolio of listings with status, price, occupancy and ownership at a glance.",
+          vi: "Danh mục bất động sản có bộ lọc, hiển thị trạng thái, giá, tình trạng sử dụng và người phụ trách.",
+        },
+      },
+      {
+        id: "pipeline",
+        title: { en: "Lead Pipeline", vi: "Quy trình khách hàng" },
+        summary: {
+          en: "Leads moving through qualifying, viewing, offer and closing stages with linked properties and next actions.",
+          vi: "Khách hàng tiềm năng qua các giai đoạn sàng lọc, xem nhà, đề xuất và chốt với bất động sản liên quan.",
+        },
+      },
+      {
+        id: "map",
+        title: { en: "Map View", vi: "Bản đồ" },
+        summary: {
+          en: "Schematic district map with status-colored pins and price details for every listing.",
+          vi: "Bản đồ khu vực sơ đồ hóa với chân vịt theo trạng thái và thông tin giá của từng bất động sản.",
+        },
+      },
+      {
+        id: "companion",
+        title: { en: "Agent Companion", vi: "Trợ lý hiện trường" },
+        summary: {
+          en: "On-site companion for agents: property facts, quick lead capture and appointment check-in from a phone-width panel.",
+          vi: "Trợ lý hiện trường cho đại lý: thông tin bất động sản, ghi nhận khách hàng nhanh và xác nhận lịch hẹn trên khung chiều rộng điện thoại.",
+        },
+      },
+    ],
+    label: "concept-demo",
+  },
+  {
+    id: "care",
+    slug: { en: "care-companion", vi: "care-companion" },
+    product: { en: "Care Companion", vi: "Care Companion" },
+    tagline: {
+      en: "A more connected experience between visits.",
+      vi: "Trải nghiệm gắn kết hơn giữa các lần thăm khám.",
+    },
+    description: {
+      en: "Explore a mobile-first healthcare concept connecting patients and care teams between visits — daily guidance, care plans, medications, appointments and messages in one calm experience.",
+      vi: "Khám phá mô hình ứng dụng di động kết nối bệnh nhân và đội ngũ chăm sóc giữa các lần thăm khám — lịch hằng ngày, kế hoạch chăm sóc, thuốc, lịch hẹn và tin nhắn trong một trải nghiệm thống nhất.",
+    },
+    views: [
+      {
+        id: "today",
+        title: { en: "Today", vi: "Hôm nay" },
+        summary: {
+          en: "The patient's day at a glance: next appointment, care-plan progress and a medication reminder.",
+          vi: "Ngày của bệnh nhân trong một màn hình: lịch hẹn gần nhất, tiến độ kế hoạch chăm sóc và nhắc thuốc.",
+        },
+      },
+      {
+        id: "care-plan",
+        title: { en: "Care Plan", vi: "Kế hoạch chăm sóc" },
+        summary: {
+          en: "Task check-ins and weekly progress across the active care plan.",
+          vi: "Ghi nhận tiến độ và tiến bộ hằng tuần trong kế hoạch chăm sóc.",
+        },
+      },
+      {
+        id: "medications",
+        title: { en: "Medications", vi: "Thuốc" },
+        summary: {
+          en: "Medication schedule, reminders and an adherence streak the patient can maintain.",
+          vi: "Lịch uống thuốc, nhắc nhở và chuỗi ngày duy trì đều đặn của bệnh nhân.",
+        },
+      },
+      {
+        id: "appointments",
+        title: { en: "Appointments", vi: "Lịch hẹn" },
+        summary: {
+          en: "Upcoming and past appointments with preparation steps and reschedule requests.",
+          vi: "Lịch hẹn sắp tới và đã qua, với bước chuẩn bị và yêu cầu đổi lịch.",
+        },
+      },
+      {
+        id: "messages",
+        title: { en: "Messages", vi: "Tin nhắn" },
+        summary: {
+          en: "A scripted, structured thread with the care team between visits.",
+          vi: "Cuộc trò chuyện có cấu trúc với đội ngũ chăm sóc giữa các lần thăm khám.",
+        },
+      },
+      {
+        id: "clinic",
+        title: { en: "Clinic Workspace", vi: "Không gian phòng khám" },
+        summary: {
+          en: "The care team's side: today's patients, schedule and care-plan templates.",
+          vi: "Phía đội ngũ chăm sóc: bệnh nhân hôm nay, lịch làm việc và mẫu kế hoạch chăm sóc.",
+        },
+      },
+    ],
+    label: "concept-demo",
+  },
+  {
     id: "crm",
     slug: { en: "northline-crm", vi: "northline-crm" },
     product: { en: "Northline CRM", vi: "Northline CRM" },
