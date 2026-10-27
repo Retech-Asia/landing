@@ -316,12 +316,16 @@ export function Navbar() {
         />
       )}
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Brand lockup — composed icon + wordmark as a single designed
               asset. Source: public/images/og-image.webp (the canonical
               banner), trimmed to content bounds via scripts/crop-logo-lockup.js
-              so the lockup fills its image box cleanly at small navbar sizes. */}
+              so the lockup fills its image box cleanly at small navbar sizes.
+              Header refinement (2026-10-27): reduced footprint (h-6/h-7) +
+              wider 1440px container so the 6-item nav, utilities and CTA
+              breathe at 1280-1536 without shrinking nav typography; the CTA
+              stays on one line (whitespace-nowrap). */}
           <Link
             href="/"
             className="flex items-center group shrink-0"
@@ -333,9 +337,9 @@ export function Navbar() {
               width={284}
               height={33}
               priority
-              sizes="(max-width: 640px) 238px, (max-width: 768px) 272px, 306px"
+              sizes="(max-width: 640px) 204px, (max-width: 768px) 238px, 272px"
               decoding="async"
-              className="h-7 sm:h-8 md:h-9 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-[1.03]"
+              className="h-6 sm:h-7 w-auto opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-[1.03]"
             />
           </Link>
 
@@ -354,7 +358,7 @@ export function Navbar() {
                     aria-expanded={servicesOpen}
                     aria-haspopup="true"
                     className={cn(
-                      "group/dropdown flex items-center gap-1 whitespace-nowrap px-4 py-2 text-sm rounded-lg transition-colors duration-200 cursor-pointer",
+                      "group/dropdown flex items-center gap-1 whitespace-nowrap px-3 py-2 text-sm rounded-lg transition-colors duration-200 cursor-pointer",
                       isItemActive(item.href)
                         ? "text-brand font-medium nav-active-text"
                         : "text-foreground-secondary hover:text-foreground hover:bg-black/[0.04]"
@@ -372,7 +376,7 @@ export function Navbar() {
                     />
                     <span
                       className={cn(
-                        "absolute bottom-0.5 left-4 right-4 h-[2px] rounded-full bg-brand origin-left transition-transform duration-300",
+                        "absolute bottom-0.5 left-3 right-3 h-[2px] rounded-full bg-brand origin-left transition-transform duration-300",
                         isItemActive(item.href) ? "scale-x-100" : "scale-x-0 group-hover/dropdown:scale-x-100"
                       )}
                     />
@@ -423,7 +427,7 @@ export function Navbar() {
                   href={item.href}
                   aria-current={isItemActive(item.href) ? "page" : undefined}
                   className={cn(
-                    "group/link relative whitespace-nowrap px-4 py-2 text-sm rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2",
+                    "group/link relative whitespace-nowrap px-3 py-2 text-sm rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2",
                     isItemActive(item.href)
                       ? "text-brand font-medium nav-active-text"
                       : "text-foreground-secondary hover:text-foreground hover:bg-black/[0.04]"
@@ -432,7 +436,7 @@ export function Navbar() {
                   {tNav(item.labelKey)}
                   <span
                     className={cn(
-                      "absolute bottom-0.5 left-4 right-4 h-[2px] rounded-full bg-brand origin-left transition-transform duration-300",
+                      "absolute bottom-0.5 left-3 right-3 h-[2px] rounded-full bg-brand origin-left transition-transform duration-300",
                       isItemActive(item.href) ? "scale-x-100" : "scale-x-0 group-hover/link:scale-x-100"
                     )}
                   />
@@ -442,7 +446,7 @@ export function Navbar() {
           </div>
 
           {/* Desktop CTA + locale switcher + theme toggle */}
-          <div className="hidden xl:flex items-center gap-2">
+          <div className="hidden xl:flex items-center gap-2.5">
             <LocaleSwitcher />
             <ThemeToggle />
             {/* WhatsApp as secondary CTA — paired with primary "Get Free
@@ -450,7 +454,7 @@ export function Navbar() {
                 overlapped other CTAs and annoyed mobile users. Icon-only
                 here so it doesn't compete with the primary CTA visually. */}
             <WhatsAppButton variant="navbar" iconOnly aria-label="Chat on WhatsApp" />
-            <Button href="/contact" size="sm">
+            <Button href="/contact" size="sm" className="whitespace-nowrap">
               {tCta("consultation")}
             </Button>
           </div>
