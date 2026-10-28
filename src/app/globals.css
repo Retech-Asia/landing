@@ -204,6 +204,39 @@
 [data-theme="dark"] .hj-scrim-light {
   display: none;
 }
+/* Milestone activation pulse: one-shot ring expanding from the node. */
+@keyframes hj-pulse {
+  from {
+    r: 8;
+    opacity: 0.65;
+  }
+  to {
+    r: 30;
+    opacity: 0;
+  }
+}
+.hj-pulse {
+  animation: hj-pulse 900ms ease-out forwards;
+}
+/* Traveling energy spark: restrained brightness breathing. */
+@keyframes hj-spark {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+.hj-spark {
+  animation: hj-spark 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hj-pulse,
+  .hj-spark {
+    animation: none;
+  }
+}
 
 [data-theme="dark"] body,
 [data-theme="dark"] .glass-card,

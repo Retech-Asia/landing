@@ -119,12 +119,17 @@ const SETTLE_AT = REVEAL_START + DRAW_MS + 400;
 const easeInOutCubic = (t: number) =>
   t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
+/** Comet tail length behind the traveling energy highlight (viewBox units). */
+const COMET_TAIL = 110;
+
 export function HeroJourney() {
   const t = useTranslations("home.heroJourney");
   const tHero = useTranslations("home.hero");
 
   const pathRef = useRef<SVGPathElement>(null);
   const glowRef = useRef<SVGPathElement>(null);
+  const poolRef = useRef<SVGPathElement>(null);
+  const cometRef = useRef<SVGPathElement>(null);
   const travelerRef = useRef<SVGCircleElement>(null);
   const [fractions, setFractions] = useState<number[] | null>(null);
   const [progress, setProgress] = useState(1); // 0–1 draw progress; 1 = complete
@@ -227,22 +232,28 @@ export function HeroJourney() {
     };
   }, [staticMode, fractions]);
 
-  // Traveling highlight rides the reveal front (path-length driven); core +
-  // glow strokes reveal together via dashoffset.
+  // Traveling highlight rides the reveal front (path-length driven); every
+  // luminous layer reveals via dashoffset. The comet is a short bright
+  // segment whose LEADING edge tracks the reveal front (dasharray math:
+  // offset = COMET_TAIL - dash keeps the segment ending at the front).
   useEffect(() => {
     const path = pathRef.current;
     const glow = glowRef.current;
+    const pool = poolRef.current;
+    const comet = cometRef.current;
     const traveler = travelerRef.current;
-    if (!path || !glow || !traveler) return;
+    if (!path || !glow || !pool || !comet || !traveler) return;
     const len = path.getTotalLength();
     const point = path.getPointAtLength(drawProgress * len);
     traveler.setAttribute("cx", point.x.toFixed(1));
     traveler.setAttribute("cy", point.y.toFixed(1));
     const dash = drawProgress * len;
-    for (const p of [path, glow]) {
+    for (const p of [path, glow, pool]) {
       p.style.strokeDasharray = `${len}`;
       p.style.strokeDashoffset = `${len - dash}`;
     }
+    comet.style.strokeDasharray = `${COMET_TAIL} ${len}`;
+    comet.style.strokeDashoffset = `${COMET_TAIL - dash}`;
     setReady(true);
   }, [drawProgress]);
 
@@ -303,39 +314,79 @@ export function HeroJourney() {
         >
           <defs>
             <linearGradient id="hj-core" x1="0" y1="1" x2="1" y2="0">
-              <stop offset="0%" stopColor="#30AB47" />
-              <stop offset="100%" stopColor="#06b6d4" />
+              <stop offset="0%" stopColor="#2FBF59" />
+              <stop offset="100%" stopColor="#22d3ee" />
             </linearGradient>
             <filter id="hj-blur" x="-40%" y="-40%" width="180%" height="180%">
               <feGaussianBlur stdDeviation="10" />
             </filter>
+            <filter id="hj-blur-wide" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="17" />
+            </filter>
             <filter id="hj-blur-soft" x="-40%" y="-40%" width="180%" height="180%">
               <feGaussianBlur stdDeviation="4" />
             </filter>
+            <filter id="hj-blur-fine" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="2.5" />
+            </filter>
           </defs>
-          {/* Layered strokes: diffuse ambient glow → halo → bright core.
-              Reveal driven by dashoffset on the shared pathLength. */}
-          <path
-            ref={glowRef}
-            d={pathD}
-            fill="none"
-            stroke="#30AB47"
-            strokeOpacity="0.28"
-            strokeWidth="26"
-            strokeLinecap="round"
-            filter="url(#hj-blur)"
-            style={{ opacity: ready ? 1 : 0 }}
-          />
+          {/* Layered luminous route — ambient terrain pool → halo → bright
+              core. Pool + halo render with screen blending so the light
+              sits IN the landscape (illuminates hills) instead of floating
+              over it. Reveal driven by dashoffset on the shared pathLength. */}
+          <g style={{ mixBlendMode: "screen" }} opacity={ready ? 1 : 0}>
+            <path
+              ref={poolRef}
+              d={pathD}
+              fill="none"
+              stroke="#2FBF59"
+              strokeOpacity="0.12"
+              strokeWidth="54"
+              strokeLinecap="round"
+              filter="url(#hj-blur-wide)"
+            />
+            <path
+              ref={glowRef}
+              d={pathD}
+              fill="none"
+              stroke="url(#hj-core)"
+              strokeOpacity="0.42"
+              strokeWidth="13"
+              strokeLinecap="round"
+              filter="url(#hj-blur)"
+            />
+          </g>
           <path
             ref={pathRef}
             d={pathD}
             fill="none"
             stroke="url(#hj-core)"
-            strokeWidth="3.5"
+            strokeWidth="3"
             strokeLinecap="round"
             style={{ opacity: ready ? 1 : 0 }}
           />
-          {/* Milestone nodes */}
+          {/* Comet: bright energy segment riding the reveal front; fades in
+              the settled end state (static/reduced-motion never shows it). */}
+          <g
+            style={{
+              mixBlendMode: "screen",
+              opacity: ready && !isSettled ? 1 : 0,
+              transition: "opacity 700ms ease",
+            }}
+          >
+            <path
+              ref={cometRef}
+              d={pathD}
+              fill="none"
+              stroke="#D9FFE6"
+              strokeOpacity="0.85"
+              strokeWidth="5.5"
+              strokeLinecap="round"
+              filter="url(#hj-blur-fine)"
+            />
+          </g>
+          {/* Milestone nodes — halo + white-cored ring + one-shot activation
+              pulse (suppressed in static/reduced-motion mode). */}
           {MILESTONES.map((m, i) => {
             const cx = (m.x / 100) * SCENE.w;
             const cy = (m.y / 100) * SCENE.h;
@@ -346,27 +397,46 @@ export function HeroJourney() {
                 opacity={active ? 1 : 0}
                 style={{ transition: "opacity 600ms ease" }}
               >
-                <circle cx={cx} cy={cy} r="16" fill="#30AB47" opacity="0.25" filter="url(#hj-blur-soft)" />
-                <circle cx={cx} cy={cy} r="6.5" fill="#0A1A12" stroke="#5FD97A" strokeWidth="2.5" />
+                <circle cx={cx} cy={cy} r="18" fill="#30AB47" opacity="0.3" filter="url(#hj-blur-soft)" />
+                {active && !staticMode && !isSettled && (
+                  <circle
+                    cx={cx}
+                    cy={cy}
+                    r="8"
+                    fill="none"
+                    stroke="#6FF08C"
+                    strokeWidth="2"
+                    className="hj-pulse"
+                  />
+                )}
+                <circle cx={cx} cy={cy} r="7.5" fill="#0A1A12" stroke="#6FF08C" strokeWidth="2.5" />
+                <circle cx={cx} cy={cy} r="2.2" fill="#FFFFFF" />
               </g>
             );
           })}
-          {/* Traveling highlight (reveal front) */}
+          {/* Traveling energy spark (reveal front) — screen-blended so it
+              reads as emitted light, gently pulsing while it rides. */}
           {!staticMode && (
-            <circle
-              ref={travelerRef}
-              r="7"
-              fill="#CFF7DA"
-              opacity={settled ? 0 : 0.95}
+            <g
               style={{
+                mixBlendMode: "screen",
+                opacity: settled ? 0 : 1,
                 transition: "opacity 700ms ease",
-                filter: "drop-shadow(0 0 8px rgba(95,217,122,0.9))",
               }}
-            />
+            >
+              <circle
+                ref={travelerRef}
+                r="7"
+                fill="#EAFFF2"
+                className="hj-spark"
+                style={{ filter: "drop-shadow(0 0 10px rgba(140,255,180,0.95))" }}
+              />
+            </g>
           )}
         </svg>
 
-        {/* Milestone labels — real HTML, pixel-locked to the scene box. */}
+        {/* Milestone labels — real HTML, pixel-locked to the scene box.
+            Dark chip + light type so the stage reads on any terrain. */}
         {MILESTONES.map((m, i) => (
           <div
             key={m.key}
@@ -375,21 +445,23 @@ export function HeroJourney() {
             style={{
               left: `${m.x}%`,
               top: `${m.y}%`,
-              transform: "translate(-50%, 10px)",
+              transform: "translate(-50%, 12px)",
               opacity: isActive(i) ? 1 : 0,
               transition: "opacity 600ms ease 120ms, transform 600ms ease 120ms",
-              ...(isActive(i) ? {} : { transform: "translate(-50%, 22px)" }),
+              ...(isActive(i) ? {} : { transform: "translate(-50%, 26px)" }),
             }}
           >
-            <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#12351d] [text-shadow:0_1px_3px_rgba(255,255,255,0.95),0_0_8px_rgba(255,255,255,0.8)]">
+            <span className="inline-block border border-white/15 bg-[#07120C]/75 px-2 py-1 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[#E3F4E8] shadow-[0_2px_10px_rgba(4,12,7,0.45)] backdrop-blur-[2px]">
               {t(m.key)}
             </span>
           </div>
         ))}
       </div>
 
-      {/* Layer E — the real page UI: headline + standfirst + CTAs. */}
-      <div className="relative z-10 mx-auto flex h-full max-w-[1440px] items-center px-4 pt-16 sm:px-6 lg:px-8">
+      {/* Layer E — the real page UI: headline + standfirst + CTAs. Positioned
+          high in the clear-sky zone; the whole luminous route (incl. glow
+          spill) stays below the text/CTA safe area at every animation stage. */}
+      <div className="relative z-10 mx-auto flex h-full max-w-[1440px] items-start px-4 pt-16 sm:px-6 sm:pt-20 lg:px-8">
         <div className="max-w-xl">
           <h1 className="font-display-title text-balance text-4xl leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
             {tHero("h1Pre")}
@@ -415,13 +487,6 @@ export function HeroJourney() {
           </div>
         </div>
       </div>
-
-      {/* Dependency statement (framing copy, not a placeholder label): the
-          background is the ChatGPT desktop master draft; the
-          production-resolution master remains outstanding. */}
-      <p className="absolute bottom-4 left-4 z-10 max-w-xs font-mono text-[10px] uppercase tracking-[0.14em] text-foreground-muted">
-        {t("note")}
-      </p>
     </section>
   );
 }

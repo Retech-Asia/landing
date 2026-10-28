@@ -281,8 +281,7 @@
       "strategy": "Chiến lược",
       "design": "Thiết kế",
       "build": "Xây dựng",
-      "deploy": "Triển khai",
-      "note": "Bản dựng thử phối cảnh — master desktop ChatGPT bản nháp; đang chờ master đúng độ phân giải sản xuất."
+      "deploy": "Triển khai"
     }
   },
   "homepage": {

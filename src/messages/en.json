@@ -281,8 +281,7 @@
       "strategy": "Strategy",
       "design": "Design",
       "build": "Build",
-      "deploy": "Deploy",
-      "note": "Composition test — ChatGPT desktop master draft; production-resolution master pending."
+      "deploy": "Deploy"
     }
   },
   "homepage": {
