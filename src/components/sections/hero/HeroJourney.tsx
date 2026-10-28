@@ -10,18 +10,13 @@ import { Button } from "@/components/ui/Button";
  * rendered at /[locale]/hero-journey, noindex; the approved Aurora hero
  * (HeroSignal) stays the production hero until this is visually superior.
  *
- * ENGINEERING COMPLETE / ASSET PENDING: everything except the photographic
- * background is implemented — scene-coordinate registration, responsive
- * cover geometry, layered path rendering, auto-run choreography (no scroll
- * pinning), milestone activation by measured path-length fraction,
- * reduced-motion static end state, visibility lifecycle, a11y. The
- * background currently renders the OWNER-APPROVED ChatGPT REFERENCE as a
- * clearly-labelled stand-in (docs/chatgpt-hero-journey-clean-master-spec:
- * references are NOT shippable assets — baked-in nav/headline). When the
- * clean master arrives, swap SCENE.image + SCENE.w/h and re-fit the five
- * milestone coords to the master's actual trough (scene % kept). No
- * fidelity claim is made beyond "registered against the approved
- * reference".
+ * ASSET STATUS (2026-10-28): background = ChatGPT clean desktop master
+ * DRAFT v1 (1672×941 — below production resolution). Integrated as a
+ * composition/animation test only per owner direction; milestones and the
+ * nine terrain waypoints are re-registered to THIS master's actual hills.
+ * The production-resolution master and the independently composed mobile
+ * background remain outstanding; final asset approval is a separate owner
+ * review. Not a fidelity claim beyond "registered against master draft v1".
  *
  * Scene contract (spec §2): all geometry in normalized 0–1000 × 0–1000
  * scene coords; the SVG overlay uses the image's native pixel frame, so
@@ -30,38 +25,39 @@ import { Button } from "@/components/ui/Button";
  */
 
 /** Milestones in scene-percent coords (spec §2: "scene %" — x=7 renders at
- * 7% of the frame width), fitted to the approved references. */
+ * 7% of the frame width), registered to master draft v1's hills: Ideas on
+ * the left networked slope, Strategy its crest, Design the misty saddle,
+ * Build the bright mound flank, Deploy the crest shoulder. */
 const MILESTONES = [
-  { key: "ideas", x: 7, y: 84 },
-  { key: "strategy", x: 21, y: 77 },
-  { key: "design", x: 36, y: 68 },
-  { key: "build", x: 52, y: 60 },
-  { key: "deploy", x: 63, y: 51 },
+  { key: "ideas", x: 10, y: 72 },
+  { key: "strategy", x: 26, y: 59 },
+  { key: "design", x: 44, y: 58 },
+  { key: "build", x: 62, y: 48 },
+  { key: "deploy", x: 75, y: 47 },
 ] as const;
 
-/** Path lead-in / continuation beyond the labelled milestones. */
-const START = { x: 2, y: 94 };
-const EXIT = { x: 72, y: 41 };
+/** Path lead-in / continuation: enters from the lower-left foliage and
+ * finishes walking into the workshop deck zone (upper right). */
+const START = { x: 4, y: 86 };
+const EXIT = { x: 86, y: 52 };
 
 /** Terrain-following intermediate waypoints (scene %) between the labelled
- * milestones — traced from the reference's dune valley: the luminous route
- * sags into each trough and crests each ridge instead of running a straight
- * diagonal (owner winding-path correction 2026-10-27). Milestone nodes stay
- * at their registered positions; only the route between them winds. */
+ * milestones — traced from master draft v1 (5%-grid overlay): the route
+ * sags into the foliage gap, runs the left hill crest, dips through the
+ * misty saddle, then climbs and wraps the bright mound before the deck. */
 const CURVE = [
-  { x: 11.5, y: 89 }, // sag below Ideas into the first trough
-  { x: 16, y: 82.5 }, // climb toward Strategy
-  { x: 27, y: 74.5 }, // crest the mid dune
-  { x: 32.5, y: 75.5 }, // settle before Design
-  { x: 44, y: 74 }, // pronounced valley bend (reference's big sweep)
-  { x: 49, y: 68 }, // climb the mound skirt
-  { x: 57.5, y: 66 }, // wrap around the mound's left flank
-  { x: 60.5, y: 57 }, // swing up toward Deploy
-  { x: 67.5, y: 46 }, // ride the far ridge out of frame
+  { x: 15, y: 78 }, // sag below Ideas into the foliage gap
+  { x: 20, y: 66 }, // climb the left slope
+  { x: 32, y: 56 }, // run the left hill crest (highest of the first hill)
+  { x: 38, y: 62 }, // dip toward the misty saddle
+  { x: 49, y: 62 }, // second sag in the saddle's mist zone
+  { x: 55, y: 56 }, // climb the bright mound's skirt
+  { x: 68, y: 43 }, // mound crest, densest network lines
+  { x: 81, y: 50 }, // descend toward the workshop deck
 ] as const;
 
 /** Full render order: lead-in, milestone, two terrain points, next
- * milestone, …, single terrain point, exit. */
+ * milestone, …, mound crest point, exit. */
 const ROUTE: ReadonlyArray<{ x: number; y: number }> = [
   START,
   MILESTONES[0],
@@ -75,18 +71,21 @@ const ROUTE: ReadonlyArray<{ x: number; y: number }> = [
   CURVE[5],
   MILESTONES[3],
   CURVE[6],
-  CURVE[7],
   MILESTONES[4],
-  CURVE[8],
+  CURVE[7],
   EXIT,
 ];
 
-/** Stand-in frame: the approved reference's native pixel size. */
+/** Scene frame: master draft v1's native pixel size (1672×941). */
 const SCENE = {
-  w: 1891,
-  h: 831,
-  image: "/images/hero-journey/reference-stand-in.webp",
+  w: 1672,
+  h: 941,
+  image: "/images/hero-journey/master-desktop-v1.webp",
 };
+
+/** Cover-fit ratio derived from the scene, so master swaps never leave a
+ * stale hardcoded ratio behind. */
+const SCENE_AR = (SCENE.w / SCENE.h).toFixed(4);
 
 /** Catmull-Rom → cubic bezier through scene points, in viewBox units. */
 function buildPathD(): string {
@@ -255,26 +254,46 @@ export function HeroJourney() {
       aria-label={tHero("standfirst")}
       className="relative h-svh min-h-[560px] w-full overflow-hidden"
     >
-      {/* Scene wrapper — single cover-sized 16:9-ratio box; the image, the
-          SVG overlay and the milestone labels live inside it and can never
-          descale (registration contract §2). */}
+      {/* Scene wrapper — single cover-sized box at the scene's aspect ratio;
+          the image, the SVG overlay and the milestone labels live inside it
+          and can never descale (registration contract §2). */}
       <div
         aria-hidden="true"
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         style={{
-          width: "max(100%, calc(100svh * 2.2756))",
-          height: "max(100%, calc(100vw / 2.2756))",
+          width: `max(100%, calc(100svh * ${SCENE_AR}))`,
+          height: `max(100%, calc(100vw / ${SCENE_AR}))`,
           aspectRatio: `${SCENE.w} / ${SCENE.h}`,
         }}
       >
-        {/* Layer A — stand-in background (approved reference, replaced by the
-            clean master when delivered). */}
+        {/* Layer A — clean master draft v1 background (composition test;
+            production-resolution master outstanding). */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={SCENE.image}
           alt=""
           className="absolute inset-0 h-full w-full object-fill"
           draggable={false}
+        />
+
+        {/* Layer A.5 — theme-aware legibility washes, UNDER the path layer:
+            they carry the left text zone (headline/standfirst/CTAs and the
+            milestone labels) but never dim the luminous route. */}
+        <div
+          aria-hidden="true"
+          className="hj-scrim-light pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(100deg, rgba(243,238,224,0.88) 0%, rgba(243,238,224,0.62) 28%, rgba(243,238,224,0.18) 52%, rgba(243,238,224,0) 70%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="hj-scrim-dark pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(100deg, rgba(7,18,12,0.9) 0%, rgba(7,18,12,0.72) 30%, rgba(7,18,12,0.28) 52%, rgba(7,18,12,0.04) 68%)",
+          }}
         />
 
         {/* Layer C+D — traced journey path + milestone nodes (scene-locked). */}
@@ -362,24 +381,12 @@ export function HeroJourney() {
               ...(isActive(i) ? {} : { transform: "translate(-50%, 22px)" }),
             }}
           >
-            <span className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[#12351d] [text-shadow:0_1px_2px_rgba(255,255,255,0.55)]">
+            <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#12351d] [text-shadow:0_1px_3px_rgba(255,255,255,0.95),0_0_8px_rgba(255,255,255,0.8)]">
               {t(m.key)}
             </span>
           </div>
         ))}
       </div>
-
-      {/* Theme-aware legibility scrim: in dark mode the ivory sky cannot
-          carry light text, so the left text zone gets a deep-green wash
-          (deepens the atmosphere; never covers the workshop). */}
-      <div
-        aria-hidden="true"
-        className="hj-dark-scrim pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(100deg, rgba(7,18,12,0.9) 0%, rgba(7,18,12,0.72) 30%, rgba(7,18,12,0.28) 52%, rgba(7,18,12,0.04) 68%)",
-        }}
-      />
 
       {/* Layer E — the real page UI: headline + standfirst + CTAs. */}
       <div className="relative z-10 mx-auto flex h-full max-w-[1440px] items-center px-4 pt-16 sm:px-6 lg:px-8">
@@ -410,8 +417,8 @@ export function HeroJourney() {
       </div>
 
       {/* Dependency statement (framing copy, not a placeholder label): the
-          background is the approved reference until ChatGPT delivers the
-          clean master. */}
+          background is the ChatGPT desktop master draft; the
+          production-resolution master remains outstanding. */}
       <p className="absolute bottom-4 left-4 z-10 max-w-xs font-mono text-[10px] uppercase tracking-[0.14em] text-foreground-muted">
         {t("note")}
       </p>

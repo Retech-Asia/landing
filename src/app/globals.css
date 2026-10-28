@@ -186,13 +186,23 @@
 
 /* Smooth theme transition — applied to key elements so the switch feels fluid.
    Only active when a theme is explicitly set (avoids flashing on first load). */
-/* Hero Journey preview: theme-aware legibility scrim (data-theme, not a
-   Tailwind dark: variant — the site wires dark styling through selectors). */
-.hj-dark-scrim {
+/* Hero Journey preview: theme-aware legibility scrims (data-theme, not a
+   Tailwind dark: variant — the site wires dark styling through selectors).
+   Both render INSIDE the scene wrapper between the background image and the
+   SVG path layer: they carry the left text zone but never dim the luminous
+   path, nodes, or labels. Light wash = warm ivory for master v1's misty
+   mid-tones; dark wash = deep green for the ivory-sky era and dark mode. */
+.hj-scrim-dark {
   display: none;
 }
-[data-theme="dark"] .hj-dark-scrim {
+[data-theme="dark"] .hj-scrim-dark {
   display: block;
+}
+.hj-scrim-light {
+  display: block;
+}
+[data-theme="dark"] .hj-scrim-light {
+  display: none;
 }
 
 [data-theme="dark"] body,
